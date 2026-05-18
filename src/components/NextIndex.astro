@@ -15,7 +15,7 @@ const withBase = (href: string) => (href === '/' ? baseUrl : `${baseUrl}${href.r
 					<span class="next-index__arrow" aria-hidden="true">→</span>
 				</span>
 				<span class="next-index__description">
-					Selected engineering work across embedded control, diagnostics, safety-related development, and delivery.
+					Embedded control, diagnostics, safety, delivery.
 				</span>
 			</a>
 
@@ -26,7 +26,7 @@ const withBase = (href: string) => (href === '/' ? baseUrl : `${baseUrl}${href.r
 					<span class="next-index__arrow" aria-hidden="true">→</span>
 				</span>
 				<span class="next-index__description">
-					Technical thinking on control architecture, physical systems, embedded software, diagnostics, and leadership.
+					Control architecture and technical judgment.
 				</span>
 			</a>
 
@@ -37,7 +37,7 @@ const withBase = (href: string) => (href === '/' ? baseUrl : `${baseUrl}${href.r
 					<span class="next-index__arrow" aria-hidden="true">→</span>
 				</span>
 				<span class="next-index__description">
-					Background, positioning, and the research-to-industry path behind the control systems practice.
+					Background and research-to-industry path.
 				</span>
 			</a>
 
@@ -48,7 +48,7 @@ const withBase = (href: string) => (href === '/' ? baseUrl : `${baseUrl}${href.r
 					<span class="next-index__arrow" aria-hidden="true">→</span>
 				</span>
 				<span class="next-index__description">
-					Direct path for senior embedded control roles, technical leadership discussions, and collaboration.
+					Roles, leadership discussions, collaboration.
 				</span>
 			</a>
 		</div>
@@ -84,6 +84,7 @@ const withBase = (href: string) => (href === '/' ? baseUrl : `${baseUrl}${href.r
 		color: inherit;
 		text-decoration: none;
 		border: 1px solid var(--color-card-border);
+		border-radius: 8px;
 		background: var(--color-card-bg);
 		transition:
 			transform 180ms ease-out,
@@ -107,8 +108,8 @@ const withBase = (href: string) => (href === '/' ? baseUrl : `${baseUrl}${href.r
 		justify-content: space-between;
 		gap: 1rem;
 		font-family: var(--font-sans);
-		font-size: 1rem;
-		font-weight: 600;
+		font-size: 1.08rem;
+		font-weight: 700;
 		color: var(--color-card-text);
 	}
 
@@ -123,9 +124,10 @@ const withBase = (href: string) => (href === '/' ? baseUrl : `${baseUrl}${href.r
 		margin-top: 0.65rem;
 		max-width: 220px;
 		font-family: var(--font-sans);
-		font-size: 0.88rem;
-		line-height: 1.45;
-		color: var(--color-card-muted);
+		font-size: 0.92rem;
+		font-weight: 500;
+		line-height: 1.4;
+		color: var(--color-text);
 	}
 
 	.next-index__item:hover,
