@@ -8,36 +8,36 @@ const withBase = (href: string) => (href === '/' ? baseUrl : `${baseUrl}${href.r
 		<p id="next-index-title" class="section-label">Start here</p>
 
 		<div class="next-index__grid">
-			<a href={withBase('/writing')} class="next-index__item">
-				<span class="next-index__number">[01]</span>
-				<span class="next-index__title">
-					<span>Writing</span>
-					<span class="next-index__arrow" aria-hidden="true">→</span>
-				</span>
-				<span class="next-index__description">
-					Essays and notes on control systems, embedded software, diagnostics, and physical behavior.
-				</span>
-			</a>
-
-			<a href={withBase('/about')} class="next-index__item">
-				<span class="next-index__number">[02]</span>
-				<span class="next-index__title">
-					<span>About</span>
-					<span class="next-index__arrow" aria-hidden="true">→</span>
-				</span>
-				<span class="next-index__description">
-					Professional background, education, motivation, and technical leadership.
-				</span>
-			</a>
-
 			<a href={withBase('/work')} class="next-index__item">
-				<span class="next-index__number">[03]</span>
+				<span class="next-index__number">[01]</span>
 				<span class="next-index__title">
 					<span>Work</span>
 					<span class="next-index__arrow" aria-hidden="true">→</span>
 				</span>
 				<span class="next-index__description">
-					Selected technical work, research, patents, publications, and engineering contributions.
+					Selected engineering work across embedded control, diagnostics, safety-related development, and delivery.
+				</span>
+			</a>
+
+			<a href={withBase('/writing')} class="next-index__item">
+				<span class="next-index__number">[02]</span>
+				<span class="next-index__title">
+					<span>Writing</span>
+					<span class="next-index__arrow" aria-hidden="true">→</span>
+				</span>
+				<span class="next-index__description">
+					Technical thinking on control architecture, physical systems, embedded software, diagnostics, and leadership.
+				</span>
+			</a>
+
+			<a href={withBase('/about')} class="next-index__item">
+				<span class="next-index__number">[03]</span>
+				<span class="next-index__title">
+					<span>About</span>
+					<span class="next-index__arrow" aria-hidden="true">→</span>
+				</span>
+				<span class="next-index__description">
+					Background, positioning, and the research-to-industry path behind the control systems practice.
 				</span>
 			</a>
 
@@ -48,7 +48,7 @@ const withBase = (href: string) => (href === '/' ? baseUrl : `${baseUrl}${href.r
 					<span class="next-index__arrow" aria-hidden="true">→</span>
 				</span>
 				<span class="next-index__description">
-					Email, LinkedIn, and CV for hiring or collaboration.
+					Direct path for senior embedded control roles, technical leadership discussions, and collaboration.
 				</span>
 			</a>
 		</div>
