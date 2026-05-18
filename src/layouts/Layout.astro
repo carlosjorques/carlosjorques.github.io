@@ -1,53 +1,14 @@
 ---
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
-import '../styles/global.css';
+import BaseLayout from './BaseLayout.astro';
 
 interface Props {
 	title?: string;
 	description?: string;
 }
 
-const {
-	title = 'Carlos Jorques | Embedded Control Systems Architect',
-	description = 'Carlos Jorques leads the design of production-ready embedded control systems for vehicles and smart machines.',
-} = Astro.props;
-
-const siteTitle = title.includes('Carlos Jorques') ? title : `${title} | Carlos Jorques`;
-const baseUrl = import.meta.env.BASE_URL;
-const basePath = baseUrl.replace(/\/$/, '');
-const pathname = Astro.url.pathname.startsWith(basePath)
-	? Astro.url.pathname
-	: `${basePath}${Astro.url.pathname}`;
-const canonical = new URL(pathname, Astro.site ?? Astro.url.origin);
+const { title, description } = Astro.props;
 ---
 
-<!doctype html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<link rel="icon" type="image/svg+xml" href={`${baseUrl}favicon.svg`} />
-		<link rel="icon" href={`${baseUrl}favicon.ico`} />
-		<meta name="generator" content={Astro.generator} />
-		<link rel="canonical" href={canonical} />
-		<title>{siteTitle}</title>
-		<meta name="description" content={description} />
-		<meta property="og:title" content={siteTitle} />
-		<meta property="og:description" content={description} />
-		<meta property="og:type" content="website" />
-		<meta property="og:url" content={canonical} />
-	</head>
-	<body>
-		<a class="skip-link" href="#main-content">Skip to content</a>
-		<div class="site-shell">
-			<Header />
-			<div class="main-content">
-				<main id="main-content" class="main-body">
-					<slot />
-				</main>
-				<Footer />
-			</div>
-		</div>
-	</body>
-</html>
+<BaseLayout title={title} description={description}>
+	<slot />
+</BaseLayout>

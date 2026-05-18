@@ -1,0 +1,91 @@
+---
+const baseUrl = import.meta.env.BASE_URL;
+const withBase = (href: string) => (href === '/' ? baseUrl : `${baseUrl}${href.replace(/^\//, '')}`);
+const basePath = baseUrl.replace(/\/$/, '');
+const currentPath = Astro.url.pathname.replace(basePath, '') || '/';
+const isActive = (href: string) => {
+	const normalized = href.endsWith('/') ? href : `${href}/`;
+	return href === '/' ? currentPath === '/' : currentPath.startsWith(normalized);
+};
+---
+
+<header class="site-header">
+	<div class="page-container site-header__inner">
+		<a class="site-header__brand" href={withBase('/')}>Carlos Jorques</a>
+
+		<nav class="site-header__nav" aria-label="Primary navigation">
+			<a href={withBase('/writing')} aria-current={isActive('/writing') ? 'page' : undefined}>Writing</a>
+			<a href={withBase('/about')} aria-current={isActive('/about') ? 'page' : undefined}>About</a>
+			<a href={withBase('/work')} aria-current={isActive('/work') ? 'page' : undefined}>Work</a>
+			<a href={withBase('/contact')} aria-current={isActive('/contact') ? 'page' : undefined}>Contact</a>
+		</nav>
+	</div>
+</header>
+
+<style>
+	.site-header {
+		background: var(--color-hero);
+		border-bottom: 1px solid var(--color-border);
+	}
+
+	.site-header__inner {
+		min-height: 68px;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 2rem;
+	}
+
+	.site-header__brand {
+		color: var(--color-text);
+		text-decoration: none;
+		font-size: 0.95rem;
+		font-weight: 600;
+		letter-spacing: 0.04em;
+		text-transform: uppercase;
+	}
+
+	.site-header__nav {
+		display: flex;
+		align-items: center;
+		gap: 2.25rem;
+	}
+
+	.site-header__nav a {
+		color: var(--color-text);
+		text-decoration: none;
+		font-size: 0.9rem;
+		font-weight: 500;
+		border-bottom: 1px solid transparent;
+		padding-bottom: 0.15rem;
+		transition: color 160ms ease-out, border-color 160ms ease-out;
+	}
+
+	.site-header__nav a:hover,
+	.site-header__nav a:focus-visible,
+	.site-header__nav a[aria-current="page"] {
+		color: var(--color-accent);
+		border-bottom-color: var(--color-accent);
+	}
+
+	.site-header__brand:focus-visible,
+	.site-header__nav a:focus-visible {
+		outline: 2px solid var(--color-accent);
+		outline-offset: 4px;
+	}
+
+	@media (max-width: 640px) {
+		.site-header__inner {
+			min-height: auto;
+			padding-block: 1rem;
+			flex-direction: column;
+			align-items: flex-start;
+			gap: 0.75rem;
+		}
+
+		.site-header__nav {
+			gap: 1.25rem;
+			flex-wrap: wrap;
+		}
+	}
+</style>

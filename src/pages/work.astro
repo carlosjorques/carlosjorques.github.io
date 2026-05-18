@@ -1,0 +1,35 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+	title="Work"
+	description="Selected technical work, research, patents, publications, and engineering contributions by Carlos Jorques."
+>
+	<section class="section">
+		<div class="page-container work-page">
+			<p class="eyebrow">Work</p>
+			<h1>Selected technical work and engineering contributions</h1>
+			<p class="lead">
+				This page will collect public-safe examples of embedded controls leadership, research,
+				patents, publications, and engineering contributions.
+			</p>
+		</div>
+	</section>
+</BaseLayout>
+
+<style>
+	.work-page {
+		display: grid;
+		gap: 1rem;
+		max-width: 760px;
+		margin-inline: auto;
+	}
+
+	.work-page h1 {
+		font-size: clamp(2rem, 4vw, 3.25rem);
+		line-height: 1.1;
+		font-weight: 600;
+		letter-spacing: 0;
+	}
+</style>

@@ -1,0 +1,62 @@
+---
+const baseUrl = import.meta.env.BASE_URL;
+const withBase = (href: string) => (href === '/' ? baseUrl : `${baseUrl}${href.replace(/^\//, '')}`);
+---
+
+<footer class="site-footer" id="contact">
+	<div class="page-container site-footer__inner">
+		<span>Making complex systems behave reliably.</span>
+
+		<nav class="site-footer__links" aria-label="Footer links">
+			<a href={withBase('/contact')}>Email</a>
+			<a href={withBase('/contact')}>LinkedIn</a>
+			<a href={withBase('/contact')}>CV</a>
+		</nav>
+	</div>
+</footer>
+
+<style>
+	.site-footer {
+		border-top: 1px solid var(--color-border);
+		padding-block: 2rem;
+		color: var(--color-muted);
+	}
+
+	.site-footer__inner {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		gap: 1.5rem;
+		flex-wrap: wrap;
+		font-size: 0.9rem;
+	}
+
+	.site-footer__links {
+		display: flex;
+		gap: 1.25rem;
+		flex-wrap: wrap;
+		font-family: var(--font-mono);
+		font-size: 0.78rem;
+		font-weight: 600;
+		letter-spacing: 0.06em;
+		text-transform: uppercase;
+	}
+
+	.site-footer__links a {
+		color: var(--color-text);
+		text-decoration: none;
+		border-bottom: 1px solid transparent;
+		padding-bottom: 0.15rem;
+	}
+
+	.site-footer__links a:hover,
+	.site-footer__links a:focus-visible {
+		color: var(--color-accent);
+		border-bottom-color: var(--color-accent);
+	}
+
+	.site-footer__links a:focus-visible {
+		outline: 2px solid var(--color-accent);
+		outline-offset: 4px;
+	}
+</style>
