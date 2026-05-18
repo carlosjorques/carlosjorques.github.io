@@ -3,7 +3,7 @@
 :root {
 	color-scheme: light;
 	--color-page: #F5F3EE;
-	--color-hero: #F5F3EE;
+	--color-hero: #F2F1EE;
 	--color-bg-soft: #eeebe3;
 	--color-surface: #FAF9F6;
 	--color-surface-muted: #ffffff;
@@ -17,10 +17,11 @@
 	--color-accent-dark: #15545b;
 	--color-steel: #374151;
 	--color-rule: #d9d6ce;
-	--color-strip: #363B3A;
-	--color-strip-text: #F5F3EE;
-	--color-strip-muted: rgba(245, 243, 238, 0.72);
-	--color-strip-line: rgba(245, 243, 238, 0.32);
+	--color-next-bg: #E5E2DA;
+	--color-next-text: #1F2424;
+	--color-next-muted: #5B6261;
+	--color-next-border: #C9C5BB;
+	--color-next-accent: #1F6F78;
 	--color-bg: var(--color-page);
 	--shadow-soft: none;
 	--shadow-line: none;

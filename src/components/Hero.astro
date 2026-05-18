@@ -10,28 +10,20 @@ const baseUrl = import.meta.env.BASE_URL;
 ---
 
 <section class="hero" aria-labelledby="hero-heading">
-	<div class="page-container hero__inner">
-		<div class="hero__copy">
-			<h1 id="hero-heading">
-				Hello. I am <strong>Carlos Jorques</strong>,<br />an Embedded Control Systems Architect<br />and
-				technical team leader.
-			</h1>
-			<p class="hero__lead">{body}</p>
-			<a class="hero__link" href={`${baseUrl}contact/`}>Get in touch</a>
-		</div>
+	<div class="hero__copy">
+		<h1 id="hero-heading">
+			Hello. I am <strong>Carlos Jorques</strong>,<br />an Embedded Control Systems Architect<br />and
+			technical team leader.
+		</h1>
+		<p class="hero__lead">{body}</p>
+		<a class="hero__link" href={`${baseUrl}contact/`}>Get in touch</a>
 	</div>
 </section>
 
 <style>
 	.hero {
+		padding: 0;
 		background: var(--color-hero);
-	}
-
-	.hero__inner {
-		display: flex;
-		min-height: 320px;
-		align-items: center;
-		padding-block: clamp(4rem, 8vw, 7rem);
 	}
 
 	.hero__copy {

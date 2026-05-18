@@ -30,123 +30,152 @@ const items = [
 ];
 ---
 
-<section class="next-strip" aria-labelledby="next-heading">
-	<div class="next-strip__inner">
-		<h2 class="next-strip__label" id="next-heading">Where to go next</h2>
-		<div class="next-strip__grid">
-			{
-				items.map((item) => (
-					<a href={item.href} class="next-strip__item">
-						<span class="next-strip__number">{item.number}</span>
-						<span class="next-strip__title">{item.title}</span>
-						<span class="next-strip__description">{item.description}</span>
+<section class="next-panel" aria-labelledby="next-panel-title">
+	<h2 class="next-panel__label" id="next-panel-title">Where to go next</h2>
+	<div class="next-panel__grid">
+		{
+			items.map((item) => (
+				<div class="next-panel__item">
+					<a href={item.href} class="next-panel__item-link">
+						<span class="next-panel__number">{item.number}</span>
+						<span class="next-panel__title">
+							{item.title}
+							<span class="next-panel__arrow" aria-hidden="true">-&gt;</span>
+						</span>
+						<span class="next-panel__description">{item.description}</span>
 					</a>
-				))
-			}
-		</div>
+				</div>
+			))
+		}
 	</div>
 </section>
 
 <style>
-	.next-strip {
-		margin-bottom: clamp(3rem, 6vw, 5rem);
-		background: var(--color-strip);
-		color: var(--color-strip-text);
+	.next-panel {
+		max-width: 100%;
+		margin-top: 3rem;
+		margin-bottom: 0;
+		border: 1px solid var(--color-next-border);
+		border-radius: 0;
+		background: var(--color-next-bg);
+		padding: 1.5rem 1.75rem;
+		color: var(--color-next-text);
 	}
 
-	.next-strip__inner {
-		width: min(100% - 48px, var(--content-width));
-		margin-inline: auto;
-		padding-block: 2.75rem;
-	}
-
-	.next-strip__label {
-		margin: 0 0 1.75rem;
-		color: var(--color-strip-text);
+	.next-panel__label {
+		margin: 0 0 1.25rem;
+		color: var(--color-next-muted);
 		font-family: var(--font-mono);
-		font-size: 0.75rem;
+		font-size: 0.72rem;
 		font-weight: 600;
 		letter-spacing: 0.06em;
-		line-height: 1.25;
 		text-transform: uppercase;
 	}
 
-	.next-strip__grid {
+	.next-panel__grid {
 		display: grid;
 		grid-template-columns: repeat(4, 1fr);
 	}
 
-	.next-strip__item {
+	.next-panel__item {
 		position: relative;
-		display: grid;
-		min-height: 96px;
-		align-content: start;
-		gap: 0.45rem;
-		padding-right: 2rem;
-		color: var(--color-strip-text);
-		text-decoration: none;
+		min-height: 86px;
+		padding-right: 1.5rem;
 	}
 
-	.next-strip__item + .next-strip__item {
-		padding-left: 2rem;
+	.next-panel__item + .next-panel__item {
+		padding-left: 1.5rem;
 	}
 
-	.next-strip__item + .next-strip__item::before {
+	.next-panel__item + .next-panel__item::before {
 		content: "";
 		position: absolute;
 		left: 0;
 		top: 50%;
 		width: 1px;
-		height: 72%;
+		height: 64%;
 		transform: translateY(-50%);
-		background: var(--color-strip-line);
+		background: var(--color-next-border);
 	}
 
-	.next-strip__number {
-		color: var(--color-accent);
+	.next-panel__item-link {
+		display: block;
+		color: inherit;
+		text-decoration: none;
+	}
+
+	.next-panel__number {
+		color: var(--color-next-accent);
 		font-family: var(--font-mono);
-		font-size: 0.72rem;
+		font-size: 0.85rem;
 		font-weight: 600;
-		line-height: 1.25;
 	}
 
-	.next-strip__title {
-		color: var(--color-strip-text);
+	.next-panel__title {
+		display: block;
+		margin-top: 0.35rem;
+		color: var(--color-next-text);
 		font-family: var(--font-sans);
-		font-size: 1.08rem;
+		font-size: 1rem;
 		font-weight: 600;
-		letter-spacing: 0;
-		line-height: 1.25;
 	}
 
-	.next-strip__description {
-		max-width: 190px;
-		color: var(--color-strip-muted);
+	.next-panel__description {
+		display: block;
+		margin-top: 0.55rem;
+		color: var(--color-next-muted);
 		font-family: var(--font-sans);
-		font-size: 0.8rem;
-		line-height: 1.5;
+		font-size: 0.82rem;
+		line-height: 1.45;
+	}
+
+	.next-panel__arrow {
+		display: inline-block;
+		color: var(--color-next-accent);
+		transition: transform 160ms ease;
+	}
+
+	.next-panel__item-link:hover .next-panel__title,
+	.next-panel__item-link:focus-visible .next-panel__title {
+		text-decoration: underline;
+		text-decoration-color: var(--color-next-accent);
+		text-underline-offset: 0.2em;
+	}
+
+	.next-panel__item-link:hover .next-panel__arrow,
+	.next-panel__item-link:focus-visible .next-panel__arrow {
+		transform: translateX(3px);
 	}
 
 	@media (max-width: 760px) {
-		.next-strip__inner {
-			width: min(100% - 32px, var(--content-width));
+		.next-panel {
+			margin-top: 2rem;
+			padding: 1.25rem;
 		}
 
-		.next-strip__grid {
+		.next-panel__grid {
 			grid-template-columns: 1fr;
 		}
 
-		.next-strip__item {
+		.next-panel__item {
 			min-height: 0;
-			padding: 1.25rem 0;
+			padding: 1rem 0;
 		}
 
-		.next-strip__item + .next-strip__item {
+		.next-panel__item:first-child {
+			padding-top: 0;
+		}
+
+		.next-panel__item:last-child {
+			padding-bottom: 0;
+		}
+
+		.next-panel__item + .next-panel__item {
 			padding-left: 0;
-			border-top: 1px solid var(--color-strip-line);
+			border-top: 1px solid var(--color-next-border);
 		}
 
-		.next-strip__item + .next-strip__item::before {
+		.next-panel__item + .next-panel__item::before {
 			display: none;
 		}
 	}

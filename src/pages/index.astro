@@ -10,8 +10,27 @@ import ProofStrip from '../components/ProofStrip.astro';
 	title="Carlos Jorques | Embedded Control Systems Architect"
 	description="Carlos Jorques is an embedded control systems architect leading software development teams that turn complex systems into reliable products."
 >
-	<Hero />
-	<NextStrip />
+	<section class="hero-area">
+		<div class="page-container">
+			<Hero />
+			<NextStrip />
+		</div>
+	</section>
 	<LatestWriting />
 	<ProofStrip />
 </Layout>
+
+<style>
+	.hero-area {
+		background: var(--color-hero);
+		padding-top: clamp(4rem, 8vw, 7rem);
+		padding-bottom: clamp(3rem, 6vw, 5rem);
+	}
+
+	@media (max-width: 760px) {
+		.hero-area {
+			padding-top: 3.5rem;
+			padding-bottom: 3rem;
+		}
+	}
+</style>
