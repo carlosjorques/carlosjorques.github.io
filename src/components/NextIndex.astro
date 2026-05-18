@@ -3,77 +3,72 @@ const baseUrl = import.meta.env.BASE_URL;
 const withBase = (href: string) => (href === '/' ? baseUrl : `${baseUrl}${href.replace(/^\//, '')}`);
 ---
 
-<section class="nav-stripe">
+<section class="next-index" aria-labelledby="next-index-title">
 	<div class="page-container">
-		<section class="next-index" aria-labelledby="next-index-title">
-			<p id="next-index-title" class="next-index__label">Start here</p>
+		<p id="next-index-title" class="section-label">Start here</p>
 
-			<div class="next-index__grid">
-				<a href={withBase('/writing')} class="next-index__item">
-					<span class="next-index__number">[01]</span>
-					<span class="next-index__title">
-						<span>Writing</span>
-						<span class="next-index__arrow" aria-hidden="true">→</span>
-					</span>
-					<span class="next-index__description">
-						Essays and notes on control systems, embedded software, diagnostics, and physical behavior.
-					</span>
-				</a>
+		<div class="next-index__grid">
+			<a href={withBase('/writing')} class="next-index__item">
+				<span class="next-index__number">[01]</span>
+				<span class="next-index__title">
+					<span>Writing</span>
+					<span class="next-index__arrow" aria-hidden="true">→</span>
+				</span>
+				<span class="next-index__description">
+					Essays and notes on control systems, embedded software, diagnostics, and physical behavior.
+				</span>
+			</a>
 
-				<a href={withBase('/about')} class="next-index__item">
-					<span class="next-index__number">[02]</span>
-					<span class="next-index__title">
-						<span>About</span>
-						<span class="next-index__arrow" aria-hidden="true">→</span>
-					</span>
-					<span class="next-index__description">
-						Professional background, education, motivation, and technical leadership.
-					</span>
-				</a>
+			<a href={withBase('/about')} class="next-index__item">
+				<span class="next-index__number">[02]</span>
+				<span class="next-index__title">
+					<span>About</span>
+					<span class="next-index__arrow" aria-hidden="true">→</span>
+				</span>
+				<span class="next-index__description">
+					Professional background, education, motivation, and technical leadership.
+				</span>
+			</a>
 
-				<a href={withBase('/work')} class="next-index__item">
-					<span class="next-index__number">[03]</span>
-					<span class="next-index__title">
-						<span>Work</span>
-						<span class="next-index__arrow" aria-hidden="true">→</span>
-					</span>
-					<span class="next-index__description">
-						Selected technical work, research, patents, publications, and engineering contributions.
-					</span>
-				</a>
+			<a href={withBase('/work')} class="next-index__item">
+				<span class="next-index__number">[03]</span>
+				<span class="next-index__title">
+					<span>Work</span>
+					<span class="next-index__arrow" aria-hidden="true">→</span>
+				</span>
+				<span class="next-index__description">
+					Selected technical work, research, patents, publications, and engineering contributions.
+				</span>
+			</a>
 
-				<a href={withBase('/contact')} class="next-index__item">
-					<span class="next-index__number">[04]</span>
-					<span class="next-index__title">
-						<span>Contact</span>
-						<span class="next-index__arrow" aria-hidden="true">→</span>
-					</span>
-					<span class="next-index__description">
-						Email, LinkedIn, and CV for hiring or collaboration.
-					</span>
-				</a>
-			</div>
-		</section>
+			<a href={withBase('/contact')} class="next-index__item">
+				<span class="next-index__number">[04]</span>
+				<span class="next-index__title">
+					<span>Contact</span>
+					<span class="next-index__arrow" aria-hidden="true">→</span>
+				</span>
+				<span class="next-index__description">
+					Email, LinkedIn, and CV for hiring or collaboration.
+				</span>
+			</a>
+		</div>
 	</div>
 </section>
 
 <style>
-	.nav-stripe {
-		background:
-			radial-gradient(ellipse at 82% 10%, rgba(159, 183, 194, 0.12), transparent 42%),
-			linear-gradient(180deg, #222828 0%, var(--color-nav-bg) 100%);
-		color: var(--color-nav-text);
-		padding-block: clamp(2.25rem, 5vw, 3.75rem);
+	.next-index {
+		background: #ffffff;
+		padding-block: clamp(3rem, 6vw, 5rem);
 	}
 
-	.next-index__label {
-		margin: 0 0 0.9rem;
-		color: var(--color-nav-accent);
+	.section-label {
+		margin: 0 0 1rem;
 		font-family: var(--font-mono);
-		font-size: 0.68rem;
+		font-size: 0.78rem;
 		font-weight: 600;
-		letter-spacing: 0.08em;
+		letter-spacing: 0.06em;
 		text-transform: uppercase;
+		color: var(--color-accent);
 	}
 
 	.next-index__grid {
@@ -85,11 +80,11 @@ const withBase = (href: string) => (href === '/' ? baseUrl : `${baseUrl}${href.r
 	.next-index__item {
 		display: block;
 		min-height: 136px;
-		border: 1px solid var(--color-nav-border);
-		background: var(--color-nav-surface);
 		padding: 1.15rem;
 		color: inherit;
 		text-decoration: none;
+		border: 1px solid var(--color-card-border);
+		background: var(--color-card-bg);
 		transition:
 			transform 180ms ease-out,
 			border-color 180ms ease-out,
@@ -103,7 +98,7 @@ const withBase = (href: string) => (href === '/' ? baseUrl : `${baseUrl}${href.r
 		font-family: var(--font-mono);
 		font-size: 0.72rem;
 		font-weight: 600;
-		color: var(--color-nav-accent);
+		color: var(--color-card-accent);
 	}
 
 	.next-index__title {
@@ -114,12 +109,12 @@ const withBase = (href: string) => (href === '/' ? baseUrl : `${baseUrl}${href.r
 		font-family: var(--font-sans);
 		font-size: 1rem;
 		font-weight: 600;
-		color: var(--color-nav-text);
+		color: var(--color-card-text);
 	}
 
 	.next-index__arrow {
 		display: inline-block;
-		color: var(--color-nav-accent);
+		color: var(--color-card-accent);
 		transition: transform 180ms ease-out;
 	}
 
@@ -130,15 +125,15 @@ const withBase = (href: string) => (href === '/' ? baseUrl : `${baseUrl}${href.r
 		font-family: var(--font-sans);
 		font-size: 0.88rem;
 		line-height: 1.45;
-		color: var(--color-nav-muted);
+		color: var(--color-card-muted);
 	}
 
 	.next-index__item:hover,
 	.next-index__item:focus-visible {
 		transform: translateY(-2px);
-		border-color: var(--color-nav-border-hover);
-		background: var(--color-nav-surface-hover);
-		box-shadow: 0 12px 28px rgba(0, 0, 0, 0.16);
+		border-color: var(--color-card-border-hover);
+		background: var(--color-card-bg-hover);
+		box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
 		outline: none;
 	}
 
@@ -150,13 +145,13 @@ const withBase = (href: string) => (href === '/' ? baseUrl : `${baseUrl}${href.r
 	.next-index__item:hover .next-index__title,
 	.next-index__item:focus-visible .next-index__title {
 		text-decoration: underline;
-		text-decoration-color: var(--color-nav-accent);
+		text-decoration-color: var(--color-card-accent);
 		text-underline-offset: 0.25em;
 		text-decoration-thickness: 1px;
 	}
 
 	.next-index__item:focus-visible {
-		outline: 2px solid var(--color-nav-accent);
+		outline: 2px solid var(--color-accent);
 		outline-offset: 4px;
 	}
 
@@ -168,8 +163,8 @@ const withBase = (href: string) => (href === '/' ? baseUrl : `${baseUrl}${href.r
 	}
 
 	@media (max-width: 640px) {
-		.nav-stripe {
-			padding-block: 2.5rem;
+		.next-index {
+			padding-block: 2.75rem;
 		}
 
 		.next-index__grid {

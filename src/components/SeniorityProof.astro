@@ -1,24 +1,26 @@
 <section class="proof-stripe" aria-label="Professional proof points">
 	<div class="page-container">
-		<div class="seniority-proof__grid">
-			<div class="seniority-proof__item">
-				<span class="seniority-proof__label">10+ years</span>
-				<span class="seniority-proof__text">Automotive embedded systems</span>
-			</div>
+		<div class="proof-strip__inner">
+			<div class="seniority-proof__grid">
+				<div class="seniority-proof__item">
+					<span class="seniority-proof__label">10+ years</span>
+					<span class="seniority-proof__text">Automotive embedded systems</span>
+				</div>
 
-			<div class="seniority-proof__item">
-				<span class="seniority-proof__label">Technical leadership</span>
-				<span class="seniority-proof__text">Model-based software teams</span>
-			</div>
+				<div class="seniority-proof__item">
+					<span class="seniority-proof__label">Technical leadership</span>
+					<span class="seniority-proof__text">Agile software teams</span>
+				</div>
 
-			<div class="seniority-proof__item">
-				<span class="seniority-proof__label">PhD-trained</span>
-				<span class="seniority-proof__text">Real-time control and diagnostics</span>
-			</div>
+				<div class="seniority-proof__item">
+					<span class="seniority-proof__label">PhD-trained</span>
+					<span class="seniority-proof__text">Real-time control and diagnostics</span>
+				</div>
 
-			<div class="seniority-proof__item">
-				<span class="seniority-proof__label">Production context</span>
-				<span class="seniority-proof__text">EV, powertrain, safety, and validation</span>
+				<div class="seniority-proof__item">
+					<span class="seniority-proof__label">Production context</span>
+					<span class="seniority-proof__text">Powertrain, EV, BMS, CI/CD</span>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -26,10 +28,13 @@
 
 <style>
 	.proof-stripe {
-		border-top: 1px solid var(--color-border-soft);
+		background: #ffffff;
+	}
+
+	.proof-strip__inner {
+		border-top: 1px solid var(--color-proof-border);
 		border-bottom: 1px solid var(--color-proof-border);
-		background: linear-gradient(180deg, #ffffff 0%, var(--color-proof-bg) 100%);
-		padding-block: clamp(1.15rem, 2.6vw, 1.7rem);
+		padding-block: clamp(1.05rem, 2.3vw, 1.5rem);
 	}
 
 	.seniority-proof__grid {
@@ -39,13 +44,13 @@
 	}
 
 	.seniority-proof__item {
-		min-height: 54px;
-		padding: 0.25rem 1.15rem 0.25rem 0;
+		min-height: 52px;
+		padding: 0.2rem 1.15rem 0.2rem 0;
 	}
 
 	.seniority-proof__item + .seniority-proof__item {
 		padding-left: 1.15rem;
-		border-left: 1px solid var(--color-proof-border);
+		border-left: 1px solid var(--color-border-soft);
 	}
 
 	.seniority-proof__label {
@@ -75,21 +80,21 @@
 		.seniority-proof__item:nth-child(3) {
 			padding-left: 0;
 			border-left: 0;
-			border-top: 1px solid var(--color-proof-border);
+			border-top: 1px solid var(--color-border-soft);
 			margin-top: 0.65rem;
 			padding-top: 0.9rem;
 		}
 
 		.seniority-proof__item:nth-child(4) {
-			border-top: 1px solid var(--color-proof-border);
+			border-top: 1px solid var(--color-border-soft);
 			margin-top: 0.65rem;
 			padding-top: 0.9rem;
 		}
 	}
 
 	@media (max-width: 640px) {
-		.proof-stripe {
-			padding-block: 1.4rem;
+		.proof-strip__inner {
+			padding-block: 1.3rem;
 		}
 
 		.seniority-proof__grid {
@@ -112,7 +117,7 @@
 		.seniority-proof__item + .seniority-proof__item {
 			padding-left: 0;
 			border-left: 0;
-			border-top: 1px solid var(--color-proof-border);
+			border-top: 1px solid var(--color-border-soft);
 			margin-top: 0;
 		}
 
@@ -120,7 +125,7 @@
 		.seniority-proof__item:nth-child(4) {
 			padding-left: 0;
 			border-left: 0;
-			border-top: 1px solid var(--color-proof-border);
+			border-top: 1px solid var(--color-border-soft);
 			margin-top: 0;
 			padding-top: 0.75rem;
 		}
