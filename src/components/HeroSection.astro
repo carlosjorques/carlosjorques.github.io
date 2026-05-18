@@ -1,34 +1,38 @@
 ---
 import NextIndex from './NextIndex.astro';
+import SeniorityProof from './SeniorityProof.astro';
 
 const baseUrl = import.meta.env.BASE_URL;
 const withBase = (href: string) => (href === '/' ? baseUrl : `${baseUrl}${href.replace(/^\//, '')}`);
+const linkedInUrl = 'REPLACE_WITH_LINKEDIN_URL';
+const cvUrl = 'REPLACE_WITH_CV_URL';
 ---
 
 <section class="hero-area">
 	<div class="page-container">
 		<div class="hero">
 			<div class="hero__copy">
-				<p class="hero-kicker">Control engineering · Real-time software · Embedded systems</p>
+				<p class="hero-kicker">control systems · embedded software · physical systems</p>
 
 				<h1 class="hero-title">
 					<strong>Carlos Jorques.</strong><br />
-					Embedded controls architect for complex systems.
+					Control intelligence for complex physical systems.
 				</h1>
 
 				<p class="hero-lead">
-					With 10+ years working in the automotive industry, I lead teams developing reliable
-					real-time control software for safety-critical embedded systems.
+					Notes on control systems, embedded software, diagnostics, automation, team execution,
+					and the decisions that make complex machines work reliably.
 				</p>
 
 				<div class="hero-links" aria-label="Primary contact links">
 					<a href={withBase('/contact')}>Contact</a>
-					<a href={withBase('/contact')}>LinkedIn</a>
-					<a href={withBase('/contact')}>CV</a>
+					<a href={linkedInUrl}>LinkedIn</a>
+					<a href={cvUrl}>CV</a>
 				</div>
 			</div>
 		</div>
 
+		<SeniorityProof />
 		<NextIndex />
 	</div>
 </section>

@@ -1,0 +1,111 @@
+<section class="seniority-proof" aria-label="Professional proof points">
+	<div class="seniority-proof__grid">
+		<div class="seniority-proof__item">
+			<span class="seniority-proof__label">10+ years</span>
+			<span class="seniority-proof__text">Automotive embedded systems</span>
+		</div>
+
+		<div class="seniority-proof__item">
+			<span class="seniority-proof__label">Technical leadership</span>
+			<span class="seniority-proof__text">Model-based software teams</span>
+		</div>
+
+		<div class="seniority-proof__item">
+			<span class="seniority-proof__label">PhD-trained</span>
+			<span class="seniority-proof__text">Real-time control and diagnostics</span>
+		</div>
+
+		<div class="seniority-proof__item">
+			<span class="seniority-proof__label">Production context</span>
+			<span class="seniority-proof__text">EV, powertrain, safety, and validation</span>
+		</div>
+	</div>
+</section>
+
+<style>
+	.seniority-proof {
+		position: relative;
+		z-index: 1;
+		margin-top: clamp(2rem, 4vw, 3rem);
+		max-width: 100%;
+		border-top: 1px solid var(--color-border-soft);
+		border-bottom: 1px solid var(--color-border-soft);
+	}
+
+	.seniority-proof__grid {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+	}
+
+	.seniority-proof__item {
+		min-height: 64px;
+		padding: 0.85rem 1.25rem 0.85rem 0;
+	}
+
+	.seniority-proof__item + .seniority-proof__item {
+		border-left: 1px solid var(--color-border-soft);
+		padding-left: 1.25rem;
+	}
+
+	.seniority-proof__label {
+		display: block;
+		margin-bottom: 0.25rem;
+		color: var(--color-accent);
+		font-family: var(--font-mono);
+		font-size: 0.68rem;
+		font-weight: 600;
+		letter-spacing: 0.06em;
+		line-height: 1.25;
+		text-transform: uppercase;
+	}
+
+	.seniority-proof__text {
+		display: block;
+		color: var(--color-soft);
+		font-family: var(--font-sans);
+		font-size: 0.82rem;
+		line-height: 1.35;
+	}
+
+	@media (max-width: 900px) {
+		.seniority-proof__grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
+
+		.seniority-proof__item:nth-child(3) {
+			border-left: 0;
+			border-top: 1px solid var(--color-border-soft);
+			padding-left: 0;
+		}
+
+		.seniority-proof__item:nth-child(4) {
+			border-top: 1px solid var(--color-border-soft);
+		}
+	}
+
+	@media (max-width: 640px) {
+		.seniority-proof {
+			margin-top: 2rem;
+		}
+
+		.seniority-proof__grid {
+			grid-template-columns: 1fr;
+		}
+
+		.seniority-proof__item {
+			min-height: auto;
+			padding: 0.85rem 0;
+		}
+
+		.seniority-proof__item + .seniority-proof__item {
+			border-left: 0;
+			border-top: 1px solid var(--color-border-soft);
+			padding-left: 0;
+		}
+
+		.seniority-proof__item:nth-child(3),
+		.seniority-proof__item:nth-child(4) {
+			border-top: 1px solid var(--color-border-soft);
+		}
+	}
+</style>
