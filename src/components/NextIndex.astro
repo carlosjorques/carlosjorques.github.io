@@ -14,7 +14,7 @@ const withBase = (href: string) => (href === '/' ? baseUrl : `${baseUrl}${href.r
 				<span class="next-index__arrow" aria-hidden="true">→</span>
 			</span>
 			<span class="next-index__description">
-				Technical essays on control systems, embedded software, diagnostics, and physical-system behavior.
+				Essays and notes on control systems, embedded software, diagnostics, and physical behavior.
 			</span>
 		</a>
 
@@ -47,28 +47,9 @@ const withBase = (href: string) => (href === '/' ? baseUrl : `${baseUrl}${href.r
 				<span class="next-index__arrow" aria-hidden="true">→</span>
 			</span>
 			<span class="next-index__description">
-				Email, LinkedIn, and CV access for hiring, collaboration, or technical discussion.
+				Email, LinkedIn, and CV for hiring or collaboration.
 			</span>
 		</a>
-	</div>
-</section>
-
-<section class="proof-stripe" aria-label="Professional credibility signals">
-	<div class="proof-stripe__item">
-		<span>10+ years</span>
-		<strong>Automotive embedded systems</strong>
-	</div>
-	<div class="proof-stripe__item">
-		<span>Technical leader</span>
-		<strong>Model-based control software</strong>
-	</div>
-	<div class="proof-stripe__item">
-		<span>PhD-trained</span>
-		<strong>Real-time control and diagnostics</strong>
-	</div>
-	<div class="proof-stripe__item">
-		<span>Production scope</span>
-		<strong>EV, powertrain, safety, MIL/SIL/HIL</strong>
 	</div>
 </section>
 
@@ -147,44 +128,6 @@ const withBase = (href: string) => (href === '/' ? baseUrl : `${baseUrl}${href.r
 		color: var(--color-muted);
 	}
 
-	.proof-stripe {
-		position: relative;
-		z-index: 1;
-		display: grid;
-		grid-template-columns: repeat(4, minmax(0, 1fr));
-		border-bottom: 1px solid var(--color-border);
-	}
-
-	.proof-stripe__item {
-		display: grid;
-		min-height: 74px;
-		align-content: center;
-		gap: 0.25rem;
-		padding: 0.85rem 1.25rem 0.85rem 0;
-	}
-
-	.proof-stripe__item + .proof-stripe__item {
-		border-left: 1px solid var(--color-border-soft);
-		padding-left: 1.25rem;
-	}
-
-	.proof-stripe__item span {
-		color: var(--color-soft);
-		font-family: var(--font-mono);
-		font-size: 0.68rem;
-		font-weight: 600;
-		letter-spacing: 0.06em;
-		line-height: 1.25;
-		text-transform: uppercase;
-	}
-
-	.proof-stripe__item strong {
-		color: var(--color-muted);
-		font-size: 0.86rem;
-		font-weight: 500;
-		line-height: 1.35;
-	}
-
 	.next-index__item:hover,
 	.next-index__item:focus-visible {
 		background: rgba(26, 95, 180, 0.035);
@@ -213,10 +156,6 @@ const withBase = (href: string) => (href === '/' ? baseUrl : `${baseUrl}${href.r
 			grid-template-columns: repeat(2, 1fr);
 		}
 
-		.proof-stripe {
-			grid-template-columns: repeat(2, minmax(0, 1fr));
-		}
-
 		.next-index__item:nth-child(3) {
 			padding-left: 0;
 			border-left: 0;
@@ -226,16 +165,6 @@ const withBase = (href: string) => (href === '/' ? baseUrl : `${baseUrl}${href.r
 		.next-index__item:nth-child(4) {
 			border-top: 1px solid var(--color-border);
 		}
-
-		.proof-stripe__item:nth-child(3) {
-			border-left: 0;
-			border-top: 1px solid var(--color-border-soft);
-			padding-left: 0;
-		}
-
-		.proof-stripe__item:nth-child(4) {
-			border-top: 1px solid var(--color-border-soft);
-		}
 	}
 
 	@media (max-width: 640px) {
@@ -244,10 +173,6 @@ const withBase = (href: string) => (href === '/' ? baseUrl : `${baseUrl}${href.r
 		}
 
 		.next-index__grid {
-			grid-template-columns: 1fr;
-		}
-
-		.proof-stripe {
 			grid-template-columns: 1fr;
 		}
 
@@ -269,17 +194,6 @@ const withBase = (href: string) => (href === '/' ? baseUrl : `${baseUrl}${href.r
 
 		.next-index__description {
 			max-width: none;
-		}
-
-		.proof-stripe__item {
-			min-height: auto;
-			padding: 0.85rem 0;
-		}
-
-		.proof-stripe__item + .proof-stripe__item {
-			border-left: 0;
-			border-top: 1px solid var(--color-border-soft);
-			padding-left: 0;
 		}
 	}
 </style>
