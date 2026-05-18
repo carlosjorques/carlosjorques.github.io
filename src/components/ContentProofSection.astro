@@ -1,0 +1,134 @@
+---
+import SeniorityProof from './SeniorityProof.astro';
+---
+
+<section class="content-proof" aria-label="Site focus and professional proof">
+	<div class="page-container">
+		<div class="content-proof__inner">
+			<p class="site-intro">
+				Notes on control systems, embedded software, diagnostics, automation, team execution,
+				and the decisions that make complex machines work reliably.
+			</p>
+
+			<div class="proof-strip__inner">
+				<SeniorityProof />
+			</div>
+		</div>
+	</div>
+</section>
+
+<style>
+	.content-proof {
+		background: #ffffff;
+	}
+
+	.content-proof__inner {
+		padding-block: clamp(2rem, 4.5vw, 3.25rem) 0;
+	}
+
+	.site-intro {
+		max-width: 760px;
+		margin: 0 0 clamp(1.5rem, 3vw, 2.25rem);
+		color: var(--color-muted);
+		font-family: var(--font-sans);
+		font-size: clamp(1rem, 1.25vw, 1.15rem);
+		line-height: 1.55;
+	}
+
+	.proof-strip__inner {
+		border-top: 1px solid var(--color-proof-border);
+		border-bottom: 1px solid var(--color-proof-border);
+		padding-block: clamp(1.05rem, 2.3vw, 1.5rem);
+	}
+
+	.seniority-proof__grid {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		gap: 0;
+	}
+
+	.seniority-proof__item {
+		min-height: 52px;
+		padding: 0.2rem 1.15rem 0.2rem 0;
+	}
+
+	.seniority-proof__item + .seniority-proof__item {
+		border-left: 1px solid var(--color-border-soft);
+		padding-left: 1.15rem;
+	}
+
+	.seniority-proof__label {
+		display: block;
+		margin-bottom: 0.2rem;
+		color: var(--color-proof-label);
+		font-family: var(--font-mono);
+		font-size: 0.64rem;
+		font-weight: 600;
+		letter-spacing: 0.06em;
+		text-transform: uppercase;
+	}
+
+	.seniority-proof__text {
+		display: block;
+		color: var(--color-proof-text);
+		font-family: var(--font-sans);
+		font-size: 0.82rem;
+		line-height: 1.35;
+	}
+
+	@media (max-width: 900px) {
+		.seniority-proof__grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
+
+		.seniority-proof__item:nth-child(3) {
+			border-left: 0;
+			border-top: 1px solid var(--color-border-soft);
+			margin-top: 0.65rem;
+			padding-top: 0.9rem;
+			padding-left: 0;
+		}
+
+		.seniority-proof__item:nth-child(4) {
+			border-top: 1px solid var(--color-border-soft);
+			margin-top: 0.65rem;
+			padding-top: 0.9rem;
+		}
+	}
+
+	@media (max-width: 640px) {
+		.content-proof__inner {
+			padding-block: 1.75rem 0;
+		}
+
+		.site-intro {
+			margin-bottom: 1.4rem;
+		}
+
+		.seniority-proof__grid {
+			grid-template-columns: 1fr;
+		}
+
+		.seniority-proof__item {
+			min-height: auto;
+			padding: 0.75rem 0;
+		}
+
+		.seniority-proof__item:first-child {
+			padding-top: 0;
+		}
+
+		.seniority-proof__item:last-child {
+			padding-bottom: 0;
+		}
+
+		.seniority-proof__item + .seniority-proof__item,
+		.seniority-proof__item:nth-child(3),
+		.seniority-proof__item:nth-child(4) {
+			border-left: 0;
+			border-top: 1px solid var(--color-border-soft);
+			margin-top: 0;
+			padding-left: 0;
+		}
+	}
+</style>

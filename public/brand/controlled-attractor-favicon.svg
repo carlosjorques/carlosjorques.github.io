@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+	<title>Controlled attractor favicon concept</title>
+	<path
+		class="frame"
+		d="M13 51H24M13 51V40M40 13H51V24"
+		stroke="#1a5fb4"
+		stroke-width="4.5"
+		stroke-linecap="round"
+		stroke-linejoin="round"
+	/>
+	<path
+		class="attractor"
+		d="M17 42C9 32 15 17 29 18C40 19 39 31 31 34C24 37 20 32 23 27C28 18 43 20 49 31C56 44 42 52 31 46C25 43 25 37 31 34"
+		stroke="#1a1a1a"
+		stroke-width="5.2"
+		stroke-linecap="round"
+		stroke-linejoin="round"
+	/>
+	<style>
+		@media (prefers-color-scheme: dark) {
+			.attractor { stroke: #f5f3ee; }
+			.frame { stroke: #9fb7c2; }
+		}
+	</style>
+</svg>
