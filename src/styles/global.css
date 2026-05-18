@@ -13,6 +13,10 @@
 	--color-border: #d9d6ce;
 	--color-border-soft: #ece9e2;
 	--color-accent: #1a5fb4;
+	--color-index-bg: #f7f7f5;
+	--color-index-bar: #f1f0ec;
+	--color-index-border: #d9d6ce;
+	--color-index-shadow: rgba(26, 26, 26, 0.04);
 
 	--content-width: 1120px;
 	--content-narrow: 760px;
