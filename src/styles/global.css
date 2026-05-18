@@ -1,28 +1,32 @@
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap");
+
 :root {
 	color-scheme: light;
-	--color-bg: #f5f3ee;
+	--color-page: #F5F3EE;
+	--color-hero: #F5F3EE;
 	--color-bg-soft: #eeebe3;
-	--color-surface: #faf9f6;
+	--color-surface: #FAF9F6;
 	--color-surface-muted: #ffffff;
 	--color-surface-cool: #edf2f1;
 	--color-text: #111315;
-	--color-muted: #5f6468;
+	--color-muted: #5F6468;
 	--color-subtle: #8a8f94;
-	--color-border: #d9d6ce;
+	--color-border: #D9D6CE;
 	--color-border-strong: #bfbab0;
-	--color-accent: #1f6f78;
+	--color-accent: #1F6F78;
 	--color-accent-dark: #15545b;
 	--color-steel: #374151;
 	--color-rule: #d9d6ce;
+	--color-strip: #363B3A;
+	--color-strip-text: #F5F3EE;
+	--color-strip-muted: rgba(245, 243, 238, 0.72);
+	--color-strip-line: rgba(245, 243, 238, 0.32);
+	--color-bg: var(--color-page);
 	--shadow-soft: none;
 	--shadow-line: none;
 	--radius: 4px;
-	--font-sans:
-		'IBM Plex Sans', Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
-		'Segoe UI', sans-serif;
-	--font-mono:
-		'IBM Plex Mono', 'JetBrains Mono', 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo,
-		monospace;
+	--font-sans: "IBM Plex Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+	--font-mono: "IBM Plex Mono", "SFMono-Regular", Consolas, "Liberation Mono", monospace;
 	--content-width: 1120px;
 	--content-narrow: 760px;
 }
@@ -32,14 +36,14 @@
 }
 
 html {
-	background: var(--color-bg);
+	background: var(--color-page);
 	scroll-behavior: smooth;
 }
 
 body {
 	margin: 0;
 	min-width: 320px;
-	background: var(--color-bg);
+	background: var(--color-page);
 	color: var(--color-text);
 	font-family: var(--font-sans);
 	font-size: 16px;
@@ -149,17 +153,18 @@ li::marker {
 	flex: 1;
 	min-width: 0;
 	flex-direction: column;
-	background: var(--color-bg);
+	background: var(--color-page);
 }
 
 .main-body {
 	flex: 1;
-	padding: 0 2.75rem 1.5rem;
+	padding: 0 0 1.5rem;
 }
 
+.page-container,
 .container,
 .narrow {
-	width: min(100%, var(--content-width));
+	width: min(100% - 48px, var(--content-width));
 	margin-inline: auto;
 }
 
@@ -322,13 +327,21 @@ li::marker {
 
 @media (max-width: 1024px) {
 	.main-body {
-		padding: 1rem 1.5rem 1.5rem;
+		padding: 0 0 1.5rem;
+	}
+}
+
+@media (max-width: 760px) {
+	.page-container,
+	.container,
+	.narrow {
+		width: min(100% - 32px, var(--content-width));
 	}
 }
 
 @media (max-width: 680px) {
 	.main-body {
-		padding: 0 1rem 1.25rem;
+		padding: 0 0 1.25rem;
 	}
 
 	.section {

@@ -13,7 +13,7 @@ const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWit
 ---
 
 <header class="site-header">
-	<div class="site-header__inner">
+	<div class="page-container site-header__inner">
 		<a class="site-header__brand" href={withBase('/')} aria-label="Carlos Jorques home">
 			Carlos Jorques
 		</a>
@@ -34,18 +34,14 @@ const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWit
 		position: relative;
 		z-index: 4;
 		border-bottom: 1px solid var(--color-border);
-		background: var(--color-bg);
+		background: var(--color-hero);
 	}
 
 	.site-header__inner {
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
-		width: 100%;
-		max-width: var(--content-width);
 		min-height: 68px;
-		margin-inline: auto;
-		padding: 0 64px;
 		gap: 2rem;
 	}
 
@@ -91,10 +87,6 @@ const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWit
 	}
 
 	@media (max-width: 760px) {
-		.site-header__inner {
-			padding: 0 24px;
-		}
-
 		.site-header__nav {
 			gap: 1.25rem;
 		}

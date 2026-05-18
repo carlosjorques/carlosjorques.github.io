@@ -14,7 +14,7 @@ const skills =
 	.proof-inner {
 		display: grid;
 		gap: 0.65rem;
-		width: min(100%, var(--content-width));
+		width: min(100% - 48px, var(--content-width));
 		border-block: 1px solid var(--color-border);
 		margin-inline: auto;
 		padding: 1.25rem 0;
@@ -32,5 +32,11 @@ const skills =
 		font-family: var(--font-mono);
 		font-size: 0.78rem;
 		line-height: 1.65;
+	}
+
+	@media (max-width: 760px) {
+		.proof-inner {
+			width: min(100% - 32px, var(--content-width));
+		}
 	}
 </style>

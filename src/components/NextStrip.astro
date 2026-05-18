@@ -31,18 +31,15 @@ const items = [
 ---
 
 <section class="next-strip" aria-labelledby="next-heading">
-	<div class="strip-inner">
-		<h2 class="eyebrow" id="next-heading">Where to go next</h2>
-		<div class="next-grid">
+	<div class="next-strip__inner">
+		<h2 class="next-strip__label" id="next-heading">Where to go next</h2>
+		<div class="next-strip__grid">
 			{
 				items.map((item) => (
-					<a href={item.href} class="next-item">
-						<span class="item-number">{item.number}</span>
-						<span class="item-title">
-							{item.title}
-							<span aria-hidden="true">&rarr;</span>
-						</span>
-						<span class="item-description">{item.description}</span>
+					<a href={item.href} class="next-strip__item">
+						<span class="next-strip__number">{item.number}</span>
+						<span class="next-strip__title">{item.title}</span>
+						<span class="next-strip__description">{item.description}</span>
 					</a>
 				))
 			}
@@ -52,132 +49,105 @@ const items = [
 
 <style>
 	.next-strip {
-		margin-inline: -2.75rem;
 		margin-bottom: clamp(3rem, 6vw, 5rem);
-		border-block: 1px solid rgba(245, 243, 238, 0.16);
-		background: #3f4443;
-		color: var(--color-surface);
-		padding-inline: 2.75rem;
+		background: var(--color-strip);
+		color: var(--color-strip-text);
 	}
 
-	.strip-inner {
-		width: min(100%, var(--content-width));
+	.next-strip__inner {
+		width: min(100% - 48px, var(--content-width));
 		margin-inline: auto;
+		padding-block: 2.75rem;
 	}
 
-	.next-strip .eyebrow {
-		padding: 1.8rem 0 1rem;
-		color: var(--color-surface);
-	}
-
-	.next-grid {
-		display: grid;
-		grid-template-columns: repeat(4, minmax(0, 1fr));
-		border-top: 0;
-	}
-
-	.next-item {
-		position: relative;
-		display: grid;
-		min-height: 112px;
-		align-content: start;
-		gap: 0.75rem;
-		border-right: 1px solid rgba(245, 243, 238, 0.56);
-		padding: 1.1rem 1.65rem 1.7rem 0;
-		color: var(--color-surface);
-		text-decoration: none;
-	}
-
-	.next-item + .next-item {
-		padding-left: 1.65rem;
-	}
-
-	.next-item:last-child {
-		border-right: 0;
-	}
-
-	.item-number {
-		position: absolute;
-		overflow: hidden;
-		width: 1px;
-		height: 1px;
-		clip: rect(0, 0, 0, 0);
-		white-space: nowrap;
-	}
-
-	.item-title {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		gap: 1rem;
-		color: var(--color-surface);
+	.next-strip__label {
+		margin: 0 0 1.75rem;
+		color: var(--color-strip-text);
 		font-family: var(--font-mono);
-		font-size: 1.12rem;
-		font-weight: 700;
-		letter-spacing: 0;
+		font-size: 0.75rem;
+		font-weight: 600;
+		letter-spacing: 0.06em;
 		line-height: 1.25;
 		text-transform: uppercase;
 	}
 
-	.item-title span {
-		display: none;
+	.next-strip__grid {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
 	}
 
-	.item-description {
+	.next-strip__item {
+		position: relative;
+		display: grid;
+		min-height: 96px;
+		align-content: start;
+		gap: 0.45rem;
+		padding-right: 2rem;
+		color: var(--color-strip-text);
+		text-decoration: none;
+	}
+
+	.next-strip__item + .next-strip__item {
+		padding-left: 2rem;
+	}
+
+	.next-strip__item + .next-strip__item::before {
+		content: "";
+		position: absolute;
+		left: 0;
+		top: 50%;
+		width: 1px;
+		height: 72%;
+		transform: translateY(-50%);
+		background: var(--color-strip-line);
+	}
+
+	.next-strip__number {
+		color: var(--color-accent);
+		font-family: var(--font-mono);
+		font-size: 0.72rem;
+		font-weight: 600;
+		line-height: 1.25;
+	}
+
+	.next-strip__title {
+		color: var(--color-strip-text);
+		font-family: var(--font-sans);
+		font-size: 1.08rem;
+		font-weight: 600;
+		letter-spacing: 0;
+		line-height: 1.25;
+	}
+
+	.next-strip__description {
 		max-width: 190px;
-		color: rgba(250, 249, 246, 0.82);
-		font-size: 0.73rem;
-		line-height: 1.45;
+		color: var(--color-strip-muted);
+		font-family: var(--font-sans);
+		font-size: 0.8rem;
+		line-height: 1.5;
 	}
 
-	.next-item:hover {
-		color: var(--color-surface);
-	}
-
-	@media (max-width: 900px) {
-		.next-grid {
-			grid-template-columns: repeat(2, minmax(0, 1fr));
+	@media (max-width: 760px) {
+		.next-strip__inner {
+			width: min(100% - 32px, var(--content-width));
 		}
 
-		.next-item:nth-child(2n) {
-			border-right: 0;
-			padding-right: 0;
-		}
-
-		.next-item:nth-child(n + 3) {
-			border-top: 1px solid rgba(245, 243, 238, 0.28);
-		}
-	}
-
-	@media (max-width: 1024px) {
-		.next-strip {
-			margin-inline: -1.5rem;
-			padding-inline: 1.5rem;
-		}
-	}
-
-	@media (max-width: 680px) {
-		.next-strip {
-			margin-inline: -1rem;
-			padding-inline: 1rem;
-		}
-	}
-
-	@media (max-width: 620px) {
-		.next-grid {
+		.next-strip__grid {
 			grid-template-columns: 1fr;
 		}
 
-		.next-item,
-		.next-item + .next-item {
+		.next-strip__item {
 			min-height: 0;
-			border-right: 0;
-			border-top: 1px solid rgba(245, 243, 238, 0.28);
-			padding: 1rem 0;
+			padding: 1.25rem 0;
 		}
 
-		.next-item:first-child {
-			border-top: 0;
+		.next-strip__item + .next-strip__item {
+			padding-left: 0;
+			border-top: 1px solid var(--color-strip-line);
+		}
+
+		.next-strip__item + .next-strip__item::before {
+			display: none;
 		}
 	}
 </style>
