@@ -38,8 +38,8 @@ const items = [
 				<div class="next-panel__item">
 					<a href={item.href} class="next-panel__item-link">
 						<span class="next-panel__number">{item.number}</span>
-						<span class="next-panel__title">
-							{item.title}
+						<span class="next-panel__heading">
+							<span class="next-panel__title">{item.title}</span>
 							<span class="next-panel__arrow" aria-hidden="true">-&gt;</span>
 						</span>
 						<span class="next-panel__description">{item.description}</span>
@@ -100,8 +100,12 @@ const items = [
 
 	.next-panel__item-link {
 		display: block;
+		height: 100%;
 		color: inherit;
 		text-decoration: none;
+		transition:
+			transform 180ms ease-out,
+			background-color 180ms ease-out;
 	}
 
 	.next-panel__number {
@@ -111,13 +115,25 @@ const items = [
 		font-weight: 600;
 	}
 
-	.next-panel__title {
-		display: block;
+	.next-panel__heading {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 1rem;
 		margin-top: 0.35rem;
+	}
+
+	.next-panel__title {
+		display: inline;
 		color: var(--color-next-text);
 		font-family: var(--font-sans);
 		font-size: 1rem;
 		font-weight: 600;
+		text-decoration: underline;
+		text-decoration-color: transparent;
+		text-decoration-thickness: 1px;
+		text-underline-offset: 0.22em;
+		transition: text-decoration-color 160ms ease-out;
 	}
 
 	.next-panel__description {
@@ -132,14 +148,17 @@ const items = [
 	.next-panel__arrow {
 		display: inline-block;
 		color: var(--color-next-accent);
-		transition: transform 160ms ease;
+		transition: transform 180ms ease-out;
+	}
+
+	.next-panel__item-link:hover,
+	.next-panel__item-link:focus-visible {
+		transform: translateY(-1px);
 	}
 
 	.next-panel__item-link:hover .next-panel__title,
 	.next-panel__item-link:focus-visible .next-panel__title {
-		text-decoration: underline;
 		text-decoration-color: var(--color-next-accent);
-		text-underline-offset: 0.2em;
 	}
 
 	.next-panel__item-link:hover .next-panel__arrow,

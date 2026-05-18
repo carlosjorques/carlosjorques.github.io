@@ -66,10 +66,6 @@ a {
 	text-decoration-color: currentColor;
 	text-decoration-thickness: 1px;
 	text-underline-offset: 4px;
-	transition:
-		color 0.2s ease,
-		border-color 0.2s ease,
-		opacity 0.2s ease;
 }
 
 a:hover {
@@ -206,6 +202,7 @@ li::marker {
 	min-height: 38px;
 	align-items: center;
 	justify-content: center;
+	gap: 0.5rem;
 	border: 1px solid var(--color-border);
 	border-radius: var(--radius);
 	background: transparent;
@@ -215,22 +212,52 @@ li::marker {
 	font-weight: 600;
 	text-decoration: none;
 	transition:
-		border-color 0.2s ease,
-		color 0.2s ease,
-		background-color 0.2s ease;
+		transform 180ms ease-out,
+		border-color 180ms ease-out,
+		color 180ms ease-out,
+		background-color 180ms ease-out;
+}
+
+.button__arrow,
+.cta-button__arrow {
+	display: inline-block;
+	transition: transform 180ms ease-out;
 }
 
 .button:hover,
-.button.primary:hover {
+.button:focus-visible {
+	transform: translateY(-1px);
 	border-color: var(--color-accent);
 	background: transparent;
 	color: var(--color-accent);
+}
+
+.button.primary:hover,
+.button.primary:focus-visible {
+	background: var(--color-accent);
+	color: var(--color-surface);
+}
+
+.button:hover .button__arrow,
+.button:focus-visible .button__arrow,
+.cta-button:hover .cta-button__arrow,
+.cta-button:focus-visible .cta-button__arrow {
+	transform: translateX(3px);
 }
 
 .button.primary {
 	border-color: var(--color-accent);
 	background: var(--color-accent);
 	color: var(--color-surface);
+}
+
+.hero__link:focus-visible,
+.next-panel__item-link:focus-visible,
+.article-link:focus-visible,
+.button:focus-visible,
+.cta-button:focus-visible {
+	outline: 2px solid var(--color-accent);
+	outline-offset: 4px;
 }
 
 .grid {
@@ -358,9 +385,26 @@ li::marker {
 	*,
 	*::before,
 	*::after {
-		animation-duration: 0.01ms !important;
+		animation-duration: 0.001ms !important;
 		animation-iteration-count: 1 !important;
 		scroll-behavior: auto !important;
-		transition-duration: 0.01ms !important;
+		transition-duration: 0.001ms !important;
+	}
+
+	.hero__link-arrow,
+	.next-panel__arrow,
+	.article-link__arrow,
+	.button__arrow,
+	.cta-button__arrow {
+		transform: none !important;
+	}
+
+	.next-panel__item-link:hover,
+	.next-panel__item-link:focus-visible,
+	.button:hover,
+	.button:focus-visible,
+	.cta-button:hover,
+	.cta-button:focus-visible {
+		transform: none !important;
 	}
 }
