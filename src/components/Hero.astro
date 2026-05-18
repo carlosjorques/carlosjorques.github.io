@@ -1,94 +1,87 @@
 ---
 interface Props {
 	eyebrow?: string;
-	heading?: string;
 	body?: string;
 }
 
 const {
 	eyebrow = 'Embedded Control Systems Architect',
-	heading = 'Hello! I am Carlos Jorques, an embedded control systems architect.',
-	body = 'I lead software development teams to turn complex systems into reliable products.',
+	body = 'With 10+ years in automotive embedded systems, I lead software teams building reliable control software for complex physical products.',
 } = Astro.props;
 const baseUrl = import.meta.env.BASE_URL;
 ---
 
-<section class="hero section">
-	<div class="hero-grid">
+<section class="hero" aria-labelledby="hero-heading">
+	<div class="hero-inner">
 		<div class="hero-copy">
 			<p class="eyebrow">{eyebrow}</p>
-			<h1>{heading}</h1>
+			<h1 id="hero-heading">
+				Hello. I am <strong>Carlos Jorques</strong>, an Embedded Control Systems Architect and
+				technical team leader.
+			</h1>
 			<p class="lead">{body}</p>
 			<nav class="hero-links" aria-label="Homepage primary links">
-				<a href={`${baseUrl}writing/`}>Writing <span aria-hidden="true">&rarr;</span></a>
-				<a href={`${baseUrl}about/`}>About <span aria-hidden="true">&rarr;</span></a>
-				<a href={`${baseUrl}research/`}>Work <span aria-hidden="true">&rarr;</span></a>
+				<a href={`${baseUrl}contact/`}>Get in touch <span aria-hidden="true">-&gt;</span></a>
 			</nav>
 		</div>
-		<aside class="hero-visual" aria-hidden="true">
-			<div class="diagram">
-				<span class="node node-a">sense</span>
-				<span class="node node-b">model</span>
-				<span class="node node-c">control</span>
-				<span class="node node-d">act</span>
-				<span class="line line-a"></span>
-				<span class="line line-b"></span>
-				<span class="line line-c"></span>
-			</div>
-		</aside>
 	</div>
 </section>
 
 <style>
 	.hero {
-		padding-top: clamp(4rem, 9vw, 7.5rem);
-		padding-bottom: clamp(4rem, 9vw, 7rem);
+		padding-top: clamp(4.8rem, 10vw, 8.25rem);
+		padding-bottom: clamp(3.75rem, 8vw, 6.5rem);
 	}
 
-	.hero-grid {
-		display: grid;
-		grid-template-columns: minmax(0, 1fr) minmax(260px, 0.48fr);
-		gap: clamp(2rem, 6vw, 5.5rem);
-		align-items: center;
+	.hero-inner {
 		width: min(100%, var(--content-width));
 		margin-inline: auto;
 	}
 
 	.hero-copy {
 		display: grid;
-		gap: 1.2rem;
+		max-width: 650px;
+		gap: 1rem;
 	}
 
 	h1 {
-		max-width: 820px;
-		font-size: clamp(2.8rem, 7.4vw, 6.4rem);
+		max-width: 650px;
+		font-size: clamp(2.1rem, 4vw, 3.25rem);
+		font-weight: 400;
 		letter-spacing: 0;
-		line-height: 1.02;
+		line-height: 1.22;
+	}
+
+	h1 strong {
+		font-weight: 800;
 	}
 
 	.lead {
-		max-width: 620px;
-		color: var(--color-muted);
-		font-size: clamp(1.1rem, 1.8vw, 1.45rem);
-		line-height: 1.55;
+		max-width: 520px;
+		color: var(--color-text);
+		font-size: 0.98rem;
+		line-height: 1.52;
 		opacity: 1;
 	}
 
 	.hero-links {
 		display: flex;
 		flex-wrap: wrap;
-		gap: 0.85rem 1.35rem;
-		margin-top: 0.6rem;
+		gap: 1rem;
+		margin-top: 0.55rem;
 	}
 
 	.hero-links a {
 		display: inline-flex;
 		align-items: center;
 		gap: 0.45rem;
-		border-bottom: 1px solid var(--color-border-strong);
-		padding-bottom: 0.18rem;
+		border-bottom: 1px solid transparent;
+		padding-bottom: 0.12rem;
 		color: var(--color-text);
-		font-size: 0.98rem;
+		font-family: var(--font-mono);
+		font-size: 0.82rem;
+		font-weight: 700;
+		letter-spacing: 0.01em;
 		text-decoration: none;
 	}
 
@@ -98,109 +91,17 @@ const baseUrl = import.meta.env.BASE_URL;
 	}
 
 	.hero-links a:hover {
-		border-color: var(--color-accent);
+		border-bottom-color: var(--color-accent);
+		color: var(--color-text);
 	}
 
 	.hero-links a:hover span {
 		transform: translateX(3px);
 	}
 
-	.hero-visual {
-		min-height: 340px;
-		border: 1px solid var(--color-border);
-		background: transparent;
-		opacity: 0.45;
-	}
-
-	.diagram {
-		position: relative;
-		height: 100%;
-		min-height: 340px;
-		padding: 1.5rem;
-	}
-
-	.node {
-		position: absolute;
-		border: 1px solid var(--color-accent);
-		background: var(--color-bg);
-		padding: 0.35rem 0.5rem;
-		color: var(--color-accent);
-		font-family: var(--font-mono);
-		font-size: 0.7rem;
-		font-weight: 700;
-		line-height: 1;
-		text-transform: uppercase;
-	}
-
-	.node-a {
-		left: 12%;
-		top: 18%;
-	}
-
-	.node-b {
-		right: 18%;
-		top: 28%;
-	}
-
-	.node-c {
-		left: 28%;
-		bottom: 30%;
-	}
-
-	.node-d {
-		right: 10%;
-		bottom: 18%;
-	}
-
-	.line {
-		position: absolute;
-		height: 1px;
-		transform-origin: left center;
-		background: var(--color-accent);
-	}
-
-	.line-a {
-		left: 30%;
-		top: 25%;
-		width: 35%;
-		transform: rotate(8deg);
-	}
-
-	.line-b {
-		left: 42%;
-		top: 45%;
-		width: 33%;
-		transform: rotate(42deg);
-	}
-
-	.line-c {
-		left: 22%;
-		bottom: 36%;
-		width: 50%;
-		transform: rotate(-12deg);
-	}
-
-	@media (max-width: 900px) {
-		.hero-grid {
-			grid-template-columns: 1fr;
-		}
-
-		.hero-visual {
-			min-height: 220px;
-		}
-
-		.diagram {
-			min-height: 220px;
-		}
-	}
-
 	@media (max-width: 620px) {
 		.hero {
-			padding-top: 3rem;
-		}
-
-		.hero-visual {
-			display: none;
+			padding-top: 3.25rem;
 		}
 	}
 </style>
