@@ -1,21 +1,126 @@
-<div class="seniority-proof__grid">
-	<div class="seniority-proof__item">
-		<span class="seniority-proof__label">10+ years</span>
-		<span class="seniority-proof__text">Automotive embedded systems</span>
-	</div>
+<section class="proof-strip" aria-label="Professional proof points">
+	<div class="page-container">
+		<div class="proof-strip__inner">
+			<div class="seniority-proof__grid">
+				<div class="seniority-proof__item">
+					<span class="seniority-proof__label">10+ years</span>
+					<span class="seniority-proof__text">Automotive embedded systems</span>
+				</div>
 
-	<div class="seniority-proof__item">
-		<span class="seniority-proof__label">Technical leadership</span>
-		<span class="seniority-proof__text">Model-based software teams</span>
-	</div>
+				<div class="seniority-proof__item">
+					<span class="seniority-proof__label">Technical leadership</span>
+					<span class="seniority-proof__text">Model-based software teams</span>
+				</div>
 
-	<div class="seniority-proof__item">
-		<span class="seniority-proof__label">PhD-trained</span>
-		<span class="seniority-proof__text">Real-time control and diagnostics</span>
-	</div>
+				<div class="seniority-proof__item">
+					<span class="seniority-proof__label">PhD-trained</span>
+					<span class="seniority-proof__text">Real-time control and diagnostics</span>
+				</div>
 
-	<div class="seniority-proof__item">
-		<span class="seniority-proof__label">Production context</span>
-		<span class="seniority-proof__text">EV, powertrain, safety, and validation</span>
+				<div class="seniority-proof__item">
+					<span class="seniority-proof__label">Production context</span>
+					<span class="seniority-proof__text">EV, powertrain, safety, and validation</span>
+				</div>
+			</div>
+		</div>
 	</div>
-</div>
+</section>
+
+<style>
+	.proof-strip {
+		background: #ffffff;
+	}
+
+	.proof-strip__inner {
+		border-top: 1px solid var(--color-proof-border);
+		border-bottom: 1px solid var(--color-proof-border);
+		padding-block: clamp(1.05rem, 2.3vw, 1.5rem);
+	}
+
+	.seniority-proof__grid {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		gap: 0;
+	}
+
+	.seniority-proof__item {
+		min-height: 52px;
+		padding: 0.2rem 1.15rem 0.2rem 0;
+	}
+
+	.seniority-proof__item + .seniority-proof__item {
+		padding-left: 1.15rem;
+		border-left: 1px solid var(--color-border-soft);
+	}
+
+	.seniority-proof__label {
+		display: block;
+		margin-bottom: 0.2rem;
+		font-family: var(--font-mono);
+		font-size: 0.64rem;
+		font-weight: 600;
+		letter-spacing: 0.06em;
+		text-transform: uppercase;
+		color: var(--color-proof-label);
+	}
+
+	.seniority-proof__text {
+		display: block;
+		font-family: var(--font-sans);
+		font-size: 0.82rem;
+		line-height: 1.35;
+		color: var(--color-proof-text);
+	}
+
+	@media (max-width: 900px) {
+		.seniority-proof__grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
+
+		.seniority-proof__item:nth-child(3) {
+			padding-left: 0;
+			border-left: 0;
+			border-top: 1px solid var(--color-border-soft);
+			margin-top: 0.65rem;
+			padding-top: 0.9rem;
+		}
+
+		.seniority-proof__item:nth-child(4) {
+			border-top: 1px solid var(--color-border-soft);
+			margin-top: 0.65rem;
+			padding-top: 0.9rem;
+		}
+	}
+
+	@media (max-width: 640px) {
+		.proof-strip__inner {
+			padding-block: 1.3rem;
+		}
+
+		.seniority-proof__grid {
+			grid-template-columns: 1fr;
+		}
+
+		.seniority-proof__item {
+			min-height: auto;
+			padding: 0.75rem 0;
+		}
+
+		.seniority-proof__item:first-child {
+			padding-top: 0;
+		}
+
+		.seniority-proof__item:last-child {
+			padding-bottom: 0;
+		}
+
+		.seniority-proof__item + .seniority-proof__item,
+		.seniority-proof__item:nth-child(3),
+		.seniority-proof__item:nth-child(4) {
+			padding-left: 0;
+			border-left: 0;
+			border-top: 1px solid var(--color-border-soft);
+			margin-top: 0;
+		}
+	}
+</style>
