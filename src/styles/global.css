@@ -27,7 +27,7 @@
 	--content-width: 1120px;
 	--content-narrow: 760px;
 	--site-header-height: 68px;
-	--hero-proof-strip-height: clamp(9.5rem, 15vw, 11rem);
+	--hero-content-proof-height: clamp(15rem, 20vw, 17rem);
 	--color-bg: var(--color-page);
 	--color-surface: var(--color-page);
 	--color-subtle: var(--color-soft);
