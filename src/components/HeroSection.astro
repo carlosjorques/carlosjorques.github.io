@@ -1,7 +1,4 @@
 ---
-import NextIndex from './NextIndex.astro';
-import SeniorityProof from './SeniorityProof.astro';
-
 const baseUrl = import.meta.env.BASE_URL;
 const withBase = (href: string) => (href === '/' ? baseUrl : `${baseUrl}${href.replace(/^\//, '')}`);
 const linkedInUrl = 'REPLACE_WITH_LINKEDIN_URL';
@@ -32,9 +29,6 @@ const cvUrl = 'REPLACE_WITH_CV_URL';
 				</div>
 			</div>
 		</div>
-
-		<SeniorityProof />
-		<NextIndex />
 	</div>
 </section>
 

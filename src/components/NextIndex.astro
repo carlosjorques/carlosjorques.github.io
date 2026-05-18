@@ -3,115 +3,98 @@ const baseUrl = import.meta.env.BASE_URL;
 const withBase = (href: string) => (href === '/' ? baseUrl : `${baseUrl}${href.replace(/^\//, '')}`);
 ---
 
-<section class="next-index" aria-label="Start here">
-	<div class="next-index__bar">
-		<span class="next-index__bar-dot"></span>
-		<span class="next-index__bar-dot"></span>
-		<span class="next-index__bar-dot"></span>
-		<span class="next-index__bar-label">Start here</span>
-	</div>
+<section class="nav-stripe">
+	<div class="page-container">
+		<section class="next-index" aria-labelledby="next-index-title">
+			<p id="next-index-title" class="next-index__label">Start here</p>
 
-	<div class="next-index__grid">
-		<a href={withBase('/writing')} class="next-index__item">
-			<span class="next-index__number">[01]</span>
-			<span class="next-index__title">
-				<span>Writing</span>
-				<span class="next-index__arrow" aria-hidden="true">→</span>
-			</span>
-			<span class="next-index__description">
-				Essays and notes on control systems, embedded software, diagnostics, and physical behavior.
-			</span>
-		</a>
+			<div class="next-index__grid">
+				<a href={withBase('/writing')} class="next-index__item">
+					<span class="next-index__number">[01]</span>
+					<span class="next-index__title">
+						<span>Writing</span>
+						<span class="next-index__arrow" aria-hidden="true">→</span>
+					</span>
+					<span class="next-index__description">
+						Essays and notes on control systems, embedded software, diagnostics, and physical behavior.
+					</span>
+				</a>
 
-		<a href={withBase('/about')} class="next-index__item">
-			<span class="next-index__number">[02]</span>
-			<span class="next-index__title">
-				<span>About</span>
-				<span class="next-index__arrow" aria-hidden="true">→</span>
-			</span>
-			<span class="next-index__description">
-				Professional background, education, motivation, and technical leadership.
-			</span>
-		</a>
+				<a href={withBase('/about')} class="next-index__item">
+					<span class="next-index__number">[02]</span>
+					<span class="next-index__title">
+						<span>About</span>
+						<span class="next-index__arrow" aria-hidden="true">→</span>
+					</span>
+					<span class="next-index__description">
+						Professional background, education, motivation, and technical leadership.
+					</span>
+				</a>
 
-		<a href={withBase('/work')} class="next-index__item">
-			<span class="next-index__number">[03]</span>
-			<span class="next-index__title">
-				<span>Work</span>
-				<span class="next-index__arrow" aria-hidden="true">→</span>
-			</span>
-			<span class="next-index__description">
-				Selected technical work, research, patents, publications, and engineering contributions.
-			</span>
-		</a>
+				<a href={withBase('/work')} class="next-index__item">
+					<span class="next-index__number">[03]</span>
+					<span class="next-index__title">
+						<span>Work</span>
+						<span class="next-index__arrow" aria-hidden="true">→</span>
+					</span>
+					<span class="next-index__description">
+						Selected technical work, research, patents, publications, and engineering contributions.
+					</span>
+				</a>
 
-		<a href={withBase('/contact')} class="next-index__item">
-			<span class="next-index__number">[04]</span>
-			<span class="next-index__title">
-				<span>Contact</span>
-				<span class="next-index__arrow" aria-hidden="true">→</span>
-			</span>
-			<span class="next-index__description">
-				Email, LinkedIn, and CV for hiring or collaboration.
-			</span>
-		</a>
+				<a href={withBase('/contact')} class="next-index__item">
+					<span class="next-index__number">[04]</span>
+					<span class="next-index__title">
+						<span>Contact</span>
+						<span class="next-index__arrow" aria-hidden="true">→</span>
+					</span>
+					<span class="next-index__description">
+						Email, LinkedIn, and CV for hiring or collaboration.
+					</span>
+				</a>
+			</div>
+		</section>
 	</div>
 </section>
 
 <style>
-	.next-index {
-		position: relative;
-		z-index: 1;
-		margin-top: clamp(2.25rem, 4.5vw, 3.5rem);
-		background: var(--color-index-bg, #f7f7f5);
-		border: 1px solid var(--color-index-border);
-		box-shadow: 0 10px 28px rgba(26, 26, 26, 0.035);
+	.nav-stripe {
+		background:
+			radial-gradient(ellipse at 82% 10%, rgba(159, 183, 194, 0.12), transparent 42%),
+			linear-gradient(180deg, #222828 0%, var(--color-nav-bg) 100%);
+		color: var(--color-nav-text);
+		padding-block: clamp(2.25rem, 5vw, 3.75rem);
 	}
 
-	.next-index__bar {
-		display: flex;
-		align-items: center;
-		gap: 0.45rem;
-		border-bottom: 1px solid var(--color-index-border);
-		background: var(--color-index-bar);
-		padding: 0.7rem 1rem;
-	}
-
-	.next-index__bar-dot {
-		width: 6px;
-		height: 6px;
-		border-radius: 999px;
-		background: #b8b5ad;
-	}
-
-	.next-index__bar-label {
-		margin-left: 0.35rem;
-		color: var(--color-soft);
+	.next-index__label {
+		margin: 0 0 0.9rem;
+		color: var(--color-nav-accent);
 		font-family: var(--font-mono);
 		font-size: 0.68rem;
 		font-weight: 600;
 		letter-spacing: 0.08em;
-		line-height: 1.2;
 		text-transform: uppercase;
 	}
 
 	.next-index__grid {
 		display: grid;
 		grid-template-columns: repeat(4, 1fr);
+		gap: 0.8rem;
 	}
 
 	.next-index__item {
-		position: relative;
 		display: block;
-		min-height: 126px;
-		padding: 1.25rem 1.4rem;
+		min-height: 136px;
+		border: 1px solid var(--color-nav-border);
+		background: var(--color-nav-surface);
+		padding: 1.15rem;
 		color: inherit;
 		text-decoration: none;
-		transition: background-color 160ms ease-out;
-	}
-
-	.next-index__item + .next-index__item {
-		border-left: 1px solid var(--color-index-border);
+		transition:
+			transform 180ms ease-out,
+			border-color 180ms ease-out,
+			background-color 180ms ease-out,
+			box-shadow 180ms ease-out;
 	}
 
 	.next-index__number {
@@ -120,7 +103,7 @@ const withBase = (href: string) => (href === '/' ? baseUrl : `${baseUrl}${href.r
 		font-family: var(--font-mono);
 		font-size: 0.72rem;
 		font-weight: 600;
-		color: var(--color-accent);
+		color: var(--color-nav-accent);
 	}
 
 	.next-index__title {
@@ -131,12 +114,12 @@ const withBase = (href: string) => (href === '/' ? baseUrl : `${baseUrl}${href.r
 		font-family: var(--font-sans);
 		font-size: 1rem;
 		font-weight: 600;
-		color: var(--color-text);
+		color: var(--color-nav-text);
 	}
 
 	.next-index__arrow {
 		display: inline-block;
-		color: var(--color-accent);
+		color: var(--color-nav-accent);
 		transition: transform 180ms ease-out;
 	}
 
@@ -147,12 +130,15 @@ const withBase = (href: string) => (href === '/' ? baseUrl : `${baseUrl}${href.r
 		font-family: var(--font-sans);
 		font-size: 0.88rem;
 		line-height: 1.45;
-		color: var(--color-muted);
+		color: var(--color-nav-muted);
 	}
 
 	.next-index__item:hover,
 	.next-index__item:focus-visible {
-		background: rgba(26, 95, 180, 0.025);
+		transform: translateY(-2px);
+		border-color: var(--color-nav-border-hover);
+		background: var(--color-nav-surface-hover);
+		box-shadow: 0 12px 28px rgba(0, 0, 0, 0.16);
 		outline: none;
 	}
 
@@ -164,14 +150,14 @@ const withBase = (href: string) => (href === '/' ? baseUrl : `${baseUrl}${href.r
 	.next-index__item:hover .next-index__title,
 	.next-index__item:focus-visible .next-index__title {
 		text-decoration: underline;
-		text-decoration-color: var(--color-accent);
+		text-decoration-color: var(--color-nav-accent);
 		text-underline-offset: 0.25em;
 		text-decoration-thickness: 1px;
 	}
 
 	.next-index__item:focus-visible {
-		outline: 2px solid var(--color-accent);
-		outline-offset: -2px;
+		outline: 2px solid var(--color-nav-accent);
+		outline-offset: 4px;
 	}
 
 	@media (max-width: 900px) {
@@ -179,19 +165,11 @@ const withBase = (href: string) => (href === '/' ? baseUrl : `${baseUrl}${href.r
 			grid-template-columns: repeat(2, 1fr);
 		}
 
-		.next-index__item:nth-child(3) {
-			border-left: 0;
-			border-top: 1px solid var(--color-index-border);
-		}
-
-		.next-index__item:nth-child(4) {
-			border-top: 1px solid var(--color-index-border);
-		}
 	}
 
 	@media (max-width: 640px) {
-		.next-index {
-			margin-top: 2rem;
+		.nav-stripe {
+			padding-block: 2.5rem;
 		}
 
 		.next-index__grid {
@@ -200,17 +178,6 @@ const withBase = (href: string) => (href === '/' ? baseUrl : `${baseUrl}${href.r
 
 		.next-index__item {
 			min-height: auto;
-			padding: 1.25rem;
-		}
-
-		.next-index__item + .next-index__item {
-			border-left: 0;
-			border-top: 1px solid var(--color-index-border);
-		}
-
-		.next-index__item:nth-child(3),
-		.next-index__item:nth-child(4) {
-			border-top: 1px solid var(--color-index-border);
 		}
 
 		.next-index__description {

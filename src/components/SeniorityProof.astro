@@ -1,68 +1,70 @@
-<section class="seniority-proof" aria-label="Professional proof points">
-	<div class="seniority-proof__grid">
-		<div class="seniority-proof__item">
-			<span class="seniority-proof__label">10+ years</span>
-			<span class="seniority-proof__text">Automotive embedded systems</span>
-		</div>
+<section class="proof-stripe" aria-label="Professional proof points">
+	<div class="page-container">
+		<div class="seniority-proof__grid">
+			<div class="seniority-proof__item">
+				<span class="seniority-proof__label">10+ years</span>
+				<span class="seniority-proof__text">Automotive embedded systems</span>
+			</div>
 
-		<div class="seniority-proof__item">
-			<span class="seniority-proof__label">Technical leadership</span>
-			<span class="seniority-proof__text">Model-based software teams</span>
-		</div>
+			<div class="seniority-proof__item">
+				<span class="seniority-proof__label">Technical leadership</span>
+				<span class="seniority-proof__text">Model-based software teams</span>
+			</div>
 
-		<div class="seniority-proof__item">
-			<span class="seniority-proof__label">PhD-trained</span>
-			<span class="seniority-proof__text">Real-time control and diagnostics</span>
-		</div>
+			<div class="seniority-proof__item">
+				<span class="seniority-proof__label">PhD-trained</span>
+				<span class="seniority-proof__text">Real-time control and diagnostics</span>
+			</div>
 
-		<div class="seniority-proof__item">
-			<span class="seniority-proof__label">Production context</span>
-			<span class="seniority-proof__text">EV, powertrain, safety, and validation</span>
+			<div class="seniority-proof__item">
+				<span class="seniority-proof__label">Production context</span>
+				<span class="seniority-proof__text">EV, powertrain, safety, and validation</span>
+			</div>
 		</div>
 	</div>
 </section>
 
 <style>
-	.seniority-proof {
-		position: relative;
-		z-index: 1;
-		margin-top: clamp(2.5rem, 5vw, 3.75rem);
+	.proof-stripe {
 		border-top: 1px solid var(--color-border-soft);
-		border-bottom: 1px solid var(--color-border-soft);
+		border-bottom: 1px solid var(--color-proof-border);
+		background: linear-gradient(180deg, #ffffff 0%, var(--color-proof-bg) 100%);
+		padding-block: clamp(1.15rem, 2.6vw, 1.7rem);
 	}
 
 	.seniority-proof__grid {
 		display: grid;
 		grid-template-columns: repeat(4, 1fr);
+		gap: 0;
 	}
 
 	.seniority-proof__item {
-		min-height: 48px;
-		padding: 0.65rem 1rem 0.65rem 0;
+		min-height: 54px;
+		padding: 0.25rem 1.15rem 0.25rem 0;
 	}
 
 	.seniority-proof__item + .seniority-proof__item {
-		padding-left: 1rem;
-		border-left: 1px solid var(--color-border-soft);
+		padding-left: 1.15rem;
+		border-left: 1px solid var(--color-proof-border);
 	}
 
 	.seniority-proof__label {
 		display: block;
-		margin-bottom: 0.16rem;
+		margin-bottom: 0.2rem;
 		font-family: var(--font-mono);
-		font-size: 0.6rem;
+		font-size: 0.64rem;
 		font-weight: 600;
 		letter-spacing: 0.06em;
 		text-transform: uppercase;
-		color: var(--color-soft);
+		color: var(--color-proof-label);
 	}
 
 	.seniority-proof__text {
 		display: block;
 		font-family: var(--font-sans);
-		font-size: 0.76rem;
-		line-height: 1.3;
-		color: var(--color-muted);
+		font-size: 0.82rem;
+		line-height: 1.35;
+		color: var(--color-proof-text);
 	}
 
 	@media (max-width: 900px) {
@@ -71,19 +73,23 @@
 		}
 
 		.seniority-proof__item:nth-child(3) {
-			border-left: 0;
-			border-top: 1px solid var(--color-border-soft);
 			padding-left: 0;
+			border-left: 0;
+			border-top: 1px solid var(--color-proof-border);
+			margin-top: 0.65rem;
+			padding-top: 0.9rem;
 		}
 
 		.seniority-proof__item:nth-child(4) {
-			border-top: 1px solid var(--color-border-soft);
+			border-top: 1px solid var(--color-proof-border);
+			margin-top: 0.65rem;
+			padding-top: 0.9rem;
 		}
 	}
 
 	@media (max-width: 640px) {
-		.seniority-proof {
-			margin-top: 2rem;
+		.proof-stripe {
+			padding-block: 1.4rem;
 		}
 
 		.seniority-proof__grid {
@@ -92,18 +98,35 @@
 
 		.seniority-proof__item {
 			min-height: auto;
-			padding: 0.65rem 0;
+			padding: 0.75rem 0;
+		}
+
+		.seniority-proof__item:first-child {
+			padding-top: 0;
+		}
+
+		.seniority-proof__item:last-child {
+			padding-bottom: 0;
 		}
 
 		.seniority-proof__item + .seniority-proof__item {
-			border-left: 0;
-			border-top: 1px solid var(--color-border-soft);
 			padding-left: 0;
+			border-left: 0;
+			border-top: 1px solid var(--color-proof-border);
+			margin-top: 0;
 		}
 
 		.seniority-proof__item:nth-child(3),
 		.seniority-proof__item:nth-child(4) {
-			border-top: 1px solid var(--color-border-soft);
+			padding-left: 0;
+			border-left: 0;
+			border-top: 1px solid var(--color-proof-border);
+			margin-top: 0;
+			padding-top: 0.75rem;
+		}
+
+		.seniority-proof__item:last-child {
+			padding-bottom: 0;
 		}
 	}
 </style>
