@@ -12,21 +12,49 @@ const baseUrl = import.meta.env.BASE_URL;
 	<section class="section about-intro">
 		<div class="narrow">
 			<p class="eyebrow">About</p>
-			<h1>Embedded control systems for physical machines</h1>
+			<h1>Embedded control systems architect for physical machines</h1>
 			<p class="lead">
-				I design and lead production-ready embedded control systems, connecting system intent
-				with software, control logic, diagnostics, actuation, safety expectations, and delivery.
+				I lead the design of production-ready embedded control systems for vehicles and
+				smart machines, connecting sensing, signal processing, embedded software, control
+				algorithms, diagnostics, actuation, safety expectations, and delivery.
+			</p>
+			<p class="lead secondary">
+				My work sits where control engineering meets real-time software: making complex
+				physical systems behave reliably under production, validation, and industrialization
+				constraints.
 			</p>
 		</div>
 	</section>
 
 	<section class="section">
+		<div class="container proof-grid" aria-label="Professional proof points">
+			<div>
+				<span>10+ years</span>
+				<p>Automotive embedded control systems across electric, hybrid, and combustion-based platforms.</p>
+			</div>
+			<div>
+				<span>Technical leadership</span>
+				<p>Team guidance, mentoring, task alignment, and cross-functional delivery in large engineering environments.</p>
+			</div>
+			<div>
+				<span>Production context</span>
+				<p>Model-based software, diagnostics, validation, CI/CD, safety-related development, and integration.</p>
+			</div>
+			<div>
+				<span>Research depth</span>
+				<p>PhD-trained engineer with patents and scientific publications in real-time control and diagnostics.</p>
+			</div>
+		</div>
+	</section>
+
+	<section class="section about-detail">
 		<div class="container about-grid">
 			<article>
 				<h2>Professional focus</h2>
 				<p>
-					Embedded control systems architecture for vehicles and smart machines, with emphasis
-					on real-time behavior, production reliability, and clear ownership across disciplines.
+					Embedded control systems architecture for vehicles and smart machines, with emphasis on
+					real-time behavior, robust software structure, clear ownership boundaries, and reliable
+					operation in production environments.
 				</p>
 			</article>
 			<article>
@@ -34,21 +62,24 @@ const baseUrl = import.meta.env.BASE_URL;
 				<p>
 					Sensing, signal processing, embedded software, control algorithms, diagnostics,
 					actuation, safety-related development, A-SPICE expectations, and AUTOSAR-oriented
-					integration.
+					integration. The common thread is turning physical system intent into software that
+					can be verified, maintained, and trusted.
 				</p>
 			</article>
 			<article>
 				<h2>Leadership and delivery</h2>
 				<p>
-					I help teams move from requirements and concepts toward integrated software that can
-					be verified, maintained, delivered, and trusted in production environments.
+					I help teams move from requirements and concepts toward integrated software by aligning
+					controls, software, systems, diagnostics, validation, suppliers, and delivery stakeholders.
+					My leadership style is technical, practical, and centered on reducing ambiguity.
 				</p>
 			</article>
 			<article>
 				<h2>Representative experience</h2>
 				<p>
-					Automotive OEM and Tier 1 contexts across embedded control architecture, diagnostics,
-					safety-related work, supplier interaction, and cross-functional delivery.
+					Automotive OEM and Tier 1 contexts across electric powertrain control, thermal and
+					battery-related functions, autonomous machine propulsion, diagnostics, embedded software
+					implementation, and system-level validation.
 				</p>
 			</article>
 			<article>
@@ -56,14 +87,31 @@ const baseUrl = import.meta.env.BASE_URL;
 				<p>
 					PhD training in electrical engineering supports rigorous thinking in modeling,
 					analysis, and control. Research is secondary evidence for industrial technical
-					leadership.
+					leadership: it strengthens how I reason about observers, estimators, stochastic
+					behavior, control limits, and real-time implementation tradeoffs.
+				</p>
+			</article>
+			<article>
+				<h2>Professional approach</h2>
+				<p>
+					I value reliability over unnecessary complexity. Advanced algorithms only matter when
+					they respect hardware constraints, safety expectations, calibration realities, validation
+					evidence, and the structured discipline required for production software.
+				</p>
+			</article>
+			<article>
+				<h2>Role fit</h2>
+				<p>
+					Best fit: embedded control systems architecture, automotive control software,
+					safety-related embedded development, diagnostics, physical system control, model-based
+					development, or technical leadership for complex engineering delivery.
 				</p>
 			</article>
 			<article>
 				<h2>Contact path</h2>
 				<p>
-					For embedded control architecture, automotive control software, or technical
-					leadership discussions, use the contact page.
+					For embedded control architecture, automotive control software, physical system control,
+					or technical leadership discussions, use the contact page.
 				</p>
 				<a href={`${baseUrl}contact/`}>Contact</a>
 			</article>
@@ -80,6 +128,46 @@ const baseUrl = import.meta.env.BASE_URL;
 <style>
 	.about-intro h1 {
 		margin: 0.45rem 0 0.75rem;
+	}
+
+	.about-intro .secondary {
+		margin-top: 1rem;
+	}
+
+	.proof-grid {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: 1px;
+		border-top: 1px solid var(--color-border);
+		border-bottom: 1px solid var(--color-border);
+		background: var(--color-border);
+	}
+
+	.proof-grid div {
+		display: grid;
+		gap: 0.45rem;
+		background: var(--color-page);
+		padding: 1rem 0;
+	}
+
+	.proof-grid span {
+		color: var(--color-accent);
+		font-family: var(--font-mono);
+		font-size: 0.72rem;
+		font-weight: 600;
+		letter-spacing: 0.06em;
+		line-height: 1.25;
+		text-transform: uppercase;
+	}
+
+	.proof-grid p {
+		color: var(--color-muted);
+		font-size: 0.92rem;
+		line-height: 1.5;
+	}
+
+	.about-detail {
+		padding-top: 0;
 	}
 
 	.about-grid {
@@ -106,8 +194,22 @@ const baseUrl = import.meta.env.BASE_URL;
 	}
 
 	@media (min-width: 760px) {
+		.proof-grid {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+
+		.proof-grid div {
+			padding: 1rem;
+		}
+
 		.about-grid {
 			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+	}
+
+	@media (min-width: 980px) {
+		.proof-grid {
+			grid-template-columns: repeat(4, minmax(0, 1fr));
 		}
 	}
 </style>
