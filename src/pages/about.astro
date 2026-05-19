@@ -10,7 +10,7 @@ const baseUrl = import.meta.env.BASE_URL;
 	description="About Carlos Jorques, an embedded control systems architect focused on physical systems, automotive software, diagnostics, and technical delivery."
 >
 	<section class="section about-intro">
-		<div class="narrow">
+		<div class="about-column">
 			<p class="eyebrow">About</p>
 			<h1>Embedded control systems architect for physical machines</h1>
 			<p class="lead">
@@ -26,106 +26,176 @@ const baseUrl = import.meta.env.BASE_URL;
 		</div>
 	</section>
 
-	<section class="section">
-		<div class="container proof-grid" aria-label="Professional proof points">
-			<div>
-				<span>10+ years</span>
-				<p>Automotive embedded control systems across electric, hybrid, and combustion-based platforms.</p>
-			</div>
-			<div>
-				<span>Technical leadership</span>
-				<p>Team guidance, mentoring, task alignment, and cross-functional delivery in large engineering environments.</p>
-			</div>
-			<div>
-				<span>Production context</span>
-				<p>Model-based software, diagnostics, validation, CI/CD, safety-related development, and integration.</p>
-			</div>
-			<div>
-				<span>Research depth</span>
-				<p>PhD-trained engineer with patents and scientific publications in real-time control and diagnostics.</p>
+	<section class="section about-proof-section">
+		<div class="about-column">
+			<div class="proof-list" aria-label="Professional proof points">
+				<div>
+					<span>10+ years</span>
+					<p>Automotive embedded control systems across electric, hybrid, and combustion-based platforms.</p>
+				</div>
+				<div>
+					<span>Technical leadership</span>
+					<p>Team guidance, mentoring, task alignment, and cross-functional delivery in large engineering environments.</p>
+				</div>
+				<div>
+					<span>Production context</span>
+					<p>Model-based software, diagnostics, validation, CI/CD, safety-related development, and integration.</p>
+				</div>
+				<div>
+					<span>Research depth</span>
+					<p>PhD-trained engineer with patents and scientific publications in real-time control and diagnostics.</p>
+				</div>
 			</div>
 		</div>
 	</section>
 
 	<section class="section about-detail">
-		<div class="container about-grid">
-			<article>
-				<h2>Professional focus</h2>
-				<p>
-					Embedded control systems architecture for vehicles and smart machines, with emphasis on
-					real-time behavior, robust software structure, clear ownership boundaries, and reliable
-					operation in production environments.
-				</p>
-			</article>
-			<article>
-				<h2>Technical scope</h2>
-				<p>
-					Sensing, signal processing, embedded software, control algorithms, diagnostics,
-					actuation, safety-related development, A-SPICE expectations, and AUTOSAR-oriented
-					integration. The common thread is turning physical system intent into software that
-					can be verified, maintained, and trusted.
-				</p>
-			</article>
-			<article>
-				<h2>Leadership and delivery</h2>
-				<p>
-					I help teams move from requirements and concepts toward integrated software by aligning
-					controls, software, systems, diagnostics, validation, suppliers, and delivery stakeholders.
-					My leadership style is technical, practical, and centered on reducing ambiguity.
-				</p>
-			</article>
-			<article>
-				<h2>Representative experience</h2>
-				<p>
-					Automotive OEM and Tier 1 contexts across electric powertrain control, thermal and
-					battery-related functions, autonomous machine propulsion, diagnostics, embedded software
-					implementation, and system-level validation.
-				</p>
-			</article>
-			<article>
-				<h2>Research foundation</h2>
-				<p>
-					PhD training in electrical engineering supports rigorous thinking in modeling,
-					analysis, and control. Research is secondary evidence for industrial technical
-					leadership: it strengthens how I reason about observers, estimators, stochastic
-					behavior, control limits, and real-time implementation tradeoffs.
-				</p>
-			</article>
-			<article>
-				<h2>Professional approach</h2>
-				<p>
-					I value reliability over unnecessary complexity. Advanced algorithms only matter when
-					they respect hardware constraints, safety expectations, calibration realities, validation
-					evidence, and the structured discipline required for production software.
-				</p>
-			</article>
-			<article>
-				<h2>Role fit</h2>
-				<p>
-					Best fit: embedded control systems architecture, automotive control software,
-					safety-related embedded development, diagnostics, physical system control, model-based
-					development, or technical leadership for complex engineering delivery.
-				</p>
-			</article>
-			<article>
-				<h2>Contact path</h2>
-				<p>
-					For embedded control architecture, automotive control software, physical system control,
-					or technical leadership discussions, use the contact page.
-				</p>
+		<div class="about-column">
+			<section class="about-block" aria-labelledby="capabilities-title">
+				<p class="eyebrow">Core competences</p>
+				<h2 id="capabilities-title">Where I create value</h2>
+				<div class="stacked-list">
+					<article>
+						<span>Leadership</span>
+						<h3>Scaling complex technical delivery</h3>
+						<p>
+							I bridge strategic intent and engineering execution by aligning controls, software,
+							systems, diagnostics, validation, suppliers, and delivery stakeholders. My leadership
+							style is technical, practical, and centered on reducing ambiguity for teams building
+							safety-related embedded software.
+						</p>
+					</article>
+					<article>
+						<span>Control</span>
+						<h3>Advanced system optimization</h3>
+						<p>
+							I work with nonlinear, multi-domain physical systems where control decisions depend on
+							sensing, signal processing, observers, estimators, diagnostics, calibration constraints,
+							and actuation limits. The goal is not only algorithmic performance, but behavior that
+							remains reliable on real machines.
+						</p>
+					</article>
+					<article>
+						<span>Embedded software</span>
+						<h3>Production-ready reliability</h3>
+						<p>
+							I turn control intent into embedded software using model-based development, C/C++,
+							real-time implementation discipline, CI/CD, integration testing, and validation across
+							MIL, SIL, HIL, test bench, and vehicle contexts.
+						</p>
+					</article>
+					<article>
+						<span>Safety and process</span>
+						<h3>Compliance and risk mitigation</h3>
+						<p>
+							I work in automotive development environments shaped by ISO 26262, A-SPICE,
+							AUTOSAR-oriented integration, requirements traceability, diagnostics, fault handling,
+							and robust verification expectations.
+						</p>
+					</article>
+				</div>
+			</section>
+
+			<section class="about-block" aria-labelledby="experience-title">
+				<p class="eyebrow">Selected experience</p>
+				<h2 id="experience-title">Public-safe case themes</h2>
+				<div class="case-log-list">
+					<article>
+						<span>01</span>
+						<h3>Heavy-duty electrification</h3>
+						<p>
+							Embedded control work for electric vehicle thermal and battery-related functions,
+							including coordination of sensing, control logic, diagnostics, auxiliaries, validation,
+							and production software constraints.
+						</p>
+						<ul class="tag-list">
+							<li class="tag">Thermal management</li>
+							<li class="tag">Battery systems</li>
+							<li class="tag">Simulink</li>
+							<li class="tag">C/C++</li>
+							<li class="tag">AUTOSAR-oriented</li>
+						</ul>
+					</article>
+					<article>
+						<span>02</span>
+						<h3>Autonomous machine propulsion control</h3>
+						<p>
+							Control and software leadership for propulsion behavior in an autonomous electric
+							machine context, connecting torque allocation, redundant actuation, diagnostics,
+							safety-related requirements, and system-level testing.
+						</p>
+						<ul class="tag-list">
+							<li class="tag">Motion control</li>
+							<li class="tag">Diagnostics</li>
+							<li class="tag">ISO 26262</li>
+							<li class="tag">SIL / HIL</li>
+							<li class="tag">Field validation</li>
+						</ul>
+					</article>
+					<article>
+						<span>03</span>
+						<h3>Real-time control and diagnostics research</h3>
+						<p>
+							Industrial PhD work on model-based real-time diagnostics and closed-loop control for
+							combustion systems, with research outcomes that support my industrial approach to
+							observers, estimators, stochastic behavior, and implementation tradeoffs.
+						</p>
+						<ul class="tag-list">
+							<li class="tag">PhD research</li>
+							<li class="tag">Signal processing</li>
+							<li class="tag">Observers</li>
+							<li class="tag">Patents</li>
+							<li class="tag">Publications</li>
+						</ul>
+					</article>
+				</div>
+			</section>
+
+			<section class="about-block" aria-labelledby="approach-title">
+				<p class="eyebrow">Professional approach</p>
+				<h2 id="approach-title">Robust industrialization over unnecessary complexity</h2>
+				<div class="prose">
+					<p>
+						The most sophisticated control system becomes a liability if it ignores hardware
+						constraints, safety expectations, calibration realities, validation evidence, or the
+						maintenance needs of production software. My work is defined by reliability over
+						unnecessary complexity.
+					</p>
+					<p>
+						I connect the analytical depth of control theory with the discipline needed for industrial
+						software: deterministic behavior, explicit interfaces, traceable requirements, diagnostic
+						coverage, integration constraints, and verification paths that teams can execute.
+					</p>
+				</div>
+			</section>
+
+			<section class="about-block identity-block" aria-labelledby="identity-title">
+				<p class="eyebrow">Role fit</p>
+				<h2 id="identity-title">Best-fit opportunities</h2>
+				<ul>
+					<li>Embedded control systems architecture for vehicles and smart machines.</li>
+					<li>Automotive control software, diagnostics, and model-based development.</li>
+					<li>Safety-related embedded development in ISO 26262 and A-SPICE-oriented environments.</li>
+					<li>Technical leadership for cross-functional delivery across controls, software, systems, validation, and suppliers.</li>
+				</ul>
 				<a href={`${baseUrl}contact/`}>Contact</a>
-			</article>
+			</section>
 		</div>
 	</section>
 
 	<section class="section">
-		<div class="container">
+		<div class="about-column about-contact">
 			<ContactCTA />
 		</div>
 	</section>
 </Layout>
 
 <style>
+	.about-column {
+		width: min(100% - 48px, var(--content-narrow));
+		margin-inline: auto;
+	}
+
 	.about-intro h1 {
 		margin: 0.45rem 0 0.75rem;
 	}
@@ -134,7 +204,11 @@ const baseUrl = import.meta.env.BASE_URL;
 		margin-top: 1rem;
 	}
 
-	.proof-grid {
+	.about-proof-section {
+		padding-top: 0;
+	}
+
+	.proof-list {
 		display: grid;
 		grid-template-columns: 1fr;
 		gap: 1px;
@@ -143,14 +217,16 @@ const baseUrl = import.meta.env.BASE_URL;
 		background: var(--color-border);
 	}
 
-	.proof-grid div {
+	.proof-list div {
 		display: grid;
 		gap: 0.45rem;
 		background: var(--color-page);
 		padding: 1rem 0;
 	}
 
-	.proof-grid span {
+	.proof-list span,
+	.stacked-list span,
+	.case-log-list span {
 		color: var(--color-accent);
 		font-family: var(--font-mono);
 		font-size: 0.72rem;
@@ -160,7 +236,7 @@ const baseUrl = import.meta.env.BASE_URL;
 		text-transform: uppercase;
 	}
 
-	.proof-grid p {
+	.proof-list p {
 		color: var(--color-muted);
 		font-size: 0.92rem;
 		line-height: 1.5;
@@ -170,46 +246,75 @@ const baseUrl = import.meta.env.BASE_URL;
 		padding-top: 0;
 	}
 
-	.about-grid {
+	.about-block {
 		display: grid;
-		grid-template-columns: 1fr;
 		gap: 1rem;
 	}
 
-	.about-grid article {
+	.about-block + .about-block {
+		margin-top: clamp(3rem, 6vw, 4.5rem);
+	}
+
+	.about-block h2 {
+		font-size: clamp(1.6rem, 3vw, 2.35rem);
+		line-height: 1.12;
+	}
+
+	.stacked-list,
+	.case-log-list {
+		display: grid;
+		gap: 0;
+		margin-top: 0.5rem;
+	}
+
+	.stacked-list article,
+	.case-log-list article,
+	.identity-block {
 		border-top: 1px solid var(--color-border);
 		padding-top: 1rem;
 	}
 
-	.about-grid h2 {
+	.stacked-list article,
+	.case-log-list article {
+		display: grid;
+		gap: 0.45rem;
+		padding-bottom: 1.5rem;
+	}
+
+	.stacked-list h3,
+	.case-log-list h3 {
 		margin-bottom: 0.45rem;
 		font-size: 1.15rem;
 	}
 
-	.about-grid a {
+	.stacked-list p,
+	.case-log-list p,
+	.identity-block li {
+		color: var(--color-muted);
+	}
+
+	.case-log-list .tag-list {
+		margin-top: 0.35rem;
+	}
+
+	.identity-block ul {
+		margin: 0;
+	}
+
+	.identity-block a {
 		display: inline-block;
 		margin-top: 0.65rem;
 		color: var(--color-accent);
 		text-decoration: none;
 	}
 
-	@media (min-width: 760px) {
-		.proof-grid {
-			grid-template-columns: repeat(2, minmax(0, 1fr));
-		}
-
-		.proof-grid div {
-			padding: 1rem;
-		}
-
-		.about-grid {
-			grid-template-columns: repeat(2, minmax(0, 1fr));
-		}
+	.about-contact :global(.contact-cta) {
+		grid-template-columns: 1fr;
 	}
 
-	@media (min-width: 980px) {
-		.proof-grid {
-			grid-template-columns: repeat(4, minmax(0, 1fr));
+	@media (min-width: 760px) {
+		.proof-list div {
+			padding: 1rem 0;
 		}
 	}
 </style>
