@@ -14,8 +14,8 @@ const cvUrl = 'REPLACE_WITH_CV_URL';
 				<h1 class="hero-name">Carlos Jorques.</h1>
 
 				<p class="hero-statement">
-					I work on control design for complex intelligent systems, where control engineering,
-					embedded software, and reliable machines meet.
+					I work on control design for intelligent machines, where control engineering and
+					embedded software meet.
 				</p>
 
 				<div class="hero-links" aria-label="Primary contact links">
@@ -31,12 +31,9 @@ const cvUrl = 'REPLACE_WITH_CV_URL';
 <style>
 	.hero-area {
 		position: relative;
-		display: flex;
-		align-items: center;
 		overflow: hidden;
-		min-height: calc(100svh - var(--site-header-height) - var(--hero-content-proof-height));
 		background: var(--color-hero);
-		padding-block: clamp(3.5rem, 6vw, 5.75rem) clamp(2.25rem, 4vw, 3.5rem);
+		padding-block: clamp(4.5rem, 8vw, 7.5rem) clamp(3rem, 5vw, 4.5rem);
 	}
 
 	.hero-area .page-container {
@@ -52,7 +49,7 @@ const cvUrl = 'REPLACE_WITH_CV_URL';
 		width: min(42vw, 520px);
 		height: 320px;
 		pointer-events: none;
-		opacity: 0.28;
+		opacity: 0.18;
 		background-image:
 			radial-gradient(circle, rgba(26, 95, 180, 0.22) 1px, transparent 1.5px),
 			radial-gradient(circle, rgba(17, 19, 21, 0.14) 1px, transparent 1.5px),
@@ -97,18 +94,18 @@ const cvUrl = 'REPLACE_WITH_CV_URL';
 		font-size: clamp(2.8rem, 6vw, 5.8rem);
 		line-height: 0.95;
 		font-weight: 700;
-		letter-spacing: -0.06em;
+		letter-spacing: 0;
 		color: var(--color-text);
 	}
 
 	.hero-statement {
-		max-width: 880px;
+		max-width: 760px;
 		margin: 1.35rem 0 0;
 		font-family: var(--font-sans);
-		font-size: clamp(1.45rem, 2.55vw, 2.45rem);
-		line-height: 1.16;
+		font-size: clamp(1.4rem, 2.4vw, 2.25rem);
+		line-height: 1.18;
 		font-weight: 400;
-		letter-spacing: -0.04em;
+		letter-spacing: 0;
 		color: var(--color-text);
 	}
 
@@ -152,7 +149,6 @@ const cvUrl = 'REPLACE_WITH_CV_URL';
 
 	@media (max-width: 640px) {
 		.hero-area {
-			min-height: auto;
 			padding-block: 3.5rem 2.5rem;
 		}
 

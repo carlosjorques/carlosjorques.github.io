@@ -8,36 +8,36 @@ const withBase = (href: string) => (href === '/' ? baseUrl : `${baseUrl}${href.r
 		<p id="next-index-title" class="section-label">Start here</p>
 
 		<div class="next-index__grid">
-			<a href={withBase('/work')} class="next-index__item">
-				<span class="next-index__number">[01]</span>
-				<span class="next-index__title">
-					<span>Work</span>
-					<span class="next-index__arrow" aria-hidden="true">→</span>
-				</span>
-				<span class="next-index__description">
-					Embedded control, diagnostics, safety, delivery.
-				</span>
-			</a>
-
 			<a href={withBase('/writing')} class="next-index__item">
-				<span class="next-index__number">[02]</span>
+				<span class="next-index__number">[01]</span>
 				<span class="next-index__title">
 					<span>Writing</span>
 					<span class="next-index__arrow" aria-hidden="true">→</span>
 				</span>
 				<span class="next-index__description">
-					Control architecture and technical judgment.
+					Essays and notes on control systems, embedded software, diagnostics, and physical behavior.
 				</span>
 			</a>
 
 			<a href={withBase('/about')} class="next-index__item">
-				<span class="next-index__number">[03]</span>
+				<span class="next-index__number">[02]</span>
 				<span class="next-index__title">
 					<span>About</span>
 					<span class="next-index__arrow" aria-hidden="true">→</span>
 				</span>
 				<span class="next-index__description">
-					Background and research-to-industry path.
+					Professional background, education, motivation, and technical leadership.
+				</span>
+			</a>
+
+			<a href={withBase('/work')} class="next-index__item">
+				<span class="next-index__number">[03]</span>
+				<span class="next-index__title">
+					<span>Work</span>
+					<span class="next-index__arrow" aria-hidden="true">→</span>
+				</span>
+				<span class="next-index__description">
+					Selected technical work, research, patents, publications, and engineering contributions.
 				</span>
 			</a>
 
@@ -48,7 +48,7 @@ const withBase = (href: string) => (href === '/' ? baseUrl : `${baseUrl}${href.r
 					<span class="next-index__arrow" aria-hidden="true">→</span>
 				</span>
 				<span class="next-index__description">
-					Roles, leadership discussions, collaboration.
+					Email, LinkedIn, and CV for hiring or collaboration.
 				</span>
 			</a>
 		</div>
@@ -108,8 +108,8 @@ const withBase = (href: string) => (href === '/' ? baseUrl : `${baseUrl}${href.r
 		justify-content: space-between;
 		gap: 1rem;
 		font-family: var(--font-sans);
-		font-size: 1.08rem;
-		font-weight: 700;
+		font-size: 1rem;
+		font-weight: 600;
 		color: var(--color-card-text);
 	}
 
@@ -124,10 +124,9 @@ const withBase = (href: string) => (href === '/' ? baseUrl : `${baseUrl}${href.r
 		margin-top: 0.65rem;
 		max-width: 220px;
 		font-family: var(--font-sans);
-		font-size: 0.92rem;
-		font-weight: 500;
-		line-height: 1.4;
-		color: var(--color-text);
+		font-size: 0.88rem;
+		line-height: 1.45;
+		color: var(--color-card-muted);
 	}
 
 	.next-index__item:hover,
