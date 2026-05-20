@@ -8,22 +8,22 @@ const proofPoints = [
 	{
 		label: 'Experience',
 		value: '10+ years',
-		description: 'Automotive embedded systems and production-oriented engineering environments.',
+		description: 'Automotive embedded control across Scania, Mahle, Alten, and client delivery environments.',
 	},
 	{
 		label: 'Role level',
 		value: 'Technical leadership',
-		description: 'Direction across model-based control, embedded software, testing, and delivery.',
+		description: 'Direction across model-based control, embedded software, validation, and delivery teams.',
 	},
 	{
 		label: 'Scope',
-		value: 'Controls to validation',
-		description: 'Embedded controls, diagnostics, validation, safety-related constraints, and integration.',
+		value: 'System-level delivery',
+		description: 'Controls, diagnostics, safety-related constraints, integration, and production readiness.',
 	},
 	{
 		label: 'Foundation',
-		value: 'PhD-level rigor',
-		description: 'Electrical engineering, real-time control, diagnostics, modeling, and evidence-based reasoning.',
+		value: 'Research output',
+		description: 'PhD studies with peer-reviewed publications and patents in real-time control and diagnostics.',
 	},
 ];
 
@@ -88,7 +88,7 @@ const projectChallenges = [
 	{
 		title: 'Electrified powertrain and energy systems',
 		description:
-			'Control and software challenges where efficiency, thermal behavior, energy use, reliability, and real-time constraints have to be balanced in production-oriented environments.',
+			'Electric truck thermal management, battery systems, charger coordination, and energy-control challenges where efficiency, reliability, and real-time constraints meet.',
 	},
 	{
 		title: 'Diagnostics and reliable operation',
@@ -98,7 +98,12 @@ const projectChallenges = [
 	{
 		title: 'Autonomous and intelligent machines',
 		description:
-			'Machines that sense, plan, respond, and adapt to their environment, and the architectures and teams required to make that behavior dependable.',
+			'Autonomous electric hauler propulsion and machine-control work where sensing, torque control, safety monitoring, and field behavior have to stay aligned.',
+	},
+	{
+		title: 'Industry delivery constraints',
+		description:
+			'Production programs shaped by ISO 26262, A-SPICE, AUTOSAR-oriented development, CI/CD, MIL/SIL/HIL evidence, supplier interfaces, and vehicle-level validation.',
 	},
 	{
 		title: 'From intent to delivery',
@@ -120,7 +125,7 @@ const evidenceLinks = [
 		description:
 			'Selected public-safe evidence of projects, engineering contributions, publications, patents, and research context.',
 		href: withBase('/work'),
-		linkText: 'View selected work',
+		linkText: 'View selected work, publications, and patents',
 	},
 	{
 		title: 'CV and contact',
@@ -141,19 +146,18 @@ const evidenceLinks = [
 			<p class="eyebrow">About</p>
 			<h1>Hi, I’m Carlos.</h1>
 			<p class="about-hero__lead">
-				I develop control algorithms and embedded software that help complex physical
-				systems behave intelligently, efficiently, and reliably in the real world.
+				I am driven by how complex machines sense, decide, act, and keep working reliably
+				when software decisions meet physical reality.
 			</p>
 			<p class="about-hero__body">
-				My work sits between control engineering, real-time software, diagnostics,
-				validation, and technical leadership. I am interested not only in how machines
-				sense, respond, and adapt, but also in how engineering teams turn advanced control
-				strategies into production-ready products that people can trust.
+				That has led me to a senior embedded control systems profile: designing control
+				algorithms and real-time software for vehicles and intelligent machines, while
+				connecting diagnostics, validation, safety-related constraints, actuation, and
+				technical delivery.
 			</p>
 			<p class="about-hero__body">
-				That work appears in different forms: electrified vehicles, powertrain and battery
-				systems, thermal management, autonomous machines, and safety-related development
-				environments where software decisions have physical consequences.
+			My work has contributed to engineering projects connected to Scania trucks, Volvo CE autonomous haulers, Mahle electric motors, and other vehicle systems.
+			These projects include electrified vehicles, powertrain and battery systems, thermal management, autonomous machines, and production programs where system behavior matters more than isolated software functions.
 			</p>
 			<div class="button-row" aria-label="About page primary links">
 				<a class="button primary" href={withBase('/work')}>View selected work</a>
@@ -212,6 +216,10 @@ const evidenceLinks = [
 					through research in real-time control and diagnostics. Today, I apply and extend
 					that thinking through systems, software, architectures, and teams building
 					reliable machines.
+				</p>
+				<p>
+					You can find my peer-reviewed work on in-cycle combustion control, virtual sensing, pilot-misfire detection, fuel-mass estimation, and FPGA implementation, supported by patent work in control and diagnostics.
+					They all seek the same goal: turn physical behavior observable, controllable, and useful.
 				</p>
 			</div>
 		</div>
