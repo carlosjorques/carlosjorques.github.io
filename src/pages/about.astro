@@ -6,75 +6,104 @@ const withBase = (href: string) => (href === '/' ? baseUrl : `${baseUrl}${href.r
 
 const proofPoints = [
 	{
-		label: 'Production experience',
+		label: 'Experience',
 		value: '10+ years',
 		description: 'Automotive embedded systems and production-oriented engineering environments.',
 	},
 	{
-		label: 'Engineering scope',
-		value: 'Embedded systems',
+		label: 'Role level',
+		value: 'Technical leadership',
+		description: 'Direction across model-based control, embedded software, testing, and delivery.',
+	},
+	{
+		label: 'Scope',
+		value: 'Controls to validation',
 		description: 'Embedded controls, diagnostics, validation, safety-related constraints, and integration.',
 	},
 	{
-		label: 'Technical leadership',
-		value: 'Model-based teams',
-		description: 'Technical direction across model-based control, embedded software, testing, and delivery.',
-	},
-	{
-		label: 'Analytical foundation',
+		label: 'Foundation',
 		value: 'PhD-level rigor',
-		description: 'Real-time control, diagnostics, modeling, and evidence-based reasoning.',
+		description: 'Electrical engineering, real-time control, diagnostics, modeling, and evidence-based reasoning.',
 	},
 ];
 
 const workPrinciples = [
 	{
-		title: 'Start from system behavior',
+		title: 'Start from behavior',
 		description:
-			'I connect target machine behavior — response, stability, fault handling, timing, and observability — with the software, diagnostics, and validation decisions needed to make that behavior reliable.',
+			'I begin with the behavior the system must achieve — response, stability, fault handling, timing, observability, and user value — before translating it into software and validation decisions.',
 	},
 	{
-		title: 'Make trade-offs explicit',
+		title: 'Reduce uncertainty deliberately',
 		description:
-			'I lead technical work by clarifying constraints, risks, assumptions, and decision criteria across controls, software, calibration, test evidence, and integration feedback.',
+			'I use models, experiments, simulation, and test evidence to turn open questions into clearer assumptions, constraints, risks, and decision criteria.',
 	},
 	{
-		title: 'Design for production reality',
+		title: 'Lead through clarity',
 		description:
-			'I treat diagnostics, safety-related constraints, testability, maintainability, and delivery quality as part of the architecture, not as late additions.',
+			'I help teams align around goals, trade-offs, ownership, quality, and delivery sequence so advanced control ideas can become production-ready systems.',
 	},
 ];
 
 const capabilityGroups = [
 	{
-		title: 'Controls architecture',
+		title: 'How should the system behave?',
+		area: 'Controls architecture',
 		description:
-			'Translating control intent, dynamic behavior, and system constraints into clear architecture decisions.',
+			'Defining control intent, dynamic behavior, constraints, and architecture decisions before implementation details dominate the discussion.',
 	},
 	{
-		title: 'Real-time embedded software',
+		title: 'How does the behavior become software?',
+		area: 'Real-time embedded software',
 		description:
-			'Shaping model-based implementation, generated code boundaries, interfaces, timing, and maintainability.',
+			'Shaping model-based implementation, generated code boundaries, interfaces, timing, and maintainable production software.',
 	},
 	{
-		title: 'Diagnostics and fault handling',
+		title: 'How does the system know when something is wrong?',
+		area: 'Diagnostics and fault handling',
 		description:
 			'Building observability, fault response, degradation behavior, and system confidence into systems that cannot afford to fail silently.',
 	},
 	{
-		title: 'Validation and production readiness',
+		title: 'How do we know it is ready?',
+		area: 'Validation and production readiness',
 		description:
 			'Connecting requirements, simulation, validation, integration feedback, and production deployment to reduce delivery risk.',
 	},
 	{
-		title: 'System integration',
+		title: 'How does it fit into the full machine?',
+		area: 'System integration',
 		description:
-			'Aligning sensing, actuation, calibration, software interfaces, and machine-level response.',
+			'Aligning sensing, actuation, calibration, software interfaces, and machine-level response across real operating conditions.',
 	},
 	{
-		title: 'Technical leadership',
+		title: 'How does the team move together?',
+		area: 'Technical leadership',
 		description:
 			'Creating clarity around trade-offs, ownership, quality, and delivery sequence so teams can move with autonomy and accountability.',
+	},
+];
+
+const projectChallenges = [
+	{
+		title: 'Electrified powertrain and energy systems',
+		description:
+			'Control and software challenges where efficiency, thermal behavior, energy use, reliability, and real-time constraints have to be balanced in production-oriented environments.',
+	},
+	{
+		title: 'Diagnostics and reliable operation',
+		description:
+			'Systems that need to detect, respond, degrade, and recover in understandable ways when faults or uncertainty affect physical behavior.',
+	},
+	{
+		title: 'Autonomous and intelligent machines',
+		description:
+			'Machines that sense, plan, respond, and adapt to their environment, and the architectures and teams required to make that behavior dependable.',
+	},
+	{
+		title: 'From intent to delivery',
+		description:
+			'Connecting intent, architecture, implementation, validation, and team execution so advanced ideas become production-ready systems.',
 	},
 ];
 
@@ -105,27 +134,26 @@ const evidenceLinks = [
 
 <Layout
 	title="About Carlos Jorques | Embedded Controls Architect"
-	description="About Carlos Jorques, an embedded controls architect and technical leader working across control engineering, real-time embedded software, diagnostics, safety, and reliable physical systems."
+	description="About Carlos Jorques, an embedded controls architect and technical leader developing control algorithms and real-time embedded software for reliable physical systems."
 >
 	<section class="about-hero">
 		<div class="page-container about-hero__inner">
 			<p class="eyebrow">About</p>
-			<h1>About Carlos Jorques</h1>
+			<h1>Hi, I’m Carlos.</h1>
 			<p class="about-hero__lead">
-				I help turn complex physical system behavior into embedded control software that
-				can be reasoned about, validated, and delivered in production.
+				I develop control algorithms and embedded software that help complex physical
+				systems behave intelligently, efficiently, and reliably in the real world.
 			</p>
 			<p class="about-hero__body">
-				I operate as a senior embedded controls architect and technical leader across
-				control architecture, real-time embedded software, diagnostics, validation,
-				and system integration. My work is usually shaped by safety-related constraints,
-				production delivery, and the need to make complex machines behave reliably outside
-				ideal conditions.
+				My work sits between control engineering, real-time software, diagnostics,
+				validation, and technical leadership. I am interested not only in how machines
+				sense, respond, and adapt, but also in how engineering teams turn advanced control
+				strategies into production-ready products that people can trust.
 			</p>
 			<p class="about-hero__body">
-				The roles that fit me best involve vehicles, electrified powertrains, battery and
-				thermal systems, smart machines, and teams that need clear technical judgment from
-				early ambiguity to production-ready decisions.
+				That work appears in different forms: electrified vehicles, powertrain and battery
+				systems, thermal management, autonomous machines, and safety-related development
+				environments where software decisions have physical consequences.
 			</p>
 			<div class="button-row" aria-label="About page primary links">
 				<a class="button primary" href={withBase('/work')}>View selected work</a>
@@ -138,7 +166,11 @@ const evidenceLinks = [
 	<section class="section about-proof" aria-labelledby="proof-title">
 		<div class="page-container">
 			<div class="section-intro section-intro--compact">
-				<h2 id="proof-title">Professional proof points</h2>
+				<h2 id="proof-title">What I bring to this work</h2>
+				<p>
+					The work combines production experience, technical leadership, systems scope,
+					and an academic foundation in control and diagnostics.
+				</p>
 			</div>
 			<div class="proof-grid">
 				{proofPoints.map((item) => (
@@ -155,30 +187,31 @@ const evidenceLinks = [
 	<section class="section about-split" aria-labelledby="coherence-title">
 		<div class="page-container about-split__grid">
 			<div class="split-heading">
-				<h2 id="coherence-title">The through-line</h2>
+				<h2 id="coherence-title">The question behind the work</h2>
 			</div>
 			<div class="about-copy">
 				<p>
-					What keeps me interested in this field is the gap between a useful model and a
-					reliable machine. Closing that gap requires theory, software discipline, test
-					evidence, and respect for physical behavior.
+					How do machines become intelligent enough to help us safely, efficiently, and
+					reliably? And how do we make sure that the systems we build actually improve the
+					way people live and work?
 				</p>
 				<p>
-					That interest started early with taking things apart to understand how they
-					worked. It eventually became a more disciplined question: how should machines
-					sense, respond, act, and adapt under real-world constraints?
+					My interest in that question started early with taking things apart to understand
+					how they worked. Over time, that curiosity became more disciplined: how should a
+					machine sense, respond, act, and adapt under real-world constraints?
 				</p>
 				<p>
-					My work connects control theory, real-time embedded implementation, and the
-					behavior of machines operating under physical constraints. Models, software,
-					diagnostics, and validation should not remain separate disciplines; they should
-					support the same system behavior.
+					Control engineering gave me a language for that problem. Electrical engineering
+					and doctoral research gave me tools to reason about dynamic systems, uncertainty,
+					diagnostics, modeling, and evidence. Production engineering then made the question
+					more concrete: how do those ideas survive timing limits, integration complexity,
+					safety-related constraints, validation evidence, and delivery pressure?
 				</p>
 				<p>
-					That path runs from research in real-time control and diagnostics
-					into production embedded systems, where decisions must survive timing
-					limits, integration complexity, safety-related constraints, test evidence,
-					and delivery pressure.
+					That is where I try to contribute. Earlier in my career, I pushed knowledge
+					through research in real-time control and diagnostics. Today, I apply and extend
+					that thinking through systems, software, architectures, and teams building
+					reliable machines.
 				</p>
 			</div>
 		</div>
@@ -188,7 +221,11 @@ const evidenceLinks = [
 		<div class="page-container about-split__grid">
 			<div class="split-heading">
 				<h2 id="work-style-title">How I work</h2>
-				<p>Engineering judgment across models, software, and machines.</p>
+				<p>
+					The practical challenge is rarely only the algorithm. It is turning uncertain
+					system behavior into decisions that can be implemented, tested, integrated, and
+					trusted.
+				</p>
 			</div>
 			<div class="work-style-list">
 				{workPrinciples.map((item) => (
@@ -204,18 +241,17 @@ const evidenceLinks = [
 	<section class="section" aria-labelledby="technical-scope-title">
 		<div class="page-container">
 			<div class="section-intro">
-				<h2 id="technical-scope-title">Technical scope</h2>
-				<p>Where I tend to operate.</p>
+				<h2 id="technical-scope-title">Where my skills apply</h2>
 				<p>
-					I work on engineered systems where software decisions have physical consequences.
-					Control intent, embedded implementation, and system-level evidence need to move
-					together.
+					For recruiters and technical teams, the clearest way to understand my profile is
+					through the problems I usually help solve.
 				</p>
 			</div>
 			<div class="capability-grid">
 				{capabilityGroups.map((item) => (
 					<article class="capability-item">
 						<h3>{item.title}</h3>
+						<p class="capability-item__area">{item.area}</p>
 						<p>{item.description}</p>
 					</article>
 				))}
@@ -223,25 +259,25 @@ const evidenceLinks = [
 		</div>
 	</section>
 
-	<section class="section about-split" aria-labelledby="research-title">
-		<div class="page-container about-split__grid">
-			<div class="split-heading">
-				<h2 id="research-title">Research foundation</h2>
-				<p>PhD-level rigor, applied to production engineering.</p>
-			</div>
-			<div class="about-copy">
+	<section class="section" aria-labelledby="challenge-title">
+		<div class="page-container">
+			<div class="section-intro">
+				<h2 id="challenge-title">Where this becomes concrete</h2>
 				<p>
-					My academic foundation in electrical engineering, real-time control, and
-					diagnostics shapes how I reason about dynamic systems, modeling, estimation,
-					diagnostic reasoning, fault response, and experimental evidence.
-				</p>
-				<p>
-					On this site, research is not the main identity. It is the foundation behind a
-					production engineering practice: disciplined analysis, careful assumptions, clear
-					validation thinking, and respect for the distance between analytical correctness
-					and dependable behavior in the field.
+					The abstract language of control, software, diagnostics, and validation becomes
+					practical in projects where physical behavior, product constraints, and team
+					execution meet.
 				</p>
 			</div>
+			<div class="challenge-grid">
+				{projectChallenges.map((item) => (
+					<article class="challenge-item">
+						<h3>{item.title}</h3>
+						<p>{item.description}</p>
+					</article>
+				))}
+			</div>
+			<a class="text-link" href={withBase('/work')}>View selected work</a>
 		</div>
 	</section>
 
@@ -250,7 +286,7 @@ const evidenceLinks = [
 			<div class="section-intro">
 				<h2 id="evidence-title">Evaluate the work</h2>
 				<p>
-					This page explains the professional through-line. The rest of the site gives
+					This page explains the professional narrative. The rest of the site gives
 					different kinds of proof.
 				</p>
 			</div>
@@ -423,6 +459,7 @@ const evidenceLinks = [
 
 	.work-style-list h3,
 	.capability-item h3,
+	.challenge-item h3,
 	.evidence-item h3 {
 		font-size: 1rem;
 		line-height: 1.35;
@@ -430,11 +467,22 @@ const evidenceLinks = [
 
 	.work-style-list p,
 	.capability-item p,
+	.challenge-item p,
 	.evidence-item p,
 	.section-intro p {
 		color: var(--color-muted);
 		font-size: 0.95rem;
 		line-height: 1.6;
+	}
+
+	.capability-item__area {
+		color: var(--color-accent) !important;
+		font-family: var(--font-mono);
+		font-size: 0.72rem !important;
+		font-weight: 600;
+		letter-spacing: 0.06em;
+		line-height: 1.25 !important;
+		text-transform: uppercase;
 	}
 
 	.section-intro {
@@ -445,6 +493,7 @@ const evidenceLinks = [
 	}
 
 	.capability-grid,
+	.challenge-grid,
 	.evidence-grid {
 		display: grid;
 		grid-template-columns: 1fr;
@@ -453,6 +502,7 @@ const evidenceLinks = [
 	}
 
 	.capability-item,
+	.challenge-item,
 	.evidence-item {
 		display: grid;
 		gap: 0.55rem;
@@ -460,11 +510,13 @@ const evidenceLinks = [
 	}
 
 	.capability-item + .capability-item,
+	.challenge-item + .challenge-item,
 	.evidence-item + .evidence-item {
 		border-top: 1px solid var(--color-border);
 	}
 
-	.evidence-item a {
+	.evidence-item a,
+	.text-link {
 		width: fit-content;
 		color: var(--color-accent);
 		font-weight: 700;
@@ -473,8 +525,15 @@ const evidenceLinks = [
 	}
 
 	.evidence-item a:hover,
-	.evidence-item a:focus-visible {
+	.evidence-item a:focus-visible,
+	.text-link:hover,
+	.text-link:focus-visible {
 		color: var(--color-text);
+	}
+
+	.text-link {
+		display: inline-flex;
+		margin-top: 1rem;
 	}
 
 	.about-final {
@@ -526,27 +585,32 @@ const evidenceLinks = [
 		}
 
 		.capability-grid,
+		.challenge-grid,
 		.evidence-grid {
 			grid-template-columns: repeat(2, minmax(0, 1fr));
 		}
 
 		.capability-item,
+		.challenge-item,
 		.evidence-item {
 			padding: 1.2rem;
 		}
 
 		.capability-item + .capability-item,
+		.challenge-item + .challenge-item,
 		.evidence-item + .evidence-item {
 			border-top: 0;
 			border-left: 1px solid var(--color-border);
 		}
 
 		.capability-item:nth-child(odd),
+		.challenge-item:nth-child(odd),
 		.evidence-item:nth-child(odd) {
 			border-left: 0;
 		}
 
 		.capability-item:nth-child(n + 3),
+		.challenge-item:nth-child(n + 3),
 		.evidence-item:nth-child(n + 3) {
 			border-top: 1px solid var(--color-border);
 		}
