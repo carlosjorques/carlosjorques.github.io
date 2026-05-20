@@ -6,24 +6,24 @@ const withBase = (href: string) => (href === '/' ? baseUrl : `${baseUrl}${href.r
 
 const professionalBackpack = [
     {
-        context: 'TIMELINE & VALIDATION',
+        context: 'EXPERIENCE',
         anchor: '10+ Years of Systems Engineering',
-        description: 'Delivering production-ready embedded controls across Scania, Mahle, Alten, and Tier-1 clients.',
+        description: 'Delivering production ready embedded controls across Scania, Mahle, Alten, and Tier 1 clients.',
     },
     {
-        context: 'LEADERSHIP SCALE',
+        context: 'LEADERSHIP',
         anchor: 'Technical Architecture & Direction',
-        description: 'Guiding cross-functional teams across model-based control development, embedded software, and full validation loops.',
+        description: 'Guiding cross functional teams across model based control development, embedded software, and full validation loops.',
     },
     {
-        context: 'LIFECYCLE SCOPE',
-        anchor: 'System-Level Production Delivery',
-        description: 'Architecting controls, active diagnostics, safety constraints, and end-to-end integration for harsh environments.',
+        context: 'SCOPE',
+        anchor: 'Full System Integration & Validation',
+        description: 'Architecting controls, active diagnostics, safety constraints, and end to end integration for harsh environments.',
     },
     {
-        context: 'R&D DEPTH',
-        anchor: 'PhD Foundation & IP Generation',
-        description: 'Translating peer-reviewed research, academic rigor, and granted patents into viable commercial architectures.',
+        context: 'BACKGROUND',
+        anchor: 'PhD in Control Systems',
+        description: 'Translating peer reviewed research, academic rigor, and granted patents into viable commercial architectures.',
     },
 ];
 
@@ -31,75 +31,75 @@ const workPrinciples = [
     {
         title: 'Start from system behavior',
         description:
-            'Before writing code or defining interfaces, I model the system’s physical realities: dynamic response, core stability, fault mitigation, and timing requirements.',
+            'Before writing code or defining interfaces, I model the system’s physical realities. This includes dynamic response, core stability, fault mitigation, and timing requirements.',
     },
     {
-        title: 'Deliberately reduce physical uncertainty',
+        title: 'Deliberately reduce uncertainty',
         description:
-            'I treat unknown variables as engineering risks. I isolate them early using real-world experiments, predictive simulation, and structural test evidence.',
+            'I treat unknown variables as engineering risks. I isolate them early using real world experiments, predictive simulation, and structural test evidence.',
     },
     {
         title: 'Lead through explicit technical clarity',
         description:
-            'Complex algorithms are only useful if teams can execute them. I align cross-functional domains around architectural trade-offs, clear safety limits, and distinct ownership.',
+            'Complex projects are only useful if teams can execute them cleanly. I align cross-functional domains around architectural trade offs, clear safety limits, and distinct ownership.',
     },
 ];
 
 const capabilities = [
     {
-        challenge: 'How should the machine govern its behavior?',
         domain: 'Controls Architecture',
+        challenge: 'How should the machine govern its behavior?',
         description:
             'Defining core dynamic intent, transient handling, and operating envelope boundaries before internal software complexity takes over.',
     },
     {
+        domain: 'Real Time Embedded Software',
         challenge: 'How does that behavior translate cleanly into execution?',
-        domain: 'Real-Time Embedded Software',
         description:
-            'Shaping model-based pipelines, optimizing generated code boundaries, handling critical timing loops, and enforcing clean target compilation.',
+            'Shaping model based pipelines, optimizing generated code boundaries, handling critical timing loops, and enforcing clean target compilation.',
     },
     {
-        challenge: 'How does the machine protect itself if something goes wrong?',
         domain: 'Diagnostics & Fault Isolation',
+        challenge: 'How does the machine protect itself if something goes wrong?',
         description:
             'Designing robust observability, signal health monitoring, and defensive degradation strategies so assets never fail silently or dangerously.',
     },
     {
-        challenge: 'How do we mathematically verify that it is ready?',
         domain: 'Validation & Loop Testing',
+        challenge: 'How do we mathematically verify that it is ready?',
         description:
-            'Bridging functional requirements with physical proof points using Model-, Software-, and Hardware-in-the-Loop (MIL/SIL/HIL) test execution.',
+            'Bridging functional requirements with physical proof points using Model, Software, and Hardware in the Loop test execution.',
     },
     {
-        challenge: 'How does it unify with the broader platform?',
         domain: 'System Integration',
+        challenge: 'How does it unify with the broader platform?',
         description:
             'Synthesizing physical actuators, complex sensors, data buses, calibration parameters, and varied structural subsystems under real operating loads.',
     },
     {
-        challenge: 'How do we scale the engineering velocity?',
         domain: 'Technical Leadership',
+        challenge: 'How do we scale the engineering velocity?',
         description:
-            'Translating abstract operational goals into clear delivery tracks, empowering multi-disciplinary engineering assets with crisp technical ownership.',
+            'Translating abstract operational goals into clear delivery tracks, empowering multi disciplinary engineering assets with crisp technical ownership.',
     },
 ];
 
 const appliedExpertise = [
     {
-        domain: 'Electrified Powertrains & High-Voltage Thermal Management',
-        focus: 'Heavy transport thermal coordination, battery management system interfaces, and highly constrained energy management loops.',
+        domain: 'Heavy-Duty Transportation',
+        focus: 'Thermal management of electrified powertrains, battery management systems and combustion controls.',
     },
     {
-        domain: 'Safety-Critical Diagnostics & Dependable Operation',
+        domain: 'Safety Critical Diagnostics & Active Fault Mitigation',
         focus: 'Active software layers that observe, catch, adapt, and reliably transition physical machines into predictable, safe states during failure cycles.',
     },
     {
-        domain: 'Autonomous Machine Systems & Heavy Mobility',
-        focus: 'Industrial-grade autonomous propulsion, torque control mechanics, functional safety monitoring, and synchronized fleet field behavior.',
+        domain: 'Autonomous Mobility Systems',
+        focus: 'Industrial grade autonomous propulsion, torque control mechanics, functional safety monitoring, and synchronized fleet field behavior.',
     },
     {
-        domain: 'Rigid Industry Regulatory Constraints',
-        focus: 'Direct, hands-on production deployment navigating ISO 26262 frameworks, A-SPICE compliance matrices, AUTOSAR layouts, and modern CI/CD systems.',
+        domain: 'Industry Regulations, Compliance & Production Deployment',
+        focus: 'Direct, hands on production deployment navigating ISO 26262 frameworks, A-SPICE compliance matrices, AUTOSAR layouts, and modern CI/CD systems.',
     },
 ];
 ---
@@ -108,18 +108,23 @@ const appliedExpertise = [
     title="About Carlos Jorques | Embedded Controls Architect"
     description="About Carlos Jorques, an embedded controls architect and technical leader developing control algorithms and real-time embedded software for reliable physical systems."
 >
+    <!-- HERO SECTION -->
     <section class="about-hero">
         <div class="page-container about-hero__inner">
-            <p class="eyebrow">The Profile</p>
-            <h1>Hi, I’m Carlos Jorques.</h1>
+            <p class="eyebrow">About</p>
+            <h1>Hi, I’m Carlos.</h1>
             <p class="about-hero__lead">
-                I am deeply fascinated by automatic control systems that transform passive, unresponsive machinery into intelligent, highly perceptive systems—assets capable of understanding their environments, making autonomous safety decisions, and acting reliably in real-world scenarios.
+                I am an Embedded Controls Architect and Technical Leader, passionate about intelligent autonomous systems.
+				I am driven to make such systems sense, understand their environment, take smart decisions, and act safely in the real-world.
             </p>
             <p class="about-hero__body">
-                This fascination has driven my career as an Embedded Controls Architect and Technical Leader. My expertise lies at the intersection where complex software algorithms interact directly with physical hardware constraints. While my day-to-day work is rooted in automotive and heavy industrial machinery, the underlying principles apply universally across all advanced autonomous platforms—from electric road vehicles to rockets and orbital satellites.
+                I operate where advanced software algorithms run in machines that must interact with their physical environments and their uncertainties.
+				My professional foundation is rooted in **automatic control**, where I specialize in building production ready software for cars and heavy industrial vehicles.
+				Because automatic control is a broad discipline, these exact same architectural principles span from a simple thermostat to other advanced domains, such as **rockets or satellite platforms**.
             </p>
             <p class="about-hero__body">
-                Over the past decade, I have architected and deployed production software for major industry platforms, including heavy-duty Scania trucks, autonomous Volvo CE haulers, and advanced Mahle powertrain configurations. 
+                Over the past decade, I have delivered critical production software for global mobility leaders like **Scania trucks, Volvo CE autonomous haulers, and Mahle electrified powertrains**.
+				I focus on whole system behavior rather than isolated software components, ensuring quality and safety.
             </p>
             <div class="button-row" aria-label="About page primary navigation links">
                 <a class="button primary" href={withBase('/contact')}>Get in Touch / Access CV</a>
@@ -129,12 +134,13 @@ const appliedExpertise = [
         </div>
     </section>
 
+    <!-- PROFESSIONAL BACKPACK SECTION -->
     <section class="section about-proof" aria-labelledby="backpack-title">
         <div class="page-container">
             <div class="section-intro section-intro--compact">
                 <h2 id="backpack-title">My Professional Backpack</h2>
                 <p>
-                    A balanced synthesis of heavy production delivery, cross-functional engineering management, and a rigorous academic background in predictive control theory.
+                    A balanced mix of heavy commercial production delivery, cross functional team management, and deep academic research in predictive control theory.
                 </p>
             </div>
             <div class="proof-grid">
@@ -149,38 +155,49 @@ const appliedExpertise = [
         </div>
     </section>
 
+    <!-- THE STORY SECTION -->
     <section class="section about-split" aria-labelledby="narrative-title">
         <div class="page-container about-split__grid">
             <div class="split-heading">
-                <h2 id="narrative-title">The Question Driving the Engineering</h2>
+                <h2 id="narrative-title">The Challenge Driving the Engineering</h2>
             </div>
             <div class="about-copy">
                 <p>
-                    <em>How do we make physical machinery smart enough to assist humans safely and predictably under unpredictable conditions?</em> That core challenge has driven my path. What began during my childhood as an instinctive urge to pull things apart to observe their mechanisms eventually evolved into a structured engineering pursuit.
+                    How do we ensure machines support humans safely and reliably under unpredictable conditions?
+					That core challenge has driven my professional path.
+					What began as an instinctive childhood urge to pull physical things apart to observe their electronics and mechanisms
+					eventually evolved into my Electrical Engineering studies.
                 </p>
                 <p>
-                    Control theory provided the mathematical framework to answer this question. Electrical engineering and subsequent doctoral research armed me with the diagnostic and modeling toolsets needed to reason through system uncertainty. 
+                    Control theory provided the framework to answer this question.
+					Electrical engineering and subsequent doctoral research provided me the expertise to reason through real world system uncertainty.
                 </p>
                 <p>
-                    However, real-world execution is where these theories face their true test. Production engineering introduces strict real-time execution limits, hardware cost boundaries, regulatory safety criteria, and tight organizational deadlines. My job is to ensure advanced theoretical architectures survive and excel inside these intense operational environments.
+                    However, real world execution is where these theories face their true test.
+					Commercial production introduces strict execution limits, cost boundaries, regulatory safety criteria, and tight organizational deadlines.
+					My job is to ensure advanced theoretical architectures survive and excel inside these real industrial environments.
                 </p>
                 <p>
-                    Earlier in my career, I focused on advancing the state-of-the-art through deep academic research—contributing peer-reviewed findings and defensive patents in real-time in-cycle combustion controls, virtual sensing structures, fault identification engines, and high-speed FPGA processing. Today, I scale that knowledge, translating complex engineering principles into production vehicles alongside high-performing teams.
+                    Earlier in my career, I focused on advancing the state of the art through academic research.
+					I contributed peer reviewed findings and patents in real-time in-cycle combustion controls, virtual sensing structures, fault identification diagnostics, and high speed FPGA processing.
+					Today, I scale that knowledge by translating complex engineering principles into production vehicles alongside high performing agile teams.
                 </p>
                 <div class="in-context-cta">
-                    <span>Interested in the empirical evidence?</span>
-                    <a href={withBase('/work')} class="text-link">Review My Patents & Academic Publications →</a>
+                    <span>Want to know more?</span>
+                    <a href={withBase('/work')} class="text-link">See My Work, Patents & Academic Publications →</a>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- PRINCIPLES SECTION -->
     <section class="section about-work-style" aria-labelledby="work-style-title">
         <div class="page-container about-split__grid">
             <div class="split-heading">
                 <h2 id="work-style-title">How I Approach Execution</h2>
                 <p>
-                    Developing an elegant algorithm is only half the battle. The real engineering triumph is configuring that code so it can be reliably compiled, integrated, verified, and trusted in the field.
+                    Developing an elegant algorithm is only the beginning.
+					The real engineering challenge is configuring that code so it can be reliably compiled, integrated, verified, and trusted in the field.
                 </p>
             </div>
             <div class="work-style-list">
@@ -194,19 +211,20 @@ const appliedExpertise = [
         </div>
     </section>
 
+    <!-- CAPABILITIES SECTION -->
     <section class="section" aria-labelledby="skills-flow-title">
         <div class="page-container">
             <div class="section-intro">
-                <h2 id="skills-flow-title">Where My Capabilities Apply</h2>
+                <h2 id="skills-flow-title">Core Capabilities</h2>
                 <p>
-                    To keep things transparent for technical screeners, engineering managers, and recruitment partners, here are the systematic problem domains I own and resolve:
+                    This grid outlines my main technical areas of expertise. Each domain represents a specific engineering capability along with the core question I solve within it.
                 </p>
             </div>
             <div class="capability-grid">
                 {capabilities.map((item) => (
                     <article class="capability-item">
-                        <p class="capability-item__area">{item.domain}</p>
-                        <h3>{item.challenge}</h3>
+                        <p class="capability-item__area">{item.challenge}</p>
+                        <h3>{item.domain}</h3>
                         <p>{item.description}</p>
                     </article>
                 ))}
@@ -214,12 +232,13 @@ const appliedExpertise = [
         </div>
     </section>
 
+    <!-- CONCRETE EXPERIENCE SECTION -->
     <section class="section" aria-labelledby="concrete-expertise-title">
         <div class="page-container">
             <div class="section-intro">
-                <h2 id="concrete-expertise-title">Areas of Applied Domain Expertise</h2>
+                <h2 id="concrete-expertise-title">Areas of Domain Expertise</h2>
                 <p>
-                    The abstract engineering logic of modeling, loops, testing, and architecture becomes highly concrete when mapped to these specific production and vehicle environments:
+                    This section demonstrates how those technical capabilities translate into production environments. These are the specific industry areas where my knowledge applies.
                 </p>
             </div>
             <div class="challenge-grid">
@@ -237,6 +256,7 @@ const appliedExpertise = [
         </div>
     </section>
 
+    <!-- SEAMLESS CLOSING ACTION SECTION -->
     <section class="section about-final" aria-labelledby="final-title">
         <div class="page-container about-final__inner">
             <div>
@@ -254,7 +274,6 @@ const appliedExpertise = [
 </Layout>
 
 <style>
-    /* ALL YOUR ORIGINAL STYLES PRESERVED WITH COMPATIBILITY ADJUSTMENTS FOR CLEAN LAYOUTS */
     .about-hero {
         padding-block: clamp(4rem, 8vw, 7rem) clamp(3rem, 6vw, 5rem);
         border-bottom: 1px solid var(--color-border-soft);
@@ -421,13 +440,12 @@ const appliedExpertise = [
 
     .capability-item__area {
         color: var(--color-accent) !important;
-        font-family: var(--font-mono);
-        font-size: 0.72rem !important;
-        font-weight: 600;
-        letter-spacing: 0.06em;
-        line-height: 1.25 !important;
-        text-transform: uppercase;
-        margin-bottom: 0.2rem;
+        font-family: var(--font);
+        font-size: 0.85rem !important;
+        font-weight: 500;
+        letter-spacing: 0.04em;
+        line-height: 1.35 !important;
+        margin-bottom: 0.1rem;
     }
 
     .section-intro {
@@ -448,7 +466,7 @@ const appliedExpertise = [
     .capability-item,
     .challenge-item {
         display: grid;
-        gap: 0.55rem;
+        gap: 0.35rem;
         padding: 1.5rem 0;
     }
 
