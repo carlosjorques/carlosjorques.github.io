@@ -4,48 +4,88 @@ import Layout from '../layouts/Layout.astro';
 const baseUrl = import.meta.env.BASE_URL;
 const withBase = (href: string) => (href === '/' ? baseUrl : `${baseUrl}${href.replace(/^\//, '')}`);
 
+type TextPart = {
+	text: string;
+	strong?: boolean;
+};
+
 const professionalFoundation = [
 	{
 		context: 'EXPERIENCE',
-		anchor: '10+ years of control engineering',
-		description:
-			'Production-ready embedded control software across Scania, Volvo CE and Mahle.',
+		anchor: '10+ years of embedded controls',
+		description: [
+			{ text: 'Production-ready embedded control software', strong: true },
+			{ text: ' across ' },
+			{ text: 'Scania', strong: true },
+			{ text: ', ' },
+			{ text: 'Volvo CE', strong: true },
+			{ text: ' and ' },
+			{ text: 'Mahle', strong: true },
+			{ text: '.' },
+		] satisfies TextPart[],
 	},
 	{
 		context: 'LEADERSHIP',
 		anchor: 'Technical architecture and direction',
-		description:
-			'Guiding cross-functional teams across model-based control development, embedded software, diagnostics, integration, validation, and delivery.',
+		description: [
+			{ text: 'Guiding cross-functional teams across model-based control development, ' },
+			{ text: 'embedded software', strong: true },
+			{ text: ', ' },
+			{ text: 'diagnostics', strong: true },
+			{ text: ', integration, ' },
+			{ text: 'validation', strong: true },
+			{ text: ', and delivery.' },
+		] satisfies TextPart[],
 	},
 	{
 		context: 'SCOPE',
 		anchor: 'Full system integration and validation',
-		description:
-			'Controls architecture, active diagnostics, safety-related constraints, and end-to-end integration for systems in demanding environments.',
+		description: [
+			{ text: 'Controls architecture, active diagnostics, ' },
+			{ text: 'safety-related constraints', strong: true },
+			{ text: ', and end-to-end integration for systems in demanding environments.' },
+		] satisfies TextPart[],
 	},
 	{
 		context: 'BACKGROUND',
 		anchor: 'PhD in control systems',
-		description:
-			'Peer-reviewed research, academic rigor, and patent work translated into production-oriented engineering decisions.',
+		description: [
+			{ text: 'Peer-reviewed research', strong: true },
+			{ text: ', academic rigor, and ' },
+			{ text: 'patent work', strong: true },
+			{ text: ' translated into production-oriented engineering decisions.' },
+		] satisfies TextPart[],
 	},
 ];
 
 const workPrinciples = [
 	{
 		title: 'Start from system behavior',
-		description:
-			'Before writing code or defining interfaces, I model the system’s physical behavior: dynamic response, stability, fault mitigation, operating envelope, and timing constraints.',
+		description: [
+			{ text: 'Before writing code or defining interfaces, I model the system’s ' },
+			{ text: 'physical behavior', strong: true },
+			{ text: ': dynamic response, stability, fault mitigation, operating envelope, and timing constraints.' },
+		] satisfies TextPart[],
 	},
 	{
 		title: 'Deliberately reduce uncertainty',
-		description:
-			'I treat unknowns as engineering risks and reduce them early through real-world experiments, predictive simulation, logs, and structured test evidence.',
+		description: [
+			{
+				text: 'I treat unknowns as engineering risks and reduce them early through real-world experiments, predictive simulation, logs, and ',
+			},
+			{ text: 'structured test evidence', strong: true },
+			{ text: '.' },
+		] satisfies TextPart[],
 	},
 	{
 		title: 'Lead through explicit technical clarity',
-		description:
-			'Complex projects only succeed when teams can execute them clearly. I align cross-functional domains around architecture, trade-offs, safety limits, validation evidence, and ownership.',
+		description: [
+			{
+				text: 'Complex projects only succeed when teams can execute them clearly. I align cross-functional domains around ',
+			},
+			{ text: 'architecture', strong: true },
+			{ text: ', trade-offs, safety limits, validation evidence, and ownership.' },
+		] satisfies TextPart[],
 	},
 ];
 
@@ -53,61 +93,101 @@ const capabilities = [
 	{
 		domain: 'Controls Architecture',
 		challenge: 'How should the machine govern its behavior?',
-		description:
-			'Defining dynamic intent, transient handling, operating envelope boundaries, and architecture decisions before internal software complexity takes over.',
+		description: [
+			{
+				text: 'Defining dynamic intent, transient handling, operating envelope boundaries, and architecture decisions before internal software complexity takes over.',
+			},
+		] satisfies TextPart[],
 	},
 	{
 		domain: 'Real-Time Embedded Software',
 		challenge: 'How does that behavior translate cleanly into execution?',
-		description:
-			'Shaping model-based pipelines, generated-code boundaries, software interfaces, timing loops, and maintainable target implementation.',
+		description: [
+			{ text: 'Shaping model-based pipelines, generated-code boundaries, software interfaces, ' },
+			{ text: 'timing loops', strong: true },
+			{ text: ', and maintainable target implementation.' },
+		] satisfies TextPart[],
 	},
 	{
 		domain: 'Diagnostics & Fault Isolation',
 		challenge: 'How does the machine protect others and itself if something goes wrong?',
-		description:
-			'Designing observability, signal-health monitoring, fault response, and degradation strategies so systems can detect, degrade, and recover instead of failing silently.',
+		description: [
+			{ text: 'Designing observability, ' },
+			{ text: 'signal-health monitoring', strong: true },
+			{
+				text: ', fault response, and degradation strategies so systems can detect, degrade, and recover instead of failing silently.',
+			},
+		] satisfies TextPart[],
 	},
 	{
 		domain: 'Validation, MIL/SIL/HIL, and Field Evidence',
 		challenge: 'How do we prove that it is ready?',
-		description:
-			'Bridging functional requirements with physical evidence through model-, software-, hardware-in-the-loop testing, logs, calibration feedback, and field-oriented validation.',
+		description: [
+			{ text: 'Bridging functional requirements with physical evidence through ' },
+			{ text: 'model-, software-, hardware-in-the-loop testing', strong: true },
+			{ text: ', logs, calibration feedback, and field-oriented validation.' },
+		] satisfies TextPart[],
 	},
 	{
 		domain: 'System Integration',
 		challenge: 'How does it integrate with the platform?',
-		description:
-			'Aligning actuators, sensors, data buses, calibration parameters, software interfaces, and physical subsystems under real operating loads.',
+		description: [
+			{
+				text: 'Aligning actuators, sensors, data buses, calibration parameters, software interfaces, and physical subsystems under real operating loads.',
+			},
+		] satisfies TextPart[],
 	},
 	{
 		domain: 'Technical Leadership',
 		challenge: 'How does the team move together?',
-		description:
-			'Creating clarity around technical direction, ownership, quality, and delivery sequence so multidisciplinary teams can execute with autonomy and accountability.',
+		description: [
+			{ text: 'Creating clarity around ' },
+			{ text: 'technical direction', strong: true },
+			{
+				text: ', ownership, quality, and delivery sequence so multidisciplinary teams can execute with autonomy and accountability.',
+			},
+		] satisfies TextPart[],
 	},
 ];
 
 const appliedExpertise = [
 	{
 		domain: 'Heavy-Duty Transportation',
-		focus:
-			'Thermal management of electrified powertrains, battery systems, charger coordination, and combustion-control research.',
+		focus: [
+			{
+				text: 'Thermal management of electrified powertrains, battery systems, charger coordination, and combustion-control research.',
+			},
+		] satisfies TextPart[],
 	},
 	{
 		domain: 'Safety-Related Diagnostics and Fault Handling',
-		focus:
-			'Software layers that observe system health, detect faults, support degradation strategies, and keep physical behavior predictable.',
+		focus: [
+			{
+				text: 'Software layers that observe system health, detect faults, support degradation strategies, and keep physical behavior predictable.',
+			},
+		] satisfies TextPart[],
 	},
 	{
 		domain: 'Autonomous Mobility Systems',
-		focus:
-			'Propulsion and torque-control work for autonomous electric machines, including safety monitoring, validation, and field behavior.',
+		focus: [
+			{
+				text: 'Propulsion and torque-control work for autonomous electric machines, including safety monitoring, validation, and field behavior.',
+			},
+		] satisfies TextPart[],
 	},
 	{
 		domain: 'Industry Standards and Production Deployment',
-		focus:
-			'Work shaped by ISO 26262, A-SPICE, AUTOSAR-oriented development, CI/CD, MIL/SIL/HIL testing, supplier interfaces, and vehicle-level validation.',
+		focus: [
+			{ text: 'Work shaped by ' },
+			{ text: 'ISO 26262', strong: true },
+			{ text: ', ' },
+			{ text: 'A-SPICE', strong: true },
+			{ text: ', ' },
+			{ text: 'AUTOSAR-oriented development', strong: true },
+			{ text: ', CI/CD, ' },
+			{ text: 'MIL/SIL/HIL testing', strong: true },
+			{ text: ', supplier interfaces, and vehicle-level validation.' },
+		] satisfies TextPart[],
 	},
 ];
 
@@ -145,17 +225,17 @@ const evidenceLinks = [
 			<p class="eyebrow">About</p>
 			<h1>Hi, I’m Carlos.</h1>
 			<p class="about-hero__lead">
-				I am an Embedded Controls Architect and Technical Leader focused on intelligent autonomous systems.
+				I am an <strong>Embedded Controls Architect</strong> and <strong>Technical Leader</strong> focused on <strong>intelligent physical systems</strong>.
 				I work on the software that helps them sense, evaluate, decide and act.
 			</p>
 			<p class="about-hero__body">
 				I operate where advanced control algorithms run inside machines that must interact with real-world physical environments and their uncertainties.
-				My professional foundation is rooted in automatic control, with a focus on production-ready embedded software for cars, heavy-duty vehicles, and industrial machines.
+				My professional foundation is rooted in <strong>automatic control</strong>, with a focus on <strong>production-ready embedded software</strong> for cars, heavy-duty vehicles, and industrial machines.
 				Because automatic control is a broad discipline, the same principles apply across many different systems, from simple thermostats to advanced vehicles, robots, and energy platforms.
 			</p>
 			<p class="about-hero__body">
-				Over the past decade, I have contributed to production and research work across Scania trucks, Volvo CE autonomous haulers, Mahle electrified powertrains, and Tier 1 / client delivery environments.
-				I focus on whole-system behavior rather than isolated software components to ensure the integrated system works reliably.
+				Over the past decade, I have contributed to production and research work across <strong>Scania trucks</strong>, <strong>Volvo CE autonomous haulers</strong>, <strong>Mahle electrified powertrains</strong>, and Tier 1 / client delivery environments.
+				I focus on <strong>whole-system behavior</strong> rather than isolated software components to ensure the integrated system works reliably.
 			</p>
 			<div class="button-row" aria-label="About page primary navigation links">
 				<a class="button primary" href={withBase('/contact')}>Contact Carlos / Access CV</a>
@@ -178,7 +258,11 @@ const evidenceLinks = [
 					<article class="proof-item">
 						<p>{item.context}</p>
 						<h3>{item.anchor}</h3>
-						<span>{item.description}</span>
+						<span>
+							{item.description.map((part) =>
+								part.strong ? <strong>{part.text}</strong> : part.text
+							)}
+						</span>
 					</article>
 				))}
 			</div>
@@ -196,9 +280,9 @@ const evidenceLinks = [
 					That question has shaped my path from robotics curiosity to control systems, embedded software, and reliable intelligent machines.
 				</p>
 				<p>
-					What began as a genuine curiosity by tearing toys appart and a fascination with robots became a deeper interest in dynamic systems: machines that move and interact with the world.
-					Control theory provided a framework to work on designing such systems.
-					Electrical engineering and doctoral research gave me tools to reason through dynamic systems, uncertainty, sensing, diagnostics, modeling, and evidence.
+					What began as a curiosity for taking things apart and understanding mechanisms became a deeper interest in <strong>dynamic systems</strong>: machines that move and interact with the world.
+					<strong>Control theory</strong> gave me a framework for designing such systems.
+					Electrical engineering and <strong>doctoral research</strong> gave me tools to reason through dynamic systems, uncertainty, sensing, diagnostics, modeling, and evidence.
 				</p>
 				<p>
 					Production is where the theory is tested.
@@ -206,8 +290,8 @@ const evidenceLinks = [
 					My role is to help advanced control and software architectures survive that environment.
 				</p>
 				<p>
-					Earlier in my career, I contributed peer-reviewed research and patent work in real-time combustion control, virtual sensing, diagnostics, and high-speed FPGA processing.
-					Today, I apply that same systems thinking to production vehicles and intelligent machines alongside engineering teams, providing them with technical guidance.
+					Earlier in my career, I contributed <strong>peer-reviewed research</strong> and <strong>patent work</strong> in real-time combustion control, virtual sensing, diagnostics, and high-speed FPGA processing.
+					Today, I apply that same systems thinking to production vehicles and intelligent machines, providing technical guidance across architecture, validation, and delivery.
 				</p>
 				<div class="in-context-cta">
 					<span>Want to know more?</span>
@@ -231,7 +315,11 @@ const evidenceLinks = [
 				{workPrinciples.map((item) => (
 					<article>
 						<h3>{item.title}</h3>
-						<p>{item.description}</p>
+						<p>
+							{item.description.map((part) =>
+								part.strong ? <strong>{part.text}</strong> : part.text
+							)}
+						</p>
 					</article>
 				))}
 			</div>
@@ -251,7 +339,11 @@ const evidenceLinks = [
 					<article class="capability-item">
 						<p class="capability-item__area">{item.challenge}</p>
 						<h3>{item.domain}</h3>
-						<p>{item.description}</p>
+						<p>
+							{item.description.map((part) =>
+								part.strong ? <strong>{part.text}</strong> : part.text
+							)}
+						</p>
 					</article>
 				))}
 			</div>
@@ -261,7 +353,7 @@ const evidenceLinks = [
 	<section class="section" aria-labelledby="concrete-expertise-title">
 		<div class="page-container">
 			<div class="section-intro">
-				<h2 id="concrete-expertise-title">Expertise domains</h2>
+				<h2 id="concrete-expertise-title">Applied domains</h2>
 				<p>
 					The production and research contexts where the technical capabilities
 					above become tangible.
@@ -271,7 +363,11 @@ const evidenceLinks = [
 				{appliedExpertise.map((item) => (
 					<article class="challenge-item">
 						<h3>{item.domain}</h3>
-						<p>{item.focus}</p>
+						<p>
+							{item.focus.map((part) =>
+								part.strong ? <strong>{part.text}</strong> : part.text
+							)}
+						</p>
 					</article>
 				))}
 			</div>
@@ -345,6 +441,16 @@ const evidenceLinks = [
 		color: var(--color-muted);
 		font-size: 1.05rem;
 		line-height: 1.7;
+	}
+
+	.about-hero strong,
+	.about-copy strong,
+	.proof-item strong,
+	.work-style-list strong,
+	.capability-item strong,
+	.challenge-item strong {
+		color: var(--color-text);
+		font-weight: 700;
 	}
 
 	.about-hero .button-row {
