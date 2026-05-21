@@ -222,26 +222,56 @@ const evidenceLinks = [
 >
 	<section class="about-hero">
 		<div class="page-container about-hero__inner">
-			<p class="eyebrow">About</p>
-			<h1>Hi, I’m Carlos.</h1>
-			<p class="about-hero__lead">
-				I am an <strong>Embedded Controls Architect</strong> and <strong>Technical Leader</strong> focused on <strong>intelligent physical systems</strong>.
-				I work on the software that helps them sense, evaluate, decide and act.
-			</p>
-			<p class="about-hero__body">
-				I operate where advanced control algorithms run inside machines that must interact with real-world physical environments and their uncertainties.
-				My professional foundation is rooted in <strong>automatic control</strong>, with a focus on <strong>production-ready embedded software</strong> for cars, heavy-duty vehicles, and industrial machines.
-				Because automatic control is a broad discipline, the same principles apply across many different systems, from simple thermostats to advanced vehicles, robots, and energy platforms.
-			</p>
-			<p class="about-hero__body">
-				Over the past decade, I have contributed to production and research work across <strong>Scania trucks</strong>, <strong>Volvo CE autonomous haulers</strong>, <strong>Mahle electrified powertrains</strong>, and Tier 1 / client delivery environments.
-				I focus on <strong>whole-system behavior</strong> rather than isolated software components to ensure the integrated system works reliably.
-			</p>
-			<div class="button-row" aria-label="About page primary navigation links">
-				<a class="button primary" href={withBase('/contact')}>Contact Carlos / Access CV</a>
-				<a class="button" href={withBase('/work')}>Explore selected work</a>
-				<a class="button" href={withBase('/writing')}>Read my blog</a>
+			<div class="about-hero__content">
+				<p class="eyebrow">About</p>
+				<h1>Hi, I’m Carlos.</h1>
+				<p class="about-hero__lead">
+					I lead <strong>technical teams</strong> designing <strong>real-time control</strong> and
+					<strong>embedded software</strong> for <strong>safety-critical systems</strong>,
+					from <strong>electrified vehicles</strong> to <strong>autonomous machines</strong>.
+				</p>
+				<p class="about-hero__body">
+					My interest is centered on how <strong>complex dynamic systems</strong> can
+					perform efficiently and safely under <strong>real-world conditions</strong>.
+					For me, this work matters because physical systems shape how people move, build, transport, and use energy.
+					Better <strong>control software</strong> can help machines consume less energy,
+					respond more safely to faults, reduce downtime, and make advanced technologies
+					dependable enough for real use.
+				</p>
+				<p class="about-hero__body">
+					I work where <strong>advanced control algorithms</strong> meet
+					<strong>physical hardware</strong>, <strong>uncertainty</strong>,
+					<strong>diagnostics</strong>, <strong>validation</strong>, and
+					<strong>production constraints</strong>.
+					My focus is to reduce uncertainty in both <strong>system behavior</strong> and
+					<strong>engineering delivery</strong>: through <strong>control strategies</strong>
+					that make machines more reliable, and through <strong>technical leadership</strong>
+					that helps teams turn ideas into <strong>production-ready software</strong>.
+				</p>
+				<p class="about-hero__body">
+					Over the past decade, I have contributed to <strong>production and research work</strong>
+					for <strong>Scania trucks</strong>, <strong>Volvo CE autonomous haulers</strong>,
+					<strong>Mahle electrified powertrains</strong>, and
+					<strong>Tier 1 / client delivery environments</strong>. I bridge high-level
+					strategy and robust implementation, <strong>shaping architectures</strong> and
+					supporting teams as we build software that can be trusted in the real world.
+				</p>
+				<div class="button-row" aria-label="About page primary navigation links">
+					<a class="button primary" href={withBase('/contact')}>Contact Carlos / Access CV</a>
+					<a class="button" href={withBase('/work')}>Explore selected work</a>
+					<a class="button" href={withBase('/writing')}>Read my blog</a>
+				</div>
 			</div>
+			<figure class="about-hero__portrait">
+				<img
+					src={`${baseUrl}images/carlos-jorques-intro.webp`}
+					alt="Portrait of Carlos Jorques"
+					width="768"
+					height="1024"
+					loading="eager"
+					decoding="async"
+				/>
+			</figure>
 		</div>
 	</section>
 
@@ -419,8 +449,15 @@ const evidenceLinks = [
 
 	.about-hero__inner {
 		display: grid;
+		gap: clamp(2rem, 5vw, 4rem);
+		align-items: center;
+		max-width: 1120px;
+	}
+
+	.about-hero__content {
+		display: grid;
 		gap: 1.2rem;
-		max-width: 880px;
+		max-width: 760px;
 	}
 
 	.about-hero h1 {
@@ -458,6 +495,23 @@ const evidenceLinks = [
 		display: flex;
 		flex-wrap: wrap;
 		gap: 1rem;
+	}
+
+	.about-hero__portrait {
+		margin: 0;
+		width: min(100%, 360px);
+		justify-self: start;
+	}
+
+	.about-hero__portrait img {
+		display: block;
+		width: 100%;
+		aspect-ratio: 3 / 4;
+		height: auto;
+		object-fit: cover;
+		object-position: center;
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius);
 	}
 
 	.section-intro--compact {
@@ -729,6 +783,14 @@ const evidenceLinks = [
 	}
 
 	@media (min-width: 980px) {
+		.about-hero__inner {
+			grid-template-columns: minmax(0, 1fr) minmax(280px, 360px);
+		}
+
+		.about-hero__portrait {
+			justify-self: end;
+		}
+
 		.about-split__grid {
 			grid-template-columns: minmax(220px, 0.45fr) minmax(0, 1fr);
 			gap: clamp(2rem, 5vw, 4rem);
