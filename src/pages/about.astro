@@ -9,9 +9,6 @@ type TextPart = {
 	strong?: boolean;
 };
 
-const renderTextParts = (parts: TextPart[]) =>
-	parts.map((part) => (part.strong ? <strong>{part.text}</strong> : part.text));
-
 const professionalFoundation = [
 	{
 		context: 'EXPERIENCE',
@@ -281,7 +278,9 @@ const evidenceLinks = [
 						<p>{item.context}</p>
 						<h3>{item.anchor}</h3>
 						<span>
-							{renderTextParts(item.description)}
+							{item.description.map((part) =>
+								part.strong ? <strong>{part.text}</strong> : part.text
+							)}
 						</span>
 					</article>
 				))}
@@ -352,7 +351,9 @@ const evidenceLinks = [
 					<article>
 						<h3>{item.title}</h3>
 						<p>
-							{renderTextParts(item.description)}
+							{item.description.map((part) =>
+								part.strong ? <strong>{part.text}</strong> : part.text
+							)}
 						</p>
 					</article>
 				))}
@@ -374,7 +375,9 @@ const evidenceLinks = [
 						<p class="capability-item__area">{item.challenge}</p>
 						<h3>{item.domain}</h3>
 						<p>
-							{renderTextParts(item.description)}
+							{item.description.map((part) =>
+								part.strong ? <strong>{part.text}</strong> : part.text
+							)}
 						</p>
 					</article>
 				))}
@@ -395,7 +398,9 @@ const evidenceLinks = [
 					<article class="challenge-item">
 						<h3>{item.domain}</h3>
 						<p>
-							{renderTextParts(item.focus)}
+							{item.focus.map((part) =>
+								part.strong ? <strong>{part.text}</strong> : part.text
+							)}
 						</p>
 					</article>
 				))}
