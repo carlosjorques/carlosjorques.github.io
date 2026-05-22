@@ -1,0 +1,1139 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const baseUrl = import.meta.env.BASE_URL;
+const withBase = (href: string) => (href === '/' ? baseUrl : `${baseUrl}${href.replace(/^\//, '')}`);
+
+const cvPdfHref = withBase('/cv/Carlos_Jorques_CV.pdf');
+
+type ExperienceItem = {
+	role: string;
+	organization: string;
+	location: string;
+	period: string;
+	summary: string;
+	highlights: string[];
+	tags: string[];
+};
+
+type ProjectItem = {
+	title: string;
+	context: string;
+	role: string;
+	focus: string;
+	contribution: string;
+	tags: string[];
+};
+
+type EducationItem = {
+	degree: string;
+	institution: string;
+	year: string;
+	focus: string;
+	details: string[];
+	links?: { label: string; href: string }[];
+};
+
+type PublicationItem = {
+	title: string;
+	publisher: string;
+	year: string;
+};
+
+const profileFacts = [
+	{ label: 'Experience', value: '10+ years in automotive embedded controls' },
+	{ label: 'Current role', value: 'Technical Leader for embedded software teams' },
+	{ label: 'Education', value: 'PhD in Mechanical Engineering, Lund University' },
+	{ label: 'Domains', value: 'Electric vehicles, hybrid powertrains, combustion engines' },
+	{ label: 'Evidence', value: '15 scientific publications and multiple patent records' },
+	{ label: 'Location', value: 'Valencia, Spain' },
+];
+
+const coreExpertise = [
+	{
+		title: 'Embedded controls architecture',
+		items: [
+			'Control architecture design for real-time controllers',
+			'System requirements, architecture design, and controller implementation',
+			'Model-based development with MATLAB, Simulink, Stateflow, and Embedded Coder',
+		],
+	},
+	{
+		title: 'Real-time embedded software',
+		items: [
+			'Embedded software implementation in C and C++',
+			'Production ECU integration, software flashing, debugging, and issue tracking',
+			'Generated-code workflows and maintainable target implementation',
+		],
+	},
+	{
+		title: 'Diagnostics and fault handling',
+		items: [
+			'Engine diagnostics, oil system diagnostics, and signal handling',
+			'Functional safety monitoring and diagnostics for control software',
+			'Real-time model-based combustion diagnostics and virtual sensing',
+		],
+	},
+	{
+		title: 'Validation and integration',
+		items: [
+			'MIL, SIL, HIL, test bench, test track, wind tunnel, and on-road testing',
+			'Unit, integration, and system-level test development',
+			'Data logging, data analysis, calibration, and software verification',
+		],
+	},
+	{
+		title: 'Safety and process',
+		items: [
+			'ISO 26262 functional safety context',
+			'Automotive SPICE and AUTOSAR-oriented development',
+			'Agile, Scrum, Kanban, SAFe, and CI/CD workflows',
+		],
+	},
+	{
+		title: 'Technical leadership',
+		items: [
+			'Leadership of a team of 3 embedded software engineers',
+			'Task planning, technical alignment, mentoring, and delivery coordination',
+			'Cross-functional collaboration in large automotive development environments',
+		],
+	},
+];
+
+const experience: ExperienceItem[] = [
+	{
+		role: 'Senior Software Developer, Technical Leader',
+		organization: 'Alten Delivery Center',
+		location: 'Valencia, Spain',
+		period: '2023-Present',
+		summary:
+			'Technical leader supporting embedded software development teams for automotive applications, with responsibility across requirements, architecture, model-based implementation, validation, and delivery coordination.',
+		highlights: [
+			'Provides technical leadership to a team of 3 engineers in embedded software development.',
+			'Coordinates project tasks and technical alignment with client objectives.',
+			'Works on system requirements, architecture design, controller implementation, SIL and HIL testing, on-road testing, debugging, and issue tracking.',
+			'Supports mentoring, knowledge sharing, Agile delivery, CI/CD workflows, and ISO 26262-aligned development.',
+		],
+		tags: ['MATLAB/Simulink', 'C/C++', 'ISO 26262', 'CI/CD', 'SIL/HIL', 'Agile'],
+	},
+	{
+		role: 'Development Software Engineer',
+		organization: 'Mahle Electronics',
+		location: 'Valencia, Spain',
+		period: '2022-2023',
+		summary:
+			'Software engineer working on electric mobility control software, model-based development strategy, AUTOSAR-oriented implementation, and Agile delivery practices.',
+		highlights: [
+			'Led software work for an e-bike motor control development project.',
+			'Implemented application-layer software for wireless battery charging and DC/DC converter functionality.',
+			'Developed and calibrated a virtual PMSM motor temperature model using model-based methods.',
+			'Contributed to Automotive SPICE implementation and Scrum delivery practices.',
+		],
+		tags: ['MATLAB/Simulink', 'C/C++', 'Classic AUTOSAR', 'PMSM', 'CANalyzer', 'CANoe'],
+	},
+	{
+		role: 'Senior Development Engineer',
+		organization: 'Scania',
+		location: 'Södertälje, Sweden',
+		period: '2021-2022',
+		summary:
+			'Senior engineer designing and implementing embedded control software for electric powertrain thermal management and battery-related control functions.',
+		highlights: [
+			'Designed control architecture for thermal management in electric powertrains.',
+			'Implemented and tested software control strategies for electric vehicles.',
+			'Developed estimation methods for state of charge, state of power, and state of health in mild-hybrid vehicle batteries.',
+			'Supported validation across MIL, SIL, HIL, test bench, wind tunnel, test track, and on-road environments.',
+		],
+		tags: ['Thermal management', 'BMS', 'Model-Based Design', 'Jenkins', 'Git', 'Functional safety'],
+	},
+	{
+		role: 'Industrial PhD Student',
+		organization: 'Scania and Lund University',
+		location: 'Södertälje, Sweden',
+		period: '2016-2021',
+		summary:
+			'Industrial PhD researcher focused on real-time diagnostics and in-cycle closed-loop combustion control for heavy-duty diesel engines operating with biofuels.',
+		highlights: [
+			'Developed real-time model-based diagnostics for maximum pressure and exhaust gas temperature estimation.',
+			'Implemented in-cycle combustion control concepts on FPGA platforms with LabVIEW.',
+			'Published peer-reviewed scientific articles and contributed to patent applications.',
+			'Mentored Bachelor and Master thesis students and presented work at international conferences.',
+		],
+		tags: ['Combustion control', 'FPGA', 'LabVIEW', 'Signal processing', 'Model calibration', 'Research'],
+	},
+	{
+		role: 'Research Intern',
+		organization: 'Scania and Lund University',
+		location: 'Södertälje, Sweden',
+		period: '2018',
+		summary:
+			'Specialized research internship applying real-time combustion modeling methods for engine control software and diagnostics.',
+		highlights: [
+			'Developed and validated real-time models for diagnostics and control algorithms.',
+			'Collaborated with embedded software engineers on ECU-oriented control strategies.',
+			'Contributed to experimental data gathering and calibration in test bench and vehicle environments.',
+		],
+		tags: ['Model-Based Design', 'Combustion control', 'Diagnostics', 'Calibration'],
+	},
+	{
+		role: 'Development Engineer',
+		organization: 'Scania',
+		location: 'Södertälje, Sweden',
+		period: '2014-2016',
+		summary:
+			'Development engineer working on embedded control functions for engine diagnostics, thermal management, and safety-related functionality using model-based development and generated C code.',
+		highlights: [
+			'Developed software for engine diagnostics, calibration, and safety functionality.',
+			'Implemented control and diagnosis functions for oil system behavior and driver display warnings.',
+			'Explored controllable cooling systems, controllable oil pumps, and oil degradation models.',
+			'Supported validation, ECU flashing, supplier contact, patent applications, and thesis mentoring.',
+		],
+		tags: ['MATLAB/Simulink', 'C/C++', 'MIL/SIL/HIL', 'Thermal management', 'Diagnostics'],
+	},
+	{
+		role: 'Master Thesis Student',
+		organization: 'Scania',
+		location: 'Södertälje, Sweden',
+		period: '2014',
+		summary:
+			'Master thesis project on automatic control for a low-pressure fuel system in heavy-duty vehicles.',
+		highlights: [
+			'Defined the technical problem, reviewed related solutions, and built a test rig.',
+			'Designed and implemented a MATLAB/Simulink control strategy for real-time fuel delivery management.',
+			'Ran experiments, evaluated performance, wrote and defended the thesis, and contributed to patent work.',
+		],
+		tags: ['Automatic control', 'MATLAB/Simulink', 'Test rig', 'Fuel system control'],
+	},
+	{
+		role: 'Hardware Engineer',
+		organization: 'Arduino Verkstad',
+		location: 'Malmö, Sweden',
+		period: '2014',
+		summary:
+			'Short-term hardware engineering internship focused on educational electronics platforms and embedded prototyping.',
+		highlights: [
+			'Designed and produced PCB circuits for educational projects based on TinkerKit.',
+			'Created documentation for Arduino courses and maker education materials.',
+		],
+		tags: ['Arduino', 'PCB design', 'Embedded prototyping'],
+	},
+	{
+		role: 'Software Researcher',
+		organization: 'Sony Mobile Communications',
+		location: 'Lund, Sweden',
+		period: 'May 2013-August 2013',
+		summary:
+			'Engineering internship in mobile R&D focused on predictive algorithms for reduced touchscreen latency.',
+		highlights: [
+			'Researched predictive screen interaction models for improved responsiveness.',
+			'Implemented selected algorithms at Android kernel level for real-time evaluation.',
+			'Conducted lab tests and analysis for early-stage HMI innovation.',
+		],
+		tags: ['Predictive algorithms', 'Android kernel', 'MATLAB', 'HMI'],
+	},
+];
+
+const projects: ProjectItem[] = [
+	{
+		title: 'Electric truck thermal management and charging coordination',
+		context: 'Automotive electric and hybrid vehicle systems',
+		role: 'Senior developer engineer and technical leader',
+		focus:
+			'Battery and powertrain thermal management, charger thermal coordination, predictive control concepts, software architecture, diagnostics, and validation.',
+		contribution:
+			'Designed and implemented model-based embedded software, supported functional safety analysis, CI/CD integration, calibration tracking, and validation across simulated, bench, and vehicle environments.',
+		tags: ['Thermal management', 'Battery systems', 'MCS charging', 'ISO 26262', 'A-SPICE'],
+	},
+	{
+		title: 'Autonomous electric hauler propulsion control',
+		context: 'Autonomous electric machine control',
+		role: 'Senior developer engineer',
+		focus:
+			'Traction and speed control, torque allocation, redundant actuator concepts, diagnostics, functional safety requirements, and system-level testing.',
+		contribution:
+			'Developed and integrated control software, delivered unit and integration tests, led diagnostics and debugging work, and supported junior developers.',
+		tags: ['Traction control', 'Torque control', 'SIL/HIL', 'Functional safety'],
+	},
+	{
+		title: 'Electric mobility motor and power electronics software',
+		context: 'E-bike and power electronics control',
+		role: 'Software lead and Scrum Master',
+		focus:
+			'Motor control software, wireless battery charger interface, DC/DC converter application software, PMSM temperature modeling, and AUTOSAR-oriented platform work.',
+		contribution:
+			'Led software development, model calibration, issue tracking, software flashing, test-bench verification, and Agile delivery routines.',
+		tags: ['PMSM', 'DC/DC converter', 'Wireless charging', 'Classic AUTOSAR'],
+	},
+	{
+		title: 'Heavy-duty engine diagnostics and thermal systems',
+		context: 'Production-oriented embedded controls',
+		role: 'Development engineer',
+		focus:
+			'Engine diagnostics, oil and coolant thermal management, oil level and pressure signal handling, warnings, and control concepts for auxiliary systems.',
+		contribution:
+			'Implemented control and diagnostic functions, supported validation across loop and vehicle environments, and contributed to patent applications.',
+		tags: ['Diagnostics', 'Thermal management', 'MBD', 'C code generation'],
+	},
+	{
+		title: 'In-cycle combustion control research',
+		context: 'Industrial PhD research',
+		role: 'Industrial PhD researcher',
+		focus:
+			'Real-time combustion diagnostics, virtual sensing, stochastic detection, FPGA implementation, and in-cycle closed-loop control.',
+		contribution:
+			'Produced peer-reviewed publications, patent work, control concepts, test-bench evidence, and thesis research in collaboration with Scania and Lund University.',
+		tags: ['Combustion control', 'FPGA', 'Virtual sensing', 'Scientific publications'],
+	},
+];
+
+const education: EducationItem[] = [
+	{
+		degree: 'PhD Mechanical Engineering',
+		institution: 'Lund University',
+		year: '2021',
+		focus:
+			'Dissertation: "Design and Optimization of In-Cycle Closed-Loop Combustion Control with Multiple Injection"',
+		details: [
+			'Industrial PhD in collaboration with Scania, focused on real-time diagnostics and combustion control for heavy-duty diesel engines using biofuels.',
+			'Developed model-based algorithms and FPGA-based controllers for in-cycle diagnostics and control.',
+			'Co-authored peer-reviewed publications and patent work and mentored thesis students.',
+		],
+		links: [
+			{
+				label: 'View thesis publication at Lund University',
+				href: 'https://portal.research.lu.se/portal/files/96902493/PhD_Thesis_Open.pdf',
+			},
+			{
+				label: 'Watch thesis presentation',
+				href: 'https://www.youtube.com/watch?v=vTkDS-V9lFw',
+			},
+		],
+	},
+	{
+		degree: 'MSc Electrical Engineering',
+		institution: 'Lund University',
+		year: '2014',
+		focus: 'Automatic control and automation',
+		details: [
+			'Specialized in control systems, embedded software, and mechatronics with model-based development using MATLAB/Simulink.',
+			'Master thesis at Scania on a multi-pump fuel control system with real-time control algorithms and patent work.',
+			'Graduated with honors and Spanish-Swedish Scholarship.',
+		],
+	},
+	{
+		degree: 'MSc Industrial Engineering',
+		institution: 'Polytechnical University of Valencia',
+		year: '2014',
+		focus: 'Electronics and automation',
+		details: [
+			'Engineering program covering mechanical, electrical, and control engineering.',
+			'Emphasis on automation, control theory, and energy systems.',
+			'Graduated with honors, Best Academic Record for First Year, Double Degree Scholarship, and Industrial Engineers of Valencia Scholarship.',
+		],
+	},
+];
+
+const courses = [
+	'Langchain and LLMs with Python - Alten, 2025',
+	'Project management: Product Owner + Kanban - Cualtis, 2024',
+	'Power electronic converters - 2022',
+	'Introduction to electromobility - Swedish Electromobility Centre, 2020',
+	'Scania Innovation Challenge - Scania, 2019',
+	'GT-Power - Gamma Technologies, 2015',
+	'Control of mobile robots - Coursera, 2013',
+];
+
+const patents = [
+	{
+		title: 'Method and system for determining in-cycle a pilot injection fuel mass in a combustion chamber of an engine',
+		reference: 'SE WO2019045623',
+		year: '2019',
+	},
+	{
+		title: 'Method and system for fuel pump regulation',
+		reference: 'EU WO2016043652 (A1)',
+		year: '2015',
+	},
+	{
+		title: 'System and method for improving heat release evaluation at a reciprocating internal combustion engine',
+		reference: 'SE WO2017217912A1',
+		year: '2015',
+	},
+	{
+		title: 'Method and system for diagnosing a fuel system II',
+		reference: 'SE WO2017003366A1',
+		year: '2015',
+	},
+	{
+		title: 'Method and system for diagnosing a fuel system',
+		reference: 'SE WO2017003365A1',
+		year: '2015',
+	},
+];
+
+const researchThemes = [
+	'In-cycle closed-loop combustion control',
+	'Real-time model-based diagnostics and virtual sensing',
+	'Stochastic detection and set-point optimization',
+	'FPGA implementation of fast control and signal-processing methods',
+	'Model calibration, system identification, and experimental validation',
+];
+
+const publications: PublicationItem[] = [
+	{
+		title: 'Modular Design and Integration of In-Cycle Closed-Loop Combustion Controllers for a Wide-Range of Operating Conditions',
+		publisher: '2021 American Control Conference (ACC)',
+		year: '2021',
+	},
+	{
+		title: 'Stochastic Set-Point Optimization for In-Cycle Closed-Loop Combustion Control Operation',
+		publisher: 'SAE Technical Paper',
+		year: '2021',
+	},
+	{
+		title: 'In-Cycle Closed-Loop Combustion Control for Pilot Misfire Compensation',
+		publisher: 'SAE Technical Paper 2020-01-2086',
+		year: '2020',
+	},
+	{
+		title: 'Multi-Cylinder Adaptation of In-Cycle Predictive Combustion Models',
+		publisher: 'SAE Technical Paper 2020-01-2087',
+		year: '2020',
+	},
+	{
+		title: 'Predictive In-Cycle Closed-Loop Combustion Control with Pilot-Main Injections',
+		publisher: 'IFAC-PapersOnLine Volume 53, Issue 2, 2020, Pages 14000-14007',
+		year: '2020',
+	},
+	{
+		title: 'Bayesian Method for Fuel Mass Estimation of Short Pilot Injections based on its Misfire Probability',
+		publisher: '2020 American Control Conference (ACC), Denver, CO, USA, 2020, pp. 1507-1513',
+		year: '2020',
+	},
+	{
+		title: 'Cylinder Pressure Based Method for In-Cycle Pilot Misfire Detection',
+		publisher: 'SAE Int. J. Adv. & Curr. Prac. in Mobility',
+		year: '2019',
+	},
+	{
+		title: 'In-Cycle Closed-Loop Combustion Control for Maximum Indicated Efficiency',
+		publisher: 'IFAC E-CoSM 2018',
+		year: '2018',
+	},
+	{
+		title: 'In-Cycle Closed-Loop Combustion Controllability with Pilot-Main Injections',
+		publisher: 'THIESEL 2018 Conference on Thermo- and Fluid Dynamic Processes in Direct Injection Engines',
+		year: '2018',
+	},
+	{
+		title: 'Internal Combustion Engine Cylinder Volume Trace Deviation',
+		publisher: 'SAE Int. J. Engines 11(2):2018',
+		year: '2018',
+	},
+	{
+		title: 'Cylinder Pressure Based Virtual Sensor for In-Cycle Pilot Mass Estimation',
+		publisher: 'SAE Int. J. Engines 11(6):1167-1182',
+		year: '2018',
+	},
+	{
+		title: 'Influence of small Pilot on Main Injection in a Heavy Duty Diesel Engine',
+		publisher: 'SAE Technical Paper 2017-01-0708',
+		year: '2017',
+	},
+	{
+		title: 'FPGA Implementation of In-Cycle Closed-Loop Combustion Control Methods',
+		publisher: 'SAE Technical Paper 2021-24-0024',
+		year: '2021',
+	},
+	{
+		title: 'Indicated efficiency optimization by in-cycle closed-loop combustion control of diesel engines',
+		publisher: 'Control Engineering Practice, Volume 122, 2022, 105097, ISSN 0967-0661',
+		year: '2022',
+	},
+	{
+		title: 'Investigation of small Pilot Combustion in a Heavy Duty Diesel Engine',
+		publisher: 'SAE International Journal of Engines Vol. 10, No. 3 (June 2017), pp. 1193-1203',
+		year: '2017',
+	},
+];
+
+const toolGroups = [
+	{
+		title: 'Control, modeling, and data',
+		items: [
+			'MATLAB',
+			'Simulink',
+			'Stateflow',
+			'Embedded Coder',
+			'LabVIEW',
+			'GT-Power',
+			'PSIM',
+			'model-based development',
+			'system identification',
+			'calibration',
+			'signal processing',
+		],
+	},
+	{
+		title: 'Embedded software',
+		items: ['C', 'C++', 'CAPL', 'Python (basic)', 'Java (basic)', 'Eclipse', 'Visual Studio', 'ECU flashing'],
+	},
+	{
+		title: 'Validation and testing',
+		items: ['MIL', 'SIL', 'HIL', 'unit testing', 'integration testing', 'Google Test', 'CANalyzer', 'CANoe', 'Vision'],
+	},
+	{
+		title: 'Automotive standards and process',
+		items: ['AUTOSAR', 'ISO 26262', 'Automotive SPICE', 'CAN J1939', 'functional safety', 'Agile', 'Scrum', 'Kanban', 'SAFe'],
+	},
+	{
+		title: 'Collaboration and delivery',
+		items: ['Git', 'SVN', 'GitLab', 'Jenkins', 'Jira', 'JFrog', 'CI/CD', 'technical documentation'],
+	},
+];
+
+const languages = [
+	{ language: 'Spanish', level: 'Native' },
+	{ language: 'Catalan', level: 'Native' },
+	{ language: 'English', level: 'Full professional' },
+	{ language: 'Swedish', level: 'Full professional' },
+];
+
+const awards = [
+	'Outstanding Oral Presentation Award - SAE, 2017',
+	'Scholarship for double degree students - COIICV, 2013',
+	'Double Degree internship - TIME Association, 2012',
+	"First Year's Best Academic Record - Polytechnical University of Valencia, 2009",
+];
+---
+
+<Layout
+	title="CV | Carlos Jorques"
+	description="Online CV of Carlos Jorques, embedded controls architect and technical leader working across control systems, real-time embedded software, diagnostics, validation, and reliable physical systems."
+>
+	<section class="cv-hero">
+		<div class="page-container cv-hero__inner">
+			<p class="eyebrow">Online CV</p>
+			<h1>Carlos Jorques</h1>
+			<p class="cv-hero__subtitle">Embedded Controls Architect / Technical Leader</p>
+			<p class="cv-hero__summary">
+				Senior control systems engineer and embedded software developer with more than 10 years of automotive experience across electric vehicles, hybrid powertrains, and advanced combustion engines. His work connects control algorithm development, model-based design, real-time embedded software, diagnostics, validation, and technical leadership.
+			</p>
+			<div class="button-row cv-actions" aria-label="CV page primary actions">
+				<a class="button primary" href={withBase('/contact')}>Contact Carlos</a>
+				<a class="button" href={cvPdfHref}>Download PDF CV</a>
+			</div>
+		</div>
+	</section>
+
+	<section class="cv-section" aria-labelledby="profile-snapshot-title">
+		<div class="page-container">
+			<div class="cv-section__intro">
+				<h2 id="profile-snapshot-title">Profile Snapshot</h2>
+			</div>
+			<div class="cv-snapshot">
+				{profileFacts.map((fact) => (
+					<article class="cv-card cv-card--fact">
+						<p>{fact.label}</p>
+						<h3>{fact.value}</h3>
+					</article>
+				))}
+			</div>
+		</div>
+	</section>
+
+	<section class="cv-section" aria-labelledby="core-expertise-title">
+		<div class="page-container">
+			<div class="cv-section__intro">
+				<h2 id="core-expertise-title">Core Expertise</h2>
+				<p>Capability areas supported by the source CV material.</p>
+			</div>
+			<div class="cv-grid cv-grid--three">
+				{coreExpertise.map((group) => (
+					<article class="cv-card">
+						<h3>{group.title}</h3>
+						<ul>
+							{group.items.map((item) => (
+								<li>{item}</li>
+							))}
+						</ul>
+					</article>
+				))}
+			</div>
+		</div>
+	</section>
+
+	<section class="cv-section" aria-labelledby="professional-experience-title">
+		<div class="page-container">
+			<div class="cv-section__intro">
+				<h2 id="professional-experience-title">Professional Experience</h2>
+				<p>Reverse chronological role history, condensed for recruiter and hiring-manager review.</p>
+			</div>
+			<div class="cv-timeline">
+				{experience.map((item) => (
+					<article class="cv-role">
+						<div class="cv-role__header">
+							<div>
+								<h3>{item.role}</h3>
+								<p class="cv-role__organization">{item.organization}</p>
+							</div>
+							<p class="cv-role__meta">{item.period} | {item.location}</p>
+						</div>
+						<p class="cv-role__summary">{item.summary}</p>
+						<ul>
+							{item.highlights.map((highlight) => (
+								<li>{highlight}</li>
+							))}
+						</ul>
+						<ul class="cv-tags" aria-label={`${item.role} technologies and methods`}>
+							{item.tags.map((tag) => (
+								<li>{tag}</li>
+							))}
+						</ul>
+					</article>
+				))}
+			</div>
+		</div>
+	</section>
+
+	<section class="cv-section" aria-labelledby="selected-projects-title">
+		<div class="page-container">
+			<div class="cv-section__intro">
+				<h2 id="selected-projects-title">Selected Projects and Assignments</h2>
+				<p>Public-safe summaries of project-level work from the source material.</p>
+			</div>
+			<div class="cv-grid cv-grid--two">
+				{projects.map((project) => (
+					<article class="cv-card cv-project">
+						<p class="cv-kicker">{project.context}</p>
+						<h3>{project.title}</h3>
+						<dl>
+							<div>
+								<dt>Role</dt>
+								<dd>{project.role}</dd>
+							</div>
+							<div>
+								<dt>Technical focus</dt>
+								<dd>{project.focus}</dd>
+							</div>
+							<div>
+								<dt>Contribution</dt>
+								<dd>{project.contribution}</dd>
+							</div>
+						</dl>
+						<ul class="cv-tags" aria-label={`${project.title} tags`}>
+							{project.tags.map((tag) => (
+								<li>{tag}</li>
+							))}
+						</ul>
+					</article>
+				))}
+			</div>
+			<p class="cv-section__note">
+				<a class="text-link" href={withBase('/work')}>View selected work, patents, and publications</a>
+			</p>
+		</div>
+	</section>
+
+	<section class="cv-section" aria-labelledby="education-title">
+		<div class="page-container">
+			<div class="cv-section__intro">
+				<h2 id="education-title">Education</h2>
+			</div>
+			<div class="cv-grid">
+				{education.map((item) => (
+					<article class="cv-card cv-education">
+						<p class="cv-kicker">{item.year}</p>
+						<h3>{item.degree}</h3>
+						<p class="cv-role__organization">{item.institution}</p>
+						<p>{item.focus}</p>
+						<ul>
+							{item.details.map((detail) => (
+								<li>{detail}</li>
+							))}
+						</ul>
+						{item.links && (
+							<ul class="cv-link-list">
+								{item.links.map((link) => (
+									<li>
+										<a href={link.href} target="_blank" rel="noopener noreferrer">{link.label}</a>
+									</li>
+								))}
+							</ul>
+						)}
+					</article>
+				))}
+			</div>
+		</div>
+	</section>
+
+	<section class="cv-section" aria-labelledby="research-title">
+		<div class="page-container">
+			<div class="cv-section__intro">
+				<h2 id="research-title">Research, Publications, and Patents</h2>
+				<p>Research output from the industrial PhD and related combustion-control work.</p>
+			</div>
+			<div class="cv-research-grid">
+				<article class="cv-card">
+					<h3>Research Themes</h3>
+					<ul>
+						{researchThemes.map((theme) => (
+							<li>{theme}</li>
+						))}
+					</ul>
+				</article>
+				<article class="cv-card">
+					<h3>Patents</h3>
+					<ul class="cv-compact-list">
+						{patents.map((patent) => (
+							<li>
+								<strong>{patent.title}</strong>
+								<span>{patent.reference} | {patent.year}</span>
+							</li>
+						))}
+					</ul>
+				</article>
+			</div>
+			<article class="cv-card cv-publications">
+				<h3>Publications</h3>
+				<ol>
+					{publications.map((publication) => (
+						<li>
+							<strong>{publication.title}</strong>
+							<span>{publication.publisher} | {publication.year}</span>
+						</li>
+					))}
+				</ol>
+			</article>
+		</div>
+	</section>
+
+	<section class="cv-section" aria-labelledby="tools-methods-title">
+		<div class="page-container">
+			<div class="cv-section__intro">
+				<h2 id="tools-methods-title">Tools, Methods, and Standards</h2>
+			</div>
+			<div class="cv-grid cv-grid--three">
+				{toolGroups.map((group) => (
+					<article class="cv-card">
+						<h3>{group.title}</h3>
+						<ul class="cv-tags cv-tags--block" aria-label={`${group.title} list`}>
+							{group.items.map((item) => (
+								<li>{item}</li>
+							))}
+						</ul>
+					</article>
+				))}
+			</div>
+		</div>
+	</section>
+
+	<section class="cv-section" aria-labelledby="credentials-title">
+		<div class="page-container cv-credentials">
+			<div>
+				<div class="cv-section__intro">
+					<h2 id="credentials-title">Courses, Languages, and Recognition</h2>
+				</div>
+				<div class="cv-grid cv-grid--three">
+					<article class="cv-card">
+						<h3>Selected Courses and Certifications</h3>
+						<ul>
+							{courses.map((course) => (
+								<li>{course}</li>
+							))}
+						</ul>
+					</article>
+					<article class="cv-card">
+						<h3>Languages</h3>
+						<ul class="cv-compact-list">
+							{languages.map((item) => (
+								<li>
+									<strong>{item.language}</strong>
+									<span>{item.level}</span>
+								</li>
+							))}
+						</ul>
+					</article>
+					<article class="cv-card">
+						<h3>Awards and Recognition</h3>
+						<ul>
+							{awards.map((award) => (
+								<li>{award}</li>
+							))}
+						</ul>
+					</article>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="cv-section cv-final" aria-labelledby="cv-contact-title">
+		<div class="page-container cv-final__inner">
+			<div>
+				<h2 id="cv-contact-title">Continue the conversation</h2>
+				<p>
+					For roles or technical conversations involving embedded controls, diagnostics, validation, functional safety, or reliable physical systems, contact Carlos or review the selected work index.
+				</p>
+			</div>
+			<div class="button-row cv-final__actions">
+				<a class="button primary" href={withBase('/contact')}>Contact Carlos</a>
+				<a class="button" href={cvPdfHref}>Download PDF CV</a>
+				<a class="button" href={withBase('/work')}>View selected work</a>
+			</div>
+		</div>
+	</section>
+</Layout>
+
+<style>
+	.cv-hero {
+		padding-block: clamp(4rem, 8vw, 7rem) clamp(3rem, 6vw, 5rem);
+		border-bottom: 1px solid var(--color-border-soft);
+	}
+
+	.cv-hero__inner {
+		display: grid;
+		gap: 1rem;
+		max-width: 920px;
+	}
+
+	.cv-hero h1 {
+		max-width: 760px;
+		font-size: clamp(2.6rem, 6vw, 5rem);
+		line-height: 1.02;
+	}
+
+	.cv-hero__subtitle {
+		color: var(--color-text);
+		font-size: clamp(1.15rem, 2vw, 1.45rem);
+		font-weight: 600;
+		line-height: 1.35;
+	}
+
+	.cv-hero__summary {
+		max-width: 780px;
+		color: var(--color-muted);
+		font-size: 1.05rem;
+		line-height: 1.7;
+	}
+
+	.cv-actions {
+		margin-top: 1rem;
+	}
+
+	.cv-section {
+		padding-block: clamp(3rem, 6vw, 5rem);
+		border-bottom: 1px solid var(--color-border-soft);
+	}
+
+	.cv-section__intro {
+		display: grid;
+		gap: 0.65rem;
+		max-width: 760px;
+		margin-bottom: 1.6rem;
+	}
+
+	.cv-section__intro h2,
+	.cv-final h2 {
+		font-size: clamp(1.7rem, 3.5vw, 2.65rem);
+		line-height: 1.08;
+	}
+
+	.cv-section__intro p,
+	.cv-final p,
+	.cv-section__note {
+		max-width: 720px;
+		color: var(--color-muted);
+		font-size: 0.98rem;
+		line-height: 1.65;
+	}
+
+	.cv-snapshot,
+	.cv-grid,
+	.cv-research-grid {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: 1px;
+		background: var(--color-border);
+		border-block: 1px solid var(--color-border);
+	}
+
+	.cv-card {
+		display: grid;
+		gap: 0.8rem;
+		background: var(--color-page);
+		padding: 1.4rem;
+	}
+
+	.cv-card h3 {
+		font-size: 1.15rem;
+		line-height: 1.35;
+	}
+
+	.cv-card p,
+	.cv-card li,
+	.cv-card dd,
+	.cv-card dt {
+		color: var(--color-muted);
+		font-size: 0.95rem;
+		line-height: 1.6;
+	}
+
+	.cv-card--fact {
+		gap: 0.45rem;
+	}
+
+	.cv-card--fact p,
+	.cv-kicker {
+		color: var(--color-accent);
+		font-family: var(--font-mono);
+		font-size: 0.72rem;
+		font-weight: 600;
+		letter-spacing: 0.06em;
+		line-height: 1.35;
+		text-transform: uppercase;
+	}
+
+	.cv-card--fact h3 {
+		font-size: 1.08rem;
+	}
+
+	.cv-timeline {
+		display: grid;
+		gap: 1px;
+		background: var(--color-border);
+		border-block: 1px solid var(--color-border);
+	}
+
+	.cv-role {
+		display: grid;
+		gap: 1rem;
+		background: var(--color-page);
+		padding: clamp(1.25rem, 3vw, 1.8rem);
+	}
+
+	.cv-role__header {
+		display: grid;
+		gap: 0.55rem;
+	}
+
+	.cv-role__organization {
+		color: var(--color-text) !important;
+		font-weight: 600;
+	}
+
+	.cv-role__meta {
+		color: var(--color-soft);
+		font-family: var(--font-mono);
+		font-size: 0.78rem;
+		font-weight: 600;
+		line-height: 1.45;
+	}
+
+	.cv-role__summary {
+		max-width: 860px;
+		color: var(--color-muted);
+		font-size: 0.98rem;
+		line-height: 1.65;
+	}
+
+	.cv-tags {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.55rem 0.8rem;
+		padding: 0;
+		list-style: none;
+	}
+
+	.cv-tags li {
+		margin: 0;
+		color: var(--color-accent);
+		font-family: var(--font-mono);
+		font-size: 0.76rem;
+		font-weight: 600;
+		line-height: 1.3;
+	}
+
+	.cv-tags--block {
+		align-content: start;
+	}
+
+	.cv-project dl {
+		display: grid;
+		gap: 0.75rem;
+		margin: 0;
+	}
+
+	.cv-project dl div {
+		display: grid;
+		gap: 0.2rem;
+	}
+
+	.cv-project dt {
+		color: var(--color-text);
+		font-weight: 700;
+	}
+
+	.cv-project dd {
+		margin: 0;
+	}
+
+	.cv-section__note {
+		margin-top: 1.4rem;
+	}
+
+	.text-link,
+	.cv-link-list a {
+		width: fit-content;
+		color: var(--color-accent);
+		font-weight: 700;
+		text-decoration: underline;
+		text-decoration-thickness: 1px;
+		text-underline-offset: 0.2em;
+	}
+
+	.text-link:hover,
+	.text-link:focus-visible,
+	.cv-link-list a:hover,
+	.cv-link-list a:focus-visible {
+		color: var(--color-text);
+	}
+
+	.cv-link-list {
+		display: grid;
+		gap: 0.35rem;
+		padding-left: 1.2rem;
+	}
+
+	.cv-education > p {
+		color: var(--color-muted);
+		line-height: 1.6;
+	}
+
+	.cv-publications {
+		margin-top: 1.5rem;
+		border-block: 1px solid var(--color-border);
+	}
+
+	.cv-publications ol,
+	.cv-compact-list {
+		display: grid;
+		gap: 0.7rem;
+	}
+
+	.cv-publications li,
+	.cv-compact-list li {
+		margin: 0;
+	}
+
+	.cv-publications strong,
+	.cv-compact-list strong {
+		display: block;
+		color: var(--color-text);
+		font-weight: 600;
+	}
+
+	.cv-publications span,
+	.cv-compact-list span {
+		display: block;
+		color: var(--color-muted);
+		font-size: 0.9rem;
+		line-height: 1.5;
+	}
+
+	.cv-final {
+		border-bottom: 0;
+	}
+
+	.cv-final__inner {
+		display: grid;
+		gap: 1.4rem;
+		align-items: start;
+	}
+
+	.cv-final__inner > div:first-child {
+		display: grid;
+		gap: 0.75rem;
+	}
+
+	.cv-final__actions {
+		align-items: start;
+	}
+
+	@media (min-width: 760px) {
+		.cv-snapshot,
+		.cv-grid,
+		.cv-research-grid {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+
+		.cv-card {
+			padding: 1.5rem;
+		}
+
+		.cv-role__header {
+			grid-template-columns: minmax(0, 1fr) auto;
+			align-items: start;
+			gap: 1.5rem;
+		}
+
+		.cv-role__meta {
+			max-width: 260px;
+			text-align: right;
+		}
+	}
+
+	@media (min-width: 980px) {
+		.cv-snapshot,
+		.cv-grid--three {
+			grid-template-columns: repeat(3, minmax(0, 1fr));
+		}
+
+		.cv-grid--two {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+
+		.cv-final__inner {
+			grid-template-columns: minmax(0, 1fr) auto;
+			gap: 2rem;
+		}
+
+		.cv-final__actions {
+			min-width: 260px;
+			justify-content: flex-end;
+		}
+	}
+
+	@media (max-width: 640px) {
+		.cv-hero {
+			padding-block: 3.5rem 2.75rem;
+		}
+	}
+
+	@media print {
+		:global(.site-header),
+		:global(.site-footer),
+		:global(.skip-link),
+		.cv-actions,
+		.cv-final__actions {
+			display: none !important;
+		}
+
+		.cv-hero,
+		.cv-section {
+			padding-block: 1.2rem;
+			border-bottom-color: #cccccc;
+		}
+
+		.cv-card,
+		.cv-role,
+		.cv-project,
+		.cv-education {
+			break-inside: avoid;
+		}
+
+		a[href^='http']::after {
+			content: ' (' attr(href) ')';
+			font-weight: 400;
+		}
+	}
+</style>
