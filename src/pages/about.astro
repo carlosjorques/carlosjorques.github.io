@@ -386,28 +386,53 @@ const evidenceLinks = [
 	</section>
 
 	<section class="section" aria-labelledby="applied-domains-title">
-		<div class="page-container">
+		<div class="page-container applied-domains__inner">
 			<div class="section-intro">
 				<h2 id="applied-domains-title">Applied domains</h2>
 				<p>
 					Examples of the product and engineering contexts where my experience applies.
 				</p>
 			</div>
-			<div class="challenge-grid">
-				{appliedExpertise.map((item) => (
-					<article class="challenge-item">
-						<h3>{item.domain}</h3>
-						<p>
-							{item.focus.map((part) =>
-								part.strong ? <strong>{part.text}</strong> : part.text
-							)}
-						</p>
-					</article>
-				))}
-			</div>
-			<div class="section-footer-cta">
-				<p>Want more details of my professional path?</p>
-				<a class="text-link" href={withBase('/contact')}>Access CV or connect via LinkedIn →</a>
+			<div class="applied-domains__body">
+				<figure class="applied-domain-visual">
+					<img
+						src={withBase('/images/volvo-ta15-autonomous-hauler.webp')}
+						alt="Volvo CE autonomous hauler operating in an industrial environment"
+						width="1050"
+						height="1200"
+						loading="lazy"
+						decoding="async"
+					/>
+					<figcaption>
+						<span>
+							A real-world machine is where control intent, embedded software,
+							diagnostics, validation, and field behavior have to become one dependable
+							system.
+						</span>
+						<small>
+							Image: Volvo CE autonomous hauler. Use only with appropriate image rights or permission.
+						</small>
+					</figcaption>
+				</figure>
+
+				<div class="applied-domains__content">
+					<div class="challenge-grid">
+						{appliedExpertise.map((item) => (
+							<article class="challenge-item">
+								<h3>{item.domain}</h3>
+								<p>
+									{item.focus.map((part) =>
+										part.strong ? <strong>{part.text}</strong> : part.text
+									)}
+								</p>
+							</article>
+						))}
+					</div>
+					<div class="section-footer-cta">
+						<p>Want more details of my professional path?</p>
+						<a class="text-link" href={withBase('/contact')}>Access CV or connect via LinkedIn →</a>
+					</div>
+				</div>
 			</div>
 		</div>
 	</section>
@@ -681,6 +706,57 @@ const evidenceLinks = [
 		margin-bottom: 2rem;
 	}
 
+	.applied-domains__inner {
+		display: grid;
+		gap: clamp(1.5rem, 4vw, 3rem);
+		align-items: start;
+	}
+
+	.applied-domains__inner .section-intro {
+		margin-bottom: 0;
+	}
+
+	.applied-domains__body {
+		display: grid;
+		gap: clamp(1.5rem, 4vw, 3rem);
+		align-items: start;
+	}
+
+	.applied-domains__content {
+		display: grid;
+		gap: 1rem;
+	}
+
+	.applied-domain-visual {
+		margin: 0;
+		max-width: 520px;
+	}
+
+	.applied-domain-visual img {
+		display: block;
+		width: 100%;
+		height: auto;
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius);
+		object-fit: cover;
+	}
+
+	.applied-domain-visual figcaption {
+		display: grid;
+		gap: 0.35rem;
+		margin-top: 0.75rem;
+		max-width: 520px;
+		color: var(--color-muted);
+		font-size: 0.9rem;
+		line-height: 1.5;
+	}
+
+	.applied-domain-visual figcaption small {
+		color: var(--color-muted);
+		font-size: 0.78rem;
+		line-height: 1.45;
+	}
+
 	.capability-grid,
 	.challenge-grid,
 	.evidence-grid {
@@ -824,6 +900,15 @@ const evidenceLinks = [
 			grid-template-columns: minmax(240px, 0.48fr) minmax(0, 1fr);
 			align-items: start;
 			gap: clamp(2rem, 5vw, 4rem);
+		}
+
+		.applied-domains__body {
+			grid-template-columns: minmax(260px, 0.42fr) minmax(0, 1fr);
+		}
+
+		.applied-domain-visual {
+			position: sticky;
+			top: 2rem;
 		}
 
 		.work-style-list {
