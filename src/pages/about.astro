@@ -9,6 +9,9 @@ type TextPart = {
 	strong?: boolean;
 };
 
+const renderTextParts = (parts: TextPart[]) =>
+	parts.map((part) => (part.strong ? <strong>{part.text}</strong> : part.text));
+
 const professionalFoundation = [
 	{
 		context: 'EXPERIENCE',
@@ -92,28 +95,28 @@ const workPrinciples = [
 const capabilities = [
 	{
 		domain: 'Controls Architecture',
-		challenge: 'How should the machine govern its behavior?',
+		challenge: 'Define behavior before implementation',
 		description: [
 			{
-				text: 'Defining dynamic intent, transient handling, operating envelope boundaries, and architecture decisions before internal software complexity takes over.',
+				text: 'Defining dynamic intent, transient handling, operating-envelope boundaries, and control architecture before software complexity takes over.',
 			},
 		] satisfies TextPart[],
 	},
 	{
 		domain: 'Real-Time Embedded Software',
-		challenge: 'How does that behavior translate cleanly into execution?',
+		challenge: 'Translate control intent into reliable execution',
 		description: [
 			{ text: 'Shaping model-based pipelines, generated-code boundaries, software interfaces, ' },
-			{ text: 'timing loops' },
+			{ text: 'timing loops', strong: true },
 			{ text: ', and maintainable target implementation.' },
 		] satisfies TextPart[],
 	},
 	{
 		domain: 'Diagnostics & Fault Isolation',
-		challenge: 'How does the machine protect others and itself if something goes wrong?',
+		challenge: 'Make system health observable',
 		description: [
 			{ text: 'Designing observability, ' },
-			{ text: 'signal-health monitoring' },
+			{ text: 'signal-health monitoring', strong: true },
 			{
 				text: ', fault response, and degradation strategies so systems can detect, degrade, and recover instead of failing silently.',
 			},
@@ -121,16 +124,16 @@ const capabilities = [
 	},
 	{
 		domain: 'Validation, MIL/SIL/HIL, and Field Evidence',
-		challenge: 'How do we prove that it is ready?',
+		challenge: 'Connect requirements with evidence',
 		description: [
 			{ text: 'Bridging functional requirements with physical evidence through ' },
-			{ text: 'model-, software-, hardware-in-the-loop testing' },
+			{ text: 'model-, software-, hardware-in-the-loop testing', strong: true },
 			{ text: ', logs, calibration feedback, and field-oriented validation.' },
 		] satisfies TextPart[],
 	},
 	{
 		domain: 'System Integration',
-		challenge: 'How does it integrate with the platform?',
+		challenge: 'Keep software aligned with the machine',
 		description: [
 			{
 				text: 'Aligning actuators, sensors, data buses, calibration parameters, software interfaces, and physical subsystems under real operating loads.',
@@ -139,10 +142,10 @@ const capabilities = [
 	},
 	{
 		domain: 'Technical Leadership',
-		challenge: 'How does the team move together?',
+		challenge: 'Turn technical ambiguity into shared direction',
 		description: [
 			{ text: 'Creating clarity around ' },
-			{ text: 'technical direction' },
+			{ text: 'technical direction', strong: true },
 			{
 				text: ', ownership, quality, and delivery sequence so multidisciplinary teams can execute with autonomy and accountability.',
 			},
@@ -252,21 +255,22 @@ const evidenceLinks = [
 			</div>
 			<figure class="about-hero__portrait">
 				<img
-					src={`${baseUrl}images/carlos-jorques-intro.webp`}
+					src={withBase('/images/carlos-jorques-intro.webp')}
 					alt="Portrait of Carlos Jorques"
 					width="768"
 					height="1024"
 					loading="eager"
 					decoding="async"
+					fetchpriority="high"
 				/>
 			</figure>
 		</div>
 	</section>
 
-        <section class="section about-proof" aria-labelledby="professional-foundation-title">
+	<section class="section about-proof" aria-labelledby="professional-foundation-title">
 		<div class="page-container">
 			<div class="section-intro section-intro--compact">
-                                <h2 id="professional-foundation-title">Professional Foundation</h2>
+				<h2 id="professional-foundation-title">Professional Foundation</h2>
 				<p>
 					My profile combines production delivery, technical direction, system-level validation, and a research foundation in control and diagnostics.
 				</p>
@@ -277,9 +281,7 @@ const evidenceLinks = [
 						<p>{item.context}</p>
 						<h3>{item.anchor}</h3>
 						<span>
-							{item.description.map((part) =>
-								part.strong ? <strong>{part.text}</strong> : part.text
-							)}
+							{renderTextParts(item.description)}
 						</span>
 					</article>
 				))}
@@ -287,10 +289,10 @@ const evidenceLinks = [
 		</div>
 	</section>
 
-        <section class="section about-split" aria-labelledby="work-challenge-title">
+	<section class="section about-split" aria-labelledby="work-challenge-title">
 		<div class="page-container about-split__grid">
 			<div class="split-heading">
-                                <h2 id="work-challenge-title">The challenge behind the work</h2>
+				<h2 id="work-challenge-title">The challenge behind the work</h2>
 			</div>
 			<div class="about-copy">
 				<p>
@@ -327,10 +329,10 @@ const evidenceLinks = [
 		</div>
 	</section>
 
-        <section class="section about-work-style" aria-labelledby="execution-approach-title">
+	<section class="section about-work-style" aria-labelledby="execution-approach-title">
 		<div class="page-container about-work-style__inner">
 			<div class="split-heading about-work-style__intro">
-                                <h2 id="execution-approach-title">How I approach execution</h2>
+				<h2 id="execution-approach-title">How I approach execution</h2>
 				<p>
 					An elegant algorithm is only the beginning. The real engineering challenge is
 					turning it into software that can be compiled, integrated, verified,
@@ -341,7 +343,7 @@ const evidenceLinks = [
 					turn evidence into decisions, and use feedback to improve the next iteration.
 					Try deliberately, manage the risk, and keep moving fast toward delivery.
 				</p>
-				<a class="text-link" href={withBase('/writing/disciplined-curiosity')}>
+				<a class="text-link" href={withBase('/writing')}>
 					Read more about disciplined curiosity →
 				</a>
 			</div>
@@ -350,9 +352,7 @@ const evidenceLinks = [
 					<article>
 						<h3>{item.title}</h3>
 						<p>
-							{item.description.map((part) =>
-								part.strong ? <strong>{part.text}</strong> : part.text
-							)}
+							{renderTextParts(item.description)}
 						</p>
 					</article>
 				))}
@@ -360,10 +360,10 @@ const evidenceLinks = [
 		</div>
 	</section>
 
-        <section class="section" aria-labelledby="core-capabilities-title">
+	<section class="section" aria-labelledby="core-capabilities-title">
 		<div class="page-container">
 			<div class="section-intro">
-                                <h2 id="core-capabilities-title">Core Capabilities</h2>
+				<h2 id="core-capabilities-title">Core Capabilities</h2>
 				<p>
 					These are the technical areas where I work most often.
 				</p>
@@ -374,9 +374,7 @@ const evidenceLinks = [
 						<p class="capability-item__area">{item.challenge}</p>
 						<h3>{item.domain}</h3>
 						<p>
-							{item.description.map((part) =>
-								part.strong ? <strong>{part.text}</strong> : part.text
-							)}
+							{renderTextParts(item.description)}
 						</p>
 					</article>
 				))}
@@ -384,10 +382,10 @@ const evidenceLinks = [
 		</div>
 	</section>
 
-        <section class="section" aria-labelledby="applied-domains-title">
+	<section class="section" aria-labelledby="applied-domains-title">
 		<div class="page-container">
 			<div class="section-intro">
-                                <h2 id="applied-domains-title">Applied domains</h2>
+				<h2 id="applied-domains-title">Applied domains</h2>
 				<p>
 					Examples of the product and engineering contexts where my experience applies.
 				</p>
@@ -397,9 +395,7 @@ const evidenceLinks = [
 					<article class="challenge-item">
 						<h3>{item.domain}</h3>
 						<p>
-							{item.focus.map((part) =>
-								part.strong ? <strong>{part.text}</strong> : part.text
-							)}
+							{renderTextParts(item.focus)}
 						</p>
 					</article>
 				))}
@@ -411,10 +407,10 @@ const evidenceLinks = [
 		</div>
 	</section>
 
-        <section class="section" aria-labelledby="explore-work-title">
+	<section class="section" aria-labelledby="explore-work-title">
 		<div class="page-container">
 			<div class="section-intro">
-                                <h2 id="explore-work-title">Explore more of my work</h2>
+				<h2 id="explore-work-title">Explore more of my work</h2>
 			</div>
 			<div class="evidence-grid">
 				{evidenceLinks.map((item) => (
@@ -428,10 +424,10 @@ const evidenceLinks = [
 		</div>
 	</section>
 
-        <section class="section about-final" aria-labelledby="connect-title">
+	<section class="section about-final" aria-labelledby="connect-title">
 		<div class="page-container about-final__inner">
 			<div>
-                                <h2 id="connect-title">Let’s connect</h2>
+				<h2 id="connect-title">Let’s connect</h2>
 				<p>
 					For roles, collaborations, or technical conversations around embedded controls,
 					diagnostics, safety-related development, and reliable physical systems, I’m
