@@ -335,35 +335,39 @@ const evidenceLinks = [
 	</section>
 
 	<section class="section about-work-style" aria-labelledby="execution-approach-title">
-		<div class="page-container about-work-style__inner">
-			<div class="split-heading about-work-style__intro">
+		<div class="page-container">
+			<div class="section-intro">
 				<h2 id="execution-approach-title">How I approach execution</h2>
-				<p>
-					An elegant algorithm is only the beginning. The real engineering challenge is
-					turning it into software that can be <strong>compiled, integrated, verified,
-					calibrated, and trusted</strong> in the field.
-				</p>
-				<p>
-					My approach is <strong>disciplined curiosity</strong>: frame the question,
-					<strong>test the assumptions</strong>, turn <strong>evidence into decisions</strong>,
-					and use <strong>feedback</strong> to improve the next iteration.
-					Try deliberately, <strong>manage the risk</strong>, and keep moving fast toward delivery.
-				</p>
-				<a class="text-link" href={withBase('/writing')}>
-					Read more about disciplined curiosity →
-				</a>
 			</div>
-			<div class="work-style-list">
-				{workPrinciples.map((item) => (
-					<article>
-						<h3>{item.title}</h3>
-						<p>
-							{item.description.map((part) =>
-								part.strong ? <strong>{part.text}</strong> : part.text
-							)}
-						</p>
-					</article>
-				))}
+			<div class="about-work-style__inner">
+				<div class="split-heading about-work-style__intro">
+					<p>
+						An elegant algorithm is only the beginning. The real engineering challenge is
+						turning it into software that can be <strong>compiled, integrated, verified,
+						calibrated, and trusted</strong> in the field.
+					</p>
+					<p>
+						My approach is <strong>disciplined curiosity</strong>: frame the question,
+						<strong>test the assumptions</strong>, turn <strong>evidence into decisions</strong>,
+						and use <strong>feedback</strong> to improve the next iteration.
+						Try deliberately, <strong>manage the risk</strong>, and keep moving fast toward delivery.
+					</p>
+					<a class="text-link" href={withBase('/writing')}>
+						Read more about disciplined curiosity →
+					</a>
+				</div>
+				<div class="work-style-list">
+					{workPrinciples.map((item) => (
+						<article>
+							<h3>{item.title}</h3>
+							<p>
+								{item.description.map((part) =>
+									part.strong ? <strong>{part.text}</strong> : part.text
+								)}
+							</p>
+						</article>
+					))}
+				</div>
 			</div>
 		</div>
 	</section>
