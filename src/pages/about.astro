@@ -15,7 +15,13 @@ const professionalFoundation = [
 		anchor: '10+ years of embedded controls',
 		description: [
 			{ text: 'Production-ready embedded control software', strong: true },
-			{ text: ' across automotive OEM, Tier 1, electrified powertrain, and off-highway machine environments.' },
+			{ text: ' across ' },
+			{ text: 'Scania trucks', strong: true },
+			{ text: ', ' },
+			{ text: 'Volvo CE autonomous haulers', strong: true },
+			{ text: ', ' },
+			{ text: 'Mahle electrified powertrains', strong: true },
+			{ text: ', and Tier 1 / client delivery environments.' },
 		] satisfies TextPart[],
 	},
 	{
@@ -37,7 +43,7 @@ const professionalFoundation = [
 		description: [
 			{ text: 'Controls architecture, active diagnostics, ' },
 			{ text: 'safety-related constraints', strong: true },
-			{ text: ', and end-to-end integration for systems operating under physical constraints.' },
+			{ text: ', and end-to-end integration for systems in demanding environments.' },
 		] satisfies TextPart[],
 	},
 	{
@@ -56,7 +62,7 @@ const workPrinciples = [
 	{
 		title: 'Start from system behavior',
 		description: [
-			{ text: 'Before defining software boundaries, I model the system’s ' },
+			{ text: 'Before writing code or defining interfaces, I model the system’s ' },
 			{ text: 'physical behavior', strong: true },
 			{ text: ': dynamic response, stability, fault mitigation, operating envelope, and timing constraints.' },
 		] satisfies TextPart[],
@@ -75,7 +81,7 @@ const workPrinciples = [
 		title: 'Lead through explicit technical clarity',
 		description: [
 			{
-				text: 'I align cross-functional domains around ',
+				text: 'Complex projects only succeed when teams can execute them clearly. I align cross-functional domains around ',
 			},
 			{ text: 'architecture', strong: true },
 			{ text: ', trade-offs, safety limits, validation evidence, and ownership.' },
@@ -86,16 +92,16 @@ const workPrinciples = [
 const capabilities = [
 	{
 		domain: 'Controls Architecture',
-		challenge: 'Define behavior before implementation detail',
+		challenge: 'How should the machine govern its behavior?',
 		description: [
 			{
-				text: 'Defining dynamic intent, transient handling, operating-envelope boundaries, and control architecture before software complexity takes over.',
+				text: 'Defining dynamic intent, transient handling, operating envelope boundaries, and architecture decisions before internal software complexity takes over.',
 			},
 		] satisfies TextPart[],
 	},
 	{
 		domain: 'Real-Time Embedded Software',
-		challenge: 'Translate control intent into reliable execution',
+		challenge: 'How does that behavior translate cleanly into execution?',
 		description: [
 			{ text: 'Shaping model-based pipelines, generated-code boundaries, software interfaces, ' },
 			{ text: 'timing loops', strong: true },
@@ -104,7 +110,7 @@ const capabilities = [
 	},
 	{
 		domain: 'Diagnostics & Fault Isolation',
-		challenge: 'Make system health observable',
+		challenge: 'How does the machine protect others and itself if something goes wrong?',
 		description: [
 			{ text: 'Designing observability, ' },
 			{ text: 'signal-health monitoring', strong: true },
@@ -115,7 +121,7 @@ const capabilities = [
 	},
 	{
 		domain: 'Validation, MIL/SIL/HIL, and Field Evidence',
-		challenge: 'Connect requirements with evidence',
+		challenge: 'How do we prove that it is ready?',
 		description: [
 			{ text: 'Bridging functional requirements with physical evidence through ' },
 			{ text: 'model-, software-, hardware-in-the-loop testing', strong: true },
@@ -124,7 +130,7 @@ const capabilities = [
 	},
 	{
 		domain: 'System Integration',
-		challenge: 'Keep interfaces aligned with the machine',
+		challenge: 'How does it integrate with the platform?',
 		description: [
 			{
 				text: 'Aligning actuators, sensors, data buses, calibration parameters, software interfaces, and physical subsystems under real operating loads.',
@@ -133,7 +139,7 @@ const capabilities = [
 	},
 	{
 		domain: 'Technical Leadership',
-		challenge: 'Turn technical ambiguity into shared direction',
+		challenge: 'How does the team move together?',
 		description: [
 			{ text: 'Creating clarity around ' },
 			{ text: 'technical direction', strong: true },
@@ -149,7 +155,7 @@ const appliedExpertise = [
 		domain: 'Heavy-Duty Transportation',
 		focus: [
 			{
-				text: 'Thermal management, energy coordination, battery-related control, charger interaction, and combustion-control research.',
+				text: 'Thermal management of electrified powertrains, battery systems, charger coordination, and combustion-control research.',
 			},
 		] satisfies TextPart[],
 	},
@@ -165,7 +171,7 @@ const appliedExpertise = [
 		domain: 'Autonomous Mobility Systems',
 		focus: [
 			{
-				text: 'Propulsion and torque-control work for autonomous electric machines, including safety monitoring, validation, and field-oriented behavior.',
+				text: 'Propulsion and torque-control work for autonomous electric machines, including safety monitoring, validation, and field behavior.',
 			},
 		] satisfies TextPart[],
 	},
@@ -191,7 +197,7 @@ const evidenceLinks = [
 		description:
 			'Technical thinking on embedded controls, diagnostics, physical systems, software architecture, and engineering judgment.',
 		href: withBase('/writing'),
-		linkText: 'Read technical writing',
+		linkText: 'Read my blog',
 	},
 	{
 		title: 'Work',
@@ -201,11 +207,11 @@ const evidenceLinks = [
 		linkText: 'View selected work, patents, and publications',
 	},
 	{
-		title: 'Contact',
+		title: 'CV and contact',
 		description:
-			'For role discussions, formal career details, and verified contact routes, use the contact page.',
+			'For formal career details, contact information, LinkedIn, and CV access, use the contact page.',
 		href: withBase('/contact'),
-		linkText: 'Contact Carlos',
+		linkText: 'Access CV and contact details',
 	},
 ];
 ---
@@ -217,27 +223,45 @@ const evidenceLinks = [
 	<section class="about-hero">
 		<div class="page-container about-hero__inner">
 			<div class="about-hero__content">
-				<p class="eyebrow">About</p>
-				<h1>I design embedded control systems for physical machines.</h1>
+				<h1>Hi, I’m Carlos.</h1>
 				<p class="about-hero__lead">
-					I am Carlos Jorques, an <strong>Embedded Control Systems Architect</strong>
-					focused on <strong>Control Intelligence for Physical Systems</strong>.
+					I design <strong>embedded control systems</strong> for physical machines.
 				</p>
 				<p class="about-hero__body">
-					I lead technical work where sensing, signal processing, control algorithms,
-					real-time embedded software, diagnostics, actuation, safety constraints, and
-					delivery have to hold together in production.
+					I lead <strong>technical teams</strong> designing <strong>real-time control</strong> and
+					<strong>embedded software</strong> for <strong>safety-related systems</strong>,
+					from <strong>electrified vehicles</strong> to <strong>autonomous machines</strong>.
 				</p>
 				<p class="about-hero__body">
-					My background combines a PhD in control systems with more than a decade of
-					automotive OEM, Tier 1, research, and delivery experience across embedded
-					control, diagnostics, safety-related development, validation, and
-					cross-functional technical leadership.
+					My interest is centered on how <strong>complex dynamic systems</strong> can
+					perform efficiently and safely under real-world conditions. Physical systems
+					shape how people move, build, transport, and use energy. For me, improving
+					their <strong>control software</strong> means helping machines consume less energy,
+					respond more safely to faults, reduce downtime, and make advanced technologies
+					more dependable in daily life.
+				</p>
+				<p class="about-hero__body">
+					I work where <strong>advanced control algorithms</strong> meet physical hardware,
+					uncertainty, <strong>diagnostics</strong>, <strong>validation</strong>, and
+					production constraints. My focus is to reduce uncertainty in both system
+					behavior and engineering delivery: through control strategies that make
+					machines more reliable, and through technical leadership that helps teams turn
+					ideas into <strong>production-ready software</strong>.
+				</p>
+
+				<p class="about-hero__body">
+					Over the past decade, I have contributed to
+					<strong>production and research work</strong> for <strong>Scania trucks</strong>,
+					<strong>Volvo CE autonomous haulers</strong>,
+					<strong>Mahle electrified powertrains</strong>, and
+					<strong>Tier 1 / client delivery environments</strong>. I bridge high-level
+					strategy and robust implementation, <strong>shaping architectures</strong> and
+					supporting teams as we build software that can be trusted in the real world.
 				</p>
 				<div class="button-row" aria-label="About page primary navigation links">
-					<a class="button primary" href={withBase('/contact')}>Contact Carlos</a>
+					<a class="button primary" href={withBase('/contact')}>Contact Carlos / Access CV</a>
 					<a class="button" href={withBase('/work')}>Explore selected work</a>
-					<a class="button" href={withBase('/writing')}>Read technical writing</a>
+					<a class="button" href={withBase('/writing')}>Read my blog</a>
 				</div>
 			</div>
 			<figure class="about-hero__portrait">
@@ -256,9 +280,9 @@ const evidenceLinks = [
 	<section class="section about-proof" aria-labelledby="foundation-title">
 		<div class="page-container">
 			<div class="section-intro section-intro--compact">
-				<h2 id="foundation-title">Professional foundation</h2>
+				<h2 id="foundation-title">Professional Foundation</h2>
 				<p>
-					A concise view of the evidence behind the profile.
+					My profile combines production delivery, technical direction, system-level validation, and a research foundation in control and diagnostics.
 				</p>
 			</div>
 			<div class="proof-grid">
@@ -280,33 +304,38 @@ const evidenceLinks = [
 	<section class="section about-split" aria-labelledby="narrative-title">
 		<div class="page-container about-split__grid">
 			<div class="split-heading">
-				<h2 id="narrative-title">The work behind the title</h2>
+				<h2 id="narrative-title">The challenge behind the work</h2>
 			</div>
 			<div class="about-copy">
 				<p>
-					My work is centered on one practical question: how can a machine sense,
-					decide, and act predictably when the physical world is noisy, constrained,
-					and changing?
+					How can machines sense the world, decide how to move, and act safely under
+					uncertainty? That question has shaped my path from robotics curiosity to
+					control systems, embedded software, and reliable intelligent machines.
 				</p>
 				<p>
-					Control theory gave me a framework for designing dynamic behavior.
-					Electrical engineering and doctoral research gave me tools for modeling,
-					diagnostics, virtual sensing, high-speed processing, and evidence-based
-					decision making.
+					What began as a curiosity for taking things apart and understanding mechanisms
+					became a deeper interest in <strong>dynamic systems</strong>: machines that move
+					and interact with the world. <strong>Control theory</strong> gave me a framework
+					for designing such systems. Electrical engineering and
+					<strong>doctoral research</strong> gave me tools to reason through dynamic
+					systems, uncertainty, sensing, diagnostics, modeling, and evidence.
 				</p>
 				<p>
 					Production is where the theory is tested.
 					Timing limits, cost boundaries, safety criteria, supplier interfaces, calibration maturity, validation evidence, and delivery pressure all shape what can actually work.
-					My role is to help advanced control and software architectures remain clear,
-					testable, and useful in that environment.
+					My role is to help advanced control and software architectures survive that
+					environment.
 				</p>
 				<p>
-					Today I apply that systems thinking to vehicles and intelligent machines,
-					providing technical guidance across architecture, validation, and delivery.
+					Earlier in my career, I contributed <strong>peer-reviewed research</strong> and
+					<strong>patent work</strong> in real-time combustion control, virtual sensing,
+					diagnostics, and high-speed FPGA processing. Today, I apply that same systems
+					thinking to production vehicles and intelligent machines, providing technical
+					guidance across architecture, validation, and delivery.
 				</p>
 				<div class="in-context-cta">
-					<span>Evidence</span>
-					<a href={withBase('/work')} class="text-link">See selected work, patents, and publications</a>
+					<span>Want to know more?</span>
+					<a href={withBase('/work')} class="text-link">See selected work, patents, and academic publications →</a>
 				</div>
 			</div>
 		</div>
@@ -317,9 +346,9 @@ const evidenceLinks = [
 			<div class="split-heading about-work-style__intro">
 				<h2 id="work-style-title">How I approach execution</h2>
 				<p>
-					I keep complex engineering work readable: define the system behavior, reduce
-					uncertainty with evidence, make trade-offs explicit, and align teams around
-					implementation and validation.
+					My working loop is disciplined curiosity: frame the question, design the
+					experiment, turn evidence into insight, make the decision explicit, implement,
+					validate, deploy, and use feedback to improve the next iteration.
 				</p>
 			</div>
 			<div class="work-style-list">
@@ -342,7 +371,7 @@ const evidenceLinks = [
 			<div class="section-intro">
 				<h2 id="skills-flow-title">Core Capabilities</h2>
 				<p>
-					The areas where I most often turn ambiguity into technical direction.
+					These are the technical areas where I work most often.
 				</p>
 			</div>
 			<div class="capability-grid">
@@ -366,7 +395,8 @@ const evidenceLinks = [
 			<div class="section-intro">
 				<h2 id="concrete-expertise-title">Applied domains</h2>
 				<p>
-					Public-safe examples of where the capabilities become tangible.
+					The production and research contexts where the technical capabilities
+					above become tangible.
 				</p>
 			</div>
 			<div class="challenge-grid">
@@ -382,8 +412,8 @@ const evidenceLinks = [
 				))}
 			</div>
 			<div class="section-footer-cta">
-				<p>For formal career details, use the contact page.</p>
-				<a class="text-link" href={withBase('/contact')}>Contact Carlos or connect via LinkedIn</a>
+				<p>Want more details of my professional path?</p>
+				<a class="text-link" href={withBase('/contact')}>Access CV or connect via LinkedIn →</a>
 			</div>
 		</div>
 	</section>
@@ -410,14 +440,14 @@ const evidenceLinks = [
 			<div>
 				<h2 id="final-title">Let’s connect</h2>
 				<p>
-					For technical leadership roles or conversations around embedded controls,
-					diagnostics, safety-related development, and reliable physical systems,
-					contact me through the site or LinkedIn.
+					For roles, collaborations, or technical conversations around embedded controls,
+					diagnostics, safety-related development, and reliable physical systems, I’m
+					open to hearing from you.
 				</p>
 			</div>
 			<div class="about-final__actions">
-				<a class="button primary" href={withBase('/contact')}>Contact Carlos</a>
-				<a class="button" href="https://www.linkedin.com/in/carlosjorques/" target="_blank" rel="noopener noreferrer">View LinkedIn</a>
+				<a class="button primary" href={withBase('/contact')}>Contact Carlos / Access CV</a>
+				<a class="button" href="https://www.linkedin.com/in/carlosjorques/" target="_blank" rel="noopener noreferrer">View LinkedIn Profile</a>
 			</div>
 		</div>
 	</section>
