@@ -332,15 +332,25 @@ const evidenceLinks = [
 	</section>
 
 	<section class="section about-work-style" aria-labelledby="work-style-title">
-		<div class="page-container about-split__grid">
-			<div class="split-heading">
+		<div class="page-container about-work-style__inner">
+			<div class="split-heading about-work-style__intro">
 				<h2 id="work-style-title">How I approach execution</h2>
 				<p>
-					An elegant algorithm is only the beginning. The real engineering challenge is
-					turning it into software that can be compiled, integrated, verified, calibrated,
-					and trusted in the field.
+					My working loop is disciplined curiosity: frame the question, design the
+					experiment, turn evidence into insight, make the decision explicit, implement,
+					validate, deploy, and use feedback to improve the next iteration.
 				</p>
 			</div>
+			<figure class="working-loop-figure" aria-hidden="true">
+				<img
+					src={`${baseUrl}images/curiosity-loop-subtle.webp`}
+					alt=""
+					width="1792"
+					height="1024"
+					loading="lazy"
+					decoding="async"
+				/>
+			</figure>
 			<div class="work-style-list">
 				{workPrinciples.map((item) => (
 					<article>
@@ -562,6 +572,30 @@ const evidenceLinks = [
 		grid-template-columns: 1fr;
 		gap: 1.25rem;
 		align-items: start;
+	}
+
+	.about-work-style__inner {
+		display: grid;
+		gap: clamp(1.4rem, 3vw, 2rem);
+	}
+
+	.about-work-style__intro {
+		max-width: 820px;
+	}
+
+	.working-loop-figure {
+		margin: 0;
+		max-width: 880px;
+	}
+
+	.working-loop-figure img {
+		display: block;
+		width: 100%;
+		height: auto;
+		background: #fff;
+		border: 1px solid var(--color-border-soft);
+		border-radius: var(--radius);
+		opacity: 0.88;
 	}
 
 	.split-heading {
