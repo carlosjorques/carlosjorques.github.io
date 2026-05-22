@@ -208,40 +208,44 @@ const evidenceLinks = [
 >
 	<section class="about-hero">
 		<div class="page-container about-hero__inner">
+			<h1>Hi, I’m Carlos.</h1>
 			<div class="about-hero__content">
-				<h1>Hi, I’m Carlos.</h1>
 				<p class="about-hero__lead">
-					I design embedded control systems for physical machines.
+					I design <strong>embedded control systems</strong> for physical machines.
 				</p>
+
 				<p class="about-hero__body">
-					I lead technical teams designing real-time control and
-					embedded software for safety-related systems,
-					from electrified vehicles to autonomous machines.
+					I lead technical teams designing <strong>real-time control</strong> and
+					<strong>embedded software</strong> for <strong>safety-related systems</strong>,
+					from <strong>electrified vehicles</strong> to <strong>autonomous machines</strong>.
 				</p>
+
 				<p class="about-hero__body">
-					My interest is centered on how complex dynamic systems can
-					perform efficiently and safely under real-world conditions. Physical systems
-					shape how people move, build, transport, and use energy. For me, improving
-					their control software means helping machines consume less energy,
-					respond more safely to faults, reduce downtime, and make advanced technologies
-					more dependable in daily life.
+					My interest is centered on how <strong>complex dynamic systems</strong> perform
+					efficiently and safely under real-world conditions. Physical systems shape how
+					people move, build, transport, and use energy.
 				</p>
+
 				<p class="about-hero__body">
-					I work where advanced control algorithms meet physical hardware,
-					uncertainty, diagnostics, validation, and
-					production constraints. My focus is to reduce uncertainty in both system
-					behavior and engineering delivery: through control strategies that make
-					machines more reliable, and through technical leadership that helps teams turn
-					ideas into production-ready software.
+					For me, improving their <strong>control software</strong> means helping machines
+					consume less energy, respond more safely to faults, reduce downtime, and make
+					advanced technologies more dependable in daily life.
+				</p>
+
+				<p class="about-hero__body">
+					I work where <strong>advanced control algorithms</strong> meet physical hardware,
+					uncertainty, <strong>diagnostics</strong>, <strong>validation</strong>, and
+					production constraints. My focus is to reduce uncertainty in both system behavior
+					and engineering delivery.
 				</p>
 
 				<p class="about-hero__body">
 					Over the past decade, I have contributed to
-					production and research work for Scania trucks,
-					Volvo CE autonomous haulers,
-					Mahle electrified powertrains, and
-					Tier 1 / client delivery environments. I bridge high-level
-					strategy and robust implementation, shaping architectures and
+					<strong>production and research work</strong> for <strong>Scania trucks</strong>,
+					<strong>Volvo CE autonomous haulers</strong>,
+					<strong>Mahle electrified powertrains</strong>, and
+					<strong>Tier 1 / client delivery environments</strong>. I bridge high-level
+					strategy and robust implementation, <strong>shaping architectures</strong> and
 					supporting teams as we build software that can be trusted in the real world.
 				</p>
 				<div class="button-row" aria-label="About page primary navigation links">
@@ -480,32 +484,33 @@ const evidenceLinks = [
 
 	.about-hero__inner {
 		display: grid;
-		gap: clamp(2rem, 5vw, 4rem);
-		align-items: center;
+		row-gap: 1rem;
+		column-gap: clamp(2rem, 5vw, 4rem);
+		align-items: start;
 		max-width: 1120px;
 	}
 
 	.about-hero__content {
 		display: grid;
 		gap: 1rem;
-		max-width: 760px;
+		max-width: 700px;
 	}
 
 	.about-hero h1 {
-		max-width: 780px;
+		max-width: 700px;
 		font-size: clamp(2.35rem, 5.2vw, 4.35rem);
 		line-height: 1.02;
 	}
 
 	.about-hero__lead {
-		max-width: 760px;
+		max-width: 700px;
 		color: var(--color-text);
 		font-size: clamp(1.15rem, 2vw, 1.45rem);
 		line-height: 1.55;
 	}
 
 	.about-hero__body {
-		max-width: 720px;
+		max-width: 680px;
 		color: var(--color-muted);
 		font-size: 1.05rem;
 		line-height: 1.7;
@@ -529,8 +534,8 @@ const evidenceLinks = [
 	}
 
 	.about-hero__portrait {
-		margin: 0;
-		width: min(100%, 360px);
+		margin: 1rem 0 0;
+		width: min(100%, 440px);
 		justify-self: start;
 	}
 
@@ -541,8 +546,6 @@ const evidenceLinks = [
 		height: auto;
 		object-fit: cover;
 		object-position: center;
-		border: 1px solid var(--color-border);
-		border-radius: var(--radius);
 	}
 
 	.section-intro--compact {
@@ -552,18 +555,16 @@ const evidenceLinks = [
 	.proof-grid {
 		display: grid;
 		grid-template-columns: 1fr;
-		border-top: 1px solid var(--color-border);
-		border-bottom: 1px solid var(--color-border);
+		gap: 1px;
+		background: var(--color-border);
+		border-block: 1px solid var(--color-border);
 	}
 
 	.proof-item {
 		display: grid;
 		gap: 0.45rem;
-		padding: 1.2rem 0;
-	}
-
-	.proof-item + .proof-item {
-		border-top: 1px solid var(--color-border);
+		padding: 1.2rem;
+		background: var(--color-page);
 	}
 
 	.proof-item p {
@@ -736,8 +737,6 @@ const evidenceLinks = [
 		display: block;
 		width: 100%;
 		height: auto;
-		border: 1px solid var(--color-border);
-		border-radius: var(--radius);
 		object-fit: cover;
 	}
 
@@ -762,8 +761,9 @@ const evidenceLinks = [
 	.evidence-grid {
 		display: grid;
 		grid-template-columns: 1fr;
-		border-top: 1px solid var(--color-border);
-		border-bottom: 1px solid var(--color-border);
+		gap: 1px;
+		background: var(--color-border);
+		border-block: 1px solid var(--color-border);
 	}
 
 	.capability-item,
@@ -771,13 +771,8 @@ const evidenceLinks = [
 	.evidence-item {
 		display: grid;
 		gap: 0.35rem;
-		padding: 1.5rem 0;
-	}
-
-	.capability-item + .capability-item,
-	.challenge-item + .challenge-item,
-	.evidence-item + .evidence-item {
-		border-top: 1px solid var(--color-border);
+		padding: 1.5rem;
+		background: var(--color-page);
 	}
 
 	.evidence-item a,
@@ -832,20 +827,6 @@ const evidenceLinks = [
 			padding: 1.5rem;
 		}
 
-		.proof-item + .proof-item {
-			border-top: 0;
-			border-left: 1px solid var(--color-border);
-		}
-
-		.proof-item:nth-child(3) {
-			border-left: 0;
-			border-top: 1px solid var(--color-border);
-		}
-
-		.proof-item:nth-child(4) {
-			border-top: 1px solid var(--color-border);
-		}
-
 		.capability-grid,
 		.challenge-grid,
 		.evidence-grid {
@@ -858,32 +839,25 @@ const evidenceLinks = [
 			padding: 1.5rem;
 		}
 
-		.capability-item + .capability-item,
-		.challenge-item + .challenge-item,
-		.evidence-item + .evidence-item {
-			border-top: 0;
-			border-left: 1px solid var(--color-border);
-		}
-
-		.capability-item:nth-child(odd),
-		.challenge-item:nth-child(odd),
-		.evidence-item:nth-child(odd) {
-			border-left: 0;
-		}
-
-		.capability-item:nth-child(n + 3),
-		.challenge-item:nth-child(n + 3),
-		.evidence-item:nth-child(n + 3) {
-			border-top: 1px solid var(--color-border);
-		}
 	}
 
 	@media (min-width: 980px) {
 		.about-hero__inner {
-			grid-template-columns: minmax(0, 1fr) minmax(280px, 360px);
+			grid-template-columns: minmax(0, 700px) minmax(340px, 440px);
+		}
+
+		.about-hero h1 {
+			grid-column: 1 / -1;
+		}
+
+		.about-hero__content {
+			grid-column: 1;
 		}
 
 		.about-hero__portrait {
+			grid-column: 2;
+			grid-row: 2;
+			margin: 0;
 			justify-self: end;
 		}
 
@@ -913,18 +887,6 @@ const evidenceLinks = [
 
 		.work-style-list {
 			max-width: none;
-		}
-
-		.capability-item:nth-child(3n + 1) {
-			border-left: 0;
-		}
-
-		.capability-item:nth-child(3) {
-			border-top: 0;
-		}
-
-		.capability-item:nth-child(4) {
-			border-top: 1px solid var(--color-border);
 		}
 
 		.about-final__inner {
