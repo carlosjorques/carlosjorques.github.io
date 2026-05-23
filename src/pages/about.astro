@@ -202,15 +202,9 @@ const evidenceLinks = [
 				</p>
 
 				<p class="about-hero__body">
-					I work where <strong>advanced control algorithms</strong> meet physical hardware,
-					uncertainty, <strong>diagnostics</strong>, <strong>validation</strong>, and
-					production constraints.
-				</p>
-
-				<p class="about-hero__body">
-					Based in <strong>Spain</strong>, I work with international engineering teams where
-					embedded controls, diagnostics, safety-related development, and physical system
-					behavior need to come together.
+					Based in <strong>Spain</strong>, I work with international engineering teams
+					on systems where control software, physical hardware, uncertainty, diagnostics, validation,
+					safety-related development, and production constraints have to come together.
 				</p>
 
 				<div class="button-row" aria-label="About page primary navigation links">
@@ -238,15 +232,15 @@ const evidenceLinks = [
 			<div class="section-intro section-intro--compact">
 				<h2 id="professional-foundation-title">Professional Foundation</h2>
 				<p>
-					My profile combines production delivery, technical direction, system-level
-					validation, and a research foundation in control and diagnostics.
-				</p>
-				<p>
 					Over the past decade, I have contributed to
 					<strong>production and research work</strong> for <strong>Scania trucks</strong>,
 					<strong>Volvo CE autonomous haulers</strong>,
 					<strong>Mahle electrified powertrains</strong>, and
 					<strong>Tier 1 / client delivery environments</strong>.
+				</p>
+				<p>
+					My profile combines technical direction, production delivery, system-level
+					validation, and a PhD research in control algorithms.
 				</p>
 			</div>
 			<div class="proof-grid">
@@ -270,7 +264,8 @@ const evidenceLinks = [
 			<div class="split-heading">
 				<h2 id="work-challenge-title">The challenge behind the work</h2>
 				<p class="section-quote">
-					<em>
+					<span class="section-quote__mark" aria-hidden="true">"</span>
+					<em class="section-quote__text">
 						"How can machines sense, decide, and act under uncertainty in ways that
 						make everyday systems safer, more efficient, and more useful?"
 					</em>
@@ -313,14 +308,15 @@ const evidenceLinks = [
 				<div class="section-intro about-work-style__intro">
 					<h2 id="execution-approach-title">Professional approach</h2>
 					<p class="section-quote">
-						<em>"An elegant algorithm is only the beginning".</em>
+						<span class="section-quote__mark" aria-hidden="true">"</span>
+						<em class="section-quote__text">"An elegant algorithm is only the beginning".</em>
 					</p>
 					<p>
 						The real engineering challenge is turning it into software that can be
-						<strong>compiled, integrated, verified, calibrated, and trusted</strong> in the field.
+						<strong>compiled, integrated, verified, calibrated, trusted, and mantained</strong> in the field.
 					</p>
 					<p>
-						I value reliability over complexity: advanced algorithms only matter when they
+						I value <strong>reliability over complexity</strong>: advanced algorithms only matter when they
 						respect hardware constraints, safety-related requirements, validation evidence,
 						and the realities of production delivery.
 					</p>
@@ -348,7 +344,7 @@ const evidenceLinks = [
 			<div class="section-intro">
 				<h2 id="technical-areas-title">Technical areas</h2>
 				<p>
-					The main technical areas where my work connects control intent, embedded
+					The main technical areas where my work connects control design, embedded
 					implementation, diagnostics, validation, and system behavior.
 				</p>
 			</div>
@@ -596,6 +592,10 @@ const evidenceLinks = [
 	}
 
 	.section-quote {
+		display: grid;
+		grid-template-columns: auto minmax(0, 1fr);
+		gap: clamp(0.85rem, 2vw, 1.2rem);
+		align-items: start;
 		margin: 0;
 		max-width: 760px;
 		color: var(--color-text);
@@ -604,7 +604,21 @@ const evidenceLinks = [
 		line-height: 1.18;
 	}
 
-	.section-quote em {
+	.split-heading > h2 + .section-quote,
+	.about-work-style__intro > h2 + .section-quote {
+		margin-top: clamp(0.45rem, 1.3vw, 0.9rem);
+	}
+
+	.section-quote__mark {
+		margin-top: -0.18em;
+		color: var(--color-accent);
+		font-family: var(--font-sans);
+		font-size: clamp(3rem, 6vw, 5.1rem);
+		font-weight: 700;
+		line-height: 0.85;
+	}
+
+	.section-quote__text {
 		font-style: italic;
 	}
 
