@@ -208,8 +208,9 @@ const evidenceLinks = [
 				</p>
 
 				<p class="about-hero__body">
-					I lead technical teams designing <strong>real-time control</strong> and
-					<strong>embedded software</strong> for <strong>safety-related systems</strong>,
+					I lead technical teams where <strong>real-time control</strong>,
+					<strong>embedded software</strong>, diagnostics, validation, and
+					<strong>safety-related systems</strong> have to come together in production,
 					from <strong>electrified vehicles</strong> to <strong>autonomous machines</strong>.
 				</p>
 
@@ -286,12 +287,15 @@ const evidenceLinks = [
 
 	<section class="section about-split" aria-labelledby="work-challenge-title">
 		<div class="page-container about-split__grid">
-			<h2 id="work-challenge-title" class="section-quote">
-				<em>
-					"How can machines sense, decide, and act under uncertainty in ways that
-					make everyday systems safer, more efficient, and more useful?"
-				</em>
-			</h2>
+			<div class="split-heading">
+				<h2 id="work-challenge-title">The challenge behind the work</h2>
+				<p class="section-quote">
+					<em>
+						"How can machines sense, decide, and act under uncertainty in ways that
+						make everyday systems safer, more efficient, and more useful?"
+					</em>
+				</p>
+			</div>
 			<div class="about-copy">
 				<p>
 					That question has stayed with me since my early interest in <strong>robotics</strong>: the
@@ -328,6 +332,9 @@ const evidenceLinks = [
 			<div class="about-work-style__lead">
 				<div class="section-intro about-work-style__intro">
 					<h2 id="execution-approach-title">How I approach execution</h2>
+					<p class="section-quote">
+						<em>"An elegant algorithm is only the beginning".</em>
+					</p>
 					<p>
 						The real engineering challenge is turning it into software that can be
 						<strong>compiled, integrated, verified, calibrated, and trusted</strong> in the field.
@@ -347,9 +354,6 @@ const evidenceLinks = [
 						Read more about disciplined curiosity →
 					</a>
 				</div>
-				<p class="section-quote">
-					<em>"An elegant algorithm is only the beginning".</em>
-				</p>
 			</div>
 			<div class="about-work-style__cards">
 				<div class="work-style-list">
@@ -372,6 +376,10 @@ const evidenceLinks = [
 		<div class="page-container">
 			<div class="section-intro">
 				<h2 id="technical-areas-title">Technical areas</h2>
+				<p>
+					The main technical areas where my work connects control intent, embedded
+					implementation, diagnostics, validation, and system behavior.
+				</p>
 			</div>
 			<div class="capability-grid">
 				{capabilities.map((item) => (
@@ -636,6 +644,11 @@ const evidenceLinks = [
 		font-style: italic;
 	}
 
+	.about-work-style__intro .section-quote {
+		max-width: 680px;
+		font-size: clamp(1.25rem, 2.4vw, 1.8rem);
+	}
+
 	.about-split h2,
 	.section-intro h2,
 	.about-final h2 {
@@ -644,13 +657,7 @@ const evidenceLinks = [
 		line-height: 1.08;
 	}
 
-	.about-split h2.section-quote {
-		font-size: clamp(1.45rem, 3vw, 2.35rem);
-		font-weight: 400;
-		line-height: 1.18;
-	}
-
-	.split-heading p,
+	.split-heading p:not(.section-quote),
 	.about-final p {
 		max-width: 700px;
 		color: var(--color-muted);
@@ -902,22 +909,13 @@ const evidenceLinks = [
 			gap: clamp(2rem, 4vw, 3rem);
 		}
 
-		.about-split h2.section-quote {
-			font-size: clamp(1.45rem, 2.6vw, 2.05rem);
-		}
-
 		.capability-grid {
 			grid-template-columns: repeat(3, minmax(0, 1fr));
 		}
 
 		.about-work-style__lead {
-			grid-template-columns: repeat(2, minmax(0, 1fr));
 			align-items: start;
 			gap: clamp(2rem, 5vw, 4rem);
-		}
-
-		.about-work-style__lead > .section-quote {
-			margin-top: clamp(3.4rem, 5vw, 5.4rem);
 		}
 
 		.work-style-list {
@@ -929,7 +927,6 @@ const evidenceLinks = [
 		}
 
 		.applied-domain-visual {
-			position: sticky;
 			top: 2rem;
 		}
 
