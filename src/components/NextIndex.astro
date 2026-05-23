@@ -57,7 +57,7 @@ const withBase = (href: string) => (href === '/' ? baseUrl : `${baseUrl}${href.r
 
 <style>
 	.next-index {
-		background: #ffffff;
+		background: var(--color-page);
 		padding-block: clamp(3rem, 6vw, 5rem);
 	}
 
@@ -74,8 +74,7 @@ const withBase = (href: string) => (href === '/' ? baseUrl : `${baseUrl}${href.r
 	.next-index__grid {
 		display: grid;
 		grid-template-columns: repeat(4, 1fr);
-		border-top: 1px solid var(--color-border);
-		border-bottom: 1px solid var(--color-border);
+		gap: clamp(1.25rem, 3vw, 1.75rem);
 	}
 
 	.next-index__item {
@@ -85,15 +84,17 @@ const withBase = (href: string) => (href === '/' ? baseUrl : `${baseUrl}${href.r
 		padding: 1.35rem 1.5rem;
 		color: inherit;
 		text-decoration: none;
-		background: transparent;
+		border: 1px solid var(--color-border-soft);
+		background: #ffffff;
 		transition:
 			background-color 180ms ease-out,
+			border-color 180ms ease-out,
 			color 180ms ease-out,
 			box-shadow 180ms ease-out;
 	}
 
 	.next-index__item + .next-index__item {
-		border-left: 1px solid var(--color-border);
+		border-left: 1px solid var(--color-border-soft);
 	}
 
 	.next-index__number {
@@ -139,17 +140,18 @@ const withBase = (href: string) => (href === '/' ? baseUrl : `${baseUrl}${href.r
 
 	.next-index__item:hover,
 	.next-index__item:focus-visible {
-		background: var(--color-card-bg);
-		color: var(--color-card-text);
-		box-shadow: 0 12px 28px rgba(0, 0, 0, 0.1);
+		border-color: var(--color-border);
+		background: #ffffff;
+		color: inherit;
+		box-shadow: 0 12px 28px rgba(0, 0, 0, 0.06);
 		outline: none;
 	}
 
 	.next-index__item:hover .next-index__number,
-	.next-index__item:focus-visible .next-index__number,
-	.next-index__item:hover .next-index__arrow,
-	.next-index__item:focus-visible .next-index__arrow {
-		color: var(--color-card-accent);
+		.next-index__item:focus-visible .next-index__number,
+		.next-index__item:hover .next-index__arrow,
+		.next-index__item:focus-visible .next-index__arrow {
+		color: var(--color-accent);
 	}
 
 	.next-index__item:hover .next-index__arrow,
@@ -159,16 +161,16 @@ const withBase = (href: string) => (href === '/' ? baseUrl : `${baseUrl}${href.r
 
 	.next-index__item:hover .next-index__title,
 	.next-index__item:focus-visible .next-index__title {
-		color: var(--color-card-text);
+		color: var(--color-text);
 		text-decoration: underline;
-		text-decoration-color: var(--color-card-accent);
+		text-decoration-color: var(--color-accent);
 		text-underline-offset: 0.25em;
 		text-decoration-thickness: 1px;
 	}
 
 	.next-index__item:hover .next-index__description,
 	.next-index__item:focus-visible .next-index__description {
-		color: var(--color-card-muted);
+		color: var(--color-muted);
 	}
 
 	.next-index__item:focus-visible {
@@ -182,12 +184,12 @@ const withBase = (href: string) => (href === '/' ? baseUrl : `${baseUrl}${href.r
 		}
 
 		.next-index__item:nth-child(3) {
-			border-left: 0;
-			border-top: 1px solid var(--color-border);
+			border-left: 1px solid var(--color-border-soft);
+			border-top: 1px solid var(--color-border-soft);
 		}
 
 		.next-index__item:nth-child(4) {
-			border-top: 1px solid var(--color-border);
+			border-top: 1px solid var(--color-border-soft);
 		}
 	}
 
@@ -202,17 +204,17 @@ const withBase = (href: string) => (href === '/' ? baseUrl : `${baseUrl}${href.r
 
 		.next-index__item {
 			min-height: auto;
-			padding: 1.25rem 0;
+			padding: 1.25rem;
 		}
 
 		.next-index__item + .next-index__item {
-			border-left: 0;
-			border-top: 1px solid var(--color-border);
+			border-left: 1px solid var(--color-border-soft);
+			border-top: 1px solid var(--color-border-soft);
 		}
 
 		.next-index__item:nth-child(3),
 		.next-index__item:nth-child(4) {
-			border-top: 1px solid var(--color-border);
+			border-top: 1px solid var(--color-border-soft);
 		}
 
 		.next-index__description {
@@ -221,8 +223,8 @@ const withBase = (href: string) => (href === '/' ? baseUrl : `${baseUrl}${href.r
 
 		.next-index__item:hover,
 		.next-index__item:focus-visible {
-			padding-left: 1rem;
-			padding-right: 1rem;
+			padding-left: 1.25rem;
+			padding-right: 1.25rem;
 		}
 	}
 

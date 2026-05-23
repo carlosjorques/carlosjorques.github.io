@@ -4,8 +4,8 @@
 	--font-sans: "IBM Plex Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 	--font-mono: "IBM Plex Mono", "SFMono-Regular", Consolas, "Liberation Mono", monospace;
 
-	--color-page: #ffffff;
-	--color-hero: #ffffff;
+	--color-page: #f7f7f7ff;
+	--color-hero: #f7f7f7ff;
 
 	--color-text: #1a1a1a;
 	--color-muted: #444444;

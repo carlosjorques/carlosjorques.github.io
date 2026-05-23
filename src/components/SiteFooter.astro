@@ -17,9 +17,10 @@ const withBase = (href: string) => (href === '/' ? baseUrl : `${baseUrl}${href.r
 
 <style>
 	.site-footer {
-		border-top: 1px solid var(--color-border);
+		border-top: 1px solid rgba(247, 247, 247, 0.12);
+		background: #1a1a1aff;
 		padding-block: 2rem;
-		color: var(--color-muted);
+		color: rgba(247, 247, 247, 0.66);
 	}
 
 	.site-footer__inner {
@@ -29,6 +30,10 @@ const withBase = (href: string) => (href === '/' ? baseUrl : `${baseUrl}${href.r
 		gap: 1.5rem;
 		flex-wrap: wrap;
 		font-size: 0.9rem;
+	}
+
+	.site-footer__inner > span {
+		color: rgba(247, 247, 247, 0.66);
 	}
 
 	.site-footer__links {
@@ -43,20 +48,23 @@ const withBase = (href: string) => (href === '/' ? baseUrl : `${baseUrl}${href.r
 	}
 
 	.site-footer__links a {
-		color: var(--color-text);
+		color: rgba(247, 247, 247, 0.86);
 		text-decoration: none;
 		border-bottom: 1px solid transparent;
 		padding-bottom: 0.15rem;
+		transition:
+			border-color 160ms ease-out,
+			color 160ms ease-out;
 	}
 
 	.site-footer__links a:hover,
 	.site-footer__links a:focus-visible {
-		color: var(--color-accent);
-		border-bottom-color: var(--color-accent);
+		color: #2f8cff;
+		border-bottom-color: #2f8cff;
 	}
 
 	.site-footer__links a:focus-visible {
-		outline: 2px solid var(--color-accent);
+		outline: 2px solid #2f8cff;
 		outline-offset: 4px;
 	}
 </style>
