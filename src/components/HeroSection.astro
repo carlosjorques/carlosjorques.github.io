@@ -14,7 +14,7 @@ const cvUrl = 'REPLACE_WITH_CV_URL';
 				<h1 class="hero-name">Carlos Jorques.</h1>
 
 				<p class="hero-statement">
-					I work on control design for complex intelligent systems, where control engineering,
+					I lead the design of control strategies for complex intelligent systems, where control engineering,
 					embedded software, and reliable machines meet.
 				</p>
 
@@ -24,6 +24,30 @@ const cvUrl = 'REPLACE_WITH_CV_URL';
 					<a href={cvUrl}>CV</a>
 				</div>
 			</div>
+
+			<aside class="home-proof" aria-label="Professional proof points">
+				<div class="home-proof__grid">
+					<div class="home-proof__item">
+						<span class="home-proof__value">10+ years</span>
+						<span class="home-proof__label">Embedded controls in production environments</span>
+					</div>
+
+					<div class="home-proof__item">
+						<span class="home-proof__value">OEM / Tier 1</span>
+						<span class="home-proof__label">Automotive, heavy-duty, and client delivery context</span>
+					</div>
+
+					<div class="home-proof__item">
+						<span class="home-proof__value">Safety-related</span>
+						<span class="home-proof__label">ISO 26262, A-SPICE, AUTOSAR-oriented development</span>
+					</div>
+
+					<div class="home-proof__item">
+						<span class="home-proof__value">PhD-trained</span>
+						<span class="home-proof__label">Control systems, diagnostics, modeling, and evidence</span>
+					</div>
+				</div>
+			</aside>
 		</div>
 	</div>
 </section>
@@ -140,10 +164,67 @@ const cvUrl = 'REPLACE_WITH_CV_URL';
 		outline-offset: 4px;
 	}
 
+	.home-proof {
+		margin-top: clamp(2rem, 4vw, 3rem);
+		padding-top: clamp(1rem, 2vw, 1.25rem);
+		border-top: 1px solid rgba(247, 247, 247, 0.14);
+	}
+
+	.home-proof__grid {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		gap: 0;
+	}
+
+	.home-proof__item {
+		min-height: 58px;
+		padding: 0.15rem 1.1rem 0.15rem 0;
+	}
+
+	.home-proof__item + .home-proof__item {
+		padding-left: 1.1rem;
+		border-left: 1px solid rgba(247, 247, 247, 0.12);
+	}
+
+	.home-proof__value {
+		display: block;
+		margin-bottom: 0.22rem;
+		font-family: var(--font-mono);
+		font-size: 0.66rem;
+		font-weight: 600;
+		letter-spacing: 0.06em;
+		text-transform: uppercase;
+		color: rgba(47, 140, 255, 0.92);
+	}
+
+	.home-proof__label {
+		display: block;
+		max-width: 230px;
+		font-size: 0.82rem;
+		line-height: 1.35;
+		color: rgba(247, 247, 247, 0.66);
+	}
+
 	@media (max-width: 900px) {
 		.hero-area::after {
 			width: 56vw;
 			opacity: 0.18;
+		}
+
+		.home-proof__grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
+
+		.home-proof__item:nth-child(3) {
+			padding-left: 0;
+			border-left: 0;
+		}
+
+		.home-proof__item:nth-child(3),
+		.home-proof__item:nth-child(4) {
+			margin-top: 0.8rem;
+			padding-top: 0.8rem;
+			border-top: 1px solid rgba(247, 247, 247, 0.12);
 		}
 	}
 
@@ -166,6 +247,36 @@ const cvUrl = 'REPLACE_WITH_CV_URL';
 
 		.hero-links {
 			gap: 1rem;
+		}
+
+		.home-proof {
+			margin-top: 1.8rem;
+		}
+
+		.home-proof__grid {
+			grid-template-columns: 1fr;
+		}
+
+		.home-proof__item {
+			min-height: auto;
+			padding: 0.75rem 0;
+		}
+
+		.home-proof__item:first-child {
+			padding-top: 0;
+		}
+
+		.home-proof__item:last-child {
+			padding-bottom: 0;
+		}
+
+		.home-proof__item + .home-proof__item,
+		.home-proof__item:nth-child(3),
+		.home-proof__item:nth-child(4) {
+			margin-top: 0;
+			padding-left: 0;
+			border-left: 0;
+			border-top: 1px solid rgba(247, 247, 247, 0.12);
 		}
 	}
 </style>
