@@ -1,0 +1,141 @@
+---
+const baseUrl = import.meta.env.BASE_URL;
+const withBase = (href: string) => (href === '/' ? baseUrl : `${baseUrl}${href.replace(/^\//, '')}`);
+
+const selectedWork = [
+	{
+		title: 'Embedded controls for electrified and heavy-duty systems',
+		description:
+			'Production and research work across electrified powertrains, thermal management, diagnostics, and heavy-duty vehicle systems.',
+		linkText: 'View selected work',
+		href: withBase('/work'),
+	},
+	{
+		title: 'Autonomous and intelligent machines',
+		description:
+			'Control, propulsion, validation, and field-behavior work for machines where software decisions affect physical operation.',
+		linkText: 'Explore applied domains',
+		href: withBase('/work'),
+	},
+	{
+		title: 'Research, patents, and publications',
+		description:
+			'Peer-reviewed research and patent work in control systems, diagnostics, virtual sensing, and real-time implementation.',
+		linkText: 'View publications and patents',
+		href: withBase('/work'),
+	},
+];
+---
+
+<section class="selected-work" aria-labelledby="selected-work-title">
+	<div class="page-container">
+		<div class="selected-work__header">
+			<h2 id="selected-work-title">Selected work</h2>
+			<p>
+				A short path into the engineering evidence behind the profile: projects,
+				publications, patents, and applied technical contributions.
+			</p>
+		</div>
+
+		<div class="selected-work__grid">
+			{selectedWork.map((item) => (
+				<article class="selected-work__card">
+					<h3>{item.title}</h3>
+					<p>{item.description}</p>
+					<a href={item.href}>{item.linkText}</a>
+				</article>
+			))}
+		</div>
+	</div>
+</section>
+
+<style>
+	.selected-work {
+		background: #ffffff;
+		padding-block: clamp(3rem, 6vw, 5rem);
+	}
+
+	.selected-work__header {
+		display: grid;
+		gap: 0.65rem;
+		max-width: 760px;
+		margin-bottom: clamp(1.5rem, 3vw, 2rem);
+	}
+
+	.selected-work__header h2 {
+		margin: 0;
+		font-size: clamp(1.75rem, 3vw, 2.45rem);
+		line-height: 1.08;
+	}
+
+	.selected-work__header p {
+		margin: 0;
+		max-width: 700px;
+		color: var(--color-muted);
+		font-size: clamp(1rem, 1.25vw, 1.12rem);
+		line-height: 1.55;
+	}
+
+	.selected-work__grid {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: clamp(1rem, 2.5vw, 1.4rem);
+	}
+
+	.selected-work__card {
+		display: grid;
+		gap: 0.75rem;
+		align-content: start;
+		min-height: 220px;
+		padding: 1.35rem;
+		border: 1px solid var(--color-border-soft);
+		background: var(--color-page);
+	}
+
+	.selected-work__card h3 {
+		margin: 0;
+		font-size: 1.05rem;
+		line-height: 1.35;
+	}
+
+	.selected-work__card p {
+		margin: 0;
+		color: var(--color-muted);
+		font-size: 0.92rem;
+		line-height: 1.55;
+	}
+
+	.selected-work__card a {
+		align-self: end;
+		margin-top: 0.35rem;
+		font-family: var(--font-mono);
+		font-size: 0.76rem;
+		font-weight: 600;
+		letter-spacing: 0.05em;
+		text-transform: uppercase;
+		color: var(--color-accent);
+		text-decoration: none;
+		border-bottom: 1px solid transparent;
+		width: fit-content;
+	}
+
+	.selected-work__card a:hover,
+	.selected-work__card a:focus-visible {
+		border-bottom-color: var(--color-accent);
+	}
+
+	.selected-work__card a:focus-visible {
+		outline: 2px solid var(--color-accent);
+		outline-offset: 4px;
+	}
+
+	@media (max-width: 900px) {
+		.selected-work__grid {
+			grid-template-columns: 1fr;
+		}
+
+		.selected-work__card {
+			min-height: auto;
+		}
+	}
+</style>
