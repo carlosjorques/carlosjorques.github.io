@@ -326,9 +326,6 @@ const evidenceLinks = [
 	<section class="section about-work-style" aria-labelledby="execution-approach-title">
 		<div class="page-container">
 			<div class="about-work-style__lead">
-				<p class="section-quote">
-					<em>"An elegant algorithm is only the beginning".</em>
-				</p>
 				<div class="section-intro about-work-style__intro">
 					<h2 id="execution-approach-title">How I approach execution</h2>
 					<p>
@@ -350,6 +347,9 @@ const evidenceLinks = [
 						Read more about disciplined curiosity →
 					</a>
 				</div>
+				<p class="section-quote">
+					<em>"An elegant algorithm is only the beginning".</em>
+				</p>
 			</div>
 			<div class="about-work-style__cards">
 				<div class="work-style-list">
@@ -663,8 +663,8 @@ const evidenceLinks = [
 		gap: 1.2rem;
 		max-width: 760px;
 		color: var(--color-muted);
-		font-size: 1.05rem;
-		line-height: 1.7;
+		font-size: 0.95rem;
+		line-height: 1.6;
 	}
 
 	.in-context-cta,
@@ -871,7 +871,8 @@ const evidenceLinks = [
 
 	@media (min-width: 980px) {
 		.about-hero__inner {
-			grid-template-columns: repeat(2, minmax(0, 1fr));
+			grid-template-columns: minmax(0, 1fr) minmax(300px, 380px);
+			align-items: stretch;
 		}
 
 		.about-hero h1 {
@@ -880,6 +881,13 @@ const evidenceLinks = [
 
 		.about-hero__content {
 			grid-column: 1;
+			max-width: none;
+			align-self: stretch;
+		}
+
+		.about-hero .button-row {
+			flex-wrap: nowrap;
+			margin-top: auto;
 		}
 
 		.about-hero__portrait {
@@ -890,8 +898,12 @@ const evidenceLinks = [
 		}
 
 		.about-split__grid {
-			grid-template-columns: minmax(220px, 0.45fr) minmax(0, 1fr);
-			gap: clamp(2rem, 5vw, 4rem);
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+			gap: clamp(2rem, 4vw, 3rem);
+		}
+
+		.about-split h2.section-quote {
+			font-size: clamp(1.45rem, 2.6vw, 2.05rem);
 		}
 
 		.capability-grid {
@@ -899,9 +911,13 @@ const evidenceLinks = [
 		}
 
 		.about-work-style__lead {
-			grid-template-columns: minmax(240px, 0.48fr) minmax(0, 1fr);
+			grid-template-columns: repeat(2, minmax(0, 1fr));
 			align-items: start;
 			gap: clamp(2rem, 5vw, 4rem);
+		}
+
+		.about-work-style__lead > .section-quote {
+			margin-top: clamp(3.4rem, 5vw, 5.4rem);
 		}
 
 		.work-style-list {
