@@ -51,44 +51,13 @@ const professionalFoundation = [
 	},
 ];
 
-const workPrinciples = [
-	{
-		title: 'Start from system behavior',
-		description: [
-			{ text: 'Before writing code or defining interfaces, I model the system’s ' },
-			{ text: 'physical behavior', strong: true },
-			{ text: ': dynamic response, stability, fault mitigation, operating envelope, and timing constraints.' },
-		] satisfies TextPart[],
-	},
-	{
-		title: 'Deliberately reduce uncertainty',
-		description: [
-			{
-				text: 'I treat unknowns as engineering risks and reduce them early through real-world experiments, predictive simulation, logs, and ',
-			},
-			{ text: 'structured test evidence', strong: true },
-			{ text: '.' },
-		] satisfies TextPart[],
-	},
-	{
-		title: 'Lead through explicit technical clarity',
-		description: [
-			{
-				text: 'Complex projects only succeed when teams can execute them clearly. I align cross-functional domains around ',
-			},
-			{ text: 'architecture', strong: true },
-			{ text: ', trade-offs, safety limits, validation evidence, and ownership.' },
-		] satisfies TextPart[],
-	},
-];
-
 const capabilities = [
 	{
 		domain: 'Controls Architecture',
 		challenge: 'Define behavior before implementation',
 		description: [
 			{
-				text: 'Defining dynamic intent, transient handling, operating-envelope boundaries, and control architecture before software complexity takes over.',
+				text: 'Defining dynamic intent, transient handling, operating-envelope boundaries, estimation, observers, and control architecture before software complexity takes over.',
 			},
 		] satisfies TextPart[],
 	},
@@ -96,9 +65,13 @@ const capabilities = [
 		domain: 'Real-Time Embedded Software',
 		challenge: 'Translate control intent into reliable execution',
 		description: [
-			{ text: 'Shaping model-based pipelines, generated-code boundaries, software interfaces, ' },
+			{
+				text: 'Shaping model-based pipelines, generated-code boundaries, software interfaces, ',
+			},
 			{ text: 'timing loops', strong: true },
-			{ text: ', and maintainable target implementation.' },
+			{
+				text: ', C/C++ integration points, and maintainable target implementation.',
+			},
 		] satisfies TextPart[],
 	},
 	{
@@ -108,7 +81,7 @@ const capabilities = [
 			{ text: 'Designing observability, ' },
 			{ text: 'signal-health monitoring', strong: true },
 			{
-				text: ', fault response, and degradation strategies so systems can detect, degrade, and recover instead of failing silently.',
+				text: ', virtual sensing, fault response, and degradation strategies so systems can detect, degrade, and recover instead of failing silently.',
 			},
 		] satisfies TextPart[],
 	},
@@ -116,9 +89,16 @@ const capabilities = [
 		domain: 'Validation, MIL/SIL/HIL, and Field Evidence',
 		challenge: 'Connect requirements with evidence',
 		description: [
-			{ text: 'Bridging functional requirements with physical evidence through ' },
-			{ text: 'model-, software-, hardware-in-the-loop testing', strong: true },
-			{ text: ', logs, calibration feedback, and field-oriented validation.' },
+			{
+				text: 'Bridging functional requirements with traceability, physical evidence, ',
+			},
+			{
+				text: 'model-, software-, hardware-in-the-loop testing',
+				strong: true,
+			},
+			{
+				text: ', logs, calibration feedback, and field-oriented validation.',
+			},
 		] satisfies TextPart[],
 	},
 	{
@@ -126,7 +106,7 @@ const capabilities = [
 		challenge: 'Keep software aligned with the machine',
 		description: [
 			{
-				text: 'Aligning actuators, sensors, data buses, calibration parameters, software interfaces, and physical subsystems under real operating loads.',
+				text: 'Aligning actuators, sensors, data buses, calibration parameters, software interfaces, safety-related constraints, and physical subsystems under real operating loads.',
 			},
 		] satisfies TextPart[],
 	},
@@ -137,7 +117,7 @@ const capabilities = [
 			{ text: 'Creating clarity around ' },
 			{ text: 'technical direction', strong: true },
 			{
-				text: ', ownership, quality, and delivery sequence so multidisciplinary teams can execute with autonomy and accountability.',
+				text: ', architecture, ownership, quality, delivery sequence, and release readiness so multidisciplinary teams can execute with autonomy and accountability.',
 			},
 		] satisfies TextPart[],
 	},
@@ -331,13 +311,18 @@ const evidenceLinks = [
 		<div class="page-container">
 			<div class="about-work-style__lead">
 				<div class="section-intro about-work-style__intro">
-					<h2 id="execution-approach-title">How I approach execution</h2>
+					<h2 id="execution-approach-title">Professional approach</h2>
 					<p class="section-quote">
 						<em>"An elegant algorithm is only the beginning".</em>
 					</p>
 					<p>
 						The real engineering challenge is turning it into software that can be
 						<strong>compiled, integrated, verified, calibrated, and trusted</strong> in the field.
+					</p>
+					<p>
+						I value reliability over complexity: advanced algorithms only matter when they
+						respect hardware constraints, safety-related requirements, validation evidence,
+						and the realities of production delivery.
 					</p>
 					<p>
 						My approach is <strong>disciplined curiosity</strong>: frame the question,
@@ -353,20 +338,6 @@ const evidenceLinks = [
 					<a class="text-link" href={withBase('/writing')}>
 						Read more about disciplined curiosity →
 					</a>
-				</div>
-			</div>
-			<div class="about-work-style__cards">
-				<div class="work-style-list">
-					{workPrinciples.map((item) => (
-						<article>
-							<h3>{item.title}</h3>
-							<p>
-								{item.description.map((part) =>
-									part.strong ? <strong>{part.text}</strong> : part.text
-								)}
-							</p>
-						</article>
-					))}
 				</div>
 			</div>
 		</div>
@@ -526,7 +497,6 @@ const evidenceLinks = [
 	.about-work-style__intro strong,
 	.about-final strong,
 	.proof-item strong,
-	.work-style-list strong,
 	.capability-item strong,
 	.challenge-item strong {
 		color: var(--color-text);
@@ -603,16 +573,10 @@ const evidenceLinks = [
 		align-items: start;
 	}
 
-	.about-work-style__inner {
-		display: grid;
-		gap: clamp(1.4rem, 3vw, 2rem);
-	}
-
 	.about-work-style__lead {
 		display: grid;
 		gap: clamp(1.4rem, 3vw, 2rem);
 		align-items: start;
-		margin-bottom: clamp(1.5rem, 4vw, 3rem);
 	}
 
 	.about-work-style__intro {
@@ -691,22 +655,6 @@ const evidenceLinks = [
 		font-size: 0.9rem;
 	}
 
-	.work-style-list {
-		display: grid;
-		gap: clamp(1.25rem, 3vw, 1.75rem);
-		max-width: none;
-		background: transparent;
-	}
-
-	.work-style-list article {
-		display: grid;
-		gap: 0.45rem;
-		padding: 1.2rem;
-		border: 1px solid var(--color-border-soft);
-		background: #ffffff;
-	}
-
-	.work-style-list h3,
 	.capability-item h3,
 	.challenge-item h3,
 	.evidence-item h3 {
@@ -715,7 +663,6 @@ const evidenceLinks = [
 		line-height: 1.35;
 	}
 
-	.work-style-list p,
 	.capability-item p,
 	.challenge-item p,
 	.evidence-item p,
@@ -918,20 +865,12 @@ const evidenceLinks = [
 			gap: clamp(2rem, 5vw, 4rem);
 		}
 
-		.work-style-list {
-			grid-template-columns: repeat(3, minmax(0, 1fr));
-		}
-
 		.applied-domains__body {
 			grid-template-columns: minmax(260px, 0.42fr) minmax(0, 1fr);
 		}
 
 		.applied-domain-visual {
 			top: 2rem;
-		}
-
-		.work-style-list {
-			max-width: none;
 		}
 
 		.about-final__inner {
