@@ -4,7 +4,7 @@
 	--font-sans: "IBM Plex Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 	--font-mono: "IBM Plex Mono", "SFMono-Regular", Consolas, "Liberation Mono", monospace;
 
-	--color-page: #ffffff;
+	--color-page: #f7f7f7ff;
 	--color-hero: var(--color-page);
 
 	--color-text: #1a1a1a;
@@ -23,7 +23,7 @@
 	--color-dark-surface-soft: #171717;
 	--color-on-dark: #ffffff;
 	--color-on-dark-muted: rgba(247, 247, 247, 0.72);
-	--color-on-dark-muted-soft: rgba(247, 247, 247, 0.58);
+	--color-on-dark-muted-soft: rgb(255, 255, 255);
 	--color-on-dark-border: rgba(247, 247, 247, 0.14);
 	--color-on-dark-border-soft: rgba(247, 247, 247, 0.12);
 	--color-card-bg: #1f2424;
