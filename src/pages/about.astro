@@ -449,6 +449,8 @@ const evidenceLinks = [
 </Layout>
 
 <style>
+	@import url("https://fonts.googleapis.com/css2?family=Stack+Sans+Text:wght@200..700&display=swap");
+
 	.about-hero {
 		padding-block: clamp(4rem, 8vw, 7rem) clamp(3rem, 6vw, 5rem);
 		border-bottom: 1px solid var(--color-border-soft);
@@ -537,7 +539,7 @@ const evidenceLinks = [
 		gap: 0.45rem;
 		padding: 1.2rem;
 		border: 1px solid var(--color-border-soft);
-		background: #ffffff;
+		background: var(--color-page);
 	}
 
 	.proof-item p {
@@ -612,7 +614,9 @@ const evidenceLinks = [
 	.section-quote__mark {
 		margin-top: -0.18em;
 		color: var(--color-accent);
-		font-family: var(--font-serif);
+		font-family: "Stack Sans Text", sans-serif;
+		font-optical-sizing: auto;
+		font-style: normal;
 		font-size: clamp(3rem, 6vw, 5.1rem);
 		font-weight: 400;
 		line-height: 1.0;
@@ -772,7 +776,7 @@ const evidenceLinks = [
 		gap: 0.35rem;
 		padding: 1.5rem;
 		border: 1px solid var(--color-border-soft);
-		background: #ffffff;
+		background: var(--color-page);
 	}
 
 	.evidence-item a,

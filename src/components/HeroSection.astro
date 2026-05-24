@@ -55,9 +55,21 @@ const cvUrl = 'REPLACE_WITH_CV_URL';
 
 <style>
 	.hero-area {
+		--hero-bg: var(--color-dark-surface);
+		--hero-bg-soft: var(--color-dark-surface-soft);
+		--hero-text: var(--color-on-dark);
+		--hero-muted: var(--color-on-dark-muted);
+		--hero-muted-soft: var(--color-on-dark-muted-soft);
+		--hero-border: var(--color-on-dark-border);
+		--hero-border-soft: var(--color-on-dark-border-soft);
+		--hero-accent: var(--color-accent-bright);
+
 		position: relative;
 		overflow: hidden;
-		background: linear-gradient(180deg, #171918 0%, #1d201f 100%);
+		background:
+			radial-gradient(circle at 78% 18%, rgba(191, 255, 3, 0.10), transparent 32rem),
+			linear-gradient(180deg, var(--hero-bg) 0%, var(--hero-bg-soft) 100%);
+		color: var(--hero-text);
 		padding-block: clamp(4.5rem, 8vw, 7.5rem) clamp(3rem, 5vw, 4.5rem);
 	}
 
@@ -73,9 +85,9 @@ const cvUrl = 'REPLACE_WITH_CV_URL';
 		pointer-events: none;
 		opacity: 0.18;
 		background-image:
-			linear-gradient(rgba(247, 247, 247, 0.06) 1px, transparent 1px),
-			linear-gradient(90deg, rgba(247, 247, 247, 0.06) 1px, transparent 1px),
-			radial-gradient(circle, rgba(47, 140, 255, 0.28) 1px, transparent 1.5px);
+			linear-gradient(var(--hero-border-soft) 1px, transparent 1px),
+			linear-gradient(90deg, var(--hero-border-soft) 1px, transparent 1px),
+			radial-gradient(circle, rgba(191, 255, 3, 0.24) 1px, transparent 1.5px);
 		background-size:
 			72px 72px,
 			72px 72px,
@@ -102,7 +114,7 @@ const cvUrl = 'REPLACE_WITH_CV_URL';
 		font-weight: 600;
 		letter-spacing: 0.08em;
 		text-transform: uppercase;
-		color: #2f8cff;
+		color: var(--hero-accent);
 	}
 
 	.hero-name {
@@ -112,7 +124,7 @@ const cvUrl = 'REPLACE_WITH_CV_URL';
 		line-height: 0.95;
 		font-weight: 700;
 		letter-spacing: 0;
-		color: #ffffff;
+		color: var(--hero-text);
 	}
 
 	.hero-statement {
@@ -121,7 +133,7 @@ const cvUrl = 'REPLACE_WITH_CV_URL';
 		font-size: clamp(1.75rem, 3vw, 2.5rem);
 		line-height: 1.08;
 		font-weight: 400;
-		color:  rgba(247, 247, 247, 0.68);
+		color: var(--hero-muted);
 		font-family: var(--font-mono);
 	}
 
@@ -131,7 +143,7 @@ const cvUrl = 'REPLACE_WITH_CV_URL';
 		font-size: clamp(0.8rem, 1.35vw, 0.9rem);
 		line-height: 1.55;
 		font-weight: 400;
-		color: #ffffff;
+		color: var(--hero-text);
 	}
 
 	.hero-links {
@@ -148,28 +160,28 @@ const cvUrl = 'REPLACE_WITH_CV_URL';
 	}
 
 	.hero-links a {
-		color: #ffffff;
+		color: var(--hero-text);
 		text-decoration: none;
-		border-bottom: 1px solid #2f8cff;
+		border-bottom: 1px solid var(--hero-accent);
 		padding-bottom: 0.15rem;
 		transition: color 160ms ease-out, border-color 160ms ease-out;
 	}
 
 	.hero-links a:hover,
 	.hero-links a:focus-visible {
-		color: #2f8cff;
-		border-bottom-color: #2f8cff;
+		color: var(--hero-accent);
+		border-bottom-color: var(--hero-accent);
 	}
 
 	.hero-links a:focus-visible {
-		outline: 2px solid #2f8cff;
+		outline: 2px solid var(--hero-accent);
 		outline-offset: 4px;
 	}
 
 	.home-proof {
 		margin-top: clamp(3rem, 5vw, 6rem);
 		padding-top: clamp(1rem, 2vw, 1.25rem);
-		border-top: 1px solid rgba(247, 247, 247, 0.14);
+		border-top: 1px solid var(--hero-border);
 	}
 
 	.home-proof__grid {
@@ -185,7 +197,7 @@ const cvUrl = 'REPLACE_WITH_CV_URL';
 
 	.home-proof__item + .home-proof__item {
 		padding-left: 1.1rem;
-		border-left: 1px solid rgba(247, 247, 247, 0.12);
+		border-left: 1px solid var(--hero-border-soft);
 	}
 
 	.home-proof__value {
@@ -196,7 +208,7 @@ const cvUrl = 'REPLACE_WITH_CV_URL';
 		font-weight: 600;
 		letter-spacing: 0.06em;
 		text-transform: uppercase;
-		color: rgba(47, 140, 255, 0.92);
+		color: var(--hero-accent);
 	}
 
 	.home-proof__label {
@@ -204,7 +216,7 @@ const cvUrl = 'REPLACE_WITH_CV_URL';
 		max-width: 230px;
 		font-size: 0.82rem;
 		line-height: 1.35;
-		color: rgba(247, 247, 247, 0.66);
+		color: var(--hero-muted-soft);
 	}
 
 	@media (max-width: 900px) {
@@ -225,7 +237,7 @@ const cvUrl = 'REPLACE_WITH_CV_URL';
 		.home-proof__item:nth-child(4) {
 			margin-top: 0.8rem;
 			padding-top: 0.8rem;
-			border-top: 1px solid rgba(247, 247, 247, 0.12);
+			border-top: 1px solid var(--hero-border-soft);
 		}
 	}
 
@@ -277,7 +289,7 @@ const cvUrl = 'REPLACE_WITH_CV_URL';
 			margin-top: 0;
 			padding-left: 0;
 			border-left: 0;
-			border-top: 1px solid rgba(247, 247, 247, 0.12);
+			border-top: 1px solid var(--hero-border-soft);
 		}
 	}
 </style>
