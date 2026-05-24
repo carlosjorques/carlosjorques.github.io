@@ -5,22 +5,16 @@ const withBase = (href: string) => (href === '/' ? baseUrl : `${baseUrl}${href.r
 const selectedWork = [
 	{
 		title: 'Embedded controls for electrified and heavy-duty systems',
-		description:
-			'Production and research work across electrified powertrains, thermal management, diagnostics, and heavy-duty vehicle systems.',
 		linkText: 'View selected work',
 		href: withBase('/work'),
 	},
 	{
 		title: 'Autonomous and intelligent machines',
-		description:
-			'Control, propulsion, validation, and field-behavior work for machines where software decisions affect physical operation.',
 		linkText: 'Explore applied domains',
 		href: withBase('/work'),
 	},
 	{
 		title: 'Research, patents, and publications',
-		description:
-			'Peer-reviewed research and patent work in control systems, diagnostics, virtual sensing, and real-time implementation.',
 		linkText: 'View publications and patents',
 		href: withBase('/work'),
 	},
@@ -32,15 +26,16 @@ const selectedWork = [
 		<div class="selected-work__header">
 			<h2 id="selected-work-title">Selected work</h2>
 			<p>
-				 Selected projects demonstrating how technical leadership, advanced control design, and embedded robustness translate into deployed industrial systems.
+				A compact path into the engineering evidence behind the profile: applied
+				systems, product contexts, publications, and patents.
 			</p>
 		</div>
 
-		<div class="selected-work__grid">
-			{selectedWork.map((item) => (
-				<article class="selected-work__card">
+		<div class="selected-work__list">
+			{selectedWork.map((item, index) => (
+				<article class="selected-work__item">
+					<span class="selected-work__index">{String(index + 1).padStart(2, '0')}</span>
 					<h3>{item.title}</h3>
-					<p>{item.description}</p>
 					<a href={item.href}>{item.linkText}</a>
 				</article>
 			))}
@@ -75,66 +70,68 @@ const selectedWork = [
 		line-height: 1.55;
 	}
 
-	.selected-work__grid {
+	.selected-work__list {
 		display: grid;
-		grid-template-columns: repeat(3, 1fr);
-		gap: clamp(1rem, 2.5vw, 1.4rem);
+		border-top: 1px solid var(--color-border);
 	}
 
-	.selected-work__card {
+	.selected-work__item {
 		display: grid;
-		gap: 0.75rem;
-		align-content: start;
-		min-height: 220px;
-		padding: 1.35rem;
-		border: 1px solid var(--color-border-soft);
-		background: var(--color-page);
+		grid-template-columns: auto minmax(0, 1fr) auto;
+		gap: clamp(1rem, 2vw, 1.5rem);
+		align-items: center;
+		padding-block: 1.1rem;
+		border-bottom: 1px solid var(--color-border);
 	}
 
-	.selected-work__card h3 {
-		margin: 0;
-		font-size: 1.05rem;
+	.selected-work__index {
+		color: var(--color-accent);
+		font-family: var(--font-mono);
+		font-size: 0.72rem;
+		font-weight: 600;
+		letter-spacing: 0.06em;
 		line-height: 1.35;
 	}
 
-	.selected-work__card p {
+	.selected-work__item h3 {
 		margin: 0;
-		color: var(--color-muted);
-		font-size: 0.92rem;
-		line-height: 1.55;
+		font-size: clamp(1rem, 1.4vw, 1.2rem);
+		line-height: 1.35;
+		font-weight: 500;
 	}
 
-	.selected-work__card a {
-		align-self: end;
-		margin-top: 0.35rem;
+	.selected-work__item a {
+		color: var(--color-accent);
 		font-family: var(--font-mono);
-		font-size: 0.76rem;
+		font-size: 0.74rem;
 		font-weight: 600;
 		letter-spacing: 0.05em;
+		line-height: 1.35;
 		text-transform: uppercase;
-		color: var(--color-accent);
 		text-decoration: none;
 		border-bottom: 1px solid transparent;
+		white-space: nowrap;
 		width: fit-content;
 	}
 
-	.selected-work__card a:hover,
-	.selected-work__card a:focus-visible {
+	.selected-work__item a:hover,
+	.selected-work__item a:focus-visible {
 		border-bottom-color: var(--color-accent);
 	}
 
-	.selected-work__card a:focus-visible {
+	.selected-work__item a:focus-visible {
 		outline: 2px solid var(--color-accent);
 		outline-offset: 4px;
 	}
 
-	@media (max-width: 900px) {
-		.selected-work__grid {
-			grid-template-columns: 1fr;
+	@media (max-width: 760px) {
+		.selected-work__item {
+			grid-template-columns: auto minmax(0, 1fr);
+			align-items: start;
 		}
 
-		.selected-work__card {
-			min-height: auto;
+		.selected-work__item a {
+			grid-column: 2;
 		}
 	}
 </style>
