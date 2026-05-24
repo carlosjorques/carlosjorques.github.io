@@ -9,7 +9,7 @@ const cvUrl = 'REPLACE_WITH_CV_URL';
 	<div class="page-container">
 		<div class="hero">
 			<div class="hero__copy">
-				<p class="hero-kicker">Embedded Controls Systems Architect · Technical Leader</p>
+				<p class="hero-kicker">Embedded Control Systems Architect · Technical Leader</p>
 
 				<h1 class="hero-name">Carlos Jorques</h1>
 				<p class="hero-statement">
@@ -67,7 +67,6 @@ const cvUrl = 'REPLACE_WITH_CV_URL';
 		position: relative;
 		overflow: hidden;
 		background:
-			radial-gradient(circle at 78% 18%, rgba(191, 255, 3, 0.10), transparent 32rem),
 			linear-gradient(180deg, var(--hero-bg) 0%, var(--hero-bg-soft) 100%);
 		color: var(--hero-text);
 		padding-block: clamp(4.5rem, 8vw, 7.5rem) clamp(3rem, 5vw, 4.5rem);
@@ -83,17 +82,6 @@ const cvUrl = 'REPLACE_WITH_CV_URL';
 		position: absolute;
 		inset: 0;
 		pointer-events: none;
-		opacity: 0.18;
-		background-image:
-			linear-gradient(var(--hero-border-soft) 1px, transparent 1px),
-			linear-gradient(90deg, var(--hero-border-soft) 1px, transparent 1px),
-			radial-gradient(circle, rgba(191, 255, 3, 0.24) 1px, transparent 1.5px);
-		background-size:
-			72px 72px,
-			72px 72px,
-			18px 18px;
-		mask-image: radial-gradient(ellipse at 72% 32%, black 0%, transparent 62%);
-		-webkit-mask-image: radial-gradient(ellipse at 72% 32%, black 0%, transparent 62%);
 	}
 
 	.hero {
@@ -114,7 +102,7 @@ const cvUrl = 'REPLACE_WITH_CV_URL';
 		font-weight: 600;
 		letter-spacing: 0.08em;
 		text-transform: uppercase;
-		color: var(--hero-accent);
+		color: var(--color-soft);
 	}
 
 	.hero-name {
@@ -141,8 +129,7 @@ const cvUrl = 'REPLACE_WITH_CV_URL';
 		.hero-statement {
 			background: linear-gradient(
 				90deg,
-				var(--hero-text) 0%,
-				#dfff7a 42%,
+				#dfff7a 0%,
 				var(--hero-accent) 100%
 			);
 			-webkit-background-clip: text;
@@ -154,8 +141,8 @@ const cvUrl = 'REPLACE_WITH_CV_URL';
 	.hero-substatement {
 		max-width: 650px;
 		margin: 2rem auto 0;
-		font-size: clamp(0.8rem, 1.35vw, 0.9rem);
-		line-height: 1.55;
+		font-size: clamp(1.2rem, 1.35vw, 1.2rem);
+		line-height: 1.08;
 		font-weight: 400;
 		color: var(--hero-text);
 	}
