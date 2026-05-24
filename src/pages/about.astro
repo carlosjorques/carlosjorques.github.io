@@ -266,8 +266,8 @@ const evidenceLinks = [
 				<p class="section-quote">
 					<span class="section-quote__mark" aria-hidden="true">"</span>
 					<em class="section-quote__text">
-						"How can machines sense, decide, and act under uncertainty in ways that
-						make everyday systems safer, more efficient, and more useful?"
+						How can machines sense, decide, and act under uncertainty in ways that
+						make everyday systems safer, more efficient, and more useful?
 					</em>
 				</p>
 			</div>
@@ -309,10 +309,10 @@ const evidenceLinks = [
 					<h2 id="execution-approach-title">Professional approach</h2>
 					<p class="section-quote">
 						<span class="section-quote__mark" aria-hidden="true">"</span>
-						<em class="section-quote__text">"An elegant algorithm is only the beginning".</em>
+						<em class="section-quote__text">An elegant algorithm is only the beginning.</em>
 					</p>
 					<p>
-						The real engineering challenge is turning it into software that can be
+						The real engineering challenge is turning advanced algorithms into software that can be
 						<strong>compiled, integrated, verified, calibrated, trusted, and mantained</strong> in the field.
 					</p>
 					<p>
@@ -612,14 +612,18 @@ const evidenceLinks = [
 	.section-quote__mark {
 		margin-top: -0.18em;
 		color: var(--color-accent);
-		font-family: var(--font-sans);
+		font-family: var(--font-serif);
 		font-size: clamp(3rem, 6vw, 5.1rem);
-		font-weight: 700;
-		line-height: 0.85;
+		font-weight: 400;
+		line-height: 1.0;
 	}
 
 	.section-quote__text {
 		font-style: italic;
+		font-family: var(--font-mono);
+		color: var(--color-muted);
+		letter-spacing: -0.05em;
+		font-size: clamp(1.25rem, 2.4vw, 1.5rem);
 	}
 
 	.about-work-style__intro .section-quote {
