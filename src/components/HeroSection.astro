@@ -133,8 +133,22 @@ const cvUrl = 'REPLACE_WITH_CV_URL';
 		font-size: clamp(1.75rem, 3vw, 2.5rem);
 		line-height: 1.08;
 		font-weight: 400;
-		color: var(--hero-muted);
+		color: var(--hero-text);
 		font-family: var(--font-mono);
+	}
+
+	@supports ((-webkit-background-clip: text) or (background-clip: text)) {
+		.hero-statement {
+			background: linear-gradient(
+				90deg,
+				var(--hero-text) 0%,
+				#dfff7a 42%,
+				var(--hero-accent) 100%
+			);
+			-webkit-background-clip: text;
+			background-clip: text;
+			-webkit-text-fill-color: transparent;
+		}
 	}
 
 	.hero-substatement {
