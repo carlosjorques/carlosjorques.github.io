@@ -23,10 +23,22 @@ const canonical = new URL(pathname, Astro.site ?? Astro.url.origin);
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="bright">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<script is:inline>
+			(() => {
+				try {
+					const savedTheme = window.localStorage.getItem('color-theme');
+					const theme = savedTheme === 'dark' || savedTheme === 'bright' ? savedTheme : 'bright';
+					document.documentElement.dataset.theme = theme;
+					document.documentElement.style.colorScheme = theme === 'dark' ? 'dark' : 'light';
+				} catch {
+					document.documentElement.dataset.theme = 'bright';
+				}
+			})();
+		</script>
 		<link rel="icon" type="image/svg+xml" href={`${baseUrl}favicon.svg`} />
 		<link rel="icon" href={`${baseUrl}favicon.ico`} />
 		<meta name="generator" content={Astro.generator} />
