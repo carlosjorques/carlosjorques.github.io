@@ -4,8 +4,8 @@
 	--font-sans: "IBM Plex Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 	--font-mono: "IBM Plex Mono", "SFMono-Regular", Consolas, "Liberation Mono", monospace;
 
-	--color-page: #ffffff;
-	--color-hero: #ffffff;
+	--color-page: #f7f7f7ff;
+	--color-hero: var(--color-page);
 
 	--color-text: #1a1a1a;
 	--color-muted: #444444;
@@ -13,16 +13,26 @@
 	--color-border: #d9d6ce;
 	--color-border-soft: #ece9e2;
 	--color-accent: #1a5fb4;
-	--color-proof-border: #d9d6ce;
+	--color-accent-bright: #1a5fb4;
+	--color-accent-wash: rgba(95, 127, 0, 0.045);
+	--color-border-strong: rgba(26, 26, 26, 0.32);
+	--color-proof-border: var(--color-border);
 	--color-proof-label: #4f5659;
 	--color-proof-text: #3f4446;
+	--color-dark-surface: #1a1a1a;
+	--color-dark-surface-soft: #171717;
+	--color-on-dark: #ffffff;
+	--color-on-dark-muted: rgba(247, 247, 247, 0.72);
+	--color-on-dark-muted-soft: rgb(255, 255, 255);
+	--color-on-dark-border: rgba(247, 247, 247, 0.14);
+	--color-on-dark-border-soft: rgba(247, 247, 247, 0.12);
 	--color-card-bg: #1f2424;
 	--color-card-bg-hover: #262d2d;
-	--color-card-border: rgba(245, 243, 238, 0.14);
-	--color-card-border-hover: rgba(245, 243, 238, 0.28);
-	--color-card-text: #f5f3ee;
-	--color-card-muted: rgba(245, 243, 238, 0.68);
-	--color-card-accent: #9fb7c2;
+	--color-card-border: var(--color-on-dark-border);
+	--color-card-border-hover: rgba(247, 247, 247, 0.28);
+	--color-card-text: var(--color-on-dark);
+	--color-card-muted: var(--color-on-dark-muted-soft);
+	--color-card-accent: var(--color-accent-bright);
 
 	--content-width: 1120px;
 	--content-narrow: 760px;

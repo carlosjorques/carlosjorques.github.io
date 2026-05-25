@@ -1,0 +1,43 @@
+---
+const baseUrl = import.meta.env.BASE_URL;
+const withBase = (href: string) => (href === '/' ? baseUrl : `${baseUrl}${href.replace(/^\//, '')}`);
+---
+
+<section class="home-more" aria-label="More about Carlos">
+	<div class="page-container home-more__inner">
+		<a href={withBase('/about')}>More about Carlos</a>
+	</div>
+</section>
+
+<style>
+	.home-more {
+		background: var(--color-page);
+		padding-block: 0 clamp(3rem, 6vw, 4.5rem);
+	}
+
+	.home-more__inner {
+		border-top: 1px solid var(--color-border-soft);
+		padding-top: 1.25rem;
+	}
+
+	.home-more a {
+		font-family: var(--font-mono);
+		font-size: 0.76rem;
+		font-weight: 600;
+		letter-spacing: 0.05em;
+		text-transform: uppercase;
+		color: var(--color-accent);
+		text-decoration: none;
+		border-bottom: 1px solid transparent;
+	}
+
+	.home-more a:hover,
+	.home-more a:focus-visible {
+		border-bottom-color: var(--color-accent);
+	}
+
+	.home-more a:focus-visible {
+		outline: 2px solid var(--color-accent);
+		outline-offset: 4px;
+	}
+</style>

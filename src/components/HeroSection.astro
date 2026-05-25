@@ -9,30 +9,66 @@ const cvUrl = 'REPLACE_WITH_CV_URL';
 	<div class="page-container">
 		<div class="hero">
 			<div class="hero__copy">
-				<p class="hero-kicker">Embedded Controls Architect · Technical Leader</p>
+				<p class="hero-kicker">Embedded Control Systems Architect · Technical Leader</p>
 
-				<h1 class="hero-name">Carlos Jorques.</h1>
-
+				<h1 class="hero-name">Carlos Jorques</h1>
 				<p class="hero-statement">
-					I work on control design for complex intelligent systems, where control engineering,
-					embedded software, and reliable machines meet.
+					Control Intelligence for Complex Physical Systems.
+				</p>
+				<p class="hero-substatement">
+					With 10+ years of experience in the automotive industry, I lead the design of embedded control software that helps machines sense, decide, act, and operate reliably under real-world constraints.
 				</p>
 
 				<div class="hero-links" aria-label="Primary contact links">
 					<a href={withBase('/contact')}>Contact</a>
-					<a href={linkedInUrl}>LinkedIn</a>
-					<a href={cvUrl}>CV</a>
+					<a href={withBase('/work')}>Work</a>
+					<a href={withBase('/about')}>About</a>
 				</div>
 			</div>
+
+			<aside class="home-proof" aria-label="Professional proof points">
+				<div class="home-proof__grid">
+					<div class="home-proof__item">
+						<span class="home-proof__value">10+ years</span>
+						<span class="home-proof__label">Embedded controls in production environments</span>
+					</div>
+
+					<div class="home-proof__item">
+						<span class="home-proof__value">OEM / Tier 1</span>
+						<span class="home-proof__label">Automotive, heavy-duty, and client delivery</span>
+					</div>
+
+					<div class="home-proof__item">
+						<span class="home-proof__value">Standard Compliance</span>
+						<span class="home-proof__label">ISO 26262, A-SPICE, AUTOSAR-oriented development</span>
+					</div>
+
+					<div class="home-proof__item">
+						<span class="home-proof__value">PhD-trained</span>
+						<span class="home-proof__label">Control systems, diagnostics, modeling, and optimization</span>
+					</div>
+				</div>
+			</aside>
 		</div>
 	</div>
 </section>
 
 <style>
 	.hero-area {
+		--hero-bg: var(--color-dark-surface);
+		--hero-bg-soft: var(--color-dark-surface-soft);
+		--hero-text: var(--color-on-dark);
+		--hero-muted: var(--color-on-dark-muted);
+		--hero-muted-soft: var(--color-on-dark-muted-soft);
+		--hero-border: var(--color-on-dark-border);
+		--hero-border-soft: var(--color-on-dark-border-soft);
+		--hero-accent: var(--color-accent-bright);
+
 		position: relative;
 		overflow: hidden;
-		background: var(--color-hero);
+		background:
+			linear-gradient(180deg, var(--hero-bg) 0%, var(--hero-bg-soft) 100%);
+		color: var(--hero-text);
 		padding-block: clamp(4.5rem, 8vw, 7.5rem) clamp(3rem, 5vw, 4.5rem);
 	}
 
@@ -44,29 +80,8 @@ const cvUrl = 'REPLACE_WITH_CV_URL';
 	.hero-area::after {
 		content: "";
 		position: absolute;
-		top: 4rem;
-		right: max(24px, calc((100vw - 1120px) / 2));
-		width: min(42vw, 520px);
-		height: 320px;
+		inset: 0;
 		pointer-events: none;
-		opacity: 0.18;
-		background-image:
-			radial-gradient(circle, rgba(26, 95, 180, 0.22) 1px, transparent 1.5px),
-			radial-gradient(circle, rgba(17, 19, 21, 0.14) 1px, transparent 1.5px),
-			linear-gradient(rgba(17, 19, 21, 0.055) 1px, transparent 1px),
-			linear-gradient(90deg, rgba(17, 19, 21, 0.055) 1px, transparent 1px);
-		background-size:
-			18px 18px,
-			12px 12px,
-			72px 72px,
-			72px 72px;
-		background-position:
-			0 0,
-			8px 6px,
-			0 0,
-			0 0;
-		mask-image: radial-gradient(ellipse at center, black 0%, black 35%, transparent 78%);
-		-webkit-mask-image: radial-gradient(ellipse at center, black 0%, black 35%, transparent 78%);
 	}
 
 	.hero {
@@ -76,6 +91,8 @@ const cvUrl = 'REPLACE_WITH_CV_URL';
 
 	.hero__copy {
 		max-width: 940px;
+		margin-inline: auto;
+		text-align: center;
 	}
 
 	.hero-kicker {
@@ -85,7 +102,7 @@ const cvUrl = 'REPLACE_WITH_CV_URL';
 		font-weight: 600;
 		letter-spacing: 0.08em;
 		text-transform: uppercase;
-		color: var(--color-accent);
+		color: var(--color-soft);
 	}
 
 	.hero-name {
@@ -95,23 +112,45 @@ const cvUrl = 'REPLACE_WITH_CV_URL';
 		line-height: 0.95;
 		font-weight: 700;
 		letter-spacing: 0;
-		color: var(--color-text);
+		color: var(--hero-text);
 	}
 
 	.hero-statement {
-		max-width: 760px;
-		margin: 1.35rem 0 0;
-		font-family: var(--font-sans);
-		font-size: clamp(1.4rem, 2.4vw, 2.25rem);
-		line-height: 1.18;
+		max-width: 600px;
+		margin: 2rem auto 0;
+		font-size: clamp(1.75rem, 3vw, 2.5rem);
+		line-height: 1.08;
 		font-weight: 400;
-		letter-spacing: 0;
-		color: var(--color-text);
+		color: var(--hero-text);
+		font-family: var(--font-mono);
+	}
+
+	@supports ((-webkit-background-clip: text) or (background-clip: text)) {
+		.hero-statement {
+			background: linear-gradient(
+				90deg,
+				#dfff7a 0%,
+				var(--hero-accent) 100%
+			);
+			-webkit-background-clip: text;
+			background-clip: text;
+			-webkit-text-fill-color: transparent;
+		}
+	}
+
+	.hero-substatement {
+		max-width: 650px;
+		margin: 2rem auto 0;
+		font-size: clamp(1.2rem, 1.35vw, 1.2rem);
+		line-height: 1.08;
+		font-weight: 400;
+		color: var(--hero-text);
 	}
 
 	.hero-links {
-		margin-top: 1.75rem;
+		margin-top: 2.75rem;
 		display: flex;
+		justify-content: center;
 		gap: 1.25rem;
 		flex-wrap: wrap;
 		font-family: var(--font-mono);
@@ -122,28 +161,84 @@ const cvUrl = 'REPLACE_WITH_CV_URL';
 	}
 
 	.hero-links a {
-		color: var(--color-text);
+		color: var(--hero-text);
 		text-decoration: none;
-		border-bottom: 1px solid var(--color-accent);
+		border-bottom: 1px solid var(--hero-accent);
 		padding-bottom: 0.15rem;
 		transition: color 160ms ease-out, border-color 160ms ease-out;
 	}
 
 	.hero-links a:hover,
 	.hero-links a:focus-visible {
-		color: var(--color-accent);
-		border-bottom-color: var(--color-accent);
+		color: var(--hero-accent);
+		border-bottom-color: var(--hero-accent);
 	}
 
 	.hero-links a:focus-visible {
-		outline: 2px solid var(--color-accent);
+		outline: 2px solid var(--hero-accent);
 		outline-offset: 4px;
+	}
+
+	.home-proof {
+		margin-top: clamp(3rem, 5vw, 6rem);
+		padding-top: clamp(1rem, 2vw, 1.25rem);
+		border-top: 1px solid var(--hero-border);
+	}
+
+	.home-proof__grid {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		gap: 0;
+	}
+
+	.home-proof__item {
+		min-height: 58px;
+		padding: 0.15rem 1.1rem 0.15rem 0;
+	}
+
+	.home-proof__item + .home-proof__item {
+		padding-left: 1.1rem;
+		border-left: 1px solid var(--hero-border-soft);
+	}
+
+	.home-proof__value {
+		display: block;
+		margin-bottom: 0.22rem;
+		font-family: var(--font-mono);
+		font-size: 0.66rem;
+		font-weight: 600;
+		letter-spacing: 0.06em;
+		text-transform: uppercase;
+		color: var(--hero-accent);
+	}
+
+	.home-proof__label {
+		display: block;
+		max-width: 230px;
+		font-size: 0.82rem;
+		line-height: 1.35;
+		color: var(--hero-muted-soft);
 	}
 
 	@media (max-width: 900px) {
 		.hero-area::after {
-			width: 56vw;
-			opacity: 0.18;
+			opacity: 0.14;
+		}
+
+		.home-proof__grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
+
+		.home-proof__item:nth-child(3) {
+			padding-left: 0;
+			border-left: 0;
+		}
+
+		.home-proof__item:nth-child(3),
+		.home-proof__item:nth-child(4) {
+			margin-top: 0.8rem;
+			padding-top: 0.8rem;
+			border-top: 1px solid var(--hero-border-soft);
 		}
 	}
 
@@ -166,6 +261,36 @@ const cvUrl = 'REPLACE_WITH_CV_URL';
 
 		.hero-links {
 			gap: 1rem;
+		}
+
+		.home-proof {
+			margin-top: 1.8rem;
+		}
+
+		.home-proof__grid {
+			grid-template-columns: 1fr;
+		}
+
+		.home-proof__item {
+			min-height: auto;
+			padding: 0.75rem 0;
+		}
+
+		.home-proof__item:first-child {
+			padding-top: 0;
+		}
+
+		.home-proof__item:last-child {
+			padding-bottom: 0;
+		}
+
+		.home-proof__item + .home-proof__item,
+		.home-proof__item:nth-child(3),
+		.home-proof__item:nth-child(4) {
+			margin-top: 0;
+			padding-left: 0;
+			border-left: 0;
+			border-top: 1px solid var(--hero-border-soft);
 		}
 	}
 </style>

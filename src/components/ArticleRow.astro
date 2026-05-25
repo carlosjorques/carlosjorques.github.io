@@ -12,7 +12,7 @@ const { number, title, description, href } = Astro.props;
 <a href={href} class="article-link">
 	<span class="article-link__number">{number}</span>
 	<span>
-		<h2 class="article-link__title">{title}</h2>
+		<h3 class="article-link__title">{title}</h3>
 		<p class="article-link__description">{description}</p>
 	</span>
 	<span class="article-link__arrow" aria-hidden="true">→</span>
@@ -69,8 +69,8 @@ const { number, title, description, href } = Astro.props;
 
 	.article-link:hover,
 	.article-link:focus-visible {
-		border-color: rgba(17, 19, 21, 0.32);
-		background: rgba(26, 95, 180, 0.025);
+		border-color: var(--color-border-strong);
+		background: var(--color-accent-wash);
 	}
 
 	.article-link:hover .article-link__title,

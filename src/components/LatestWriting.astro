@@ -26,39 +26,21 @@ const articles = [
 ];
 ---
 
-<section class="latest">
+<section class="latest" aria-labelledby="writing-title">
 	<div class="page-container">
-		<p class="latest__label">Latest writing</p>
-
-		<div class="latest__intro-wrap">
+		<div class="latest__header">
+			<h2 id="writing-title">Technical insights</h2>
 			<p class="latest__intro">
-				Developing ideas on control systems, embedded software, diagnostics, automation, and the technical decisions that make complex machines safe and reliable.
+				Writing about control systems, electrification, diagnostics, and real-time embedded software.
+				These articles discuss and research about technical challenges and solutions, production constraints, and reliable machine behavior.
 			</p>
-
-			<aside class="proof-rail" aria-label="Professional proof points">
-				<span class="proof-rail__item">
-					<span class="proof-rail__label">10+ years</span>
-					<span class="proof-rail__text">Automotive embedded systems</span>
-				</span>
-
-				<span class="proof-rail__item">
-					<span class="proof-rail__label">Technical leadership</span>
-					<span class="proof-rail__text">Model-based software teams</span>
-				</span>
-
-				<span class="proof-rail__item">
-					<span class="proof-rail__label">PhD-trained</span>
-					<span class="proof-rail__text">Real-time control and diagnostics</span>
-				</span>
-
-				<span class="proof-rail__item">
-					<span class="proof-rail__label">Production context</span>
-					<span class="proof-rail__text">EV, powertrain, safety, and validation</span>
-				</span>
-			</aside>
 		</div>
 
 		{articles.map((article) => <ArticleRow {...article} />)}
+
+		<div class="latest__footer">
+			<a href={withBase('/writing')}>View all writing</a>
+		</div>
 	</div>
 </section>
 
@@ -69,15 +51,17 @@ const articles = [
 		padding-block: clamp(3rem, 6vw, 5rem);
 	}
 
-	.latest__label,
-	.section-label {
-		margin: 0 0 1rem;
-		font-family: var(--font-mono);
-		font-size: 0.78rem;
-		font-weight: 600;
-		letter-spacing: 0.06em;
-		text-transform: uppercase;
-		color: var(--color-accent);
+	.latest__header {
+		display: grid;
+		gap: 0.65rem;
+		max-width: 760px;
+		margin-bottom: clamp(2rem, 4vw, 3rem);
+	}
+
+	.latest__header h2 {
+		margin: 0;
+		font-size: clamp(1.75rem, 3vw, 2.45rem);
+		line-height: 1.08;
 	}
 
 	.latest__intro {
@@ -88,66 +72,28 @@ const articles = [
 		color: var(--color-text);
 	}
 
-	.latest__intro-wrap {
-		display: grid;
-		grid-template-columns: minmax(0, 1fr) 320px;
-		gap: clamp(2rem, 5vw, 4rem);
-		align-items: start;
-		margin-bottom: clamp(2rem, 4vw, 3rem);
+	.latest__footer {
+		margin-top: clamp(1.5rem, 3vw, 2rem);
 	}
 
-	.proof-rail {
-		display: grid;
-		gap: 0.85rem;
-		padding-left: 1.25rem;
-		border-left: 1px solid var(--color-border-soft);
-	}
-
-	.proof-rail__item {
-		display: block;
-	}
-
-	.proof-rail__label {
-		display: block;
-		margin-bottom: 0.16rem;
+	.latest__footer a {
 		font-family: var(--font-mono);
-		font-size: 0.62rem;
+		font-size: 0.76rem;
 		font-weight: 600;
-		letter-spacing: 0.06em;
+		letter-spacing: 0.05em;
 		text-transform: uppercase;
-		color: var(--color-soft);
+		color: var(--color-accent);
+		text-decoration: none;
+		border-bottom: 1px solid transparent;
 	}
 
-	.proof-rail__text {
-		display: block;
-		font-size: 0.8rem;
-		line-height: 1.35;
-		color: var(--color-muted);
+	.latest__footer a:hover,
+	.latest__footer a:focus-visible {
+		border-bottom-color: var(--color-accent);
 	}
 
-	@media (max-width: 900px) {
-		.latest__intro-wrap {
-			grid-template-columns: 1fr;
-			gap: 1.75rem;
-		}
-
-		.proof-rail {
-			max-width: 640px;
-			grid-template-columns: repeat(2, minmax(0, 1fr));
-			padding-left: 0;
-			padding-top: 1.25rem;
-			border-top: 1px solid var(--color-border-soft);
-			border-left: 0;
-		}
-	}
-
-	@media (max-width: 640px) {
-		.latest__intro-wrap {
-			margin-bottom: 2rem;
-		}
-
-		.proof-rail {
-			grid-template-columns: 1fr;
-		}
+	.latest__footer a:focus-visible {
+		outline: 2px solid var(--color-accent);
+		outline-offset: 4px;
 	}
 </style>

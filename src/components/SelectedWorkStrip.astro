@@ -1,0 +1,137 @@
+---
+const baseUrl = import.meta.env.BASE_URL;
+const withBase = (href: string) => (href === '/' ? baseUrl : `${baseUrl}${href.replace(/^\//, '')}`);
+
+const selectedWork = [
+	{
+		title: 'Embedded controls for electrified and heavy-duty systems',
+		linkText: 'View selected work',
+		href: withBase('/work'),
+	},
+	{
+		title: 'Autonomous and intelligent machines',
+		linkText: 'Explore applied domains',
+		href: withBase('/work'),
+	},
+	{
+		title: 'Research, patents, and publications',
+		linkText: 'View publications and patents',
+		href: withBase('/work'),
+	},
+];
+---
+
+<section class="selected-work" aria-labelledby="selected-work-title">
+	<div class="page-container">
+		<div class="selected-work__header">
+			<h2 id="selected-work-title">Selected work</h2>
+			<p>
+				A compact path into the engineering evidence behind the profile: applied
+				systems, product contexts, publications, and patents.
+			</p>
+		</div>
+
+		<div class="selected-work__list">
+			{selectedWork.map((item, index) => (
+				<article class="selected-work__item">
+					<span class="selected-work__index">{String(index + 1).padStart(2, '0')}</span>
+					<h3>{item.title}</h3>
+					<a href={item.href}>{item.linkText}</a>
+				</article>
+			))}
+		</div>
+	</div>
+</section>
+
+<style>
+	.selected-work {
+		background: var(--color-page);
+		padding-block: clamp(3rem, 6vw, 5rem);
+	}
+
+	.selected-work__header {
+		display: grid;
+		gap: 0.65rem;
+		max-width: 760px;
+		margin-bottom: clamp(1.5rem, 3vw, 2rem);
+	}
+
+	.selected-work__header h2 {
+		margin: 0;
+		font-size: clamp(1.75rem, 3vw, 2.45rem);
+		line-height: 1.08;
+	}
+
+	.selected-work__header p {
+		margin: 0;
+		max-width: 700px;
+		color: var(--color-muted);
+		font-size: clamp(1rem, 1.25vw, 1.12rem);
+		line-height: 1.55;
+	}
+
+	.selected-work__list {
+		display: grid;
+		border-top: 1px solid var(--color-border);
+	}
+
+	.selected-work__item {
+		display: grid;
+		grid-template-columns: auto minmax(0, 1fr) auto;
+		gap: clamp(1rem, 2vw, 1.5rem);
+		align-items: center;
+		padding-block: 1.1rem;
+		border-bottom: 1px solid var(--color-border);
+	}
+
+	.selected-work__index {
+		color: var(--color-accent);
+		font-family: var(--font-mono);
+		font-size: 0.72rem;
+		font-weight: 600;
+		letter-spacing: 0.06em;
+		line-height: 1.35;
+	}
+
+	.selected-work__item h3 {
+		margin: 0;
+		font-size: clamp(1rem, 1.4vw, 1.2rem);
+		line-height: 1.35;
+		font-weight: 500;
+	}
+
+	.selected-work__item a {
+		color: var(--color-accent);
+		font-family: var(--font-mono);
+		font-size: 0.74rem;
+		font-weight: 600;
+		letter-spacing: 0.05em;
+		line-height: 1.35;
+		text-transform: uppercase;
+		text-decoration: none;
+		border-bottom: 1px solid transparent;
+		white-space: nowrap;
+		width: fit-content;
+	}
+
+	.selected-work__item a:hover,
+	.selected-work__item a:focus-visible {
+		border-bottom-color: var(--color-accent);
+	}
+
+	.selected-work__item a:focus-visible {
+		outline: 2px solid var(--color-accent);
+		outline-offset: 4px;
+	}
+
+	@media (max-width: 760px) {
+		.selected-work__item {
+			grid-template-columns: auto minmax(0, 1fr);
+			align-items: start;
+		}
+
+		.selected-work__item a {
+			grid-column: 2;
+		}
+	}
+</style>
