@@ -20,18 +20,17 @@ const isActive = (href: string) => {
 			<a href={withBase('/contact')} aria-current={isActive('/contact') ? 'page' : undefined}>Contact</a>
 		</nav>
 
-		<button
-			class="theme-toggle"
-			type="button"
-			data-theme-toggle
-			aria-label="Switch to dark color theme"
-			aria-pressed="false"
-		>
+		<label class="theme-toggle">
+			<input
+				class="theme-toggle__input"
+				type="checkbox"
+				data-theme-toggle
+				aria-label="Switch to dark color theme"
+			/>
 			<span class="theme-toggle__track" aria-hidden="true">
 				<span class="theme-toggle__thumb"></span>
 			</span>
-			<span class="theme-toggle__label" data-theme-label>Dark</span>
-		</button>
+		</label>
 	</div>
 </header>
 
@@ -83,64 +82,115 @@ const isActive = (href: string) => {
 	}
 
 	.site-header__brand:focus-visible,
-	.site-header__nav a:focus-visible,
-	.theme-toggle:focus-visible {
+	.site-header__nav a:focus-visible {
 		outline: 2px solid var(--color-accent);
 		outline-offset: 4px;
 	}
 
 	.theme-toggle {
+		--toggle-width: 46px;
+		--toggle-height: 23px;
+		--toggle-track-height: 14px;
+		--toggle-thumb-size: 23px;
 		display: inline-flex;
-		min-height: 34px;
+		width: var(--toggle-width);
+		height: var(--toggle-height);
 		align-items: center;
 		justify-content: center;
-		gap: 0.55rem;
-		border: 1px solid var(--color-border);
-		border-radius: 999px;
-		background: var(--color-surface);
-		color: var(--color-text);
+		border-radius: 99em;
 		cursor: pointer;
-		font: inherit;
-		font-family: var(--font-mono);
-		font-size: 0.72rem;
-		font-weight: 600;
-		letter-spacing: 0.05em;
-		line-height: 1;
-		padding: 0.35rem 0.65rem;
-		text-transform: uppercase;
-		transition:
-			background-color 160ms ease-out,
-			border-color 160ms ease-out,
-			color 160ms ease-out;
+		position: relative;
+		flex: 0 0 var(--toggle-width);
 	}
 
-	.theme-toggle:hover {
-		border-color: var(--color-accent);
-		color: var(--color-accent);
+	.theme-toggle__input {
+		position: absolute;
+		inset: 0;
+		appearance: none;
+		cursor: pointer;
+		margin: 0;
+		opacity: 0;
+		z-index: 2;
 	}
 
 	.theme-toggle__track {
-		position: relative;
-		width: 30px;
-		height: 16px;
-		border: 1px solid var(--color-border);
+		display: block;
+		position: absolute;
+		top: 50%;
+		left: 0;
+		width: 100%;
+		height: var(--toggle-track-height);
+		transform: translateY(-50%);
 		border-radius: 999px;
-		background: var(--color-page);
+		background: linear-gradient(to right, #efefef 50%, #2d3030 50%) no-repeat;
+		background-size: 205%;
+		background-position: 0;
+		transition: background-position 240ms ease-out;
 	}
 
 	.theme-toggle__thumb {
 		position: absolute;
-		top: 2px;
-		left: 2px;
-		width: 10px;
-		height: 10px;
-		border-radius: 999px;
-		background: var(--color-accent);
-		transition: transform 160ms ease-out;
+		top: 50%;
+		left: 0;
+		width: var(--toggle-thumb-size);
+		height: var(--toggle-thumb-size);
+		transform: translateY(-50%);
+		border-radius: 50%;
+		background: #ffffff;
+		transition:
+			left 240ms ease-out,
+			background-color 240ms ease-out;
 	}
 
-	:global(:root[data-theme="dark"]) .theme-toggle__thumb {
-		transform: translateX(14px);
+	.theme-toggle__thumb::before,
+	.theme-toggle__thumb::after {
+		content: "";
+		position: absolute;
+		inset: 0;
+		transition:
+			opacity 180ms ease-out,
+			transform 240ms ease-out;
+	}
+
+	.theme-toggle__thumb::before {
+		width: 13px;
+		height: 13px;
+		margin: auto;
+		background: url("data:image/svg+xml,%3Csvg width='13' height='13' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='12' cy='12' r='4.2' stroke='%23111311' stroke-width='2.6'/%3E%3Cpath d='M12 2.5V5M12 19v2.5M21.5 12H19M5 12H2.5M18.7 5.3l-1.8 1.8M7.1 16.9l-1.8 1.8M18.7 18.7l-1.8-1.8M7.1 7.1 5.3 5.3' stroke='%23111311' stroke-width='2.6' stroke-linecap='round'/%3E%3C/svg%3E")
+			center / contain no-repeat;
+	}
+
+	.theme-toggle__thumb::after {
+		width: 13px;
+		height: 13px;
+		margin: auto;
+		background: url("data:image/svg+xml,%3Csvg width='13' height='13' viewBox='0 0 24 24' fill='%23efefef' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20.8 14.6A8 8 0 0 1 9.4 3.2 9.2 9.2 0 1 0 20.8 14.6Z'/%3E%3C/svg%3E")
+			center / contain no-repeat;
+		opacity: 0;
+	}
+
+	.theme-toggle__input:focus-visible + .theme-toggle__track {
+		outline: 2px solid var(--color-accent);
+		outline-offset: 4px;
+	}
+
+	.theme-toggle__input:checked + .theme-toggle__track {
+		background-position: 100%;
+	}
+
+	.theme-toggle__input:checked + .theme-toggle__track .theme-toggle__thumb {
+		left: calc(100% - var(--toggle-thumb-size));
+		background: #050606;
+	}
+
+	.theme-toggle__input:checked + .theme-toggle__track .theme-toggle__thumb::before {
+		opacity: 0;
+		transform: rotate(90deg) scale(0.78);
+	}
+
+	.theme-toggle__input:checked + .theme-toggle__track .theme-toggle__thumb::after {
+		opacity: 1;
+		transform: rotate(-8deg);
 	}
 
 	@media (max-width: 640px) {
@@ -170,8 +220,7 @@ const isActive = (href: string) => {
 </style>
 
 <script>
-	const toggle = document.querySelector<HTMLButtonElement>('[data-theme-toggle]');
-	const label = document.querySelector<HTMLElement>('[data-theme-label]');
+	const toggle = document.querySelector<HTMLInputElement>('[data-theme-toggle]');
 	const root = document.documentElement;
 
 	const applyTheme = (theme: 'bright' | 'dark') => {
@@ -184,21 +233,20 @@ const isActive = (href: string) => {
 			// Theme persistence is optional; the control still works for this page.
 		}
 
-		if (!toggle || !label) {
+		if (!toggle) {
 			return;
 		}
 
 		const nextTheme = theme === 'dark' ? 'bright' : 'dark';
-		label.textContent = nextTheme === 'dark' ? 'Dark' : 'Bright';
+		toggle.checked = theme === 'dark';
 		toggle.setAttribute('aria-label', `Switch to ${nextTheme} color theme`);
-		toggle.setAttribute('aria-pressed', theme === 'dark' ? 'true' : 'false');
 	};
 
 	if (toggle) {
 		const initialTheme = root.dataset.theme === 'dark' ? 'dark' : 'bright';
 		applyTheme(initialTheme);
 
-		toggle.addEventListener('click', () => {
+		toggle.addEventListener('change', () => {
 			applyTheme(root.dataset.theme === 'dark' ? 'bright' : 'dark');
 		});
 	}
