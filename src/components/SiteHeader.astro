@@ -131,8 +131,8 @@ const isActive = (href: string) => {
 		border-radius: 999px;
 		background: linear-gradient(
 				to right,
-				var(--brand-warm-white) 50%,
-				var(--brand-charcoal) 50%
+				var(--brand-porcelain) 50%,
+				var(--brand-graphite) 50%
 			)
 			no-repeat;
 		background-size: 205%;
@@ -170,7 +170,7 @@ const isActive = (href: string) => {
 		width: 13px;
 		height: 13px;
 		margin: auto;
-		background: url("data:image/svg+xml,%3Csvg width='13' height='13' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='12' cy='12' r='4.2' stroke='%23111311' stroke-width='2.6'/%3E%3Cpath d='M12 2.5V5M12 19v2.5M21.5 12H19M5 12H2.5M18.7 5.3l-1.8 1.8M7.1 16.9l-1.8 1.8M18.7 18.7l-1.8-1.8M7.1 7.1 5.3 5.3' stroke='%23111311' stroke-width='2.6' stroke-linecap='round'/%3E%3C/svg%3E")
+		background: url("data:image/svg+xml,%3Csvg width='13' height='13' viewBox='0 0 24 24' fill='%23101417' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20.8 14.6A8 8 0 0 1 9.4 3.2 9.2 9.2 0 1 0 20.8 14.6Z'/%3E%3C/svg%3E")
 			center / contain no-repeat;
 	}
 
@@ -178,7 +178,7 @@ const isActive = (href: string) => {
 		width: 13px;
 		height: 13px;
 		margin: auto;
-		background: url("data:image/svg+xml,%3Csvg width='13' height='13' viewBox='0 0 24 24' fill='%23efefef' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20.8 14.6A8 8 0 0 1 9.4 3.2 9.2 9.2 0 1 0 20.8 14.6Z'/%3E%3C/svg%3E")
+		background: url("data:image/svg+xml,%3Csvg width='13' height='13' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='12' cy='12' r='4.2' stroke='%23f6f3ec' stroke-width='2.6'/%3E%3Cpath d='M12 2.5V5M12 19v2.5M21.5 12H19M5 12H2.5M18.7 5.3l-1.8 1.8M7.1 16.9l-1.8 1.8M18.7 18.7l-1.8-1.8M7.1 7.1 5.3 5.3' stroke='%23f6f3ec' stroke-width='2.6' stroke-linecap='round'/%3E%3C/svg%3E")
 			center / contain no-repeat;
 		opacity: 0;
 	}
@@ -194,8 +194,8 @@ const isActive = (href: string) => {
 
 	.theme-toggle__input:checked + .theme-toggle__track .theme-toggle__thumb {
 		left: calc(100% - var(--toggle-thumb-size));
-		background: var(--brand-charcoal-deep);
-		box-shadow: 0 0 0 1px rgba(247, 247, 242, 0.28);
+		background: var(--brand-graphite-deep);
+		box-shadow: 0 0 0 1px rgba(246, 243, 236, 0.28);
 	}
 
 	.theme-toggle__input:checked + .theme-toggle__track .theme-toggle__thumb::before {
@@ -252,9 +252,9 @@ const isActive = (href: string) => {
 			return;
 		}
 
-		const nextTheme = theme === 'dark' ? 'bright' : 'dark';
+		const nextThemeLabel = theme === 'dark' ? 'light' : 'dark';
 		toggle.checked = theme === 'dark';
-		toggle.setAttribute('aria-label', `Switch to ${nextTheme} color theme`);
+		toggle.setAttribute('aria-label', `Switch to ${nextThemeLabel} color theme`);
 	};
 
 	if (toggle) {

@@ -5,63 +5,64 @@
 	--font-mono: "IBM Plex Mono", "SFMono-Regular", Consolas, "Liberation Mono", monospace;
 
 	/* Core brand palette */
-	--brand-charcoal: #1f2424;
-	--brand-charcoal-deep: #101414;
-	--brand-warm-white: #f7f6f1;
-	--brand-paper: #fffefa;
-	--brand-control-green: #3f8f5b;
-	--brand-control-green-dark: #2f7046;
-	--brand-control-green-soft: #e5f3e9;
-	--brand-lime: #bfff03;
-	--brand-lime-soft: #efffc2;
+	--brand-graphite: #202629;
+	--brand-graphite-deep: #101417;
+	--brand-porcelain: #f6f3ec;
+	--brand-paper: #fffdf7;
+	--brand-fjord: #426a78;
+	--brand-fjord-dark: #31515d;
+	--brand-fjord-light: #a8c5ce;
+	--brand-fjord-soft: #e3edf0;
+	--brand-signal: #aa7a38;
+	--brand-signal-soft: #e2c48d;
 
 	/* Light theme */
-	--color-page: var(--brand-warm-white);
-	--color-hero: var(--brand-charcoal);
+	--color-page: var(--brand-porcelain);
+	--color-hero: var(--brand-graphite);
 
-	--color-text: #171a1a;
-	--color-muted: #5e6663;
-	--color-soft: #7a827f;
+	--color-text: #191d20;
+	--color-muted: #586066;
+	--color-soft: #747d83;
 
-	--color-border: #d9d6cb;
-	--color-border-soft: #e7e3d8;
-	--color-border-strong: rgba(31, 36, 36, 0.34);
+	--color-border: #d8d2c5;
+	--color-border-soft: #e7e1d4;
+	--color-border-strong: rgba(25, 29, 32, 0.34);
 
 	/* Main readable accent in light mode */
-	--color-accent: var(--brand-control-green);
-	--color-accent-strong: var(--brand-control-green-dark);
-	--color-accent-bright: var(--brand-lime);
-	--color-accent-soft: var(--brand-control-green-soft);
-	--color-accent-wash: rgba(63, 143, 91, 0.1);
+	--color-accent: var(--brand-fjord);
+	--color-accent-strong: var(--brand-fjord-dark);
+	--color-accent-bright: var(--brand-signal);
+	--color-accent-soft: var(--brand-fjord-soft);
+	--color-accent-wash: rgba(66, 106, 120, 0.1);
 
-	/* Links should be calm and readable; lime is only the signal accent */
-	--color-link: var(--brand-control-green);
-	--color-link-hover: var(--brand-control-green-dark);
+	/* Links should stay calm and readable. */
+	--color-link: var(--brand-fjord);
+	--color-link-hover: var(--brand-fjord-dark);
 
-	/* Keep the focus ring distinctive */
-	--color-focus: var(--brand-lime);
+	/* Keep the focus ring distinctive without becoming loud. */
+	--color-focus: var(--brand-signal);
 
-	/* Primary buttons in light mode should use charcoal, not lime */
-	--color-button-primary-bg: var(--brand-charcoal);
+	/* Primary buttons in light mode carry the graphite identity. */
+	--color-button-primary-bg: var(--brand-graphite);
 	--color-button-primary-text: #ffffff;
 
 	--color-proof-border: var(--color-border);
-	--color-proof-label: #5e6663;
-	--color-proof-text: #3f4744;
+	--color-proof-label: #596167;
+	--color-proof-text: #3f474c;
 
 	/* Stable dark surfaces used by hero/footer even in light mode */
-	--color-dark-surface: var(--brand-charcoal-deep);
-	--color-dark-surface-soft: var(--brand-charcoal);
-	--color-on-dark: #f7f7f2;
-	--color-on-dark-muted: rgba(247, 247, 242, 0.76);
-	--color-on-dark-muted-soft: rgba(247, 247, 242, 0.9);
-	--color-on-dark-border: rgba(247, 247, 242, 0.16);
-	--color-on-dark-border-soft: rgba(247, 247, 242, 0.1);
+	--color-dark-surface: var(--brand-graphite-deep);
+	--color-dark-surface-soft: var(--brand-graphite);
+	--color-on-dark: #f6f3ec;
+	--color-on-dark-muted: rgba(246, 243, 236, 0.76);
+	--color-on-dark-muted-soft: rgba(246, 243, 236, 0.9);
+	--color-on-dark-border: rgba(246, 243, 236, 0.16);
+	--color-on-dark-border-soft: rgba(246, 243, 236, 0.1);
 
 	--color-card-bg: var(--brand-paper);
-	--color-card-bg-hover: #f0eee6;
+	--color-card-bg-hover: #efebe1;
 	--color-card-border: var(--color-border-soft);
-	--color-card-border-hover: rgba(63, 143, 91, 0.28);
+	--color-card-border-hover: rgba(66, 106, 120, 0.3);
 	--color-card-text: var(--color-text);
 	--color-card-muted: var(--color-muted);
 	--color-card-accent: var(--color-accent);
@@ -83,48 +84,48 @@
 
 :root[data-theme="dark"] {
 	/* Dark theme */
-	--color-page: var(--brand-charcoal-deep);
-	--color-hero: var(--brand-charcoal-deep);
+	--color-page: var(--brand-graphite-deep);
+	--color-hero: var(--brand-graphite-deep);
 
-	--color-text: #f7f7f2;
-	--color-muted: rgba(247, 247, 242, 0.76);
-	--color-soft: rgba(247, 247, 242, 0.58);
+	--color-text: #f6f3ec;
+	--color-muted: rgba(246, 243, 236, 0.76);
+	--color-soft: rgba(246, 243, 236, 0.58);
 
-	--color-border: rgba(247, 247, 242, 0.16);
-	--color-border-soft: rgba(247, 247, 242, 0.1);
-	--color-border-strong: rgba(191, 255, 3, 0.45);
+	--color-border: rgba(246, 243, 236, 0.16);
+	--color-border-soft: rgba(246, 243, 236, 0.1);
+	--color-border-strong: rgba(168, 197, 206, 0.5);
 
-	/* In dark mode, lime can safely become the main signal accent */
-	--color-accent: var(--brand-lime);
-	--color-accent-strong: #d6ff4d;
-	--color-accent-bright: var(--brand-lime);
-	--color-accent-soft: rgba(191, 255, 3, 0.72);
-	--color-accent-wash: rgba(191, 255, 3, 0.1);
+	/* In dark mode, the accent lifts to a softer fjord tone. */
+	--color-accent: var(--brand-fjord-light);
+	--color-accent-strong: #c5d9de;
+	--color-accent-bright: var(--brand-signal);
+	--color-accent-soft: rgba(168, 197, 206, 0.72);
+	--color-accent-wash: rgba(168, 197, 206, 0.12);
 
-	--color-link: #d6ff4d;
+	--color-link: var(--brand-fjord-light);
 	--color-link-hover: #ffffff;
 
-	--color-focus: var(--brand-lime);
+	--color-focus: var(--brand-signal);
 
-	--color-button-primary-bg: var(--brand-lime);
-	--color-button-primary-text: var(--brand-charcoal-deep);
+	--color-button-primary-bg: var(--brand-fjord-light);
+	--color-button-primary-text: var(--brand-graphite-deep);
 
 	--color-proof-border: var(--color-border);
-	--color-proof-label: rgba(247, 247, 242, 0.68);
-	--color-proof-text: rgba(247, 247, 242, 0.78);
+	--color-proof-label: rgba(246, 243, 236, 0.68);
+	--color-proof-text: rgba(246, 243, 236, 0.78);
 
-	--color-dark-surface: var(--brand-charcoal-deep);
-	--color-dark-surface-soft: var(--brand-charcoal);
-	--color-on-dark: #f7f7f2;
-	--color-on-dark-muted: rgba(247, 247, 242, 0.76);
-	--color-on-dark-muted-soft: rgba(247, 247, 242, 0.9);
-	--color-on-dark-border: rgba(247, 247, 242, 0.16);
-	--color-on-dark-border-soft: rgba(247, 247, 242, 0.1);
+	--color-dark-surface: var(--brand-graphite-deep);
+	--color-dark-surface-soft: var(--brand-graphite);
+	--color-on-dark: #f6f3ec;
+	--color-on-dark-muted: rgba(246, 243, 236, 0.76);
+	--color-on-dark-muted-soft: rgba(246, 243, 236, 0.9);
+	--color-on-dark-border: rgba(246, 243, 236, 0.16);
+	--color-on-dark-border-soft: rgba(246, 243, 236, 0.1);
 
-	--color-card-bg: var(--brand-charcoal);
-	--color-card-bg-hover: #273030;
+	--color-card-bg: var(--brand-graphite);
+	--color-card-bg-hover: #293235;
 	--color-card-border: var(--color-border);
-	--color-card-border-hover: rgba(191, 255, 3, 0.42);
+	--color-card-border-hover: rgba(168, 197, 206, 0.45);
 	--color-card-text: var(--color-text);
 	--color-card-muted: var(--color-muted);
 	--color-card-accent: var(--color-accent);
