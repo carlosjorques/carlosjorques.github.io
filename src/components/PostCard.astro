@@ -38,16 +38,24 @@ const label = data.draft ? 'Planned article' : data.publishDate.toLocaleDateStri
 <style>
 	.post-card {
 		display: grid;
-		gap: 14px;
-		border: 1px solid var(--color-border);
-		border-radius: 8px;
-		background: rgba(255, 255, 255, 0.58);
-		padding: 22px;
+		gap: 0.75rem;
+		border: 0;
+		border-top: 1px solid var(--color-border);
+		border-radius: 0;
+		background: transparent;
+		padding: 1.25rem 0 0;
+		transition:
+			border-color 0.2s ease,
+			color 0.2s ease;
+	}
+
+	.post-card:hover {
+		border-color: var(--color-accent);
 	}
 
 	.post-card h3 {
-		font-size: 1.25rem;
-		line-height: 1.25;
+		font-size: 1.15rem;
+		line-height: 1.35;
 	}
 
 	.post-card h3 a {
@@ -60,8 +68,8 @@ const label = data.draft ? 'Planned article' : data.publishDate.toLocaleDateStri
 
 	.post-meta {
 		display: grid;
-		gap: 12px;
-		margin-top: 10px;
+		gap: 0.75rem;
+		margin-top: 0.25rem;
 	}
 
 	.post-meta span {

@@ -34,11 +34,10 @@ const steps = [
 				<div class="chain-node">
 					<strong>{step.name}</strong>
 				</div>
-				{index < steps.length - 1 && <span class="arrow" aria-hidden="true">→</span>}
+				{index < steps.length - 1 && <span class="arrow" aria-hidden="true">-&gt;</span>}
 			</>
 		))}
 	</div>
-	<p class="lead">I work across this chain to help physical systems sense, decide, and act reliably.</p>
 	<div class="mapping">
 		{steps.map((step) => (
 			<div>
@@ -52,61 +51,81 @@ const steps = [
 <style>
 	.system-model {
 		display: grid;
-		gap: 28px;
+		gap: 1.5rem;
 	}
 
 	.chain {
+		position: relative;
 		display: flex;
 		flex-wrap: wrap;
 		align-items: center;
-		gap: 10px;
+		gap: 0.75rem;
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius);
+		background: transparent;
+		padding: 1rem;
+	}
+
+	.chain::before {
+		position: absolute;
+		left: 1rem;
+		right: 1rem;
+		top: 50%;
+		height: 1px;
+		background: var(--color-border);
+		content: '';
 	}
 
 	.chain-node {
+		position: relative;
+		z-index: 1;
 		border: 1px solid var(--color-border);
-		border-radius: 8px;
+		border-radius: var(--radius);
 		background: var(--color-surface);
-		padding: 12px 14px;
+		padding: 0.55rem 0.75rem;
 	}
 
 	.chain-node strong {
 		font-family: var(--font-mono);
-		font-size: 0.83rem;
-		letter-spacing: 0.03em;
+		font-size: 0.8rem;
+		font-weight: 700;
 		text-transform: uppercase;
 	}
 
 	.arrow {
-		color: var(--color-accent-dark);
+		position: relative;
+		z-index: 1;
+		color: var(--color-accent);
 		font-family: var(--font-mono);
+		font-weight: 700;
 	}
 
 	.mapping {
 		display: grid;
-		grid-template-columns: repeat(6, minmax(0, 1fr));
+		grid-template-columns: repeat(2, minmax(0, 1fr));
 		gap: 1px;
 		overflow: hidden;
 		border: 1px solid var(--color-border);
-		border-radius: 8px;
+		border-radius: var(--radius);
 		background: var(--color-border);
 	}
 
 	.mapping div {
-		background: rgba(255, 255, 255, 0.56);
-		padding: 18px;
+		background: var(--color-bg);
+		padding: 1rem;
 	}
 
 	.mapping h3 {
-		margin-bottom: 10px;
+		margin-bottom: 0.45rem;
 		font-size: 1rem;
 	}
 
 	.mapping p {
-		font-size: 0.92rem;
+		font-size: 0.9rem;
 		line-height: 1.55;
 	}
 
-	@media (max-width: 980px) {
+	@media (min-width: 980px) {
 		.mapping {
 			grid-template-columns: repeat(3, minmax(0, 1fr));
 		}

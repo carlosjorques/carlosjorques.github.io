@@ -1,6 +1,6 @@
 ---
 title: Embedded Software as the Nervous System of Smart Machines
-description: A draft article on embedded software as the connective tissue between physical measurements, decisions, protection logic, and actuation.
+description: A technical article placeholder on embedded software as the connective layer between physical measurements, decisions, protection logic, actuation, and production reliability.
 publishDate: 2026-05-14
 category: Embedded Control Architecture
 tags:
@@ -20,5 +20,5 @@ This article will explain how embedded software structures the flow of informati
 - Software as a system behavior layer
 - Interfaces between sensing, control, diagnostics, and actuation
 - Real-time constraints and maintainable implementation
-- Why architecture matters before code volume grows
+- Why architecture matters before production complexity grows
 - How technical leaders can keep the system understandable

@@ -1,8 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import SectionHeading from '../components/SectionHeading.astro';
-
-const baseUrl = import.meta.env.BASE_URL;
 ---
 
 <Layout
@@ -19,18 +17,18 @@ const baseUrl = import.meta.env.BASE_URL;
 				/>
 			</div>
 			<div class="contact-panel">
-				<a href="mailto:email@example.com">
-					<span>Email placeholder</span>
-					<strong>email@example.com</strong>
-				</a>
-				<a href="https://www.linkedin.com/in/placeholder">
-					<span>LinkedIn placeholder</span>
-					<strong>linkedin.com/in/placeholder</strong>
-				</a>
-				<a href={`${baseUrl}cv-placeholder.pdf`}>
-					<span>CV placeholder</span>
-					<strong>Download CV</strong>
-				</a>
+				<div>
+					<span>Email</span>
+					<strong>Launch TODO: add preferred public email</strong>
+				</div>
+				<div>
+					<span>LinkedIn</span>
+					<strong>Launch TODO: add verified LinkedIn profile</strong>
+				</div>
+				<div>
+					<span>CV</span>
+					<strong>Launch TODO: add final public CV PDF</strong>
+				</div>
 			</div>
 		</div>
 	</section>
@@ -39,8 +37,8 @@ const baseUrl = import.meta.env.BASE_URL;
 <style>
 	.contact-grid {
 		display: grid;
-		grid-template-columns: minmax(0, 1fr) 420px;
-		gap: clamp(32px, 6vw, 78px);
+		grid-template-columns: minmax(0, 1fr);
+		gap: 1.5rem;
 		align-items: start;
 	}
 
@@ -49,27 +47,22 @@ const baseUrl = import.meta.env.BASE_URL;
 		gap: 1px;
 		overflow: hidden;
 		border: 1px solid var(--color-border);
-		border-radius: 8px;
+		border-radius: var(--radius);
 		background: var(--color-border);
 	}
 
-	.contact-panel a {
+	.contact-panel div {
 		display: grid;
-		gap: 6px;
-		background: rgba(255, 255, 255, 0.66);
-		padding: 22px;
+		gap: 0.4rem;
+		background: var(--color-bg);
+		padding: 1rem;
 		text-decoration: none;
-	}
-
-	.contact-panel a:hover {
-		background: var(--color-surface);
 	}
 
 	.contact-panel span {
 		color: var(--color-subtle);
 		font-family: var(--font-mono);
 		font-size: 0.75rem;
-		text-transform: uppercase;
 	}
 
 	.contact-panel strong {
@@ -77,9 +70,10 @@ const baseUrl = import.meta.env.BASE_URL;
 		overflow-wrap: anywhere;
 	}
 
-	@media (max-width: 850px) {
+	@media (min-width: 850px) {
 		.contact-grid {
-			grid-template-columns: 1fr;
+			grid-template-columns: minmax(0, 1fr) 320px;
+			gap: 2rem;
 		}
 	}
 </style>

@@ -1,9 +1,8 @@
 ---
 const navItems = [
-	{ href: '/', label: 'Home' },
-	{ href: '/cases/', label: 'Cases' },
 	{ href: '/writing/', label: 'Writing' },
 	{ href: '/about/', label: 'About' },
+	{ href: '/research/', label: 'Work' },
 	{ href: '/contact/', label: 'Contact' },
 ];
 
@@ -14,15 +13,11 @@ const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWit
 ---
 
 <header class="site-header">
-	<div class="container header-inner">
-		<a class="brand" href={withBase('/')} aria-label="Carlos Jorques home">
-			<span class="brand-mark" aria-hidden="true">CJ</span>
-			<span>
-				<strong>Carlos Jorques</strong>
-				<small>Embedded Control Systems Architect</small>
-			</span>
+	<div class="page-container site-header__inner">
+		<a class="site-header__brand" href={withBase('/')} aria-label="Carlos Jorques home">
+			Carlos Jorques
 		</a>
-		<nav class="main-nav" aria-label="Main navigation">
+		<nav class="site-header__nav" aria-label="Primary navigation">
 			{
 				navItems.map((item) => (
 					<a href={withBase(item.href)} aria-current={isActive(item.href) ? 'page' : undefined}>
@@ -36,97 +31,80 @@ const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWit
 
 <style>
 	.site-header {
-		position: sticky;
-		top: 0;
+		position: relative;
 		z-index: 4;
-		border-bottom: 1px solid rgba(215, 221, 222, 0.72);
-		background: rgba(247, 245, 241, 0.86);
-		backdrop-filter: blur(18px);
+		border-bottom: 1px solid var(--color-border);
+		background: var(--color-hero);
 	}
 
-	.header-inner {
+	.site-header__inner {
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
-		gap: 24px;
-		min-height: 76px;
+		min-height: 68px;
+		gap: 2rem;
 	}
 
-	.brand {
+	.site-header__brand {
 		display: inline-flex;
 		align-items: center;
-		gap: 12px;
 		color: var(--color-text);
+		font-size: 0.95rem;
+		font-weight: 600;
+		letter-spacing: 0.04em;
 		text-decoration: none;
+		text-transform: uppercase;
 	}
 
-	.brand-mark {
-		display: grid;
-		width: 38px;
-		height: 38px;
-		place-items: center;
-		border: 1px solid var(--color-border);
-		border-radius: 8px;
-		background: var(--color-surface);
-		color: var(--color-accent-dark);
-		font-family: var(--font-mono);
-		font-size: 0.78rem;
-		font-weight: 700;
-	}
-
-	.brand strong,
-	.brand small {
-		display: block;
-	}
-
-	.brand strong {
-		font-size: 0.98rem;
-		line-height: 1.15;
-	}
-
-	.brand small {
-		margin-top: 2px;
-		color: var(--color-muted);
-		font-size: 0.78rem;
-		line-height: 1.2;
-	}
-
-	.main-nav {
+	.site-header__nav {
 		display: flex;
 		align-items: center;
-		gap: 6px;
+		gap: 2.25rem;
 	}
 
-	.main-nav a {
-		border-radius: 999px;
-		padding: 8px 11px;
-		color: var(--color-muted);
-		font-size: 0.93rem;
+	.site-header__nav a {
+		color: var(--color-text);
+		border-bottom: 1px solid transparent;
+		padding-bottom: 0.15rem;
+		font-size: 0.9rem;
+		font-weight: 500;
+		letter-spacing: 0.01em;
 		text-decoration: none;
+		transition: border-color 160ms ease;
 	}
 
-	.main-nav a:hover,
-	.main-nav a[aria-current='page'] {
-		background: rgba(45, 111, 115, 0.08);
-		color: var(--color-accent-dark);
+	.site-header__nav a:hover,
+	.site-header__nav a:focus-visible,
+	.site-header__nav a[aria-current='page'] {
+		border-bottom-color: var(--color-accent);
+		color: var(--color-text);
 	}
 
-	@media (max-width: 780px) {
-		.header-inner {
+	.site-header__brand:focus-visible,
+	.site-header__nav a:focus-visible {
+		outline: 2px solid var(--color-accent);
+		outline-offset: 4px;
+	}
+
+	@media (max-width: 760px) {
+		.site-header__nav {
+			gap: 1.25rem;
+		}
+	}
+
+	@media (max-width: 560px) {
+		.site-header__inner {
+			min-height: auto;
 			align-items: flex-start;
 			flex-direction: column;
-			gap: 12px;
-			padding: 14px 0;
+			padding-top: 1rem;
+			padding-bottom: 1rem;
+			gap: 0.75rem;
 		}
 
-		.main-nav {
-			width: 100%;
-			overflow-x: auto;
-			padding-bottom: 2px;
-		}
-
-		.main-nav a {
-			white-space: nowrap;
+		.site-header__nav {
+			flex-wrap: wrap;
+			row-gap: 0.5rem;
 		}
 	}
 </style>

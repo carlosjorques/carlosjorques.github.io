@@ -1,66 +1,72 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import SectionHeading from '../components/SectionHeading.astro';
 import ContactCTA from '../components/ContactCTA.astro';
+
+const baseUrl = import.meta.env.BASE_URL;
 ---
 
 <Layout
 	title="About"
 	description="About Carlos Jorques, an embedded control systems architect focused on physical systems, automotive software, diagnostics, and technical delivery."
 >
-	<section class="section">
+	<section class="section about-intro">
 		<div class="narrow">
-			<SectionHeading
-				eyebrow="About"
-				title="Embedded control systems for physical systems"
-				description="I work where software meets the physical world: sensing, signal processing, control logic, diagnostics, actuation, safety expectations, and delivery constraints."
-			/>
-			<div class="prose">
-				<p>
-					I am an electrical engineer and PhD-trained control/software engineer focused on
-					production-ready embedded control systems. My work connects physical system behavior
-					with embedded software architecture, control algorithms, diagnostic strategies, and
-					practical implementation constraints.
-				</p>
-				<p>
-					My professional experience includes automotive OEM and Tier 1 environments, where
-					engineering quality depends on more than isolated technical decisions. Requirements,
-					interfaces, supplier collaboration, safety-related development, A-SPICE expectations,
-					AUTOSAR-oriented integration, verification, and delivery timing all shape the solution.
-				</p>
-				<p>
-					My leadership style is technical and alignment-oriented: make the system behavior clear,
-					define the responsibilities between disciplines, expose tradeoffs early, and help teams
-					move from requirements and concepts toward production software that can be integrated,
-					tested, maintained, and trusted.
-				</p>
-				<p>
-					I am especially interested in physical systems, embedded control architecture,
-					diagnostics, and reliable machine behavior - the engineering layer that helps smart
-					machines sense, decide, protect themselves, and act.
-				</p>
-			</div>
+			<p class="eyebrow">About</p>
+			<h1>Embedded control systems for physical machines</h1>
+			<p class="lead">
+				I design and lead production-ready embedded control systems, connecting system intent
+				with software, control logic, diagnostics, actuation, safety expectations, and delivery.
+			</p>
 		</div>
 	</section>
 
 	<section class="section">
 		<div class="container about-grid">
-			<div class="panel about-card">
-				<p class="eyebrow">Profile</p>
-				<h2>Technical depth with delivery context</h2>
+			<article>
+				<h2>Professional focus</h2>
 				<p>
-					PhD-trained electrical engineer with experience across embedded control, diagnostics,
-					safety-related development, software/control integration, and cross-functional delivery.
+					Embedded control systems architecture for vehicles and smart machines, with emphasis
+					on real-time behavior, production reliability, and clear ownership across disciplines.
 				</p>
-			</div>
-			<div class="panel about-card">
-				<p class="eyebrow">Operating mode</p>
-				<h2>Architecture, alignment, implementation</h2>
+			</article>
+			<article>
+				<h2>Technical scope</h2>
 				<p>
-					I help connect stakeholders and engineering disciplines around clear system behavior,
-					realistic interfaces, and production-ready embedded control decisions.
+					Sensing, signal processing, embedded software, control algorithms, diagnostics,
+					actuation, safety-related development, A-SPICE expectations, and AUTOSAR-oriented
+					integration.
 				</p>
-			</div>
+			</article>
+			<article>
+				<h2>Leadership and delivery</h2>
+				<p>
+					I help teams move from requirements and concepts toward integrated software that can
+					be verified, maintained, delivered, and trusted in production environments.
+				</p>
+			</article>
+			<article>
+				<h2>Representative experience</h2>
+				<p>
+					Automotive OEM and Tier 1 contexts across embedded control architecture, diagnostics,
+					safety-related work, supplier interaction, and cross-functional delivery.
+				</p>
+			</article>
+			<article>
+				<h2>Research foundation</h2>
+				<p>
+					PhD training in electrical engineering supports rigorous thinking in modeling,
+					analysis, and control. Research is secondary evidence for industrial technical
+					leadership.
+				</p>
+			</article>
+			<article>
+				<h2>Contact path</h2>
+				<p>
+					For embedded control architecture, automotive control software, or technical
+					leadership discussions, use the contact page.
+				</p>
+				<a href={`${baseUrl}contact/`}>Contact</a>
+			</article>
 		</div>
 	</section>
 
@@ -72,25 +78,36 @@ import ContactCTA from '../components/ContactCTA.astro';
 </Layout>
 
 <style>
+	.about-intro h1 {
+		margin: 0.45rem 0 0.75rem;
+	}
+
 	.about-grid {
 		display: grid;
-		grid-template-columns: repeat(2, minmax(0, 1fr));
-		gap: 18px;
+		grid-template-columns: 1fr;
+		gap: 1rem;
 	}
 
-	.about-card {
-		display: grid;
-		gap: 14px;
-		padding: 28px;
+	.about-grid article {
+		border-top: 1px solid var(--color-border);
+		padding-top: 1rem;
 	}
 
-	.about-card h2 {
-		font-size: clamp(1.45rem, 3vw, 2.25rem);
+	.about-grid h2 {
+		margin-bottom: 0.45rem;
+		font-size: 1.15rem;
 	}
 
-	@media (max-width: 760px) {
+	.about-grid a {
+		display: inline-block;
+		margin-top: 0.65rem;
+		color: var(--color-accent);
+		text-decoration: none;
+	}
+
+	@media (min-width: 760px) {
 		.about-grid {
-			grid-template-columns: 1fr;
+			grid-template-columns: repeat(2, minmax(0, 1fr));
 		}
 	}
 </style>

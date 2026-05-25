@@ -1,148 +1,36 @@
 ---
-import { getCollection } from 'astro:content';
 import Layout from '../layouts/Layout.astro';
 import Hero from '../components/Hero.astro';
-import SectionHeading from '../components/SectionHeading.astro';
-import ExpertiseCard from '../components/ExpertiseCard.astro';
-import SystemModel from '../components/SystemModel.astro';
-import CaseCard from '../components/CaseCard.astro';
-import PostCard from '../components/PostCard.astro';
-import ContactCTA from '../components/ContactCTA.astro';
-
-const expertise = [
-	{
-		title: 'System Architecture',
-		description:
-			'Defining sensing, software interfaces, control logic, diagnostics, actuation, and system behavior.',
-	},
-	{
-		title: 'Embedded Control Software',
-		description:
-			'Translating control intent into real-time production software structures, integration logic, and maintainable embedded implementation.',
-	},
-	{
-		title: 'Control & Diagnostics',
-		description:
-			'Designing algorithms and diagnostic strategies that help physical systems regulate, protect, detect faults, and behave reliably.',
-	},
-	{
-		title: 'Technical Leadership',
-		description:
-			'Aligning teams, suppliers, stakeholders, requirements, standards, and delivery constraints around embedded control projects.',
-	},
-];
-
-const toSlug = (id: string) => id.replace(/\.md$/, '');
-const cases = (await getCollection('cases'))
-	.filter((entry) => entry.data.featured)
-	.sort((a, b) => a.data.order - b.data.order);
-const posts = (await getCollection('writing')).filter((entry) => entry.data.featured);
-const researchItems = (await getCollection('research')).filter((entry) => entry.data.featured);
-const researchSummary =
-	researchItems.find((entry) => entry.data.type === 'Research themes')?.data.summary ??
-	'My research background supports rigorous thinking in modeling, analysis, and control, applied to production embedded systems where architecture, safety, software integration, diagnostics, standards, suppliers, and delivery constraints matter.';
-const baseUrl = import.meta.env.BASE_URL;
+import LatestWriting from '../components/LatestWriting.astro';
+import NextStrip from '../components/NextStrip.astro';
+import ProofStrip from '../components/ProofStrip.astro';
 ---
 
 <Layout
-	title="Embedded Control Systems Architect"
-	description="Carlos Jorques leads production-ready embedded control systems for vehicles and smart machines, connecting sensing, software, diagnostics, actuation, safety, and delivery."
+	title="Carlos Jorques | Embedded Control Systems Architect"
+	description="Carlos Jorques is an embedded control systems architect leading software development teams that turn complex systems into reliable products."
 >
-	<Hero
-		title="Embedded Control Systems Architect"
-		phrase="Control Intelligence for Physical Systems"
-		body="I lead the design of production-ready embedded control systems for vehicles and smart machines — connecting sensing, signal processing, embedded software, control algorithms, diagnostics, actuation, safety, and delivery."
-		credibility="PhD-trained electrical engineer with automotive OEM and Tier 1 experience across embedded control, diagnostics, safety-related development, and cross-functional delivery."
-	/>
-
-	<section class="section">
-		<div class="container">
-			<SectionHeading
-				eyebrow="Expertise snapshot"
-				title="The technical scope hiring teams usually need covered"
-				description="A focused profile for roles that need architecture judgment, embedded control implementation awareness, diagnostics, standards literacy, and cross-functional delivery."
-			/>
-			<div class="grid four">
-				{expertise.map((item) => <ExpertiseCard title={item.title} description={item.description} />)}
-			</div>
+	<section class="hero-area">
+		<div class="page-container">
+			<Hero />
+			<NextStrip />
 		</div>
 	</section>
-
-	<section class="section">
-		<div class="container">
-			<SectionHeading
-				eyebrow="Machine nervous system"
-				title="Sensors → Signals → Software → Control → Actuation → Behavior"
-				description="A compact model for the chain where physical systems become observable, controllable, diagnosable, and reliable."
-			/>
-			<SystemModel />
-		</div>
-	</section>
-
-	<section class="section">
-		<div class="container">
-			<SectionHeading
-				eyebrow="Selected experience cases"
-				title="Representative work, generalized for confidentiality"
-				description="These cases show the type of architecture, controls, diagnostics, and delivery leadership I bring without naming OEMs, suppliers, products, internal requirements, or implementation details."
-			/>
-			<div class="grid three">
-				{cases.map((entry) => <CaseCard slug={toSlug(entry.id)} data={entry.data} />)}
-			</div>
-		</div>
-	</section>
-
-	<section class="section">
-		<div class="container">
-			<SectionHeading
-				eyebrow="Writing roadmap"
-				title="Topics I use to explain control systems work clearly"
-				description="Planned writing topics that frame embedded control architecture, diagnostics, and technical leadership for physical systems."
-			/>
-			<div class="grid three">
-				{posts.map((entry) => <PostCard slug={toSlug(entry.id)} data={entry.data} />)}
-			</div>
-		</div>
-	</section>
-
-	<section class="section">
-		<div class="container research-band">
-			<div>
-				<p class="eyebrow">Research foundation</p>
-				<h2>Modeling and control depth, applied to production embedded systems</h2>
-			</div>
-			<p>{researchSummary}</p>
-			<a class="button" href={`${baseUrl}research/`}>View research background</a>
-		</div>
-	</section>
-
-	<section class="section">
-		<div class="container">
-			<ContactCTA />
-		</div>
-	</section>
+	<LatestWriting />
+	<ProofStrip />
 </Layout>
 
 <style>
-	.research-band {
-		display: grid;
-		grid-template-columns: minmax(0, 1fr) minmax(260px, 520px) auto;
-		gap: 28px;
-		align-items: end;
+	.hero-area {
+		background: var(--color-hero);
+		padding-top: clamp(4rem, 8vw, 7rem);
+		padding-bottom: clamp(3rem, 6vw, 5rem);
 	}
 
-	.research-band div {
-		display: grid;
-		gap: 12px;
-	}
-
-	.research-band h2 {
-		font-size: clamp(1.6rem, 3vw, 2.4rem);
-	}
-
-	@media (max-width: 980px) {
-		.research-band {
-			grid-template-columns: 1fr;
+	@media (max-width: 760px) {
+		.hero-area {
+			padding-top: 3.5rem;
+			padding-bottom: 3rem;
 		}
 	}
 </style>

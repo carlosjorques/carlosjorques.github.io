@@ -51,18 +51,18 @@ const { Content } = await render(entry);
 
 <style>
 	.case-hero h1 {
-		margin: 12px 0 20px;
-		font-size: clamp(2.3rem, 6vw, 4.65rem);
+		margin: 0.45rem 0 0.75rem;
+		font-size: 1.75rem;
 	}
 
 	.case-meta {
 		display: grid;
-		gap: 18px;
-		margin-top: 34px;
+		gap: 1rem;
+		margin-top: 1.25rem;
 		border: 1px solid var(--color-border);
-		border-radius: 8px;
-		background: rgba(255, 255, 255, 0.58);
-		padding: 22px;
+		border-radius: var(--radius);
+		background: transparent;
+		padding: 1rem;
 	}
 
 	.case-meta span,
@@ -71,10 +71,9 @@ const { Content } = await render(entry);
 	}
 
 	.case-meta span {
-		margin-bottom: 8px;
+		margin-bottom: 0.35rem;
 		color: var(--color-subtle);
 		font-family: var(--font-mono);
 		font-size: 0.75rem;
-		text-transform: uppercase;
 	}
 </style>

@@ -1,7 +1,7 @@
 ---
 title: Embedded Control System Architecture
-summary: Architecture of a production-oriented embedded control system across sensing, diagnostics, software interfaces, and actuation.
-role: Control systems architecture and cross-functional alignment
+summary: Generalized case log for architecture of a production-oriented embedded control system across sensing, diagnostics, software interfaces, reliability expectations, and actuation.
+role: Control system architecture, interface definition, and cross-functional alignment
 capabilities:
   - System architecture
   - Embedded software interfaces
@@ -19,31 +19,31 @@ order: 1
 
 ## Context
 
-Production embedded control systems must connect physical sensing, signal interpretation, software interfaces, diagnostics, actuation, safety expectations, and delivery constraints. The architectural work is not only about algorithms; it is about defining system behavior, ownership boundaries, interfaces, and verification expectations clearly enough for multiple engineering groups to execute.
+Production embedded control systems must connect physical sensing, signal interpretation, software interfaces, diagnostics, actuation, safety expectations, compliance constraints, and delivery realities. The architectural work is not only about algorithms; it is about defining system behavior, ownership boundaries, interfaces, reliability expectations, and verification needs clearly enough for multiple engineering groups to execute.
 
 ## Technical challenge
 
-The central challenge was to create a coherent control system structure that could be understood by software, controls, systems, diagnostics, calibration, supplier, and delivery stakeholders while remaining suitable for a production automotive environment with real delivery constraints.
+The central challenge was to create a coherent real-time control system structure that could be understood by software, controls, systems, diagnostics, calibration, supplier, and delivery stakeholders while remaining suitable for robust industrialization in a production automotive environment.
 
 ## My role
 
-My role was to define and align system behavior, interface boundaries, diagnostic responsibilities, control logic structure, and implementation considerations. The work required technical tradeoff decisions across disciplines without exposing proprietary design details.
+My role was to define and align system behavior, interface boundaries, diagnostic responsibilities, control logic structure, implementation constraints, and delivery-critical tradeoffs across disciplines.
 
 ## System scope
 
-The scope covered the chain from sensing and interpreted signals through embedded software logic, diagnostic behavior, actuation requests, and expected system response.
+The scope covered the chain from sensing and interpreted signals through embedded software logic, diagnostic behavior, actuation requests, reliability considerations, and expected system response.
 
 ## Standards / environment
 
-The work was shaped by automotive development practices, safety-related thinking, requirements discipline, A-SPICE-oriented delivery expectations, and AUTOSAR-oriented software integration contexts.
+The work was shaped by automotive development practices, safety-related thinking, requirements discipline, A-SPICE-oriented delivery expectations, compliance/risk awareness, and AUTOSAR-oriented software integration contexts.
 
 ## Outcome
 
-The result was a clearer production-oriented control architecture that gave engineering groups a shared language for behavior, interfaces, diagnostics, integration, and delivery.
+The result was a clearer production-oriented control architecture that gave engineering groups a shared language for behavior, interfaces, diagnostics, integration, reliability, and delivery.
 
 ## What this demonstrates
 
-This demonstrates senior embedded control system architecture across software, controls, diagnostics, actuation, safety, and delivery constraints for physical systems.
+This demonstrates the ability to define the control system boundary, interfaces, production architecture, and industrialization path for physical systems under real-time, safety-related, and delivery constraints.
 
 ## Confidentiality note
 

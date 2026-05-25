@@ -3,27 +3,28 @@ interface Props {
 	eyebrow?: string;
 	title: string;
 	description?: string;
+	headingId?: string;
 }
 
-const { eyebrow, title, description } = Astro.props;
+const { eyebrow, title, description, headingId } = Astro.props;
 ---
 
 <div class="section-heading">
 	{eyebrow && <p class="eyebrow">{eyebrow}</p>}
-	<h2>{title}</h2>
+	<h2 id={headingId}>{title}</h2>
 	{description && <p>{description}</p>}
 </div>
 
 <style>
 	.section-heading {
 		display: grid;
-		gap: 12px;
-		max-width: 780px;
-		margin-bottom: 28px;
+		gap: 0.5rem;
+		max-width: 760px;
+		margin-bottom: 1.25rem;
 	}
 
 	.section-heading p:not(.eyebrow) {
-		font-size: 1.05rem;
-		line-height: 1.7;
+		font-size: 0.95rem;
+		line-height: 1.65;
 	}
 </style>

@@ -40,10 +40,14 @@ const canonical = new URL(pathname, Astro.site ?? Astro.url.origin);
 	</head>
 	<body>
 		<a class="skip-link" href="#main-content">Skip to content</a>
-		<Header />
-		<main id="main-content">
-			<slot />
-		</main>
-		<Footer />
+		<div class="site-shell">
+			<Header />
+			<div class="main-content">
+				<main id="main-content" class="main-body">
+					<slot />
+				</main>
+				<Footer />
+			</div>
+		</div>
 	</body>
 </html>

@@ -1,0 +1,201 @@
+---
+const baseUrl = import.meta.env.BASE_URL;
+
+const items = [
+	{
+		number: '01',
+		title: 'Writing',
+		description:
+			'Essays and notes on control systems, embedded software, diagnostics, and physical behavior.',
+		href: `${baseUrl}writing/`,
+	},
+	{
+		number: '02',
+		title: 'About',
+		description: 'Background, experience, education, values, and technical leadership.',
+		href: `${baseUrl}about/`,
+	},
+	{
+		number: '03',
+		title: 'Work',
+		description: 'Research, patents, publications, and selected engineering contributions.',
+		href: `${baseUrl}research/`,
+	},
+	{
+		number: '04',
+		title: 'Contact',
+		description: 'Get in touch by email, LinkedIn, or CV.',
+		href: `${baseUrl}contact/`,
+	},
+];
+---
+
+<section class="next-panel" aria-labelledby="next-panel-title">
+	<h2 class="next-panel__label" id="next-panel-title">Where to go next</h2>
+	<div class="next-panel__grid">
+		{
+			items.map((item) => (
+				<div class="next-panel__item">
+					<a href={item.href} class="next-panel__item-link">
+						<span class="next-panel__number">{item.number}</span>
+						<span class="next-panel__heading">
+							<span class="next-panel__title">{item.title}</span>
+							<span class="next-panel__arrow" aria-hidden="true">-&gt;</span>
+						</span>
+						<span class="next-panel__description">{item.description}</span>
+					</a>
+				</div>
+			))
+		}
+	</div>
+</section>
+
+<style>
+	.next-panel {
+		max-width: 100%;
+		margin-top: 3rem;
+		margin-bottom: 0;
+		border: 1px solid var(--color-next-border);
+		border-radius: 0;
+		background: var(--color-next-bg);
+		padding: 1.5rem 1.75rem;
+		color: var(--color-next-text);
+	}
+
+	.next-panel__label {
+		margin: 0 0 1.25rem;
+		color: var(--color-next-muted);
+		font-family: var(--font-mono);
+		font-size: 0.72rem;
+		font-weight: 600;
+		letter-spacing: 0.06em;
+		text-transform: uppercase;
+	}
+
+	.next-panel__grid {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+	}
+
+	.next-panel__item {
+		position: relative;
+		min-height: 86px;
+		padding-right: 1.5rem;
+	}
+
+	.next-panel__item + .next-panel__item {
+		padding-left: 1.5rem;
+	}
+
+	.next-panel__item + .next-panel__item::before {
+		content: "";
+		position: absolute;
+		left: 0;
+		top: 50%;
+		width: 1px;
+		height: 64%;
+		transform: translateY(-50%);
+		background: var(--color-next-border);
+	}
+
+	.next-panel__item-link {
+		display: block;
+		height: 100%;
+		color: inherit;
+		text-decoration: none;
+		transition:
+			transform 180ms ease-out,
+			background-color 180ms ease-out;
+	}
+
+	.next-panel__number {
+		color: var(--color-next-accent);
+		font-family: var(--font-mono);
+		font-size: 0.85rem;
+		font-weight: 600;
+	}
+
+	.next-panel__heading {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 1rem;
+		margin-top: 0.35rem;
+	}
+
+	.next-panel__title {
+		display: inline;
+		color: var(--color-next-text);
+		font-family: var(--font-sans);
+		font-size: 1rem;
+		font-weight: 600;
+		text-decoration: underline;
+		text-decoration-color: transparent;
+		text-decoration-thickness: 1px;
+		text-underline-offset: 0.22em;
+		transition: text-decoration-color 160ms ease-out;
+	}
+
+	.next-panel__description {
+		display: block;
+		margin-top: 0.55rem;
+		color: var(--color-next-muted);
+		font-family: var(--font-sans);
+		font-size: 0.82rem;
+		line-height: 1.45;
+	}
+
+	.next-panel__arrow {
+		display: inline-block;
+		color: var(--color-next-accent);
+		transition: transform 180ms ease-out;
+	}
+
+	.next-panel__item-link:hover,
+	.next-panel__item-link:focus-visible {
+		transform: translateY(-1px);
+	}
+
+	.next-panel__item-link:hover .next-panel__title,
+	.next-panel__item-link:focus-visible .next-panel__title {
+		text-decoration-color: var(--color-next-accent);
+	}
+
+	.next-panel__item-link:hover .next-panel__arrow,
+	.next-panel__item-link:focus-visible .next-panel__arrow {
+		transform: translateX(3px);
+	}
+
+	@media (max-width: 760px) {
+		.next-panel {
+			margin-top: 2rem;
+			padding: 1.25rem;
+		}
+
+		.next-panel__grid {
+			grid-template-columns: 1fr;
+		}
+
+		.next-panel__item {
+			min-height: 0;
+			padding: 1rem 0;
+		}
+
+		.next-panel__item:first-child {
+			padding-top: 0;
+		}
+
+		.next-panel__item:last-child {
+			padding-bottom: 0;
+		}
+
+		.next-panel__item + .next-panel__item {
+			padding-left: 0;
+			border-top: 1px solid var(--color-next-border);
+		}
+
+		.next-panel__item + .next-panel__item::before {
+			display: none;
+		}
+	}
+</style>

@@ -5,8 +5,8 @@ interface Props {
 }
 
 const {
-	title = 'Discuss embedded control systems architecture',
-	body = 'For technical leadership roles, embedded control systems architecture, automotive software/control projects, or discussions around control intelligence for physical systems, feel free to contact me.',
+	title = 'Interested in embedded control architecture, automotive software/control projects, or technical leadership for physical systems?',
+	body = 'Use the contact page for verified contact details and CV availability. First-draft contact links remain launch placeholders until public details are confirmed.',
 } = Astro.props;
 const baseUrl = import.meta.env.BASE_URL;
 ---
@@ -19,36 +19,35 @@ const baseUrl = import.meta.env.BASE_URL;
 	</div>
 	<div class="button-row">
 		<a class="button primary" href={`${baseUrl}contact/`}>Contact me</a>
-		<a class="button" href="https://www.linkedin.com/in/placeholder">LinkedIn</a>
-		<a class="button" href={`${baseUrl}cv-placeholder.pdf`}>Download CV</a>
+		<a class="button" href={`${baseUrl}cases/`}>View cases</a>
 	</div>
 </section>
 
 <style>
 	.contact-cta {
 		display: grid;
-		grid-template-columns: minmax(0, 1fr) auto;
-		gap: 28px;
-		align-items: end;
+		grid-template-columns: minmax(0, 1fr);
+		gap: 1.25rem;
+		align-items: start;
 		border: 1px solid var(--color-border);
-		border-radius: 8px;
-		background: var(--color-surface);
-		padding: clamp(24px, 5vw, 42px);
+		border-radius: var(--radius);
+		background: transparent;
+		padding: 1.25rem;
 	}
 
 	.contact-cta div:first-child {
 		display: grid;
-		gap: 12px;
-		max-width: 760px;
+		gap: 0.6rem;
+		max-width: 720px;
 	}
 
 	.contact-cta h2 {
-		font-size: clamp(1.7rem, 3vw, 2.55rem);
+		font-size: 1.25rem;
 	}
 
-	@media (max-width: 850px) {
+	@media (min-width: 850px) {
 		.contact-cta {
-			grid-template-columns: 1fr;
+			grid-template-columns: minmax(0, 1fr) auto;
 		}
 	}
 </style>

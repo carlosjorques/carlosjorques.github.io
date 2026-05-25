@@ -1,0 +1,42 @@
+---
+const skills =
+	'Automotive embedded systems · Real-time control · Diagnostics · Model-based development · Technical leadership';
+---
+
+<section class="proof-strip section" aria-label="Technical scope">
+	<div class="proof-inner">
+		<p>Working across control, software, diagnostics, validation, and physical system behavior.</p>
+		<p>{skills}</p>
+	</div>
+</section>
+
+<style>
+	.proof-inner {
+		display: grid;
+		gap: 0.65rem;
+		width: min(100% - 48px, var(--content-width));
+		border-block: 1px solid var(--color-border);
+		margin-inline: auto;
+		padding: 1.25rem 0;
+	}
+
+	.proof-inner p:first-child {
+		color: var(--color-text);
+		font-size: 1rem;
+		font-weight: 700;
+		opacity: 0.9;
+	}
+
+	.proof-inner p:last-child {
+		color: var(--color-muted);
+		font-family: var(--font-mono);
+		font-size: 0.78rem;
+		line-height: 1.65;
+	}
+
+	@media (max-width: 760px) {
+		.proof-inner {
+			width: min(100% - 32px, var(--content-width));
+		}
+	}
+</style>
