@@ -552,46 +552,71 @@ const awards = [
 				{coreExpertise.map((group) => (
 					<article class="cv-card">
 						<h3>{group.title}</h3>
-						<ul>
-							{group.items.map((item) => (
-								<li>{item}</li>
-							))}
-						</ul>
+						<details class="cv-disclosure">
+							<summary>View capability evidence</summary>
+							<ul>
+								{group.items.map((item) => (
+									<li>{item}</li>
+								))}
+							</ul>
+						</details>
 					</article>
 				))}
 			</div>
 		</div>
 	</section>
 
-	<section class="cv-section" aria-labelledby="professional-experience-title">
+	<section class="cv-section cv-experience-section" aria-labelledby="professional-experience-title" data-experience-timeline>
 		<div class="page-container">
 			<div class="cv-section__intro">
 				<h2 id="professional-experience-title">Professional Experience</h2>
 				<p>Reverse chronological role history, condensed for recruiter and hiring-manager review.</p>
 			</div>
-			<div class="cv-timeline">
-				{experience.map((item) => (
-					<article class="cv-role">
-						<div class="cv-role__header">
-							<div>
-								<h3>{item.role}</h3>
-								<p class="cv-role__organization">{item.organization}</p>
+			<div class="cv-experience-layout">
+				<aside class="cv-experience-nav" aria-label="Experience milestones">
+					<div class="cv-progress-track" data-experience-track aria-hidden="true">
+						<span class="cv-progress-fill" data-experience-fill></span>
+					</div>
+					<ol class="cv-milestones">
+						{experience.map((item, index) => (
+							<li data-milestone-item>
+								<a href={`#experience-${index}`}>
+									<span>{item.period}</span>
+									<strong>{item.organization}</strong>
+								</a>
+							</li>
+						))}
+					</ol>
+				</aside>
+				<div class="cv-timeline">
+					{experience.map((item, index) => (
+						<article class="cv-role" id={`experience-${index}`} data-role-card>
+							<div class="cv-role__header">
+								<div>
+									<h3>{item.role}</h3>
+									<p class="cv-role__organization">{item.organization}</p>
+								</div>
+								<p class="cv-role__meta">{item.period} | {item.location}</p>
 							</div>
-							<p class="cv-role__meta">{item.period} | {item.location}</p>
-						</div>
-						<p class="cv-role__summary">{item.summary}</p>
-						<ul>
-							{item.highlights.map((highlight) => (
-								<li>{highlight}</li>
-							))}
-						</ul>
-						<ul class="cv-tags" aria-label={`${item.role} technologies and methods`}>
-							{item.tags.map((tag) => (
-								<li>{tag}</li>
-							))}
-						</ul>
-					</article>
-				))}
+							<p class="cv-role__summary">{item.summary}</p>
+							<details class="cv-disclosure cv-disclosure--role">
+								<summary>View role details</summary>
+								<div class="cv-detail-body">
+									<ul>
+										{item.highlights.map((highlight) => (
+											<li>{highlight}</li>
+										))}
+									</ul>
+									<ul class="cv-tags" aria-label={`${item.role} technologies and methods`}>
+										{item.tags.map((tag) => (
+											<li>{tag}</li>
+										))}
+									</ul>
+								</div>
+							</details>
+						</article>
+					))}
+				</div>
 			</div>
 		</div>
 	</section>
@@ -607,25 +632,25 @@ const awards = [
 					<article class="cv-card cv-project">
 						<p class="cv-kicker">{project.context}</p>
 						<h3>{project.title}</h3>
-						<dl>
-							<div>
-								<dt>Role</dt>
-								<dd>{project.role}</dd>
-							</div>
-							<div>
-								<dt>Technical focus</dt>
-								<dd>{project.focus}</dd>
-							</div>
-							<div>
-								<dt>Contribution</dt>
-								<dd>{project.contribution}</dd>
-							</div>
-						</dl>
-						<ul class="cv-tags" aria-label={`${project.title} tags`}>
-							{project.tags.map((tag) => (
-								<li>{tag}</li>
-							))}
-						</ul>
+						<p>{project.focus}</p>
+						<details class="cv-disclosure">
+							<summary>View assignment details</summary>
+							<dl>
+								<div>
+									<dt>Role</dt>
+									<dd>{project.role}</dd>
+								</div>
+								<div>
+									<dt>Contribution</dt>
+									<dd>{project.contribution}</dd>
+								</div>
+							</dl>
+							<ul class="cv-tags" aria-label={`${project.title} tags`}>
+								{project.tags.map((tag) => (
+									<li>{tag}</li>
+								))}
+							</ul>
+						</details>
 					</article>
 				))}
 			</div>
@@ -647,20 +672,23 @@ const awards = [
 						<h3>{item.degree}</h3>
 						<p class="cv-role__organization">{item.institution}</p>
 						<p>{item.focus}</p>
-						<ul>
-							{item.details.map((detail) => (
-								<li>{detail}</li>
-							))}
-						</ul>
-						{item.links && (
-							<ul class="cv-link-list">
-								{item.links.map((link) => (
-									<li>
-										<a href={link.href} target="_blank" rel="noopener noreferrer">{link.label}</a>
-									</li>
+						<details class="cv-disclosure">
+							<summary>View education details</summary>
+							<ul>
+								{item.details.map((detail) => (
+									<li>{detail}</li>
 								))}
 							</ul>
-						)}
+							{item.links && (
+								<ul class="cv-link-list">
+									{item.links.map((link) => (
+										<li>
+											<a href={link.href} target="_blank" rel="noopener noreferrer">{link.label}</a>
+										</li>
+									))}
+								</ul>
+							)}
+						</details>
 					</article>
 				))}
 			</div>
@@ -676,34 +704,45 @@ const awards = [
 			<div class="cv-research-grid">
 				<article class="cv-card">
 					<h3>Research Themes</h3>
-					<ul>
-						{researchThemes.map((theme) => (
-							<li>{theme}</li>
-						))}
-					</ul>
+					<details class="cv-disclosure">
+						<summary>View research focus</summary>
+						<ul>
+							{researchThemes.map((theme) => (
+								<li>{theme}</li>
+							))}
+						</ul>
+					</details>
 				</article>
 				<article class="cv-card">
 					<h3>Patents</h3>
-					<ul class="cv-compact-list">
-						{patents.map((patent) => (
-							<li>
-								<strong>{patent.title}</strong>
-								<span>{patent.reference} | {patent.year}</span>
-							</li>
-						))}
-					</ul>
+					<p>Selected public patent records from control, diagnostics, and combustion work.</p>
+					<details class="cv-disclosure">
+						<summary>View patent records</summary>
+						<ul class="cv-compact-list">
+							{patents.map((patent) => (
+								<li>
+									<strong>{patent.title}</strong>
+									<span>{patent.reference} | {patent.year}</span>
+								</li>
+							))}
+						</ul>
+					</details>
 				</article>
 			</div>
 			<article class="cv-card cv-publications">
 				<h3>Publications</h3>
-				<ol>
-					{publications.map((publication) => (
-						<li>
-							<strong>{publication.title}</strong>
-							<span>{publication.publisher} | {publication.year}</span>
-						</li>
-					))}
-				</ol>
+				<p>Peer-reviewed and technical publications from the industrial PhD research track.</p>
+				<details class="cv-disclosure">
+					<summary>View publication list</summary>
+					<ol>
+						{publications.map((publication) => (
+							<li>
+								<strong>{publication.title}</strong>
+								<span>{publication.publisher} | {publication.year}</span>
+							</li>
+						))}
+					</ol>
+				</details>
 			</article>
 		</div>
 	</section>
@@ -717,11 +756,14 @@ const awards = [
 				{toolGroups.map((group) => (
 					<article class="cv-card">
 						<h3>{group.title}</h3>
-						<ul class="cv-tags cv-tags--block" aria-label={`${group.title} list`}>
-							{group.items.map((item) => (
-								<li>{item}</li>
-							))}
-						</ul>
+						<details class="cv-disclosure">
+							<summary>View tools and methods</summary>
+							<ul class="cv-tags cv-tags--block" aria-label={`${group.title} list`}>
+								{group.items.map((item) => (
+									<li>{item}</li>
+								))}
+							</ul>
+						</details>
 					</article>
 				))}
 			</div>
@@ -737,30 +779,39 @@ const awards = [
 				<div class="cv-grid cv-grid--three">
 					<article class="cv-card">
 						<h3>Selected Courses and Certifications</h3>
-						<ul>
-							{courses.map((course) => (
-								<li>{course}</li>
-							))}
-						</ul>
+						<details class="cv-disclosure">
+							<summary>View course list</summary>
+							<ul>
+								{courses.map((course) => (
+									<li>{course}</li>
+								))}
+							</ul>
+						</details>
 					</article>
 					<article class="cv-card">
 						<h3>Languages</h3>
-						<ul class="cv-compact-list">
-							{languages.map((item) => (
-								<li>
-									<strong>{item.language}</strong>
-									<span>{item.level}</span>
-								</li>
-							))}
-						</ul>
+						<details class="cv-disclosure">
+							<summary>View language levels</summary>
+							<ul class="cv-compact-list">
+								{languages.map((item) => (
+									<li>
+										<strong>{item.language}</strong>
+										<span>{item.level}</span>
+									</li>
+								))}
+							</ul>
+						</details>
 					</article>
 					<article class="cv-card">
 						<h3>Awards and Recognition</h3>
-						<ul>
-							{awards.map((award) => (
-								<li>{award}</li>
-							))}
-						</ul>
+						<details class="cv-disclosure">
+							<summary>View recognition</summary>
+							<ul>
+								{awards.map((award) => (
+									<li>{award}</li>
+								))}
+							</ul>
+						</details>
 					</article>
 				</div>
 			</div>
@@ -783,6 +834,57 @@ const awards = [
 		</div>
 	</section>
 </Layout>
+
+<script>
+	const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
+	const timelineSections = Array.from(document.querySelectorAll('[data-experience-timeline]'));
+
+	if (timelineSections.length > 0) {
+		let animationFrame = 0;
+
+		const updateTimelineProgress = () => {
+			animationFrame = 0;
+
+			timelineSections.forEach((section) => {
+				const fill = section.querySelector('[data-experience-fill]');
+				const cards = Array.from(section.querySelectorAll('[data-role-card]'));
+				const milestones = Array.from(section.querySelectorAll('[data-milestone-item]'));
+
+				if (!fill || cards.length === 0) {
+					return;
+				}
+
+				const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+				const scrollY = window.scrollY || window.pageYOffset;
+				const firstCard = cards[0].getBoundingClientRect();
+				const lastCard = cards[cards.length - 1].getBoundingClientRect();
+				const start = firstCard.top + scrollY - viewportHeight * 0.55;
+				const end = lastCard.bottom + scrollY - viewportHeight * 0.55;
+				const progress = end > start ? clamp((scrollY - start) / (end - start), 0, 1) : 0;
+
+				fill.style.transform = `scaleY(${progress})`;
+
+				cards.forEach((card, index) => {
+					const cardRect = card.getBoundingClientRect();
+					const isActive = cardRect.top <= viewportHeight * 0.56 && cardRect.bottom >= viewportHeight * 0.42;
+					const isComplete = cardRect.bottom < viewportHeight * 0.48;
+					milestones[index]?.classList.toggle('is-active', isActive);
+					milestones[index]?.classList.toggle('is-complete', isComplete);
+				});
+			});
+		};
+
+		const requestTimelineUpdate = () => {
+			if (animationFrame === 0) {
+				animationFrame = window.requestAnimationFrame(updateTimelineProgress);
+			}
+		};
+
+		updateTimelineProgress();
+		window.addEventListener('scroll', requestTimelineUpdate, { passive: true });
+		window.addEventListener('resize', requestTimelineUpdate);
+	}
+</script>
 
 <style>
 	.cv-hero {
@@ -895,6 +997,69 @@ const awards = [
 
 	.cv-card--fact h3 {
 		font-size: 1.08rem;
+	}
+
+	.cv-disclosure {
+		display: grid;
+		gap: 0.8rem;
+		align-content: start;
+	}
+
+	.cv-disclosure > summary {
+		display: inline-flex;
+		width: fit-content;
+		align-items: center;
+		gap: 0.45rem;
+		color: var(--color-accent);
+		cursor: pointer;
+		font-family: var(--font-mono);
+		font-size: 0.76rem;
+		font-weight: 600;
+		letter-spacing: 0.04em;
+		line-height: 1.35;
+		list-style: none;
+		text-transform: uppercase;
+	}
+
+	.cv-disclosure > summary::-webkit-details-marker {
+		display: none;
+	}
+
+	.cv-disclosure > summary::after {
+		content: '+';
+		display: inline-grid;
+		width: 1.15rem;
+		height: 1.15rem;
+		place-items: center;
+		border: 1px solid var(--color-border);
+		color: var(--color-text);
+		font-family: var(--font-sans);
+		font-size: 0.85rem;
+		font-weight: 600;
+		line-height: 1;
+	}
+
+	.cv-disclosure[open] > summary::after {
+		content: '-';
+	}
+
+	.cv-disclosure > summary:hover,
+	.cv-disclosure > summary:focus-visible {
+		color: var(--color-text);
+	}
+
+	.cv-detail-body {
+		display: grid;
+		gap: 1rem;
+	}
+
+	.cv-experience-layout {
+		display: grid;
+		gap: 1.5rem;
+	}
+
+	.cv-experience-nav {
+		display: none;
 	}
 
 	.cv-timeline {
@@ -1090,6 +1255,95 @@ const awards = [
 
 		.cv-grid--two {
 			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+
+		.cv-experience-layout {
+			grid-template-columns: minmax(12rem, 16rem) minmax(0, 1fr);
+			gap: clamp(1.75rem, 4vw, 3rem);
+			align-items: start;
+		}
+
+		.cv-experience-nav {
+			position: sticky;
+			top: calc(var(--site-header-height) + 1.5rem);
+			display: grid;
+			grid-template-columns: 0.8rem minmax(0, 1fr);
+			gap: 1rem;
+			align-self: start;
+			min-height: min(72vh, 46rem);
+			padding-block: 0.25rem;
+		}
+
+		.cv-progress-track {
+			position: relative;
+			width: 0.38rem;
+			height: 100%;
+			justify-self: center;
+			overflow: hidden;
+			background: var(--color-border-soft);
+		}
+
+		.cv-progress-fill {
+			position: absolute;
+			inset: 0;
+			display: block;
+			background: var(--color-accent);
+			transform: scaleY(0);
+			transform-origin: top;
+			transition: transform 80ms linear;
+		}
+
+		.cv-milestones {
+			display: grid;
+			align-content: space-between;
+			gap: 0.8rem;
+			margin: 0;
+			padding: 0;
+			list-style: none;
+		}
+
+		.cv-milestones li {
+			margin: 0;
+			opacity: 0.62;
+			transition:
+				opacity 160ms ease-out,
+				transform 160ms ease-out;
+		}
+
+		.cv-milestones li.is-active,
+		.cv-milestones li.is-complete {
+			opacity: 1;
+		}
+
+		.cv-milestones li.is-active {
+			transform: translateX(0.18rem);
+		}
+
+		.cv-milestones a {
+			display: grid;
+			gap: 0.16rem;
+			color: var(--color-muted);
+			text-decoration: none;
+		}
+
+		.cv-milestones a:hover,
+		.cv-milestones a:focus-visible,
+		.cv-milestones li.is-active a {
+			color: var(--color-text);
+		}
+
+		.cv-milestones span {
+			color: var(--color-accent);
+			font-family: var(--font-mono);
+			font-size: 0.68rem;
+			font-weight: 600;
+			line-height: 1.35;
+		}
+
+		.cv-milestones strong {
+			font-size: 0.88rem;
+			font-weight: 600;
+			line-height: 1.3;
 		}
 
 		.cv-final__inner {
