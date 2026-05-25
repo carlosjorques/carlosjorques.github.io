@@ -1,0 +1,171 @@
+---
+const baseUrl = import.meta.env.BASE_URL;
+const withBase = (href: string) => (href === '/' ? baseUrl : `${baseUrl}${href.replace(/^\//, '')}`);
+const linkedInUrl = 'REPLACE_WITH_LINKEDIN_URL';
+const cvUrl = 'REPLACE_WITH_CV_URL';
+---
+
+<section class="hero-area">
+	<div class="page-container">
+		<div class="hero">
+			<div class="hero__copy">
+				<p class="hero-kicker">Embedded Controls Architect · Technical Leader</p>
+
+				<h1 class="hero-name">Carlos Jorques.</h1>
+
+				<p class="hero-statement">
+					I work on control design for complex intelligent systems, where control engineering,
+					embedded software, and reliable machines meet.
+				</p>
+
+				<div class="hero-links" aria-label="Primary contact links">
+					<a href={withBase('/contact')}>Contact</a>
+					<a href={linkedInUrl}>LinkedIn</a>
+					<a href={cvUrl}>CV</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<style>
+	.hero-area {
+		position: relative;
+		overflow: hidden;
+		background: var(--color-hero);
+		padding-block: clamp(4.5rem, 8vw, 7.5rem) clamp(3rem, 5vw, 4.5rem);
+	}
+
+	.hero-area .page-container {
+		position: relative;
+		z-index: 1;
+	}
+
+	.hero-area::after {
+		content: "";
+		position: absolute;
+		top: 4rem;
+		right: max(24px, calc((100vw - 1120px) / 2));
+		width: min(42vw, 520px);
+		height: 320px;
+		pointer-events: none;
+		opacity: 0.18;
+		background-image:
+			radial-gradient(circle, rgba(26, 95, 180, 0.22) 1px, transparent 1.5px),
+			radial-gradient(circle, rgba(17, 19, 21, 0.14) 1px, transparent 1.5px),
+			linear-gradient(rgba(17, 19, 21, 0.055) 1px, transparent 1px),
+			linear-gradient(90deg, rgba(17, 19, 21, 0.055) 1px, transparent 1px);
+		background-size:
+			18px 18px,
+			12px 12px,
+			72px 72px,
+			72px 72px;
+		background-position:
+			0 0,
+			8px 6px,
+			0 0,
+			0 0;
+		mask-image: radial-gradient(ellipse at center, black 0%, black 35%, transparent 78%);
+		-webkit-mask-image: radial-gradient(ellipse at center, black 0%, black 35%, transparent 78%);
+	}
+
+	.hero {
+		position: relative;
+		z-index: 1;
+	}
+
+	.hero__copy {
+		max-width: 940px;
+	}
+
+	.hero-kicker {
+		margin: 0 0 1rem;
+		font-family: var(--font-mono);
+		font-size: 0.72rem;
+		font-weight: 600;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		color: var(--color-accent);
+	}
+
+	.hero-name {
+		margin: 0;
+		font-family: var(--font-sans);
+		font-size: clamp(2.8rem, 6vw, 5.8rem);
+		line-height: 0.95;
+		font-weight: 700;
+		letter-spacing: 0;
+		color: var(--color-text);
+	}
+
+	.hero-statement {
+		max-width: 760px;
+		margin: 1.35rem 0 0;
+		font-family: var(--font-sans);
+		font-size: clamp(1.4rem, 2.4vw, 2.25rem);
+		line-height: 1.18;
+		font-weight: 400;
+		letter-spacing: 0;
+		color: var(--color-text);
+	}
+
+	.hero-links {
+		margin-top: 1.75rem;
+		display: flex;
+		gap: 1.25rem;
+		flex-wrap: wrap;
+		font-family: var(--font-mono);
+		font-size: 0.78rem;
+		font-weight: 600;
+		letter-spacing: 0.06em;
+		text-transform: uppercase;
+	}
+
+	.hero-links a {
+		color: var(--color-text);
+		text-decoration: none;
+		border-bottom: 1px solid var(--color-accent);
+		padding-bottom: 0.15rem;
+		transition: color 160ms ease-out, border-color 160ms ease-out;
+	}
+
+	.hero-links a:hover,
+	.hero-links a:focus-visible {
+		color: var(--color-accent);
+		border-bottom-color: var(--color-accent);
+	}
+
+	.hero-links a:focus-visible {
+		outline: 2px solid var(--color-accent);
+		outline-offset: 4px;
+	}
+
+	@media (max-width: 900px) {
+		.hero-area::after {
+			width: 56vw;
+			opacity: 0.18;
+		}
+	}
+
+	@media (max-width: 640px) {
+		.hero-area {
+			padding-block: 3.5rem 2.5rem;
+		}
+
+		.hero-area::after {
+			display: none;
+		}
+
+		.hero-name {
+			font-size: clamp(2.4rem, 15vw, 4rem);
+		}
+
+		.hero-statement {
+			font-size: clamp(1.35rem, 7vw, 2rem);
+		}
+
+		.hero-links {
+			gap: 1rem;
+		}
+	}
+</style>

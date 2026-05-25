@@ -1,36 +1,15 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Hero from '../components/Hero.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HeroSection from '../components/HeroSection.astro';
+import NextIndex from '../components/NextIndex.astro';
 import LatestWriting from '../components/LatestWriting.astro';
-import NextStrip from '../components/NextStrip.astro';
-import ProofStrip from '../components/ProofStrip.astro';
 ---
 
-<Layout
-	title="Carlos Jorques | Embedded Control Systems Architect"
-	description="Carlos Jorques is an embedded control systems architect leading software development teams that turn complex systems into reliable products."
+<BaseLayout
+	title="Carlos Jorques — Embedded Controls Architect"
+	description="Embedded controls architect and technical leader working across control engineering, real-time software, and safety-critical embedded systems."
 >
-	<section class="hero-area">
-		<div class="page-container">
-			<Hero />
-			<NextStrip />
-		</div>
-	</section>
+	<HeroSection />
+	<NextIndex />
 	<LatestWriting />
-	<ProofStrip />
-</Layout>
-
-<style>
-	.hero-area {
-		background: var(--color-hero);
-		padding-top: clamp(4rem, 8vw, 7rem);
-		padding-bottom: clamp(3rem, 6vw, 5rem);
-	}
-
-	@media (max-width: 760px) {
-		.hero-area {
-			padding-top: 3.5rem;
-			padding-bottom: 3rem;
-		}
-	}
-</style>
+</BaseLayout>

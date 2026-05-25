@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 820" fill="none">
+	<rect width="1200" height="820" fill="#f7f4ee"/>
+	<text x="72" y="72" fill="#171a1c" font-family="Inter, Arial, sans-serif" font-size="34" font-weight="600">Controlled attractor favicon exploration</text>
+	<text x="72" y="108" fill="#4f5659" font-family="Inter, Arial, sans-serif" font-size="18">No dots. Continuous line. Simplified center. Plot context through visible frame cues instead of full axes.</text>
+
+	<defs>
+		<g id="sizeLabels">
+			<text x="0" y="0" fill="#4f5659" font-family="Inter, Arial, sans-serif" font-size="13">64</text>
+			<text x="86" y="0" fill="#4f5659" font-family="Inter, Arial, sans-serif" font-size="13">32</text>
+			<text x="138" y="0" fill="#4f5659" font-family="Inter, Arial, sans-serif" font-size="13">16</text>
+		</g>
+		<g id="candidateA">
+			<path d="M13 51H24M13 51V40M40 13H51V24" stroke="#1a5fb4" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+			<path d="M17 42C9 32 15 17 29 18C40 19 39 31 31 34C24 37 20 32 23 27C28 18 43 20 49 31C56 44 42 52 31 46C25 43 25 37 31 34" stroke="#1a1a1a" stroke-width="5.2" stroke-linecap="round" stroke-linejoin="round"/>
+		</g>
+		<g id="candidateB">
+			<path d="M13 49H25M13 49V37M39 15H51M51 15V27" stroke="#1a5fb4" stroke-width="5" stroke-linecap="square" stroke-linejoin="miter"/>
+			<path d="M18 41C11 31 17 18 29 19C39 20 39 31 31 34C24 36 21 32 24 28C29 20 42 23 48 32C54 42 42 49 31 45C26 43 26 38 31 34" stroke="#1a1a1a" stroke-width="5.8" stroke-linecap="round" stroke-linejoin="round"/>
+		</g>
+		<g id="candidateC">
+			<path d="M14 50H50M14 50V14" stroke="#1a5fb4" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+			<path d="M18 42C10 31 16 18 29 19C40 20 38 31 31 34C24 37 21 31 24 27C29 19 43 22 49 32C56 44 41 50 31 45C25 42 25 37 31 34" stroke="#1a1a1a" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+		</g>
+		<g id="candidateD">
+			<path d="M12 51H21M12 51V42M43 13H52V22" stroke="#1a5fb4" stroke-width="4.7" stroke-linecap="round" stroke-linejoin="round"/>
+			<path d="M18 42C11 33 16 20 28 19C38 19 39 29 31 33C24 37 20 33 22 28C26 18 43 20 49 31C56 44 43 51 31 46" stroke="#1a1a1a" stroke-width="5.6" stroke-linecap="round" stroke-linejoin="round"/>
+		</g>
+	</defs>
+
+	<g transform="translate(72 162)">
+		<rect width="500" height="280" rx="8" fill="#ffffff" stroke="#d9d6ce"/>
+		<text x="28" y="44" fill="#171a1c" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="600">A. Bracketed plot frame</text>
+		<text x="28" y="72" fill="#4f5659" font-family="Inter, Arial, sans-serif" font-size="15">Best balance: visible context, clean center, continuous motion.</text>
+		<g transform="translate(34 102)"><use href="#sizeLabels"/></g>
+		<g transform="translate(28 126) scale(2)"><use href="#candidateA"/></g>
+		<g transform="translate(196 150)"><use href="#candidateA"/></g>
+		<g transform="translate(280 166) scale(.5)"><use href="#candidateA"/></g>
+	</g>
+
+	<g transform="translate(628 162)">
+		<rect width="500" height="280" rx="8" fill="#ffffff" stroke="#d9d6ce"/>
+		<text x="28" y="44" fill="#171a1c" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="600">B. Strong corner ticks</text>
+		<text x="28" y="72" fill="#4f5659" font-family="Inter, Arial, sans-serif" font-size="15">More favicon-visible; slightly more symbolic than plot-like.</text>
+		<g transform="translate(34 102)"><use href="#sizeLabels"/></g>
+		<g transform="translate(28 126) scale(2)"><use href="#candidateB"/></g>
+		<g transform="translate(196 150)"><use href="#candidateB"/></g>
+		<g transform="translate(280 166) scale(.5)"><use href="#candidateB"/></g>
+	</g>
+
+	<g transform="translate(72 482)">
+		<rect width="500" height="280" rx="8" fill="#ffffff" stroke="#d9d6ce"/>
+		<text x="28" y="44" fill="#171a1c" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="600">C. Minimal axes</text>
+		<text x="28" y="72" fill="#4f5659" font-family="Inter, Arial, sans-serif" font-size="15">Most explicit plot reference; busier at very small sizes.</text>
+		<g transform="translate(34 102)"><use href="#sizeLabels"/></g>
+		<g transform="translate(28 126) scale(2)"><use href="#candidateC"/></g>
+		<g transform="translate(196 150)"><use href="#candidateC"/></g>
+		<g transform="translate(280 166) scale(.5)"><use href="#candidateC"/></g>
+	</g>
+
+	<g transform="translate(628 482)">
+		<rect width="500" height="280" rx="8" fill="#ffffff" stroke="#d9d6ce"/>
+		<text x="28" y="44" fill="#171a1c" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="600">D. Open trajectory</text>
+		<text x="28" y="72" fill="#4f5659" font-family="Inter, Arial, sans-serif" font-size="15">Cleanest center; weaker attractor closure but strong motion.</text>
+		<g transform="translate(34 102)"><use href="#sizeLabels"/></g>
+		<g transform="translate(28 126) scale(2)"><use href="#candidateD"/></g>
+		<g transform="translate(196 150)"><use href="#candidateD"/></g>
+		<g transform="translate(280 166) scale(.5)"><use href="#candidateD"/></g>
+	</g>
+</svg>

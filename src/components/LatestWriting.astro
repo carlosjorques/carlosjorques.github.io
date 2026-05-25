@@ -1,197 +1,153 @@
 ---
-const baseUrl = import.meta.env.BASE_URL;
+import ArticleRow from './ArticleRow.astro';
 
-const posts = [
+const baseUrl = import.meta.env.BASE_URL;
+const withBase = (href: string) => (href === '/' ? baseUrl : `${baseUrl}${href.replace(/^\//, '')}`);
+
+const articles = [
 	{
 		number: '01',
 		title: 'Closed-loop thinking',
 		description: 'Why feedback remains the central idea behind reliable physical systems.',
-		meta: 'Control Systems · Essay',
+		href: withBase('/writing/closed-loop-thinking'),
 	},
 	{
 		number: '02',
 		title: 'From model to machine',
 		description: 'What changes when a control algorithm leaves simulation and meets real hardware.',
-		meta: 'Embedded Software · Notes',
+		href: withBase('/writing/from-model-to-machine'),
 	},
 	{
 		number: '03',
 		title: 'Debugging behavior',
 		description: 'A first-principles approach to diagnosing embedded control systems.',
-		meta: 'Diagnostics · Essay',
+		href: withBase('/writing/debugging-behavior'),
 	},
 ];
 ---
 
-<section class="latest-writing section" aria-labelledby="latest-writing-heading">
-	<div class="writing-inner">
-		<div class="writing-intro">
-			<p class="eyebrow">Latest articles</p>
-			<h2 id="latest-writing-heading">Control, software, diagnostics, and physical behavior.</h2>
-			<p>
-				I write about control systems, embedded software, diagnostics, and the engineering
-				decisions that make physical systems behave reliably in the real world.
+<section class="latest">
+	<div class="page-container">
+		<p class="latest__label">Latest writing</p>
+
+		<div class="latest__intro-wrap">
+			<p class="latest__intro">
+				Developing ideas on control systems, embedded software, diagnostics, automation, and the technical decisions that make complex machines safe and reliable.
 			</p>
+
+			<aside class="proof-rail" aria-label="Professional proof points">
+				<span class="proof-rail__item">
+					<span class="proof-rail__label">10+ years</span>
+					<span class="proof-rail__text">Automotive embedded systems</span>
+				</span>
+
+				<span class="proof-rail__item">
+					<span class="proof-rail__label">Technical leadership</span>
+					<span class="proof-rail__text">Model-based software teams</span>
+				</span>
+
+				<span class="proof-rail__item">
+					<span class="proof-rail__label">PhD-trained</span>
+					<span class="proof-rail__text">Real-time control and diagnostics</span>
+				</span>
+
+				<span class="proof-rail__item">
+					<span class="proof-rail__label">Production context</span>
+					<span class="proof-rail__text">EV, powertrain, safety, and validation</span>
+				</span>
+			</aside>
 		</div>
-		<ol class="post-list">
-			{
-				posts.map((post) => (
-					<li>
-						<a
-							class="article-link"
-							href={`${baseUrl}writing/`}
-							aria-label={`View writing page for ${post.title}`}
-						>
-							<span class="post-number">{post.number}</span>
-							<div>
-								<h3 class="article-link__title">{post.title}</h3>
-								<p>{post.description}</p>
-								<span class="post-meta">{post.meta}</span>
-							</div>
-							<span class="article-link__arrow" aria-hidden="true">&rarr;</span>
-						</a>
-					</li>
-				))
-			}
-		</ol>
+
+		{articles.map((article) => <ArticleRow {...article} />)}
 	</div>
 </section>
 
 <style>
-	.latest-writing {
+	.latest {
 		background: var(--color-page);
-		padding-top: clamp(3rem, 6vw, 5rem);
+		border-top: 1px solid var(--color-border-soft);
+		padding-block: clamp(3rem, 6vw, 5rem);
 	}
 
-	.writing-inner {
-		display: grid;
-		grid-template-columns: minmax(0, 0.74fr) minmax(0, 1.26fr);
-		gap: clamp(2rem, 5vw, 4rem);
-		width: min(100% - 48px, var(--content-width));
-		margin-inline: auto;
-	}
-
-	.writing-intro {
-		display: grid;
-		align-content: start;
-		gap: 0.85rem;
-	}
-
-	.writing-intro h2 {
-		max-width: 420px;
-		font-size: clamp(1.55rem, 3vw, 2.45rem);
-		line-height: 1.12;
-	}
-
-	.writing-intro p:not(.eyebrow) {
-		max-width: 460px;
-		color: var(--color-muted);
-		font-size: 1rem;
-		line-height: 1.7;
-	}
-
-	.post-list {
-		margin: 0;
-		padding: 0;
-		list-style: none;
-	}
-
-	.post-list li {
-		margin: 0;
-	}
-
-	.article-link {
-		display: grid;
-		grid-template-columns: 42px minmax(0, 1fr) 32px;
-		gap: 2rem;
-		align-items: start;
-		border-top: 1px solid var(--color-border);
-		padding-block: 1.4rem;
-		color: inherit;
-		text-decoration: none;
-		transition: border-color 160ms ease-out;
-	}
-
-	.post-list li:last-child .article-link {
-		border-bottom: 1px solid var(--color-border);
-	}
-
-	.post-number,
-	.post-meta {
-		color: var(--color-subtle);
+	.latest__label,
+	.section-label {
+		margin: 0 0 1rem;
 		font-family: var(--font-mono);
-		font-size: 0.76rem;
-		font-weight: 700;
-	}
-
-	.article-link h3 {
-		margin-bottom: 0.35rem;
-		font-size: clamp(1.15rem, 2vw, 1.45rem);
-		line-height: 1.25;
-	}
-
-	.article-link p {
-		max-width: 620px;
-		margin-bottom: 0.55rem;
-		color: var(--color-muted);
-		line-height: 1.6;
-	}
-
-	.article-link__title {
-		text-decoration: underline;
-		text-decoration-color: transparent;
-		text-decoration-thickness: 1px;
-		text-underline-offset: 0.22em;
-		transition: text-decoration-color 160ms ease-out;
-	}
-
-	.article-link__arrow {
-		display: inline-grid;
-		width: 32px;
-		height: 32px;
-		place-items: center;
+		font-size: 0.78rem;
+		font-weight: 600;
+		letter-spacing: 0.06em;
+		text-transform: uppercase;
 		color: var(--color-accent);
-		font-size: 0.9rem;
-		transition: transform 180ms ease-out;
 	}
 
-	.article-link:hover,
-	.article-link:focus-visible {
-		border-color: rgba(17, 19, 21, 0.32);
+	.latest__intro {
+		max-width: 720px;
+		margin: 0;
+		font-size: clamp(1rem, 1.25vw, 1.15rem);
+		line-height: 1.55;
+		color: var(--color-text);
 	}
 
-	.article-link:hover .article-link__title,
-	.article-link:focus-visible .article-link__title {
-		text-decoration-color: var(--color-accent);
+	.latest__intro-wrap {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) 320px;
+		gap: clamp(2rem, 5vw, 4rem);
+		align-items: start;
+		margin-bottom: clamp(2rem, 4vw, 3rem);
 	}
 
-	.article-link:hover .article-link__arrow,
-	.article-link:focus-visible .article-link__arrow {
-		transform: translateX(3px);
+	.proof-rail {
+		display: grid;
+		gap: 0.85rem;
+		padding-left: 1.25rem;
+		border-left: 1px solid var(--color-border-soft);
 	}
 
-	@media (max-width: 850px) {
-		.writing-inner {
+	.proof-rail__item {
+		display: block;
+	}
+
+	.proof-rail__label {
+		display: block;
+		margin-bottom: 0.16rem;
+		font-family: var(--font-mono);
+		font-size: 0.62rem;
+		font-weight: 600;
+		letter-spacing: 0.06em;
+		text-transform: uppercase;
+		color: var(--color-soft);
+	}
+
+	.proof-rail__text {
+		display: block;
+		font-size: 0.8rem;
+		line-height: 1.35;
+		color: var(--color-muted);
+	}
+
+	@media (max-width: 900px) {
+		.latest__intro-wrap {
 			grid-template-columns: 1fr;
-			gap: 1.5rem;
+			gap: 1.75rem;
+		}
+
+		.proof-rail {
+			max-width: 640px;
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+			padding-left: 0;
+			padding-top: 1.25rem;
+			border-top: 1px solid var(--color-border-soft);
+			border-left: 0;
 		}
 	}
 
-	@media (max-width: 760px) {
-		.writing-inner {
-			width: min(100% - 32px, var(--content-width));
-		}
-	}
-
-	@media (max-width: 560px) {
-		.article-link {
-			grid-template-columns: 32px minmax(0, 1fr);
-			gap: 1rem;
+	@media (max-width: 640px) {
+		.latest__intro-wrap {
+			margin-bottom: 2rem;
 		}
 
-		.article-link__arrow {
-			grid-column: 2;
-			justify-self: start;
+		.proof-rail {
+			grid-template-columns: 1fr;
 		}
 	}
 </style>
