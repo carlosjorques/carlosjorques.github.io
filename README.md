@@ -29,8 +29,8 @@ Deployment is configured through `.github/workflows/static.yml` using the offici
 
 Current deployment assumptions:
 
-- Repository: `carlosjorques/carlosjorques`
-- Pages URL: `https://carlosjorques.github.io/carlosjorques/`
+- Repository: `carlosjorques/carlosjorques.github.io`
+- Pages URL: `https://carlosjorques.github.io/`
 - Source branch: `master`
 - Output directory: `dist/`
 - Node.js: 22
