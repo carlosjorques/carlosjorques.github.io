@@ -1,113 +1,768 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import ContactCTA from '../components/ContactCTA.astro';
 
 const baseUrl = import.meta.env.BASE_URL;
+const withBase = (href: string) => (href === '/' ? baseUrl : `${baseUrl}${href.replace(/^\//, '')}`);
+
+type TextPart = {
+	text: string;
+	strong?: boolean;
+};
+
+const professionalFoundation = [
+	{
+		context: 'EXPERIENCE',
+		anchor: '10+ years of embedded controls',
+		description: [
+			{ text: 'Production-ready embedded control software', strong: true },
+			{ text: ' across ' },
+			{ text: 'Scania', strong: true },
+			{ text: ', ' },
+			{ text: 'Volvo CE', strong: true },
+			{ text: ' and ' },
+			{ text: 'Mahle', strong: true },
+			{ text: '.' },
+		] satisfies TextPart[],
+	},
+	{
+		context: 'LEADERSHIP',
+		anchor: 'Technical architecture and direction',
+		description: [
+			{ text: 'Guiding cross-functional teams across model-based control development, ' },
+			{ text: 'embedded software', strong: true },
+			{ text: ', ' },
+			{ text: 'diagnostics', strong: true },
+			{ text: ', integration, ' },
+			{ text: 'validation', strong: true },
+			{ text: ', and delivery.' },
+		] satisfies TextPart[],
+	},
+	{
+		context: 'SCOPE',
+		anchor: 'Full system integration and validation',
+		description: [
+			{ text: 'Controls architecture, active diagnostics, ' },
+			{ text: 'safety-related constraints', strong: true },
+			{ text: ', and end-to-end integration for systems in demanding environments.' },
+		] satisfies TextPart[],
+	},
+	{
+		context: 'BACKGROUND',
+		anchor: 'PhD in control systems',
+		description: [
+			{ text: 'Peer-reviewed research', strong: true },
+			{ text: ', academic rigor, and ' },
+			{ text: 'patent work', strong: true },
+			{ text: ' translated into production-oriented engineering decisions.' },
+		] satisfies TextPart[],
+	},
+];
+
+const workPrinciples = [
+	{
+		title: 'Start from system behavior',
+		description: [
+			{ text: 'Before writing code or defining interfaces, I model the system’s ' },
+			{ text: 'physical behavior', strong: true },
+			{ text: ': dynamic response, stability, fault mitigation, operating envelope, and timing constraints.' },
+		] satisfies TextPart[],
+	},
+	{
+		title: 'Deliberately reduce uncertainty',
+		description: [
+			{
+				text: 'I treat unknowns as engineering risks and reduce them early through real-world experiments, predictive simulation, logs, and ',
+			},
+			{ text: 'structured test evidence', strong: true },
+			{ text: '.' },
+		] satisfies TextPart[],
+	},
+	{
+		title: 'Lead through explicit technical clarity',
+		description: [
+			{
+				text: 'Complex projects only succeed when teams can execute them clearly. I align cross-functional domains around ',
+			},
+			{ text: 'architecture', strong: true },
+			{ text: ', trade-offs, safety limits, validation evidence, and ownership.' },
+		] satisfies TextPart[],
+	},
+];
+
+const capabilities = [
+	{
+		domain: 'Controls Architecture',
+		challenge: 'How should the machine govern its behavior?',
+		description: [
+			{
+				text: 'Defining dynamic intent, transient handling, operating envelope boundaries, and architecture decisions before internal software complexity takes over.',
+			},
+		] satisfies TextPart[],
+	},
+	{
+		domain: 'Real-Time Embedded Software',
+		challenge: 'How does that behavior translate cleanly into execution?',
+		description: [
+			{ text: 'Shaping model-based pipelines, generated-code boundaries, software interfaces, ' },
+			{ text: 'timing loops', strong: true },
+			{ text: ', and maintainable target implementation.' },
+		] satisfies TextPart[],
+	},
+	{
+		domain: 'Diagnostics & Fault Isolation',
+		challenge: 'How does the machine protect others and itself if something goes wrong?',
+		description: [
+			{ text: 'Designing observability, ' },
+			{ text: 'signal-health monitoring', strong: true },
+			{
+				text: ', fault response, and degradation strategies so systems can detect, degrade, and recover instead of failing silently.',
+			},
+		] satisfies TextPart[],
+	},
+	{
+		domain: 'Validation, MIL/SIL/HIL, and Field Evidence',
+		challenge: 'How do we prove that it is ready?',
+		description: [
+			{ text: 'Bridging functional requirements with physical evidence through ' },
+			{ text: 'model-, software-, hardware-in-the-loop testing', strong: true },
+			{ text: ', logs, calibration feedback, and field-oriented validation.' },
+		] satisfies TextPart[],
+	},
+	{
+		domain: 'System Integration',
+		challenge: 'How does it integrate with the platform?',
+		description: [
+			{
+				text: 'Aligning actuators, sensors, data buses, calibration parameters, software interfaces, and physical subsystems under real operating loads.',
+			},
+		] satisfies TextPart[],
+	},
+	{
+		domain: 'Technical Leadership',
+		challenge: 'How does the team move together?',
+		description: [
+			{ text: 'Creating clarity around ' },
+			{ text: 'technical direction', strong: true },
+			{
+				text: ', ownership, quality, and delivery sequence so multidisciplinary teams can execute with autonomy and accountability.',
+			},
+		] satisfies TextPart[],
+	},
+];
+
+const appliedExpertise = [
+	{
+		domain: 'Heavy-Duty Transportation',
+		focus: [
+			{
+				text: 'Thermal management of electrified powertrains, battery systems, charger coordination, and combustion-control research.',
+			},
+		] satisfies TextPart[],
+	},
+	{
+		domain: 'Safety-Related Diagnostics and Fault Handling',
+		focus: [
+			{
+				text: 'Software layers that observe system health, detect faults, support degradation strategies, and keep physical behavior predictable.',
+			},
+		] satisfies TextPart[],
+	},
+	{
+		domain: 'Autonomous Mobility Systems',
+		focus: [
+			{
+				text: 'Propulsion and torque-control work for autonomous electric machines, including safety monitoring, validation, and field behavior.',
+			},
+		] satisfies TextPart[],
+	},
+	{
+		domain: 'Industry Standards and Production Deployment',
+		focus: [
+			{ text: 'Work shaped by ' },
+			{ text: 'ISO 26262', strong: true },
+			{ text: ', ' },
+			{ text: 'A-SPICE', strong: true },
+			{ text: ', ' },
+			{ text: 'AUTOSAR-oriented development', strong: true },
+			{ text: ', CI/CD, ' },
+			{ text: 'MIL/SIL/HIL testing', strong: true },
+			{ text: ', supplier interfaces, and vehicle-level validation.' },
+		] satisfies TextPart[],
+	},
+];
+
+const evidenceLinks = [
+	{
+		title: 'Writing',
+		description:
+			'Technical thinking on embedded controls, diagnostics, physical systems, software architecture, and engineering judgment.',
+		href: withBase('/writing'),
+		linkText: 'Read engineering log',
+	},
+	{
+		title: 'Work',
+		description:
+			'A selection of my projects, engineering contributions, publications, patents, and research context.',
+		href: withBase('/work'),
+		linkText: 'View selected work, patents, and publications',
+	},
+	{
+		title: 'CV and contact',
+		description:
+			'For formal career details, contact information, LinkedIn, and CV access, use the contact page.',
+		href: withBase('/contact'),
+		linkText: 'Access CV and contact details',
+	},
+];
 ---
 
 <Layout
-	title="About"
-	description="About Carlos Jorques, an embedded control systems architect focused on physical systems, automotive software, diagnostics, and technical delivery."
+	title="About Carlos Jorques | Embedded Controls Architect"
+	description="About Carlos Jorques, an embedded controls architect and technical leader developing control algorithms and real-time embedded software for reliable physical systems."
 >
-	<section class="section about-intro">
-		<div class="narrow">
+	<section class="about-hero">
+		<div class="page-container about-hero__inner">
 			<p class="eyebrow">About</p>
-			<h1>Embedded control systems for physical machines</h1>
-			<p class="lead">
-				I design and lead production-ready embedded control systems, connecting system intent
-				with software, control logic, diagnostics, actuation, safety expectations, and delivery.
+			<h1>Hi, I’m Carlos.</h1>
+			<p class="about-hero__lead">
+				I am an <strong>Embedded Controls Architect</strong> and <strong>Technical Leader</strong> focused on <strong>intelligent physical systems</strong>.
+				I work on the software that helps them sense, evaluate, decide and act.
 			</p>
+			<p class="about-hero__body">
+				I operate where advanced control algorithms run inside machines that must interact with real-world physical environments and their uncertainties.
+				My professional foundation is rooted in <strong>automatic control</strong>, with a focus on <strong>production-ready embedded software</strong> for cars, heavy-duty vehicles, and industrial machines.
+				Because automatic control is a broad discipline, the same principles apply across many different systems, from simple thermostats to advanced vehicles, robots, and energy platforms.
+			</p>
+			<p class="about-hero__body">
+				Over the past decade, I have contributed to production and research work across <strong>Scania trucks</strong>, <strong>Volvo CE autonomous haulers</strong>, <strong>Mahle electrified powertrains</strong>, and Tier 1 / client delivery environments.
+				I focus on <strong>whole-system behavior</strong> rather than isolated software components to ensure the integrated system works reliably.
+			</p>
+			<div class="button-row" aria-label="About page primary navigation links">
+				<a class="button primary" href={withBase('/contact')}>Contact Carlos / Access CV</a>
+				<a class="button" href={withBase('/work')}>Explore selected work</a>
+				<a class="button" href={withBase('/writing')}>Read my blog</a>
+			</div>
 		</div>
 	</section>
 
-	<section class="section">
-		<div class="container about-grid">
-			<article>
-				<h2>Professional focus</h2>
+	<section class="section about-proof" aria-labelledby="foundation-title">
+		<div class="page-container">
+			<div class="section-intro section-intro--compact">
+				<h2 id="foundation-title">Professional Foundation</h2>
 				<p>
-					Embedded control systems architecture for vehicles and smart machines, with emphasis
-					on real-time behavior, production reliability, and clear ownership across disciplines.
+					My profile combines production delivery, technical direction, system-level validation, and a research foundation in control and diagnostics.
 				</p>
-			</article>
-			<article>
-				<h2>Technical scope</h2>
-				<p>
-					Sensing, signal processing, embedded software, control algorithms, diagnostics,
-					actuation, safety-related development, A-SPICE expectations, and AUTOSAR-oriented
-					integration.
-				</p>
-			</article>
-			<article>
-				<h2>Leadership and delivery</h2>
-				<p>
-					I help teams move from requirements and concepts toward integrated software that can
-					be verified, maintained, delivered, and trusted in production environments.
-				</p>
-			</article>
-			<article>
-				<h2>Representative experience</h2>
-				<p>
-					Automotive OEM and Tier 1 contexts across embedded control architecture, diagnostics,
-					safety-related work, supplier interaction, and cross-functional delivery.
-				</p>
-			</article>
-			<article>
-				<h2>Research foundation</h2>
-				<p>
-					PhD training in electrical engineering supports rigorous thinking in modeling,
-					analysis, and control. Research is secondary evidence for industrial technical
-					leadership.
-				</p>
-			</article>
-			<article>
-				<h2>Contact path</h2>
-				<p>
-					For embedded control architecture, automotive control software, or technical
-					leadership discussions, use the contact page.
-				</p>
-				<a href={`${baseUrl}contact/`}>Contact</a>
-			</article>
+			</div>
+			<div class="proof-grid">
+				{professionalFoundation.map((item) => (
+					<article class="proof-item">
+						<p>{item.context}</p>
+						<h3>{item.anchor}</h3>
+						<span>
+							{item.description.map((part) =>
+								part.strong ? <strong>{part.text}</strong> : part.text
+							)}
+						</span>
+					</article>
+				))}
+			</div>
 		</div>
 	</section>
 
-	<section class="section">
-		<div class="container">
-			<ContactCTA />
+	<section class="section about-split" aria-labelledby="narrative-title">
+		<div class="page-container about-split__grid">
+			<div class="split-heading">
+				<h2 id="narrative-title">The challenge behind the work</h2>
+			</div>
+			<div class="about-copy">
+				<p>
+					How can machines sense the world, decide how to move, and act safely under uncertainty?
+					That question has shaped my path from robotics curiosity to control systems, embedded software, and reliable intelligent machines.
+				</p>
+				<p>
+					What began as a curiosity for taking things apart and understanding mechanisms became a deeper interest in <strong>dynamic systems</strong>: machines that move and interact with the world.
+					<strong>Control theory</strong> gave me a framework for designing such systems.
+					Electrical engineering and <strong>doctoral research</strong> gave me tools to reason through dynamic systems, uncertainty, sensing, diagnostics, modeling, and evidence.
+				</p>
+				<p>
+					Production is where the theory is tested.
+					Timing limits, cost boundaries, safety criteria, supplier interfaces, calibration maturity, validation evidence, and delivery pressure all shape what can actually work.
+					My role is to help advanced control and software architectures survive that environment.
+				</p>
+				<p>
+					Earlier in my career, I contributed <strong>peer-reviewed research</strong> and <strong>patent work</strong> in real-time combustion control, virtual sensing, diagnostics, and high-speed FPGA processing.
+					Today, I apply that same systems thinking to production vehicles and intelligent machines, providing technical guidance across architecture, validation, and delivery.
+				</p>
+				<div class="in-context-cta">
+					<span>Want to know more?</span>
+					<a href={withBase('/work')} class="text-link">See selected work, patents, and academic publications →</a>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="section about-work-style" aria-labelledby="work-style-title">
+		<div class="page-container about-split__grid">
+			<div class="split-heading">
+				<h2 id="work-style-title">How I approach execution</h2>
+				<p>
+					An elegant algorithm is only the beginning. The real engineering challenge is
+					turning it into software that can be compiled, integrated, verified, calibrated,
+					and trusted in the field.
+				</p>
+			</div>
+			<div class="work-style-list">
+				{workPrinciples.map((item) => (
+					<article>
+						<h3>{item.title}</h3>
+						<p>
+							{item.description.map((part) =>
+								part.strong ? <strong>{part.text}</strong> : part.text
+							)}
+						</p>
+					</article>
+				))}
+			</div>
+		</div>
+	</section>
+
+	<section class="section" aria-labelledby="skills-flow-title">
+		<div class="page-container">
+			<div class="section-intro">
+				<h2 id="skills-flow-title">Core Capabilities</h2>
+				<p>
+					These are the technical areas where I work most often.
+				</p>
+			</div>
+			<div class="capability-grid">
+				{capabilities.map((item) => (
+					<article class="capability-item">
+						<p class="capability-item__area">{item.challenge}</p>
+						<h3>{item.domain}</h3>
+						<p>
+							{item.description.map((part) =>
+								part.strong ? <strong>{part.text}</strong> : part.text
+							)}
+						</p>
+					</article>
+				))}
+			</div>
+		</div>
+	</section>
+
+	<section class="section" aria-labelledby="concrete-expertise-title">
+		<div class="page-container">
+			<div class="section-intro">
+				<h2 id="concrete-expertise-title">Applied domains</h2>
+				<p>
+					The production and research contexts where the technical capabilities
+					above become tangible.
+				</p>
+			</div>
+			<div class="challenge-grid">
+				{appliedExpertise.map((item) => (
+					<article class="challenge-item">
+						<h3>{item.domain}</h3>
+						<p>
+							{item.focus.map((part) =>
+								part.strong ? <strong>{part.text}</strong> : part.text
+							)}
+						</p>
+					</article>
+				))}
+			</div>
+			<div class="section-footer-cta">
+				<p>Want more details of my professional path?</p>
+				<a class="text-link" href={withBase('/contact')}>Access CV or connect via LinkedIn →</a>
+			</div>
+		</div>
+	</section>
+
+	<section class="section" aria-labelledby="evidence-title">
+		<div class="page-container">
+			<div class="section-intro">
+				<h2 id="evidence-title">Explore more of my work</h2>
+			</div>
+			<div class="evidence-grid">
+				{evidenceLinks.map((item) => (
+					<article class="evidence-item">
+						<h3>{item.title}</h3>
+						<p>{item.description}</p>
+						<a href={item.href}>{item.linkText}</a>
+					</article>
+				))}
+			</div>
+		</div>
+	</section>
+
+	<section class="section about-final" aria-labelledby="final-title">
+		<div class="page-container about-final__inner">
+			<div>
+				<h2 id="final-title">Let’s connect</h2>
+				<p>
+					For roles, collaborations, or technical conversations around embedded controls, diagnostics, safety-related development, and reliable physical systems, I’m open to hearing from you.
+				</p>
+			</div>
+			<div class="about-final__actions">
+				<a class="button primary" href={withBase('/contact')}>Contact Carlos / Access CV</a>
+				<a class="button" href="https://www.linkedin.com/in/carlosjorques/" target="_blank" rel="noopener noreferrer">View LinkedIn Profile</a>
+			</div>
 		</div>
 	</section>
 </Layout>
 
 <style>
-	.about-intro h1 {
-		margin: 0.45rem 0 0.75rem;
+	.about-hero {
+		padding-block: clamp(4rem, 8vw, 7rem) clamp(3rem, 6vw, 5rem);
+		border-bottom: 1px solid var(--color-border-soft);
 	}
 
-	.about-grid {
+	.about-hero__inner {
 		display: grid;
-		grid-template-columns: 1fr;
+		gap: 1.2rem;
+		max-width: 880px;
+	}
+
+	.about-hero h1 {
+		max-width: 780px;
+		font-size: clamp(2.5rem, 6vw, 4.75rem);
+		line-height: 1;
+	}
+
+	.about-hero__lead {
+		max-width: 760px;
+		color: var(--color-text);
+		font-size: clamp(1.15rem, 2vw, 1.45rem);
+		line-height: 1.55;
+	}
+
+	.about-hero__body {
+		max-width: 760px;
+		color: var(--color-muted);
+		font-size: 1.05rem;
+		line-height: 1.7;
+	}
+
+	.about-hero strong,
+	.about-copy strong,
+	.proof-item strong,
+	.work-style-list strong,
+	.capability-item strong,
+	.challenge-item strong {
+		color: var(--color-text);
+		font-weight: 700;
+	}
+
+	.about-hero .button-row {
+		margin-top: 1.5rem;
+		display: flex;
+		flex-wrap: wrap;
 		gap: 1rem;
 	}
 
-	.about-grid article {
+	.section-intro--compact {
+		margin-bottom: 1.5rem;
+	}
+
+	.proof-grid {
+		display: grid;
+		grid-template-columns: 1fr;
 		border-top: 1px solid var(--color-border);
-		padding-top: 1rem;
+		border-bottom: 1px solid var(--color-border);
 	}
 
-	.about-grid h2 {
-		margin-bottom: 0.45rem;
-		font-size: 1.15rem;
+	.proof-item {
+		display: grid;
+		gap: 0.45rem;
+		padding: 1.2rem 0;
 	}
 
-	.about-grid a {
-		display: inline-block;
-		margin-top: 0.65rem;
+	.proof-item + .proof-item {
+		border-top: 1px solid var(--color-border);
+	}
+
+	.proof-item p {
 		color: var(--color-accent);
-		text-decoration: none;
+		font-family: var(--font-mono);
+		font-size: 0.72rem;
+		font-weight: 600;
+		letter-spacing: 0.06em;
+		text-transform: uppercase;
+	}
+
+	.proof-item h3 {
+		color: var(--color-text);
+		font-size: 1.2rem;
+		line-height: 1.35;
+	}
+
+	.proof-item span {
+		max-width: 100%;
+		color: var(--color-muted);
+		font-size: 0.95rem;
+		line-height: 1.5;
+	}
+
+	.about-split__grid {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: 1.25rem;
+		align-items: start;
+	}
+
+	.split-heading {
+		display: grid;
+		gap: 0.65rem;
+		max-width: 760px;
+	}
+
+	.about-split h2,
+	.section-intro h2,
+	.about-final h2 {
+		max-width: 760px;
+		font-size: clamp(1.7rem, 3.5vw, 2.65rem);
+		line-height: 1.08;
+	}
+
+	.split-heading p,
+	.about-final p {
+		max-width: 700px;
+		color: var(--color-muted);
+		font-size: 0.95rem;
+		line-height: 1.6;
+	}
+
+	.about-copy {
+		display: grid;
+		gap: 1.2rem;
+		max-width: 760px;
+		color: var(--color-muted);
+		font-size: 1.05rem;
+		line-height: 1.7;
+	}
+
+	.in-context-cta,
+	.section-footer-cta {
+		display: flex;
+		flex-direction: column;
+		gap: 0.25rem;
+		margin-top: 1rem;
+		padding: 1rem;
+		background: var(--color-page);
+		border-left: 3px solid var(--color-accent);
+	}
+
+	.in-context-cta span,
+	.section-footer-cta p {
+		color: var(--color-text);
+		font-size: 0.9rem;
+	}
+
+	.work-style-list {
+		display: grid;
+		max-width: 760px;
+		border-top: 1px solid var(--color-border);
+	}
+
+	.work-style-list article {
+		display: grid;
+		gap: 0.45rem;
+		border-bottom: 1px solid var(--color-border);
+		padding: 1.2rem 0;
+	}
+
+	.work-style-list h3,
+	.capability-item h3,
+	.challenge-item h3,
+	.evidence-item h3 {
+		color: var(--color-text);
+		font-size: 1.15rem;
+		line-height: 1.35;
+	}
+
+	.work-style-list p,
+	.capability-item p,
+	.challenge-item p,
+	.evidence-item p,
+	.section-intro p {
+		color: var(--color-muted);
+		font-size: 0.95rem;
+		line-height: 1.6;
+	}
+
+	.capability-item__area {
+		color: var(--color-accent) !important;
+		font-family: var(--font-sans);
+		font-size: 0.85rem !important;
+		font-weight: 500;
+		letter-spacing: 0.04em;
+		line-height: 1.35 !important;
+		margin-bottom: 0.1rem;
+	}
+
+	.section-intro {
+		display: grid;
+		gap: 0.65rem;
+		max-width: 760px;
+		margin-bottom: 2rem;
+	}
+
+	.capability-grid,
+	.challenge-grid,
+	.evidence-grid {
+		display: grid;
+		grid-template-columns: 1fr;
+		border-top: 1px solid var(--color-border);
+		border-bottom: 1px solid var(--color-border);
+	}
+
+	.capability-item,
+	.challenge-item,
+	.evidence-item {
+		display: grid;
+		gap: 0.35rem;
+		padding: 1.5rem 0;
+	}
+
+	.capability-item + .capability-item,
+	.challenge-item + .challenge-item,
+	.evidence-item + .evidence-item {
+		border-top: 1px solid var(--color-border);
+	}
+
+	.evidence-item a,
+	.text-link {
+		width: fit-content;
+		color: var(--color-accent);
+		font-weight: 700;
+		text-decoration: underline;
+		text-decoration-thickness: 1px;
+		text-underline-offset: 0.2em;
+	}
+
+	.evidence-item a:hover,
+	.evidence-item a:focus-visible,
+	.text-link:hover,
+	.text-link:focus-visible {
+		color: var(--color-text);
+	}
+
+	.about-final {
+		margin-top: 2rem;
+		border-top: 1px solid var(--color-border-soft);
+	}
+
+	.about-final__inner {
+		display: grid;
+		gap: 1.4rem;
+		align-items: start;
+	}
+
+	.about-final__inner > div:first-child {
+		display: grid;
+		gap: 0.7rem;
+	}
+
+	.about-final__actions {
+		display: grid;
+		gap: 0.9rem;
+		align-items: start;
+	}
+
+	.about-final__actions > .button {
+		width: 100%;
 	}
 
 	@media (min-width: 760px) {
-		.about-grid {
+		.proof-grid {
 			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+
+		.proof-item {
+			padding: 1.5rem;
+		}
+
+		.proof-item + .proof-item {
+			border-top: 0;
+			border-left: 1px solid var(--color-border);
+		}
+
+		.proof-item:nth-child(3) {
+			border-left: 0;
+			border-top: 1px solid var(--color-border);
+		}
+
+		.proof-item:nth-child(4) {
+			border-top: 1px solid var(--color-border);
+		}
+
+		.capability-grid,
+		.challenge-grid,
+		.evidence-grid {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+
+		.capability-item,
+		.challenge-item,
+		.evidence-item {
+			padding: 1.5rem;
+		}
+
+		.capability-item + .capability-item,
+		.challenge-item + .challenge-item,
+		.evidence-item + .evidence-item {
+			border-top: 0;
+			border-left: 1px solid var(--color-border);
+		}
+
+		.capability-item:nth-child(odd),
+		.challenge-item:nth-child(odd),
+		.evidence-item:nth-child(odd) {
+			border-left: 0;
+		}
+
+		.capability-item:nth-child(n + 3),
+		.challenge-item:nth-child(n + 3),
+		.evidence-item:nth-child(n + 3) {
+			border-top: 1px solid var(--color-border);
+		}
+	}
+
+	@media (min-width: 980px) {
+		.about-split__grid {
+			grid-template-columns: minmax(220px, 0.45fr) minmax(0, 1fr);
+			gap: clamp(2rem, 5vw, 4rem);
+		}
+
+		.capability-grid {
+			grid-template-columns: repeat(3, minmax(0, 1fr));
+		}
+
+		.capability-item:nth-child(3n + 1) {
+			border-left: 0;
+		}
+
+		.capability-item:nth-child(3) {
+			border-top: 0;
+		}
+
+		.capability-item:nth-child(4) {
+			border-top: 1px solid var(--color-border);
+		}
+
+		.about-final__inner {
+			grid-template-columns: minmax(0, 1fr) auto;
+			gap: 2rem;
+		}
+
+		.about-final__actions {
+			min-width: 230px;
+		}
+	}
+
+	@media (max-width: 640px) {
+		.about-hero {
+			padding-block: 3.5rem 2.75rem;
 		}
 	}
 </style>
