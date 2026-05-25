@@ -101,7 +101,7 @@ const selectedWork = [
 	}
 
 	.selected-work__item a {
-		color: var(--color-accent);
+		color: var(--color-link);
 		font-family: var(--font-mono);
 		font-size: 0.74rem;
 		font-weight: 600;
@@ -116,11 +116,12 @@ const selectedWork = [
 
 	.selected-work__item a:hover,
 	.selected-work__item a:focus-visible {
-		border-bottom-color: var(--color-accent);
+		color: var(--color-link-hover);
+		border-bottom-color: var(--color-link-hover);
 	}
 
 	.selected-work__item a:focus-visible {
-		outline: 2px solid var(--color-accent);
+		outline: 2px solid var(--color-focus);
 		outline-offset: 4px;
 	}
 

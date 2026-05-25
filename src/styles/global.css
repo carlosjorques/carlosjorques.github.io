@@ -4,45 +4,64 @@
 	--font-sans: "IBM Plex Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 	--font-mono: "IBM Plex Mono", "SFMono-Regular", Consolas, "Liberation Mono", monospace;
 
+	/* Core brand palette */
+	--brand-charcoal: #1f2424;
+	--brand-charcoal-deep: #101414;
+	--brand-warm-white: #f7f6f1;
+	--brand-paper: #fffefa;
+	--brand-control-green: #3f8f5b;
+	--brand-control-green-dark: #2f7046;
+	--brand-control-green-soft: #e5f3e9;
 	--brand-lime: #bfff03;
-	--brand-lime-dark: #5f7f00;
-	--brand-lime-deep: #3d5200;
-	--brand-lime-soft: #dfff7a;
-	--brand-steel: #1f5f78;
+	--brand-lime-soft: #efffc2;
 
-	--color-page: #f7f7f3;
-	--color-hero: var(--color-page);
+	/* Light theme */
+	--color-page: var(--brand-warm-white);
+	--color-hero: var(--brand-charcoal);
 
-	--color-text: #171917;
-	--color-muted: #42483f;
-	--color-soft: #687063;
-	--color-border: #d8dbd2;
-	--color-border-soft: #e7e9e1;
-	--color-accent: var(--brand-lime-dark);
-	--color-accent-strong: var(--brand-lime-deep);
+	--color-text: #171a1a;
+	--color-muted: #5e6663;
+	--color-soft: #7a827f;
+
+	--color-border: #d9d6cb;
+	--color-border-soft: #e7e3d8;
+	--color-border-strong: rgba(31, 36, 36, 0.34);
+
+	/* Main readable accent in light mode */
+	--color-accent: var(--brand-control-green);
+	--color-accent-strong: var(--brand-control-green-dark);
 	--color-accent-bright: var(--brand-lime);
-	--color-accent-soft: var(--brand-lime-soft);
-	--color-accent-wash: rgba(191, 255, 3, 0.08);
-	--color-border-strong: rgba(23, 25, 23, 0.34);
-	--color-link: var(--brand-steel);
-	--color-link-hover: var(--color-accent-strong);
-	--color-focus: var(--color-accent);
-	--color-button-primary-bg: var(--color-accent-strong);
+	--color-accent-soft: var(--brand-control-green-soft);
+	--color-accent-wash: rgba(63, 143, 91, 0.1);
+
+	/* Links should be calm and readable; lime is only the signal accent */
+	--color-link: var(--brand-control-green);
+	--color-link-hover: var(--brand-control-green-dark);
+
+	/* Keep the focus ring distinctive */
+	--color-focus: var(--brand-lime);
+
+	/* Primary buttons in light mode should use charcoal, not lime */
+	--color-button-primary-bg: var(--brand-charcoal);
 	--color-button-primary-text: #ffffff;
+
 	--color-proof-border: var(--color-border);
-	--color-proof-label: #4f5659;
-	--color-proof-text: #3f4446;
-	--color-dark-surface: #111311;
-	--color-dark-surface-soft: #171a17;
-	--color-on-dark: #f7f8f2;
-	--color-on-dark-muted: rgba(247, 248, 242, 0.76);
-	--color-on-dark-muted-soft: rgba(247, 248, 242, 0.9);
-	--color-on-dark-border: rgba(247, 248, 242, 0.16);
-	--color-on-dark-border-soft: rgba(247, 248, 242, 0.1);
-	--color-card-bg: #ffffff;
-	--color-card-bg-hover: #f0f1ed;
+	--color-proof-label: #5e6663;
+	--color-proof-text: #3f4744;
+
+	/* Stable dark surfaces used by hero/footer even in light mode */
+	--color-dark-surface: var(--brand-charcoal-deep);
+	--color-dark-surface-soft: var(--brand-charcoal);
+	--color-on-dark: #f7f7f2;
+	--color-on-dark-muted: rgba(247, 247, 242, 0.76);
+	--color-on-dark-muted-soft: rgba(247, 247, 242, 0.9);
+	--color-on-dark-border: rgba(247, 247, 242, 0.16);
+	--color-on-dark-border-soft: rgba(247, 247, 242, 0.1);
+
+	--color-card-bg: var(--brand-paper);
+	--color-card-bg-hover: #f0eee6;
 	--color-card-border: var(--color-border-soft);
-	--color-card-border-hover: rgba(247, 247, 247, 0.28);
+	--color-card-border-hover: rgba(63, 143, 91, 0.28);
 	--color-card-text: var(--color-text);
 	--color-card-muted: var(--color-muted);
 	--color-card-accent: var(--color-accent);
@@ -51,54 +70,70 @@
 	--content-narrow: 760px;
 	--site-header-height: 68px;
 	--hero-content-proof-height: clamp(15rem, 20vw, 17rem);
+
 	--color-bg: var(--color-page);
 	--color-surface: var(--color-card-bg);
 	--color-surface-soft: var(--color-card-bg-hover);
 	--color-subtle: var(--color-soft);
+
 	--radius: 4px;
+
 	color-scheme: light;
 }
 
 :root[data-theme="dark"] {
-	--color-page: #111311;
-	--color-hero: var(--color-page);
-	--color-text: #f7f8f2;
-	--color-muted: rgba(247, 248, 242, 0.76);
-	--color-soft: rgba(247, 248, 242, 0.58);
-	--color-border: rgba(247, 248, 242, 0.16);
-	--color-border-soft: rgba(247, 248, 242, 0.1);
+	/* Dark theme */
+	--color-page: var(--brand-charcoal-deep);
+	--color-hero: var(--brand-charcoal-deep);
+
+	--color-text: #f7f7f2;
+	--color-muted: rgba(247, 247, 242, 0.76);
+	--color-soft: rgba(247, 247, 242, 0.58);
+
+	--color-border: rgba(247, 247, 242, 0.16);
+	--color-border-soft: rgba(247, 247, 242, 0.1);
+	--color-border-strong: rgba(191, 255, 3, 0.45);
+
+	/* In dark mode, lime can safely become the main signal accent */
 	--color-accent: var(--brand-lime);
-	--color-accent-strong: var(--brand-lime-soft);
+	--color-accent-strong: #d6ff4d;
 	--color-accent-bright: var(--brand-lime);
 	--color-accent-soft: rgba(191, 255, 3, 0.72);
 	--color-accent-wash: rgba(191, 255, 3, 0.1);
-	--color-border-strong: rgba(191, 255, 3, 0.45);
-	--color-link: var(--brand-lime-soft);
+
+	--color-link: #d6ff4d;
 	--color-link-hover: #ffffff;
+
 	--color-focus: var(--brand-lime);
+
 	--color-button-primary-bg: var(--brand-lime);
-	--color-button-primary-text: #111311;
+	--color-button-primary-text: var(--brand-charcoal-deep);
+
 	--color-proof-border: var(--color-border);
-	--color-proof-label: rgba(247, 248, 242, 0.68);
-	--color-proof-text: rgba(247, 248, 242, 0.78);
-	--color-dark-surface: #111311;
-	--color-dark-surface-soft: #171a17;
-	--color-on-dark: #f7f8f2;
-	--color-on-dark-muted: rgba(247, 248, 242, 0.76);
-	--color-on-dark-muted-soft: rgba(247, 248, 242, 0.9);
-	--color-on-dark-border: rgba(247, 248, 242, 0.16);
-	--color-on-dark-border-soft: rgba(247, 248, 242, 0.1);
-	--color-card-bg: #171a17;
-	--color-card-bg-hover: #1d211d;
+	--color-proof-label: rgba(247, 247, 242, 0.68);
+	--color-proof-text: rgba(247, 247, 242, 0.78);
+
+	--color-dark-surface: var(--brand-charcoal-deep);
+	--color-dark-surface-soft: var(--brand-charcoal);
+	--color-on-dark: #f7f7f2;
+	--color-on-dark-muted: rgba(247, 247, 242, 0.76);
+	--color-on-dark-muted-soft: rgba(247, 247, 242, 0.9);
+	--color-on-dark-border: rgba(247, 247, 242, 0.16);
+	--color-on-dark-border-soft: rgba(247, 247, 242, 0.1);
+
+	--color-card-bg: var(--brand-charcoal);
+	--color-card-bg-hover: #273030;
 	--color-card-border: var(--color-border);
 	--color-card-border-hover: rgba(191, 255, 3, 0.42);
 	--color-card-text: var(--color-text);
 	--color-card-muted: var(--color-muted);
 	--color-card-accent: var(--color-accent);
+
 	--color-bg: var(--color-page);
 	--color-surface: var(--color-card-bg);
 	--color-surface-soft: var(--color-card-bg-hover);
 	--color-subtle: var(--color-soft);
+
 	color-scheme: dark;
 }
 

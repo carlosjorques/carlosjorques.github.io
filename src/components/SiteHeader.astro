@@ -36,8 +36,14 @@ const isActive = (href: string) => {
 
 <style>
 	.site-header {
-		background: var(--color-hero);
-		border-bottom: 1px solid var(--color-border);
+		--header-bg: var(--color-dark-surface);
+		--header-text: var(--color-on-dark);
+		--header-link: var(--color-on-dark-muted-soft);
+		--header-border: var(--color-on-dark-border-soft);
+		--header-accent: var(--color-accent-bright);
+
+		background: var(--header-bg);
+		border-bottom: 1px solid var(--header-border);
 	}
 
 	.site-header__inner {
@@ -49,7 +55,7 @@ const isActive = (href: string) => {
 	}
 
 	.site-header__brand {
-		color: var(--color-text);
+		color: var(--header-text);
 		text-decoration: none;
 		font-size: 0.95rem;
 		font-weight: 600;
@@ -65,7 +71,7 @@ const isActive = (href: string) => {
 	}
 
 	.site-header__nav a {
-		color: var(--color-text);
+		color: var(--header-link);
 		text-decoration: none;
 		font-size: 0.9rem;
 		font-weight: 500;
@@ -77,13 +83,13 @@ const isActive = (href: string) => {
 	.site-header__nav a:hover,
 	.site-header__nav a:focus-visible,
 	.site-header__nav a[aria-current="page"] {
-		color: var(--color-accent);
-		border-bottom-color: var(--color-accent);
+		color: var(--header-accent);
+		border-bottom-color: var(--header-accent);
 	}
 
 	.site-header__brand:focus-visible,
 	.site-header__nav a:focus-visible {
-		outline: 2px solid var(--color-accent);
+		outline: 2px solid var(--color-focus);
 		outline-offset: 4px;
 	}
 
@@ -121,8 +127,14 @@ const isActive = (href: string) => {
 		width: 100%;
 		height: var(--toggle-track-height);
 		transform: translateY(-50%);
+		border: 1px solid var(--header-border);
 		border-radius: 999px;
-		background: linear-gradient(to right, #efefef 50%, #2d3030 50%) no-repeat;
+		background: linear-gradient(
+				to right,
+				var(--brand-warm-white) 50%,
+				var(--brand-charcoal) 50%
+			)
+			no-repeat;
 		background-size: 205%;
 		background-position: 0;
 		transition: background-position 240ms ease-out;
@@ -136,10 +148,12 @@ const isActive = (href: string) => {
 		height: var(--toggle-thumb-size);
 		transform: translateY(-50%);
 		border-radius: 50%;
-		background: #ffffff;
+		background: var(--brand-paper);
+		box-shadow: 0 0 0 1px rgba(16, 20, 20, 0.24);
 		transition:
 			left 240ms ease-out,
-			background-color 240ms ease-out;
+			background-color 240ms ease-out,
+			box-shadow 240ms ease-out;
 	}
 
 	.theme-toggle__thumb::before,
@@ -170,7 +184,7 @@ const isActive = (href: string) => {
 	}
 
 	.theme-toggle__input:focus-visible + .theme-toggle__track {
-		outline: 2px solid var(--color-accent);
+		outline: 2px solid var(--color-focus);
 		outline-offset: 4px;
 	}
 
@@ -180,7 +194,8 @@ const isActive = (href: string) => {
 
 	.theme-toggle__input:checked + .theme-toggle__track .theme-toggle__thumb {
 		left: calc(100% - var(--toggle-thumb-size));
-		background: #050606;
+		background: var(--brand-charcoal-deep);
+		box-shadow: 0 0 0 1px rgba(247, 247, 242, 0.28);
 	}
 
 	.theme-toggle__input:checked + .theme-toggle__track .theme-toggle__thumb::before {
