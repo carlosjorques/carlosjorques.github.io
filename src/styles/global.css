@@ -4,40 +4,39 @@
 	--font-sans: "IBM Plex Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 	--font-mono: "IBM Plex Mono", "SFMono-Regular", Consolas, "Liberation Mono", monospace;
 
-	/* Core brand palette */
-	--brand-graphite: #202629;
-	--brand-graphite-deep: #101417;
-	--brand-porcelain: #f6f3ec;
-	--brand-paper: #fffdf7;
-	--brand-fjord: #426a78;
-	--brand-fjord-dark: #31515d;
-	--brand-fjord-light: #a8c5ce;
-	--brand-fjord-soft: #e3edf0;
-	--brand-signal: #aa7a38;
-	--brand-signal-soft: #e2c48d;
+	/* Core brand palette: Signal Coral / Cool Gray */
+	--brand-graphite: #262626;
+	--brand-graphite-deep: #161616;
+	--brand-porcelain: #f4f4f6;
+	--brand-paper: #ffffff;
+	--brand-cool-gray: #d2d2d4;
+	--brand-cool-gray-soft: #e7e7e7;
+	--brand-charcoal: #3c4044;
+	--brand-signal: #ff634a;
+	--brand-signal-soft: #ff9a88;
 
 	/* Light theme */
 	--color-page: var(--brand-porcelain);
 	--color-hero: var(--brand-graphite);
 
-	--color-text: #191d20;
-	--color-muted: #586066;
-	--color-soft: #747d83;
+	--color-text: var(--brand-graphite-deep);
+	--color-muted: var(--brand-charcoal);
+	--color-soft: #62666a;
 
-	--color-border: #d8d2c5;
-	--color-border-soft: #e7e1d4;
-	--color-border-strong: rgba(25, 29, 32, 0.34);
+	--color-border: var(--brand-cool-gray);
+	--color-border-soft: var(--brand-cool-gray-soft);
+	--color-border-strong: rgba(22, 22, 22, 0.34);
 
 	/* Main readable accent in light mode */
-	--color-accent: var(--brand-fjord);
-	--color-accent-strong: var(--brand-fjord-dark);
+	--color-accent: var(--brand-charcoal);
+	--color-accent-strong: var(--brand-graphite-deep);
 	--color-accent-bright: var(--brand-signal);
-	--color-accent-soft: var(--brand-fjord-soft);
-	--color-accent-wash: rgba(66, 106, 120, 0.1);
+	--color-accent-soft: var(--brand-cool-gray);
+	--color-accent-wash: rgba(255, 99, 74, 0.1);
 
-	/* Links should stay calm and readable. */
-	--color-link: var(--brand-fjord);
-	--color-link-hover: var(--brand-fjord-dark);
+	/* Links stay calm and readable on light surfaces. */
+	--color-link: var(--brand-charcoal);
+	--color-link-hover: var(--brand-graphite-deep);
 
 	/* Keep the focus ring distinctive without becoming loud. */
 	--color-focus: var(--brand-signal);
@@ -47,22 +46,22 @@
 	--color-button-primary-text: #ffffff;
 
 	--color-proof-border: var(--color-border);
-	--color-proof-label: #596167;
-	--color-proof-text: #3f474c;
+	--color-proof-label: var(--brand-charcoal);
+	--color-proof-text: #303336;
 
 	/* Stable dark surfaces used by hero/footer even in light mode */
 	--color-dark-surface: var(--brand-graphite-deep);
 	--color-dark-surface-soft: var(--brand-graphite);
-	--color-on-dark: #f6f3ec;
-	--color-on-dark-muted: rgba(246, 243, 236, 0.76);
-	--color-on-dark-muted-soft: rgba(246, 243, 236, 0.9);
-	--color-on-dark-border: rgba(246, 243, 236, 0.16);
-	--color-on-dark-border-soft: rgba(246, 243, 236, 0.1);
+	--color-on-dark: var(--brand-porcelain);
+	--color-on-dark-muted: rgba(244, 244, 246, 0.78);
+	--color-on-dark-muted-soft: rgba(244, 244, 246, 0.9);
+	--color-on-dark-border: rgba(244, 244, 246, 0.16);
+	--color-on-dark-border-soft: rgba(244, 244, 246, 0.1);
 
 	--color-card-bg: var(--brand-paper);
-	--color-card-bg-hover: #efebe1;
+	--color-card-bg-hover: var(--brand-cool-gray-soft);
 	--color-card-border: var(--color-border-soft);
-	--color-card-border-hover: rgba(66, 106, 120, 0.3);
+	--color-card-border-hover: rgba(255, 99, 74, 0.34);
 	--color-card-text: var(--color-text);
 	--color-card-muted: var(--color-muted);
 	--color-card-accent: var(--color-accent);
@@ -87,45 +86,45 @@
 	--color-page: var(--brand-graphite-deep);
 	--color-hero: var(--brand-graphite-deep);
 
-	--color-text: #f6f3ec;
-	--color-muted: rgba(246, 243, 236, 0.76);
-	--color-soft: rgba(246, 243, 236, 0.58);
+	--color-text: var(--brand-porcelain);
+	--color-muted: rgba(244, 244, 246, 0.78);
+	--color-soft: rgba(244, 244, 246, 0.58);
 
-	--color-border: rgba(246, 243, 236, 0.16);
-	--color-border-soft: rgba(246, 243, 236, 0.1);
-	--color-border-strong: rgba(168, 197, 206, 0.5);
+	--color-border: rgba(244, 244, 246, 0.16);
+	--color-border-soft: rgba(244, 244, 246, 0.1);
+	--color-border-strong: rgba(255, 99, 74, 0.42);
 
-	/* In dark mode, the accent lifts to a softer fjord tone. */
-	--color-accent: var(--brand-fjord-light);
-	--color-accent-strong: #c5d9de;
+	/* In dark mode, coral becomes the primary signal color. */
+	--color-accent: var(--brand-signal);
+	--color-accent-strong: var(--brand-cool-gray);
 	--color-accent-bright: var(--brand-signal);
-	--color-accent-soft: rgba(168, 197, 206, 0.72);
-	--color-accent-wash: rgba(168, 197, 206, 0.12);
+	--color-accent-soft: rgba(255, 154, 136, 0.72);
+	--color-accent-wash: rgba(255, 99, 74, 0.12);
 
-	--color-link: var(--brand-fjord-light);
+	--color-link: var(--brand-signal-soft);
 	--color-link-hover: #ffffff;
 
 	--color-focus: var(--brand-signal);
 
-	--color-button-primary-bg: var(--brand-fjord-light);
+	--color-button-primary-bg: var(--brand-signal);
 	--color-button-primary-text: var(--brand-graphite-deep);
 
 	--color-proof-border: var(--color-border);
-	--color-proof-label: rgba(246, 243, 236, 0.68);
-	--color-proof-text: rgba(246, 243, 236, 0.78);
+	--color-proof-label: rgba(244, 244, 246, 0.68);
+	--color-proof-text: rgba(244, 244, 246, 0.78);
 
 	--color-dark-surface: var(--brand-graphite-deep);
 	--color-dark-surface-soft: var(--brand-graphite);
-	--color-on-dark: #f6f3ec;
-	--color-on-dark-muted: rgba(246, 243, 236, 0.76);
-	--color-on-dark-muted-soft: rgba(246, 243, 236, 0.9);
-	--color-on-dark-border: rgba(246, 243, 236, 0.16);
-	--color-on-dark-border-soft: rgba(246, 243, 236, 0.1);
+	--color-on-dark: var(--brand-porcelain);
+	--color-on-dark-muted: rgba(244, 244, 246, 0.78);
+	--color-on-dark-muted-soft: rgba(244, 244, 246, 0.9);
+	--color-on-dark-border: rgba(244, 244, 246, 0.16);
+	--color-on-dark-border-soft: rgba(244, 244, 246, 0.1);
 
 	--color-card-bg: var(--brand-graphite);
-	--color-card-bg-hover: #293235;
+	--color-card-bg-hover: #303030;
 	--color-card-border: var(--color-border);
-	--color-card-border-hover: rgba(168, 197, 206, 0.45);
+	--color-card-border-hover: rgba(255, 99, 74, 0.45);
 	--color-card-text: var(--color-text);
 	--color-card-muted: var(--color-muted);
 	--color-card-accent: var(--color-accent);
