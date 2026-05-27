@@ -4,18 +4,19 @@
 	--font-sans: "IBM Plex Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 	--font-mono: "IBM Plex Mono", "SFMono-Regular", Consolas, "Liberation Mono", monospace;
 
-	/* Core brand palette: Olive Cream */
-	--brand-graphite: #252719;
-	--brand-graphite-deep: #141610;
-	--brand-porcelain: #faf8ed;
+	/* Core brand palette: Architectural Sand / Cool Shadow */
+	--brand-graphite: #20272d;
+	--brand-graphite-deep: #10161d;
+	--brand-porcelain: #fbf4ec;
 	--brand-paper: #ffffff;
-	--brand-cool-gray: #dfe0b7;
-	--brand-cool-gray-soft: #ecedc6;
-	--brand-charcoal: #6d7059;
-	--brand-signal: #bdc565;
-	--brand-signal-deep: #626c24;
-	--brand-signal-dark: #4d5519;
-	--brand-signal-soft: #d4dc78;
+	--brand-cool-gray: #d6dde7;
+	--brand-cool-gray-soft: #f1e1d3;
+	--brand-charcoal: #56616a;
+	--brand-signal: #50677c;
+	--brand-signal-deep: #344556;
+	--brand-signal-dark: #20272d;
+	--brand-signal-soft: #aebdca;
+	--brand-warm-shadow: #8d6759;
 
 	/* Light theme */
 	--color-page: var(--brand-porcelain);
@@ -34,7 +35,7 @@
 	--color-accent-strong: var(--brand-signal-dark);
 	--color-accent-bright: var(--brand-signal);
 	--color-accent-soft: var(--brand-signal-soft);
-	--color-accent-wash: rgba(189, 197, 101, 0.18);
+	--color-accent-wash: rgba(174, 189, 202, 0.24);
 
 	/* Links stay calm and readable on light surfaces. */
 	--color-link: var(--brand-signal-deep);
@@ -49,21 +50,21 @@
 
 	--color-proof-border: var(--color-border);
 	--color-proof-label: var(--brand-charcoal);
-	--color-proof-text: #454831;
+	--color-proof-text: #3f4850;
 
 	/* Stable dark surfaces used by hero/footer even in light mode */
 	--color-dark-surface: var(--brand-graphite-deep);
 	--color-dark-surface-soft: var(--brand-graphite);
-	--color-on-dark: #f7f8e8;
-	--color-on-dark-muted: rgba(247, 248, 232, 0.78);
-	--color-on-dark-muted-soft: rgba(247, 248, 232, 0.9);
-	--color-on-dark-border: rgba(247, 248, 232, 0.16);
-	--color-on-dark-border-soft: rgba(247, 248, 232, 0.1);
+	--color-on-dark: #fbf4ec;
+	--color-on-dark-muted: rgba(251, 244, 236, 0.78);
+	--color-on-dark-muted-soft: rgba(251, 244, 236, 0.9);
+	--color-on-dark-border: rgba(251, 244, 236, 0.16);
+	--color-on-dark-border-soft: rgba(251, 244, 236, 0.1);
 
 	--color-card-bg: var(--brand-paper);
 	--color-card-bg-hover: var(--brand-cool-gray-soft);
 	--color-card-border: var(--color-border-soft);
-	--color-card-border-hover: rgba(98, 108, 36, 0.34);
+	--color-card-border-hover: rgba(80, 103, 124, 0.34);
 	--color-card-text: var(--color-text);
 	--color-card-muted: var(--color-muted);
 	--color-card-accent: var(--color-accent);
@@ -116,48 +117,48 @@
 
 :root[data-theme="dark"] {
 	/* Dark theme */
-	--color-page: #141610;
-	--color-hero: #141610;
+	--color-page: #10161d;
+	--color-hero: #10161d;
 
-	--color-text: #f7f8e8;
-	--color-muted: rgba(247, 248, 232, 0.78);
-	--color-soft: rgba(247, 248, 232, 0.62);
+	--color-text: #fbf4ec;
+	--color-muted: rgba(251, 244, 236, 0.78);
+	--color-soft: rgba(251, 244, 236, 0.62);
 
-	--color-border: rgba(247, 248, 232, 0.16);
-	--color-border-soft: rgba(247, 248, 232, 0.1);
-	--color-border-strong: rgba(212, 220, 120, 0.42);
+	--color-border: rgba(251, 244, 236, 0.16);
+	--color-border-soft: rgba(251, 244, 236, 0.1);
+	--color-border-strong: rgba(174, 189, 202, 0.42);
 
-	/* In dark mode, olive cream becomes a brighter readable signal color. */
+	/* In dark mode, cool shadow becomes a quiet readable signal color. */
 	--color-accent: var(--brand-signal-soft);
-	--color-accent-strong: #ecedc6;
+	--color-accent-strong: #f1e1d3;
 	--color-accent-bright: var(--brand-signal-soft);
-	--color-accent-soft: rgba(212, 220, 120, 0.72);
-	--color-accent-wash: rgba(212, 220, 120, 0.12);
+	--color-accent-soft: rgba(174, 189, 202, 0.72);
+	--color-accent-wash: rgba(174, 189, 202, 0.12);
 
 	--color-link: var(--brand-signal-soft);
-	--color-link-hover: #f7f8e8;
+	--color-link-hover: #fbf4ec;
 
 	--color-focus: var(--brand-signal);
 
-	--color-button-primary-bg: var(--brand-signal);
+	--color-button-primary-bg: var(--brand-signal-soft);
 	--color-button-primary-text: var(--brand-graphite-deep);
 
 	--color-proof-border: var(--color-border);
-	--color-proof-label: rgba(247, 248, 232, 0.68);
-	--color-proof-text: rgba(247, 248, 232, 0.78);
+	--color-proof-label: rgba(251, 244, 236, 0.68);
+	--color-proof-text: rgba(251, 244, 236, 0.78);
 
-	--color-dark-surface: #141610;
-	--color-dark-surface-soft: #202317;
-	--color-on-dark: #f7f8e8;
-	--color-on-dark-muted: rgba(247, 248, 232, 0.78);
-	--color-on-dark-muted-soft: rgba(247, 248, 232, 0.9);
-	--color-on-dark-border: rgba(247, 248, 232, 0.16);
-	--color-on-dark-border-soft: rgba(247, 248, 232, 0.1);
+	--color-dark-surface: #10161d;
+	--color-dark-surface-soft: #18212a;
+	--color-on-dark: #fbf4ec;
+	--color-on-dark-muted: rgba(251, 244, 236, 0.78);
+	--color-on-dark-muted-soft: rgba(251, 244, 236, 0.9);
+	--color-on-dark-border: rgba(251, 244, 236, 0.16);
+	--color-on-dark-border-soft: rgba(251, 244, 236, 0.1);
 
-	--color-card-bg: #202317;
-	--color-card-bg-hover: #30351b;
+	--color-card-bg: #18212a;
+	--color-card-bg-hover: #202b35;
 	--color-card-border: var(--color-border);
-	--color-card-border-hover: rgba(212, 220, 120, 0.45);
+	--color-card-border-hover: rgba(174, 189, 202, 0.45);
 	--color-card-text: var(--color-text);
 	--color-card-muted: var(--color-muted);
 	--color-card-accent: var(--color-accent);
