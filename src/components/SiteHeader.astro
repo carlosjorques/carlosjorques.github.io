@@ -87,9 +87,11 @@ const isActive = (href: string) => {
 		font-weight: 500;
 		border-bottom: 1px solid transparent;
 		padding-bottom: 0.15rem;
+		position: relative;
 		transition:
 			color var(--motion-duration-fast-02) var(--motion-standard-productive),
-			border-color var(--motion-duration-fast-02) var(--motion-standard-productive);
+			border-color var(--motion-duration-fast-02) var(--motion-standard-productive),
+			transform var(--motion-duration-fast-02) var(--motion-standard-productive);
 	}
 
 	.site-header__nav a:hover,
@@ -97,6 +99,11 @@ const isActive = (href: string) => {
 	.site-header__nav a[aria-current="page"] {
 		color: var(--header-accent);
 		border-bottom-color: var(--header-accent);
+	}
+
+	.site-header__nav a:hover,
+	.site-header__nav a:focus-visible {
+		transform: translateY(-1px);
 	}
 
 	.site-header__brand:focus-visible,

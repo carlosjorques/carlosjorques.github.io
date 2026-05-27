@@ -33,6 +33,13 @@ const baseUrl = import.meta.env.BASE_URL;
 		border-radius: var(--radius);
 		background: transparent;
 		padding: 1.25rem;
+		transition:
+			transform var(--motion-duration-fast-02) var(--motion-standard-productive);
+	}
+
+	.contact-cta:hover,
+	.contact-cta:focus-within {
+		transform: translateY(-2px);
 	}
 
 	.contact-cta div:first-child {
