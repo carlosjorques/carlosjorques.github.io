@@ -13,6 +13,8 @@
 	--brand-cool-gray-soft: #e7e7e7;
 	--brand-charcoal: #3c4044;
 	--brand-signal: #ff634a;
+	--brand-signal-deep: #b43c2d;
+	--brand-signal-dark: #a83729;
 	--brand-signal-soft: #ff9a88;
 
 	/* Light theme */
@@ -28,21 +30,21 @@
 	--color-border-strong: rgba(22, 22, 22, 0.34);
 
 	/* Main readable accent in light mode */
-	--color-accent: var(--brand-charcoal);
-	--color-accent-strong: var(--brand-graphite-deep);
+	--color-accent: var(--brand-signal-deep);
+	--color-accent-strong: var(--brand-signal-dark);
 	--color-accent-bright: var(--brand-signal);
-	--color-accent-soft: var(--brand-cool-gray);
-	--color-accent-wash: rgba(255, 99, 74, 0.1);
+	--color-accent-soft: var(--brand-signal-soft);
+	--color-accent-wash: rgba(255, 99, 74, 0.08);
 
 	/* Links stay calm and readable on light surfaces. */
-	--color-link: var(--brand-charcoal);
-	--color-link-hover: var(--brand-graphite-deep);
+	--color-link: var(--brand-signal-deep);
+	--color-link-hover: var(--brand-signal-dark);
 
 	/* Keep the focus ring distinctive without becoming loud. */
 	--color-focus: var(--brand-signal);
 
-	/* Primary buttons in light mode carry the graphite identity. */
-	--color-button-primary-bg: var(--brand-graphite);
+	/* Primary buttons in light mode use the accessible signal color. */
+	--color-button-primary-bg: var(--brand-signal-deep);
 	--color-button-primary-text: #ffffff;
 
 	--color-proof-border: var(--color-border);

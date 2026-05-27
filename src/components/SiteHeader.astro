@@ -22,7 +22,7 @@ const isActive = (href: string) => {
 
 		<button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch to dark color theme">
 			<svg class="theme-toggle__icon theme-toggle__icon--moon" viewBox="0 0 24 24" aria-hidden="true">
-				<path d="M20.8 14.6A8 8 0 0 1 9.4 3.2 9.2 9.2 0 1 0 20.8 14.6Z"></path>
+				<path d="M21 12.1C18.7 16.2 13.4 17.6 9.3 15.3C5.9 13.4 4.3 9.7 5 6.1C2.8 8.4 2.2 12 3.9 15C6.2 19.1 11.5 20.5 15.6 18.2C18.4 16.6 20.2 14.4 21 12.1Z"></path>
 			</svg>
 			<svg class="theme-toggle__icon theme-toggle__icon--sun" viewBox="0 0 24 24" aria-hidden="true">
 				<circle cx="12" cy="12" r="4.2"></circle>
@@ -105,9 +105,6 @@ const isActive = (href: string) => {
 
 	.theme-toggle {
 		--toggle-size: 34px;
-		--toggle-bg: rgba(38, 38, 38, 0.08);
-		--toggle-bg-hover: rgba(38, 38, 38, 0.14);
-		--toggle-border: rgba(38, 38, 38, 0.16);
 		--toggle-icon: var(--brand-graphite-deep);
 
 		display: inline-flex;
@@ -115,9 +112,9 @@ const isActive = (href: string) => {
 		height: var(--toggle-size);
 		align-items: center;
 		justify-content: center;
-		border: 1px solid var(--toggle-border);
+		border: 0;
 		border-radius: 99em;
-		background: var(--toggle-bg);
+		background: transparent;
 		color: var(--toggle-icon);
 		cursor: pointer;
 		position: relative;
@@ -125,20 +122,15 @@ const isActive = (href: string) => {
 		padding: 0;
 		flex: 0 0 var(--toggle-size);
 		transition:
-			background-color 160ms ease-out,
-			border-color 160ms ease-out,
 			color 160ms ease-out;
 	}
 
 	:global(:root[data-theme="dark"]) .theme-toggle {
-		--toggle-bg: rgba(244, 244, 246, 0.16);
-		--toggle-bg-hover: rgba(244, 244, 246, 0.24);
-		--toggle-border: rgba(244, 244, 246, 0.2);
 		--toggle-icon: #ffffff;
 	}
 
 	.theme-toggle:hover {
-		background: var(--toggle-bg-hover);
+		color: var(--header-accent);
 	}
 
 	.theme-toggle:focus-visible {
@@ -150,7 +142,11 @@ const isActive = (href: string) => {
 		position: absolute;
 		width: 16px;
 		height: 16px;
-		fill: currentColor;
+		fill: none;
+		stroke: currentColor;
+		stroke-linecap: round;
+		stroke-linejoin: round;
+		stroke-width: 2;
 		opacity: 0;
 		transform: scale(0.7) rotate(20deg);
 		transition:
@@ -161,9 +157,6 @@ const isActive = (href: string) => {
 	.theme-toggle__icon--sun {
 		width: 18px;
 		height: 18px;
-		fill: none;
-		stroke: currentColor;
-		stroke-linecap: round;
 		stroke-width: 2.5;
 	}
 
