@@ -67,6 +67,7 @@ const cvUrl = 'REPLACE_WITH_CV_URL';
 		--hero-border-soft: var(--color-border-soft);
 		--hero-accent: var(--color-accent-strong);
 		--hero-accent-soft: var(--color-accent);
+		/* The overlay carries the palette; the video stays intentionally quiet. */
 		--hero-overlay: rgba(251, 244, 236, 0.86);
 		--hero-video-opacity: 0.28;
 
@@ -99,6 +100,7 @@ const cvUrl = 'REPLACE_WITH_CV_URL';
 		width: 100%;
 		height: 100%;
 		object-fit: cover;
+		/* Low opacity keeps the moving image as texture instead of the main content. */
 		opacity: var(--hero-video-opacity);
 		pointer-events: none;
 	}
