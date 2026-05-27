@@ -72,6 +72,25 @@
 	--content-narrow: 760px;
 	--site-header-height: 68px;
 	--hero-content-proof-height: clamp(15rem, 20vw, 17rem);
+	--spacing-01: 0.125rem;
+	--spacing-02: 0.25rem;
+	--spacing-03: 0.5rem;
+	--spacing-04: 0.75rem;
+	--spacing-05: 1rem;
+	--spacing-06: 1.5rem;
+	--spacing-07: 2rem;
+	--spacing-08: 2.5rem;
+	--spacing-09: 3rem;
+	--spacing-10: 4rem;
+	--motion-duration-fast-01: 70ms;
+	--motion-duration-fast-02: 110ms;
+	--motion-duration-moderate-01: 150ms;
+	--motion-duration-moderate-02: 240ms;
+	--motion-duration-slow-01: 400ms;
+	--motion-standard-productive: cubic-bezier(0.2, 0, 0.38, 0.9);
+	--motion-entrance-productive: cubic-bezier(0, 0, 0.38, 0.9);
+	--motion-standard-expressive: cubic-bezier(0.4, 0.14, 0.3, 1);
+	--motion-entrance-expressive: cubic-bezier(0, 0, 0.3, 1);
 
 	--color-bg: var(--color-page);
 	--color-surface: var(--color-card-bg);
@@ -81,6 +100,18 @@
 	--radius: 4px;
 
 	color-scheme: light;
+}
+
+@keyframes carbon-enter-up {
+	from {
+		opacity: 0;
+		transform: translateY(16px);
+	}
+
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
 }
 
 :root[data-theme="dark"] {
@@ -311,15 +342,17 @@ li::marker {
 	font-weight: 600;
 	text-decoration: none;
 	transition:
-		border-color 160ms ease-out,
-		color 160ms ease-out,
-		background-color 160ms ease-out;
+		border-color var(--motion-duration-fast-02) var(--motion-standard-productive),
+		color var(--motion-duration-fast-02) var(--motion-standard-productive),
+		background-color var(--motion-duration-fast-02) var(--motion-standard-productive),
+		transform var(--motion-duration-fast-02) var(--motion-standard-productive);
 }
 
 .button:hover,
 .button:focus-visible {
 	border-color: var(--color-accent);
 	color: var(--color-accent);
+	transform: translateY(-1px);
 }
 
 .button.primary {
@@ -332,6 +365,11 @@ li::marker {
 .button.primary:focus-visible {
 	background: transparent;
 	color: var(--color-accent);
+}
+
+.button:active {
+	transform: translateY(0);
+	transition-duration: var(--motion-duration-fast-01);
 }
 
 .grid {
@@ -444,11 +482,16 @@ li::marker {
 		animation-iteration-count: 1 !important;
 		scroll-behavior: auto !important;
 		transition-duration: 0.001ms !important;
+		transition-delay: 0ms !important;
 	}
 
 	.next-index__item,
 	.next-index__arrow,
-	.article-link__arrow {
+	.article-link__arrow,
+	.hero-area *,
+	.case-card,
+	.post-card,
+	.selected-work__item {
 		transform: none !important;
 	}
 }

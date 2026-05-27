@@ -58,14 +58,16 @@ const withBase = (href: string) => (href === '/' ? baseUrl : `${baseUrl}${href.r
 		border-bottom: 1px solid transparent;
 		padding-bottom: 0.15rem;
 		transition:
-			border-color 160ms ease-out,
-			color 160ms ease-out;
+			border-color var(--motion-duration-fast-02) var(--motion-standard-productive),
+			color var(--motion-duration-fast-02) var(--motion-standard-productive),
+			transform var(--motion-duration-fast-02) var(--motion-standard-productive);
 	}
 
 	.site-footer__links a:hover,
 	.site-footer__links a:focus-visible {
 		color: var(--footer-accent);
 		border-bottom-color: var(--footer-accent);
+		transform: translateY(-1px);
 	}
 
 	.site-footer__links a:focus-visible {

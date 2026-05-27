@@ -55,7 +55,7 @@ const articles = [
 		display: grid;
 		gap: 0.65rem;
 		max-width: 760px;
-		margin-bottom: clamp(2rem, 4vw, 3rem);
+		margin-bottom: clamp(var(--spacing-07), 4vw, var(--spacing-09));
 	}
 
 	.latest__header h2 {
@@ -73,7 +73,7 @@ const articles = [
 	}
 
 	.latest__footer {
-		margin-top: clamp(1.5rem, 3vw, 2rem);
+		margin-top: clamp(var(--spacing-06), 3vw, var(--spacing-07));
 	}
 
 	.latest__footer a {
@@ -85,6 +85,9 @@ const articles = [
 		color: var(--color-link);
 		text-decoration: none;
 		border-bottom: 1px solid transparent;
+		transition:
+			border-color var(--motion-duration-fast-02) var(--motion-standard-productive),
+			color var(--motion-duration-fast-02) var(--motion-standard-productive);
 	}
 
 	.latest__footer a:hover,

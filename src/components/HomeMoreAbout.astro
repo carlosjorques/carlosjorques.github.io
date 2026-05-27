@@ -29,6 +29,9 @@ const withBase = (href: string) => (href === '/' ? baseUrl : `${baseUrl}${href.r
 		color: var(--color-link);
 		text-decoration: none;
 		border-bottom: 1px solid transparent;
+		transition:
+			border-color var(--motion-duration-fast-02) var(--motion-standard-productive),
+			color var(--motion-duration-fast-02) var(--motion-standard-productive);
 	}
 
 	.home-more a:hover,
