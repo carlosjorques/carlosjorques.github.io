@@ -546,11 +546,14 @@ const evidenceLinks = [
 		border: 1px solid var(--color-card-border);
 		background: var(--color-card-bg);
 		transition:
+			background-color var(--motion-duration-fast-02) var(--motion-standard-productive),
 			border-color var(--motion-duration-fast-02) var(--motion-standard-productive),
 			transform var(--motion-duration-fast-02) var(--motion-standard-productive);
 	}
 
 	.proof-item:hover {
+		background: var(--color-card-bg-hover);
+		border-color: var(--color-card-border-hover);
 		transform: translateY(-2px);
 	}
 
@@ -801,6 +804,7 @@ const evidenceLinks = [
 		border: 1px solid var(--color-card-border);
 		background: var(--color-card-bg);
 		transition:
+			background-color var(--motion-duration-fast-02) var(--motion-standard-productive),
 			border-color var(--motion-duration-fast-02) var(--motion-standard-productive),
 			transform var(--motion-duration-fast-02) var(--motion-standard-productive);
 	}
@@ -808,6 +812,8 @@ const evidenceLinks = [
 	.capability-item:hover,
 	.challenge-item:hover,
 	.evidence-item:hover {
+		background: var(--color-card-bg-hover);
+		border-color: var(--color-card-border-hover);
 		transform: translateY(-2px);
 	}
 
