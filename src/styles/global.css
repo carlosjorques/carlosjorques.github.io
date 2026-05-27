@@ -116,8 +116,8 @@
 
 :root[data-theme="dark"] {
 	/* Dark theme */
-	--color-page: var(--brand-graphite-deep);
-	--color-hero: var(--brand-graphite-deep);
+	--color-page: var(--brand-graphite);
+	--color-hero: var(--brand-graphite);
 
 	--color-text: var(--brand-porcelain);
 	--color-muted: rgba(244, 244, 246, 0.78);
@@ -146,8 +146,8 @@
 	--color-proof-label: rgba(244, 244, 246, 0.68);
 	--color-proof-text: rgba(244, 244, 246, 0.78);
 
-	--color-dark-surface: var(--brand-graphite-deep);
-	--color-dark-surface-soft: var(--brand-graphite);
+	--color-dark-surface: var(--brand-graphite);
+	--color-dark-surface-soft: #303030;
 	--color-on-dark: var(--brand-porcelain);
 	--color-on-dark-muted: rgba(244, 244, 246, 0.78);
 	--color-on-dark-muted-soft: rgba(244, 244, 246, 0.9);

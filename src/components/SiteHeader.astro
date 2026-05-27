@@ -22,7 +22,7 @@ const isActive = (href: string) => {
 
 		<button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch to dark color theme">
 			<svg class="theme-toggle__icon theme-toggle__icon--moon" viewBox="0 0 24 24" aria-hidden="true">
-				<path d="M18.9 5.1C17.2 4.5 15.1 4.7 13.3 5.8C9.7 8 8.6 12.8 10.8 16.4C12.4 19.1 15.6 20.3 18.6 19.4C16.4 21.7 12.8 22.2 9.8 20.6C5.4 18.2 3.8 12.7 6.2 8.3C8.6 4 14 2.4 18.9 5.1Z"></path>
+				<path d="M20.8 14.6A8 8 0 0 1 9.4 3.2 9.2 9.2 0 1 0 20.8 14.6Z"></path>
 			</svg>
 			<svg class="theme-toggle__icon theme-toggle__icon--sun" viewBox="0 0 24 24" aria-hidden="true">
 				<circle cx="12" cy="12" r="4.2"></circle>
@@ -106,8 +106,8 @@ const isActive = (href: string) => {
 	}
 
 	.theme-toggle {
-		--toggle-size: 34px;
-		--toggle-icon: var(--brand-graphite-deep);
+		--toggle-size: 24px;
+		--toggle-icon: var(--brand-charcoal);
 
 		display: inline-flex;
 		width: var(--toggle-size);
@@ -142,13 +142,9 @@ const isActive = (href: string) => {
 
 	.theme-toggle__icon {
 		position: absolute;
-		width: 20px;
-		height: 20px;
-		fill: none;
-		stroke: currentColor;
-		stroke-linecap: round;
-		stroke-linejoin: round;
-		stroke-width: 2.6;
+		width: 15px;
+		height: 15px;
+		fill: currentColor;
 		opacity: 0;
 		transform: scale(0.7) rotate(20deg);
 		transition:
@@ -157,8 +153,11 @@ const isActive = (href: string) => {
 	}
 
 	.theme-toggle__icon--sun {
-		width: 18px;
-		height: 18px;
+		width: 15px;
+		height: 15px;
+		fill: none;
+		stroke: currentColor;
+		stroke-linecap: round;
 		stroke-width: 2.5;
 	}
 

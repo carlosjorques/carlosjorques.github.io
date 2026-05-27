@@ -521,6 +521,11 @@ const evidenceLinks = [
 		height: auto;
 		object-fit: cover;
 		object-position: center;
+		transition: transform var(--motion-duration-moderate-02) var(--motion-standard-productive);
+	}
+
+	.about-hero__portrait:hover img {
+		transform: translateY(-4px);
 	}
 
 	.section-intro--compact {
@@ -540,6 +545,13 @@ const evidenceLinks = [
 		padding: 1.2rem;
 		border: 1px solid var(--color-card-border);
 		background: var(--color-card-bg);
+		transition:
+			border-color var(--motion-duration-fast-02) var(--motion-standard-productive),
+			transform var(--motion-duration-fast-02) var(--motion-standard-productive);
+	}
+
+	.proof-item:hover {
+		transform: translateY(-2px);
 	}
 
 	.proof-item p {
@@ -669,6 +681,17 @@ const evidenceLinks = [
 		padding: 1rem;
 		background: var(--color-surface-soft);
 		border-left: 3px solid var(--color-accent);
+		transition:
+			border-left-width var(--motion-duration-fast-02) var(--motion-standard-productive),
+			transform var(--motion-duration-fast-02) var(--motion-standard-productive);
+	}
+
+	.in-context-cta:hover,
+	.section-footer-cta:hover,
+	.in-context-cta:focus-within,
+	.section-footer-cta:focus-within {
+		border-left-width: 6px;
+		transform: translateX(2px);
 	}
 
 	.in-context-cta span,
@@ -777,6 +800,15 @@ const evidenceLinks = [
 		padding: 1.5rem;
 		border: 1px solid var(--color-card-border);
 		background: var(--color-card-bg);
+		transition:
+			border-color var(--motion-duration-fast-02) var(--motion-standard-productive),
+			transform var(--motion-duration-fast-02) var(--motion-standard-productive);
+	}
+
+	.capability-item:hover,
+	.challenge-item:hover,
+	.evidence-item:hover {
+		transform: translateY(-2px);
 	}
 
 	.evidence-item a,
@@ -787,6 +819,10 @@ const evidenceLinks = [
 		text-decoration: underline;
 		text-decoration-thickness: 1px;
 		text-underline-offset: 0.2em;
+		display: inline-block;
+		transition:
+			color var(--motion-duration-fast-02) var(--motion-standard-productive),
+			transform var(--motion-duration-fast-02) var(--motion-standard-productive);
 	}
 
 	.evidence-item a:hover,
@@ -794,6 +830,7 @@ const evidenceLinks = [
 	.text-link:hover,
 	.text-link:focus-visible {
 		color: var(--color-link-hover);
+		transform: translateX(4px);
 	}
 
 	.about-final {

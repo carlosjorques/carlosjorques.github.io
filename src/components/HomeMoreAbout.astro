@@ -31,13 +31,15 @@ const withBase = (href: string) => (href === '/' ? baseUrl : `${baseUrl}${href.r
 		border-bottom: 1px solid transparent;
 		transition:
 			border-color var(--motion-duration-fast-02) var(--motion-standard-productive),
-			color var(--motion-duration-fast-02) var(--motion-standard-productive);
+			color var(--motion-duration-fast-02) var(--motion-standard-productive),
+			transform var(--motion-duration-fast-02) var(--motion-standard-productive);
 	}
 
 	.home-more a:hover,
 	.home-more a:focus-visible {
 		color: var(--color-link-hover);
 		border-bottom-color: var(--color-link-hover);
+		transform: translateX(4px);
 	}
 
 	.home-more a:focus-visible {
