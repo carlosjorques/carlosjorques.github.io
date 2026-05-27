@@ -56,19 +56,17 @@ const cvUrl = 'REPLACE_WITH_CV_URL';
 <style>
 	.hero-area {
 		--hero-bg: var(--color-page);
-		--hero-bg-soft: var(--brand-paper);
 		--hero-text: var(--color-text);
 		--hero-muted: var(--color-muted);
 		--hero-muted-soft: var(--color-soft);
 		--hero-border: var(--color-border);
 		--hero-border-soft: var(--color-border-soft);
 		--hero-accent: var(--color-accent-strong);
-		--hero-accent-soft: var(--color-muted);
+		--hero-accent-soft: var(--color-accent);
 
 		position: relative;
 		overflow: hidden;
-		background:
-			linear-gradient(180deg, var(--hero-bg) 0%, var(--hero-bg-soft) 100%);
+		background: var(--hero-bg);
 		color: var(--hero-text);
 		padding-block: clamp(4.5rem, 8vw, 7.5rem) clamp(3rem, 5vw, 4.5rem);
 		transition:
@@ -78,7 +76,6 @@ const cvUrl = 'REPLACE_WITH_CV_URL';
 
 	:global(:root[data-theme="dark"]) .hero-area {
 		--hero-bg: var(--color-dark-surface);
-		--hero-bg-soft: var(--color-dark-surface-soft);
 		--hero-text: var(--color-on-dark);
 		--hero-muted: var(--color-on-dark-muted);
 		--hero-muted-soft: var(--color-on-dark-muted-soft);

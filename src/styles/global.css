@@ -4,18 +4,18 @@
 	--font-sans: "IBM Plex Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 	--font-mono: "IBM Plex Mono", "SFMono-Regular", Consolas, "Liberation Mono", monospace;
 
-	/* Core brand palette: Signal Coral / Cool Gray */
-	--brand-graphite: #262626;
-	--brand-graphite-deep: #161616;
-	--brand-porcelain: #f4f4f6;
+	/* Core brand palette: Light Honey Editorial */
+	--brand-graphite: #2a2113;
+	--brand-graphite-deep: #17140f;
+	--brand-porcelain: #fffaf0;
 	--brand-paper: #ffffff;
-	--brand-cool-gray: #d2d2d4;
-	--brand-cool-gray-soft: #e7e7e7;
-	--brand-charcoal: #3c4044;
-	--brand-signal: #ff634a;
-	--brand-signal-deep: #b43c2d;
-	--brand-signal-dark: #a83729;
-	--brand-signal-soft: #ff9a88;
+	--brand-cool-gray: #e6d3a0;
+	--brand-cool-gray-soft: #f2dfad;
+	--brand-charcoal: #796d5d;
+	--brand-signal: #f0c75e;
+	--brand-signal-deep: #8a6210;
+	--brand-signal-dark: #6f4b08;
+	--brand-signal-soft: #f4d276;
 
 	/* Light theme */
 	--color-page: var(--brand-porcelain);
@@ -23,7 +23,7 @@
 
 	--color-text: var(--brand-graphite-deep);
 	--color-muted: var(--brand-charcoal);
-	--color-soft: #62666a;
+	--color-soft: #796d5d;
 
 	--color-border: var(--brand-cool-gray);
 	--color-border-soft: var(--brand-cool-gray-soft);
@@ -34,7 +34,7 @@
 	--color-accent-strong: var(--brand-signal-dark);
 	--color-accent-bright: var(--brand-signal);
 	--color-accent-soft: var(--brand-signal-soft);
-	--color-accent-wash: rgba(255, 99, 74, 0.08);
+	--color-accent-wash: rgba(240, 199, 94, 0.18);
 
 	/* Links stay calm and readable on light surfaces. */
 	--color-link: var(--brand-signal-deep);
@@ -49,21 +49,21 @@
 
 	--color-proof-border: var(--color-border);
 	--color-proof-label: var(--brand-charcoal);
-	--color-proof-text: #303336;
+	--color-proof-text: #4c3f2c;
 
 	/* Stable dark surfaces used by hero/footer even in light mode */
 	--color-dark-surface: var(--brand-graphite-deep);
 	--color-dark-surface-soft: var(--brand-graphite);
-	--color-on-dark: var(--brand-porcelain);
-	--color-on-dark-muted: rgba(244, 244, 246, 0.78);
-	--color-on-dark-muted-soft: rgba(244, 244, 246, 0.9);
-	--color-on-dark-border: rgba(244, 244, 246, 0.16);
-	--color-on-dark-border-soft: rgba(244, 244, 246, 0.1);
+	--color-on-dark: #fff7e7;
+	--color-on-dark-muted: rgba(255, 247, 231, 0.78);
+	--color-on-dark-muted-soft: rgba(255, 247, 231, 0.9);
+	--color-on-dark-border: rgba(255, 247, 231, 0.16);
+	--color-on-dark-border-soft: rgba(255, 247, 231, 0.1);
 
 	--color-card-bg: var(--brand-paper);
 	--color-card-bg-hover: var(--brand-cool-gray-soft);
 	--color-card-border: var(--color-border-soft);
-	--color-card-border-hover: rgba(255, 99, 74, 0.34);
+	--color-card-border-hover: rgba(138, 98, 16, 0.34);
 	--color-card-text: var(--color-text);
 	--color-card-muted: var(--color-muted);
 	--color-card-accent: var(--color-accent);
@@ -116,26 +116,26 @@
 
 :root[data-theme="dark"] {
 	/* Dark theme */
-	--color-page: var(--brand-graphite);
-	--color-hero: var(--brand-graphite);
+	--color-page: #17140f;
+	--color-hero: #17140f;
 
-	--color-text: var(--brand-porcelain);
-	--color-muted: rgba(244, 244, 246, 0.78);
-	--color-soft: rgba(244, 244, 246, 0.58);
+	--color-text: #fff7e7;
+	--color-muted: rgba(255, 247, 231, 0.78);
+	--color-soft: rgba(255, 247, 231, 0.62);
 
-	--color-border: rgba(244, 244, 246, 0.16);
-	--color-border-soft: rgba(244, 244, 246, 0.1);
-	--color-border-strong: rgba(255, 99, 74, 0.42);
+	--color-border: rgba(255, 247, 231, 0.16);
+	--color-border-soft: rgba(255, 247, 231, 0.1);
+	--color-border-strong: rgba(244, 210, 118, 0.42);
 
-	/* In dark mode, coral becomes the primary signal color. */
-	--color-accent: var(--brand-signal);
-	--color-accent-strong: var(--brand-cool-gray);
-	--color-accent-bright: var(--brand-signal);
-	--color-accent-soft: rgba(255, 154, 136, 0.72);
-	--color-accent-wash: rgba(255, 99, 74, 0.12);
+	/* In dark mode, honey becomes a brighter readable signal color. */
+	--color-accent: var(--brand-signal-soft);
+	--color-accent-strong: #fff1bf;
+	--color-accent-bright: var(--brand-signal-soft);
+	--color-accent-soft: rgba(244, 210, 118, 0.72);
+	--color-accent-wash: rgba(244, 210, 118, 0.12);
 
 	--color-link: var(--brand-signal-soft);
-	--color-link-hover: #ffffff;
+	--color-link-hover: #fff7e7;
 
 	--color-focus: var(--brand-signal);
 
@@ -143,21 +143,21 @@
 	--color-button-primary-text: var(--brand-graphite-deep);
 
 	--color-proof-border: var(--color-border);
-	--color-proof-label: rgba(244, 244, 246, 0.68);
-	--color-proof-text: rgba(244, 244, 246, 0.78);
+	--color-proof-label: rgba(255, 247, 231, 0.68);
+	--color-proof-text: rgba(255, 247, 231, 0.78);
 
-	--color-dark-surface: var(--brand-graphite);
-	--color-dark-surface-soft: #303030;
-	--color-on-dark: var(--brand-porcelain);
-	--color-on-dark-muted: rgba(244, 244, 246, 0.78);
-	--color-on-dark-muted-soft: rgba(244, 244, 246, 0.9);
-	--color-on-dark-border: rgba(244, 244, 246, 0.16);
-	--color-on-dark-border-soft: rgba(244, 244, 246, 0.1);
+	--color-dark-surface: #17140f;
+	--color-dark-surface-soft: #241e14;
+	--color-on-dark: #fff7e7;
+	--color-on-dark-muted: rgba(255, 247, 231, 0.78);
+	--color-on-dark-muted-soft: rgba(255, 247, 231, 0.9);
+	--color-on-dark-border: rgba(255, 247, 231, 0.16);
+	--color-on-dark-border-soft: rgba(255, 247, 231, 0.1);
 
-	--color-card-bg: var(--brand-graphite);
-	--color-card-bg-hover: #303030;
+	--color-card-bg: #241e14;
+	--color-card-bg-hover: #332810;
 	--color-card-border: var(--color-border);
-	--color-card-border-hover: rgba(255, 99, 74, 0.45);
+	--color-card-border-hover: rgba(244, 210, 118, 0.45);
 	--color-card-text: var(--color-text);
 	--color-card-muted: var(--color-muted);
 	--color-card-accent: var(--color-accent);
