@@ -20,30 +20,40 @@ const isActive = (href: string) => {
 			<a href={withBase('/contact')} aria-current={isActive('/contact') ? 'page' : undefined}>Contact</a>
 		</nav>
 
-		<label class="theme-toggle">
-			<input
-				class="theme-toggle__input"
-				type="checkbox"
-				data-theme-toggle
-				aria-label="Switch to dark color theme"
-			/>
-			<span class="theme-toggle__track" aria-hidden="true">
-				<span class="theme-toggle__thumb"></span>
-			</span>
-		</label>
+		<button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch to dark color theme">
+			<svg class="theme-toggle__icon theme-toggle__icon--moon" viewBox="0 0 24 24" aria-hidden="true">
+				<path d="M20.8 14.6A8 8 0 0 1 9.4 3.2 9.2 9.2 0 1 0 20.8 14.6Z"></path>
+			</svg>
+			<svg class="theme-toggle__icon theme-toggle__icon--sun" viewBox="0 0 24 24" aria-hidden="true">
+				<circle cx="12" cy="12" r="4.2"></circle>
+				<path d="M12 2.5V5M12 19v2.5M21.5 12H19M5 12H2.5M18.7 5.3l-1.8 1.8M7.1 16.9l-1.8 1.8M18.7 18.7l-1.8-1.8M7.1 7.1 5.3 5.3"></path>
+			</svg>
+		</button>
 	</div>
 </header>
 
 <style>
 	.site-header {
+		--header-bg: var(--color-page);
+		--header-text: var(--color-text);
+		--header-link: var(--color-muted);
+		--header-border: var(--color-border-soft);
+		--header-accent: var(--color-accent-strong);
+
+		background: var(--header-bg);
+		border-bottom: 1px solid var(--header-border);
+		transition:
+			background-color 180ms ease-out,
+			border-color 180ms ease-out,
+			color 180ms ease-out;
+	}
+
+	:global(:root[data-theme="dark"]) .site-header {
 		--header-bg: var(--color-dark-surface);
 		--header-text: var(--color-on-dark);
 		--header-link: var(--color-on-dark-muted-soft);
 		--header-border: var(--color-on-dark-border-soft);
 		--header-accent: var(--color-accent-bright);
-
-		background: var(--header-bg);
-		border-bottom: 1px solid var(--header-border);
 	}
 
 	.site-header__inner {
@@ -94,118 +104,79 @@ const isActive = (href: string) => {
 	}
 
 	.theme-toggle {
-		--toggle-width: 46px;
-		--toggle-height: 23px;
-		--toggle-track-height: 14px;
-		--toggle-thumb-size: 23px;
+		--toggle-size: 34px;
+		--toggle-bg: rgba(38, 38, 38, 0.08);
+		--toggle-bg-hover: rgba(38, 38, 38, 0.14);
+		--toggle-border: rgba(38, 38, 38, 0.16);
+		--toggle-icon: var(--brand-graphite-deep);
+
 		display: inline-flex;
-		width: var(--toggle-width);
-		height: var(--toggle-height);
+		width: var(--toggle-size);
+		height: var(--toggle-size);
 		align-items: center;
 		justify-content: center;
+		border: 1px solid var(--toggle-border);
 		border-radius: 99em;
+		background: var(--toggle-bg);
+		color: var(--toggle-icon);
 		cursor: pointer;
 		position: relative;
-		flex: 0 0 var(--toggle-width);
-	}
-
-	.theme-toggle__input {
-		position: absolute;
-		inset: 0;
-		appearance: none;
-		cursor: pointer;
 		margin: 0;
-		opacity: 0;
-		z-index: 2;
-	}
-
-	.theme-toggle__track {
-		display: block;
-		position: absolute;
-		top: 50%;
-		left: 0;
-		width: 100%;
-		height: var(--toggle-track-height);
-		transform: translateY(-50%);
-		border: 1px solid var(--header-border);
-		border-radius: 999px;
-		background: linear-gradient(
-				to right,
-				var(--brand-porcelain) 50%,
-				var(--brand-graphite) 50%
-			)
-			no-repeat;
-		background-size: 205%;
-		background-position: 0;
-		transition: background-position 240ms ease-out;
-	}
-
-	.theme-toggle__thumb {
-		position: absolute;
-		top: 50%;
-		left: 0;
-		width: var(--toggle-thumb-size);
-		height: var(--toggle-thumb-size);
-		transform: translateY(-50%);
-		border-radius: 50%;
-		background: var(--brand-paper);
-		box-shadow: 0 0 0 1px rgba(22, 22, 22, 0.24);
+		padding: 0;
+		flex: 0 0 var(--toggle-size);
 		transition:
-			left 240ms ease-out,
-			background-color 240ms ease-out,
-			box-shadow 240ms ease-out;
+			background-color 160ms ease-out,
+			border-color 160ms ease-out,
+			color 160ms ease-out;
 	}
 
-	.theme-toggle__thumb::before,
-	.theme-toggle__thumb::after {
-		content: "";
-		position: absolute;
-		inset: 0;
-		transition:
-			opacity 180ms ease-out,
-			transform 240ms ease-out;
+	:global(:root[data-theme="dark"]) .theme-toggle {
+		--toggle-bg: rgba(244, 244, 246, 0.16);
+		--toggle-bg-hover: rgba(244, 244, 246, 0.24);
+		--toggle-border: rgba(244, 244, 246, 0.2);
+		--toggle-icon: #ffffff;
 	}
 
-	.theme-toggle__thumb::before {
-		width: 13px;
-		height: 13px;
-		margin: auto;
-		background: url("data:image/svg+xml,%3Csvg width='13' height='13' viewBox='0 0 24 24' fill='%23161616' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20.8 14.6A8 8 0 0 1 9.4 3.2 9.2 9.2 0 1 0 20.8 14.6Z'/%3E%3C/svg%3E")
-			center / contain no-repeat;
+	.theme-toggle:hover {
+		background: var(--toggle-bg-hover);
 	}
 
-	.theme-toggle__thumb::after {
-		width: 13px;
-		height: 13px;
-		margin: auto;
-		background: url("data:image/svg+xml,%3Csvg width='13' height='13' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='12' cy='12' r='4.2' stroke='%23f4f4f6' stroke-width='2.6'/%3E%3Cpath d='M12 2.5V5M12 19v2.5M21.5 12H19M5 12H2.5M18.7 5.3l-1.8 1.8M7.1 16.9l-1.8 1.8M18.7 18.7l-1.8-1.8M7.1 7.1 5.3 5.3' stroke='%23f4f4f6' stroke-width='2.6' stroke-linecap='round'/%3E%3C/svg%3E")
-			center / contain no-repeat;
-		opacity: 0;
-	}
-
-	.theme-toggle__input:focus-visible + .theme-toggle__track {
+	.theme-toggle:focus-visible {
 		outline: 2px solid var(--color-focus);
 		outline-offset: 4px;
 	}
 
-	.theme-toggle__input:checked + .theme-toggle__track {
-		background-position: 100%;
-	}
-
-	.theme-toggle__input:checked + .theme-toggle__track .theme-toggle__thumb {
-		left: calc(100% - var(--toggle-thumb-size));
-		background: var(--brand-graphite-deep);
-		box-shadow: 0 0 0 1px rgba(244, 244, 246, 0.28);
-	}
-
-	.theme-toggle__input:checked + .theme-toggle__track .theme-toggle__thumb::before {
+	.theme-toggle__icon {
+		position: absolute;
+		width: 16px;
+		height: 16px;
+		fill: currentColor;
 		opacity: 0;
-		transform: rotate(90deg) scale(0.78);
+		transform: scale(0.7) rotate(20deg);
+		transition:
+			opacity 180ms ease-out,
+			transform 180ms ease-out;
 	}
 
-	.theme-toggle__input:checked + .theme-toggle__track .theme-toggle__thumb::after {
+	.theme-toggle__icon--sun {
+		width: 18px;
+		height: 18px;
+		fill: none;
+		stroke: currentColor;
+		stroke-linecap: round;
+		stroke-width: 2.5;
+	}
+
+	:global(:root:not([data-theme="dark"])) .theme-toggle__icon--moon,
+	:global(:root[data-theme="bright"]) .theme-toggle__icon--moon,
+	:global(:root[data-theme="dark"]) .theme-toggle__icon--sun {
 		opacity: 1;
-		transform: rotate(-8deg);
+		transform: scale(1) rotate(0);
+	}
+
+	:global(:root[data-theme="dark"]) .theme-toggle__icon--moon {
+		opacity: 0;
+		transform: scale(0.7) rotate(-20deg);
 	}
 
 	@media (max-width: 640px) {
@@ -235,7 +206,7 @@ const isActive = (href: string) => {
 </style>
 
 <script>
-	const toggle = document.querySelector<HTMLInputElement>('[data-theme-toggle]');
+	const toggle = document.querySelector<HTMLButtonElement>('[data-theme-toggle]');
 	const root = document.documentElement;
 
 	const applyTheme = (theme: 'bright' | 'dark') => {
@@ -253,7 +224,6 @@ const isActive = (href: string) => {
 		}
 
 		const nextThemeLabel = theme === 'dark' ? 'light' : 'dark';
-		toggle.checked = theme === 'dark';
 		toggle.setAttribute('aria-label', `Switch to ${nextThemeLabel} color theme`);
 	};
 
@@ -261,7 +231,7 @@ const isActive = (href: string) => {
 		const initialTheme = root.dataset.theme === 'dark' ? 'dark' : 'bright';
 		applyTheme(initialTheme);
 
-		toggle.addEventListener('change', () => {
+		toggle.addEventListener('click', () => {
 			applyTheme(root.dataset.theme === 'dark' ? 'bright' : 'dark');
 		});
 	}
