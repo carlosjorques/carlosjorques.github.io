@@ -5,76 +5,12 @@
 	--font-mono: "IBM Plex Mono", "SFMono-Regular", Consolas, "Liberation Mono", monospace;
 
 	/* ==========================================================
-	   Raw palette
-	   Mediterranean warmth + Scandinavian automotive restraint
+	   Theme colors
+	   Actual colors live here. Components should use these roles.
 	   ========================================================== */
 
-	--shell-pink: #f8ece4;
-	--warm-paper: #fbf4ec;
-	--sand-soft: #f1e1d3;
-
-	--peach-haze: #e8c7bb;
-	--rose-stone: rgb(216, 170, 160);
-	--dusty-mauve: #a58f9a;
-	--warm-taupe: #9f7d73;
-	--cocoa-line: #7f625b;
-
-	--blue-fog: #bcc8d4;
-	--mist-blue: #d6dde7;
-	--shadow-blue: #50677c;
-	--blue-slate: #35495d;
-	--deep-blue: rgb(33, 52, 68);
-	--deep-glass: rgb(16, 22, 29);
-
-	--volvo-navy: #202b45;
-	--volvo-navy-deep: #1b253c;
-	--volvo-navy-soft: #273451;
-	--volvo-navy-card: #2b3856;
-
-	--white-warm: #fffaf6;
-
-	/* ==========================================================
-	   Atmospheric gradients
-	   ========================================================== */
-
-	--hero-gradient-light: linear-gradient(
-		120deg,
-		rgba(248, 236, 228, 1) 0%,
-		rgba(232, 199, 187, 0.7) 50%,
-		rgba(43, 56, 86, 0.2) 100%
-	);
-
-	--hero-gradient-dark: linear-gradient(
-		120deg,
-		rgba(16, 22, 29, 1) 0%,
-		rgba(32, 46, 61, 0.9) 50%,
-		rgba(127, 98, 91, 0.4) 100%
-	);
-
-	--slogan-gradient-light: linear-gradient(
-		90deg,
-		rgba(58, 87, 116, 0.98) 0%,
-		rgba(180, 105, 164, 0.82) 50%,
-		rgba(223, 134, 93, 0.98) 100%
-	);
-
-	--slogan-gradient-dark: linear-gradient(
-		90deg,
-		rgba(63, 107, 151, 0.98) 0%,
-		rgba(180, 105, 164, 0.82) 50%,
-		rgba(223, 134, 93, 0.98) 100%
-	);
-
-	/* ==========================================================
-	   Light theme semantic tokens
-	   ========================================================== */
-
-	--color-page: var(--shell-pink);
-	--color-page-alt: var(--warm-paper);
-	--color-page-gradient: var(--color-page);
-	--color-surface: var(--sand-soft);
-	--color-surface-soft: var(--warm-paper);
-	--color-surface-strong: color-mix(in srgb, var(--sand-soft) 72%, var(--peach-haze));
+	--color-page: #f8ece4;
+	--color-page-gradient: #f8ece4;
 
 	--color-header-bg: linear-gradient(
 		90deg,
@@ -82,56 +18,55 @@
 		rgba(248, 236, 228, 0.98) 50%,
 		rgba(188, 200, 212, 0.52) 100%
 	);
-	--color-header-text: var(--deep-glass);
-	--color-header-link: var(--shadow-blue);
+	--color-header-text: rgb(16, 22, 29);
+	--color-header-link: #50677c;
 	--color-header-border: rgba(127, 98, 91, 0.22);
 
-	--color-text: var(--deep-glass);
-	--color-muted: var(--shadow-blue);
-	--color-soft: var(--cocoa-line);
+	--color-text: rgb(16, 22, 29);
+	--color-muted: #50677c;
+	--color-soft: #7f625b;
+	--color-subtle: #7f625b;
+
+	--color-surface: #f1e1d3;
+	--color-surface-soft: #fbf4ec;
 
 	--color-border: rgba(127, 98, 91, 0.24);
 	--color-border-soft: rgba(216, 170, 160, 0.28);
 	--color-border-strong: rgba(127, 98, 91, 0.42);
 
-	--color-accent: var(--shadow-blue);
-	--color-accent-strong: var(--deep-glass);
-	--color-accent-bright: var(--cocoa-line);
-	--color-accent-soft: rgba(80, 103, 124, 0.16);
+	--color-accent: #50677c;
 	--color-accent-wash: rgba(216, 170, 160, 0.16);
 
-	--color-link: var(--shadow-blue);
-	--color-link-hover: var(--cocoa-line);
-	--color-focus: var(--shadow-blue);
+	--color-link: #50677c;
+	--color-link-hover: #7f625b;
+	--color-focus: #50677c;
 
-	--color-button-primary-bg: var(--deep-glass);
-	--color-button-primary-text: var(--warm-paper);
-	--color-button-secondary-bg: transparent;
-	--color-button-secondary-text: var(--color-text);
-	--color-button-secondary-border: rgba(127, 98, 91, 0.34);
+	--color-button-primary-bg: rgb(16, 22, 29);
+	--color-button-primary-text: #fbf4ec;
 
-	--color-card-bg: var(--color-surface);
-	--color-card-bg-hover: var(--color-surface-soft);
-	--color-card-border: var(--color-border-soft);
+	--color-card-bg: #f1e1d3;
+	--color-card-bg-hover: #fbf4ec;
+	--color-card-border: rgba(216, 170, 160, 0.28);
 	--color-card-border-hover: rgba(127, 98, 91, 0.38);
-	--color-card-text: var(--color-text);
-	--color-card-muted: var(--color-muted);
 
-	--color-bg: var(--color-page);
-	--color-subtle: var(--color-soft);
-	--color-proof-border: var(--color-border);
-	--color-proof-label: var(--cocoa-line);
-	--color-proof-text: var(--shadow-blue);
-	--color-quote-text: var(--dusty-mauve);
+	--color-quote-bg: rgba(251, 244, 236, 0.42);
+	--color-quote-text: #7f625b;
 
-	/* Stable dark surfaces used by sections even in light mode */
-	--color-dark-surface: var(--deep-glass);
-	--color-dark-surface-soft: var(--blue-slate);
-	--color-on-dark: var(--warm-paper);
-	--color-on-dark-muted: rgba(214, 221, 231, 0.86);
-	--color-on-dark-soft: rgba(188, 200, 212, 0.78);
-	--color-on-dark-border: rgba(188, 200, 212, 0.2);
-	--color-on-dark-border-soft: rgba(80, 103, 124, 0.32);
+	--color-bg: #f8ece4;
+
+	--hero-gradient: linear-gradient(
+		120deg,
+		rgba(248, 236, 228, 1) 0%,
+		rgba(232, 199, 187, 0.7) 50%,
+		rgba(43, 56, 86, 0.2) 100%
+	);
+	--hero-video-overlay: rgba(248, 236, 228, 0.18);
+	--slogan-gradient: linear-gradient(
+		90deg,
+		rgba(58, 87, 116, 0.98) 0%,
+		rgba(180, 105, 164, 0.82) 50%,
+		rgba(223, 134, 93, 0.98) 100%
+	);
 
 	/* Layout */
 	--content-width: 1120px;
@@ -169,12 +104,8 @@
 }
 
 :root[data-theme="dark"] {
-	--color-page: var(--deep-blue);
-	--color-page-alt: color-mix(in srgb, var(--deep-glass) 88%, var(--blue-slate));
-	--color-page-gradient: var(--color-page);
-	--color-surface: var(--blue-slate);
-	--color-surface-soft: color-mix(in srgb, var(--blue-slate) 86%, var(--deep-glass));
-	--color-surface-strong: color-mix(in srgb, var(--blue-slate) 82%, var(--mist-blue));
+	--color-page: rgb(33, 52, 68);
+	--color-page-gradient: rgb(33, 52, 68);
 
 	--color-header-bg: linear-gradient(
 		90deg,
@@ -182,47 +113,55 @@
 		rgba(33, 52, 68, 0.98) 50%,
 		rgba(127, 98, 91, 0.86) 100%
 	);
-	--color-header-text: var(--warm-paper);
-	--color-header-link: var(--blue-fog);
+	--color-header-text: #fbf4ec;
+	--color-header-link: #bcc8d4;
 	--color-header-border: rgba(188, 200, 212, 0.24);
 
-	--color-text: var(--warm-paper);
+	--color-text: #fbf4ec;
 	--color-muted: rgba(214, 221, 231, 0.84);
 	--color-soft: rgba(188, 200, 212, 0.72);
+	--color-subtle: rgba(188, 200, 212, 0.72);
+
+	--color-surface: #35495d;
+	--color-surface-soft: rgb(16, 22, 29);
 
 	--color-border: rgba(188, 200, 212, 0.22);
 	--color-border-soft: rgba(188, 200, 212, 0.14);
 	--color-border-strong: rgba(214, 221, 231, 0.34);
 
-	--color-accent: var(--rose-stone);
-	--color-accent-strong: var(--warm-paper);
-	--color-accent-bright: var(--peach-haze);
-	--color-accent-soft: rgba(216, 170, 160, 0.42);
+	--color-accent: rgb(216, 170, 160);
 	--color-accent-wash: rgba(216, 170, 160, 0.1);
 
-	--color-link: var(--warm-paper);
-	--color-link-hover: var(--blue-fog);
-	--color-focus: var(--rose-stone);
+	--color-link: #fbf4ec;
+	--color-link-hover: #bcc8d4;
+	--color-focus: rgb(216, 170, 160);
 
-	--color-button-primary-bg: var(--warm-paper);
-	--color-button-primary-text: var(--deep-glass);
-	--color-button-secondary-bg: transparent;
-	--color-button-secondary-text: var(--warm-paper);
-	--color-button-secondary-border: rgba(214, 221, 231, 0.3);
+	--color-button-primary-bg: #fbf4ec;
+	--color-button-primary-text: rgb(16, 22, 29);
 
-	--color-card-bg: var(--blue-slate);
-	--color-card-bg-hover: color-mix(in srgb, var(--blue-slate) 84%, var(--deep-glass));
+	--color-card-bg: #35495d;
+	--color-card-bg-hover: rgb(16, 22, 29);
 	--color-card-border: rgba(188, 200, 212, 0.18);
 	--color-card-border-hover: rgba(214, 221, 231, 0.34);
-	--color-card-text: var(--warm-paper);
-	--color-card-muted: rgba(214, 221, 231, 0.8);
 
-	--color-bg: var(--color-page);
-	--color-subtle: var(--color-soft);
-	--color-proof-border: var(--color-border);
-	--color-proof-label: var(--blue-fog);
-	--color-proof-text: var(--mist-blue);
-	--color-quote-text: var(--dusty-mauve);
+	--color-quote-bg: rgba(16, 22, 29, 0.24);
+	--color-quote-text: #e8c7bb;
+
+	--color-bg: rgb(33, 52, 68);
+
+	--hero-gradient: linear-gradient(
+		120deg,
+		rgba(16, 22, 29, 1) 0%,
+		rgba(32, 46, 61, 0.9) 50%,
+		rgba(127, 98, 91, 0.4) 100%
+	);
+	--hero-video-overlay: rgba(16, 22, 29, 0.2);
+	--slogan-gradient: linear-gradient(
+		90deg,
+		rgba(63, 107, 151, 0.98) 0%,
+		rgba(180, 105, 164, 0.82) 50%,
+		rgba(223, 134, 93, 0.98) 100%
+	);
 
 	color-scheme: dark;
 }

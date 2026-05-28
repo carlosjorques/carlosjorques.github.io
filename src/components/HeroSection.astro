@@ -57,13 +57,13 @@ const heroVideoUrl = `${baseUrl}videos/333466_1_5.mp4`;
 
 <style>
 	.hero-area {
-		--hero-bg: var(--hero-gradient-light);
+		--hero-bg: var(--hero-gradient);
 		--hero-text: var(--color-text);
 		--hero-muted: var(--color-muted);
 		--hero-muted-soft: var(--color-soft);
 		--hero-border: var(--color-border);
 		--hero-border-soft: var(--color-border-soft);
-		--hero-accent: var(--cocoa-line);
+		--hero-accent: var(--color-link-hover);
 		--hero-accent-warm: var(--color-accent);
 		--hero-video-opacity: 0.1;
 
@@ -72,21 +72,6 @@ const heroVideoUrl = `${baseUrl}videos/333466_1_5.mp4`;
 		background: var(--hero-bg);
 		color: var(--hero-text);
 		padding-block: clamp(4.5rem, 8vw, 7.5rem) clamp(3rem, 5vw, 4.5rem);
-	}
-
-
-	:global(:root[data-theme="dark"]) .hero-area {
-		--hero-bg: var(--hero-gradient-dark);
-		--hero-text: var(--color-text);
-		--hero-muted: var(--color-muted);
-		--hero-muted-soft: var(--color-soft);
-		--hero-border: var(--color-border);
-		--hero-border-soft: var(--color-border-soft);
-		--hero-accent: var(--blue-fog);
-		--hero-accent-warm: var(--warm-paper);
-		--hero-video-opacity: 0.1;
-
-		background: var(--hero-bg);
 	}
 
 	.hero-video {
@@ -185,15 +170,7 @@ const heroVideoUrl = `${baseUrl}videos/333466_1_5.mp4`;
 
 	@supports ((-webkit-background-clip: text) or (background-clip: text)) {
 		.hero-statement {
-			background: var(--slogan-gradient-light);
-			-webkit-background-clip: text;
-			background-clip: text;
-			color: transparent;
-			-webkit-text-fill-color: transparent;
-		}
-
-		:global(:root[data-theme="dark"]) .hero-statement {
-			background: var(--slogan-gradient-dark);
+			background: var(--slogan-gradient);
 			-webkit-background-clip: text;
 			background-clip: text;
 			color: transparent;
