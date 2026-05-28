@@ -157,6 +157,33 @@ const appliedExpertise = [
 	},
 ];
 
+const thinkingLayers = [
+	{
+		layer: 'Curiosity',
+		title: 'Taking things apart',
+		description:
+			'As a child, I wanted to understand how objects worked from the inside. That habit became an engineering instinct: look below the surface, find the mechanism, and test what changes the behavior.',
+	},
+	{
+		layer: 'Form',
+		title: 'Gaudí, structure, and usefulness',
+		description:
+			'Gaudí made technical imagination visible to me: beauty, structure, materials, constraints, and human use can belong to the same decision. That still shapes how I think about engineered systems.',
+	},
+	{
+		layer: 'Digital',
+		title: 'Computing and the web',
+		description:
+			'Early work with computers and web technology gave me a second lens: behavior can be designed through logic, interfaces, feedback, and iteration, not only through physical parts.',
+	},
+	{
+		layer: 'Team',
+		title: 'Basketball and shared timing',
+		description:
+			'Basketball taught me to read movement, pressure, spacing, and timing with other people. It is still a practical reference for how teams coordinate under changing conditions.',
+	},
+];
+
 const evidenceLinks = [
 	{
 		title: 'Writing',
@@ -259,61 +286,96 @@ const evidenceLinks = [
 		</div>
 	</section>
 
-	<section class="section about-split" aria-labelledby="work-challenge-title">
+	<section class="section about-split" aria-labelledby="start-think-title">
 		<div class="page-container about-split__grid">
 			<div class="split-heading">
-				<h2 id="work-challenge-title">The challenge behind the work</h2>
+				<h2 id="start-think-title">Start–Think</h2>
 				<p class="section-quote">
 					<span class="section-quote__mark" aria-hidden="true">"</span>
 					<em class="section-quote__text">
-						How can machines sense, decide, and act under uncertainty in ways that
-						make everyday systems safer, more efficient, and more useful?
+						Before I studied control systems, I was already learning to look for
+						structure, feedback, timing, and behavior.
 					</em>
 				</p>
 			</div>
 			<div class="about-copy">
 				<p>
-					That question has stayed with me since my early interest in <strong>robotics</strong>: the
-					fascination that a machine could read its environment, react to it, and
-					become useful through <strong>controlled behavior</strong>.
+					The personal part of my story is not a separate preface to the technical one.
+					It is the way my engineering judgment started to form.
 				</p>
 				<p>
-					<strong>Control theory</strong> gave me a framework for designing that behavior.
-					<strong>Electrical engineering</strong> and <strong>doctoral research</strong> gave me the
-					tools to reason about dynamic systems, uncertainty, diagnostics, and evidence.
+					Childhood curiosity, Gaudí's physical imagination, early computing and web work,
+					and years of basketball all taught me to pay attention to how systems are built,
+					how people coordinate, and how behavior changes under constraints.
 				</p>
 				<p>
-					<strong>Production</strong> is where the theory is tested. Timing limits, cost boundaries,
-					safety criteria, supplier interfaces, calibration maturity, validation
-					evidence, and delivery pressure all shape what can actually work. My role
-					is to help advanced control and software architectures remain <strong>clear,
-					testable, and useful</strong> in that environment.
+					Those layers made the later technical question feel natural: how can machines
+					sense, decide, and act under uncertainty in ways that make everyday systems
+					safer, more efficient, and more useful?
 				</p>
-				<p>
-					Today I apply that systems thinking to vehicles and intelligent machines,
-					providing technical guidance across <strong>architecture, validation, and delivery</strong>
-					so the systems we build can operate reliably in the real world.
-				</p>
-				<div class="in-context-cta">
-					<span>Evidence</span>
-					<a href={withBase('/work')} class="text-link">See selected work, patents, and publications</a>
+				<div class="layer-grid">
+					{thinkingLayers.map((item) => (
+						<article class="layer-item">
+							<p>{item.layer}</p>
+							<h3>{item.title}</h3>
+							<span>{item.description}</span>
+						</article>
+					))}
 				</div>
 			</div>
 		</div>
 	</section>
 
-	<section class="section about-work-style" aria-labelledby="execution-approach-title">
+	<section class="section about-split" aria-labelledby="how-i-got-here-title">
+		<div class="page-container about-split__grid">
+			<div class="split-heading">
+				<h2 id="how-i-got-here-title">How I got here</h2>
+				<p class="section-quote">
+					<span class="section-quote__mark" aria-hidden="true">"</span>
+					<em class="section-quote__text">
+						The turning point was realizing that control engineering gave a name,
+						a method, and a discipline to the way I already saw machines.
+					</em>
+				</p>
+			</div>
+			<div class="about-copy">
+				<p>
+					Studying <strong>electrical engineering</strong> turned curiosity into direction.
+					<strong>Control theory</strong> gave me a framework for designing behavior, and
+					<strong>doctoral research</strong> gave me tools to reason about dynamic systems,
+					uncertainty, diagnostics, optimization, and evidence.
+				</p>
+				<p>
+					That path moved from academic models into industrial systems: first through
+					advanced control and optimization research, then through embedded control
+					software for real machines operating under timing, safety, integration, and
+					delivery constraints.
+				</p>
+				<p>
+					The decision became clear: I wanted to work where analytical thinking,
+					software implementation, physical behavior, and team delivery meet.
+				</p>
+			</div>
+		</div>
+	</section>
+
+	<section class="section about-work-style" aria-labelledby="build-title">
 		<div class="page-container">
 			<div class="about-work-style__lead">
 				<div class="section-intro about-work-style__intro">
-					<h2 id="execution-approach-title">Professional approach</h2>
+					<h2 id="build-title">Build</h2>
 					<p class="section-quote">
 						<span class="section-quote__mark" aria-hidden="true">"</span>
 						<em class="section-quote__text">An elegant algorithm is only the beginning.</em>
 					</p>
 					<p>
 						The real engineering challenge is turning advanced algorithms into software that can be
-						<strong>compiled, integrated, verified, calibrated, trusted, and mantained</strong> in the field.
+						<strong>compiled, integrated, verified, calibrated, trusted, and maintained</strong> in the field.
+					</p>
+					<p>
+						This is where I have built my professional criterion: through production work,
+						project delivery, integration feedback, validation evidence, and the repeated
+						discipline of making complex systems understandable enough for teams to build.
 					</p>
 					<p>
 						I value <strong>reliability over complexity</strong>: advanced algorithms only matter when they
@@ -321,15 +383,14 @@ const evidenceLinks = [
 						and the realities of production delivery.
 					</p>
 					<p>
-						My approach is <strong>disciplined curiosity</strong>: frame the question,
-						<strong>test the assumptions</strong>, turn <strong>evidence into decisions</strong>,
-						and use <strong>feedback</strong> to improve the next iteration.
-						Try deliberately, <strong>manage the risk</strong>, and keep learning while moving toward delivery.
+						My approach is still <strong>disciplined curiosity</strong>, but in production it has to become
+						a practical operating method: frame the question, test the assumptions, turn
+						evidence into decisions, manage the risk, and keep learning while moving toward delivery.
 					</p>
 					<p>
-						I bridge high-level strategy and robust implementation by shaping architectures,
-						supporting technical decisions, and helping teams build software that can be
-						trusted in the real world.
+						Today I apply that systems thinking to vehicles and intelligent machines,
+						providing technical guidance across <strong>architecture, validation, and delivery</strong>
+						so the systems we build can operate reliably in the real world.
 					</p>
 					<a class="text-link" href={withBase('/writing')}>
 						Read more about disciplined curiosity →
@@ -679,6 +740,42 @@ const evidenceLinks = [
 		line-height: 1.6;
 	}
 
+	.layer-grid {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: clamp(1rem, 2.4vw, 1.25rem);
+		margin-top: var(--spacing-04);
+	}
+
+	.layer-item {
+		display: grid;
+		gap: 0.35rem;
+		padding: 1.15rem;
+		border: 1px solid var(--color-card-border);
+		background: var(--color-card-bg);
+	}
+
+	.layer-item p {
+		color: var(--color-accent);
+		font-family: var(--font-mono);
+		font-size: 0.72rem;
+		font-weight: 600;
+		letter-spacing: 0.06em;
+		text-transform: uppercase;
+	}
+
+	.layer-item h3 {
+		color: var(--color-text);
+		font-size: 1.05rem;
+		line-height: 1.35;
+	}
+
+	.layer-item span {
+		color: var(--color-muted);
+		font-size: 0.92rem;
+		line-height: 1.55;
+	}
+
 	.in-context-cta,
 	.section-footer-cta {
 		display: flex;
@@ -880,6 +977,7 @@ const evidenceLinks = [
 
 		.capability-grid,
 		.challenge-grid,
+		.layer-grid,
 		.evidence-grid {
 			grid-template-columns: repeat(2, minmax(0, 1fr));
 		}
