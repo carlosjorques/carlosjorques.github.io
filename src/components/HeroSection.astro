@@ -57,26 +57,27 @@ const heroVideoUrl = `${baseUrl}videos/333466_1_5.mp4`;
 
 <style>
 	.hero-area {
-		--hero-bg: linear-gradient(180deg, var(--mobility-header-soft) 0%, var(--mobility-blush) 54%, var(--mobility-panel) 100%);
-		--hero-text: var(--mobility-ink);
-		--hero-muted: var(--mobility-muted);
-		--hero-muted-soft: rgba(57, 52, 56, 0.72);
-		--hero-border: rgba(255, 243, 238, 0.72);
-		--hero-border-soft: rgba(255, 243, 238, 0.44);
-		--hero-accent: var(--mobility-ink);
-		--hero-accent-warm: var(--mobility-ink);
-		--hero-video-opacity: 0.1;
-		--hero-video-overlay:
-			linear-gradient(180deg, rgba(184, 191, 208, 0.9), rgba(236, 217, 210, 0.88) 54%, rgba(234, 214, 207, 0.86));
+		--hero-bg: var(--hero-gradient-light);
+		--hero-text: var(--color-text);
+		--hero-muted: var(--color-muted);
+		--hero-muted-soft: var(--color-soft);
+		--hero-border: var(--color-border);
+		--hero-border-soft: var(--color-border-soft);
+		--hero-accent: var(--cocoa-line);
+		--hero-accent-warm: var(--color-text);
+		--hero-video-opacity: 0.08;
+		--hero-video-overlay: linear-gradient(
+			180deg,
+			rgba(248, 236, 228, 0.9) 0%,
+			rgba(232, 199, 187, 0.74) 54%,
+			rgba(234, 214, 207, 0.84) 100%
+		);
 
 		position: relative;
 		overflow: hidden;
 		background: var(--hero-bg);
 		color: var(--hero-text);
 		padding-block: clamp(4.5rem, 8vw, 7.5rem) clamp(3rem, 5vw, 4.5rem);
-		transition:
-			background-color 180ms ease-out,
-			color 180ms ease-out;
 	}
 
 	.hero-area::before {
@@ -90,20 +91,23 @@ const heroVideoUrl = `${baseUrl}videos/333466_1_5.mp4`;
 	}
 
 	:global(:root[data-theme="dark"]) .hero-area {
-		--hero-bg: var(--color-dark-surface);
-		--hero-text: var(--color-on-dark);
-		--hero-muted: var(--color-on-dark-muted);
-		--hero-muted-soft: var(--color-on-dark-muted-soft);
-		--hero-border: var(--color-on-dark-border);
-		--hero-border-soft: var(--color-on-dark-border-soft);
-		--hero-accent: var(--color-accent);
-		--hero-accent-warm: var(--color-on-dark);
-		--hero-video-opacity: 0.14;
-		--hero-video-overlay:
-			linear-gradient(105deg, rgba(32, 43, 69, 0.94), rgba(32, 43, 69, 0.86) 58%, rgba(39, 52, 81, 0.74));
-		background:
-			linear-gradient(105deg, rgba(32, 43, 69, 0.98), rgba(32, 43, 69, 0.9) 58%, rgba(39, 52, 81, 0.82)),
-			var(--hero-bg);
+		--hero-bg: var(--hero-gradient-dark);
+		--hero-text: var(--color-text);
+		--hero-muted: var(--color-muted);
+		--hero-muted-soft: var(--color-soft);
+		--hero-border: var(--color-border);
+		--hero-border-soft: var(--color-border-soft);
+		--hero-accent: var(--blue-fog);
+		--hero-accent-warm: var(--warm-paper);
+		--hero-video-opacity: 0.12;
+		--hero-video-overlay: linear-gradient(
+			105deg,
+			rgba(16, 22, 29, 0.94) 0%,
+			rgba(32, 43, 69, 0.86) 58%,
+			rgba(53, 73, 93, 0.74) 100%
+		);
+
+		background: var(--hero-bg);
 	}
 
 	.hero-video {
@@ -191,7 +195,7 @@ const heroVideoUrl = `${baseUrl}videos/333466_1_5.mp4`;
 	}
 
 	.hero-statement {
-		max-width: 600px;
+		max-width: 620px;
 		margin: var(--spacing-07) auto 0;
 		font-size: clamp(1.75rem, 3vw, 2.5rem);
 		line-height: 1.08;
@@ -202,7 +206,15 @@ const heroVideoUrl = `${baseUrl}videos/333466_1_5.mp4`;
 
 	@supports ((-webkit-background-clip: text) or (background-clip: text)) {
 		.hero-statement {
-			background: var(--slogan-gradient);
+			background: var(--slogan-gradient-light);
+			-webkit-background-clip: text;
+			background-clip: text;
+			color: transparent;
+			-webkit-text-fill-color: transparent;
+		}
+
+		:global(:root[data-theme="dark"]) .hero-statement {
+			background: var(--slogan-gradient-dark);
 			-webkit-background-clip: text;
 			background-clip: text;
 			color: transparent;
@@ -211,12 +223,12 @@ const heroVideoUrl = `${baseUrl}videos/333466_1_5.mp4`;
 	}
 
 	.hero-substatement {
-		max-width: 650px;
+		max-width: 680px;
 		margin: var(--spacing-07) auto 0;
-		font-size: clamp(1.2rem, 1.35vw, 1.2rem);
-		line-height: 1.08;
+		font-size: clamp(1.05rem, 1.25vw, 1.2rem);
+		line-height: 1.5;
 		font-weight: 400;
-		color: var(--hero-text);
+		color: var(--hero-muted);
 	}
 
 	.hero-links {
@@ -294,9 +306,9 @@ const heroVideoUrl = `${baseUrl}videos/333466_1_5.mp4`;
 		display: block;
 		margin-bottom: var(--spacing-02);
 		font-family: var(--font-mono);
-		font-size: 0.66rem;
+		font-size: 0.68rem;
 		font-weight: 600;
-		letter-spacing: 0.06em;
+		letter-spacing: 0.075em;
 		text-transform: uppercase;
 		color: var(--hero-accent-warm);
 	}
@@ -305,7 +317,7 @@ const heroVideoUrl = `${baseUrl}videos/333466_1_5.mp4`;
 		display: block;
 		max-width: 230px;
 		font-size: 0.82rem;
-		line-height: 1.35;
+		line-height: 1.4;
 		color: var(--hero-muted-soft);
 	}
 

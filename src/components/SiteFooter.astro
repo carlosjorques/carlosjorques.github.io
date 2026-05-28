@@ -17,13 +17,14 @@ const withBase = (href: string) => (href === '/' ? baseUrl : `${baseUrl}${href.r
 
 <style>
 	.site-footer {
-		--footer-text: var(--color-on-dark-muted-soft);
-		--footer-link: var(--color-on-dark-muted);
-		--footer-border: var(--color-on-dark-border-soft);
-		--footer-accent: var(--color-accent-bright);
+		--footer-bg: var(--color-header-bg);
+		--footer-text: var(--color-header-link);
+		--footer-link: var(--color-header-link);
+		--footer-border: var(--color-header-border);
+		--footer-accent: var(--color-header-text);
 
 		border-top: 1px solid var(--footer-border);
-		background: var(--color-dark-surface);
+		background: var(--footer-bg);
 		padding-block: 2rem;
 		color: var(--footer-text);
 	}
