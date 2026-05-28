@@ -34,11 +34,11 @@ const isActive = (href: string) => {
 
 <style>
 	.site-header {
-		--header-bg: var(--color-page);
-		--header-text: var(--color-text);
-		--header-link: var(--color-muted);
-		--header-border: var(--color-border-soft);
-		--header-accent: var(--color-accent-strong);
+		--header-bg: var(--color-header-bg);
+		--header-text: var(--color-header-text);
+		--header-link: var(--color-header-link);
+		--header-border: var(--color-header-border);
+		--header-accent: var(--color-header-text);
 
 		background: var(--header-bg);
 		border-bottom: 1px solid var(--header-border);
@@ -49,11 +49,11 @@ const isActive = (href: string) => {
 	}
 
 	:global(:root[data-theme="dark"]) .site-header {
-		--header-bg: var(--color-dark-surface);
-		--header-text: var(--color-on-dark);
-		--header-link: var(--color-on-dark-muted-soft);
-		--header-border: var(--color-on-dark-border-soft);
-		--header-accent: var(--color-accent-bright);
+		--header-bg: var(--color-header-bg);
+		--header-text: var(--color-header-text);
+		--header-link: var(--color-header-link);
+		--header-border: var(--color-header-border);
+		--header-accent: var(--color-header-text);
 	}
 
 	.site-header__inner {
@@ -114,7 +114,7 @@ const isActive = (href: string) => {
 
 	.theme-toggle {
 		--toggle-size: 24px;
-		--toggle-icon: var(--brand-charcoal);
+		--toggle-icon: var(--header-link);
 
 		display: inline-flex;
 		width: var(--toggle-size);
@@ -135,7 +135,7 @@ const isActive = (href: string) => {
 	}
 
 	:global(:root[data-theme="dark"]) .theme-toggle {
-		--toggle-icon: var(--warm-paper);
+		--toggle-icon: var(--header-link);
 	}
 
 	.theme-toggle:hover {
