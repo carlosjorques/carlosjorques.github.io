@@ -454,6 +454,7 @@ const evidenceLinks = [
 	.about-hero {
 		padding-block: clamp(4rem, 8vw, 7rem) clamp(3rem, 6vw, 5rem);
 		border-bottom: 1px solid var(--color-border-soft);
+		background: var(--color-page);
 	}
 
 	.about-hero__inner {
@@ -615,7 +616,10 @@ const evidenceLinks = [
 		align-items: start;
 		margin: 0;
 		max-width: 760px;
-		color: var(--color-text);
+		border: 1px solid var(--color-border-soft);
+		background: var(--color-quote-bg);
+		color: var(--color-quote-text);
+		padding: clamp(1rem, 2.4vw, 1.5rem);
 		font-size: clamp(1.45rem, 3vw, 2.35rem);
 		font-weight: 400;
 		line-height: 1.18;
@@ -628,7 +632,7 @@ const evidenceLinks = [
 
 	.section-quote__mark {
 		margin-top: -0.18em;
-		color: var(--color-accent);
+		color: var(--color-quote-text);
 		font-family: "Stack Sans Text", sans-serif;
 		font-optical-sizing: auto;
 		font-style: normal;
@@ -640,7 +644,7 @@ const evidenceLinks = [
 	.section-quote__text {
 		font-style: italic;
 		font-family: var(--font-mono);
-		color: var(--color-muted);
+		color: var(--color-quote-text);
 		letter-spacing: -0.05em;
 		font-size: clamp(1.25rem, 2.4vw, 1.5rem);
 	}

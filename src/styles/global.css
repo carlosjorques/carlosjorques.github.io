@@ -71,24 +71,36 @@
 
 	--color-page: var(--shell-pink);
 	--color-page-alt: var(--warm-paper);
-	--color-surface: #ead6cf;
-	--color-surface-soft: #f2e2dc;
-	--color-surface-strong: #dfc0b8;
+	--color-page-gradient: var(--color-page);
+	--color-surface: var(--sand-soft);
+	--color-surface-soft: var(--warm-paper);
+	--color-surface-strong: color-mix(in srgb, var(--sand-soft) 72%, var(--peach-haze));
 
-	--color-header-bg: rgba(169, 180, 200, 0.88);
-	--color-header-text: var(--white-warm);
-	--color-header-link: rgba(255, 250, 246, 0.86);
-	--color-header-border: rgba(255, 250, 246, 0.38);
+	--color-header-bg: linear-gradient(
+		105deg,
+		rgba(241, 225, 211, 0.98) 0%,
+		rgba(251, 244, 236, 0.9) 50%,
+		rgba(232, 199, 187, 0.56) 100%
+	);
+	--color-header-text: var(--deep-glass);
+	--color-header-link: var(--shadow-blue);
+	--color-header-border: rgba(127, 98, 91, 0.22);
 
-	--color-text: #393438;
-	--color-muted: #5b5357;
-	--color-soft: rgba(57, 52, 56, 0.72);
+	--color-text: var(--deep-glass);
+	--color-muted: var(--shadow-blue);
+	--color-soft: var(--cocoa-line);
 
-	--color-border: rgba(255, 243, 238, 0.74);
-	--color-border-soft: rgba(255, 243, 238, 0.48);
-	--color-border-strong: rgba(57, 52, 56, 0.28);
+	--color-border: rgba(127, 98, 91, 0.24);
+	--color-border-soft: rgba(216, 170, 160, 0.28);
+	--color-border-strong: rgba(127, 98, 91, 0.42);
 
-	--color-link: var(--color-text);
+	--color-accent: var(--shadow-blue);
+	--color-accent-strong: var(--deep-glass);
+	--color-accent-bright: var(--cocoa-line);
+	--color-accent-soft: rgba(80, 103, 124, 0.16);
+	--color-accent-wash: rgba(216, 170, 160, 0.16);
+
+	--color-link: var(--shadow-blue);
 	--color-link-hover: var(--cocoa-line);
 	--color-focus: var(--shadow-blue);
 
@@ -96,19 +108,26 @@
 	--color-button-primary-text: var(--warm-paper);
 	--color-button-secondary-bg: transparent;
 	--color-button-secondary-text: var(--color-text);
-	--color-button-secondary-border: rgba(57, 52, 56, 0.34);
+	--color-button-secondary-border: rgba(127, 98, 91, 0.34);
 
 	--color-card-bg: var(--color-surface);
-	--color-card-bg-hover: var(--color-surface-strong);
+	--color-card-bg-hover: var(--color-surface-soft);
 	--color-card-border: var(--color-border-soft);
-	--color-card-border-hover: rgba(255, 243, 238, 0.9);
+	--color-card-border-hover: rgba(127, 98, 91, 0.38);
 	--color-card-text: var(--color-text);
 	--color-card-muted: var(--color-muted);
 
+	--color-bg: var(--color-page);
+	--color-subtle: var(--color-soft);
+	--color-proof-border: var(--color-border);
+	--color-proof-label: var(--cocoa-line);
+	--color-proof-text: var(--shadow-blue);
+
 	--color-quote-bg: linear-gradient(
 		105deg,
-		rgba(232, 199, 187, 0.88) 0%,
-		rgba(188, 200, 212, 0.42) 100%
+		rgba(53, 73, 93, 0.96) 0%,
+		rgba(80, 103, 124, 0.88) 62%,
+		rgba(127, 98, 91, 0.82) 100%
 	);
 	--color-quote-text: var(--white-warm);
 
@@ -158,14 +177,20 @@
 
 :root[data-theme="dark"] {
 	--color-page: var(--deep-glass);
-	--color-page-alt: var(--volvo-navy-deep);
+	--color-page-alt: color-mix(in srgb, var(--deep-glass) 88%, var(--blue-slate));
+	--color-page-gradient: var(--color-page);
 	--color-surface: var(--blue-slate);
-	--color-surface-soft: var(--volvo-navy-soft);
-	--color-surface-strong: var(--volvo-navy-card);
+	--color-surface-soft: color-mix(in srgb, var(--blue-slate) 86%, var(--deep-glass));
+	--color-surface-strong: color-mix(in srgb, var(--blue-slate) 82%, var(--mist-blue));
 
-	--color-header-bg: rgba(16, 22, 29, 0.86);
+	--color-header-bg: linear-gradient(
+		105deg,
+		rgba(16, 22, 29, 0.98) 0%,
+		rgba(53, 73, 93, 0.92) 56%,
+		rgba(80, 103, 124, 0.56) 100%
+	);
 	--color-header-text: var(--warm-paper);
-	--color-header-link: rgba(251, 244, 236, 0.82);
+	--color-header-link: var(--blue-fog);
 	--color-header-border: rgba(188, 200, 212, 0.24);
 
 	--color-text: var(--warm-paper);
@@ -175,6 +200,12 @@
 	--color-border: rgba(188, 200, 212, 0.22);
 	--color-border-soft: rgba(188, 200, 212, 0.14);
 	--color-border-strong: rgba(214, 221, 231, 0.34);
+
+	--color-accent: var(--rose-stone);
+	--color-accent-strong: var(--warm-paper);
+	--color-accent-bright: var(--peach-haze);
+	--color-accent-soft: rgba(216, 170, 160, 0.42);
+	--color-accent-wash: rgba(216, 170, 160, 0.1);
 
 	--color-link: var(--warm-paper);
 	--color-link-hover: var(--blue-fog);
@@ -187,11 +218,17 @@
 	--color-button-secondary-border: rgba(214, 221, 231, 0.3);
 
 	--color-card-bg: var(--blue-slate);
-	--color-card-bg-hover: var(--volvo-navy-card);
+	--color-card-bg-hover: color-mix(in srgb, var(--blue-slate) 84%, var(--deep-glass));
 	--color-card-border: rgba(188, 200, 212, 0.18);
 	--color-card-border-hover: rgba(214, 221, 231, 0.34);
 	--color-card-text: var(--warm-paper);
 	--color-card-muted: rgba(214, 221, 231, 0.8);
+
+	--color-bg: var(--color-page);
+	--color-subtle: var(--color-soft);
+	--color-proof-border: var(--color-border);
+	--color-proof-label: var(--blue-fog);
+	--color-proof-text: var(--mist-blue);
 
 	--color-quote-bg: linear-gradient(
 		105deg,
@@ -214,70 +251,6 @@
 		opacity: 1;
 		transform: translateY(0);
 	}
-}
-
-:root[data-theme="dark"] {
-	/* Dark theme */
-	--color-page: var(--volvo-navy);
-	--color-hero: var(--volvo-navy);
-	--color-header-bg: var(--volvo-navy-header);
-	--color-header-text: var(--volvo-text);
-	--color-header-link: rgba(243, 245, 247, 0.82);
-	--color-header-border: rgba(135, 146, 164, 0.34);
-	--color-page-gradient:
-		radial-gradient(circle at 18% 0%, rgba(80, 103, 124, 0.18), transparent 30rem),
-		radial-gradient(circle at 100% 8%, rgba(135, 146, 164, 0.10), transparent 28rem),
-		var(--color-page);
-
-	--color-text: var(--volvo-text);
-	--color-muted: var(--volvo-muted);
-	--color-soft: rgba(243, 245, 247, 0.72);
-
-	--color-border: rgba(135, 146, 164, 0.44);
-	--color-border-soft: rgba(135, 146, 164, 0.24);
-	--color-border-strong: rgba(243, 245, 247, 0.52);
-
-	/* In dark mode, warm accents stay sparse against shade-blue surfaces. */
-	--color-accent: var(--mist-blue);
-	--color-accent-strong: var(--volvo-text);
-	--color-accent-bright: var(--volvo-text);
-	--color-accent-soft: rgba(214, 221, 231, 0.72);
-	--color-accent-wash: rgba(214, 221, 231, 0.08);
-
-	--color-link: var(--volvo-text);
-	--color-link-hover: var(--mist-blue);
-
-	--color-focus: var(--mist-blue);
-
-	--color-button-primary-bg: var(--volvo-text);
-	--color-button-primary-text: var(--volvo-navy-deep);
-
-	--color-proof-border: var(--color-border);
-	--color-proof-label: var(--volvo-text);
-	--color-proof-text: var(--volvo-muted);
-
-	--color-dark-surface: var(--volvo-navy);
-	--color-dark-surface-soft: var(--volvo-navy-soft);
-	--color-on-dark: var(--volvo-text);
-	--color-on-dark-muted: var(--volvo-muted);
-	--color-on-dark-muted-soft: rgba(243, 245, 247, 0.78);
-	--color-on-dark-border: rgba(135, 146, 164, 0.44);
-	--color-on-dark-border-soft: rgba(135, 146, 164, 0.24);
-
-	--color-card-bg: var(--volvo-navy-card);
-	--color-card-bg-hover: var(--volvo-navy-header);
-	--color-card-border: var(--color-border);
-	--color-card-border-hover: rgba(243, 245, 247, 0.5);
-	--color-card-text: var(--color-text);
-	--color-card-muted: var(--color-muted);
-	--color-card-accent: var(--color-accent);
-
-	--color-bg: var(--color-page);
-	--color-surface: var(--color-card-bg);
-	--color-surface-soft: var(--color-card-bg-hover);
-	--color-subtle: var(--color-soft);
-
-	color-scheme: dark;
 }
 
 * {
