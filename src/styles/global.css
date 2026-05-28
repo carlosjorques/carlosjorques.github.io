@@ -14,7 +14,7 @@
 	--sand-soft: #f1e1d3;
 
 	--peach-haze: #e8c7bb;
-	--rose-stone: #d8aaa0;
+	--rose-stone: rgb(216, 170, 160);
 	--dusty-mauve: #a58f9a;
 	--warm-taupe: #9f7d73;
 	--cocoa-line: #7f625b;
@@ -23,7 +23,8 @@
 	--mist-blue: #d6dde7;
 	--shadow-blue: #50677c;
 	--blue-slate: #35495d;
-	--deep-glass: #10161d;
+	--deep-blue: rgb(33, 52, 68);
+	--deep-glass: rgb(16, 22, 29);
 
 	--volvo-navy: #202b45;
 	--volvo-navy-deep: #1b253c;
@@ -37,32 +38,31 @@
 	   ========================================================== */
 
 	--hero-gradient-light: linear-gradient(
-		110deg,
-		rgba(248, 236, 228, 0.98) 0%,
-		rgba(232, 199, 187, 0.7) 42%,
-		rgba(188, 200, 212, 0.52) 74%,
-		rgba(80, 103, 124, 0.28) 100%
+		120deg,
+		rgba(248, 236, 228, 1) 0%,
+		rgba(232, 199, 187, 0.7) 50%,
+		rgba(43, 56, 86, 0.2) 100%
 	);
 
 	--hero-gradient-dark: linear-gradient(
-		110deg,
-		rgba(16, 22, 29, 0.98) 0%,
-		rgba(32, 43, 69, 0.94) 52%,
-		rgba(53, 73, 93, 0.82) 100%
+		120deg,
+		rgba(16, 22, 29, 1) 0%,
+		rgba(32, 46, 61, 0.9) 50%,
+		rgba(127, 98, 91, 0.4) 100%
 	);
 
 	--slogan-gradient-light: linear-gradient(
 		90deg,
-		var(--cocoa-line) 0%,
-		var(--rose-stone) 36%,
-		var(--shadow-blue) 100%
+		rgba(58, 87, 116, 0.98) 0%,
+		rgba(180, 105, 164, 0.82) 50%,
+		rgba(223, 134, 93, 0.98) 100%
 	);
 
 	--slogan-gradient-dark: linear-gradient(
 		90deg,
-		var(--warm-paper) 0%,
-		var(--blue-fog) 48%,
-		var(--rose-stone) 100%
+		rgba(63, 107, 151, 0.98) 0%,
+		rgba(180, 105, 164, 0.82) 50%,
+		rgba(223, 134, 93, 0.98) 100%
 	);
 
 	/* ==========================================================
@@ -77,10 +77,10 @@
 	--color-surface-strong: color-mix(in srgb, var(--sand-soft) 72%, var(--peach-haze));
 
 	--color-header-bg: linear-gradient(
-		105deg,
-		rgba(241, 225, 211, 0.98) 0%,
-		rgba(251, 244, 236, 0.9) 50%,
-		rgba(232, 199, 187, 0.56) 100%
+		90deg,
+		rgba(232, 199, 187, 0.2) 0%,
+		rgba(248, 236, 228, 0.98) 50%,
+		rgba(188, 200, 212, 0.52) 100%
 	);
 	--color-header-text: var(--deep-glass);
 	--color-header-link: var(--shadow-blue);
@@ -122,14 +122,7 @@
 	--color-proof-border: var(--color-border);
 	--color-proof-label: var(--cocoa-line);
 	--color-proof-text: var(--shadow-blue);
-
-	--color-quote-bg: linear-gradient(
-		105deg,
-		rgba(53, 73, 93, 0.96) 0%,
-		rgba(80, 103, 124, 0.88) 62%,
-		rgba(127, 98, 91, 0.82) 100%
-	);
-	--color-quote-text: var(--white-warm);
+	--color-quote-text: var(--dusty-mauve);
 
 	/* Stable dark surfaces used by sections even in light mode */
 	--color-dark-surface: var(--deep-glass);
@@ -176,7 +169,7 @@
 }
 
 :root[data-theme="dark"] {
-	--color-page: var(--deep-glass);
+	--color-page: var(--deep-blue);
 	--color-page-alt: color-mix(in srgb, var(--deep-glass) 88%, var(--blue-slate));
 	--color-page-gradient: var(--color-page);
 	--color-surface: var(--blue-slate);
@@ -184,10 +177,10 @@
 	--color-surface-strong: color-mix(in srgb, var(--blue-slate) 82%, var(--mist-blue));
 
 	--color-header-bg: linear-gradient(
-		105deg,
-		rgba(16, 22, 29, 0.98) 0%,
-		rgba(53, 73, 93, 0.92) 56%,
-		rgba(80, 103, 124, 0.56) 100%
+		90deg,
+		rgba(33, 52, 68, 0.98) 0%,
+		rgba(33, 52, 68, 0.98) 50%,
+		rgba(127, 98, 91, 0.86) 100%
 	);
 	--color-header-text: var(--warm-paper);
 	--color-header-link: var(--blue-fog);
@@ -229,14 +222,7 @@
 	--color-proof-border: var(--color-border);
 	--color-proof-label: var(--blue-fog);
 	--color-proof-text: var(--mist-blue);
-
-	--color-quote-bg: linear-gradient(
-		105deg,
-		rgba(16, 22, 29, 0.95) 0%,
-		rgba(53, 73, 93, 0.86) 58%,
-		rgba(216, 170, 160, 0.32) 100%
-	);
-	--color-quote-text: var(--warm-paper);
+	--color-quote-text: var(--dusty-mauve);
 
 	color-scheme: dark;
 }
@@ -352,7 +338,7 @@ li::marker {
 }
 
 .page-container {
-	width: min(100% - 48px, 1120px);
+	width: min(80% - 48px, 1120px);
 	margin-inline: auto;
 }
 

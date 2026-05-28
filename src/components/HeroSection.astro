@@ -64,15 +64,8 @@ const heroVideoUrl = `${baseUrl}videos/333466_1_5.mp4`;
 		--hero-border: var(--color-border);
 		--hero-border-soft: var(--color-border-soft);
 		--hero-accent: var(--cocoa-line);
-		--hero-accent-warm: var(--color-text);
-		--hero-video-opacity: 0.08;
-		--hero-video-overlay: linear-gradient(
-			105deg,
-			rgba(248, 236, 228, 0.88) 0%,
-			rgba(232, 199, 187, 0.64) 42%,
-			rgba(188, 200, 212, 0.5) 74%,
-			rgba(80, 103, 124, 0.22) 100%
-		);
+		--hero-accent-warm: var(--color-accent);
+		--hero-video-opacity: 0.1;
 
 		position: relative;
 		overflow: hidden;
@@ -81,15 +74,6 @@ const heroVideoUrl = `${baseUrl}videos/333466_1_5.mp4`;
 		padding-block: clamp(4.5rem, 8vw, 7.5rem) clamp(3rem, 5vw, 4.5rem);
 	}
 
-	.hero-area::before {
-		content: "";
-		position: absolute;
-		inset: auto -8% -24% 38%;
-		height: 18rem;
-		background: linear-gradient(90deg, rgba(248, 236, 228, 0.2), rgba(80, 103, 124, 0.28));
-		transform: rotate(-3deg);
-		pointer-events: none;
-	}
 
 	:global(:root[data-theme="dark"]) .hero-area {
 		--hero-bg: var(--hero-gradient-dark);
@@ -100,13 +84,7 @@ const heroVideoUrl = `${baseUrl}videos/333466_1_5.mp4`;
 		--hero-border-soft: var(--color-border-soft);
 		--hero-accent: var(--blue-fog);
 		--hero-accent-warm: var(--warm-paper);
-		--hero-video-opacity: 0.12;
-		--hero-video-overlay: linear-gradient(
-			105deg,
-			rgba(16, 22, 29, 0.94) 0%,
-			rgba(32, 43, 69, 0.86) 58%,
-			rgba(53, 73, 93, 0.74) 100%
-		);
+		--hero-video-opacity: 0.1;
 
 		background: var(--hero-bg);
 	}
@@ -229,7 +207,7 @@ const heroVideoUrl = `${baseUrl}videos/333466_1_5.mp4`;
 		font-size: clamp(1.05rem, 1.25vw, 1.2rem);
 		line-height: 1.5;
 		font-weight: 400;
-		color: var(--hero-muted);
+		color: var(--hero-text);
 	}
 
 	.hero-links {
