@@ -89,7 +89,7 @@
 	--color-hero-kicker: var(--palette-light-blue-active);
 	--color-hero-link: var(--text-ink);
 	--color-hero-link-hover: var(--palette-light-rose-base);
-	--color-hero-proof-value: var(--palette-light-rose-base);
+	--color-hero-proof-value: var(--palette-light-blue-active);
 	--color-hero-proof-label: var(--text-ink);
 
 	--color-button-primary-bg: var(--palette-light-blue-active);
@@ -350,11 +350,12 @@ li::marker {
 	min-width: 0;
 	min-height: 100vh;
 	flex-direction: column;
-	background: transparent;
+	background: var(--color-section-bg);
 }
 
 .main-body {
 	flex: 1;
+	background: var(--color-section-bg);
 }
 
 .section {
