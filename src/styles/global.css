@@ -46,6 +46,7 @@
 	--color-page: var(--palette-light-paper-base);
 	--color-page-gradient: var(--palette-light-paper-base);
 	--color-text: var(--text-ink);
+	--color-body-text: var(--text-ink);
 	--color-muted: var(--text-shadow-blue);
 	--color-soft: var(--text-cocoa);
 	--color-subtle: var(--text-shadow-blue);
@@ -53,7 +54,7 @@
 	--color-bg: var(--palette-light-paper-active);
 	--color-surface: var(--palette-light-shell-muted);
 	--color-surface-soft: var(--palette-light-paper-active);
-	--color-section-bg: var(--palette-light-paper-active);
+	--color-section-bg: var(--palette-light-paper-base);
 
 	--color-border: color-mix(in srgb, var(--text-cocoa) 24%, transparent);
 	--color-border-soft: color-mix(in srgb, var(--palette-light-rose-base) 30%, transparent);
@@ -81,7 +82,7 @@
 	--color-hero-link: var(--text-ink);
 	--color-hero-link-hover: var(--palette-light-rose-base);
 	--color-hero-proof-value: var(--palette-light-rose-base);
-	--color-hero-proof-label: var(--text-cocoa);
+	--color-hero-proof-label: var(--text-ink);
 
 	--color-button-primary-bg: var(--palette-light-blue-active);
 	--color-button-primary-text: var(--text-paper);
@@ -141,6 +142,7 @@
 	--color-page: var(--palette-dark-navy-base);
 	--color-page-gradient: var(--palette-dark-navy-base);
 	--color-text: var(--text-paper);
+	--color-body-text: var(--text-paper);
 	--color-muted: var(--palette-dark-blue-base);
 	--color-soft: var(--palette-dark-blue-base);
 	--color-subtle: var(--palette-dark-blue-base);
@@ -148,7 +150,7 @@
 	--color-bg: var(--palette-dark-glass-active);
 	--color-surface: var(--palette-dark-glass-muted);
 	--color-surface-soft: var(--palette-dark-glass-active);
-	--color-section-bg: var(--palette-dark-glass-active);
+	--color-section-bg: var(--palette-dark-navy-base);
 
 	--color-border: color-mix(in srgb, var(--palette-dark-blue-base) 22%, transparent);
 	--color-border-soft: color-mix(in srgb, var(--palette-dark-blue-base) 14%, transparent);
@@ -348,6 +350,7 @@ li::marker {
 }
 
 .section {
+	background: var(--color-section-bg);
 	padding-block: clamp(3rem, 6vw, 5rem);
 }
 
@@ -363,7 +366,7 @@ li::marker {
 
 .lead {
 	max-width: 760px;
-	color: var(--color-muted);
+	color: var(--color-body-text);
 	font-size: 1rem;
 	line-height: 1.65;
 }
@@ -486,7 +489,7 @@ li::marker {
 }
 
 .prose li {
-	color: var(--color-muted);
+	color: var(--color-body-text);
 }
 
 @media (min-width: 760px) {

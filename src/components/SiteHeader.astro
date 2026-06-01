@@ -89,8 +89,14 @@ const isActive = (href: string) => {
 	}
 
 	.site-header__nav a[aria-current="page"] {
-		color: var(--color-header-active);
-		border-bottom-color: var(--color-header-active);
+		color: var(--color-header-link);
+		border-bottom-color: var(--color-header-link);
+	}
+
+	.site-header__nav a[aria-current="page"]:hover,
+	.site-header__nav a[aria-current="page"]:focus-visible {
+		color: var(--color-header-link);
+		border-bottom-color: var(--color-header-link);
 	}
 
 	.site-header__nav a:hover,

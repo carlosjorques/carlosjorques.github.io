@@ -510,6 +510,8 @@ const evidenceLinks = [
 </Layout>
 
 <style>
+	@import url("https://fonts.googleapis.com/css2?family=Stack+Sans+Text:wght@200..700&display=swap");
+
 	.about-hero {
 		padding-block: clamp(4rem, 8vw, 7rem) clamp(3rem, 6vw, 5rem);
 		border-bottom: 1px solid var(--color-border-soft);
@@ -518,6 +520,10 @@ const evidenceLinks = [
 
 	.about-hero ~ .section {
 		background: var(--color-section-bg);
+	}
+
+	.about-hero ~ .about-final {
+		background: var(--color-footer-bg);
 	}
 
 	.about-hero__inner {
@@ -549,7 +555,7 @@ const evidenceLinks = [
 
 	.about-hero__body {
 		max-width: 680px;
-		color: var(--color-muted);
+		color: var(--color-body-text);
 		font-size: 1.05rem;
 		line-height: 1.7;
 	}
@@ -638,7 +644,7 @@ const evidenceLinks = [
 
 	.proof-item span {
 		max-width: 100%;
-		color: var(--color-muted);
+		color: var(--color-body-text);
 		font-size: 0.95rem;
 		line-height: 1.5;
 	}
@@ -695,7 +701,7 @@ const evidenceLinks = [
 	.section-quote__mark {
 		margin-top: -0.18em;
 		color: var(--color-quote-text);
-		font-family: var(--font-display);
+		font-family: "Stack Sans Text", sans-serif;
 		font-optical-sizing: auto;
 		font-style: normal;
 		font-size: clamp(3rem, 6vw, 5.1rem);
@@ -727,7 +733,7 @@ const evidenceLinks = [
 	.split-heading p:not(.section-quote),
 	.about-final p {
 		max-width: 700px;
-		color: var(--color-muted);
+		color: var(--color-body-text);
 		font-size: 0.95rem;
 		line-height: 1.6;
 	}
@@ -736,7 +742,7 @@ const evidenceLinks = [
 		display: grid;
 		gap: 1.2rem;
 		max-width: 760px;
-		color: var(--color-muted);
+		color: var(--color-body-text);
 		font-size: 0.95rem;
 		line-height: 1.6;
 	}
@@ -772,7 +778,7 @@ const evidenceLinks = [
 	}
 
 	.layer-item span {
-		color: var(--color-muted);
+		color: var(--color-body-text);
 		font-size: 0.92rem;
 		line-height: 1.55;
 	}
@@ -817,7 +823,7 @@ const evidenceLinks = [
 	.challenge-item p,
 	.evidence-item p,
 	.section-intro p {
-		color: var(--color-muted);
+		color: var(--color-body-text);
 		font-size: 0.95rem;
 		line-height: 1.6;
 	}
@@ -877,13 +883,13 @@ const evidenceLinks = [
 		gap: 0.35rem;
 		margin-top: var(--spacing-04);
 		max-width: 520px;
-		color: var(--color-muted);
+		color: var(--color-body-text);
 		font-size: 0.9rem;
 		line-height: 1.5;
 	}
 
 	.applied-domain-visual figcaption small {
-		color: var(--color-muted);
+		color: var(--color-body-text);
 		font-size: 0.78rem;
 		line-height: 1.45;
 	}
@@ -944,6 +950,7 @@ const evidenceLinks = [
 	.about-final {
 		margin-top: var(--spacing-07);
 		border-top: 1px solid var(--color-border-soft);
+		background: var(--color-footer-bg);
 	}
 
 	.about-final__inner {
