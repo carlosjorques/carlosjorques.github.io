@@ -58,13 +58,13 @@ const heroVideoUrl = `${baseUrl}videos/333466_1_5.mp4`;
 <style>
 	.hero-area {
 		--hero-bg: var(--hero-gradient);
-		--hero-text: var(--color-text);
-		--hero-muted: var(--color-muted);
-		--hero-muted-soft: var(--color-soft);
+		--hero-text: var(--color-hero-text);
+		--hero-muted: var(--color-hero-kicker);
+		--hero-muted-soft: var(--color-hero-proof-label);
 		--hero-border: var(--color-border);
 		--hero-border-soft: var(--color-border-soft);
-		--hero-accent: var(--color-link-hover);
-		--hero-accent-warm: var(--color-accent);
+		--hero-accent: var(--color-hero-link-hover);
+		--hero-accent-warm: var(--color-hero-proof-value);
 		--hero-video-opacity: 0.1;
 
 		position: relative;
@@ -150,7 +150,7 @@ const heroVideoUrl = `${baseUrl}videos/333466_1_5.mp4`;
 
 	.hero-name {
 		margin: 0;
-		font-family: var(--font-sans);
+		font-family: var(--font-display);
 		font-size: clamp(2.8rem, 6vw, 5.8rem);
 		line-height: 0.95;
 		font-weight: 700;
@@ -165,7 +165,7 @@ const heroVideoUrl = `${baseUrl}videos/333466_1_5.mp4`;
 		line-height: 1.08;
 		font-weight: 400;
 		color: var(--hero-text);
-		font-family: var(--font-mono);
+		font-family: var(--font-display);
 	}
 
 	@supports ((-webkit-background-clip: text) or (background-clip: text)) {
@@ -193,7 +193,7 @@ const heroVideoUrl = `${baseUrl}videos/333466_1_5.mp4`;
 		justify-content: center;
 		gap: 1.25rem;
 		flex-wrap: wrap;
-		font-family: var(--font-mono);
+		font-family: var(--font-display);
 		font-size: 0.78rem;
 		font-weight: 600;
 		letter-spacing: 0.06em;
@@ -201,7 +201,7 @@ const heroVideoUrl = `${baseUrl}videos/333466_1_5.mp4`;
 	}
 
 	.hero-links a {
-		color: var(--hero-text);
+		color: var(--color-hero-link);
 		text-decoration: none;
 		border-bottom: 1px solid var(--hero-accent);
 		padding-bottom: 0.15rem;

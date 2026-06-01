@@ -1,72 +1,138 @@
-@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap");
 
 :root {
-	--font-sans: "IBM Plex Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-	--font-mono: "IBM Plex Mono", "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+	--font-display: "Helvetica Neue", Arial, system-ui, sans-serif;
+	--font-sans: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+	--font-mono: "IBM Plex Mono", "SFMono-Regular", Consolas, monospace;
 
 	/* ==========================================================
-	   Theme colors
-	   Actual colors live here. Components should use these roles.
+	   Final palette matrix
+	   Raw colors come from palette-matrix-final.json.
 	   ========================================================== */
 
-	--color-page: #f8ece4;
-	--color-page-gradient: #f8ece4;
+	--palette-light-paper-base: #fbf4ec;
+	--palette-light-paper-active: #fffaf6;
+	--palette-light-paper-muted: #f6eadf;
+	--palette-light-shell-base: #f8ece4;
+	--palette-light-shell-active: #f2ddd4;
+	--palette-light-shell-muted: #fbf3ee;
+	--palette-light-rose-base: #d8aaa0;
+	--palette-light-rose-active: #c99084;
+	--palette-light-rose-muted: #ead6cf;
+	--palette-light-blue-base: #bcc8d4;
+	--palette-light-blue-active: #50677c;
+	--palette-light-blue-muted: #d6dde7;
 
-	--color-header-bg: linear-gradient(
-		90deg,
-		rgba(232, 199, 187, 0.2) 0%,
-		rgba(248, 236, 228, 0.98) 50%,
-		rgba(188, 200, 212, 0.52) 100%
-	);
-	--color-header-text: rgb(16, 22, 29);
-	--color-header-link: #50677c;
-	--color-header-border: rgba(127, 98, 91, 0.22);
+	--palette-dark-navy-base: #202b45;
+	--palette-dark-navy-active: #2b3856;
+	--palette-dark-navy-muted: #1b253c;
+	--palette-dark-glass-base: #10161d;
+	--palette-dark-glass-active: #1a2430;
+	--palette-dark-glass-muted: #26323f;
+	--palette-dark-blue-base: #50677c;
+	--palette-dark-blue-active: #6c8398;
+	--palette-dark-blue-muted: #35495d;
+	--palette-dark-mist-base: #bcc8d4;
+	--palette-dark-mist-active: #d6dde7;
+	--palette-dark-mist-muted: #8798aa;
+	--palette-dark-rose-base: #d8aaa0;
+	--palette-dark-rose-active: #e8c7bb;
+	--palette-dark-rose-muted: #a9827a;
 
-	--color-text: rgb(16, 22, 29);
-	--color-muted: #50677c;
-	--color-soft: #7f625b;
-	--color-subtle: #7f625b;
+	--text-ink: #10161d;
+	--text-shadow-blue: #50677c;
+	--text-cocoa: #7f625b;
+	--text-rose-active: #d8aaa0;
+	--text-paper: #fbf4ec;
 
-	--color-surface: #f1e1d3;
-	--color-surface-soft: #fbf4ec;
+	--on-paper: #10161d;
+	--on-shell: #10161d;
+	--on-rose: #10161d;
+	--on-blue: #10161d;
+	--on-blue-active: #fbf4ec;
+	--on-navy: #fbf4ec;
+	--on-glass: #fbf4ec;
+	--on-mist: #10161d;
 
-	--color-border: rgba(127, 98, 91, 0.24);
-	--color-border-soft: rgba(216, 170, 160, 0.28);
-	--color-border-strong: rgba(127, 98, 91, 0.42);
+	--hero-background-light: linear-gradient(120deg, #fbf4ec 0%, #fffaf6 42%, #f6eadf 68%, rgba(188, 200, 212, 0.42) 100%);
+	--hero-background-dark: linear-gradient(135deg, #10161d 0%, #10161d 52%, #1a2430 100%);
+	--hero-statement-light: linear-gradient(90deg, #6486a6 0%, #ce88bb 48%, #ca9163 100%);
+	--hero-statement-dark: linear-gradient(90deg, #6486a6 0%, #ce88bb 48%, #ca9163 100%);
 
-	--color-accent: #50677c;
-	--color-accent-wash: rgba(216, 170, 160, 0.16);
+	/* ==========================================================
+	   Semantic roles and compatibility aliases
+	   Existing components consume these names.
+	   ========================================================== */
 
-	--color-link: #50677c;
-	--color-link-hover: #7f625b;
-	--color-focus: #50677c;
+	--color-page: var(--palette-light-paper-base);
+	--color-page-gradient: var(--palette-light-paper-base);
+	--color-text: var(--text-ink);
+	--color-muted: var(--text-shadow-blue);
+	--color-soft: var(--text-cocoa);
+	--color-subtle: var(--text-shadow-blue);
 
-	--color-button-primary-bg: rgb(16, 22, 29);
-	--color-button-primary-text: #fbf4ec;
+	--color-bg: var(--palette-light-paper-active);
+	--color-surface: var(--palette-light-shell-muted);
+	--color-surface-soft: var(--palette-light-paper-active);
+	--color-section-bg: var(--palette-light-paper-active);
+	--color-section-alt-bg: var(--palette-light-paper-active);
+	--color-section-contrast-bg: var(--palette-light-shell-base);
 
-	--color-card-bg: #f1e1d3;
-	--color-card-bg-hover: #fbf4ec;
-	--color-card-border: rgba(216, 170, 160, 0.28);
-	--color-card-border-hover: rgba(127, 98, 91, 0.38);
+	--color-border: color-mix(in srgb, var(--text-cocoa) 24%, transparent);
+	--color-border-soft: color-mix(in srgb, var(--palette-light-rose-base) 30%, transparent);
+	--color-border-strong: color-mix(in srgb, var(--text-cocoa) 46%, transparent);
 
-	--color-quote-bg: rgba(251, 244, 236, 0.42);
-	--color-quote-text: #7f625b;
+	--color-accent: var(--palette-light-blue-active);
+	--color-warm-accent: var(--palette-light-rose-base);
+	--color-accent-wash: var(--palette-light-rose-muted);
+	--color-focus: var(--palette-light-blue-active);
 
-	--color-bg: #f8ece4;
+	--color-link: var(--text-shadow-blue);
+	--color-link-hover: var(--text-cocoa);
 
-	--hero-gradient: linear-gradient(
-		120deg,
-		rgba(248, 236, 228, 1) 0%,
-		rgba(232, 199, 187, 0.7) 50%,
-		rgba(43, 56, 86, 0.2) 100%
-	);
-	--hero-video-overlay: rgba(248, 236, 228, 0.18);
-	--slogan-gradient: linear-gradient(
-		90deg,
-		rgba(58, 87, 116, 0.98) 0%,
-		rgba(180, 105, 164, 0.82) 50%,
-		rgba(223, 134, 93, 0.98) 100%
-	);
+	--color-header-bg: var(--palette-light-shell-base);
+	--color-header-text: var(--text-ink);
+	--color-header-link: var(--palette-light-blue-active);
+	--color-header-link-hover: var(--text-cocoa);
+	--color-header-active: var(--text-ink);
+	--color-header-border: color-mix(in srgb, var(--text-cocoa) 22%, transparent);
+
+	--hero-gradient: var(--hero-background-light);
+	--slogan-gradient: var(--hero-statement-light);
+	--hero-video-overlay: color-mix(in srgb, var(--palette-light-paper-base) 18%, transparent);
+	--color-hero-text: var(--text-ink);
+	--color-hero-kicker: var(--palette-light-blue-active);
+	--color-hero-link: var(--text-ink);
+	--color-hero-link-hover: var(--palette-light-rose-base);
+	--color-hero-proof-value: var(--palette-light-rose-base);
+	--color-hero-proof-label: var(--text-cocoa);
+
+	--color-button-primary-bg: var(--palette-light-blue-active);
+	--color-button-primary-text: var(--text-paper);
+	--color-button-primary-state-bg: var(--palette-light-rose-base);
+	--color-button-primary-state-text: var(--text-ink);
+	--color-button-secondary-text: var(--text-shadow-blue);
+	--color-button-secondary-state-text: var(--text-cocoa);
+
+	--color-card-bg: var(--palette-light-shell-muted);
+	--color-card-bg-hover: var(--palette-light-shell-base);
+	--color-card-border: color-mix(in srgb, var(--palette-light-rose-base) 30%, transparent);
+	--color-card-border-hover: color-mix(in srgb, var(--text-cocoa) 40%, transparent);
+
+	--color-card-title: var(--text-ink);
+	--color-card-meta: var(--text-shadow-blue);
+	--color-tag-text: var(--text-ink);
+	--color-tag-active-bg: var(--palette-light-blue-active);
+	--color-tag-active-text: var(--text-paper);
+
+	--color-quote-bg: var(--palette-light-paper-active);
+	--color-quote-text: var(--text-cocoa);
+
+	--color-footer-bg: var(--palette-light-shell-base);
+	--color-footer-text: var(--text-shadow-blue);
+	--color-footer-link: var(--text-shadow-blue);
+	--color-footer-link-hover: var(--text-cocoa);
+	--color-footer-border: color-mix(in srgb, var(--text-cocoa) 22%, transparent);
 
 	/* Layout */
 	--content-width: 1120px;
@@ -104,64 +170,75 @@
 }
 
 :root[data-theme="dark"] {
-	--color-page: rgb(33, 52, 68);
-	--color-page-gradient: rgb(33, 52, 68);
+	--color-page: var(--palette-dark-navy-base);
+	--color-page-gradient: var(--palette-dark-navy-base);
+	--color-text: var(--text-paper);
+	--color-muted: var(--palette-dark-mist-base);
+	--color-soft: var(--palette-dark-mist-muted);
+	--color-subtle: var(--palette-dark-mist-base);
 
-	--color-header-bg: linear-gradient(
-		90deg,
-		rgba(33, 52, 68, 0.98) 0%,
-		rgba(33, 52, 68, 0.98) 50%,
-		rgba(127, 98, 91, 0.86) 100%
-	);
-	--color-header-text: #fbf4ec;
-	--color-header-link: #bcc8d4;
-	--color-header-border: rgba(188, 200, 212, 0.24);
+	--color-bg: var(--palette-dark-glass-active);
+	--color-surface: var(--palette-dark-glass-muted);
+	--color-surface-soft: var(--palette-dark-glass-active);
+	--color-section-bg: var(--palette-dark-glass-active);
+	--color-section-alt-bg: var(--palette-dark-glass-active);
+	--color-section-contrast-bg: var(--palette-dark-glass-base);
 
-	--color-text: #fbf4ec;
-	--color-muted: rgba(214, 221, 231, 0.84);
-	--color-soft: rgba(188, 200, 212, 0.72);
-	--color-subtle: rgba(188, 200, 212, 0.72);
+	--color-border: color-mix(in srgb, var(--palette-dark-mist-base) 22%, transparent);
+	--color-border-soft: color-mix(in srgb, var(--palette-dark-mist-base) 14%, transparent);
+	--color-border-strong: color-mix(in srgb, var(--palette-dark-mist-active) 34%, transparent);
 
-	--color-surface: #35495d;
-	--color-surface-soft: rgb(16, 22, 29);
+	--color-accent: var(--palette-dark-mist-base);
+	--color-warm-accent: var(--palette-dark-rose-base);
+	--color-accent-wash: var(--palette-dark-blue-muted);
+	--color-focus: var(--palette-dark-mist-active);
 
-	--color-border: rgba(188, 200, 212, 0.22);
-	--color-border-soft: rgba(188, 200, 212, 0.14);
-	--color-border-strong: rgba(214, 221, 231, 0.34);
+	--color-link: var(--text-rose-active);
+	--color-link-hover: var(--palette-dark-mist-base);
 
-	--color-accent: rgb(216, 170, 160);
-	--color-accent-wash: rgba(216, 170, 160, 0.1);
+	--color-header-bg: var(--palette-dark-glass-base);
+	--color-header-text: var(--text-paper);
+	--color-header-link: var(--palette-dark-mist-base);
+	--color-header-link-hover: var(--palette-dark-mist-base);
+	--color-header-active: var(--text-paper);
+	--color-header-border: color-mix(in srgb, var(--palette-dark-mist-base) 24%, transparent);
 
-	--color-link: #fbf4ec;
-	--color-link-hover: #bcc8d4;
-	--color-focus: rgb(216, 170, 160);
+	--hero-gradient: var(--hero-background-dark);
+	--slogan-gradient: var(--hero-statement-dark);
+	--hero-video-overlay: color-mix(in srgb, var(--palette-dark-glass-base) 20%, transparent);
+	--color-hero-text: var(--text-paper);
+	--color-hero-kicker: var(--palette-dark-mist-base);
+	--color-hero-link: var(--text-paper);
+	--color-hero-link-hover: var(--palette-dark-rose-base);
+	--color-hero-proof-value: var(--text-rose-active);
+	--color-hero-proof-label: var(--palette-dark-mist-muted);
 
-	--color-button-primary-bg: #fbf4ec;
-	--color-button-primary-text: rgb(16, 22, 29);
+	--color-button-primary-bg: var(--palette-dark-rose-base);
+	--color-button-primary-text: var(--text-ink);
+	--color-button-primary-state-bg: var(--palette-dark-mist-active);
+	--color-button-primary-state-text: var(--text-ink);
+	--color-button-secondary-text: var(--text-rose-active);
+	--color-button-secondary-state-text: var(--palette-dark-mist-base);
 
-	--color-card-bg: #35495d;
-	--color-card-bg-hover: rgb(16, 22, 29);
-	--color-card-border: rgba(188, 200, 212, 0.18);
-	--color-card-border-hover: rgba(214, 221, 231, 0.34);
+	--color-card-bg: var(--palette-dark-glass-muted);
+	--color-card-bg-hover: var(--palette-dark-blue-muted);
+	--color-card-border: color-mix(in srgb, var(--palette-dark-mist-base) 18%, transparent);
+	--color-card-border-hover: color-mix(in srgb, var(--palette-dark-mist-active) 34%, transparent);
 
-	--color-quote-bg: rgba(16, 22, 29, 0.24);
-	--color-quote-text: #e8c7bb;
+	--color-card-title: var(--text-paper);
+	--color-card-meta: var(--palette-dark-mist-base);
+	--color-tag-text: var(--text-paper);
+	--color-tag-active-bg: var(--palette-dark-rose-base);
+	--color-tag-active-text: var(--text-ink);
 
-	--color-bg: rgb(33, 52, 68);
+	--color-quote-bg: transparent;
+	--color-quote-text: var(--palette-dark-rose-active);
 
-	--hero-gradient: linear-gradient(
-		120deg,
-		rgba(16, 22, 29, 1) 0%,
-		rgba(32, 46, 61, 0.9) 50%,
-		rgba(127, 98, 91, 0.4) 100%
-	);
-	--hero-video-overlay: rgba(16, 22, 29, 0.2);
-	--slogan-gradient: linear-gradient(
-		90deg,
-		rgba(63, 107, 151, 0.98) 0%,
-		rgba(180, 105, 164, 0.82) 50%,
-		rgba(223, 134, 93, 0.98) 100%
-	);
+	--color-footer-bg: var(--palette-dark-glass-base);
+	--color-footer-text: var(--text-paper);
+	--color-footer-link: var(--text-paper);
+	--color-footer-link-hover: var(--palette-dark-mist-base);
+	--color-footer-border: color-mix(in srgb, var(--palette-dark-mist-base) 24%, transparent);
 
 	color-scheme: dark;
 }
@@ -221,7 +298,7 @@ h2,
 h3 {
 	margin: 0;
 	color: var(--color-text);
-	font-family: var(--font-sans);
+	font-family: var(--font-display);
 	font-weight: 600;
 	line-height: 1.2;
 	letter-spacing: 0;
@@ -345,7 +422,8 @@ li::marker {
 	border: 1px solid var(--color-border);
 	background: transparent;
 	padding: 0.45rem 0.9rem;
-	color: var(--color-text);
+	color: var(--color-button-secondary-text);
+	font-family: var(--font-mono);
 	font-size: 0.9rem;
 	font-weight: 600;
 	text-decoration: none;
@@ -359,7 +437,7 @@ li::marker {
 .button:hover,
 .button:focus-visible {
 	border-color: var(--color-accent);
-	color: var(--color-accent);
+	color: var(--color-button-secondary-state-text);
 	transform: translateY(-1px);
 }
 
@@ -371,8 +449,9 @@ li::marker {
 
 .button.primary:hover,
 .button.primary:focus-visible {
-	background: transparent;
-	color: var(--color-accent);
+	border-color: var(--color-button-primary-state-bg);
+	background: var(--color-button-primary-state-bg);
+	color: var(--color-button-primary-state-text);
 }
 
 .button:active {
@@ -407,7 +486,7 @@ li::marker {
 .tag {
 	display: inline-flex;
 	align-items: center;
-	color: var(--color-accent);
+	color: var(--color-tag-text);
 	font-family: var(--font-mono);
 	font-size: 0.78rem;
 	font-weight: 600;

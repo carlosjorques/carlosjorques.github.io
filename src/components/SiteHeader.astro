@@ -38,7 +38,8 @@ const isActive = (href: string) => {
 		--header-text: var(--color-header-text);
 		--header-link: var(--color-header-link);
 		--header-border: var(--color-header-border);
-		--header-accent: var(--color-header-text);
+		--header-hover: var(--color-header-link-hover);
+		--header-active: var(--color-header-active);
 
 		background: var(--header-bg);
 		border-bottom: 1px solid var(--header-border);
@@ -53,7 +54,8 @@ const isActive = (href: string) => {
 		--header-text: var(--color-header-text);
 		--header-link: var(--color-header-link);
 		--header-border: var(--color-header-border);
-		--header-accent: var(--color-header-text);
+		--header-hover: var(--color-header-link-hover);
+		--header-active: var(--color-header-active);
 	}
 
 	.site-header__inner {
@@ -67,6 +69,7 @@ const isActive = (href: string) => {
 	.site-header__brand {
 		color: var(--header-text);
 		text-decoration: none;
+		font-family: var(--font-display);
 		font-size: 0.95rem;
 		font-weight: 600;
 		letter-spacing: 0.04em;
@@ -83,6 +86,7 @@ const isActive = (href: string) => {
 	.site-header__nav a {
 		color: var(--header-link);
 		text-decoration: none;
+		font-family: var(--font-mono);
 		font-size: 0.9rem;
 		font-weight: 500;
 		border-bottom: 1px solid transparent;
@@ -95,10 +99,14 @@ const isActive = (href: string) => {
 	}
 
 	.site-header__nav a:hover,
-	.site-header__nav a:focus-visible,
+	.site-header__nav a:focus-visible {
+		color: var(--header-hover);
+		border-bottom-color: var(--header-hover);
+	}
+
 	.site-header__nav a[aria-current="page"] {
-		color: var(--header-accent);
-		border-bottom-color: var(--header-accent);
+		color: var(--header-active);
+		border-bottom-color: var(--header-active);
 	}
 
 	.site-header__nav a:hover,
@@ -139,7 +147,7 @@ const isActive = (href: string) => {
 	}
 
 	.theme-toggle:hover {
-		color: var(--header-accent);
+		color: var(--header-active);
 	}
 
 	.theme-toggle:focus-visible {
