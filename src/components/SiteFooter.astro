@@ -17,16 +17,10 @@ const withBase = (href: string) => (href === '/' ? baseUrl : `${baseUrl}${href.r
 
 <style>
 	.site-footer {
-		--footer-bg: var(--color-footer-bg);
-		--footer-text: var(--color-footer-text);
-		--footer-link: var(--color-footer-link);
-		--footer-border: var(--color-footer-border);
-		--footer-accent: var(--color-footer-link-hover);
-
-		border-top: 1px solid var(--footer-border);
-		background: var(--footer-bg);
+		border-top: 1px solid var(--color-footer-border);
+		background: var(--color-footer-bg);
 		padding-block: 2rem;
-		color: var(--footer-text);
+		color: var(--color-footer-text);
 	}
 
 	.site-footer__inner {
@@ -39,7 +33,7 @@ const withBase = (href: string) => (href === '/' ? baseUrl : `${baseUrl}${href.r
 	}
 
 	.site-footer__inner > span {
-		color: var(--footer-text);
+		color: var(--color-footer-text);
 	}
 
 	.site-footer__links {
@@ -54,7 +48,7 @@ const withBase = (href: string) => (href === '/' ? baseUrl : `${baseUrl}${href.r
 	}
 
 	.site-footer__links a {
-		color: var(--footer-link);
+		color: var(--color-footer-link);
 		text-decoration: none;
 		border-bottom: 1px solid transparent;
 		padding-bottom: 0.15rem;
@@ -66,8 +60,8 @@ const withBase = (href: string) => (href === '/' ? baseUrl : `${baseUrl}${href.r
 
 	.site-footer__links a:hover,
 	.site-footer__links a:focus-visible {
-		color: var(--footer-accent);
-		border-bottom-color: var(--footer-accent);
+		color: var(--color-footer-link-hover);
+		border-bottom-color: var(--color-footer-link-hover);
 		transform: translateY(-1px);
 	}
 

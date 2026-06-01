@@ -6,26 +6,19 @@
 	--font-mono: "IBM Plex Mono", "SFMono-Regular", Consolas, monospace;
 
 	/* ==========================================================
-	   Final palette matrix
-	   Raw colors come from palette-matrix-5-minimal.json.
+	   Palette tokens from palette-matrix-5-minimal.json
+	   Only tokens used by the current site are defined here.
 	   ========================================================== */
 
 	--palette-light-paper-base: #fbf4ec;
 	--palette-light-paper-active: #fffaf6;
-	--palette-light-paper-muted: #f6eadf;
 	--palette-light-shell-base: #f8ece4;
-	--palette-light-shell-active: #f2ddd4;
 	--palette-light-shell-muted: #fbf3ee;
 	--palette-light-rose-base: #d8aaa0;
-	--palette-light-rose-active: #c99084;
 	--palette-light-rose-muted: #ead6cf;
-	--palette-light-blue-base: #bcc8d4;
 	--palette-light-blue-active: #50677c;
-	--palette-light-blue-muted: #d6dde7;
 
 	--palette-dark-navy-base: #202b45;
-	--palette-dark-navy-active: #2b3856;
-	--palette-dark-navy-muted: #1b253c;
 	--palette-dark-glass-base: #10161d;
 	--palette-dark-glass-active: #1a2430;
 	--palette-dark-glass-muted: #26323f;
@@ -34,7 +27,6 @@
 	--palette-dark-blue-muted: #35495d;
 	--palette-dark-rose-base: #d8aaa0;
 	--palette-dark-rose-active: #e8c7bb;
-	--palette-dark-rose-muted: #a9827a;
 
 	--text-ink: #10161d;
 	--text-shadow-blue: #50677c;
@@ -42,22 +34,13 @@
 	--text-rose-active: #d8aaa0;
 	--text-paper: #fbf4ec;
 
-	--on-paper: #10161d;
-	--on-shell: #10161d;
-	--on-rose: #10161d;
-	--on-blue: #10161d;
-	--on-blue-active: #fbf4ec;
-	--on-navy: #fbf4ec;
-	--on-glass: #fbf4ec;
-
 	--hero-background-light: linear-gradient(120deg, #fbf4ec 0%, #fffaf6 42%, #f6eadf 68%, rgba(188, 200, 212, 0.42) 100%);
 	--hero-background-dark: linear-gradient(135deg, #10161d 0%, #10161d 52%, #1a2430 100%);
 	--hero-statement-light: linear-gradient(90deg, #6486a6 0%, #ce88bb 48%, #ca9163 100%);
 	--hero-statement-dark: linear-gradient(90deg, #6486a6 0%, #ce88bb 48%, #ca9163 100%);
 
 	/* ==========================================================
-	   Semantic roles and compatibility aliases
-	   Existing components consume these names.
+	   Semantic color roles consumed by components.
 	   ========================================================== */
 
 	--color-page: var(--palette-light-paper-base);
@@ -71,15 +54,12 @@
 	--color-surface: var(--palette-light-shell-muted);
 	--color-surface-soft: var(--palette-light-paper-active);
 	--color-section-bg: var(--palette-light-paper-active);
-	--color-section-alt-bg: var(--palette-light-paper-active);
-	--color-section-contrast-bg: var(--palette-light-shell-base);
 
 	--color-border: color-mix(in srgb, var(--text-cocoa) 24%, transparent);
 	--color-border-soft: color-mix(in srgb, var(--palette-light-rose-base) 30%, transparent);
 	--color-border-strong: color-mix(in srgb, var(--text-cocoa) 46%, transparent);
 
 	--color-accent: var(--palette-light-blue-active);
-	--color-warm-accent: var(--palette-light-rose-base);
 	--color-accent-wash: var(--palette-light-rose-muted);
 	--color-focus: var(--palette-light-blue-active);
 
@@ -115,11 +95,7 @@
 	--color-card-border: color-mix(in srgb, var(--palette-light-rose-base) 30%, transparent);
 	--color-card-border-hover: color-mix(in srgb, var(--text-cocoa) 40%, transparent);
 
-	--color-card-title: var(--text-ink);
-	--color-card-meta: var(--text-shadow-blue);
 	--color-tag-text: var(--text-ink);
-	--color-tag-active-bg: var(--palette-light-blue-active);
-	--color-tag-active-text: var(--text-paper);
 
 	--color-quote-bg: var(--palette-light-paper-active);
 	--color-quote-text: var(--text-cocoa);
@@ -135,7 +111,6 @@
 	--content-narrow: 760px;
 	--measure-reading: 760px;
 	--measure-compact: 620px;
-	--site-header-height: 68px;
 
 	/* Spacing */
 	--spacing-01: 0.125rem;
@@ -145,7 +120,6 @@
 	--spacing-05: 1rem;
 	--spacing-06: 1.5rem;
 	--spacing-07: 2rem;
-	--spacing-08: 2.5rem;
 	--spacing-09: 3rem;
 	--spacing-10: 4rem;
 
@@ -156,8 +130,6 @@
 	--motion-duration-moderate-02: 240ms;
 	--motion-duration-slow-01: 400ms;
 	--motion-standard-productive: cubic-bezier(0.2, 0, 0.38, 0.9);
-	--motion-entrance-productive: cubic-bezier(0, 0, 0.38, 0.9);
-	--motion-standard-expressive: cubic-bezier(0.4, 0.14, 0.3, 1);
 	--motion-entrance-expressive: cubic-bezier(0, 0, 0.3, 1);
 
 	--radius: 4px;
@@ -177,15 +149,12 @@
 	--color-surface: var(--palette-dark-glass-muted);
 	--color-surface-soft: var(--palette-dark-glass-active);
 	--color-section-bg: var(--palette-dark-glass-active);
-	--color-section-alt-bg: var(--palette-dark-glass-active);
-	--color-section-contrast-bg: var(--palette-dark-glass-base);
 
 	--color-border: color-mix(in srgb, var(--palette-dark-blue-base) 22%, transparent);
 	--color-border-soft: color-mix(in srgb, var(--palette-dark-blue-base) 14%, transparent);
 	--color-border-strong: color-mix(in srgb, var(--palette-dark-blue-active) 34%, transparent);
 
 	--color-accent: var(--palette-dark-blue-base);
-	--color-warm-accent: var(--palette-dark-rose-base);
 	--color-accent-wash: var(--palette-dark-blue-muted);
 	--color-focus: var(--palette-dark-blue-active);
 
@@ -221,11 +190,7 @@
 	--color-card-border: color-mix(in srgb, var(--palette-dark-blue-base) 18%, transparent);
 	--color-card-border-hover: color-mix(in srgb, var(--palette-dark-blue-active) 34%, transparent);
 
-	--color-card-title: var(--text-paper);
-	--color-card-meta: var(--palette-dark-blue-base);
 	--color-tag-text: var(--text-paper);
-	--color-tag-active-bg: var(--palette-dark-rose-base);
-	--color-tag-active-text: var(--text-ink);
 
 	--color-quote-bg: transparent;
 	--color-quote-text: var(--palette-dark-rose-active);

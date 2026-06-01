@@ -34,28 +34,12 @@ const isActive = (href: string) => {
 
 <style>
 	.site-header {
-		--header-bg: var(--color-header-bg);
-		--header-text: var(--color-header-text);
-		--header-link: var(--color-header-link);
-		--header-border: var(--color-header-border);
-		--header-hover: var(--color-header-link-hover);
-		--header-active: var(--color-header-active);
-
-		background: var(--header-bg);
-		border-bottom: 1px solid var(--header-border);
+		background: var(--color-header-bg);
+		border-bottom: 1px solid var(--color-header-border);
 		transition:
 			background-color var(--motion-duration-moderate-01) var(--motion-standard-productive),
 			border-color var(--motion-duration-moderate-01) var(--motion-standard-productive),
 			color var(--motion-duration-moderate-01) var(--motion-standard-productive);
-	}
-
-	:global(:root[data-theme="dark"]) .site-header {
-		--header-bg: var(--color-header-bg);
-		--header-text: var(--color-header-text);
-		--header-link: var(--color-header-link);
-		--header-border: var(--color-header-border);
-		--header-hover: var(--color-header-link-hover);
-		--header-active: var(--color-header-active);
 	}
 
 	.site-header__inner {
@@ -67,7 +51,7 @@ const isActive = (href: string) => {
 	}
 
 	.site-header__brand {
-		color: var(--header-text);
+		color: var(--color-header-text);
 		text-decoration: none;
 		font-family: var(--font-display);
 		font-size: 0.95rem;
@@ -84,7 +68,7 @@ const isActive = (href: string) => {
 	}
 
 	.site-header__nav a {
-		color: var(--header-link);
+		color: var(--color-header-link);
 		text-decoration: none;
 		font-family: var(--font-mono);
 		font-size: 0.9rem;
@@ -100,13 +84,13 @@ const isActive = (href: string) => {
 
 	.site-header__nav a:hover,
 	.site-header__nav a:focus-visible {
-		color: var(--header-hover);
-		border-bottom-color: var(--header-hover);
+		color: var(--color-header-link-hover);
+		border-bottom-color: var(--color-header-link-hover);
 	}
 
 	.site-header__nav a[aria-current="page"] {
-		color: var(--header-active);
-		border-bottom-color: var(--header-active);
+		color: var(--color-header-active);
+		border-bottom-color: var(--color-header-active);
 	}
 
 	.site-header__nav a:hover,
@@ -122,7 +106,6 @@ const isActive = (href: string) => {
 
 	.theme-toggle {
 		--toggle-size: 24px;
-		--toggle-icon: var(--header-link);
 
 		display: inline-flex;
 		width: var(--toggle-size);
@@ -132,7 +115,7 @@ const isActive = (href: string) => {
 		border: 0;
 		border-radius: 99em;
 		background: transparent;
-		color: var(--toggle-icon);
+		color: var(--color-header-link);
 		cursor: pointer;
 		position: relative;
 		margin: 0;
@@ -142,12 +125,8 @@ const isActive = (href: string) => {
 			color var(--motion-duration-fast-02) var(--motion-standard-productive);
 	}
 
-	:global(:root[data-theme="dark"]) .theme-toggle {
-		--toggle-icon: var(--header-link);
-	}
-
 	.theme-toggle:hover {
-		color: var(--header-active);
+		color: var(--color-header-active);
 	}
 
 	.theme-toggle:focus-visible {
