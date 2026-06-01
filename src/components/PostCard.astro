@@ -15,7 +15,8 @@ interface Props {
 
 const { slug, data } = Astro.props;
 const baseUrl = import.meta.env.BASE_URL;
-const postUrl = `${baseUrl}writing/${slug}/`;
+const normalizedBase = baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`;
+const postUrl = `${normalizedBase}writing/${slug}/`;
 const label = data.draft ? 'Planned article' : data.publishDate.toLocaleDateString('en', {
 	year: 'numeric',
 	month: 'short',

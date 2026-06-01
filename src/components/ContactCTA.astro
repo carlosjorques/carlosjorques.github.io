@@ -9,6 +9,7 @@ const {
 	body = 'Use the contact page for verified contact details and CV availability. First-draft contact links remain launch placeholders until public details are confirmed.',
 } = Astro.props;
 const baseUrl = import.meta.env.BASE_URL;
+const normalizedBase = baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`;
 ---
 
 <section class="contact-cta">
@@ -18,8 +19,8 @@ const baseUrl = import.meta.env.BASE_URL;
 		<p>{body}</p>
 	</div>
 	<div class="button-row">
-		<a class="button primary" href={`${baseUrl}contact/`}>Contact me</a>
-		<a class="button" href={`${baseUrl}cases/`}>View cases</a>
+		<a class="button primary" href={`${normalizedBase}contact/`}>Contact me</a>
+		<a class="button" href={`${normalizedBase}cases/`}>View cases</a>
 	</div>
 </section>
 

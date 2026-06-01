@@ -1,7 +1,8 @@
 ---
 const baseUrl = import.meta.env.BASE_URL;
-const withBase = (href: string) => (href === '/' ? baseUrl : `${baseUrl}${href.replace(/^\//, '')}`);
-const heroVideoUrl = `${baseUrl}videos/333466_1_5.mp4`;
+const normalizedBase = baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`;
+const withBase = (href: string) => (href === '/' ? normalizedBase : `${normalizedBase}${href.replace(/^\//, '')}`);
+const heroVideoUrl = `${normalizedBase}videos/333466_1_5.mp4`;
 ---
 
 <section class="hero-area">

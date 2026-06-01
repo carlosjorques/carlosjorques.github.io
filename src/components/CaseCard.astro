@@ -15,7 +15,8 @@ interface Props {
 
 const { slug, data } = Astro.props;
 const baseUrl = import.meta.env.BASE_URL;
-const caseUrl = `${baseUrl}cases/${slug}/`;
+const normalizedBase = baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`;
+const caseUrl = `${normalizedBase}cases/${slug}/`;
 const demonstratesByTitle: Record<string, string> = {
 	'Embedded Control System Architecture':
 		'Ability to define the control system boundary, interfaces, and production architecture.',
