@@ -6,19 +6,26 @@
 	--font-mono: "IBM Plex Mono", "SFMono-Regular", Consolas, monospace;
 
 	/* ==========================================================
-	   Palette tokens from palette-matrix-5-minimal.json
+	   Palette tokens from palette-matrix-5-minimal-reviewed.json
 	   Only tokens used by the current site are defined here.
 	   ========================================================== */
 
 	--palette-light-paper-base: #fbf4ec;
 	--palette-light-paper-active: #fffaf6;
+	--palette-light-paper-muted: #f6eadf;
 	--palette-light-shell-base: #f8ece4;
+	--palette-light-shell-active: #f2ddd4;
 	--palette-light-shell-muted: #fbf3ee;
+	--palette-light-blue-base: #bcc8d4;
 	--palette-light-rose-base: #d8aaa0;
+	--palette-light-rose-active: #c99084;
 	--palette-light-rose-muted: #ead6cf;
 	--palette-light-blue-active: #50677c;
+	--palette-light-blue-muted: #d6dde7;
 
 	--palette-dark-navy-base: #202b45;
+	--palette-dark-navy-active: #2b3856;
+	--palette-dark-navy-muted: #1b253c;
 	--palette-dark-glass-base: #10161d;
 	--palette-dark-glass-active: #1a2430;
 	--palette-dark-glass-muted: #26323f;
@@ -27,6 +34,7 @@
 	--palette-dark-blue-muted: #35495d;
 	--palette-dark-rose-base: #d8aaa0;
 	--palette-dark-rose-active: #e8c7bb;
+	--palette-dark-rose-muted: #a9827a;
 
 	--text-ink: #10161d;
 	--text-shadow-blue: #50677c;
@@ -54,7 +62,7 @@
 	--color-bg: var(--palette-light-paper-active);
 	--color-surface: var(--palette-light-shell-muted);
 	--color-surface-soft: var(--palette-light-paper-active);
-	--color-section-bg: var(--palette-light-paper-base);
+	--color-section-bg: var(--palette-light-paper-active);
 
 	--color-border: color-mix(in srgb, var(--text-cocoa) 24%, transparent);
 	--color-border-soft: color-mix(in srgb, var(--palette-light-rose-base) 30%, transparent);
@@ -150,7 +158,7 @@
 	--color-bg: var(--palette-dark-glass-active);
 	--color-surface: var(--palette-dark-glass-muted);
 	--color-surface-soft: var(--palette-dark-glass-active);
-	--color-section-bg: var(--palette-dark-navy-base);
+	--color-section-bg: var(--palette-dark-glass-active);
 
 	--color-border: color-mix(in srgb, var(--palette-dark-blue-base) 22%, transparent);
 	--color-border-soft: color-mix(in srgb, var(--palette-dark-blue-base) 14%, transparent);
@@ -195,7 +203,7 @@
 	--color-tag-text: var(--text-paper);
 
 	--color-quote-bg: transparent;
-	--color-quote-text: var(--palette-dark-rose-active);
+	--color-quote-text: var(--text-rose-active);
 
 	--color-footer-bg: var(--palette-dark-glass-base);
 	--color-footer-text: var(--text-paper);
