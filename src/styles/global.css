@@ -7,7 +7,7 @@
 
 	/* ==========================================================
 	   Final palette matrix
-	   Raw colors come from palette-matrix-final.json.
+	   Raw colors come from palette-matrix-5-minimal.json.
 	   ========================================================== */
 
 	--palette-light-paper-base: #fbf4ec;
@@ -29,12 +29,9 @@
 	--palette-dark-glass-base: #10161d;
 	--palette-dark-glass-active: #1a2430;
 	--palette-dark-glass-muted: #26323f;
-	--palette-dark-blue-base: #50677c;
-	--palette-dark-blue-active: #6c8398;
+	--palette-dark-blue-base: #bcc8d4;
+	--palette-dark-blue-active: #d6dde7;
 	--palette-dark-blue-muted: #35495d;
-	--palette-dark-mist-base: #bcc8d4;
-	--palette-dark-mist-active: #d6dde7;
-	--palette-dark-mist-muted: #8798aa;
 	--palette-dark-rose-base: #d8aaa0;
 	--palette-dark-rose-active: #e8c7bb;
 	--palette-dark-rose-muted: #a9827a;
@@ -52,7 +49,6 @@
 	--on-blue-active: #fbf4ec;
 	--on-navy: #fbf4ec;
 	--on-glass: #fbf4ec;
-	--on-mist: #10161d;
 
 	--hero-background-light: linear-gradient(120deg, #fbf4ec 0%, #fffaf6 42%, #f6eadf 68%, rgba(188, 200, 212, 0.42) 100%);
 	--hero-background-dark: linear-gradient(135deg, #10161d 0%, #10161d 52%, #1a2430 100%);
@@ -173,9 +169,9 @@
 	--color-page: var(--palette-dark-navy-base);
 	--color-page-gradient: var(--palette-dark-navy-base);
 	--color-text: var(--text-paper);
-	--color-muted: var(--palette-dark-mist-base);
-	--color-soft: var(--palette-dark-mist-muted);
-	--color-subtle: var(--palette-dark-mist-base);
+	--color-muted: var(--palette-dark-blue-base);
+	--color-soft: var(--palette-dark-blue-base);
+	--color-subtle: var(--palette-dark-blue-base);
 
 	--color-bg: var(--palette-dark-glass-active);
 	--color-surface: var(--palette-dark-glass-muted);
@@ -184,49 +180,49 @@
 	--color-section-alt-bg: var(--palette-dark-glass-active);
 	--color-section-contrast-bg: var(--palette-dark-glass-base);
 
-	--color-border: color-mix(in srgb, var(--palette-dark-mist-base) 22%, transparent);
-	--color-border-soft: color-mix(in srgb, var(--palette-dark-mist-base) 14%, transparent);
-	--color-border-strong: color-mix(in srgb, var(--palette-dark-mist-active) 34%, transparent);
+	--color-border: color-mix(in srgb, var(--palette-dark-blue-base) 22%, transparent);
+	--color-border-soft: color-mix(in srgb, var(--palette-dark-blue-base) 14%, transparent);
+	--color-border-strong: color-mix(in srgb, var(--palette-dark-blue-active) 34%, transparent);
 
-	--color-accent: var(--palette-dark-mist-base);
+	--color-accent: var(--palette-dark-blue-base);
 	--color-warm-accent: var(--palette-dark-rose-base);
 	--color-accent-wash: var(--palette-dark-blue-muted);
-	--color-focus: var(--palette-dark-mist-active);
+	--color-focus: var(--palette-dark-blue-active);
 
 	--color-link: var(--text-rose-active);
-	--color-link-hover: var(--palette-dark-mist-base);
+	--color-link-hover: var(--palette-dark-blue-base);
 
 	--color-header-bg: var(--palette-dark-glass-base);
 	--color-header-text: var(--text-paper);
-	--color-header-link: var(--palette-dark-mist-base);
-	--color-header-link-hover: var(--palette-dark-mist-base);
+	--color-header-link: var(--palette-dark-blue-base);
+	--color-header-link-hover: var(--palette-dark-rose-base);
 	--color-header-active: var(--text-paper);
-	--color-header-border: color-mix(in srgb, var(--palette-dark-mist-base) 24%, transparent);
+	--color-header-border: color-mix(in srgb, var(--palette-dark-blue-base) 24%, transparent);
 
 	--hero-gradient: var(--hero-background-dark);
 	--slogan-gradient: var(--hero-statement-dark);
 	--hero-video-overlay: color-mix(in srgb, var(--palette-dark-glass-base) 20%, transparent);
 	--color-hero-text: var(--text-paper);
-	--color-hero-kicker: var(--palette-dark-mist-base);
+	--color-hero-kicker: var(--text-shadow-blue);
 	--color-hero-link: var(--text-paper);
 	--color-hero-link-hover: var(--palette-dark-rose-base);
 	--color-hero-proof-value: var(--text-rose-active);
-	--color-hero-proof-label: var(--palette-dark-mist-muted);
+	--color-hero-proof-label: var(--palette-dark-blue-base);
 
 	--color-button-primary-bg: var(--palette-dark-rose-base);
 	--color-button-primary-text: var(--text-ink);
-	--color-button-primary-state-bg: var(--palette-dark-mist-active);
+	--color-button-primary-state-bg: var(--palette-dark-blue-active);
 	--color-button-primary-state-text: var(--text-ink);
 	--color-button-secondary-text: var(--text-rose-active);
-	--color-button-secondary-state-text: var(--palette-dark-mist-base);
+	--color-button-secondary-state-text: var(--palette-dark-blue-base);
 
 	--color-card-bg: var(--palette-dark-glass-muted);
 	--color-card-bg-hover: var(--palette-dark-blue-muted);
-	--color-card-border: color-mix(in srgb, var(--palette-dark-mist-base) 18%, transparent);
-	--color-card-border-hover: color-mix(in srgb, var(--palette-dark-mist-active) 34%, transparent);
+	--color-card-border: color-mix(in srgb, var(--palette-dark-blue-base) 18%, transparent);
+	--color-card-border-hover: color-mix(in srgb, var(--palette-dark-blue-active) 34%, transparent);
 
 	--color-card-title: var(--text-paper);
-	--color-card-meta: var(--palette-dark-mist-base);
+	--color-card-meta: var(--palette-dark-blue-base);
 	--color-tag-text: var(--text-paper);
 	--color-tag-active-bg: var(--palette-dark-rose-base);
 	--color-tag-active-text: var(--text-ink);
@@ -237,8 +233,8 @@
 	--color-footer-bg: var(--palette-dark-glass-base);
 	--color-footer-text: var(--text-paper);
 	--color-footer-link: var(--text-paper);
-	--color-footer-link-hover: var(--palette-dark-mist-base);
-	--color-footer-border: color-mix(in srgb, var(--palette-dark-mist-base) 24%, transparent);
+	--color-footer-link-hover: var(--palette-dark-blue-base);
+	--color-footer-border: color-mix(in srgb, var(--palette-dark-blue-base) 24%, transparent);
 
 	color-scheme: dark;
 }
