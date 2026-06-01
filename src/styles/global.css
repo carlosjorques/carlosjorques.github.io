@@ -75,7 +75,7 @@
 	--color-link: var(--text-shadow-blue);
 	--color-link-hover: var(--text-cocoa);
 
-	--color-header-bg: var(--palette-light-shell-base);
+	--color-header-bg: color-mix(in srgb, var(--palette-light-shell-base) 92%, var(--palette-light-blue-muted));
 	--color-header-text: var(--text-ink);
 	--color-header-link: var(--palette-light-blue-active);
 	--color-header-link-hover: var(--text-cocoa);
@@ -109,7 +109,7 @@
 	--color-quote-bg: var(--palette-light-paper-active);
 	--color-quote-text: var(--text-cocoa);
 
-	--color-footer-bg: var(--palette-light-shell-base);
+	--color-footer-bg: color-mix(in srgb, var(--palette-light-shell-base) 90%, var(--palette-light-rose-muted));
 	--color-footer-text: var(--text-shadow-blue);
 	--color-footer-link: var(--text-shadow-blue);
 	--color-footer-link-hover: var(--text-cocoa);
@@ -171,7 +171,7 @@
 	--color-link: var(--text-rose-active);
 	--color-link-hover: var(--palette-dark-blue-base);
 
-	--color-header-bg: var(--palette-dark-glass-base);
+	--color-header-bg: color-mix(in srgb, var(--palette-dark-glass-base) 92%, var(--palette-dark-blue-muted));
 	--color-header-text: var(--text-paper);
 	--color-header-link: var(--palette-dark-blue-base);
 	--color-header-link-hover: var(--palette-dark-rose-base);
@@ -205,7 +205,7 @@
 	--color-quote-bg: transparent;
 	--color-quote-text: var(--text-rose-active);
 
-	--color-footer-bg: var(--palette-dark-glass-base);
+	--color-footer-bg: color-mix(in srgb, var(--palette-dark-glass-base) 92%, var(--palette-dark-navy-active));
 	--color-footer-text: var(--text-paper);
 	--color-footer-link: var(--text-paper);
 	--color-footer-link-hover: var(--palette-dark-blue-base);
