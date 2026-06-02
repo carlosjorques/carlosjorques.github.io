@@ -15,28 +15,28 @@ const professionalFoundation = [
 		context: 'EXPERIENCE',
 		anchor: '10+ years of embedded controls',
 		description: [
-			{ text: 'Production-ready embedded control software across automotive, heavy-duty, autonomous-machine, and Tier 1 / client delivery environments.' },
+			{ text: 'Production software development across heavy-duty transport, automotive, autonomous machines, research, and Tier 1 supplier environments.' },
 		] satisfies TextPart[],
 	},
 	{
 		context: 'LEADERSHIP',
-		anchor: 'Technical teams and architecture',
+		anchor: 'Teams, Architecture, and Technical Direction',
 		description: [
-			{ text: 'Leading cross-functional teams from control intent through embedded implementation, integration, validation, and release readiness.' },
+			{ text: 'Leading cross-functional teams in real-time control software, from control design and software implementation to integration, calibration, and release.' },
 		] satisfies TextPart[],
 	},
 	{
 		context: 'PROOF',
 		anchor: 'Patents, publications, and PhD research',
 		description: [
-			{ text: 'Patent work, peer-reviewed publications, and doctoral research translated into production-oriented engineering judgment.' },
+			{ text: 'Patents and scientific publications in control systems, with research translated into production-oriented software and engineering decisions.' },
 		] satisfies TextPart[],
 	},
 	{
 		context: 'SYSTEMS',
 		anchor: 'Safety-related production environments',
 		description: [
-			{ text: 'Work shaped by ISO 26262, A-SPICE, AUTOSAR-oriented development, diagnostics, MIL/SIL/HIL, and field evidence.' },
+			{ text: 'Automotive software development experience with ISO 26262, AUTOSAR-oriented architectures, MIL/SIL/HIL testing, diagnostics, field data, and release processes.' },
 		] satisfies TextPart[],
 	},
 ];
@@ -47,56 +47,43 @@ const capabilities = [
 		challenge: 'Define behavior before implementation',
 		description: [
 			{
-				text: 'Defining dynamic intent, transient handling, operating-envelope boundaries, estimation, observers, and control architecture before software complexity takes over.',
+				text: 'Model-based control architecture for feedback control, predictive strategies, optimal actuation, state estimation, and virtual sensing, applied to torque control, thermal management, and BMS systems.',
 			},
 		] satisfies TextPart[],
 	},
 	{
 		domain: 'Real-Time Embedded Software',
-		challenge: 'Translate control intent into reliable execution',
+		challenge: 'Translate control logic into production code',
 		description: [
 			{
-				text: 'Shaping model-based pipelines, generated-code boundaries, software interfaces, ',
-			},
-			{ text: 'timing loops', strong: true },
-			{
-				text: ', C/C++ integration points, and maintainable target implementation.',
+				text: 'Development and integration of real-time embedded application software using MATLAB/Simulink, C/C++, AUTOSAR workflows, automated CI/CD pipelines, and standard versioning practices.',
 			},
 		] satisfies TextPart[],
 	},
 	{
 		domain: 'Diagnostics & Fault Isolation',
-		challenge: 'Make system health observable',
+		challenge: 'Make physical system health observable',
 		description: [
-			{ text: 'Designing observability, ' },
-			{ text: 'signal-health monitoring', strong: true },
 			{
-				text: ', virtual sensing, fault response, and degradation strategies so systems can detect, degrade, and recover instead of failing silently.',
+				text: 'Online diagnostics for fault detection, isolation, and automated degradation strategies that improve safety, system availability, and controlled behavior under component failures.',
 			},
 		] satisfies TextPart[],
 	},
 	{
 		domain: 'Validation, MIL/SIL/HIL, and Field Evidence',
-		challenge: 'Connect requirements with evidence',
+		challenge: 'Connect functional requirements with empirical data',
 		description: [
 			{
-				text: 'Bridging functional requirements with traceability, physical evidence, ',
-			},
-			{
-				text: 'model-, software-, hardware-in-the-loop testing',
-				strong: true,
-			},
-			{
-				text: ', logs, calibration feedback, and field-oriented validation.',
+				text: 'Verification of embedded control software against specifications through MIL/SIL/HIL environments, lab testing, wind-tunnel testing, vehicle logs, and field data analysis.',
 			},
 		] satisfies TextPart[],
 	},
 	{
 		domain: 'System Integration',
-		challenge: 'Keep software aligned with the machine',
+		challenge: 'Keep software aligned with the physical machine',
 		description: [
 			{
-				text: 'Aligning actuators, sensors, data buses, calibration parameters, software interfaces, safety-related constraints, and physical subsystems under real operating loads.',
+				text: 'Integration of software layers with high-voltage batteries, chargers, actuators, and sensors over CAN networks, ensuring calibrated behavior under real operating loads.',
 			},
 		] satisfies TextPart[],
 	},
@@ -104,10 +91,8 @@ const capabilities = [
 		domain: 'Technical Leadership',
 		challenge: 'Turn technical ambiguity into shared direction',
 		description: [
-			{ text: 'Creating clarity around ' },
-			{ text: 'technical direction', strong: true },
 			{
-				text: ', architecture, ownership, quality, delivery sequence, and release readiness so multidisciplinary teams can execute with autonomy and accountability.',
+				text: 'Technical review, mentoring, and team direction across the software development lifecycle to maintain system coherence, support decision-making, and reach release milestones.',
 			},
 		] satisfies TextPart[],
 	},
@@ -115,85 +100,55 @@ const capabilities = [
 
 const appliedExpertise = [
 	{
-		domain: 'Heavy-Duty Transportation',
+		domain: 'Heavy-Duty Transportation & Electrification',
+		context: 'Scania trucks and powertrain control systems',
 		focus: [
 			{
-				text: 'Thermal management of electrified powertrains, battery systems, charger coordination, and combustion-control research.',
+				text: 'Developed real-time embedded control software for internal combustion and electric heavy-duty truck platforms, focusing on high-voltage battery systems, charger coordination, and overall energy efficiency.',
 			},
 		] satisfies TextPart[],
 	},
 	{
-		domain: 'Safety-Related Diagnostics and Fault Handling',
+		domain: 'Electric Vehicle Thermal Management',
 		focus: [
 			{
-				text: 'Software layers that observe system health, detect faults, support degradation strategies, and keep physical behavior predictable.',
+				text: 'Designed control architectures, model logic, diagnostics, and calibration strategies for thermal management systems where performance affects charging speed, battery lifespan, component protection, and cabin comfort.',
 			},
 		] satisfies TextPart[],
 	},
 	{
 		domain: 'Autonomous Mobility Systems',
+		context: 'Volvo CE TA15 autonomous hauler',
 		focus: [
 			{
-				text: 'Propulsion and torque-control work for autonomous electric machines, including safety monitoring, validation, and field behavior.',
+				text: 'Designed the torque allocation strategies and dual e-axle speed control logic to manage propulsion, safety monitoring, and vehicle-level physical behavior for autonomous electric machines.',
+			},
+		] satisfies TextPart[],
+	},
+	{
+		domain: 'Safety-Related Diagnostics',
+		context: 'Online fault isolation and system availability',
+		focus: [
+			{
+				text: 'Developed real-time monitoring software to detect faults, isolate component failures, and trigger degradation modes so vehicles can remain controlled under fault conditions.',
+			},
+		] satisfies TextPart[],
+	},
+	{
+		domain: 'Advanced Combustion Research',
+		context: 'PhD foundation in feedback control',
+		focus: [
+			{
+				text: 'Conducted doctoral research and industrial studies on engine efficiency optimization, virtual sensing, stochastic optimization, and predictive feedback control on target hardware.',
 			},
 		] satisfies TextPart[],
 	},
 	{
 		domain: 'Industry Standards and Production Deployment',
+		context: 'Automotive workflows from architecture to release',
 		focus: [
-			{ text: 'Work shaped by ISO 26262, A-SPICE, AUTOSAR-oriented development, CI/CD, MIL/SIL/HIL testing' },
-			{ text: ', supplier interfaces, and vehicle-level validation.' },
+			{ text: 'Worked in structured product environments governed by ISO 26262, AUTOSAR architectures, the V-model, ASPICE, Agile/SAFe frameworks, and automated Git CI/CD pipelines.' },
 		] satisfies TextPart[],
-	},
-];
-
-const thinkingLayers = [
-	{
-		layer: 'Curiosity',
-		title: 'Taking things apart',
-		description:
-			'As a child, I wanted to understand how objects worked from the inside. That habit became an engineering instinct: look below the surface, find the mechanism, and test what changes behavior.',
-	},
-	{
-		layer: 'Form',
-		title: 'Gaudí, structure, and usefulness',
-		description:
-			'Gaudí made technical imagination visible to me: structure, material, constraint, and human use can belong to the same decision. That still shapes how I think about engineered systems.',
-	},
-	{
-		layer: 'Making',
-		title: 'Computing, lamps, and home automation',
-		description:
-			'Early computing, web work, 3D-printed lamps, and home automation gave me a practical lens: behavior is designed through logic, interfaces, materials, feedback, and iteration.',
-	},
-	{
-		layer: 'Team',
-		title: 'Basketball and family rhythm',
-		description:
-			'Basketball has been part of my life since childhood, now also as a mentor to younger teammates. Away from work, my main rhythm is time with my partner, our son, and long walks with our dog.',
-	},
-];
-
-const buildPrinciples = [
-	{
-		title: 'Control intent',
-		description:
-			'Clarify the behavior the machine needs before implementation detail starts driving the architecture.',
-	},
-	{
-		title: 'Production software',
-		description:
-			'Turn models and algorithms into real-time embedded software that can be integrated, calibrated, verified, and maintained.',
-	},
-	{
-		title: 'Evidence and risk',
-		description:
-			'Use diagnostics, test results, logs, requirements, and field feedback to make technical decisions visible and defensible.',
-	},
-	{
-		title: 'Team direction',
-		description:
-			'Create enough architectural clarity for specialists across software, controls, validation, and hardware to move in the same direction.',
 	},
 ];
 
@@ -201,7 +156,7 @@ const evidenceLinks = [
 	{
 		title: 'Writing',
 		description:
-			'Technical thinking on embedded controls, diagnostics, physical systems, software architecture, and engineering judgment.',
+			'Practical and reflective articles combining engineering judgment, technical lessons learned, and analysis of current industry and research trends in automatic control.',
 		href: withBase('/writing'),
 		linkText: 'Read my articles',
 	},
@@ -225,26 +180,29 @@ const evidenceLinks = [
 			<div class="about-hero__content">
 				<p class="about-hero__lead">
 					I lead technical teams designing <strong>real-time control</strong> and
-					<strong>embedded software</strong> for safety-critical physical systems.
+					<strong>embedded software</strong> for physical machines, from
+					<strong>electrified vehicles</strong> to <strong>autonomous machines</strong>.
 				</p>
 
 				<p class="about-hero__body">
-					My work connects <strong>control architecture</strong>, diagnostics, validation,
-					actuation, sensing, safety-related development, and production delivery,
-					from <strong>electrified vehicles</strong> to <strong>autonomous machines</strong>.
+					Physical systems shape how people move, build, transport, and use energy. For me,
+					improving their <strong>control software</strong> means helping machines consume less energy,
+					respond safely to faults, reduce downtime, and make advanced technologies more useful
+					in everyday life.
 				</p>
 
 				<p class="about-hero__body">
-					Physical systems shape how people move, build, transport, and use energy.
-					For me, improving their <strong>control software</strong> means helping machines
-					consume less energy, respond more safely to faults, reduce downtime, and make
-					advanced technologies more dependable in daily life.
+					My work centers on <strong>electric trucks</strong>, <strong>autonomous haulers</strong>,
+					and <strong>power electronics</strong>. I design control architectures, models, and
+					diagnostic strategies for systems such as thermal management, battery management
+					systems, and torque control.
 				</p>
 
 				<p class="about-hero__body">
-					Based in <strong>Spain</strong>, I work with international engineering teams
-					on systems where control software, physical hardware, uncertainty, diagnostics, validation,
-					safety-related development, and production constraints have to come together.
+					Based in <strong>Spain</strong>, I work with international, multidisciplinary teams. I bridge
+					the gap between advanced research and production reality, turning complex control
+					algorithms into clean, maintainable software that runs reliably under real-world
+					constraints.
 				</p>
 
 				<div class="button-row" aria-label="About page primary navigation links">
@@ -273,19 +231,20 @@ const evidenceLinks = [
 				<h2 id="professional-foundation-title">Professional Foundation</h2>
 				<p>
 					Over the past decade, I have contributed to <strong>production and research work</strong>
-					in automotive OEM, heavy-duty transport, autonomous-machine, and Tier 1 / client
-					delivery environments.
+					across automotive OEM and Tier 1 environments, including Scania, Volvo CE, and Mahle.
 				</p>
 				<p>
-					My profile combines technical leadership, production delivery, system-level validation,
-					patents, publications, and PhD research in control algorithms.
+					I specialize in model-based control design and vertical system integration. My
+					background in Electrical Engineering includes doctoral research in control algorithms,
+					and my professional experience combines technical leadership, production delivery,
+					and system-level validation.
 				</p>
 			</div>
 			<div class="proof-grid">
 				{professionalFoundation.map((item) => (
 					<article class="proof-item">
-						<p>{item.context}</p>
-						<h3>{item.anchor}</h3>
+						<h3>{item.context}</h3>
+						<p class="proof-item__anchor">{item.anchor}</p>
 						<span>
 							{item.description.map((part) =>
 								part.strong ? <strong>{part.text}</strong> : part.text
@@ -297,119 +256,81 @@ const evidenceLinks = [
 		</div>
 	</section>
 
-	<section class="section about-split about-band about-band--warm" aria-labelledby="start-think-title">
-		<div class="page-container about-split__grid">
-			<div class="split-heading">
-				<p class="eyebrow">Start / Think</p>
-				<h2 id="start-think-title">Curiosity before engineering</h2>
-				<p class="section-quote">
-					<span class="section-quote__mark" aria-hidden="true">"</span>
-					<em class="section-quote__text">
-						Before I studied control systems, I was already learning to notice structure,
-						feedback, timing, and behavior.
-					</em>
-				</p>
-			</div>
-			<div class="about-copy">
-				<p>
-					The personal part of my story is not separate from the technical one. It is where
-					my way of thinking started to form.
-				</p>
-				<p>
-					Childhood curiosity, Gaudí's physical imagination, early computing and web work,
-					basketball, lamp design, and home automation all point to the same interest:
-					how things are built, how people interact with them, and how behavior changes
-					under constraints.
-				</p>
-				<p>
-					That is why control engineering felt natural later. It gave a professional form to
-					a question I already cared about: how can machines sense, decide, and act in ways
-					that make everyday systems safer, more efficient, and more useful?
-				</p>
-				<div class="layer-grid">
-					{thinkingLayers.map((item) => (
-						<article class="layer-item">
-							<p>{item.layer}</p>
-							<h3>{item.title}</h3>
-							<span>{item.description}</span>
-						</article>
-					))}
-				</div>
-			</div>
-		</div>
-	</section>
-
 	<section class="section about-split about-band about-band--white" aria-labelledby="how-i-got-here-title">
 		<div class="page-container about-split__grid">
 			<div class="split-heading">
-				<p class="eyebrow">How I got here</p>
-				<h2 id="how-i-got-here-title">The point where curiosity became direction</h2>
+				<h2 id="how-i-got-here-title">How I Got Here</h2>
 				<p class="section-quote">
 					<span class="section-quote__mark" aria-hidden="true">"</span>
 					<em class="section-quote__text">
-						Control engineering gave a name, a method, and a discipline to the way I already
-						saw machines.
+						As a child, I used to take toys apart to see what was inside because I wanted
+						to become an inventor
 					</em>
 				</p>
 			</div>
 			<div class="about-copy">
 				<p>
-					Studying <strong>electrical engineering</strong> turned curiosity into direction.
-					<strong>Control theory</strong> gave me a framework for designing behavior, and
-					<strong>doctoral research</strong> gave me tools to reason about dynamic systems,
-					uncertainty, diagnostics, optimization, and evidence.
+					That curiosity later led me to build my first obstacle-avoiding robot kit.
 				</p>
 				<p>
-					That path moved from academic models into industrial systems: first through
-					advanced control and optimization research, then through embedded control
-					software for real machines operating under timing, safety, integration, and
-					delivery constraints.
+					The real turning point happened at Campus Party in Valencia, where I watched a
+					line-tracking robot competition. Some robots were incredibly fast and stable, while
+					mine oscillated from side to side. I wanted to understand why.
 				</p>
 				<p>
-					The decision became clear: I wanted to work where analytical thinking,
-					software implementation, physical behavior, and team delivery meet.
+					During my Electrical Engineering studies, I found one answer in a PI controller.
+					That was my first clear step into control engineering. It gave me a language for
+					many things I had wondered about, from balancing a Segway to how climate control
+					regulates a room.
+				</p>
+				<p>
+					I started my Industrial Engineering studies in Valencia and later continued in
+					Sweden through a double-degree program in Electrical Engineering, including
+					advanced control studies at Lund University. There, I deepened my focus on
+					automatic control, dynamic systems, and model-based engineering. That path
+					eventually led me to pursue a PhD and apply those ideas to industrial control
+					problems.
+				</p>
+				<p>
+					Today, I develop control software for vehicles and intelligent machines, providing
+					technical guidance across architecture, validation, and delivery so the systems we
+					build can operate reliably in the real world.
 				</p>
 			</div>
 		</div>
 	</section>
 
-	<section class="section about-work-style about-band about-band--warm" aria-labelledby="build-title">
-		<div class="page-container">
-			<div class="about-work-style__lead">
-				<div class="section-intro about-work-style__intro">
-					<p class="eyebrow">Build</p>
-					<h2 id="build-title">Building practical engineering judgment</h2>
-					<p class="section-quote">
-						<span class="section-quote__mark" aria-hidden="true">"</span>
-						<em class="section-quote__text">An elegant algorithm is only the beginning.</em>
-					</p>
-					<p>
-						The real engineering challenge is turning advanced control ideas into software
-						that teams can <strong>integrate, verify, calibrate, trust, and maintain</strong>
-						in production.
-					</p>
-					<p>
-						This is where I have built my professional criterion: through production work,
-						project delivery, integration feedback, validation evidence, and the repeated
-						discipline of making complex systems understandable enough for teams to build.
-					</p>
-					<p>
-						My approach is <strong>disciplined curiosity</strong> applied to delivery: frame the
-						question, test the assumptions, turn evidence into decisions, manage the risk,
-						and keep learning while moving toward release.
-					</p>
-					<div class="build-grid">
-						{buildPrinciples.map((item) => (
-							<article class="build-item">
-								<h3>{item.title}</h3>
-								<p>{item.description}</p>
-							</article>
-						))}
-					</div>
-					<a class="text-link" href={withBase('/writing')}>
-						Read more about disciplined curiosity →
-					</a>
-				</div>
+	<section class="section about-split about-band about-band--warm" aria-labelledby="how-i-work-title">
+		<div class="page-container about-split__grid">
+			<div class="split-heading">
+				<h2 id="how-i-work-title">How I Work</h2>
+				<p class="section-quote">
+					<span class="section-quote__mark" aria-hidden="true">"</span>
+					<em class="section-quote__text">
+						An elegant algorithm is only the beginning.
+					</em>
+				</p>
+			</div>
+			<div class="about-copy">
+				<p>
+					The real engineering challenge is turning control ideas into real-time software
+					that can be integrated, calibrated, and maintained across a long field lifecycle.
+					I value simple, robust solutions over unnecessary complexity, because advanced
+					algorithms only matter when they respect constraints, safety-related requirements,
+					validation evidence, and the realities of production delivery.
+				</p>
+				<p>
+					When solving technical problems, I actively question underlying assumptions, verify
+					them with data, and separate root cause, control strategy, diagnostics, and
+					degradation logic before jumping into code.
+				</p>
+				<p>
+					As a leader, my role is to bring structural clarity, remove friction, and provide
+					the team with the practical context and tools they need to execute with autonomy
+					and accountability. I guide deliveries by making technical trade-offs visible,
+					managing risk together, and turning different engineering perspectives into sound
+					technical decisions.
+				</p>
 			</div>
 		</div>
 	</section>
@@ -417,17 +338,17 @@ const evidenceLinks = [
 	<section class="section" aria-labelledby="technical-areas-title">
 		<div class="page-container">
 			<div class="section-intro">
-				<h2 id="technical-areas-title">Technical areas</h2>
+				<h2 id="technical-areas-title">Technical Areas &amp; Capabilities</h2>
 				<p>
-					The main technical areas where my work connects control design, embedded
-					implementation, diagnostics, validation, and system behavior.
+					The core engineering areas where my work connects control design, real-time
+					software, diagnostics, system validation, and technical team direction.
 				</p>
 			</div>
 			<div class="capability-grid">
 				{capabilities.map((item) => (
 					<article class="capability-item">
-						<p class="capability-item__area">{item.challenge}</p>
 						<h3>{item.domain}</h3>
+						<p class="capability-item__area">{item.challenge}</p>
 						<p>
 							{item.description.map((part) =>
 								part.strong ? <strong>{part.text}</strong> : part.text
@@ -442,9 +363,9 @@ const evidenceLinks = [
 	<section class="section" aria-labelledby="applied-domains-title">
 		<div class="page-container applied-domains__inner">
 			<div class="section-intro">
-				<h2 id="applied-domains-title">Applied domains</h2>
+				<h2 id="applied-domains-title">Applied Domains</h2>
 				<p>
-					Examples of the product and engineering contexts where my experience applies.
+					Product and engineering environments where my control and systems experience applies.
 				</p>
 			</div>
 			<div class="applied-domains__body">
@@ -471,6 +392,7 @@ const evidenceLinks = [
 						{appliedExpertise.map((item) => (
 							<article class="challenge-item">
 								<h3>{item.domain}</h3>
+								{item.context && <p class="challenge-item__context">{item.context}</p>}
 								<p>
 									{item.focus.map((part) =>
 										part.strong ? <strong>{part.text}</strong> : part.text
@@ -488,10 +410,34 @@ const evidenceLinks = [
 		</div>
 	</section>
 
+	<section class="section about-split about-band about-band--white" aria-labelledby="beyond-engineering-title">
+		<div class="page-container about-split__grid">
+			<div class="split-heading">
+				<h2 id="beyond-engineering-title">Beyond Engineering</h2>
+			</div>
+			<div class="about-copy">
+				<p>
+					Outside work, I like activities where I can keep building, learning, and improving
+					things.
+				</p>
+				<p>
+					Basketball has been part of my life since childhood, and I still love playing the
+					game today. I also enjoy creative, hands-on hobbies like 3D printing, painting,
+					lamp design, Arduino-based projects, and home automation, where I keep
+					experimenting.
+				</p>
+				<p>
+					But most importantly, I enjoy spending time with my family: my wife, our kid, and
+					our dog. We are dog people, by the way.
+				</p>
+			</div>
+		</div>
+	</section>
+
 	<section class="section" aria-labelledby="explore-work-title">
 		<div class="page-container">
 			<div class="section-intro">
-				<h2 id="explore-work-title">Explore more of my work</h2>
+				<h2 id="explore-work-title">Explore More of My Work</h2>
 			</div>
 			<div class="evidence-grid">
 				{evidenceLinks.map((item) => (
@@ -508,11 +454,15 @@ const evidenceLinks = [
 	<section class="section about-final" aria-labelledby="connect-title">
 		<div class="page-container about-final__inner">
 			<div>
-				<h2 id="connect-title">Let’s connect</h2>
+				<h2 id="connect-title">Let’s Connect</h2>
 				<p>
 					For roles, collaborations, or technical conversations around
 					<strong>embedded controls, diagnostics, safety-related development, and reliable physical systems</strong>, I’m
 					open to hearing from you.
+				</p>
+				<p>
+					I am based in Spain and especially interested in remote or hybrid opportunities
+					with international teams.
 				</p>
 			</div>
 			<div class="about-final__actions">
@@ -585,10 +535,8 @@ const evidenceLinks = [
 
 	.about-hero strong,
 	.about-copy strong,
-	.about-work-style__intro strong,
 	.about-final strong,
 	.proof-item strong,
-	.build-item strong,
 	.capability-item strong,
 	.challenge-item strong {
 		color: var(--color-text);
@@ -651,19 +599,24 @@ const evidenceLinks = [
 		transform: translateY(-2px);
 	}
 
-	.proof-item p {
+	.proof-item h3 {
 		color: var(--color-accent);
 		font-family: var(--font-mono);
 		font-size: 0.72rem;
 		font-weight: 600;
+		line-height: 1.35;
 		letter-spacing: 0.06em;
 		text-transform: uppercase;
 	}
 
-	.proof-item h3 {
+	.proof-item__anchor {
 		color: var(--color-text);
+		font-family: var(--font-display);
 		font-size: 1.2rem;
+		font-weight: 600;
+		letter-spacing: 0;
 		line-height: 1.35;
+		text-transform: none;
 	}
 
 	.proof-item span {
@@ -678,22 +631,6 @@ const evidenceLinks = [
 		grid-template-columns: 1fr;
 		gap: 1.25rem;
 		align-items: start;
-	}
-
-	.about-work-style__lead {
-		display: grid;
-		gap: clamp(1.4rem, 3vw, 2rem);
-		align-items: start;
-	}
-
-	.about-work-style__intro {
-		gap: 0.85rem;
-		max-width: 820px;
-		margin-bottom: 0;
-	}
-
-	.about-work-style__intro .text-link {
-		margin-top: var(--spacing-02);
 	}
 
 	.split-heading {
@@ -717,8 +654,7 @@ const evidenceLinks = [
 		line-height: 1.18;
 	}
 
-	.split-heading > h2 + .section-quote,
-	.about-work-style__intro > h2 + .section-quote {
+	.split-heading > h2 + .section-quote {
 		margin-top: clamp(var(--spacing-03), 1.3vw, var(--spacing-05));
 	}
 
@@ -739,11 +675,6 @@ const evidenceLinks = [
 		color: var(--color-quote-text);
 		letter-spacing: 0;
 		font-size: clamp(1.25rem, 2.4vw, 1.5rem);
-	}
-
-	.about-work-style__intro .section-quote {
-		max-width: 680px;
-		font-size: clamp(1.25rem, 2.4vw, 1.8rem);
 	}
 
 	.about-split h2,
@@ -771,43 +702,6 @@ const evidenceLinks = [
 		line-height: 1.6;
 	}
 
-	.layer-grid {
-		display: grid;
-		grid-template-columns: 1fr;
-		gap: clamp(1rem, 2.4vw, 1.25rem);
-		margin-top: var(--spacing-04);
-	}
-
-	.layer-item {
-		display: grid;
-		gap: 0.35rem;
-		padding: 1.15rem;
-		border: 1px solid var(--color-card-border);
-		background: var(--color-bg);
-	}
-
-	.layer-item p {
-		color: var(--color-accent);
-		font-family: var(--font-mono);
-		font-size: 0.72rem;
-		font-weight: 600;
-		letter-spacing: 0.06em;
-		text-transform: uppercase;
-	}
-
-	.layer-item h3 {
-		color: var(--color-text);
-		font-size: 1.05rem;
-		line-height: 1.35;
-	}
-
-	.layer-item span {
-		color: var(--color-body-text);
-		font-size: 0.92rem;
-		line-height: 1.55;
-	}
-
-	.in-context-cta,
 	.section-footer-cta {
 		display: flex;
 		flex-direction: column;
@@ -821,15 +715,12 @@ const evidenceLinks = [
 			transform var(--motion-duration-fast-02) var(--motion-standard-productive);
 	}
 
-	.in-context-cta:hover,
 	.section-footer-cta:hover,
-	.in-context-cta:focus-within,
 	.section-footer-cta:focus-within {
 		border-left-width: 6px;
 		transform: translateX(2px);
 	}
 
-	.in-context-cta span,
 	.section-footer-cta p {
 		color: var(--color-text);
 		font-size: 0.9rem;
@@ -852,33 +743,6 @@ const evidenceLinks = [
 		line-height: 1.6;
 	}
 
-	.build-grid {
-		display: grid;
-		grid-template-columns: 1fr;
-		gap: clamp(1rem, 2.4vw, 1.25rem);
-		margin-block: var(--spacing-04) var(--spacing-02);
-	}
-
-	.build-item {
-		display: grid;
-		gap: 0.35rem;
-		padding: 1.15rem;
-		border: 1px solid var(--color-card-border);
-		background: var(--color-bg);
-	}
-
-	.build-item h3 {
-		color: var(--color-text);
-		font-size: 1.05rem;
-		line-height: 1.35;
-	}
-
-	.build-item p {
-		color: var(--color-body-text);
-		font-size: 0.92rem;
-		line-height: 1.55;
-	}
-
 	.capability-item__area {
 		color: var(--color-accent) !important;
 		font-family: var(--font-sans);
@@ -887,6 +751,15 @@ const evidenceLinks = [
 		letter-spacing: 0.04em;
 		line-height: 1.35 !important;
 		margin-bottom: var(--spacing-01);
+	}
+
+	.challenge-item__context {
+		color: var(--color-accent) !important;
+		font-family: var(--font-sans);
+		font-size: 0.85rem !important;
+		font-style: italic;
+		font-weight: 500;
+		line-height: 1.35 !important;
 	}
 
 	.section-intro {
@@ -1035,9 +908,7 @@ const evidenceLinks = [
 		}
 
 		.capability-grid,
-		.build-grid,
 		.challenge-grid,
-		.layer-grid,
 		.evidence-grid {
 			grid-template-columns: repeat(2, minmax(0, 1fr));
 		}
@@ -1085,11 +956,6 @@ const evidenceLinks = [
 
 		.capability-grid {
 			grid-template-columns: repeat(3, minmax(0, 1fr));
-		}
-
-		.about-work-style__lead {
-			align-items: start;
-			gap: clamp(2rem, 5vw, 4rem);
 		}
 
 		.applied-domains__body {
