@@ -1,11 +1,14 @@
 ---
 const baseUrl = import.meta.env.BASE_URL;
-const withBase = (href: string) => (href === '/' ? baseUrl : `${baseUrl}${href.replace(/^\//, '')}`);
-const linkedInUrl = 'REPLACE_WITH_LINKEDIN_URL';
-const cvUrl = 'REPLACE_WITH_CV_URL';
+const normalizedBase = baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`;
+const withBase = (href: string) => (href === '/' ? normalizedBase : `${normalizedBase}${href.replace(/^\//, '')}`);
+const heroVideoUrl = `${normalizedBase}videos/333466_1_5.mp4`;
 ---
 
 <section class="hero-area">
+	<video class="hero-video" autoplay muted loop playsinline preload="metadata" aria-hidden="true">
+		<source src={heroVideoUrl} type="video/mp4" />
+	</video>
 	<div class="page-container">
 		<div class="hero">
 			<div class="hero__copy">
@@ -55,32 +58,36 @@ const cvUrl = 'REPLACE_WITH_CV_URL';
 
 <style>
 	.hero-area {
-		--hero-bg: var(--color-dark-surface);
-		--hero-bg-soft: var(--color-dark-surface-soft);
-		--hero-text: var(--color-on-dark);
-		--hero-muted: var(--color-on-dark-muted);
-		--hero-muted-soft: var(--color-on-dark-muted-soft);
-		--hero-border: var(--color-on-dark-border);
-		--hero-border-soft: var(--color-on-dark-border-soft);
-		--hero-accent: var(--color-accent-bright);
+		--hero-video-opacity: 0.1;
 
 		position: relative;
 		overflow: hidden;
-		background:
-			linear-gradient(180deg, var(--hero-bg) 0%, var(--hero-bg-soft) 100%);
-		color: var(--hero-text);
+		background: var(--hero-gradient);
+		color: var(--color-hero-text);
 		padding-block: clamp(4.5rem, 8vw, 7.5rem) clamp(3rem, 5vw, 4.5rem);
+	}
+
+	.hero-video {
+		position: absolute;
+		inset: 0;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		opacity: var(--hero-video-opacity);
+		pointer-events: none;
 	}
 
 	.hero-area .page-container {
 		position: relative;
-		z-index: 1;
+		z-index: 2;
 	}
 
 	.hero-area::after {
 		content: "";
 		position: absolute;
 		inset: 0;
+		z-index: 1;
+		background: var(--hero-video-overlay);
 		pointer-events: none;
 	}
 
@@ -95,65 +102,91 @@ const cvUrl = 'REPLACE_WITH_CV_URL';
 		text-align: center;
 	}
 
+	.hero-kicker,
+	.hero-name,
+	.hero-statement,
+	.hero-substatement,
+	.hero-links,
+	.home-proof {
+		animation: carbon-enter-up var(--motion-duration-slow-01) var(--motion-entrance-expressive) both;
+	}
+
+	.hero-name {
+		animation-delay: 40ms;
+	}
+
+	.hero-statement {
+		animation-delay: 90ms;
+	}
+
+	.hero-substatement {
+		animation-delay: 140ms;
+	}
+
+	.hero-links {
+		animation-delay: 190ms;
+	}
+
+	.home-proof {
+		animation-delay: 240ms;
+	}
+
 	.hero-kicker {
-		margin: 0 0 1rem;
+		margin: 0 0 var(--spacing-05);
 		font-family: var(--font-mono);
 		font-size: 0.72rem;
 		font-weight: 600;
 		letter-spacing: 0.08em;
 		text-transform: uppercase;
-		color: var(--color-soft);
+		color: var(--color-hero-kicker);
 	}
 
 	.hero-name {
 		margin: 0;
-		font-family: var(--font-sans);
+		font-family: var(--font-display);
 		font-size: clamp(2.8rem, 6vw, 5.8rem);
 		line-height: 0.95;
 		font-weight: 700;
 		letter-spacing: 0;
-		color: var(--hero-text);
+		color: var(--color-hero-text);
 	}
 
 	.hero-statement {
-		max-width: 600px;
-		margin: 2rem auto 0;
+		max-width: 620px;
+		margin: var(--spacing-07) auto 0;
 		font-size: clamp(1.75rem, 3vw, 2.5rem);
 		line-height: 1.08;
 		font-weight: 400;
-		color: var(--hero-text);
-		font-family: var(--font-mono);
+		color: var(--color-hero-text);
+		font-family: var(--font-display);
 	}
 
 	@supports ((-webkit-background-clip: text) or (background-clip: text)) {
 		.hero-statement {
-			background: linear-gradient(
-				90deg,
-				#dfff7a 0%,
-				var(--hero-accent) 100%
-			);
+			background: var(--slogan-gradient);
 			-webkit-background-clip: text;
 			background-clip: text;
+			color: transparent;
 			-webkit-text-fill-color: transparent;
 		}
 	}
 
 	.hero-substatement {
-		max-width: 650px;
-		margin: 2rem auto 0;
-		font-size: clamp(1.2rem, 1.35vw, 1.2rem);
-		line-height: 1.08;
+		max-width: 680px;
+		margin: var(--spacing-07) auto 0;
+		font-size: clamp(1.05rem, 1.25vw, 1.2rem);
+		line-height: 1.5;
 		font-weight: 400;
-		color: var(--hero-text);
+		color: var(--color-hero-text);
 	}
 
 	.hero-links {
-		margin-top: 2.75rem;
+		margin-top: var(--spacing-09);
 		display: flex;
 		justify-content: center;
 		gap: 1.25rem;
 		flex-wrap: wrap;
-		font-family: var(--font-mono);
+		font-family: var(--font-display);
 		font-size: 0.78rem;
 		font-weight: 600;
 		letter-spacing: 0.06em;
@@ -161,28 +194,38 @@ const cvUrl = 'REPLACE_WITH_CV_URL';
 	}
 
 	.hero-links a {
-		color: var(--hero-text);
+		color: var(--color-hero-link);
 		text-decoration: none;
-		border-bottom: 1px solid var(--hero-accent);
+		border-bottom: 1px solid var(--color-hero-link-hover);
 		padding-bottom: 0.15rem;
-		transition: color 160ms ease-out, border-color 160ms ease-out;
+		transition:
+			background-color var(--motion-duration-fast-02) var(--motion-standard-productive),
+			color var(--motion-duration-fast-02) var(--motion-standard-productive),
+			border-color var(--motion-duration-fast-02) var(--motion-standard-productive),
+			transform var(--motion-duration-fast-02) var(--motion-standard-productive);
 	}
 
 	.hero-links a:hover,
 	.hero-links a:focus-visible {
-		color: var(--hero-accent);
-		border-bottom-color: var(--hero-accent);
+		color: var(--color-hero-link-hover);
+		border-bottom-color: var(--color-hero-link-hover);
+		transform: translateY(-1px);
+	}
+
+	.hero-links a:active {
+		transform: translateY(0);
+		transition-duration: var(--motion-duration-fast-01);
 	}
 
 	.hero-links a:focus-visible {
-		outline: 2px solid var(--hero-accent);
+		outline: 2px solid var(--color-focus);
 		outline-offset: 4px;
 	}
 
 	.home-proof {
 		margin-top: clamp(3rem, 5vw, 6rem);
 		padding-top: clamp(1rem, 2vw, 1.25rem);
-		border-top: 1px solid var(--hero-border);
+		border-top: 1px solid var(--color-border);
 	}
 
 	.home-proof__grid {
@@ -194,35 +237,42 @@ const cvUrl = 'REPLACE_WITH_CV_URL';
 	.home-proof__item {
 		min-height: 58px;
 		padding: 0.15rem 1.1rem 0.15rem 0;
+		transition:
+			background-color var(--motion-duration-fast-02) var(--motion-standard-productive),
+			transform var(--motion-duration-fast-02) var(--motion-standard-productive);
+	}
+
+	.home-proof__item:hover {
+		transform: translateY(-1px);
 	}
 
 	.home-proof__item + .home-proof__item {
 		padding-left: 1.1rem;
-		border-left: 1px solid var(--hero-border-soft);
+		border-left: 1px solid var(--color-border-soft);
 	}
 
 	.home-proof__value {
 		display: block;
-		margin-bottom: 0.22rem;
+		margin-bottom: var(--spacing-02);
 		font-family: var(--font-mono);
-		font-size: 0.66rem;
+		font-size: 0.68rem;
 		font-weight: 600;
-		letter-spacing: 0.06em;
+		letter-spacing: 0.075em;
 		text-transform: uppercase;
-		color: var(--hero-accent);
+		color: var(--color-hero-proof-value);
 	}
 
 	.home-proof__label {
 		display: block;
 		max-width: 230px;
 		font-size: 0.82rem;
-		line-height: 1.35;
-		color: var(--hero-muted-soft);
+		line-height: 1.4;
+		color: var(--color-hero-proof-label);
 	}
 
 	@media (max-width: 900px) {
 		.hero-area::after {
-			opacity: 0.14;
+			opacity: 1;
 		}
 
 		.home-proof__grid {
@@ -236,19 +286,15 @@ const cvUrl = 'REPLACE_WITH_CV_URL';
 
 		.home-proof__item:nth-child(3),
 		.home-proof__item:nth-child(4) {
-			margin-top: 0.8rem;
-			padding-top: 0.8rem;
-			border-top: 1px solid var(--hero-border-soft);
+			margin-top: var(--spacing-03);
+			padding-top: var(--spacing-03);
+			border-top: 1px solid var(--color-border-soft);
 		}
 	}
 
 	@media (max-width: 640px) {
 		.hero-area {
 			padding-block: 3.5rem 2.5rem;
-		}
-
-		.hero-area::after {
-			display: none;
 		}
 
 		.hero-name {
@@ -264,7 +310,7 @@ const cvUrl = 'REPLACE_WITH_CV_URL';
 		}
 
 		.home-proof {
-			margin-top: 1.8rem;
+			margin-top: var(--spacing-07);
 		}
 
 		.home-proof__grid {
@@ -290,7 +336,13 @@ const cvUrl = 'REPLACE_WITH_CV_URL';
 			margin-top: 0;
 			padding-left: 0;
 			border-left: 0;
-			border-top: 1px solid var(--hero-border-soft);
+			border-top: 1px solid var(--color-border-soft);
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.hero-video {
+			display: none;
 		}
 	}
 </style>

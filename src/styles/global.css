@@ -1,48 +1,231 @@
-@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap");
 
 :root {
-	--font-sans: "IBM Plex Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-	--font-mono: "IBM Plex Mono", "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+	--font-display: "Helvetica Neue", Arial, system-ui, sans-serif;
+	--font-sans: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+	--font-mono: "IBM Plex Mono", "SFMono-Regular", Consolas, monospace;
 
-	--color-page: #f7f7f7ff;
-	--color-hero: var(--color-page);
+	/* ==========================================================
+	   Palette tokens from palette-matrix-5-minimal-reviewed.json
+	   Only tokens used by the current site are defined here.
+	   ========================================================== */
 
-	--color-text: #1a1a1a;
-	--color-muted: #444444;
-	--color-soft: #6b6b6b;
-	--color-border: #d9d6ce;
-	--color-border-soft: #ece9e2;
-	--color-accent: #1a5fb4;
-	--color-accent-bright: #1a5fb4;
-	--color-accent-wash: rgba(95, 127, 0, 0.045);
-	--color-border-strong: rgba(26, 26, 26, 0.32);
-	--color-proof-border: var(--color-border);
-	--color-proof-label: #4f5659;
-	--color-proof-text: #3f4446;
-	--color-dark-surface: #1a1a1a;
-	--color-dark-surface-soft: #171717;
-	--color-on-dark: #ffffff;
-	--color-on-dark-muted: rgba(247, 247, 247, 0.72);
-	--color-on-dark-muted-soft: rgb(255, 255, 255);
-	--color-on-dark-border: rgba(247, 247, 247, 0.14);
-	--color-on-dark-border-soft: rgba(247, 247, 247, 0.12);
-	--color-card-bg: #1f2424;
-	--color-card-bg-hover: #262d2d;
-	--color-card-border: var(--color-on-dark-border);
-	--color-card-border-hover: rgba(247, 247, 247, 0.28);
-	--color-card-text: var(--color-on-dark);
-	--color-card-muted: var(--color-on-dark-muted-soft);
-	--color-card-accent: var(--color-accent-bright);
+	--palette-light-paper-base: #fbf4ec;
+	--palette-light-paper-active: #fffaf6;
+	--palette-light-paper-muted: #f6eadf;
+	--palette-light-shell-base: #f8ece4;
+	--palette-light-shell-active: #f2ddd4;
+	--palette-light-shell-muted: #fbf3ee;
+	--palette-light-blue-base: #bcc8d4;
+	--palette-light-rose-base: #d8aaa0;
+	--palette-light-rose-active: #c99084;
+	--palette-light-rose-muted: #ead6cf;
+	--palette-light-blue-active: #50677c;
+	--palette-light-blue-muted: #d6dde7;
 
+	--palette-dark-navy-base: #202b45;
+	--palette-dark-navy-active: #2b3856;
+	--palette-dark-navy-muted: #1b253c;
+	--palette-dark-glass-base: #10161d;
+	--palette-dark-glass-active: #1a2430;
+	--palette-dark-glass-muted: #26323f;
+	--palette-dark-blue-base: #bcc8d4;
+	--palette-dark-blue-active: #d6dde7;
+	--palette-dark-blue-muted: #35495d;
+	--palette-dark-rose-base: #d8aaa0;
+	--palette-dark-rose-active: #e8c7bb;
+	--palette-dark-rose-muted: #a9827a;
+
+	--text-ink: #10161d;
+	--text-shadow-blue: #50677c;
+	--text-cocoa: #7f625b;
+	--text-rose-active: #d8aaa0;
+	--text-paper: #fbf4ec;
+
+	--hero-background-light: linear-gradient(120deg, #fbf4ec 0%, #fffaf6 42%, #f6eadf 68%, rgba(188, 200, 212, 0.42) 100%);
+	--hero-background-dark: linear-gradient(135deg, #10161d 0%, #10161d 52%, #1a2430 100%);
+	--hero-statement-light: linear-gradient(90deg, #6486a6 0%, #ce88bb 48%, #ca9163 100%);
+	--hero-statement-dark: linear-gradient(90deg, #6486a6 0%, #ce88bb 48%, #ca9163 100%);
+
+	/* ==========================================================
+	   Semantic color roles consumed by components.
+	   ========================================================== */
+
+	--color-page: var(--palette-light-paper-base);
+	--color-page-gradient: var(--palette-light-paper-base);
+	--color-text: var(--text-ink);
+	--color-body-text: var(--text-ink);
+	--color-muted: var(--text-shadow-blue);
+	--color-soft: var(--text-cocoa);
+	--color-subtle: var(--text-shadow-blue);
+
+	--color-bg: var(--palette-light-paper-active);
+	--color-surface: var(--palette-light-shell-muted);
+	--color-surface-soft: var(--palette-light-paper-active);
+	--color-section-bg: var(--palette-light-paper-active);
+
+	--color-border: color-mix(in srgb, var(--text-cocoa) 24%, transparent);
+	--color-border-soft: color-mix(in srgb, var(--palette-light-rose-base) 30%, transparent);
+	--color-border-strong: color-mix(in srgb, var(--text-cocoa) 46%, transparent);
+
+	--color-accent: var(--palette-light-blue-active);
+	--color-accent-wash: var(--palette-light-rose-muted);
+	--color-focus: var(--palette-light-blue-active);
+
+	--color-link: var(--text-shadow-blue);
+	--color-link-hover: var(--text-cocoa);
+
+	--color-header-bg: color-mix(in srgb, var(--palette-light-shell-base) 92%, var(--palette-light-blue-muted));
+	--color-header-text: var(--text-ink);
+	--color-header-link: var(--palette-light-blue-active);
+	--color-header-link-hover: var(--text-cocoa);
+	--color-header-active: var(--text-ink);
+	--color-header-border: color-mix(in srgb, var(--text-cocoa) 22%, transparent);
+
+	--hero-gradient: var(--hero-background-light);
+	--slogan-gradient: var(--hero-statement-light);
+	--hero-video-overlay: color-mix(in srgb, var(--palette-light-paper-base) 18%, transparent);
+	--color-hero-text: var(--text-ink);
+	--color-hero-kicker: var(--palette-light-blue-active);
+	--color-hero-link: var(--text-ink);
+	--color-hero-link-hover: var(--palette-light-rose-base);
+	--color-hero-proof-value: var(--palette-light-blue-active);
+	--color-hero-proof-label: var(--text-ink);
+
+	--color-button-primary-bg: var(--palette-light-blue-active);
+	--color-button-primary-text: var(--text-paper);
+	--color-button-primary-state-bg: var(--palette-light-rose-base);
+	--color-button-primary-state-text: var(--text-ink);
+	--color-button-secondary-text: var(--text-shadow-blue);
+	--color-button-secondary-state-text: var(--text-cocoa);
+
+	--color-card-bg: var(--palette-light-shell-muted);
+	--color-card-bg-hover: var(--palette-light-shell-base);
+	--color-card-border: color-mix(in srgb, var(--palette-light-rose-base) 30%, transparent);
+	--color-card-border-hover: color-mix(in srgb, var(--text-cocoa) 40%, transparent);
+	--color-card-subtext: color-mix(in srgb, var(--palette-light-blue-active) 78%, var(--palette-light-blue-base));
+
+	--color-tag-text: var(--text-ink);
+
+	--color-quote-bg: var(--palette-light-paper-active);
+	--color-quote-text: var(--text-cocoa);
+
+	--color-footer-bg: color-mix(in srgb, var(--palette-light-shell-base) 90%, var(--palette-light-rose-muted));
+	--color-footer-text: var(--text-shadow-blue);
+	--color-footer-link: var(--text-shadow-blue);
+	--color-footer-link-hover: var(--text-cocoa);
+	--color-footer-border: color-mix(in srgb, var(--text-cocoa) 22%, transparent);
+
+	/* Layout */
 	--content-width: 1120px;
 	--content-narrow: 760px;
-	--site-header-height: 68px;
-	--hero-content-proof-height: clamp(15rem, 20vw, 17rem);
-	--color-bg: var(--color-page);
-	--color-surface: var(--color-page);
-	--color-subtle: var(--color-soft);
+	--measure-reading: 760px;
+	--measure-compact: 620px;
+
+	/* Spacing */
+	--spacing-01: 0.125rem;
+	--spacing-02: 0.25rem;
+	--spacing-03: 0.5rem;
+	--spacing-04: 0.75rem;
+	--spacing-05: 1rem;
+	--spacing-06: 1.5rem;
+	--spacing-07: 2rem;
+	--spacing-09: 3rem;
+	--spacing-10: 4rem;
+
+	/* Motion */
+	--motion-duration-fast-01: 70ms;
+	--motion-duration-fast-02: 110ms;
+	--motion-duration-moderate-01: 150ms;
+	--motion-duration-moderate-02: 240ms;
+	--motion-duration-slow-01: 400ms;
+	--motion-standard-productive: cubic-bezier(0.2, 0, 0.38, 0.9);
+	--motion-entrance-expressive: cubic-bezier(0, 0, 0.3, 1);
+
 	--radius: 4px;
+
 	color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+	--color-page: var(--palette-dark-navy-base);
+	--color-page-gradient: var(--palette-dark-navy-base);
+	--color-text: var(--text-paper);
+	--color-body-text: var(--text-paper);
+	--color-muted: var(--palette-dark-blue-base);
+	--color-soft: var(--palette-dark-blue-base);
+	--color-subtle: var(--palette-dark-blue-base);
+
+	--color-bg: var(--palette-dark-glass-active);
+	--color-surface: var(--palette-dark-glass-muted);
+	--color-surface-soft: var(--palette-dark-glass-active);
+	--color-section-bg: var(--palette-dark-glass-active);
+
+	--color-border: color-mix(in srgb, var(--palette-dark-blue-base) 22%, transparent);
+	--color-border-soft: color-mix(in srgb, var(--palette-dark-blue-base) 14%, transparent);
+	--color-border-strong: color-mix(in srgb, var(--palette-dark-blue-active) 34%, transparent);
+
+	--color-accent: var(--palette-dark-blue-base);
+	--color-accent-wash: var(--palette-dark-blue-muted);
+	--color-focus: var(--palette-dark-blue-active);
+
+	--color-link: var(--text-rose-active);
+	--color-link-hover: var(--palette-dark-blue-base);
+
+	--color-header-bg: color-mix(in srgb, var(--palette-dark-glass-base) 92%, var(--palette-dark-blue-muted));
+	--color-header-text: var(--text-paper);
+	--color-header-link: var(--palette-dark-blue-base);
+	--color-header-link-hover: var(--palette-dark-rose-base);
+	--color-header-active: var(--text-paper);
+	--color-header-border: color-mix(in srgb, var(--palette-dark-blue-base) 24%, transparent);
+
+	--hero-gradient: var(--hero-background-dark);
+	--slogan-gradient: var(--hero-statement-dark);
+	--hero-video-overlay: color-mix(in srgb, var(--palette-dark-glass-base) 20%, transparent);
+	--color-hero-text: var(--text-paper);
+	--color-hero-kicker: var(--text-shadow-blue);
+	--color-hero-link: var(--text-paper);
+	--color-hero-link-hover: var(--palette-dark-rose-base);
+	--color-hero-proof-value: var(--text-rose-active);
+	--color-hero-proof-label: var(--palette-dark-blue-base);
+
+	--color-button-primary-bg: var(--palette-dark-rose-base);
+	--color-button-primary-text: var(--text-ink);
+	--color-button-primary-state-bg: var(--palette-dark-blue-active);
+	--color-button-primary-state-text: var(--text-ink);
+	--color-button-secondary-text: var(--text-rose-active);
+	--color-button-secondary-state-text: var(--palette-dark-blue-base);
+
+	--color-card-bg: var(--palette-dark-glass-muted);
+	--color-card-bg-hover: var(--palette-dark-blue-muted);
+	--color-card-border: color-mix(in srgb, var(--palette-dark-blue-base) 18%, transparent);
+	--color-card-border-hover: color-mix(in srgb, var(--palette-dark-blue-active) 34%, transparent);
+	--color-card-subtext: var(--palette-dark-blue-active);
+
+	--color-tag-text: var(--text-paper);
+
+	--color-quote-bg: transparent;
+	--color-quote-text: var(--text-rose-active);
+
+	--color-footer-bg: color-mix(in srgb, var(--palette-dark-glass-base) 92%, var(--palette-dark-navy-active));
+	--color-footer-text: var(--text-paper);
+	--color-footer-link: var(--text-paper);
+	--color-footer-link-hover: var(--palette-dark-blue-base);
+	--color-footer-border: color-mix(in srgb, var(--palette-dark-blue-base) 24%, transparent);
+
+	color-scheme: dark;
+}
+
+@keyframes carbon-enter-up {
+	from {
+		opacity: 0;
+		transform: translateY(16px);
+	}
+
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
 }
 
 * {
@@ -50,7 +233,7 @@
 }
 
 html {
-	background: var(--color-page);
+	background: var(--color-page-gradient);
 	color: var(--color-text);
 	font-family: var(--font-sans);
 	scroll-behavior: smooth;
@@ -59,7 +242,7 @@ html {
 body {
 	margin: 0;
 	min-width: 320px;
-	background: var(--color-page);
+	background: var(--color-page-gradient);
 	color: var(--color-text);
 	font-family: var(--font-sans);
 	font-size: 16px;
@@ -88,7 +271,7 @@ h2,
 h3 {
 	margin: 0;
 	color: var(--color-text);
-	font-family: var(--font-sans);
+	font-family: var(--font-display);
 	font-weight: 600;
 	line-height: 1.2;
 	letter-spacing: 0;
@@ -122,7 +305,7 @@ li::marker {
 }
 
 *:focus-visible {
-	outline: 2px solid var(--color-accent);
+	outline: 2px solid var(--color-focus);
 	outline-offset: 4px;
 }
 
@@ -144,7 +327,7 @@ li::marker {
 }
 
 .page-container {
-	width: min(100% - 48px, 1120px);
+	width: min(80% - 48px, 1120px);
 	margin-inline: auto;
 }
 
@@ -169,14 +352,16 @@ li::marker {
 	min-width: 0;
 	min-height: 100vh;
 	flex-direction: column;
-	background: var(--color-page);
+	background: var(--color-section-bg);
 }
 
 .main-body {
 	flex: 1;
+	background: var(--color-section-bg);
 }
 
 .section {
+	background: var(--color-section-bg);
 	padding-block: clamp(3rem, 6vw, 5rem);
 }
 
@@ -192,7 +377,7 @@ li::marker {
 
 .lead {
 	max-width: 760px;
-	color: var(--color-muted);
+	color: var(--color-body-text);
 	font-size: 1rem;
 	line-height: 1.65;
 }
@@ -212,32 +397,41 @@ li::marker {
 	border: 1px solid var(--color-border);
 	background: transparent;
 	padding: 0.45rem 0.9rem;
-	color: var(--color-text);
+	color: var(--color-button-secondary-text);
+	font-family: var(--font-mono);
 	font-size: 0.9rem;
 	font-weight: 600;
 	text-decoration: none;
 	transition:
-		border-color 160ms ease-out,
-		color 160ms ease-out,
-		background-color 160ms ease-out;
+		border-color var(--motion-duration-fast-02) var(--motion-standard-productive),
+		color var(--motion-duration-fast-02) var(--motion-standard-productive),
+		background-color var(--motion-duration-fast-02) var(--motion-standard-productive),
+		transform var(--motion-duration-fast-02) var(--motion-standard-productive);
 }
 
 .button:hover,
 .button:focus-visible {
 	border-color: var(--color-accent);
-	color: var(--color-accent);
+	color: var(--color-button-secondary-state-text);
+	transform: translateY(-1px);
 }
 
 .button.primary {
-	border-color: var(--color-accent);
-	background: var(--color-accent);
-	color: var(--color-page);
+	border-color: var(--color-button-primary-bg);
+	background: var(--color-button-primary-bg);
+	color: var(--color-button-primary-text);
 }
 
 .button.primary:hover,
 .button.primary:focus-visible {
-	background: transparent;
-	color: var(--color-accent);
+	border-color: var(--color-button-primary-state-bg);
+	background: var(--color-button-primary-state-bg);
+	color: var(--color-button-primary-state-text);
+}
+
+.button:active {
+	transform: translateY(0);
+	transition-duration: var(--motion-duration-fast-01);
 }
 
 .grid {
@@ -267,7 +461,7 @@ li::marker {
 .tag {
 	display: inline-flex;
 	align-items: center;
-	color: var(--color-accent);
+	color: var(--color-tag-text);
 	font-family: var(--font-mono);
 	font-size: 0.78rem;
 	font-weight: 600;
@@ -306,7 +500,7 @@ li::marker {
 }
 
 .prose li {
-	color: var(--color-muted);
+	color: var(--color-body-text);
 }
 
 @media (min-width: 760px) {
@@ -350,11 +544,16 @@ li::marker {
 		animation-iteration-count: 1 !important;
 		scroll-behavior: auto !important;
 		transition-duration: 0.001ms !important;
+		transition-delay: 0ms !important;
 	}
 
 	.next-index__item,
 	.next-index__arrow,
-	.article-link__arrow {
+	.article-link__arrow,
+	.hero-area *,
+	.case-card,
+	.post-card,
+	.selected-work__item {
 		transform: none !important;
 	}
 }

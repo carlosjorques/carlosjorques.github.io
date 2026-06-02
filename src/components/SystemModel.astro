@@ -83,6 +83,12 @@ const steps = [
 		border-radius: var(--radius);
 		background: var(--color-surface);
 		padding: 0.55rem 0.75rem;
+		transition:
+			transform var(--motion-duration-fast-02) var(--motion-standard-productive);
+	}
+
+	.chain-node:hover {
+		transform: translateY(-2px);
 	}
 
 	.chain-node strong {
@@ -113,10 +119,16 @@ const steps = [
 	.mapping div {
 		background: var(--color-bg);
 		padding: 1rem;
+		transition:
+			transform var(--motion-duration-fast-02) var(--motion-standard-productive);
+	}
+
+	.mapping div:hover {
+		transform: translateY(-1px);
 	}
 
 	.mapping h3 {
-		margin-bottom: 0.45rem;
+		margin-bottom: var(--spacing-03);
 		font-size: 1rem;
 	}
 

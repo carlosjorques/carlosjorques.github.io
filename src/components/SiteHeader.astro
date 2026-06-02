@@ -1,11 +1,17 @@
 ---
 const baseUrl = import.meta.env.BASE_URL;
-const withBase = (href: string) => (href === '/' ? baseUrl : `${baseUrl}${href.replace(/^\//, '')}`);
+const normalizedBase = baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`;
+const withBase = (href: string) => (href === '/' ? normalizedBase : `${normalizedBase}${href.replace(/^\//, '')}`);
 const basePath = baseUrl.replace(/\/$/, '');
 const currentPath = Astro.url.pathname.replace(basePath, '') || '/';
+const normalizePath = (path: string) => {
+	if (path === '/') return '/';
+	return path.endsWith('/') ? path : `${path}/`;
+};
 const isActive = (href: string) => {
-	const normalized = href.endsWith('/') ? href : `${href}/`;
-	return href === '/' ? currentPath === '/' : currentPath.startsWith(normalized);
+	const normalizedCurrentPath = normalizePath(currentPath);
+	const normalizedHref = normalizePath(href);
+	return href === '/' ? normalizedCurrentPath === '/' : normalizedCurrentPath.startsWith(normalizedHref);
 };
 ---
 
@@ -19,26 +25,41 @@ const isActive = (href: string) => {
 			<a href={withBase('/work')} aria-current={isActive('/work') ? 'page' : undefined}>Work</a>
 			<a href={withBase('/contact')} aria-current={isActive('/contact') ? 'page' : undefined}>Contact</a>
 		</nav>
+
+		<button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch to dark color theme">
+			<svg class="theme-toggle__icon theme-toggle__icon--moon" viewBox="0 0 24 24" aria-hidden="true">
+				<path d="M20.8 14.6A8 8 0 0 1 9.4 3.2 9.2 9.2 0 1 0 20.8 14.6Z"></path>
+			</svg>
+			<svg class="theme-toggle__icon theme-toggle__icon--sun" viewBox="0 0 24 24" aria-hidden="true">
+				<circle cx="12" cy="12" r="4.2"></circle>
+				<path d="M12 2.5V5M12 19v2.5M21.5 12H19M5 12H2.5M18.7 5.3l-1.8 1.8M7.1 16.9l-1.8 1.8M18.7 18.7l-1.8-1.8M7.1 7.1 5.3 5.3"></path>
+			</svg>
+		</button>
 	</div>
 </header>
 
 <style>
 	.site-header {
-		background: var(--color-hero);
-		border-bottom: 1px solid var(--color-border);
+		background: var(--color-header-bg);
+		border-bottom: 1px solid var(--color-header-border);
+		transition:
+			background-color var(--motion-duration-moderate-01) var(--motion-standard-productive),
+			border-color var(--motion-duration-moderate-01) var(--motion-standard-productive),
+			color var(--motion-duration-moderate-01) var(--motion-standard-productive);
 	}
 
 	.site-header__inner {
 		min-height: 68px;
-		display: flex;
+		display: grid;
+		grid-template-columns: auto minmax(0, 1fr) auto;
 		align-items: center;
-		justify-content: space-between;
 		gap: 2rem;
 	}
 
 	.site-header__brand {
-		color: var(--color-text);
+		color: var(--color-header-text);
 		text-decoration: none;
+		font-family: var(--font-display);
 		font-size: 0.95rem;
 		font-weight: 600;
 		letter-spacing: 0.04em;
@@ -48,44 +69,171 @@ const isActive = (href: string) => {
 	.site-header__nav {
 		display: flex;
 		align-items: center;
+		justify-content: flex-end;
 		gap: 2.25rem;
 	}
 
 	.site-header__nav a {
-		color: var(--color-text);
+		color: var(--color-header-link);
 		text-decoration: none;
+		font-family: var(--font-mono);
 		font-size: 0.9rem;
 		font-weight: 500;
 		border-bottom: 1px solid transparent;
 		padding-bottom: 0.15rem;
-		transition: color 160ms ease-out, border-color 160ms ease-out;
+		position: relative;
+		transition:
+			color var(--motion-duration-fast-02) var(--motion-standard-productive),
+			border-color var(--motion-duration-fast-02) var(--motion-standard-productive),
+			transform var(--motion-duration-fast-02) var(--motion-standard-productive);
 	}
 
 	.site-header__nav a:hover,
-	.site-header__nav a:focus-visible,
+	.site-header__nav a:focus-visible {
+		color: var(--color-header-link-hover);
+		border-bottom-color: var(--color-header-link-hover);
+	}
+
 	.site-header__nav a[aria-current="page"] {
-		color: var(--color-accent);
-		border-bottom-color: var(--color-accent);
+		color: var(--color-header-active);
+		border-bottom-color: var(--color-header-link);
+		text-decoration: none;
+	}
+
+	.site-header__nav a[aria-current="page"]:hover,
+	.site-header__nav a[aria-current="page"]:focus-visible {
+		color: var(--color-header-active);
+		border-bottom-color: var(--color-header-link);
+	}
+
+	.site-header__nav a:hover,
+	.site-header__nav a:focus-visible {
+		transform: translateY(-1px);
 	}
 
 	.site-header__brand:focus-visible,
 	.site-header__nav a:focus-visible {
-		outline: 2px solid var(--color-accent);
+		outline: 2px solid var(--color-focus);
 		outline-offset: 4px;
+	}
+
+	.theme-toggle {
+		--toggle-size: 24px;
+
+		display: inline-flex;
+		width: var(--toggle-size);
+		height: var(--toggle-size);
+		align-items: center;
+		justify-content: center;
+		border: 0;
+		border-radius: 99em;
+		background: transparent;
+		color: var(--color-header-link);
+		cursor: pointer;
+		position: relative;
+		margin: 0;
+		padding: 0;
+		flex: 0 0 var(--toggle-size);
+		transition:
+			color var(--motion-duration-fast-02) var(--motion-standard-productive);
+	}
+
+	.theme-toggle:hover {
+		color: var(--color-header-active);
+	}
+
+	.theme-toggle:focus-visible {
+		outline: 2px solid var(--color-focus);
+		outline-offset: 4px;
+	}
+
+	.theme-toggle__icon {
+		position: absolute;
+		width: 15px;
+		height: 15px;
+		fill: currentColor;
+		opacity: 0;
+		transform: scale(0.7) rotate(20deg);
+		transition:
+			opacity var(--motion-duration-moderate-01) var(--motion-standard-productive),
+			transform var(--motion-duration-moderate-01) var(--motion-standard-productive);
+	}
+
+	.theme-toggle__icon--sun {
+		width: 15px;
+		height: 15px;
+		fill: none;
+		stroke: currentColor;
+		stroke-linecap: round;
+		stroke-width: 2.5;
+	}
+
+	:global(:root:not([data-theme="dark"])) .theme-toggle__icon--moon,
+	:global(:root[data-theme="bright"]) .theme-toggle__icon--moon,
+	:global(:root[data-theme="dark"]) .theme-toggle__icon--sun {
+		opacity: 1;
+		transform: scale(1) rotate(0);
+	}
+
+	:global(:root[data-theme="dark"]) .theme-toggle__icon--moon {
+		opacity: 0;
+		transform: scale(0.7) rotate(-20deg);
 	}
 
 	@media (max-width: 640px) {
 		.site-header__inner {
 			min-height: auto;
 			padding-block: 1rem;
-			flex-direction: column;
+			grid-template-columns: 1fr auto;
 			align-items: flex-start;
 			gap: 0.75rem;
 		}
 
+		.site-header__brand {
+			align-self: center;
+		}
+
 		.site-header__nav {
+			grid-column: 1 / -1;
 			gap: 1.25rem;
 			flex-wrap: wrap;
+			justify-content: flex-start;
+		}
+
+		.theme-toggle {
+			align-self: center;
 		}
 	}
 </style>
+
+<script>
+	const toggle = document.querySelector<HTMLButtonElement>('[data-theme-toggle]');
+	const root = document.documentElement;
+
+	const applyTheme = (theme: 'bright' | 'dark') => {
+		root.dataset.theme = theme;
+		root.style.colorScheme = theme === 'dark' ? 'dark' : 'light';
+
+		try {
+			window.localStorage.setItem('color-theme', theme);
+		} catch {
+			// Theme persistence is optional; the control still works for this page.
+		}
+
+		if (!toggle) {
+			return;
+		}
+
+		const nextThemeLabel = theme === 'dark' ? 'light' : 'dark';
+		toggle.setAttribute('aria-label', `Switch to ${nextThemeLabel} color theme`);
+	};
+
+	if (toggle) {
+		const initialTheme = root.dataset.theme === 'dark' ? 'dark' : 'bright';
+		applyTheme(initialTheme);
+
+		toggle.addEventListener('click', () => {
+			applyTheme(root.dataset.theme === 'dark' ? 'bright' : 'dark');
+		});
+	}
+</script>

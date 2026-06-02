@@ -1,6 +1,7 @@
 ---
 const baseUrl = import.meta.env.BASE_URL;
-const withBase = (href: string) => (href === '/' ? baseUrl : `${baseUrl}${href.replace(/^\//, '')}`);
+const normalizedBase = baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`;
+const withBase = (href: string) => (href === '/' ? normalizedBase : `${normalizedBase}${href.replace(/^\//, '')}`);
 ---
 
 <footer class="site-footer" id="contact">
@@ -17,15 +18,10 @@ const withBase = (href: string) => (href === '/' ? baseUrl : `${baseUrl}${href.r
 
 <style>
 	.site-footer {
-		--footer-text: var(--color-on-dark-muted-soft);
-		--footer-link: var(--color-on-dark-muted);
-		--footer-border: var(--color-on-dark-border-soft);
-		--footer-accent: var(--color-accent-bright);
-
-		border-top: 1px solid var(--footer-border);
-		background: var(--color-dark-surface);
+		border-top: 1px solid var(--color-footer-border);
+		background: var(--color-footer-bg);
 		padding-block: 2rem;
-		color: var(--footer-text);
+		color: var(--color-footer-text);
 	}
 
 	.site-footer__inner {
@@ -38,7 +34,7 @@ const withBase = (href: string) => (href === '/' ? baseUrl : `${baseUrl}${href.r
 	}
 
 	.site-footer__inner > span {
-		color: var(--footer-text);
+		color: var(--color-footer-text);
 	}
 
 	.site-footer__links {
@@ -53,23 +49,25 @@ const withBase = (href: string) => (href === '/' ? baseUrl : `${baseUrl}${href.r
 	}
 
 	.site-footer__links a {
-		color: var(--footer-link);
+		color: var(--color-footer-link);
 		text-decoration: none;
 		border-bottom: 1px solid transparent;
 		padding-bottom: 0.15rem;
 		transition:
-			border-color 160ms ease-out,
-			color 160ms ease-out;
+			border-color var(--motion-duration-fast-02) var(--motion-standard-productive),
+			color var(--motion-duration-fast-02) var(--motion-standard-productive),
+			transform var(--motion-duration-fast-02) var(--motion-standard-productive);
 	}
 
 	.site-footer__links a:hover,
 	.site-footer__links a:focus-visible {
-		color: var(--footer-accent);
-		border-bottom-color: var(--footer-accent);
+		color: var(--color-footer-link-hover);
+		border-bottom-color: var(--color-footer-link-hover);
+		transform: translateY(-1px);
 	}
 
 	.site-footer__links a:focus-visible {
-		outline: 2px solid var(--footer-accent);
+		outline: 2px solid var(--color-focus);
 		outline-offset: 4px;
 	}
 </style>

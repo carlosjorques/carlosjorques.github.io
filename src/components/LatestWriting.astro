@@ -2,7 +2,8 @@
 import ArticleRow from './ArticleRow.astro';
 
 const baseUrl = import.meta.env.BASE_URL;
-const withBase = (href: string) => (href === '/' ? baseUrl : `${baseUrl}${href.replace(/^\//, '')}`);
+const normalizedBase = baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`;
+const withBase = (href: string) => (href === '/' ? normalizedBase : `${normalizedBase}${href.replace(/^\//, '')}`);
 
 const articles = [
 	{
@@ -46,7 +47,7 @@ const articles = [
 
 <style>
 	.latest {
-		background: var(--color-page);
+		background: var(--color-section-bg);
 		border-top: 1px solid var(--color-border-soft);
 		padding-block: clamp(3rem, 6vw, 5rem);
 	}
@@ -55,7 +56,7 @@ const articles = [
 		display: grid;
 		gap: 0.65rem;
 		max-width: 760px;
-		margin-bottom: clamp(2rem, 4vw, 3rem);
+		margin-bottom: clamp(var(--spacing-07), 4vw, var(--spacing-09));
 	}
 
 	.latest__header h2 {
@@ -69,11 +70,11 @@ const articles = [
 		margin: 0;
 		font-size: clamp(1rem, 1.25vw, 1.15rem);
 		line-height: 1.55;
-		color: var(--color-text);
+		color: var(--color-body-text);
 	}
 
 	.latest__footer {
-		margin-top: clamp(1.5rem, 3vw, 2rem);
+		margin-top: clamp(var(--spacing-06), 3vw, var(--spacing-07));
 	}
 
 	.latest__footer a {
@@ -82,18 +83,24 @@ const articles = [
 		font-weight: 600;
 		letter-spacing: 0.05em;
 		text-transform: uppercase;
-		color: var(--color-accent);
+		color: var(--color-link);
 		text-decoration: none;
 		border-bottom: 1px solid transparent;
+		transition:
+			border-color var(--motion-duration-fast-02) var(--motion-standard-productive),
+			color var(--motion-duration-fast-02) var(--motion-standard-productive),
+			transform var(--motion-duration-fast-02) var(--motion-standard-productive);
 	}
 
 	.latest__footer a:hover,
 	.latest__footer a:focus-visible {
-		border-bottom-color: var(--color-accent);
+		color: var(--color-link-hover);
+		border-bottom-color: var(--color-link-hover);
+		transform: translateX(4px);
 	}
 
 	.latest__footer a:focus-visible {
-		outline: 2px solid var(--color-accent);
+		outline: 2px solid var(--color-focus);
 		outline-offset: 4px;
 	}
 </style>

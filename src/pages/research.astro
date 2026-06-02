@@ -107,8 +107,18 @@ const supportingItems = researchItems.filter((item) => !item.data.featured);
 	}
 
 	.text-link {
-		color: var(--color-accent);
+		color: var(--color-link);
 		font-weight: 700;
+	}
+
+	.text-link:hover,
+	.text-link:focus-visible {
+		color: var(--color-link-hover);
+	}
+
+	.text-link:focus-visible {
+		outline: 2px solid var(--color-focus);
+		outline-offset: 4px;
 	}
 
 	.research-list {
