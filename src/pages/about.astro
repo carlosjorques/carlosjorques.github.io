@@ -255,7 +255,7 @@ const evidenceLinks = [
 			</div>
 			<div class="about-copy">
 				<p>
-					That curiosity later led me to build my first <strong>obstacle-avoiding robot kit</strong>.
+					My curiosity for electronics led me to build my first <strong>obstacle-avoiding robot kit</strong>.
 				</p>
 				<p>
 					The real turning point happened at <strong>Campus Party in Valencia</strong>, where I watched a
@@ -286,7 +286,7 @@ const evidenceLinks = [
 		</div>
 	</section>
 
-	<section class="section about-split about-band about-band--warm" aria-labelledby="how-i-work-title">
+	<section class="section about-split about-split--reverse about-band about-band--warm" aria-labelledby="how-i-work-title">
 		<div class="page-container about-split__grid">
 			<div class="split-heading">
 				<h2 id="how-i-work-title">How I Work</h2>
@@ -1000,8 +1000,17 @@ const evidenceLinks = [
 		}
 
 		.about-split__grid {
-			grid-template-columns: repeat(2, minmax(0, 1fr));
+			grid-template-columns: minmax(0, 3fr) minmax(0, 7fr);
 			gap: clamp(2rem, 4vw, 3rem);
+		}
+
+		.about-split--reverse .split-heading {
+			grid-column: 2;
+		}
+
+		.about-split--reverse .about-copy {
+			grid-column: 1;
+			grid-row: 1;
 		}
 
 		.capability-grid {
@@ -1017,7 +1026,7 @@ const evidenceLinks = [
 		}
 
 		.about-life__grid {
-			grid-template-columns: minmax(0, 1fr) minmax(260px, 0.42fr);
+			grid-template-columns: minmax(0, 7fr) minmax(260px, 3fr);
 		}
 
 		.about-life__visual {
