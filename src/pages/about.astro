@@ -100,19 +100,20 @@ const capabilities = [
 
 const appliedExpertise = [
 	{
-		domain: 'Heavy-Duty Transportation & Electrification',
+		domain: 'Heavy-Duty Transport & Electrification',
 		context: 'Scania trucks and powertrain control systems',
 		focus: [
 			{
-				text: 'Developed real-time embedded control software for internal combustion and electric heavy-duty truck platforms, focusing on high-voltage battery systems, charger coordination, and overall energy efficiency.',
+				text: 'Real-time control software for internal combustion and electric heavy-duty truck platforms, including thermal management, high-voltage battery systems, and charger coordination.',
 			},
 		] satisfies TextPart[],
 	},
 	{
-		domain: 'Electric Vehicle Thermal Management',
+		domain: 'EV Thermal Management',
+		context: 'Predictive climate and component protection',
 		focus: [
 			{
-				text: 'Designed control architectures, model logic, diagnostics, and calibration strategies for thermal management systems where performance affects charging speed, battery lifespan, component protection, and cabin comfort.',
+				text: 'Control architectures, model design, diagnostics, and calibration strategies for thermal systems where performance affects efficiency, charging speed, component protection, and battery lifespan.',
 			},
 		] satisfies TextPart[],
 	},
@@ -121,33 +122,17 @@ const appliedExpertise = [
 		context: 'Volvo CE TA15 autonomous hauler',
 		focus: [
 			{
-				text: 'Designed the torque allocation strategies and dual e-axle speed control logic to manage propulsion, safety monitoring, and vehicle-level physical behavior for autonomous electric machines.',
+				text: 'Torque allocation strategies and dual e-axle speed control logic for propulsion, safety monitoring, and vehicle-level behavior in autonomous electric machines.',
 			},
 		] satisfies TextPart[],
 	},
 	{
 		domain: 'Safety-Related Diagnostics',
-		context: 'Online fault isolation and system availability',
+		context: 'Fault isolation and system availability',
 		focus: [
 			{
-				text: 'Developed real-time monitoring software to detect faults, isolate component failures, and trigger degradation modes so vehicles can remain controlled under fault conditions.',
+				text: 'Real-time monitoring software to detect faults, isolate component failures, and trigger degradation modes so vehicles can remain controlled under fault conditions.',
 			},
-		] satisfies TextPart[],
-	},
-	{
-		domain: 'Advanced Combustion Research',
-		context: 'PhD foundation in feedback control',
-		focus: [
-			{
-				text: 'Conducted doctoral research and industrial studies on engine efficiency optimization, virtual sensing, stochastic optimization, and predictive feedback control on target hardware.',
-			},
-		] satisfies TextPart[],
-	},
-	{
-		domain: 'Industry Standards and Production Deployment',
-		context: 'Automotive workflows from architecture to release',
-		focus: [
-			{ text: 'Worked in structured product environments governed by ISO 26262, AUTOSAR architectures, the V-model, ASPICE, Agile/SAFe frameworks, and automated Git CI/CD pipelines.' },
 		] satisfies TextPart[],
 	},
 ];
@@ -270,25 +255,26 @@ const evidenceLinks = [
 			</div>
 			<div class="about-copy">
 				<p>
-					That curiosity later led me to build my first obstacle-avoiding robot kit.
+					That curiosity later led me to build my first <strong>obstacle-avoiding robot kit</strong>.
 				</p>
 				<p>
-					The real turning point happened at Campus Party in Valencia, where I watched a
+					The real turning point happened at <strong>Campus Party in Valencia</strong>, where I watched a
 					line-tracking robot competition. Some robots were incredibly fast and stable, while
 					mine oscillated from side to side. I wanted to understand why.
 				</p>
 				<p>
-					During my Electrical Engineering studies, I found one answer in a PI controller.
+					During my <strong>Electrical Engineering</strong> studies, I found one answer in a
+					<strong>PI controller</strong>.
 					That was my first clear step into control engineering. It gave me a language for
 					many things I had wondered about, from balancing a Segway to how climate control
 					regulates a room.
 				</p>
 				<p>
-					I started my Industrial Engineering studies in Valencia and later continued in
-					Sweden through a double-degree program in Electrical Engineering, including
-					advanced control studies at Lund University. There, I deepened my focus on
+					I started my <strong>Industrial Engineering</strong> studies in Valencia and later continued in
+					Sweden through a double-degree program in <strong>Electrical Engineering</strong>, including
+					advanced control studies at <strong>Lund University</strong>. There, I deepened my focus on
 					automatic control, dynamic systems, and model-based engineering. That path
-					eventually led me to pursue a PhD and apply those ideas to industrial control
+					eventually led me to pursue a <strong>PhD</strong> and apply those ideas to industrial control
 					problems.
 				</p>
 				<p>
@@ -313,19 +299,21 @@ const evidenceLinks = [
 			</div>
 			<div class="about-copy">
 				<p>
-					The real engineering challenge is turning control ideas into real-time software
-					that can be integrated, calibrated, and maintained across a long field lifecycle.
-					I value simple, robust solutions over unnecessary complexity, because advanced
-					algorithms only matter when they respect constraints, safety-related requirements,
-					validation evidence, and the realities of production delivery.
+					The real engineering challenge is turning control ideas into <strong>real-time software</strong>
+					that can be integrated, calibrated, and maintained across a
+					<strong>long field lifecycle</strong>.
+					I value <strong>simple, robust solutions</strong> over unnecessary complexity, because advanced
+					algorithms only matter when they respect <strong>hardware constraints,
+					safety-related requirements, and validation evidence</strong>, and the realities of
+					production delivery.
 				</p>
 				<p>
 					When solving technical problems, I actively question underlying assumptions, verify
-					them with data, and separate root cause, control strategy, diagnostics, and
-					degradation logic before jumping into code.
+					them with <strong>empirical data</strong>, and separate <strong>root cause, control strategy,
+					diagnostics, and degradation logic</strong> before jumping into code.
 				</p>
 				<p>
-					As a leader, my role is to bring structural clarity, remove friction, and provide
+					As a leader, my role is to bring <strong>structural clarity</strong>, remove friction, and provide
 					the team with the practical context and tools they need to execute with autonomy
 					and accountability. I guide deliveries by making technical trade-offs visible,
 					managing risk together, and turning different engineering perspectives into sound
@@ -380,9 +368,9 @@ const evidenceLinks = [
 					/>
 					<figcaption>
 						<span>
-							A real-world machine is where control intent, embedded software,
-							diagnostics, validation, and field behavior have to become one dependable
-							system.
+							A real-world machine is where control logic, embedded software, diagnostics,
+							and validation must come together to work reliably under real operating
+							conditions.
 						</span>
 					</figcaption>
 				</figure>
@@ -410,27 +398,30 @@ const evidenceLinks = [
 		</div>
 	</section>
 
-	<section class="section about-split about-band about-band--white" aria-labelledby="beyond-engineering-title">
-		<div class="page-container about-split__grid">
-			<div class="split-heading">
+	<section class="section about-life" aria-labelledby="beyond-engineering-title">
+		<div class="page-container about-life__grid">
+			<div class="about-life__content">
 				<h2 id="beyond-engineering-title">Beyond Engineering</h2>
+				<div class="about-copy">
+					<p>
+						Outside work, I like activities where I can keep building, learning, and improving
+						things.
+					</p>
+					<p>
+						Basketball has been part of my life since childhood, and I still love playing the
+						game today. I also enjoy creative, hands-on hobbies like 3D printing, painting,
+						lamp design, Arduino-based projects, and home automation, where I keep
+						experimenting.
+					</p>
+					<p>
+						But most importantly, I enjoy spending time with my family: my wife, our kid, and
+						our dog. We are dog people, by the way.
+					</p>
+				</div>
 			</div>
-			<div class="about-copy">
-				<p>
-					Outside work, I like activities where I can keep building, learning, and improving
-					things.
-				</p>
-				<p>
-					Basketball has been part of my life since childhood, and I still love playing the
-					game today. I also enjoy creative, hands-on hobbies like 3D printing, painting,
-					lamp design, Arduino-based projects, and home automation, where I keep
-					experimenting.
-				</p>
-				<p>
-					But most importantly, I enjoy spending time with my family: my wife, our kid, and
-					our dog. We are dog people, by the way.
-				</p>
-			</div>
+			<figure class="about-life__visual" aria-label="Placeholder for a personal life image">
+				<div class="about-life__placeholder" aria-hidden="true"></div>
+			</figure>
 		</div>
 	</section>
 
@@ -479,24 +470,24 @@ const evidenceLinks = [
 	.about-hero {
 		padding-block: clamp(4rem, 8vw, 7rem) clamp(3rem, 6vw, 5rem);
 		border-bottom: 1px solid var(--color-border-soft);
-		background: var(--color-section-bg);
+		background: transparent;
 	}
 
 	.about-hero ~ .section {
-		background: var(--color-section-bg);
+		background: transparent;
 	}
 
 	.about-hero ~ .about-proof,
 	.about-hero ~ .about-band--white {
-		background: var(--color-bg);
+		background: transparent;
 	}
 
 	.about-hero ~ .about-band--warm {
-		background: color-mix(in srgb, var(--color-card-bg) 68%, var(--color-accent-wash));
+		background: transparent;
 	}
 
 	.about-hero ~ .about-final {
-		background: var(--color-footer-bg);
+		background: transparent;
 	}
 
 	.about-hero__inner {
@@ -548,6 +539,11 @@ const evidenceLinks = [
 		display: flex;
 		flex-wrap: wrap;
 		gap: 1rem;
+	}
+
+	.about-hero .button:not(.primary):hover,
+	.about-hero .button:not(.primary):focus-visible {
+		border-color: var(--color-button-primary-state-bg);
 	}
 
 	.about-hero__portrait {
@@ -646,7 +642,7 @@ const evidenceLinks = [
 		align-items: start;
 		margin: 0;
 		max-width: 760px;
-		background: var(--color-quote-bg);
+		background: transparent;
 		color: var(--color-quote-text);
 		padding: clamp(1rem, 2.4vw, 1.5rem);
 		font-size: clamp(1.45rem, 3vw, 2.35rem);
@@ -708,7 +704,7 @@ const evidenceLinks = [
 		gap: 0.25rem;
 		margin-top: var(--spacing-05);
 		padding: 1rem;
-		background: var(--color-surface-soft);
+		background: transparent;
 		border-left: 3px solid var(--color-accent);
 		transition:
 			border-left-width var(--motion-duration-fast-02) var(--motion-standard-productive),
@@ -744,7 +740,7 @@ const evidenceLinks = [
 	}
 
 	.capability-item__area {
-		color: var(--color-accent) !important;
+		color: var(--color-card-subtext) !important;
 		font-family: var(--font-sans);
 		font-size: 0.85rem !important;
 		font-weight: 500;
@@ -754,7 +750,7 @@ const evidenceLinks = [
 	}
 
 	.challenge-item__context {
-		color: var(--color-accent) !important;
+		color: var(--color-card-subtext) !important;
 		font-family: var(--font-sans);
 		font-size: 0.85rem !important;
 		font-style: italic;
@@ -807,6 +803,7 @@ const evidenceLinks = [
 		gap: 0.35rem;
 		margin-top: var(--spacing-04);
 		max-width: 520px;
+		background: transparent;
 		color: var(--color-body-text);
 		font-size: 0.9rem;
 		line-height: 1.5;
@@ -875,6 +872,59 @@ const evidenceLinks = [
 		margin-top: var(--spacing-07);
 		border-top: 1px solid var(--color-border-soft);
 		background: var(--color-footer-bg);
+	}
+
+	.about-life__grid {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: clamp(1.5rem, 4vw, 3rem);
+		align-items: start;
+	}
+
+	.about-life__content {
+		display: grid;
+		gap: 1.25rem;
+	}
+
+	.about-life__content h2 {
+		max-width: 760px;
+		font-size: clamp(1.7rem, 3.5vw, 2.65rem);
+		line-height: 1.08;
+	}
+
+	.about-life__visual {
+		margin: 0;
+		width: min(100%, 520px);
+	}
+
+	.about-life__placeholder {
+		position: relative;
+		overflow: hidden;
+		aspect-ratio: 4 / 3;
+		border: 1px solid var(--color-card-border);
+		background: transparent;
+	}
+
+	.about-life__placeholder::before,
+	.about-life__placeholder::after {
+		position: absolute;
+		content: '';
+		border: 1px solid var(--color-card-subtext);
+	}
+
+	.about-life__placeholder::before {
+		right: 12%;
+		bottom: 12%;
+		width: 42%;
+		aspect-ratio: 1;
+		border-radius: 999px;
+	}
+
+	.about-life__placeholder::after {
+		left: 12%;
+		top: 14%;
+		width: 32%;
+		aspect-ratio: 3 / 2;
 	}
 
 	.about-final__inner {
@@ -964,6 +1014,14 @@ const evidenceLinks = [
 
 		.applied-domain-visual {
 			top: 2rem;
+		}
+
+		.about-life__grid {
+			grid-template-columns: minmax(0, 1fr) minmax(260px, 0.42fr);
+		}
+
+		.about-life__visual {
+			justify-self: end;
 		}
 
 		.about-final__inner {

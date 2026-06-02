@@ -103,6 +103,7 @@
 	--color-card-bg-hover: var(--palette-light-shell-base);
 	--color-card-border: color-mix(in srgb, var(--palette-light-rose-base) 30%, transparent);
 	--color-card-border-hover: color-mix(in srgb, var(--text-cocoa) 40%, transparent);
+	--color-card-subtext: color-mix(in srgb, var(--palette-light-blue-active) 78%, var(--palette-light-blue-base));
 
 	--color-tag-text: var(--text-ink);
 
@@ -199,6 +200,7 @@
 	--color-card-bg-hover: var(--palette-dark-blue-muted);
 	--color-card-border: color-mix(in srgb, var(--palette-dark-blue-base) 18%, transparent);
 	--color-card-border-hover: color-mix(in srgb, var(--palette-dark-blue-active) 34%, transparent);
+	--color-card-subtext: var(--palette-dark-blue-active);
 
 	--color-tag-text: var(--text-paper);
 
