@@ -1,979 +1,546 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { cvProfile } from '../data/cv';
 
 const baseUrl = import.meta.env.BASE_URL;
-const withBase = (href: string) => (href === '/' ? baseUrl : `${baseUrl}${href.replace(/^\//, '')}`);
+const withBase = (href: string) => {
+	if (href.startsWith('http') || href.startsWith('mailto:') || href.startsWith('#')) {
+		return href;
+	}
 
-const cvPdfHref = withBase('/cv/Carlos_Jorques_CV.pdf');
-const contactHref = withBase('/contact');
-const workHref = withBase('/work');
-const linkedinHref = 'https://www.linkedin.com/in/carlosjorques/';
-
-type ActionLink = {
-	label: string;
-	href: string;
-	primary?: boolean;
-	external?: boolean;
-	download?: boolean;
+	return href === '/' ? baseUrl : `${baseUrl}${href.replace(/^\//, '')}`;
 };
 
-type ExpertiseGroup = {
-	title: string;
-	items: string[];
-};
-
-type ExperienceItem = {
-	title: string;
-	organization?: string;
-	location?: string;
-	dates: string;
-	summary: string;
-	bullets: string[];
-	tags?: string[];
-};
-
-type CaseStudy = {
-	title: string;
-	context: string;
-	role: string;
-	focus: string;
-	contribution: string;
-};
-
-type EducationItem = {
-	degree: string;
-	year: string;
-	focus?: string;
-	dissertation?: string;
-	description: string;
-	links?: { label: string; href: string }[];
-};
-
-const actions: ActionLink[] = [
-	{ label: 'Download PDF CV', href: cvPdfHref, primary: true, download: true },
-	{ label: 'Contact Carlos', href: contactHref },
-	{ label: 'View LinkedIn', href: linkedinHref, external: true },
-	{ label: 'View Selected Work', href: workHref },
-];
-
-const quickNav = [
-	{ label: 'Roles', href: '#relevant-for' },
-	{ label: 'Summary', href: '#executive-summary' },
-	{ label: 'Expertise', href: '#core-expertise' },
-	{ label: 'Impact', href: '#impact-highlights' },
-	{ label: 'Experience', href: '#professional-experience' },
-	{ label: 'Case Studies', href: '#case-studies' },
-	{ label: 'Research', href: '#research-publications' },
-	{ label: 'Education', href: '#education' },
-	{ label: 'Tools', href: '#tools-methods' },
-	{ label: 'Contact', href: '#cv-contact' },
-];
-
-const proofCards = [
-	{ value: '10+', label: 'years embedded controls' },
-	{ value: 'EV', label: 'thermal management and BMS' },
-	{ value: 'Autonomous', label: 'propulsion control' },
-	{ value: 'ISO 26262', label: 'and A-SPICE context' },
-	{ value: '5', label: 'patent records' },
-	{ value: '15+', label: 'scientific publications' },
-];
-
-const targetRoles = [
-	'Senior Electronics Engineer',
-	'Embedded Controls Architect',
-	'Technical Lead',
-	'Control Systems Engineer',
-	'BMS / Thermal Management Engineer',
-	'Functional Safety Engineer',
-	'Autonomous Machine Controls',
-	'Powertrain Software Engineer',
-	'Model-Based Development Lead',
-];
-
-const executiveSummary = [
-	'I specialize in developing embedded control software for complex physical systems where reliability, timing, diagnostics, and system integration matter. My experience covers the full engineering lifecycle: requirements, concept design, control architecture, model-based implementation, generated C/C++ code, integration, calibration, validation, and production-oriented delivery.',
-	'In recent roles, I have worked on electric truck thermal management, battery and charger coordination, autonomous electric hauler propulsion control, e-bike motor control, wireless charging, DC/DC converter interfaces, and heavy-duty engine diagnostics. I have also led small engineering teams, coordinated technical delivery, mentored junior developers, and worked across cross-functional automotive organizations.',
-	'My strongest technical identity is automatic control applied to embedded systems: designing estimators, regulators, diagnostic logic, safety-aware fallback behavior, and validation strategies for real-world systems with physical constraints.',
-];
-
-const coreExpertise: ExpertiseGroup[] = [
-	{
-		title: 'Embedded Controls Architecture',
-		items: [
-			'Real-time control architecture for vehicle and powertrain systems',
-			'Control logic for thermal management, propulsion, torque allocation, battery systems, and diagnostics',
-			'System requirements, functional design, software architecture, and implementation strategy',
-			'Model-based development with MATLAB/Simulink and production-oriented generated code',
-		],
-	},
-	{
-		title: 'Electric and Autonomous Vehicle Systems',
-		items: [
-			'Electric truck thermal management for batteries, auxiliaries, power electronics, and charging systems',
-			'Battery thermal management and predictive thermal control concepts',
-			'Autonomous electric hauler traction and speed control',
-			'Torque allocation across dual electric motors and redundant actuator concepts',
-			'System-level validation in SIL, HIL, test bench, test track, and vehicle environments',
-		],
-	},
-	{
-		title: 'Embedded Software and Validation',
-		items: [
-			'Embedded C/C++ and model-based software implementation',
-			'ECU flashing, debugging, issue tracking, and software integration',
-			'MIL, SIL, HIL, unit testing, integration testing, field testing, and data-driven calibration',
-			'CI/CD workflows using GitLab, Jenkins, Git, Jira, and related development tooling',
-		],
-	},
-	{
-		title: 'Diagnostics, Safety, and Robustness',
-		items: [
-			'Diagnostic strategies for thermal systems, engine systems, fuel systems, and control software',
-			'Functional safety context with ISO 26262-aligned development',
-			'Fault handling, fallback strategies, monitoring, and robustness-oriented design',
-			'A-SPICE and traceability-aware engineering practices',
-		],
-	},
-	{
-		title: 'Technical Leadership',
-		items: [
-			'Technical leadership of embedded software engineers',
-			'Planning, mentoring, delivery coordination, and cross-functional alignment',
-			'Agile, Scrum, Kanban, SAFe, and CI/CD delivery environments',
-			'Interface between system engineering, software development, validation, suppliers, and project stakeholders',
-		],
-	},
-];
-
-const impactHighlights = [
-	'Led and mentored a team of 3 embedded software engineers delivering model-based automotive software.',
-	'Developed embedded software for electric truck thermal management, battery systems, charger integration, diagnostics, and validation.',
-	'Designed and integrated traction and speed control software for autonomous electric haulers operating in demanding off-road environments.',
-	'Developed control architecture and diagnostics for dual-motor torque allocation and redundant actuator concepts.',
-	'Created model-based thermal and control software for e-bike motor control, wireless charging, and DC/DC converter applications.',
-	'Developed real-time combustion control and diagnostic algorithms during an industrial PhD, resulting in multiple publications and patent records.',
-	'Published research results include 25-75% reduction in controlled-parameter dispersion, 60% reduction in pilot fuel mass estimation error, and up to 96% real-time pilot misfire detection.',
-	'Contributed to patent records in fuel system regulation, diagnostics, pilot injection fuel mass estimation, and heat release evaluation.',
-];
-
-const experience: ExperienceItem[] = [
-	{
-		title: 'Senior Developer Engineer',
-		organization: 'Traton / Scania Assignment',
-		dates: 'July 2025-Present',
-		summary:
-			'Develop embedded software for electric truck thermal management, battery-related control functions, charger thermal coordination, diagnostics, and real-time controller architecture. Work within cross-functional Traton and Scania R&D environments to support scalable software platforms for electric and hybrid commercial vehicles.',
-		bullets: [
-			'Develop software for thermal management of electric powertrains, auxiliaries, batteries, and charging systems.',
-			'Work on predictive thermal management concepts for EV energy optimization and battery life.',
-			'Design software architecture for real-time controllers using model-based development.',
-			'Support battery management and SOC/SOH-optimized thermal control strategies.',
-			'Develop, calibrate, and validate models across MIL, SIL, HIL, test bench, wind tunnel, test track, and on-road environments.',
-			'Contribute to functional safety analysis, diagnostics, fallback strategies, and ISO 26262 / A-SPICE-aligned workflows.',
-			'Use GitLab CI/CD pipelines and SAFe Agile practices to improve integration quality and reduce development cycle time.',
-			'Coordinate with suppliers and cross-functional engineering teams across Traton R&D.',
-		],
-		tags: [
-			'MATLAB/Simulink',
-			'C',
-			'GitLab',
-			'CI/CD',
-			'ISO 26262',
-			'A-SPICE',
-			'SAFe',
-			'diagnostics',
-			'MIL/SIL/HIL',
-			'calibration',
-			'EV thermal management',
-			'BMS',
-		],
-	},
-	{
-		title: 'Senior Software Developer / Technical Leader',
-		organization: 'Alten Delivery Center',
-		location: 'Valencia, Spain',
-		dates: '2023-Present',
-		summary:
-			'Technical leader for embedded automotive software development assignments, coordinating engineering delivery and mentoring a small team of embedded software engineers.',
-		bullets: [
-			'Provide technical leadership to a team of 3 engineers in embedded software development.',
-			'Coordinate task planning, delivery alignment, and technical quality for client assignments.',
-			'Support system requirements, architecture design, controller implementation, SIL/HIL validation, on-road testing, debugging, and issue tracking.',
-			'Mentor junior engineers and support knowledge sharing across Agile and CI/CD workflows.',
-			"Participate in Alten's Key People program for mentoring and project management.",
-		],
-		tags: ['MATLAB/Simulink', 'C/C++', 'ISO 26262', 'CI/CD', 'Agile', 'SIL/HIL', 'technical leadership'],
-	},
-	{
-		title: 'Senior Developer Engineer',
-		organization: 'Volvo CE Assignment',
-		dates: 'April 2022-December 2024',
-		summary:
-			'Led development and integration of propulsion control software for autonomous electric haulers, focusing on traction control, speed control, torque allocation, diagnostics, and functional safety.',
-		bullets: [
-			'Developed and integrated traction control functionality for autonomous electric haulers.',
-			'Designed controller architecture for propulsion torque control with individual axle control and dual electric motors.',
-			'Investigated torque allocation concepts with redundant actuators.',
-			'Developed functional safety-related speed control and monitoring software.',
-			'Delivered unit tests, integration tests, SIL/HIL testing, and on-road evaluations in manual and autonomous modes.',
-			'Led diagnostics, issue tracking, data analysis, tuning, debugging, and system-level evaluations.',
-			'Mentored and supported junior developers.',
-		],
-		tags: [
-			'MATLAB/Simulink',
-			'ISO 26262',
-			'SIL',
-			'HIL',
-			'diagnostics',
-			'data analysis',
-			'autonomous vehicle control',
-			'propulsion control',
-		],
-	},
-	{
-		title: 'Development Software Engineer',
-		organization: 'Mahle Electronics',
-		location: 'Valencia, Spain',
-		dates: '2022-2023',
-		summary:
-			'Worked on electric mobility software, motor control, power electronics interfaces, model-based development strategy, and AUTOSAR-oriented platform work.',
-		bullets: [
-			'Led software development for an e-bike motor control project.',
-			'Implemented application-layer software for wireless battery charging and DC/DC converter functionality.',
-			'Developed and calibrated a virtual PMSM motor temperature model with approximately 98% accuracy.',
-			'Optimized PMSM electric motor controller behavior.',
-			'Developed model-based software strategy for an adaptive platform using AUTOSAR-oriented methods.',
-			'Acted as Scrum Master, supporting sprint planning, retrospectives, Jira workflows, and Agile improvement.',
-			'Contributed to Automotive SPICE methodology implementation.',
-		],
-		tags: ['MATLAB/Simulink', 'C', 'C++', 'Classic AUTOSAR', 'CANalyzer', 'CANoe', 'SVN', 'Jira', 'Agile', 'PMSM'],
-	},
-	{
-		title: 'Senior Development Engineer',
-		organization: 'Scania',
-		location: 'Sodertalje, Sweden',
-		dates: '2021-2022',
-		summary:
-			'Developed embedded control software for electric powertrain thermal management and battery management functions in heavy-duty vehicle applications.',
-		bullets: [
-			'Designed control architecture for thermal management in electric powertrains.',
-			'Implemented and tested control software for electric vehicles.',
-			'Developed estimation methods for state of charge, state of power, and state of health in mild-hybrid vehicle batteries.',
-			'Worked on passive and active cooling control integration across cabin climate, fans, heat pumps, batteries, and electric motors.',
-			'Investigated control and diagnosis concepts for electric truck thermal management and BMS functionality.',
-			'Planned and executed validation in MIL, SIL, HIL, test bench, wind tunnel, test track, and on-road environments.',
-			'Supported supplier contact, calibration maturity tracking, debugging, issue tracking, ECU flashing, and patent applications.',
-		],
-		tags: [
-			'MATLAB/Simulink',
-			'C',
-			'C++',
-			'Jenkins',
-			'Git',
-			'Jira',
-			'ISO 26262',
-			'model-based development',
-			'BMS',
-			'thermal management',
-		],
-	},
-	{
-		title: 'Industrial PhD Student',
-		organization: 'Scania and Lund University',
-		location: 'Sodertalje, Sweden',
-		dates: '2016-2021',
-		summary:
-			'Conducted industrial PhD research on real-time diagnostics and in-cycle closed-loop combustion control for heavy-duty diesel engines operating with biofuels.',
-		bullets: [
-			'Developed real-time model-based diagnostics and control algorithms for heavy-duty engine combustion systems.',
-			'Designed and implemented in-cycle closed-loop combustion control concepts using FPGA and LabVIEW.',
-			'Developed virtual sensors, stochastic detection methods, predictive models, and online adaptation strategies.',
-			'Planned experiments, collected data, analyzed results, calibrated models, and validated control algorithms on test benches and prototype systems.',
-			'Published multiple peer-reviewed papers and contributed to several patent applications.',
-			'Represented Scania at international conferences and innovation forums.',
-		],
-		tags: [
-			'MATLAB/Simulink',
-			'LabVIEW',
-			'FPGA',
-			'signal processing',
-			'data processing',
-			'stochastic modeling',
-			'model calibration',
-			'experimental validation',
-		],
-	},
-	{
-		title: 'Development Engineer',
-		organization: 'Scania',
-		location: 'Sodertalje, Sweden',
-		dates: '2014-2016',
-		summary:
-			'Developed embedded control and diagnostic software for heavy-duty engine systems, oil systems, cooling systems, and safety-related functionality.',
-		bullets: [
-			'Developed software for engine diagnostics, calibration, and safety functionality using model-based methods and C-code generation.',
-			'Implemented control and diagnostic functions for oil level, oil pressure, warning handling, and driver display information.',
-			'Developed concepts for controllable cooling systems, controllable oil pumps, and oil degradation models.',
-			'Planned and executed software validation using MIL, SIL, HIL, test bench, wind tunnel, test track, and on-road testing.',
-			'Supported ECU flashing, issue tracking, supplier contact, patent applications, and thesis mentoring.',
-		],
-		tags: [
-			'MATLAB/Simulink',
-			'C',
-			'C++',
-			'Jenkins',
-			'Perforce',
-			'Vision',
-			'Jira',
-			'model-based development',
-			'diagnostics',
-			'functional safety',
-		],
-	},
-];
-
-const earlierExperience: ExperienceItem[] = [
-	{
-		title: 'Master Thesis Student',
-		organization: 'Scania',
-		dates: '2014',
-		summary: 'Master thesis on automatic control for a low-pressure fuel system in heavy-duty vehicles.',
-		bullets: [
-			'Built and evaluated a test-rig control strategy using MATLAB/Simulink.',
-			'Contributed to real-time control algorithm and patent-related work.',
-		],
-	},
-	{
-		title: 'Hardware Engineer',
-		organization: 'Arduino Verkstad',
-		dates: '2014',
-		summary: 'Short-term hardware engineering work focused on educational electronics platforms and embedded prototyping.',
-		bullets: [
-			'Designed and produced PCB circuits for TinkerKit-based educational projects.',
-			'Created documentation for Arduino courses and maker education materials.',
-		],
-	},
-	{
-		title: 'Software Researcher',
-		organization: 'Sony Mobile Communications',
-		dates: 'May 2013-August 2013',
-		summary: 'Engineering internship in mobile R&D focused on predictive algorithms for reduced touchscreen latency.',
-		bullets: [
-			'Researched predictive screen interaction models for improved responsiveness.',
-			'Implemented selected algorithms at Android kernel level for real-time evaluation.',
-		],
-	},
-];
-
-const caseStudies: CaseStudy[] = [
-	{
-		title: 'Electric Truck Thermal Management and Battery Systems',
-		context:
-			'Electric and hybrid commercial vehicles require coordinated thermal control across batteries, auxiliaries, power electronics, cabin systems, and charging interfaces.',
-		role: 'Senior developer engineer / embedded controls specialist.',
-		focus:
-			'Battery thermal management, predictive thermal control, charger thermal coordination, diagnostics, software architecture, functional safety, calibration, and validation.',
-		contribution:
-			'Developed model-based embedded software, supported architecture design, integrated CI/CD workflows, contributed to functional safety analysis, and validated control behavior across simulation, bench, and vehicle environments.',
-	},
-	{
-		title: 'Autonomous Electric Hauler Propulsion Control',
-		context: 'Autonomous electric haulers require reliable propulsion and speed control in demanding off-road environments.',
-		role: 'Senior developer engineer / technical lead.',
-		focus:
-			'Traction control, speed control, torque allocation, redundant actuators, dual electric motors, diagnostics, functional safety, SIL/HIL testing, and vehicle validation.',
-		contribution:
-			'Developed and integrated propulsion control software, designed torque allocation concepts, implemented diagnostics, supported safety-related monitoring, and led debugging and validation activities.',
-	},
-	{
-		title: 'E-Bike Motor Control and Power Electronics Software',
-		context:
-			'Electric mobility platforms require embedded software for motor control, power electronics interfaces, thermal modeling, and AUTOSAR-oriented software architecture.',
-		role: 'Software lead and Scrum Master.',
-		focus:
-			'PMSM motor control, virtual temperature sensing, wireless charging, DC/DC converter interfaces, model-based development, Classic AUTOSAR, test-bench validation, and Agile delivery.',
-		contribution:
-			'Led software development, developed and calibrated a PMSM thermal model, implemented application software, supported Automotive SPICE practices, and coordinated Agile delivery routines.',
-	},
-	{
-		title: 'In-Cycle Combustion Control and Real-Time Diagnostics',
-		context:
-			'Heavy-duty engines operating with biofuels require robust control strategies that can handle combustion variability, emissions constraints, and real-time execution limits.',
-		role: 'Industrial PhD researcher.',
-		focus:
-			'In-cycle closed-loop control, virtual sensing, stochastic detection, predictive modeling, online adaptation, FPGA implementation, signal processing, and experimental validation.',
-		contribution:
-			'Developed and validated control and diagnostic algorithms, implemented real-time concepts on FPGA, published scientific results, contributed to patents, and demonstrated improvements in combustion control accuracy, robustness, and efficiency.',
-	},
-];
-
-const researchThemes = [
-	'In-cycle closed-loop combustion control',
-	'Real-time model-based diagnostics and virtual sensing',
-	'Stochastic detection and Bayesian estimation',
-	'Predictive control and online model adaptation',
-	'FPGA implementation of real-time control and signal-processing methods',
-	'Set-point optimization and robustness under physical constraints',
-	'Experimental validation on heavy-duty engine platforms',
-];
-
-const patents = [
-	'Method and system for determining in-cycle a pilot injection fuel mass in a combustion chamber of an engine',
-	'Method and system for fuel pump regulation',
-	'System and method for improving heat release evaluation at a reciprocating internal combustion engine',
-	'Method and system for diagnosing a fuel system',
-	'Method and system for diagnosing a fuel system II',
-];
-
-const selectedPublications = [
-	'Indicated efficiency optimization by in-cycle closed-loop combustion control of diesel engines',
-	'Modular Design and Integration of In-Cycle Closed-Loop Combustion Controllers for a Wide Range of Operating Conditions',
-	'Stochastic Set-Point Optimization for In-Cycle Closed-Loop Combustion Control Operation',
-	'In-Cycle Closed-Loop Combustion Control for Pilot Misfire Compensation',
-	'Multi-Cylinder Adaptation of In-Cycle Predictive Combustion Models',
-	'Predictive In-Cycle Closed-Loop Combustion Control with Pilot-Main Injections',
-	'Bayesian Method for Fuel Mass Estimation of Short Pilot Injections Based on its Misfire Probability',
-	'Cylinder Pressure-Based Virtual Sensor for In-Cycle Pilot Mass Estimation',
-	'Cylinder Pressure-Based Method for In-Cycle Pilot Misfire Detection',
-];
-
-const additionalPublications = [
-	'FPGA Implementation of In-Cycle Closed-Loop Combustion Control Methods',
-	'In-Cycle Closed-Loop Combustion Controllability with Pilot-Main Injections',
-	'Internal Combustion Engine Cylinder Volume Trace Deviation',
-	'Influence of small Pilot on Main Injection in a Heavy Duty Diesel Engine',
-	'Investigation of small Pilot Combustion in a Heavy Duty Diesel Engine',
-];
-
-const education: EducationItem[] = [
-	{
-		degree: 'PhD, Mechanical Engineering - Lund University',
-		year: '2021',
-		dissertation: 'Design and Optimization of In-Cycle Closed-Loop Combustion Control with Multiple Injection',
+const profileJsonLd = {
+	'@context': 'https://schema.org',
+	'@type': 'ProfilePage',
+	mainEntity: {
+		'@type': 'Person',
+		name: cvProfile.hero.title,
+		jobTitle: 'Senior Electronics Engineer and Embedded Controls Architect',
 		description:
-			'Industrial PhD in collaboration with Scania, focused on real-time diagnostics and combustion control for heavy-duty diesel engines using biofuels. Developed model-based algorithms, FPGA-based controllers, virtual sensors, stochastic detection methods, and experimental validation strategies.',
-		links: [
-			{
-				label: 'Thesis publication',
-				href: 'https://portal.research.lu.se/portal/files/96902493/PhD_Thesis_Open.pdf',
-			},
-			{
-				label: 'Thesis presentation',
-				href: 'https://www.youtube.com/watch?v=vTkDS-V9lFw',
-			},
-		],
+			'Senior electronics and embedded controls engineer specializing in EV thermal management, BMS, autonomous propulsion control, diagnostics, functional safety, model-based development, and real-time embedded software.',
+		url: Astro.url.href,
+		sameAs: [cvProfile.links.linkedin],
 	},
-	{
-		degree: 'MSc, Electrical Engineering - Lund University',
-		year: '2014',
-		focus: 'Automatic control and automation.',
-		description:
-			'Specialized in control systems, embedded software, mechatronics, signal processing, optimal control, power electronics, and robotics. Master thesis at Scania on a multi-pump fuel control system with real-time control algorithms and patent work.',
-	},
-	{
-		degree: 'MSc, Industrial Engineering - Polytechnic University of Valencia',
-		year: '2014',
-		focus: 'Electronics and automation.',
-		description:
-			'Multidisciplinary engineering program covering mechanical, electrical, electronic, control, automation, and energy systems. Graduated with honors and received academic scholarships and recognition.',
-	},
-];
-
-const toolGroups = [
-	{
-		title: 'Control, Modeling, and Data',
-		items: [
-			'MATLAB',
-			'Simulink',
-			'LabVIEW',
-			'model-based development',
-			'system identification',
-			'calibration',
-			'signal processing',
-			'data analysis',
-			'stochastic modeling',
-			'optimization',
-			'model predictive control',
-			'dynamic modeling',
-		],
-	},
-	{
-		title: 'Embedded Software',
-		items: [
-			'C',
-			'C++',
-			'CAPL',
-			'Python',
-			'Java',
-			'Eclipse',
-			'Visual Studio',
-			'ECU flashing',
-			'generated code workflows',
-			'real-time embedded implementation',
-		],
-	},
-	{
-		title: 'Validation and Testing',
-		items: [
-			'MIL',
-			'SIL',
-			'HIL',
-			'unit testing',
-			'integration testing',
-			'system testing',
-			'test bench',
-			'wind tunnel',
-			'test track',
-			'on-road testing',
-			'CANalyzer',
-			'CANoe',
-			'Vision',
-			'Google Test',
-		],
-	},
-	{
-		title: 'Automotive Standards and Process',
-		items: [
-			'ISO 26262',
-			'A-SPICE',
-			'AUTOSAR',
-			'CAN / J1939',
-			'functional safety',
-			'diagnostics',
-			'fault handling',
-			'fallback strategies',
-			'requirements traceability',
-		],
-	},
-	{
-		title: 'Collaboration and Delivery',
-		items: [
-			'Git',
-			'GitLab',
-			'Jenkins',
-			'SVN',
-			'Jira',
-			'CI/CD',
-			'Agile',
-			'Scrum',
-			'Kanban',
-			'SAFe',
-			'technical documentation',
-			'supplier coordination',
-			'mentoring',
-		],
-	},
-];
-
-const languages = [
-	{ language: 'Spanish', level: 'Native' },
-	{ language: 'Catalan', level: 'Native' },
-	{ language: 'English', level: 'Full professional' },
-	{ language: 'Swedish', level: 'Full professional' },
-];
-
-const coursesAndRecognition = [
-	'LangChain and LLMs with Python - Alten, 2025',
-	'Project Management: Product Owner + Kanban - Cualtis, 2024',
-	'Power Electronic Converters - 2022',
-	'Introduction to Electromobility - Swedish Electromobility Centre, 2020',
-	'Scania Innovation Challenge - Scania, 2019',
-	'Outstanding Oral Presentation Award - SAE, 2017',
-	'GT-Power - Gamma Technologies, 2015',
-	'Control of Mobile Robots - Coursera, 2013',
-];
+};
 ---
 
 <Layout
-	title="Online CV - Senior Electronics Engineer and Embedded Controls Architect"
-	description="Recruiter-first online CV for Carlos Jorques, a senior electronics engineer and embedded controls architect working across electric and autonomous vehicle systems, real-time control, diagnostics, functional safety, and production embedded software."
+	title="Senior Embedded Controls Engineer CV | Carlos Jorques"
+	description="Senior electronics and embedded controls engineer specializing in EV thermal management, BMS, autonomous propulsion control, diagnostics, functional safety, model-based development, and real-time embedded software."
 >
-	<section class="cv-hero" aria-labelledby="cv-title">
-		<div class="page-container cv-hero__inner">
-			<div class="cv-hero__content">
-				<p class="eyebrow">Online CV</p>
-				<h1 id="cv-title">Carlos Jorques</h1>
-				<p class="cv-hero__subtitle">
-					Senior Electronics Engineer | Embedded Controls Architect | Electric & Autonomous Vehicle Systems
-				</p>
-				<p class="cv-hero__summary">
-					Senior electronics and embedded controls engineer with 10+ years of experience developing real-time
-					control software for automotive and heavy-duty vehicle systems. I work at the intersection of automatic
-					control, model-based development, diagnostics, functional safety, validation, and production embedded
-					software.
-				</p>
-				<p class="cv-hero__extended">
-					My background spans electric trucks, battery and powertrain thermal management, autonomous electric
-					haulers, power electronics interfaces, heavy-duty engine diagnostics, and industrial research in
-					real-time control. I translate control concepts into robust, testable, safety-aware embedded software
-					for complex physical systems.
-				</p>
-				<div class="button-row cv-actions" aria-label="CV actions">
-					{actions.map((action) => (
+	<script type="application/ld+json" set:html={JSON.stringify(profileJsonLd)} />
+
+	<div class="cv-page">
+		<div class="cv-scroll-progress" aria-hidden="true">
+			<span class="cv-scroll-progress__bar" data-cv-scroll-progress></span>
+		</div>
+
+		<section class="cv-hero" aria-labelledby="cv-title">
+			<div class="page-container cv-hero__inner">
+				<div class="cv-hero__content">
+					<p class="eyebrow">{cvProfile.hero.eyebrow}</p>
+					<h1 id="cv-title">{cvProfile.hero.title}</h1>
+					<p class="cv-hero__subtitle">{cvProfile.hero.subtitle}</p>
+					<p class="cv-hero__summary">{cvProfile.hero.summary}</p>
+					<p class="cv-hero__extended">{cvProfile.hero.secondarySummary}</p>
+
+					<div class="button-row cv-actions" aria-label="CV actions">
+						{cvProfile.actions.map((action) => (
+							<a
+								class={action.primary ? 'button primary' : 'button'}
+								href={withBase(action.href)}
+								target={action.external ? '_blank' : undefined}
+								rel={action.external ? 'noopener noreferrer' : undefined}
+								download={action.download ? true : undefined}
+								data-analytics={action.analytics}
+							>
+								{action.label}
+							</a>
+						))}
+					</div>
+				</div>
+
+				<aside class="cv-hero__evidence" aria-label="Recruiter snapshot">
+					<ul class="cv-proof-grid" aria-label="Career proof points">
+						{cvProfile.proofTiles.map((tile) => (
+							<li>
+								<strong>{tile.value}</strong>
+								<span>{tile.label}</span>
+							</li>
+						))}
+					</ul>
+
+					<div class="cv-role-strip" aria-label="Relevant roles">
+						<p>Relevant for</p>
+						<ul class="cv-chip-list cv-chip-list--strong">
+							{cvProfile.relevantFor.map((role) => (
+								<li>{role}</li>
+							))}
+						</ul>
+					</div>
+				</aside>
+			</div>
+		</section>
+
+		<nav class="cv-section-nav" aria-label="CV sections">
+			<div class="page-container cv-section-nav__inner">
+				<span>Jump to</span>
+				{cvProfile.sectionNav.map((item) => (
+					<a href={item.href} data-cv-section-link data-analytics="cv_section_nav_click">{item.label}</a>
+				))}
+			</div>
+		</nav>
+
+		<section class="cv-section cv-readable" id="summary" aria-labelledby="summary-title" data-cv-section>
+			<div class="page-container">
+				<div class="cv-section__intro">
+					<p class="eyebrow">Recruiter snapshot</p>
+					<h2 id="summary-title">Executive Summary</h2>
+				</div>
+				<div class="cv-summary-block">
+					{cvProfile.executiveSummary.map((paragraph) => (
+						<p>{paragraph}</p>
+					))}
+				</div>
+			</div>
+		</section>
+
+		<section class="cv-section" id="expertise" aria-labelledby="expertise-title" data-cv-section>
+			<div class="page-container">
+				<div class="cv-section__intro">
+					<p class="eyebrow">Capability map</p>
+					<h2 id="expertise-title">Core Expertise</h2>
+					<p>Five capability areas that connect automatic control, embedded implementation, validation, and technical delivery.</p>
+				</div>
+				<div class="cv-card-grid cv-card-grid--expertise">
+					{cvProfile.expertise.map((group) => (
+						<article class="cv-card cv-card--interactive">
+							<h3>{group.title}</h3>
+							<ul>
+								{group.items.map((item) => (
+									<li>{item}</li>
+								))}
+							</ul>
+							{group.chips && (
+								<ul class="cv-chip-list" aria-label={`${group.title} methods`}>
+									{group.chips.map((chip) => (
+										<li>{chip}</li>
+									))}
+								</ul>
+							)}
+						</article>
+					))}
+				</div>
+			</div>
+		</section>
+
+		<section class="cv-section cv-section--compact" id="impact" aria-labelledby="impact-title" data-cv-section>
+			<div class="page-container">
+				<div class="cv-section__intro">
+					<p class="eyebrow">Selected impact</p>
+					<h2 id="impact-title">Engineering impact highlights</h2>
+				</div>
+				<ul class="cv-impact-list">
+					{cvProfile.impactHighlights.map((highlight) => (
+						<li>{highlight}</li>
+					))}
+				</ul>
+			</div>
+		</section>
+
+		<section class="cv-section" id="experience" aria-labelledby="experience-title" data-cv-section>
+			<div class="page-container">
+				<div class="cv-section__intro">
+					<p class="eyebrow">Experience</p>
+					<h2 id="experience-title">Experience Timeline</h2>
+					<p>Reverse-chronological roles with the strongest recruiter-facing evidence visible and secondary technical depth available on demand.</p>
+				</div>
+
+				<div class="cv-timeline" aria-label="Professional experience timeline">
+					{cvProfile.experience.map((item, index) => (
+						<article class={index === 0 ? 'cv-role cv-role--current' : 'cv-role'}>
+							<div class="cv-role__marker" aria-hidden="true">
+								<span>{String(index + 1).padStart(2, '0')}</span>
+							</div>
+							<div class="cv-role__content">
+								<div class="cv-role__header">
+									<div>
+										<p class="cv-role__period">{item.dates}</p>
+										<h3>{item.title}</h3>
+										{item.organization && <p class="cv-role__organization">{item.organization}</p>}
+									</div>
+									{item.location && <p class="cv-role__location">{item.location}</p>}
+								</div>
+								<p class="cv-role__summary">{item.summary}</p>
+								<ul class="cv-role__bullets">
+									{item.highlights.map((highlight) => (
+										<li>{highlight}</li>
+									))}
+								</ul>
+								<ul class="cv-chip-list" aria-label={`${item.title} technologies and methods`}>
+									{item.tags.map((tag) => (
+										<li>{tag}</li>
+									))}
+								</ul>
+								{item.details.length > 0 && (
+									<details class="cv-disclosure" data-analytics="cv_experience_depth_open">
+										<summary>Show technical depth</summary>
+										<div class="cv-disclosure__content">
+											<ul>
+												{item.details.map((detail) => (
+													<li>{detail}</li>
+												))}
+											</ul>
+										</div>
+									</details>
+								)}
+							</div>
+						</article>
+					))}
+				</div>
+
+				<details class="cv-disclosure cv-disclosure--wide" data-analytics="cv_earlier_experience_open">
+					<summary>Show earlier experience</summary>
+					<div class="cv-card-grid cv-card-grid--three cv-disclosure__content">
+						{cvProfile.earlierExperience.map((item) => (
+							<article class="cv-card cv-card--compact">
+								<p class="cv-card__meta">{item.dates}</p>
+								<h3>{item.title} - {item.organization}</h3>
+								<p>{item.summary}</p>
+								<ul>
+									{item.bullets.map((bullet) => (
+										<li>{bullet}</li>
+									))}
+								</ul>
+							</article>
+						))}
+					</div>
+				</details>
+			</div>
+		</section>
+
+		<section class="cv-section" id="case-studies" aria-labelledby="case-studies-title" data-cv-section>
+			<div class="page-container">
+				<div class="cv-section__intro">
+					<p class="eyebrow">Engineering evidence</p>
+					<h2 id="case-studies-title">Selected Engineering Case Studies</h2>
+					<p>Public-safe summaries showing how the same control and embedded software foundation transfers across vehicles, machines, power electronics, and research systems.</p>
+				</div>
+				<div class="cv-card-grid cv-card-grid--two">
+					{cvProfile.caseStudies.map((item) => (
+						<article class="cv-card cv-case-card cv-card--interactive" data-analytics="cv_case_study_view">
+							<h3>{item.title}</h3>
+							<dl>
+								<div>
+									<dt>Context</dt>
+									<dd>{item.context}</dd>
+								</div>
+								<div>
+									<dt>My role</dt>
+									<dd>{item.role}</dd>
+								</div>
+								<div>
+									<dt>Technical focus</dt>
+									<dd>{item.focus}</dd>
+								</div>
+								<div>
+									<dt>Contribution</dt>
+									<dd>{item.contribution}</dd>
+								</div>
+							</dl>
+						</article>
+					))}
+				</div>
+			</div>
+		</section>
+
+		<section class="cv-section" id="research" aria-labelledby="research-title" data-cv-section>
+			<div class="page-container">
+				<div class="cv-section__intro">
+					<p class="eyebrow">Technical depth</p>
+					<h2 id="research-title">Research, Patents & Publications</h2>
+					<p>{cvProfile.research.intro}</p>
+				</div>
+
+				<div class="cv-research-layout">
+					<article class="cv-card">
+						<h3>Research themes</h3>
+						<ul>
+							{cvProfile.research.themes.map((theme) => (
+								<li>{theme}</li>
+							))}
+						</ul>
+					</article>
+					<article class="cv-card">
+						<h3>Patent records</h3>
+						<ul class="cv-compact-list">
+							{cvProfile.research.patents.map((patent) => (
+								<li>{patent}</li>
+							))}
+						</ul>
+					</article>
+				</div>
+
+				<article class="cv-card cv-publications">
+					<h3>Selected publications</h3>
+					<ol>
+						{cvProfile.research.selectedPublications.map((publication) => (
+							<li>{publication}</li>
+						))}
+					</ol>
+					<details class="cv-disclosure" data-analytics="cv_publications_open">
+						<summary>Show additional publication records</summary>
+						<ol class="cv-disclosure__content">
+							{cvProfile.research.additionalPublications.map((publication) => (
+								<li>{publication}</li>
+							))}
+						</ol>
+					</details>
+				</article>
+			</div>
+		</section>
+
+		<section class="cv-section" id="education" aria-labelledby="education-title" data-cv-section>
+			<div class="page-container">
+				<div class="cv-section__intro">
+					<p class="eyebrow">Foundation</p>
+					<h2 id="education-title">Education</h2>
+				</div>
+				<div class="cv-card-grid cv-card-grid--three">
+					{cvProfile.education.map((item) => (
+						<article class="cv-card cv-education-card cv-card--interactive">
+							<p class="cv-card__meta">{item.year}</p>
+							<h3>{item.degree}</h3>
+							{item.dissertation && (
+								<p><strong>Dissertation:</strong> {item.dissertation}</p>
+							)}
+							{item.focus && <p><strong>Focus:</strong> {item.focus}</p>}
+							<p>{item.description}</p>
+							{item.links && (
+								<ul class="cv-link-list" aria-label={`${item.degree} links`}>
+									{item.links.map((link) => (
+										<li>
+											<a href={link.href} target="_blank" rel="noopener noreferrer">{link.label}</a>
+										</li>
+									))}
+								</ul>
+							)}
+						</article>
+					))}
+				</div>
+			</div>
+		</section>
+
+		<section class="cv-section" id="tools" aria-labelledby="tools-title" data-cv-section>
+			<div class="page-container">
+				<div class="cv-section__intro">
+					<p class="eyebrow">Execution stack</p>
+					<h2 id="tools-title">Tools, Methods, Standards, and Languages</h2>
+				</div>
+				<div class="cv-card-grid cv-card-grid--tools">
+					{cvProfile.tools.map((group) => (
+						<article class="cv-card cv-card--compact">
+							<h3>{group.title}</h3>
+							<ul class="cv-chip-list" aria-label={`${group.title} list`}>
+								{group.items.map((item) => (
+									<li>{item}</li>
+								))}
+							</ul>
+						</article>
+					))}
+					<article class="cv-card cv-card--compact">
+						<h3>Languages</h3>
+						<ul class="cv-language-list">
+							{cvProfile.languages.map((item) => (
+								<li>
+									<strong>{item.language}</strong>
+									<span>{item.level}</span>
+								</li>
+							))}
+						</ul>
+					</article>
+				</div>
+
+				<details class="cv-disclosure cv-disclosure--card" data-analytics="cv_courses_recognition_open">
+					<summary>Show courses and recognition</summary>
+					<ul class="cv-disclosure__content">
+						{cvProfile.coursesAndRecognition.map((item) => (
+							<li>{item}</li>
+						))}
+					</ul>
+				</details>
+			</div>
+		</section>
+
+		<section class="cv-section cv-final" id="contact" aria-labelledby="contact-title" data-cv-section>
+			<div class="page-container cv-final__inner">
+				<div>
+					<p class="eyebrow">Contact</p>
+					<h2 id="contact-title">Let's connect</h2>
+					<p>
+						For roles or technical conversations involving embedded controls, electric vehicles, battery and thermal
+						management, diagnostics, functional safety, autonomous machines, or reliable physical systems, contact me
+						directly or download the PDF resume.
+					</p>
+				</div>
+				<div class="button-row cv-final__actions" aria-label="Bottom CV actions">
+					{cvProfile.actions.map((action) => (
 						<a
 							class={action.primary ? 'button primary' : 'button'}
-							href={action.href}
+							href={withBase(action.href)}
 							target={action.external ? '_blank' : undefined}
 							rel={action.external ? 'noopener noreferrer' : undefined}
 							download={action.download ? true : undefined}
+							data-analytics={action.analytics}
 						>
 							{action.label}
 						</a>
 					))}
 				</div>
 			</div>
-
-			<ul class="cv-proof-grid" aria-label="Career proof points">
-				{proofCards.map((card) => (
-					<li>
-						<strong>{card.value}</strong>
-						<span>{card.label}</span>
-					</li>
-				))}
-			</ul>
-		</div>
-	</section>
-
-	<nav class="cv-jump-nav" aria-label="CV section navigation">
-		<div class="page-container cv-jump-nav__inner">
-			<span>Jump to</span>
-			{quickNav.map((item) => (
-				<a href={item.href}>{item.label}</a>
-			))}
-		</div>
-	</nav>
-
-	<section class="cv-section cv-section--compact" id="relevant-for" aria-labelledby="relevant-for-title">
-		<div class="page-container cv-section__split">
-			<div class="cv-section__intro">
-				<p class="eyebrow">Relevant for</p>
-				<h2 id="relevant-for-title">Roles where this background is directly useful</h2>
-				<p>
-					The strongest fit is control-intensive product engineering where software has to behave reliably on
-					physical systems.
-				</p>
-			</div>
-			<ul class="cv-chip-list cv-chip-list--strong" aria-label="Target roles">
-				{targetRoles.map((role) => (
-					<li>{role}</li>
-				))}
-			</ul>
-		</div>
-	</section>
-
-	<section class="cv-section" id="executive-summary" aria-labelledby="executive-summary-title">
-		<div class="page-container cv-readable">
-			<div class="cv-section__intro">
-				<p class="eyebrow">Recruiter snapshot</p>
-				<h2 id="executive-summary-title">Executive Summary</h2>
-			</div>
-			<div class="cv-summary-block">
-				{executiveSummary.map((paragraph) => (
-					<p>{paragraph}</p>
-				))}
-			</div>
-		</div>
-	</section>
-
-	<section class="cv-section" id="core-expertise" aria-labelledby="core-expertise-title">
-		<div class="page-container">
-			<div class="cv-section__intro">
-				<p class="eyebrow">Capability map</p>
-				<h2 id="core-expertise-title">Core Expertise</h2>
-			</div>
-			<div class="cv-card-grid cv-card-grid--expertise">
-				{coreExpertise.map((group) => (
-					<article class="cv-card">
-						<h3>{group.title}</h3>
-						<ul>
-							{group.items.map((item) => (
-								<li>{item}</li>
-							))}
-						</ul>
-					</article>
-				))}
-			</div>
-		</div>
-	</section>
-
-	<section class="cv-section cv-section--compact" id="impact-highlights" aria-labelledby="impact-highlights-title">
-		<div class="page-container">
-			<div class="cv-section__intro">
-				<p class="eyebrow">Selected impact</p>
-				<h2 id="impact-highlights-title">Engineering impact highlights</h2>
-			</div>
-			<ul class="cv-impact-list">
-				{impactHighlights.map((highlight) => (
-					<li>{highlight}</li>
-				))}
-			</ul>
-		</div>
-	</section>
-
-	<section class="cv-section" id="professional-experience" aria-labelledby="professional-experience-title">
-		<div class="page-container">
-			<div class="cv-section__intro">
-				<p class="eyebrow">Experience</p>
-				<h2 id="professional-experience-title">Professional Experience</h2>
-				<p>Current and recent work stays visible for fast scanning. Earlier roles are condensed below.</p>
-			</div>
-
-			<div class="cv-timeline" aria-label="Professional experience timeline">
-				{experience.map((item, index) => (
-					<article class={index === 0 ? 'cv-role cv-role--current' : 'cv-role'}>
-						<div class="cv-role__marker" aria-hidden="true">{String(index + 1).padStart(2, '0')}</div>
-						<div class="cv-role__content">
-							<div class="cv-role__header">
-								<div>
-									<h3>{item.title}</h3>
-									{item.organization && <p class="cv-role__organization">{item.organization}</p>}
-								</div>
-								<p class="cv-role__meta">
-									<span>{item.dates}</span>
-									{item.location && <span>{item.location}</span>}
-								</p>
-							</div>
-							<p class="cv-role__summary">{item.summary}</p>
-							<ul class="cv-role__bullets">
-								{item.bullets.map((bullet) => (
-									<li>{bullet}</li>
-								))}
-							</ul>
-							{item.tags && (
-								<ul class="cv-chip-list" aria-label={`${item.title} tools, methods, and domains`}>
-									{item.tags.map((tag) => (
-										<li>{tag}</li>
-									))}
-								</ul>
-							)}
-						</div>
-					</article>
-				))}
-			</div>
-
-			<details class="cv-details cv-details--wide">
-				<summary>Earlier experience</summary>
-				<div class="cv-card-grid cv-card-grid--three cv-details__body">
-					{earlierExperience.map((item) => (
-						<article class="cv-card cv-card--compact">
-							<p class="cv-card__meta">{item.dates}</p>
-							<h3>{item.title} - {item.organization}</h3>
-							<p>{item.summary}</p>
-							<ul>
-								{item.bullets.map((bullet) => (
-									<li>{bullet}</li>
-								))}
-							</ul>
-						</article>
-					))}
-				</div>
-			</details>
-		</div>
-	</section>
-
-	<section class="cv-section" id="case-studies" aria-labelledby="case-studies-title">
-		<div class="page-container">
-			<div class="cv-section__intro">
-				<p class="eyebrow">Engineering evidence</p>
-				<h2 id="case-studies-title">Selected Engineering Case Studies</h2>
-				<p>Public-safe summaries that show how the same control and embedded software foundation transfers across domains.</p>
-			</div>
-			<div class="cv-card-grid cv-card-grid--two">
-				{caseStudies.map((item) => (
-					<article class="cv-card cv-case-card">
-						<h3>{item.title}</h3>
-						<dl>
-							<div>
-								<dt>Context</dt>
-								<dd>{item.context}</dd>
-							</div>
-							<div>
-								<dt>Role</dt>
-								<dd>{item.role}</dd>
-							</div>
-							<div>
-								<dt>Technical focus</dt>
-								<dd>{item.focus}</dd>
-							</div>
-							<div>
-								<dt>Contribution</dt>
-								<dd>{item.contribution}</dd>
-							</div>
-						</dl>
-					</article>
-				))}
-			</div>
-		</div>
-	</section>
-
-	<section class="cv-section" id="research-publications" aria-labelledby="research-publications-title">
-		<div class="page-container">
-			<div class="cv-section__intro">
-				<p class="eyebrow">Technical depth</p>
-				<h2 id="research-publications-title">Research, Patents, and Publications</h2>
-				<p>
-					My research work focused on real-time control, diagnostics, virtual sensing, stochastic modeling, and
-					hardware-constrained implementation for heavy-duty combustion systems. The work connects automatic
-					control theory with embedded implementation and experimental validation.
-				</p>
-			</div>
-
-			<div class="cv-research-layout">
-				<article class="cv-card">
-					<h3>Research themes</h3>
-					<ul>
-						{researchThemes.map((theme) => (
-							<li>{theme}</li>
-						))}
-					</ul>
-				</article>
-				<article class="cv-card">
-					<h3>Patent records</h3>
-					<ul class="cv-compact-list">
-						{patents.map((patent) => (
-							<li>{patent}</li>
-						))}
-					</ul>
-				</article>
-			</div>
-
-			<article class="cv-card cv-publications">
-				<h3>Selected publications</h3>
-				<ol>
-					{selectedPublications.map((publication) => (
-						<li>{publication}</li>
-					))}
-				</ol>
-				<details class="cv-details">
-					<summary>Additional publication records</summary>
-					<ol class="cv-details__body">
-						{additionalPublications.map((publication) => (
-							<li>{publication}</li>
-						))}
-					</ol>
-				</details>
-			</article>
-		</div>
-	</section>
-
-	<section class="cv-section" id="education" aria-labelledby="education-title">
-		<div class="page-container">
-			<div class="cv-section__intro">
-				<p class="eyebrow">Foundation</p>
-				<h2 id="education-title">Education</h2>
-			</div>
-			<div class="cv-card-grid cv-card-grid--three">
-				{education.map((item) => (
-					<article class="cv-card cv-education-card">
-						<p class="cv-card__meta">{item.year}</p>
-						<h3>{item.degree}</h3>
-						{item.dissertation && (
-							<p><strong>Dissertation:</strong> {item.dissertation}</p>
-						)}
-						{item.focus && <p><strong>Focus:</strong> {item.focus}</p>}
-						<p>{item.description}</p>
-						{item.links && (
-							<ul class="cv-link-list" aria-label={`${item.degree} links`}>
-								{item.links.map((link) => (
-									<li>
-										<a href={link.href} target="_blank" rel="noopener noreferrer">{link.label}</a>
-									</li>
-								))}
-							</ul>
-						)}
-					</article>
-				))}
-			</div>
-		</div>
-	</section>
-
-	<section class="cv-section" id="tools-methods" aria-labelledby="tools-methods-title">
-		<div class="page-container">
-			<div class="cv-section__intro">
-				<p class="eyebrow">Execution stack</p>
-				<h2 id="tools-methods-title">Tools, Methods, Standards, and Languages</h2>
-			</div>
-			<div class="cv-card-grid cv-card-grid--tools">
-				{toolGroups.map((group) => (
-					<article class="cv-card cv-card--compact">
-						<h3>{group.title}</h3>
-						<ul class="cv-chip-list" aria-label={`${group.title} list`}>
-							{group.items.map((item) => (
-								<li>{item}</li>
-							))}
-						</ul>
-					</article>
-				))}
-			</div>
-
-			<div class="cv-lower-grid">
-				<article class="cv-card cv-card--compact">
-					<h3>Languages</h3>
-					<ul class="cv-language-list">
-						{languages.map((item) => (
-							<li>
-								<strong>{item.language}</strong>
-								<span>{item.level}</span>
-							</li>
-						))}
-					</ul>
-				</article>
-				<details class="cv-details cv-details--card">
-					<summary>Courses and recognition</summary>
-					<ul class="cv-details__body">
-						{coursesAndRecognition.map((item) => (
-							<li>{item}</li>
-						))}
-					</ul>
-				</details>
-			</div>
-		</div>
-	</section>
-
-	<section class="cv-section cv-final" id="cv-contact" aria-labelledby="cv-contact-title">
-		<div class="page-container cv-final__inner">
-			<div>
-				<p class="eyebrow">Contact</p>
-				<h2 id="cv-contact-title">Let's connect</h2>
-				<p>
-					For roles or technical conversations involving embedded controls, electric vehicles, battery and thermal
-					management, diagnostics, functional safety, autonomous machines, or reliable physical systems, contact me
-					directly or download the PDF resume.
-				</p>
-			</div>
-			<div class="button-row cv-final__actions" aria-label="Bottom CV actions">
-				{actions.map((action) => (
-					<a
-						class={action.primary ? 'button primary' : 'button'}
-						href={action.href}
-						target={action.external ? '_blank' : undefined}
-						rel={action.external ? 'noopener noreferrer' : undefined}
-						download={action.download ? true : undefined}
-					>
-						{action.label}
-					</a>
-				))}
-			</div>
-		</div>
-	</section>
+		</section>
+	</div>
 </Layout>
 
+<script is:inline>
+	(() => {
+		const progressBar = document.querySelector('[data-cv-scroll-progress]');
+		const navLinks = Array.from(document.querySelectorAll('[data-cv-section-link]'));
+		const sections = navLinks
+			.map((link) => {
+				const href = link.getAttribute('href');
+				return href ? document.querySelector(href) : null;
+			})
+			.filter(Boolean);
+
+		if (progressBar) {
+			let progressFrame = 0;
+
+			const updateProgress = () => {
+				progressFrame = 0;
+				const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+				const progress = maxScroll > 0 ? window.scrollY / maxScroll : 0;
+				progressBar.style.transform = `scaleX(${Math.min(1, Math.max(0, progress))})`;
+			};
+
+			const requestProgressUpdate = () => {
+				if (progressFrame === 0) {
+					progressFrame = window.requestAnimationFrame(updateProgress);
+				}
+			};
+
+			updateProgress();
+			window.addEventListener('scroll', requestProgressUpdate, { passive: true });
+			window.addEventListener('resize', requestProgressUpdate);
+		}
+
+		if ('IntersectionObserver' in window && navLinks.length > 0 && sections.length > 0) {
+			const setActiveSection = (id) => {
+				navLinks.forEach((link) => {
+					const isActive = link.getAttribute('href') === `#${id}`;
+					if (isActive) {
+						link.setAttribute('aria-current', 'true');
+					} else {
+						link.removeAttribute('aria-current');
+					}
+				});
+			};
+
+			const observer = new IntersectionObserver(
+				(entries) => {
+					const activeEntry = entries
+						.filter((entry) => entry.isIntersecting)
+						.sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+
+					if (activeEntry?.target?.id) {
+						setActiveSection(activeEntry.target.id);
+					}
+				},
+				{
+					rootMargin: '-24% 0px -58% 0px',
+					threshold: [0.1, 0.25, 0.5],
+				}
+			);
+
+			sections.forEach((section) => observer.observe(section));
+		}
+
+		const emitAnalyticsEvent = (element) => {
+			window.dispatchEvent(
+				new CustomEvent('cv:analytics', {
+					detail: {
+						event: element.dataset.analytics,
+						href: element.getAttribute?.('href') ?? undefined,
+					},
+				})
+			);
+		};
+
+		document.querySelectorAll('a[data-analytics]').forEach((link) => {
+			link.addEventListener('click', () => emitAnalyticsEvent(link));
+		});
+
+		document.querySelectorAll('details[data-analytics]').forEach((details) => {
+			details.addEventListener('toggle', () => {
+				if (!details.open) {
+					return;
+				}
+
+				emitAnalyticsEvent(details);
+			});
+		});
+	})();
+</script>
+
 <style>
+	.cv-page {
+		--cv-max-measure: 66ch;
+	}
+
+	:global(.cv-page .page-container) {
+		width: min(calc(100% - 2rem), 78rem);
+	}
+
+	.cv-scroll-progress {
+		position: fixed;
+		z-index: 30;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 2px;
+		background: transparent;
+		pointer-events: none;
+	}
+
+	.cv-scroll-progress__bar {
+		display: block;
+		width: 100%;
+		height: 100%;
+		background: var(--color-accent);
+		transform: scaleX(0);
+		transform-origin: left center;
+	}
+
 	.cv-hero {
 		border-bottom: 1px solid var(--color-border-soft);
-		background: var(--color-bg);
-		padding-block: clamp(3.5rem, 7vw, 6.5rem) clamp(2.75rem, 5vw, 4.5rem);
+		background:
+			linear-gradient(135deg, color-mix(in srgb, var(--color-bg) 94%, transparent), var(--color-section-bg)),
+			var(--color-bg);
+		padding-block: clamp(3rem, 7vw, 6.25rem) clamp(2.5rem, 5vw, 4.25rem);
 	}
 
 	.cv-hero__inner {
 		display: grid;
 		gap: clamp(1.75rem, 4vw, 3rem);
-		align-items: end;
+		align-items: start;
 	}
 
 	.cv-hero__content {
 		display: grid;
 		gap: 1rem;
+		min-width: 0;
 		max-width: 880px;
 	}
 
@@ -988,18 +555,26 @@ const coursesAndRecognition = [
 		font-size: clamp(1.08rem, 2vw, 1.42rem);
 		font-weight: 700;
 		line-height: 1.35;
+		overflow-wrap: anywhere;
 	}
 
 	.cv-hero__summary,
 	.cv-hero__extended {
-		max-width: 820px;
+		max-width: var(--cv-max-measure);
 		color: var(--color-muted);
 		font-size: 1rem;
 		line-height: 1.7;
+		overflow-wrap: anywhere;
 	}
 
 	.cv-actions {
 		margin-top: 0.65rem;
+	}
+
+	.cv-hero__evidence {
+		display: grid;
+		gap: 1rem;
+		min-width: 0;
 	}
 
 	.cv-proof-grid {
@@ -1034,16 +609,34 @@ const coursesAndRecognition = [
 		line-height: 1.4;
 	}
 
-	.cv-jump-nav {
+	.cv-role-strip {
+		display: grid;
+		gap: 0.75rem;
+		border: 1px solid var(--color-border-soft);
+		background: color-mix(in srgb, var(--color-page) 88%, transparent);
+		padding: 1rem;
+	}
+
+	.cv-role-strip > p {
+		color: var(--color-soft);
+		font-family: var(--font-mono);
+		font-size: 0.72rem;
+		font-weight: 600;
+		letter-spacing: 0.06em;
+		line-height: 1.25;
+		text-transform: uppercase;
+	}
+
+	.cv-section-nav {
 		position: sticky;
 		top: 0;
-		z-index: 5;
+		z-index: 20;
 		border-bottom: 1px solid var(--color-border-soft);
 		background: color-mix(in srgb, var(--color-section-bg) 94%, transparent);
 		backdrop-filter: blur(10px);
 	}
 
-	.cv-jump-nav__inner {
+	.cv-section-nav__inner {
 		display: flex;
 		align-items: center;
 		gap: 0.9rem 1rem;
@@ -1052,11 +645,12 @@ const coursesAndRecognition = [
 		white-space: nowrap;
 	}
 
-	.cv-jump-nav span,
-	.cv-jump-nav a,
+	.cv-section-nav span,
+	.cv-section-nav a,
 	.cv-card__meta,
-	.cv-role__meta,
-	.cv-details > summary {
+	.cv-role__period,
+	.cv-role__location,
+	.cv-disclosure > summary {
 		font-family: var(--font-mono);
 		font-size: 0.74rem;
 		font-weight: 600;
@@ -1065,36 +659,62 @@ const coursesAndRecognition = [
 		text-transform: uppercase;
 	}
 
-	.cv-jump-nav span {
+	.cv-section-nav span {
 		color: var(--color-soft);
 	}
 
-	.cv-jump-nav a {
+	.cv-section-nav a {
+		position: relative;
 		color: var(--color-accent);
 		text-decoration: none;
+		transition:
+			color 140ms cubic-bezier(0.2, 0, 0, 1),
+			transform 140ms cubic-bezier(0.2, 0, 0, 1);
 	}
 
-	.cv-jump-nav a:hover,
-	.cv-jump-nav a:focus-visible {
+	.cv-section-nav a::after {
+		content: '';
+		position: absolute;
+		right: 0;
+		bottom: -0.22rem;
+		left: 0;
+		height: 1px;
+		background: currentColor;
+		transform: scaleX(0);
+		transform-origin: left center;
+		transition: transform 140ms cubic-bezier(0.2, 0, 0, 1);
+	}
+
+	.cv-section-nav a:hover,
+	.cv-section-nav a:focus-visible,
+	.cv-section-nav a[aria-current='true'] {
 		color: var(--color-text);
-		text-decoration: underline;
-		text-underline-offset: 0.24em;
+	}
+
+	.cv-section-nav a[aria-current='true']::after,
+	.cv-section-nav a:hover::after,
+	.cv-section-nav a:focus-visible::after {
+		transform: scaleX(1);
 	}
 
 	.cv-section {
 		border-bottom: 1px solid var(--color-border-soft);
 		padding-block: clamp(3rem, 6vw, 5rem);
-		scroll-margin-top: 5rem;
+		scroll-margin-top: 5.5rem;
 	}
 
 	.cv-section--compact {
 		padding-block: clamp(2.25rem, 5vw, 4rem);
 	}
 
+	.cv-readable .page-container {
+		max-width: 900px;
+	}
+
 	.cv-section__intro {
 		display: grid;
 		gap: 0.65rem;
-		max-width: 780px;
+		max-width: var(--cv-max-measure);
 		margin-bottom: 1.5rem;
 	}
 
@@ -1112,28 +732,18 @@ const coursesAndRecognition = [
 	.cv-card dd,
 	.cv-role__summary,
 	.cv-role__bullets li,
-	.cv-details li {
+	.cv-disclosure li {
 		color: var(--color-muted);
 		font-size: 0.96rem;
 		line-height: 1.62;
 	}
 
-	.cv-readable {
-		max-width: 900px;
-	}
-
 	.cv-summary-block {
 		display: grid;
 		gap: 1rem;
-		max-width: 860px;
+		max-width: var(--cv-max-measure);
 		border-left: 2px solid var(--color-accent);
 		padding-left: clamp(1rem, 3vw, 1.5rem);
-	}
-
-	.cv-section__split {
-		display: grid;
-		gap: 1.5rem;
-		align-items: start;
 	}
 
 	.cv-card-grid {
@@ -1150,6 +760,18 @@ const coursesAndRecognition = [
 		gap: 0.85rem;
 		background: var(--color-page);
 		padding: clamp(1.15rem, 3vw, 1.55rem);
+	}
+
+	.cv-card--interactive {
+		transition:
+			background-color 140ms cubic-bezier(0.2, 0, 0, 1),
+			border-color 140ms cubic-bezier(0.2, 0, 0, 1),
+			transform 140ms cubic-bezier(0.2, 0, 0, 1);
+	}
+
+	.cv-card--interactive:hover {
+		background: var(--color-card-bg-hover);
+		transform: translateY(-1px);
 	}
 
 	.cv-card--compact {
@@ -1170,11 +792,12 @@ const coursesAndRecognition = [
 
 	.cv-card li,
 	.cv-role__bullets li,
-	.cv-details li {
+	.cv-disclosure li {
 		margin: 0;
 	}
 
-	.cv-card__meta {
+	.cv-card__meta,
+	.cv-role__period {
 		color: var(--color-accent);
 	}
 
@@ -1197,6 +820,9 @@ const coursesAndRecognition = [
 		font-size: 0.74rem;
 		font-weight: 600;
 		line-height: 1.25;
+		transition:
+			border-color 140ms cubic-bezier(0.2, 0, 0, 1),
+			background-color 140ms cubic-bezier(0.2, 0, 0, 1);
 	}
 
 	.cv-chip-list--strong li {
@@ -1217,39 +843,57 @@ const coursesAndRecognition = [
 	}
 
 	.cv-impact-list li {
+		position: relative;
 		margin: 0;
 		background: var(--color-page);
-		padding: 1rem 1.15rem;
+		padding: 1rem 1.15rem 1rem 1.65rem;
 		color: var(--color-muted);
 		font-size: 0.96rem;
 		line-height: 1.55;
 	}
 
+	.cv-impact-list li::before {
+		content: '';
+		position: absolute;
+		top: 1.55rem;
+		left: 0.95rem;
+		width: 0.28rem;
+		height: 0.28rem;
+		background: var(--color-accent);
+	}
+
 	.cv-timeline {
+		position: relative;
 		display: grid;
-		gap: 1px;
-		border-block: 1px solid var(--color-border);
-		background: var(--color-border);
+		gap: 1rem;
+	}
+
+	.cv-timeline::before {
+		content: '';
+		position: absolute;
+		top: 0.2rem;
+		bottom: 0.2rem;
+		left: 1.1rem;
+		width: 1px;
+		background: linear-gradient(var(--color-accent), var(--color-border));
 	}
 
 	.cv-role {
+		position: relative;
 		display: grid;
-		grid-template-columns: auto minmax(0, 1fr);
+		grid-template-columns: 2.25rem minmax(0, 1fr);
 		gap: 1rem;
-		background: var(--color-page);
-		padding: clamp(1.15rem, 3vw, 1.7rem);
-	}
-
-	.cv-role--current {
-		background: color-mix(in srgb, var(--color-page) 88%, var(--color-accent-wash));
 	}
 
 	.cv-role__marker {
+		position: relative;
+		z-index: 1;
 		display: grid;
 		width: 2.25rem;
 		height: 2.25rem;
 		place-items: center;
 		border: 1px solid var(--color-border);
+		background: var(--color-section-bg);
 		color: var(--color-accent);
 		font-family: var(--font-mono);
 		font-size: 0.72rem;
@@ -1257,10 +901,31 @@ const coursesAndRecognition = [
 		line-height: 1;
 	}
 
+	.cv-role--current .cv-role__marker {
+		border-color: var(--color-accent);
+		background: var(--color-accent);
+		color: var(--color-button-primary-text);
+	}
+
 	.cv-role__content {
 		display: grid;
 		gap: 0.95rem;
 		min-width: 0;
+		border: 1px solid var(--color-border);
+		background: var(--color-page);
+		padding: clamp(1.15rem, 3vw, 1.7rem);
+		transition:
+			border-color 140ms cubic-bezier(0.2, 0, 0, 1),
+			background-color 140ms cubic-bezier(0.2, 0, 0, 1);
+	}
+
+	.cv-role--current .cv-role__content {
+		border-color: var(--color-border-strong);
+		background: color-mix(in srgb, var(--color-page) 88%, var(--color-accent-wash));
+	}
+
+	.cv-role__content:hover {
+		border-color: var(--color-border-strong);
 	}
 
 	.cv-role__header {
@@ -1275,32 +940,36 @@ const coursesAndRecognition = [
 		line-height: 1.45;
 	}
 
-	.cv-role__meta {
-		display: grid;
-		gap: 0.25rem;
+	.cv-role__location {
 		color: var(--color-soft);
 	}
 
+	.cv-role__summary {
+		max-width: var(--cv-max-measure);
+	}
+
 	.cv-role__bullets {
+		max-width: 74ch;
 		padding-left: 1.15rem;
 	}
 
-	.cv-details {
+	.cv-disclosure {
 		display: grid;
 		gap: 1rem;
 	}
 
-	.cv-details--wide {
+	.cv-disclosure--wide,
+	.cv-disclosure--card {
 		margin-top: 1.5rem;
 	}
 
-	.cv-details--card {
+	.cv-disclosure--card {
 		border: 1px solid var(--color-border);
 		background: var(--color-page);
 		padding: clamp(1.15rem, 3vw, 1.55rem);
 	}
 
-	.cv-details > summary {
+	.cv-disclosure > summary {
 		display: inline-flex;
 		width: fit-content;
 		align-items: center;
@@ -1310,11 +979,11 @@ const coursesAndRecognition = [
 		list-style: none;
 	}
 
-	.cv-details > summary::-webkit-details-marker {
+	.cv-disclosure > summary::-webkit-details-marker {
 		display: none;
 	}
 
-	.cv-details > summary::after {
+	.cv-disclosure > summary::after {
 		content: '+';
 		display: inline-grid;
 		width: 1.15rem;
@@ -1325,18 +994,20 @@ const coursesAndRecognition = [
 		font-family: var(--font-sans);
 		font-size: 0.9rem;
 		line-height: 1;
+		transition: transform 180ms cubic-bezier(0.2, 0, 0, 1);
 	}
 
-	.cv-details[open] > summary::after {
+	.cv-disclosure[open] > summary::after {
 		content: '-';
+		transform: rotate(180deg);
 	}
 
-	.cv-details > summary:hover,
-	.cv-details > summary:focus-visible {
+	.cv-disclosure > summary:hover,
+	.cv-disclosure > summary:focus-visible {
 		color: var(--color-text);
 	}
 
-	.cv-details__body {
+	.cv-disclosure__content {
 		margin-top: 1rem;
 	}
 
@@ -1349,6 +1020,8 @@ const coursesAndRecognition = [
 	.cv-case-card dl div {
 		display: grid;
 		gap: 0.22rem;
+		border-top: 1px solid var(--color-border-soft);
+		padding-top: 0.7rem;
 	}
 
 	.cv-case-card dt {
@@ -1403,13 +1076,6 @@ const coursesAndRecognition = [
 		color: var(--color-text);
 	}
 
-	.cv-lower-grid {
-		display: grid;
-		grid-template-columns: 1fr;
-		gap: 1.5rem;
-		margin-top: 1.5rem;
-	}
-
 	.cv-language-list {
 		display: grid;
 		gap: 0.65rem;
@@ -1449,7 +1115,7 @@ const coursesAndRecognition = [
 	.cv-final__inner > div:first-child {
 		display: grid;
 		gap: 0.75rem;
-		max-width: 760px;
+		max-width: var(--cv-max-measure);
 	}
 
 	.cv-final__actions {
@@ -1465,8 +1131,7 @@ const coursesAndRecognition = [
 		}
 
 		.cv-card-grid--two,
-		.cv-research-layout,
-		.cv-lower-grid {
+		.cv-research-layout {
 			grid-template-columns: repeat(2, minmax(0, 1fr));
 		}
 
@@ -1480,31 +1145,19 @@ const coursesAndRecognition = [
 			gap: 1.5rem;
 		}
 
-		.cv-role__meta {
-			min-width: 14rem;
+		.cv-role__location {
+			max-width: 16rem;
 			text-align: right;
 		}
 	}
 
 	@media (min-width: 980px) {
 		.cv-hero__inner {
-			grid-template-columns: minmax(0, 1fr) minmax(18rem, 24rem);
-		}
-
-		.cv-proof-grid {
-			grid-template-columns: repeat(2, minmax(0, 1fr));
-		}
-
-		.cv-section__split {
-			grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
-			gap: clamp(2rem, 5vw, 4rem);
+			grid-template-columns: minmax(0, 1fr) minmax(20rem, 26rem);
 		}
 
 		.cv-card-grid--three,
-		.cv-card-grid--tools {
-			grid-template-columns: repeat(3, minmax(0, 1fr));
-		}
-
+		.cv-card-grid--tools,
 		.cv-card-grid--expertise {
 			grid-template-columns: repeat(3, minmax(0, 1fr));
 		}
@@ -1521,17 +1174,73 @@ const coursesAndRecognition = [
 	}
 
 	@media (max-width: 640px) {
-		.cv-jump-nav {
-			position: static;
+		:global(.cv-page .page-container) {
+			width: calc(100% - 2rem);
 		}
 
-		.cv-role {
+		.cv-hero__content,
+		.cv-hero__evidence,
+		.cv-actions {
+			width: calc(100vw - 2rem);
+			max-width: calc(100vw - 2rem);
+		}
+
+		.cv-hero h1 {
+			font-size: clamp(2.35rem, 12vw, 3rem);
+		}
+
+		.cv-hero__subtitle {
+			max-width: 31ch;
+			font-size: 1rem;
+		}
+
+		.cv-hero__subtitle,
+		.cv-hero__summary,
+		.cv-hero__extended {
+			overflow-wrap: anywhere;
+		}
+
+		.cv-hero__summary,
+		.cv-hero__extended {
+			max-width: 34ch;
+		}
+
+		.cv-proof-grid {
 			grid-template-columns: 1fr;
 		}
 
+		.cv-section-nav {
+			position: static;
+		}
+
+		.cv-section {
+			scroll-margin-top: 1rem;
+		}
+
+		.cv-role {
+			grid-template-columns: 1.75rem minmax(0, 1fr);
+			gap: 0.75rem;
+		}
+
 		.cv-role__marker {
-			width: fit-content;
-			min-width: 2.25rem;
+			width: 1.75rem;
+			height: 1.75rem;
+			font-size: 0.66rem;
+		}
+
+		.cv-timeline::before {
+			left: 0.85rem;
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.cv-page *,
+		.cv-page *::before,
+		.cv-page *::after {
+			animation-duration: 0.001ms !important;
+			animation-iteration-count: 1 !important;
+			scroll-behavior: auto !important;
+			transition-duration: 0.001ms !important;
 		}
 	}
 
@@ -1539,7 +1248,8 @@ const coursesAndRecognition = [
 		:global(.site-header),
 		:global(.site-footer),
 		:global(.skip-link),
-		.cv-jump-nav,
+		.cv-scroll-progress,
+		.cv-section-nav,
 		.cv-actions,
 		.cv-final__actions {
 			display: none !important;
@@ -1554,11 +1264,12 @@ const coursesAndRecognition = [
 
 		.cv-card,
 		.cv-role,
-		.cv-details--card {
+		.cv-role__content,
+		.cv-disclosure--card {
 			break-inside: avoid;
 		}
 
-		.cv-details:not([open]) > *:not(summary) {
+		.cv-disclosure:not([open]) > *:not(summary) {
 			display: block;
 		}
 
