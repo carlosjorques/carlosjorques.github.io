@@ -76,9 +76,9 @@ export const cvProfile = {
 		title: 'Carlos Jorques',
 		subtitle: 'Senior Electronics Engineer | Embedded Controls Architect | Electric & Autonomous Vehicle Systems',
 		summary:
-			'Senior electronics and embedded controls engineer with 10+ years of experience developing real-time control software for automotive and heavy-duty vehicle systems. I work at the intersection of automatic control, model-based development, diagnostics, functional safety, validation, and production embedded software.',
+			'Senior electronics and embedded controls engineer with 10+ years of experience developing real-time control software for automotive and heavy-duty vehicle systems. Focused on EV thermal management, BMS, autonomous propulsion control, diagnostics, functional safety, validation, and production embedded software.',
 		secondarySummary:
-			'My background spans electric trucks, battery and powertrain thermal management, autonomous electric haulers, power electronics interfaces, heavy-duty engine diagnostics, and industrial research in real-time control. I translate control concepts into robust, testable, safety-aware embedded software for complex physical systems.',
+			'I translate automatic control concepts into robust, testable, safety-aware embedded software for complex physical systems across electric vehicles, autonomous machines, power electronics, and industrial control applications.',
 	},
 	actions: [
 		{ label: 'Download PDF CV', href: '/cv/Carlos_Jorques_CV.pdf', primary: true, download: true, analytics: 'cv_pdf_download' },
@@ -98,12 +98,12 @@ export const cvProfile = {
 		{ label: 'Contact', href: '#contact' },
 	] satisfies SectionNavItem[],
 	proofTiles: [
-		{ value: '10+', label: 'years embedded controls' },
-		{ value: 'EV', label: 'thermal management and BMS' },
-		{ value: 'Autonomous', label: 'propulsion control' },
-		{ value: 'ISO 26262', label: 'and A-SPICE context' },
-		{ value: '5', label: 'patent records' },
-		{ value: '15+', label: 'scientific publications' },
+		{ value: '10+ years', label: 'Automotive embedded controls' },
+		{ value: 'Current focus', label: 'EV thermal management, BMS, diagnostics' },
+		{ value: 'Leadership', label: 'Technical lead for embedded software engineers' },
+		{ value: 'Systems', label: 'Electric trucks, autonomous haulers, powertrain controls' },
+		{ value: 'Evidence', label: 'PhD, 5 patents, 15+ publications' },
+		{ value: 'Location', label: 'Valencia, Spain / open to selected opportunities' },
 	] satisfies ProofTile[],
 	relevantFor: [
 		'Senior Electronics Engineer',
@@ -398,6 +398,16 @@ export const cvProfile = {
 			'Predictive control and online model adaptation',
 			'FPGA implementation of real-time control and signal-processing methods',
 			'Experimental validation on heavy-duty engine platforms',
+		],
+		outcomes: [
+			'Published research results include 25-75% reduction in controlled-parameter dispersion.',
+			'Published research results include 60% reduction in pilot fuel mass estimation error.',
+			'Published research results include up to 96% real-time pilot misfire detection.',
+		],
+		evidence: [
+			{ value: '5', label: 'patent records' },
+			{ value: '15+', label: 'scientific publications' },
+			{ value: 'PhD', label: 'industrial research with Scania and Lund University' },
 		],
 		patents: [
 			'Method and system for determining in-cycle a pilot injection fuel mass in a combustion chamber of an engine',

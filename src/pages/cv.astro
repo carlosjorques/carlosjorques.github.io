@@ -277,32 +277,46 @@ const profileJsonLd = {
 				<div class="cv-research-layout">
 					<article class="cv-card">
 						<h3>Research themes</h3>
-						<ul>
+						<ul class="cv-chip-list" aria-label="Research themes">
 							{cvProfile.research.themes.map((theme) => (
 								<li>{theme}</li>
 							))}
 						</ul>
 					</article>
 					<article class="cv-card">
-						<h3>Patent records</h3>
-						<ul class="cv-compact-list">
-							{cvProfile.research.patents.map((patent) => (
-								<li>{patent}</li>
+						<h3>Research evidence</h3>
+						<ul class="cv-research-stats">
+							{cvProfile.research.evidence.map((item) => (
+								<li>
+									<strong>{item.value}</strong>
+									<span>{item.label}</span>
+								</li>
 							))}
 						</ul>
 					</article>
 				</div>
 
 				<article class="cv-card cv-publications">
-					<h3>Selected publications</h3>
-					<ol>
-						{cvProfile.research.selectedPublications.map((publication) => (
-							<li>{publication}</li>
+					<h3>Published research outcomes</h3>
+					<ul>
+						{cvProfile.research.outcomes.map((outcome) => (
+							<li>{outcome}</li>
 						))}
-					</ol>
+					</ul>
+					<details class="cv-disclosure" data-analytics="cv_patents_open">
+						<summary>Show patent records</summary>
+						<ul class="cv-disclosure__content cv-compact-list">
+							{cvProfile.research.patents.map((patent) => (
+								<li>{patent}</li>
+							))}
+						</ul>
+					</details>
 					<details class="cv-disclosure" data-analytics="cv_publications_open">
-						<summary>Show additional publication records</summary>
+						<summary>Show selected publication records</summary>
 						<ol class="cv-disclosure__content">
+							{cvProfile.research.selectedPublications.map((publication) => (
+								<li>{publication}</li>
+							))}
 							{cvProfile.research.additionalPublications.map((publication) => (
 								<li>{publication}</li>
 							))}
@@ -1117,6 +1131,38 @@ const profileJsonLd = {
 		display: grid;
 		gap: 0.6rem;
 		padding-left: 1.15rem;
+	}
+
+	.cv-research-stats {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: 1px;
+		margin: 0;
+		padding: 0;
+		border: 1px solid var(--color-border-soft);
+		background: var(--color-border-soft);
+		list-style: none;
+	}
+
+	.cv-research-stats li {
+		display: grid;
+		gap: 0.25rem;
+		margin: 0;
+		background: var(--color-page);
+		padding: 0.85rem;
+	}
+
+	.cv-research-stats strong {
+		color: var(--color-accent);
+		font-family: var(--font-display);
+		font-size: 1.1rem;
+		line-height: 1.15;
+	}
+
+	.cv-research-stats span {
+		color: var(--color-muted);
+		font-size: 0.9rem;
+		line-height: 1.45;
 	}
 
 	.cv-publications {
