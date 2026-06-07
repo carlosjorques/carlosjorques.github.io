@@ -567,9 +567,7 @@ const profileJsonLd = {
 
 	.cv-hero {
 		border-bottom: 1px solid var(--color-border-soft);
-		background:
-			linear-gradient(135deg, color-mix(in srgb, var(--color-bg) 94%, transparent), var(--color-section-bg)),
-			var(--color-bg);
+		background: transparent;
 		padding-block: clamp(3rem, 7vw, 6.25rem) clamp(2.5rem, 5vw, 4.25rem);
 	}
 
@@ -622,11 +620,9 @@ const profileJsonLd = {
 	.cv-proof-grid {
 		display: grid;
 		grid-template-columns: repeat(2, minmax(0, 1fr));
-		gap: 1px;
+		gap: 1rem;
 		margin: 0;
 		padding: 0;
-		border: 1px solid var(--color-border);
-		background: var(--color-border);
 		list-style: none;
 	}
 
@@ -634,8 +630,19 @@ const profileJsonLd = {
 		display: grid;
 		gap: 0.35rem;
 		margin: 0;
-		background: var(--color-page);
+		border: 1px solid var(--color-card-border);
+		background: var(--color-card-bg);
 		padding: 1rem;
+		transition:
+			background-color var(--motion-duration-fast-02) var(--motion-standard-productive),
+			border-color var(--motion-duration-fast-02) var(--motion-standard-productive),
+			transform var(--motion-duration-fast-02) var(--motion-standard-productive);
+	}
+
+	.cv-proof-grid li:hover {
+		border-color: var(--color-card-border-hover);
+		background: var(--color-card-bg-hover);
+		transform: translateY(-2px);
 	}
 
 	.cv-proof-grid strong {
@@ -654,9 +661,20 @@ const profileJsonLd = {
 	.cv-role-strip {
 		display: grid;
 		gap: 0.75rem;
-		border: 1px solid var(--color-border-soft);
-		background: color-mix(in srgb, var(--color-page) 88%, transparent);
+		border: 1px solid var(--color-card-border);
+		background: var(--color-card-bg);
 		padding: 1rem;
+		transition:
+			background-color var(--motion-duration-fast-02) var(--motion-standard-productive),
+			border-color var(--motion-duration-fast-02) var(--motion-standard-productive),
+			transform var(--motion-duration-fast-02) var(--motion-standard-productive);
+	}
+
+	.cv-role-strip:hover,
+	.cv-role-strip:focus-within {
+		border-color: var(--color-card-border-hover);
+		background: var(--color-card-bg-hover);
+		transform: translateY(-2px);
 	}
 
 	.cv-role-strip > p {
@@ -835,16 +853,16 @@ const profileJsonLd = {
 	.cv-card-grid {
 		display: grid;
 		grid-template-columns: 1fr;
-		gap: 1px;
-		border-block: 1px solid var(--color-border);
-		background: var(--color-border);
+		gap: clamp(1.25rem, 3vw, 1.75rem);
+		background: transparent;
 	}
 
 	.cv-card {
 		display: grid;
 		align-content: start;
 		gap: 0.85rem;
-		background: var(--color-page);
+		border: 1px solid var(--color-card-border);
+		background: var(--color-card-bg);
 		padding: clamp(1.15rem, 3vw, 1.55rem);
 	}
 
@@ -856,8 +874,9 @@ const profileJsonLd = {
 	}
 
 	.cv-card--interactive:hover {
+		border-color: var(--color-card-border-hover);
 		background: var(--color-card-bg-hover);
-		transform: translateY(-1px);
+		transform: translateY(-2px);
 	}
 
 	.cv-card--compact {
@@ -898,7 +917,7 @@ const profileJsonLd = {
 
 	.cv-chip-list li {
 		margin: 0;
-		border: 1px solid var(--color-border-soft);
+		border: 1px solid var(--color-card-border);
 		background: var(--color-surface-soft);
 		padding: 0.3rem 0.5rem;
 		color: var(--color-tag-text);
@@ -912,30 +931,39 @@ const profileJsonLd = {
 	}
 
 	.cv-chip-list--strong li {
-		border-color: var(--color-border);
-		background: var(--color-page);
+		border-color: var(--color-card-border);
+		background: var(--color-card-bg);
 		color: var(--color-text);
 	}
 
 	.cv-impact-list {
 		display: grid;
 		grid-template-columns: 1fr;
-		gap: 1px;
+		gap: 1rem;
 		margin: 0;
 		padding: 0;
-		border-block: 1px solid var(--color-border);
-		background: var(--color-border);
 		list-style: none;
 	}
 
 	.cv-impact-list li {
 		position: relative;
 		margin: 0;
-		background: var(--color-page);
+		border: 1px solid var(--color-card-border);
+		background: var(--color-card-bg);
 		padding: 1rem 1.15rem 1rem 1.65rem;
 		color: var(--color-muted);
 		font-size: 0.96rem;
 		line-height: 1.55;
+		transition:
+			background-color var(--motion-duration-fast-02) var(--motion-standard-productive),
+			border-color var(--motion-duration-fast-02) var(--motion-standard-productive),
+			transform var(--motion-duration-fast-02) var(--motion-standard-productive);
+	}
+
+	.cv-impact-list li:hover {
+		border-color: var(--color-card-border-hover);
+		background: var(--color-card-bg-hover);
+		transform: translateY(-2px);
 	}
 
 	.cv-impact-list li::before {
@@ -978,8 +1006,8 @@ const profileJsonLd = {
 		width: 2.25rem;
 		height: 2.25rem;
 		place-items: center;
-		border: 1px solid var(--color-border);
-		background: var(--color-section-bg);
+		border: 1px solid var(--color-card-border);
+		background: var(--color-card-bg);
 		color: var(--color-accent);
 		font-family: var(--font-mono);
 		font-size: 0.72rem;
@@ -997,8 +1025,8 @@ const profileJsonLd = {
 		display: grid;
 		gap: 0.95rem;
 		min-width: 0;
-		border: 1px solid var(--color-border);
-		background: var(--color-page);
+		border: 1px solid var(--color-card-border);
+		background: var(--color-card-bg);
 		padding: clamp(1.15rem, 3vw, 1.7rem);
 		transition:
 			border-color 140ms cubic-bezier(0.2, 0, 0, 1),
@@ -1006,12 +1034,13 @@ const profileJsonLd = {
 	}
 
 	.cv-role--current .cv-role__content {
-		border-color: var(--color-border-strong);
-		background: color-mix(in srgb, var(--color-page) 88%, var(--color-accent-wash));
+		border-color: var(--color-card-border-hover);
+		background: color-mix(in srgb, var(--color-card-bg) 82%, var(--color-accent-wash));
 	}
 
 	.cv-role__content:hover {
-		border-color: var(--color-border-strong);
+		border-color: var(--color-card-border-hover);
+		background: var(--color-card-bg-hover);
 	}
 
 	.cv-role__header {
@@ -1050,8 +1079,8 @@ const profileJsonLd = {
 	}
 
 	.cv-disclosure--card {
-		border: 1px solid var(--color-border);
-		background: var(--color-page);
+		border: 1px solid var(--color-card-border);
+		background: var(--color-card-bg);
 		padding: clamp(1.15rem, 3vw, 1.55rem);
 	}
 
@@ -1075,7 +1104,7 @@ const profileJsonLd = {
 		width: 1.15rem;
 		height: 1.15rem;
 		place-items: center;
-		border: 1px solid var(--color-border);
+		border: 1px solid var(--color-card-border);
 		color: var(--color-text);
 		font-family: var(--font-sans);
 		font-size: 0.9rem;
@@ -1122,9 +1151,8 @@ const profileJsonLd = {
 	.cv-research-layout {
 		display: grid;
 		grid-template-columns: 1fr;
-		gap: 1px;
-		border-block: 1px solid var(--color-border);
-		background: var(--color-border);
+		gap: clamp(1.25rem, 3vw, 1.75rem);
+		background: transparent;
 	}
 
 	.cv-compact-list {
@@ -1136,11 +1164,9 @@ const profileJsonLd = {
 	.cv-research-stats {
 		display: grid;
 		grid-template-columns: 1fr;
-		gap: 1px;
+		gap: 0.75rem;
 		margin: 0;
 		padding: 0;
-		border: 1px solid var(--color-border-soft);
-		background: var(--color-border-soft);
 		list-style: none;
 	}
 
@@ -1148,7 +1174,8 @@ const profileJsonLd = {
 		display: grid;
 		gap: 0.25rem;
 		margin: 0;
-		background: var(--color-page);
+		border: 1px solid var(--color-card-border);
+		background: var(--color-surface-soft);
 		padding: 0.85rem;
 	}
 
@@ -1167,7 +1194,6 @@ const profileJsonLd = {
 
 	.cv-publications {
 		margin-top: 1.5rem;
-		border: 1px solid var(--color-border);
 	}
 
 	.cv-publications ol {
@@ -1221,7 +1247,7 @@ const profileJsonLd = {
 
 	.cv-final {
 		border-bottom: 0;
-		background: var(--color-bg);
+		background: transparent;
 	}
 
 	.cv-final__inner {

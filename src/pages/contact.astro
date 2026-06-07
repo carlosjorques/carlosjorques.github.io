@@ -51,26 +51,30 @@ const withBase = (href: string) => (href === '/' ? baseUrl : `${baseUrl}${href.r
 
 	.contact-panel {
 		display: grid;
-		gap: 1px;
-		overflow: hidden;
-		border: 1px solid var(--color-border);
-		border-radius: var(--radius);
-		background: var(--color-border);
+		gap: 1rem;
+		background: transparent;
 	}
 
 	.contact-panel div,
 	.contact-panel a {
 		display: grid;
 		gap: 0.4rem;
-		background: var(--color-bg);
+		border: 1px solid var(--color-card-border);
+		background: var(--color-card-bg);
 		padding: 1rem;
 		color: var(--color-text);
 		text-decoration: none;
+		transition:
+			background-color var(--motion-duration-fast-02) var(--motion-standard-productive),
+			border-color var(--motion-duration-fast-02) var(--motion-standard-productive),
+			transform var(--motion-duration-fast-02) var(--motion-standard-productive);
 	}
 
 	.contact-panel a:hover,
 	.contact-panel a:focus-visible {
-		background: var(--color-border-soft);
+		border-color: var(--color-card-border-hover);
+		background: var(--color-card-bg-hover);
+		transform: translateY(-2px);
 	}
 
 	.contact-panel span {
