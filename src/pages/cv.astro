@@ -11,6 +11,9 @@ const withBase = (href: string) => {
 	return href === '/' ? baseUrl : `${baseUrl}${href.replace(/^\//, '')}`;
 };
 
+const getRoleDetailCount = (item: (typeof cvProfile.experience)[number]) =>
+	(item.detailGroups ?? []).reduce((count, group) => count + group.items.length, 0);
+
 const profileJsonLd = {
 	'@context': 'https://schema.org',
 	'@type': 'ProfilePage',
@@ -122,17 +125,26 @@ const profileJsonLd = {
 				<div class="cv-section__intro">
 					<p class="eyebrow">Capability map</p>
 					<h2 id="expertise-title">Core Expertise</h2>
-					<p>Five capability areas that connect automatic control, embedded implementation, validation, and technical delivery.</p>
 				</div>
-				<div class="cv-card-grid cv-card-grid--expertise">
-					{cvProfile.expertise.map((group) => (
-						<article class="cv-card cv-card--interactive">
+				<div class="cv-featured-expertise-grid">
+					{cvProfile.expertise.map((group, index) => (
+						<article class={index === 0 ? 'cv-card cv-card--interactive cv-expertise-card cv-expertise-card--featured' : 'cv-card cv-card--interactive cv-expertise-card'}>
 							<h3>{group.title}</h3>
 							<ul>
 								{group.items.map((item) => (
 									<li>{item}</li>
 								))}
 							</ul>
+							{group.evidence && group.evidence.length >= 4 && (
+								<details class="cv-disclosure cv-disclosure--inline" data-analytics="cv_expertise_evidence_open">
+									<summary>Technical evidence</summary>
+									<ul class="cv-disclosure__content">
+										{group.evidence.map((item) => (
+											<li>{item}</li>
+										))}
+									</ul>
+								</details>
+							)}
 							{group.chips && (
 								<ul class="cv-chip-list" aria-label={`${group.title} methods`}>
 									{group.chips.map((chip) => (
@@ -150,11 +162,14 @@ const profileJsonLd = {
 			<div class="page-container">
 				<div class="cv-section__intro">
 					<p class="eyebrow">Selected impact</p>
-					<h2 id="impact-title">Engineering impact highlights</h2>
+					<h2 id="impact-title">Engineering Outcomes</h2>
 				</div>
 				<ul class="cv-impact-list">
-					{cvProfile.impactHighlights.map((highlight) => (
-						<li>{highlight}</li>
+					{cvProfile.impactHighlights.map((highlight, index) => (
+						<li>
+							<span aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+							<p>{highlight}</p>
+						</li>
 					))}
 				</ul>
 			</div>
@@ -178,31 +193,39 @@ const profileJsonLd = {
 								<div class="cv-role__header">
 									<div>
 										<p class="cv-role__period">{item.dates}</p>
-										<h3>{item.title}</h3>
 										{item.organization && <p class="cv-role__organization">{item.organization}</p>}
+										<h3>{item.title}</h3>
 									</div>
 									{item.location && <p class="cv-role__location">{item.location}</p>}
 								</div>
 								<p class="cv-role__summary">{item.summary}</p>
-								<ul class="cv-role__bullets">
-									{item.highlights.map((highlight) => (
-										<li>{highlight}</li>
-									))}
-								</ul>
+								<div class="cv-role__ownership">
+									<h4>Key ownership</h4>
+									<ul class="cv-role__bullets">
+										{item.highlights.slice(0, 2).map((highlight) => (
+											<li>{highlight}</li>
+										))}
+									</ul>
+								</div>
 								<ul class="cv-chip-list" aria-label={`${item.title} technologies and methods`}>
-									{item.tags.map((tag) => (
+									{item.tags.slice(0, 8).map((tag) => (
 										<li>{tag}</li>
 									))}
 								</ul>
-								{item.details.length > 0 && (
+								{getRoleDetailCount(item) >= 4 && (
 									<details class="cv-disclosure" data-analytics="cv_experience_depth_open">
-										<summary>Show technical depth</summary>
+										<summary>{item.detailGroups?.[0]?.title ?? 'Technical details'}</summary>
 										<div class="cv-disclosure__content">
-											<ul>
-												{item.details.map((detail) => (
-													<li>{detail}</li>
-												))}
-											</ul>
+											{item.detailGroups?.map((group) => (
+												<section class="cv-detail-group" aria-label={group.title}>
+													<h4>{group.title}</h4>
+													<ul>
+														{group.items.map((detail) => (
+															<li>{detail}</li>
+														))}
+													</ul>
+												</section>
+											))}
 										</div>
 									</details>
 								)}
@@ -211,23 +234,36 @@ const profileJsonLd = {
 					))}
 				</div>
 
-				<details class="cv-disclosure cv-disclosure--wide" data-analytics="cv_earlier_experience_open">
-					<summary>Show earlier experience</summary>
-					<div class="cv-card-grid cv-card-grid--three cv-disclosure__content">
+				<section class="cv-earlier-experience" aria-labelledby="earlier-experience-title">
+					<div class="cv-section__intro cv-section__intro--tight">
+						<h3 id="earlier-experience-title">Earlier experience</h3>
+						<p>Earlier roles covering thesis work at Scania, hardware engineering, and software research.</p>
+					</div>
+					<div class="cv-card-grid cv-card-grid--three">
 						{cvProfile.earlierExperience.map((item) => (
 							<article class="cv-card cv-card--compact">
 								<p class="cv-card__meta">{item.dates}</p>
 								<h3>{item.title} - {item.organization}</h3>
 								<p>{item.summary}</p>
-								<ul>
-									{item.bullets.map((bullet) => (
-										<li>{bullet}</li>
-									))}
-								</ul>
 							</article>
 						))}
 					</div>
-				</details>
+					<details class="cv-disclosure cv-disclosure--wide" data-analytics="cv_earlier_experience_open">
+						<summary>Earlier experience details</summary>
+						<div class="cv-disclosure__content cv-earlier-details">
+							{cvProfile.earlierExperience.map((item) => (
+								<section class="cv-detail-group" aria-label={`${item.title} details`}>
+									<h4>{item.title} - {item.organization}</h4>
+									<ul>
+										{item.bullets.map((bullet) => (
+											<li>{bullet}</li>
+										))}
+									</ul>
+								</section>
+							))}
+						</div>
+					</details>
+				</section>
 			</div>
 		</section>
 
@@ -236,30 +272,29 @@ const profileJsonLd = {
 				<div class="cv-section__intro">
 					<p class="eyebrow">Engineering evidence</p>
 					<h2 id="case-studies-title">Selected Engineering Case Studies</h2>
-					<p>Public-safe summaries showing how the same control and embedded software foundation transfers across vehicles, machines, power electronics, and research systems.</p>
+					<p>Control concepts translated into embedded software for electrified, autonomous, and safety-relevant systems.</p>
 				</div>
-				<div class="cv-card-grid cv-card-grid--two">
+				<div class="cv-case-grid">
 					{cvProfile.caseStudies.map((item) => (
 						<article class="cv-card cv-case-card cv-card--interactive" data-analytics="cv_case_study_view">
+							<p class="eyebrow">{item.eyebrow}</p>
 							<h3>{item.title}</h3>
+							<p>{item.statement}</p>
 							<dl>
 								<div>
-									<dt>Context</dt>
-									<dd>{item.context}</dd>
-								</div>
-								<div>
-									<dt>My role</dt>
+									<dt>Role</dt>
 									<dd>{item.role}</dd>
 								</div>
 								<div>
-									<dt>Technical focus</dt>
+									<dt>Focus</dt>
 									<dd>{item.focus}</dd>
 								</div>
 								<div>
-									<dt>Contribution</dt>
-									<dd>{item.contribution}</dd>
+									<dt>Proof</dt>
+									<dd>{item.proof}</dd>
 								</div>
 							</dl>
+							<!-- TODO: Add "View related work" links when dedicated Work entries exist. -->
 						</article>
 					))}
 				</div>
@@ -387,14 +422,41 @@ const profileJsonLd = {
 					</article>
 				</div>
 
-				<details class="cv-disclosure cv-disclosure--card" data-analytics="cv_courses_recognition_open">
-					<summary>Show courses and recognition</summary>
-					<ul class="cv-disclosure__content">
-						{cvProfile.coursesAndRecognition.map((item) => (
-							<li>{item}</li>
+				<details class="cv-disclosure cv-disclosure--card" data-analytics="cv_extended_stack_open">
+					<summary>Show extended stack</summary>
+					<div class="cv-card-grid cv-card-grid--two cv-disclosure__content">
+						{cvProfile.extendedTools.map((group) => (
+							<article class="cv-card cv-card--compact">
+								<h3>{group.title}</h3>
+								<ul class="cv-chip-list" aria-label={`${group.title} extended list`}>
+									{group.items.map((item) => (
+										<li>{item}</li>
+									))}
+								</ul>
+							</article>
+						))}
+					</div>
+				</details>
+
+				<section class="cv-courses" aria-labelledby="courses-title">
+					<h3 id="courses-title">Courses &amp; Recognition</h3>
+					<ul class="cv-impact-list cv-impact-list--compact">
+						{cvProfile.coursesAndRecognition.featured.map((item, index) => (
+							<li>
+								<span aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+								<p>{item}</p>
+							</li>
 						))}
 					</ul>
-				</details>
+					<details class="cv-disclosure cv-disclosure--wide" data-analytics="cv_courses_recognition_open">
+						<summary>Show more courses and recognition</summary>
+						<ul class="cv-disclosure__content">
+							{cvProfile.coursesAndRecognition.additional.map((item) => (
+								<li>{item}</li>
+							))}
+						</ul>
+					</details>
+				</section>
 			</div>
 		</section>
 
@@ -402,7 +464,7 @@ const profileJsonLd = {
 			<div class="page-container cv-final__inner">
 				<div>
 					<p class="eyebrow">Contact</p>
-					<h2 id="contact-title">Let's connect</h2>
+					<h2 id="contact-title">Let's Connect</h2>
 					<p>
 						For roles or technical conversations involving embedded controls, electric vehicles, battery and thermal
 						management, diagnostics, functional safety, autonomous machines, or reliable physical systems, contact me
@@ -822,10 +884,20 @@ const profileJsonLd = {
 		margin-bottom: 1.5rem;
 	}
 
+	.cv-section__intro--tight {
+		margin-bottom: 1rem;
+	}
+
 	.cv-section__intro h2,
 	.cv-final h2 {
 		font-size: clamp(1.75rem, 3.4vw, 2.65rem);
 		line-height: 1.08;
+	}
+
+	.cv-section__intro h3,
+	.cv-courses h3 {
+		font-size: clamp(1.2rem, 2.1vw, 1.55rem);
+		line-height: 1.2;
 	}
 
 	.cv-section__intro p,
@@ -857,6 +929,13 @@ const profileJsonLd = {
 		background: transparent;
 	}
 
+	.cv-featured-expertise-grid,
+	.cv-case-grid {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: clamp(1.25rem, 3vw, 1.75rem);
+	}
+
 	.cv-card {
 		display: grid;
 		align-content: start;
@@ -886,6 +965,20 @@ const profileJsonLd = {
 	.cv-card h3 {
 		font-size: 1.08rem;
 		line-height: 1.35;
+	}
+
+	.cv-expertise-card--featured {
+		gap: 1rem;
+	}
+
+	.cv-expertise-card--featured h3 {
+		max-width: 18ch;
+		font-size: clamp(1.35rem, 2.5vw, 2rem);
+		line-height: 1.12;
+	}
+
+	.cv-expertise-card--featured > ul:not(.cv-chip-list) {
+		max-width: 74ch;
 	}
 
 	.cv-card ul,
@@ -939,18 +1032,21 @@ const profileJsonLd = {
 	.cv-impact-list {
 		display: grid;
 		grid-template-columns: 1fr;
-		gap: 1rem;
+		gap: 0.85rem;
 		margin: 0;
 		padding: 0;
 		list-style: none;
 	}
 
 	.cv-impact-list li {
-		position: relative;
+		display: grid;
+		grid-template-columns: auto minmax(0, 1fr);
+		gap: 0.8rem;
+		align-items: start;
 		margin: 0;
 		border: 1px solid var(--color-card-border);
 		background: var(--color-card-bg);
-		padding: 1rem 1.15rem 1rem 1.65rem;
+		padding: 0.9rem 1rem;
 		color: var(--color-muted);
 		font-size: 0.96rem;
 		line-height: 1.55;
@@ -966,14 +1062,26 @@ const profileJsonLd = {
 		transform: translateY(-2px);
 	}
 
-	.cv-impact-list li::before {
-		content: '';
-		position: absolute;
-		top: 1.55rem;
-		left: 0.95rem;
-		width: 0.28rem;
-		height: 0.28rem;
-		background: var(--color-accent);
+	.cv-impact-list li > span {
+		color: var(--color-accent);
+		font-family: var(--font-mono);
+		font-size: 0.74rem;
+		font-weight: 700;
+		line-height: 1.55;
+	}
+
+	.cv-impact-list li > p {
+		color: var(--color-muted);
+		font-size: 0.95rem;
+		line-height: 1.55;
+	}
+
+	.cv-impact-list--compact {
+		gap: 0.65rem;
+	}
+
+	.cv-impact-list--compact li {
+		padding-block: 0.75rem;
 	}
 
 	.cv-timeline {
@@ -1023,7 +1131,7 @@ const profileJsonLd = {
 
 	.cv-role__content {
 		display: grid;
-		gap: 0.95rem;
+		gap: 0.85rem;
 		min-width: 0;
 		border: 1px solid var(--color-card-border);
 		background: var(--color-card-bg);
@@ -1061,6 +1169,21 @@ const profileJsonLd = {
 
 	.cv-role__summary {
 		max-width: var(--cv-max-measure);
+		color: var(--color-text);
+		font-weight: 600;
+	}
+
+	.cv-role__ownership {
+		display: grid;
+		gap: 0.45rem;
+	}
+
+	.cv-role__ownership h4,
+	.cv-detail-group h4 {
+		color: var(--color-text);
+		font-size: 0.88rem;
+		font-weight: 700;
+		line-height: 1.35;
 	}
 
 	.cv-role__bullets {
@@ -1071,6 +1194,10 @@ const profileJsonLd = {
 	.cv-disclosure {
 		display: grid;
 		gap: 1rem;
+	}
+
+	.cv-disclosure--inline {
+		margin-top: 0.15rem;
 	}
 
 	.cv-disclosure--wide,
@@ -1085,13 +1212,21 @@ const profileJsonLd = {
 	}
 
 	.cv-disclosure > summary {
-		display: inline-flex;
-		width: fit-content;
+		display: flex;
+		width: 100%;
 		align-items: center;
+		justify-content: space-between;
 		gap: 0.5rem;
+		border: 1px solid var(--color-card-border);
+		background: color-mix(in srgb, var(--color-card-bg) 72%, transparent);
+		padding: 0.65rem 0.75rem;
 		color: var(--color-accent);
 		cursor: pointer;
 		list-style: none;
+		transition:
+			background-color var(--motion-duration-fast-02) var(--motion-standard-productive),
+			border-color var(--motion-duration-fast-02) var(--motion-standard-productive),
+			color var(--motion-duration-fast-02) var(--motion-standard-productive);
 	}
 
 	.cv-disclosure > summary::-webkit-details-marker {
@@ -1100,6 +1235,7 @@ const profileJsonLd = {
 
 	.cv-disclosure > summary::after {
 		content: '+';
+		flex: 0 0 auto;
 		display: inline-grid;
 		width: 1.15rem;
 		height: 1.15rem;
@@ -1119,6 +1255,8 @@ const profileJsonLd = {
 
 	.cv-disclosure > summary:hover,
 	.cv-disclosure > summary:focus-visible {
+		border-color: var(--color-card-border-hover);
+		background: var(--color-card-bg-hover);
 		color: var(--color-text);
 	}
 
@@ -1126,22 +1264,48 @@ const profileJsonLd = {
 		margin-top: 1rem;
 	}
 
+	.cv-detail-group {
+		display: grid;
+		gap: 0.45rem;
+	}
+
+	.cv-detail-group + .cv-detail-group {
+		margin-top: 1rem;
+	}
+
+	.cv-earlier-experience,
+	.cv-courses {
+		display: grid;
+		gap: 1rem;
+		margin-top: clamp(1.75rem, 4vw, 2.5rem);
+	}
+
+	.cv-earlier-details {
+		display: grid;
+		gap: 1rem;
+	}
+
 	.cv-case-card dl {
 		display: grid;
-		gap: 0.9rem;
+		gap: 0.55rem;
 		margin: 0;
 	}
 
 	.cv-case-card dl div {
 		display: grid;
-		gap: 0.22rem;
+		grid-template-columns: minmax(4.5rem, auto) minmax(0, 1fr);
+		gap: 0.75rem;
 		border-top: 1px solid var(--color-border-soft);
-		padding-top: 0.7rem;
+		padding-top: 0.55rem;
 	}
 
 	.cv-case-card dt {
-		color: var(--color-text);
+		color: var(--color-soft);
+		font-family: var(--font-mono);
+		font-size: 0.72rem;
 		font-weight: 700;
+		letter-spacing: 0.04em;
+		text-transform: uppercase;
 	}
 
 	.cv-case-card dd {
@@ -1269,14 +1433,26 @@ const profileJsonLd = {
 	@media (min-width: 700px) {
 		.cv-proof-grid,
 		.cv-card-grid--three,
-		.cv-card-grid--expertise,
 		.cv-card-grid--tools {
 			grid-template-columns: repeat(2, minmax(0, 1fr));
 		}
 
 		.cv-card-grid--two,
-		.cv-research-layout {
+		.cv-research-layout,
+		.cv-featured-expertise-grid,
+		.cv-case-grid {
 			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+
+		.cv-expertise-card--featured {
+			grid-column: 1 / -1;
+			grid-template-columns: minmax(0, 0.72fr) minmax(0, 1fr);
+			column-gap: clamp(1.5rem, 4vw, 3rem);
+			align-items: start;
+		}
+
+		.cv-expertise-card--featured h3 {
+			grid-row: span 3;
 		}
 
 		.cv-impact-list {
@@ -1301,8 +1477,7 @@ const profileJsonLd = {
 		}
 
 		.cv-card-grid--three,
-		.cv-card-grid--tools,
-		.cv-card-grid--expertise {
+		.cv-card-grid--tools {
 			grid-template-columns: repeat(3, minmax(0, 1fr));
 		}
 
@@ -1424,6 +1599,11 @@ const profileJsonLd = {
 		.cv-timeline::before {
 			left: 0.85rem;
 		}
+
+		.cv-case-card dl div {
+			grid-template-columns: 1fr;
+			gap: 0.2rem;
+		}
 	}
 
 	@media (prefers-reduced-motion: reduce) {
@@ -1452,18 +1632,24 @@ const profileJsonLd = {
 		.cv-section {
 			background: transparent;
 			padding-block: 1rem;
-			border-bottom-color: #cccccc;
+			border-bottom-color: var(--color-border);
 		}
 
 		.cv-card,
 		.cv-role,
 		.cv-role__content,
-		.cv-disclosure--card {
+		.cv-disclosure--card,
+		.cv-impact-list li {
 			break-inside: avoid;
 		}
 
 		.cv-disclosure:not([open]) > *:not(summary) {
 			display: block;
+		}
+
+		.cv-disclosure > summary {
+			border: 0;
+			padding: 0;
 		}
 
 		a[href^='http']::after {

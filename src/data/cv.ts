@@ -21,6 +21,7 @@ export type ExpertiseGroup = {
 	title: string;
 	items: string[];
 	chips?: string[];
+	evidence?: string[];
 };
 
 export type ExperienceItem = {
@@ -30,7 +31,11 @@ export type ExperienceItem = {
 	dates: string;
 	summary: string;
 	highlights: string[];
-	details: string[];
+	details?: string[];
+	detailGroups?: {
+		title: 'Technical details' | 'Validation scope' | 'Additional responsibilities';
+		items: string[];
+	}[];
 	tags: string[];
 };
 
@@ -43,11 +48,12 @@ export type CompactExperienceItem = {
 };
 
 export type CaseStudy = {
+	eyebrow: string;
 	title: string;
-	context: string;
+	statement: string;
 	role: string;
 	focus: string;
-	contribution: string;
+	proof: string;
 };
 
 export type EducationItem = {
@@ -62,6 +68,11 @@ export type EducationItem = {
 export type ToolGroup = {
 	title: string;
 	items: string[];
+};
+
+export type CourseGroup = {
+	featured: string[];
+	additional: string[];
 };
 
 export const cvProfile = {
@@ -131,6 +142,12 @@ export const cvProfile = {
 				'Model-based development with MATLAB/Simulink and production-oriented generated code',
 			],
 			chips: ['Control architecture', 'MBD', 'Generated code'],
+			evidence: [
+				'Electric truck thermal management and BMS controller architecture',
+				'Autonomous hauler propulsion control and torque allocation',
+				'Heavy-duty engine diagnostics and closed-loop combustion control',
+				'Production-oriented generated C/C++ code boundaries',
+			],
 		},
 		{
 			title: 'Electric and Autonomous Vehicle Systems',
@@ -189,20 +206,32 @@ export const cvProfile = {
 			organization: 'Traton / Scania Assignment',
 			dates: 'July 2025-Present',
 			summary:
-				'Develop embedded software for electric truck thermal management, battery-related control functions, charger thermal coordination, diagnostics, and real-time controller architecture within cross-functional Traton and Scania R&D environments.',
+				'Embedded software for electric truck thermal management, battery systems, charger coordination, diagnostics, and real-time controller architecture.',
 			highlights: [
-				'Develop software for thermal management of electric powertrains, auxiliaries, batteries, and charging systems.',
-				'Work on predictive thermal management concepts for EV energy optimization and battery life.',
-				'Design software architecture for real-time controllers using model-based development.',
-				'Support battery management and SOC/SOH-optimized thermal control strategies.',
-				'Develop, calibrate, and validate models across simulation, bench, and vehicle environments.',
+				'Develop and validate thermal management software for batteries, auxiliaries, power electronics, and charging systems.',
+				'Support predictive thermal control, diagnostics, functional safety analysis, and CI/CD integration.',
 			],
-			details: [
-				'Contribute to functional safety analysis, diagnostics, fallback strategies, and ISO 26262 / A-SPICE-aligned workflows.',
-				'Use GitLab CI/CD pipelines and SAFe Agile practices to improve integration quality and reduce development cycle time.',
-				'Coordinate with suppliers and cross-functional engineering teams across Traton R&D.',
+			detailGroups: [
+				{
+					title: 'Technical details',
+					items: [
+						'Model calibration and validation across MIL, SIL, HIL, test bench, wind tunnel, test track, and vehicle environments.',
+						'Battery management and SOC/SOH/SOP-related thermal control strategies.',
+						'Functional safety analysis, diagnostics, fallback strategies, and ISO 26262 / A-SPICE-aligned workflows.',
+						'GitLab CI/CD pipelines and SAFe Agile practices to improve integration quality and reduce development cycle time.',
+					],
+				},
+				{
+					title: 'Additional responsibilities',
+					items: [
+						'Cross-functional coordination across Traton and Scania R&D.',
+						'Supplier coordination and traceable engineering practices.',
+						'Controller architecture using model-based development.',
+						'Calibration maturity tracking across simulation, bench, and vehicle environments.',
+					],
+				},
 			],
-			tags: ['MATLAB/Simulink', 'C', 'GitLab', 'CI/CD', 'ISO 26262', 'A-SPICE', 'SAFe', 'MIL/SIL/HIL', 'EV thermal management', 'BMS'],
+			tags: ['MATLAB/Simulink', 'C', 'GitLab', 'ISO 26262', 'A-SPICE', 'BMS', 'diagnostics', 'EV thermal management'],
 		},
 		{
 			title: 'Senior Software Developer / Technical Leader',
@@ -210,32 +239,44 @@ export const cvProfile = {
 			location: 'Valencia, Spain',
 			dates: '2023-Present',
 			summary:
-				'Technical leader for embedded automotive software development assignments, coordinating engineering delivery and mentoring a small team of embedded software engineers.',
+				'Technical lead for embedded automotive software development assignments, coordinating delivery and mentoring a small engineering team.',
 			highlights: [
 				'Provide technical leadership to a team of 3 engineers in embedded software development.',
-				'Coordinate task planning, delivery alignment, and technical quality for client assignments.',
-				'Support system requirements, architecture design, controller implementation, SIL/HIL validation, on-road testing, debugging, and issue tracking.',
-				'Mentor junior engineers and support knowledge sharing across Agile and CI/CD workflows.',
+				'Coordinate planning, technical quality, mentoring, and client assignment delivery.',
 			],
-			details: ["Participate in Alten's Key People program for mentoring and project management."],
-			tags: ['MATLAB/Simulink', 'C/C++', 'ISO 26262', 'CI/CD', 'Agile', 'SIL/HIL', 'technical leadership'],
+			detailGroups: [
+				{
+					title: 'Additional responsibilities',
+					items: [
+						'System requirements and architecture design for embedded automotive software assignments.',
+						'Controller implementation, validation, debugging, and issue tracking.',
+						'Knowledge sharing across Agile and CI/CD workflows.',
+						'Alten Key People program for mentoring and project management.',
+					],
+				},
+			],
+			tags: ['MATLAB/Simulink', 'C/C++', 'ISO 26262', 'Agile', 'CI/CD', 'SIL/HIL', 'technical leadership'],
 		},
 		{
 			title: 'Senior Developer Engineer',
 			organization: 'Volvo CE Assignment',
 			dates: 'April 2022-December 2024',
 			summary:
-				'Led development and integration of propulsion control software for autonomous electric haulers, focusing on traction control, speed control, torque allocation, diagnostics, and functional safety.',
+				'Propulsion control software for autonomous electric haulers, including traction control, speed control, torque allocation, diagnostics, and functional safety.',
 			highlights: [
-				'Developed and integrated traction control functionality for autonomous electric haulers.',
-				'Designed controller architecture for propulsion torque control with individual axle control and dual electric motors.',
-				'Investigated torque allocation concepts with redundant actuators.',
-				'Developed functional safety-related speed control and monitoring software.',
-				'Delivered SIL/HIL testing and vehicle evaluations in manual and autonomous modes.',
+				'Developed and integrated traction and speed control functionality for autonomous electric haulers.',
+				'Designed propulsion torque control architecture for dual electric motors and redundant actuator concepts.',
 			],
-			details: [
-				'Delivered unit tests, integration tests, diagnostics, issue tracking, data analysis, tuning, debugging, and system-level evaluations.',
-				'Mentored and supported junior developers.',
+			detailGroups: [
+				{
+					title: 'Validation scope',
+					items: [
+						'Unit tests, integration tests, SIL/HIL, and vehicle evaluations in manual and autonomous modes.',
+						'Safety-related speed control and monitoring software.',
+						'Debugging, tuning, issue tracking, and system-level evaluations.',
+						'Mentoring and support for junior developers.',
+					],
+				},
 			],
 			tags: ['MATLAB/Simulink', 'ISO 26262', 'SIL', 'HIL', 'diagnostics', 'data analysis', 'autonomous vehicle control', 'propulsion control'],
 		},
@@ -245,19 +286,23 @@ export const cvProfile = {
 			location: 'Valencia, Spain',
 			dates: '2022-2023',
 			summary:
-				'Worked on electric mobility software, motor control, power electronics interfaces, model-based development strategy, and AUTOSAR-oriented platform work.',
+				'Electric mobility software for e-bike motor control, power electronics interfaces, thermal modeling, and AUTOSAR-oriented software architecture.',
 			highlights: [
 				'Led software development for an e-bike motor control project.',
 				'Implemented application-layer software for wireless battery charging and DC/DC converter functionality.',
-				'Developed and calibrated a virtual PMSM motor temperature model with approximately 98% accuracy.',
-				'Optimized PMSM electric motor controller behavior.',
-				'Developed model-based software strategy for an adaptive platform using AUTOSAR-oriented methods.',
 			],
-			details: [
-				'Acted as Scrum Master, supporting sprint planning, retrospectives, Jira workflows, and Agile improvement.',
-				'Contributed to Automotive SPICE methodology implementation.',
+			detailGroups: [
+				{
+					title: 'Technical details',
+					items: [
+						'Developed and calibrated a virtual PMSM motor temperature model with approximately 98% accuracy.',
+						'Optimized PMSM electric motor controller behavior.',
+						'Developed model-based software strategy for an adaptive platform using AUTOSAR-oriented methods.',
+						'Acted as Scrum Master and contributed to Automotive SPICE methodology implementation.',
+					],
+				},
 			],
-			tags: ['MATLAB/Simulink', 'C', 'C++', 'Classic AUTOSAR', 'CANalyzer', 'CANoe', 'SVN', 'Jira', 'Agile', 'PMSM'],
+			tags: ['MATLAB/Simulink', 'C', 'C++', 'Classic AUTOSAR', 'CANalyzer', 'Agile', 'PMSM', 'model-based development'],
 		},
 		{
 			title: 'Senior Development Engineer',
@@ -268,16 +313,29 @@ export const cvProfile = {
 				'Developed embedded control software for electric powertrain thermal management and battery management functions in heavy-duty vehicle applications.',
 			highlights: [
 				'Designed control architecture for thermal management in electric powertrains.',
-				'Implemented and tested control software for electric vehicles.',
 				'Developed estimation methods for state of charge, state of power, and state of health in mild-hybrid vehicle batteries.',
-				'Worked on passive and active cooling control integration across cabin climate, fans, heat pumps, batteries, and electric motors.',
-				'Investigated control and diagnosis concepts for electric truck thermal management and BMS functionality.',
 			],
-			details: [
-				'Planned and executed validation in MIL, SIL, HIL, test bench, wind tunnel, test track, and on-road environments.',
-				'Supported supplier contact, calibration maturity tracking, debugging, issue tracking, ECU flashing, and patent applications.',
+			detailGroups: [
+				{
+					title: 'Technical details',
+					items: [
+						'Passive and active cooling control integration across cabin climate, fans, heat pumps, batteries, and electric motors.',
+						'Control and diagnosis concepts for electric truck thermal management and BMS functionality.',
+						'Supplier contact, calibration maturity tracking, debugging, issue tracking, ECU flashing, and patent applications.',
+						'Implementation and testing of control software for electric vehicles.',
+					],
+				},
+				{
+					title: 'Validation scope',
+					items: [
+						'MIL validation for model behavior and software logic.',
+						'SIL and HIL validation for generated software and integration behavior.',
+						'Bench, wind tunnel, test track, and on-road validation.',
+						'Data analysis and calibration maturity tracking.',
+					],
+				},
 			],
-			tags: ['MATLAB/Simulink', 'C', 'C++', 'Jenkins', 'Git', 'Jira', 'ISO 26262', 'model-based development', 'BMS', 'thermal management'],
+			tags: ['MATLAB/Simulink', 'C', 'C++', 'Jenkins', 'Git', 'ISO 26262', 'BMS', 'thermal management'],
 		},
 		{
 			title: 'Industrial PhD Student',
@@ -289,12 +347,17 @@ export const cvProfile = {
 			highlights: [
 				'Developed real-time model-based diagnostics and control algorithms for heavy-duty engine combustion systems.',
 				'Designed and implemented in-cycle closed-loop combustion control concepts using FPGA and LabVIEW.',
-				'Developed virtual sensors, stochastic detection methods, predictive models, and online adaptation strategies.',
-				'Planned experiments, collected data, analyzed results, calibrated models, and validated control algorithms on test benches and prototype systems.',
 			],
-			details: [
-				'Published multiple peer-reviewed papers and contributed to several patent applications.',
-				'Represented Scania at international conferences and innovation forums.',
+			detailGroups: [
+				{
+					title: 'Technical details',
+					items: [
+						'Virtual sensors, stochastic detection methods, predictive models, and online adaptation strategies.',
+						'Experiments, data analysis, calibration, and validation on test benches and prototype systems.',
+						'Peer-reviewed publications, patent applications, conference representation, and thesis mentoring.',
+						'Research on heavy-duty diesel engines operating with biofuels.',
+					],
+				},
 			],
 			tags: ['MATLAB/Simulink', 'LabVIEW', 'FPGA', 'signal processing', 'stochastic modeling', 'model calibration', 'experimental validation'],
 		},
@@ -308,11 +371,19 @@ export const cvProfile = {
 			highlights: [
 				'Developed software for engine diagnostics, calibration, and safety functionality using model-based methods and C-code generation.',
 				'Implemented control and diagnostic functions for oil level, oil pressure, warning handling, and driver display information.',
-				'Developed concepts for controllable cooling systems, controllable oil pumps, and oil degradation models.',
-				'Planned and executed software validation using MIL, SIL, HIL, test bench, wind tunnel, test track, and on-road testing.',
 			],
-			details: ['Supported ECU flashing, issue tracking, supplier contact, patent applications, and thesis mentoring.'],
-			tags: ['MATLAB/Simulink', 'C', 'C++', 'Jenkins', 'Perforce', 'Vision', 'Jira', 'model-based development', 'diagnostics', 'functional safety'],
+			detailGroups: [
+				{
+					title: 'Technical details',
+					items: [
+						'Concepts for controllable cooling systems, controllable oil pumps, and oil degradation models.',
+						'Validation using MIL, SIL, HIL, test bench, wind tunnel, test track, and on-road testing.',
+						'ECU flashing, issue tracking, supplier contact, patent applications, and thesis mentoring.',
+						'Generated C-code workflows for model-based embedded software.',
+					],
+				},
+			],
+			tags: ['MATLAB/Simulink', 'C', 'C++', 'Jenkins', 'Perforce', 'Vision', 'Jira', 'diagnostics', 'functional safety'],
 		},
 	] satisfies ExperienceItem[],
 	earlierExperience: [
@@ -349,48 +420,45 @@ export const cvProfile = {
 	] satisfies CompactExperienceItem[],
 	caseStudies: [
 		{
+			eyebrow: 'EV systems',
 			title: 'Electric Truck Thermal Management and Battery Systems',
-			context:
-				'Electric and hybrid commercial vehicles require coordinated thermal control across batteries, auxiliaries, power electronics, cabin systems, and charging interfaces.',
-			role: 'Senior developer engineer / embedded controls specialist.',
-			focus:
-				'Battery thermal management, predictive thermal control, charger thermal coordination, diagnostics, software architecture, functional safety, calibration, and validation.',
-			contribution:
-				'Developed model-based embedded software, supported architecture design, integrated CI/CD workflows, contributed to functional safety analysis, and validated control behavior across simulation, bench, and vehicle environments.',
+			statement:
+				'Embedded control software for battery, auxiliary, power electronics, and charging thermal coordination in heavy-duty electric vehicles.',
+			role: 'Senior developer engineer',
+			focus: 'BMS / thermal control / diagnostics',
+			proof: 'MIL/SIL/HIL / vehicle testing / ISO 26262 context',
 		},
 		{
+			eyebrow: 'Autonomous machines',
 			title: 'Autonomous Electric Hauler Propulsion Control',
-			context: 'Autonomous electric haulers require reliable propulsion and speed control in demanding off-road environments.',
-			role: 'Senior developer engineer / technical lead.',
-			focus:
-				'Traction control, speed control, torque allocation, redundant actuators, dual electric motors, diagnostics, functional safety, SIL/HIL testing, and vehicle validation.',
-			contribution:
-				'Developed and integrated propulsion control software, designed torque allocation concepts, implemented diagnostics, supported safety-related monitoring, and led debugging and validation activities.',
+			statement:
+				'Propulsion and speed-control software for autonomous electric haulers operating in demanding off-road environments.',
+			role: 'Senior developer engineer / technical lead',
+			focus: 'Traction control / torque allocation / diagnostics',
+			proof: 'Dual motors / redundant actuators / SIL/HIL / vehicle testing',
 		},
 		{
+			eyebrow: 'Power electronics',
 			title: 'E-Bike Motor Control and Power Electronics Software',
-			context:
-				'Electric mobility platforms require embedded software for motor control, power electronics interfaces, thermal modeling, and AUTOSAR-oriented software architecture.',
-			role: 'Software lead and Scrum Master.',
-			focus:
-				'PMSM motor control, virtual temperature sensing, wireless charging, DC/DC converter interfaces, model-based development, Classic AUTOSAR, test-bench validation, and Agile delivery.',
-			contribution:
-				'Led software development, developed and calibrated a PMSM thermal model, implemented application software, supported Automotive SPICE practices, and coordinated Agile delivery routines.',
+			statement:
+				'Embedded software for e-bike motor control, wireless charging, DC/DC conversion, and PMSM thermal modeling.',
+			role: 'Software lead / Scrum Master',
+			focus: 'PMSM / AUTOSAR / power electronics',
+			proof: '98% thermal model accuracy / bench validation / Agile delivery',
 		},
 		{
+			eyebrow: 'Real-time control research',
 			title: 'In-Cycle Combustion Control and Real-Time Diagnostics',
-			context:
-				'Heavy-duty engines operating with biofuels require robust control strategies that can handle combustion variability, emissions constraints, and real-time execution limits.',
-			role: 'Industrial PhD researcher.',
-			focus:
-				'In-cycle closed-loop control, virtual sensing, stochastic detection, predictive modeling, online adaptation, FPGA implementation, signal processing, and experimental validation.',
-			contribution:
-				'Developed and validated control and diagnostic algorithms, implemented real-time concepts on FPGA, published scientific results, contributed to patents, and demonstrated improvements in combustion control accuracy, robustness, and efficiency.',
+			statement:
+				'Real-time control and diagnostic algorithms for heavy-duty combustion systems with FPGA implementation and experimental validation.',
+			role: 'Industrial PhD researcher',
+			focus: 'Closed-loop control / virtual sensing / stochastic detection',
+			proof: 'Patents / publications / test-bench validation',
 		},
 	] satisfies CaseStudy[],
 	research: {
 		intro:
-			'My research work focused on real-time control, diagnostics, virtual sensing, stochastic modeling, and hardware-constrained implementation for heavy-duty combustion systems. The work connects automatic control theory with embedded implementation and experimental validation.',
+			'Research evidence showing depth in real-time control, virtual sensing, stochastic modeling, and hardware-constrained implementation for heavy-duty physical systems.',
 		themes: [
 			'In-cycle closed-loop combustion control',
 			'Real-time model-based diagnostics and virtual sensing',
@@ -470,24 +538,42 @@ export const cvProfile = {
 	] satisfies EducationItem[],
 	tools: [
 		{
-			title: 'Control, Modeling, and Data',
-			items: ['MATLAB', 'Simulink', 'LabVIEW', 'model-based development', 'system identification', 'calibration', 'signal processing', 'data analysis', 'stochastic modeling', 'optimization', 'model predictive control', 'dynamic modeling'],
+			title: 'Control & Modeling',
+			items: ['MATLAB', 'Simulink', 'Stateflow', 'Embedded Coder', 'LabVIEW'],
 		},
 		{
 			title: 'Embedded Software',
-			items: ['C', 'C++', 'CAPL', 'Python', 'Java', 'Eclipse', 'Visual Studio', 'ECU flashing', 'generated code workflows', 'real-time embedded implementation'],
+			items: ['C', 'C++', 'Python', 'CAPL', 'ECU flashing'],
+		},
+		{
+			title: 'Validation',
+			items: ['MIL', 'SIL', 'HIL', 'CANalyzer', 'CANoe', 'Google Test'],
+		},
+		{
+			title: 'Standards',
+			items: ['ISO 26262', 'A-SPICE', 'AUTOSAR', 'CAN/J1939'],
+		},
+		{
+			title: 'Delivery',
+			items: ['Git', 'GitLab', 'Jenkins', 'Jira', 'CI/CD', 'SAFe'],
+		},
+	] satisfies ToolGroup[],
+	extendedTools: [
+		{
+			title: 'Control, Modeling, and Data',
+			items: ['model-based development', 'system identification', 'calibration', 'signal processing', 'data analysis', 'stochastic modeling', 'optimization', 'model predictive control', 'dynamic modeling'],
+		},
+		{
+			title: 'Embedded Software',
+			items: ['Java', 'Eclipse', 'Visual Studio', 'generated code workflows', 'real-time embedded implementation'],
 		},
 		{
 			title: 'Validation and Testing',
-			items: ['MIL', 'SIL', 'HIL', 'unit testing', 'integration testing', 'system testing', 'test bench', 'wind tunnel', 'test track', 'on-road testing', 'CANalyzer', 'CANoe', 'Vision', 'Google Test'],
+			items: ['unit testing', 'integration testing', 'system testing', 'test bench', 'wind tunnel', 'test track', 'on-road testing', 'Vision'],
 		},
 		{
-			title: 'Automotive Standards and Process',
-			items: ['ISO 26262', 'A-SPICE', 'AUTOSAR', 'CAN / J1939', 'functional safety', 'diagnostics', 'fault handling', 'fallback strategies', 'requirements traceability'],
-		},
-		{
-			title: 'Collaboration and Delivery',
-			items: ['Git', 'GitLab', 'Jenkins', 'SVN', 'Jira', 'CI/CD', 'Agile', 'Scrum', 'Kanban', 'SAFe', 'technical documentation', 'supplier coordination', 'mentoring'],
+			title: 'Process and Delivery',
+			items: ['functional safety', 'diagnostics', 'fault handling', 'fallback strategies', 'requirements traceability', 'SVN', 'Agile', 'Scrum', 'Kanban', 'technical documentation', 'supplier coordination', 'mentoring'],
 		},
 	] satisfies ToolGroup[],
 	languages: [
@@ -496,14 +582,18 @@ export const cvProfile = {
 		{ language: 'English', level: 'Full professional' },
 		{ language: 'Swedish', level: 'Full professional' },
 	],
-	coursesAndRecognition: [
-		'LangChain and LLMs with Python - Alten, 2025',
-		'Project Management: Product Owner + Kanban - Cualtis, 2024',
-		'Power Electronic Converters - 2022',
-		'Introduction to Electromobility - Swedish Electromobility Centre, 2020',
-		'Scania Innovation Challenge - Scania, 2019',
-		'Outstanding Oral Presentation Award - SAE, 2017',
-		'GT-Power - Gamma Technologies, 2015',
-		'Control of Mobile Robots - Coursera, 2013',
-	],
+	coursesAndRecognition: {
+		featured: [
+			'Outstanding Oral Presentation Award - SAE',
+			'Introduction to Electromobility - Swedish Electromobility Centre',
+			'Project Management: Product Owner + Kanban',
+			'LangChain and LLMs with Python',
+		],
+		additional: [
+			'Power Electronic Converters',
+			'Scania Innovation Challenge',
+			'GT-Power',
+			'Control of Mobile Robots',
+		],
+	} satisfies CourseGroup,
 } as const;
