@@ -6,46 +6,46 @@
 	--font-mono: "IBM Plex Mono", "SFMono-Regular", Consolas, monospace;
 
 	/* ==========================================================
-	   Palette tokens from palette-matrix-5-minimal-reviewed.json
+	   Daylight paper / late-evening engineering palette.
 	   Only tokens used by the current site are defined here.
 	   ========================================================== */
 
-	--palette-light-paper-base: #fbf4ec;
-	--palette-light-paper-active: #fffaf6;
-	--palette-light-paper-muted: #f6eadf;
-	--palette-light-shell-base: #f8ece4;
-	--palette-light-shell-active: #f2ddd4;
-	--palette-light-shell-muted: #fbf3ee;
-	--palette-light-blue-base: #bcc8d4;
+	--palette-light-paper-base: #f7f2ec;
+	--palette-light-paper-active: #fffaf4;
+	--palette-light-paper-muted: #eee5dc;
+	--palette-light-shell-base: #f4e8de;
+	--palette-light-shell-active: #ead6cc;
+	--palette-light-shell-muted: #fbf4ee;
+	--palette-light-blue-base: #b8c3cf;
+	--palette-light-blue-active: #526b82;
+	--palette-light-blue-muted: #d9e0e8;
 	--palette-light-rose-base: #d8aaa0;
-	--palette-light-rose-active: #c99084;
-	--palette-light-rose-muted: #ead6cf;
-	--palette-light-blue-active: #50677c;
-	--palette-light-blue-muted: #d6dde7;
+	--palette-light-rose-active: #b8725e;
+	--palette-light-rose-muted: #ead6cc;
 
-	--palette-dark-navy-base: #202b45;
-	--palette-dark-navy-active: #2b3856;
-	--palette-dark-navy-muted: #1b253c;
+	--palette-dark-navy-base: #182235;
+	--palette-dark-navy-active: #202b3a;
+	--palette-dark-navy-muted: #111824;
 	--palette-dark-glass-base: #10161d;
-	--palette-dark-glass-active: #1a2430;
-	--palette-dark-glass-muted: #26323f;
-	--palette-dark-blue-base: #bcc8d4;
-	--palette-dark-blue-active: #d6dde7;
+	--palette-dark-glass-active: #18202b;
+	--palette-dark-glass-muted: #202b3a;
+	--palette-dark-blue-base: #b8c3d2;
+	--palette-dark-blue-active: #d9e0e8;
 	--palette-dark-blue-muted: #35495d;
 	--palette-dark-rose-base: #d8aaa0;
 	--palette-dark-rose-active: #e8c7bb;
 	--palette-dark-rose-muted: #a9827a;
 
-	--text-ink: #10161d;
-	--text-shadow-blue: #50677c;
-	--text-cocoa: #7f625b;
-	--text-rose-active: #d8aaa0;
+	--text-ink: #14181d;
+	--text-shadow-blue: #526b82;
+	--text-cocoa: #7a6258;
+	--text-rose-active: #b8725e;
 	--text-paper: #fbf4ec;
 
-	--hero-background-light: linear-gradient(120deg, #fbf4ec 0%, #fffaf6 42%, #f6eadf 68%, rgba(188, 200, 212, 0.42) 100%);
-	--hero-background-dark: linear-gradient(135deg, #10161d 0%, #10161d 52%, #1a2430 100%);
-	--hero-statement-light: linear-gradient(90deg, #6486a6 0%, #ce88bb 48%, #ca9163 100%);
-	--hero-statement-dark: linear-gradient(90deg, #6486a6 0%, #ce88bb 48%, #ca9163 100%);
+	--hero-background-light: linear-gradient(145deg, #fffaf4 0%, #f7f2ec 38%, #ead6cc 72%, #d9e0e8 100%);
+	--hero-background-dark: linear-gradient(135deg, #10161d 0%, #182235 52%, #202b3a 100%);
+	--hero-statement-light: linear-gradient(90deg, #526b82 0%, #7a6258 48%, #b8725e 100%);
+	--hero-statement-dark: linear-gradient(90deg, #b8c3d2 0%, #d8aaa0 54%, #ca9163 100%);
 
 	/* ==========================================================
 	   Semantic color roles consumed by components.
@@ -61,12 +61,12 @@
 
 	--color-bg: var(--palette-light-paper-active);
 	--color-surface: var(--palette-light-shell-muted);
-	--color-surface-soft: var(--palette-light-paper-active);
-	--color-section-bg: var(--palette-light-paper-active);
+	--color-surface-soft: var(--palette-light-paper-muted);
+	--color-section-bg: var(--palette-light-paper-base);
 
-	--color-border: color-mix(in srgb, var(--text-cocoa) 24%, transparent);
-	--color-border-soft: color-mix(in srgb, var(--palette-light-rose-base) 30%, transparent);
-	--color-border-strong: color-mix(in srgb, var(--text-cocoa) 46%, transparent);
+	--color-border: color-mix(in srgb, var(--text-cocoa) 22%, transparent);
+	--color-border-soft: color-mix(in srgb, var(--palette-light-blue-active) 18%, transparent);
+	--color-border-strong: color-mix(in srgb, var(--palette-light-blue-active) 42%, transparent);
 
 	--color-accent: var(--palette-light-blue-active);
 	--color-accent-wash: var(--palette-light-rose-muted);
@@ -75,12 +75,12 @@
 	--color-link: var(--text-shadow-blue);
 	--color-link-hover: var(--text-cocoa);
 
-	--color-header-bg: color-mix(in srgb, var(--palette-light-shell-base) 92%, var(--palette-light-blue-muted));
+	--color-header-bg: color-mix(in srgb, var(--palette-light-paper-active) 88%, var(--palette-light-blue-muted));
 	--color-header-text: var(--text-ink);
 	--color-header-link: var(--palette-light-blue-active);
 	--color-header-link-hover: var(--text-cocoa);
 	--color-header-active: var(--text-ink);
-	--color-header-border: color-mix(in srgb, var(--text-cocoa) 22%, transparent);
+	--color-header-border: color-mix(in srgb, var(--text-cocoa) 20%, transparent);
 
 	--hero-gradient: var(--hero-background-light);
 	--slogan-gradient: var(--hero-statement-light);
@@ -88,33 +88,33 @@
 	--color-hero-text: var(--text-ink);
 	--color-hero-kicker: var(--palette-light-blue-active);
 	--color-hero-link: var(--text-ink);
-	--color-hero-link-hover: var(--palette-light-rose-base);
+	--color-hero-link-hover: var(--text-cocoa);
 	--color-hero-proof-value: var(--palette-light-blue-active);
 	--color-hero-proof-label: var(--text-ink);
 
 	--color-button-primary-bg: var(--palette-light-blue-active);
 	--color-button-primary-text: var(--text-paper);
-	--color-button-primary-state-bg: var(--palette-light-rose-base);
+	--color-button-primary-state-bg: var(--palette-light-rose-active);
 	--color-button-primary-state-text: var(--text-ink);
 	--color-button-secondary-text: var(--text-shadow-blue);
 	--color-button-secondary-state-text: var(--text-cocoa);
 
 	--color-card-bg: var(--palette-light-shell-muted);
 	--color-card-bg-hover: var(--palette-light-shell-base);
-	--color-card-border: color-mix(in srgb, var(--palette-light-rose-base) 30%, transparent);
-	--color-card-border-hover: color-mix(in srgb, var(--text-cocoa) 40%, transparent);
-	--color-card-subtext: color-mix(in srgb, var(--palette-light-blue-active) 78%, var(--palette-light-blue-base));
+	--color-card-border: color-mix(in srgb, var(--text-cocoa) 20%, transparent);
+	--color-card-border-hover: color-mix(in srgb, var(--palette-light-blue-active) 38%, transparent);
+	--color-card-subtext: color-mix(in srgb, var(--palette-light-blue-active) 84%, var(--text-ink));
 
 	--color-tag-text: var(--text-ink);
 
 	--color-quote-bg: var(--palette-light-paper-active);
 	--color-quote-text: var(--text-cocoa);
 
-	--color-footer-bg: color-mix(in srgb, var(--palette-light-shell-base) 90%, var(--palette-light-rose-muted));
-	--color-footer-text: var(--text-shadow-blue);
+	--color-footer-bg: color-mix(in srgb, var(--palette-light-paper-muted) 86%, var(--palette-light-rose-muted));
+	--color-footer-text: var(--text-cocoa);
 	--color-footer-link: var(--text-shadow-blue);
-	--color-footer-link-hover: var(--text-cocoa);
-	--color-footer-border: color-mix(in srgb, var(--text-cocoa) 22%, transparent);
+	--color-footer-link-hover: var(--palette-light-rose-active);
+	--color-footer-border: color-mix(in srgb, var(--text-cocoa) 20%, transparent);
 
 	/* Layout */
 	--content-width: 1120px;
@@ -142,7 +142,7 @@
 	--motion-standard-productive: cubic-bezier(0.2, 0, 0.38, 0.9);
 	--motion-entrance-expressive: cubic-bezier(0, 0, 0.3, 1);
 
-	--radius: 4px;
+	--radius: 2px;
 
 	color-scheme: light;
 }
@@ -156,62 +156,62 @@
 	--color-soft: var(--palette-dark-blue-base);
 	--color-subtle: var(--palette-dark-blue-base);
 
-	--color-bg: var(--palette-dark-glass-active);
+	--color-bg: var(--palette-dark-glass-base);
 	--color-surface: var(--palette-dark-glass-muted);
 	--color-surface-soft: var(--palette-dark-glass-active);
-	--color-section-bg: var(--palette-dark-glass-active);
+	--color-section-bg: var(--palette-dark-glass-base);
 
 	--color-border: color-mix(in srgb, var(--palette-dark-blue-base) 22%, transparent);
 	--color-border-soft: color-mix(in srgb, var(--palette-dark-blue-base) 14%, transparent);
 	--color-border-strong: color-mix(in srgb, var(--palette-dark-blue-active) 34%, transparent);
 
 	--color-accent: var(--palette-dark-blue-base);
-	--color-accent-wash: var(--palette-dark-blue-muted);
+	--color-accent-wash: color-mix(in srgb, var(--palette-dark-rose-muted) 34%, transparent);
 	--color-focus: var(--palette-dark-blue-active);
 
-	--color-link: var(--text-rose-active);
+	--color-link: var(--palette-dark-rose-base);
 	--color-link-hover: var(--palette-dark-blue-base);
 
-	--color-header-bg: color-mix(in srgb, var(--palette-dark-glass-base) 92%, var(--palette-dark-blue-muted));
+	--color-header-bg: color-mix(in srgb, var(--palette-dark-glass-base) 92%, var(--palette-dark-navy-active));
 	--color-header-text: var(--text-paper);
 	--color-header-link: var(--palette-dark-blue-base);
 	--color-header-link-hover: var(--palette-dark-rose-base);
 	--color-header-active: var(--text-paper);
-	--color-header-border: color-mix(in srgb, var(--palette-dark-blue-base) 24%, transparent);
+	--color-header-border: color-mix(in srgb, var(--palette-dark-blue-base) 22%, transparent);
 
 	--hero-gradient: var(--hero-background-dark);
 	--slogan-gradient: var(--hero-statement-dark);
 	--hero-video-overlay: color-mix(in srgb, var(--palette-dark-glass-base) 20%, transparent);
 	--color-hero-text: var(--text-paper);
-	--color-hero-kicker: var(--text-shadow-blue);
+	--color-hero-kicker: var(--palette-dark-blue-base);
 	--color-hero-link: var(--text-paper);
 	--color-hero-link-hover: var(--palette-dark-rose-base);
-	--color-hero-proof-value: var(--text-rose-active);
-	--color-hero-proof-label: var(--palette-dark-blue-base);
+	--color-hero-proof-value: var(--palette-dark-rose-base);
+	--color-hero-proof-label: var(--palette-dark-blue-active);
 
 	--color-button-primary-bg: var(--palette-dark-rose-base);
 	--color-button-primary-text: var(--text-ink);
 	--color-button-primary-state-bg: var(--palette-dark-blue-active);
 	--color-button-primary-state-text: var(--text-ink);
-	--color-button-secondary-text: var(--text-rose-active);
+	--color-button-secondary-text: var(--palette-dark-rose-base);
 	--color-button-secondary-state-text: var(--palette-dark-blue-base);
 
 	--color-card-bg: var(--palette-dark-glass-muted);
-	--color-card-bg-hover: var(--palette-dark-blue-muted);
+	--color-card-bg-hover: var(--palette-dark-navy-active);
 	--color-card-border: color-mix(in srgb, var(--palette-dark-blue-base) 18%, transparent);
-	--color-card-border-hover: color-mix(in srgb, var(--palette-dark-blue-active) 34%, transparent);
+	--color-card-border-hover: color-mix(in srgb, var(--palette-dark-rose-base) 34%, transparent);
 	--color-card-subtext: var(--palette-dark-blue-active);
 
 	--color-tag-text: var(--text-paper);
 
 	--color-quote-bg: transparent;
-	--color-quote-text: var(--text-rose-active);
+	--color-quote-text: var(--palette-dark-rose-base);
 
 	--color-footer-bg: color-mix(in srgb, var(--palette-dark-glass-base) 92%, var(--palette-dark-navy-active));
-	--color-footer-text: var(--text-paper);
-	--color-footer-link: var(--text-paper);
-	--color-footer-link-hover: var(--palette-dark-blue-base);
-	--color-footer-border: color-mix(in srgb, var(--palette-dark-blue-base) 24%, transparent);
+	--color-footer-text: var(--palette-dark-blue-active);
+	--color-footer-link: var(--palette-dark-rose-base);
+	--color-footer-link-hover: var(--palette-dark-blue-active);
+	--color-footer-border: color-mix(in srgb, var(--palette-dark-blue-base) 22%, transparent);
 
 	color-scheme: dark;
 }
@@ -273,21 +273,23 @@ h3 {
 	color: var(--color-text);
 	font-family: var(--font-display);
 	font-weight: 600;
-	line-height: 1.2;
+	line-height: 1.08;
 	letter-spacing: 0;
 }
 
 h1 {
-	font-size: 1.75rem;
+	font-size: 2.75rem;
+	line-height: 0.96;
 }
 
 h2 {
-	font-size: 1.25rem;
+	font-size: 1.8rem;
+	line-height: 1.05;
 }
 
 h3 {
 	font-size: 1.1rem;
-	line-height: 1.4;
+	line-height: 1.25;
 }
 
 ul,
@@ -368,9 +370,9 @@ li::marker {
 .eyebrow {
 	color: var(--color-accent);
 	font-family: var(--font-mono);
-	font-size: 0.74rem;
+	font-size: 0.72rem;
 	font-weight: 600;
-	letter-spacing: 0.08em;
+	letter-spacing: 0.14em;
 	line-height: 1.25;
 	text-transform: uppercase;
 }
@@ -459,7 +461,7 @@ li::marker {
 .panel:focus-within {
 	border-color: var(--color-card-border-hover);
 	background: var(--color-card-bg-hover);
-	transform: translateY(-2px);
+	transform: translateY(-1px);
 }
 
 .tag-list {
@@ -473,11 +475,18 @@ li::marker {
 .tag {
 	display: inline-flex;
 	align-items: center;
+	border: 1px solid color-mix(in srgb, var(--color-accent) 22%, transparent);
+	background: color-mix(in srgb, var(--color-surface-soft) 86%, var(--color-accent-wash));
+	padding: 0.18rem 0.45rem;
 	color: var(--color-tag-text);
 	font-family: var(--font-mono);
-	font-size: 0.78rem;
+	font-size: 0.76rem;
 	font-weight: 600;
 	line-height: 1.2;
+}
+
+:root[data-theme="dark"] .tag {
+	background: color-mix(in srgb, var(--color-surface) 86%, var(--color-accent-wash));
 }
 
 .prose {
@@ -515,6 +524,21 @@ li::marker {
 	color: var(--color-body-text);
 }
 
+.prose a {
+	color: var(--color-link);
+	text-decoration-color: color-mix(in srgb, var(--color-link) 42%, transparent);
+	text-underline-offset: 0.16em;
+	transition:
+		color var(--motion-duration-fast-02) var(--motion-standard-productive),
+		text-decoration-color var(--motion-duration-fast-02) var(--motion-standard-productive);
+}
+
+.prose a:hover,
+.prose a:focus-visible {
+	color: var(--color-link-hover);
+	text-decoration-color: var(--color-link-hover);
+}
+
 @media (min-width: 760px) {
 	.grid.two,
 	.grid.three,
@@ -534,6 +558,14 @@ li::marker {
 }
 
 @media (max-width: 640px) {
+	h1 {
+		font-size: 2.25rem;
+	}
+
+	h2 {
+		font-size: 1.55rem;
+	}
+
 	.page-container {
 		width: min(100% - 32px, 1120px);
 	}
