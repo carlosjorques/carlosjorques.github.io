@@ -36,14 +36,18 @@ const { title, description } = Astro.props;
 	.expertise-card h3::before {
 		width: 18px;
 		height: 18px;
-		border: 1px solid var(--color-border);
-		background: var(--color-surface);
+		border: 1px solid var(--color-card-border);
+		background: var(--color-card-bg);
 		content: '';
 		transition:
+			background-color var(--motion-duration-fast-02) var(--motion-standard-productive),
+			border-color var(--motion-duration-fast-02) var(--motion-standard-productive),
 			transform var(--motion-duration-fast-02) var(--motion-standard-productive);
 	}
 
 	.expertise-card:hover h3::before {
+		border-color: var(--color-card-border-hover);
+		background: var(--color-card-bg-hover);
 		transform: scale(0.88);
 	}
 

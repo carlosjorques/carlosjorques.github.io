@@ -1,0 +1,1660 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { cvProfile } from '../data/cv';
+
+const baseUrl = import.meta.env.BASE_URL;
+const withBase = (href: string) => {
+	if (href.startsWith('http') || href.startsWith('mailto:') || href.startsWith('#')) {
+		return href;
+	}
+
+	return href === '/' ? baseUrl : `${baseUrl}${href.replace(/^\//, '')}`;
+};
+
+const getRoleDetailCount = (item: (typeof cvProfile.experience)[number]) =>
+	(item.detailGroups ?? []).reduce((count, group) => count + group.items.length, 0);
+
+const profileJsonLd = {
+	'@context': 'https://schema.org',
+	'@type': 'ProfilePage',
+	mainEntity: {
+		'@type': 'Person',
+		name: cvProfile.hero.title,
+		jobTitle: 'Senior Electronics Engineer and Embedded Controls Architect',
+		description:
+			'Senior electronics and embedded controls engineer specializing in EV thermal management, BMS, autonomous propulsion control, diagnostics, functional safety, model-based development, and real-time embedded software.',
+		url: Astro.url.href,
+		sameAs: [cvProfile.links.linkedin],
+	},
+};
+---
+
+<Layout
+	title="Senior Embedded Controls Engineer CV | Carlos Jorques"
+	description="Senior electronics and embedded controls engineer specializing in EV thermal management, BMS, autonomous propulsion control, diagnostics, functional safety, model-based development, and real-time embedded software."
+>
+	<script type="application/ld+json" set:html={JSON.stringify(profileJsonLd)} />
+
+	<div class="cv-page">
+		<div class="cv-scroll-progress" aria-hidden="true">
+			<span class="cv-scroll-progress__bar" data-cv-scroll-progress></span>
+		</div>
+
+		<section class="cv-hero" aria-labelledby="cv-title">
+			<div class="page-container cv-hero__inner">
+				<div class="cv-hero__content">
+					<p class="eyebrow">{cvProfile.hero.eyebrow}</p>
+					<h1 id="cv-title">{cvProfile.hero.title}</h1>
+					<p class="cv-hero__subtitle">{cvProfile.hero.subtitle}</p>
+					<p class="cv-hero__summary">{cvProfile.hero.summary}</p>
+					<p class="cv-hero__extended">{cvProfile.hero.secondarySummary}</p>
+
+					<div class="button-row cv-actions" aria-label="CV actions">
+						{cvProfile.actions.map((action) => (
+							<a
+								class={action.primary ? 'button primary' : 'button'}
+								href={withBase(action.href)}
+								target={action.external ? '_blank' : undefined}
+								rel={action.external ? 'noopener noreferrer' : undefined}
+								download={action.download ? true : undefined}
+								data-analytics={action.analytics}
+							>
+								{action.label}
+							</a>
+						))}
+					</div>
+				</div>
+
+				<aside class="cv-hero__evidence" aria-label="Recruiter snapshot">
+					<ul class="cv-proof-grid" aria-label="Career proof points">
+						{cvProfile.proofTiles.map((tile) => (
+							<li>
+								<strong>{tile.value}</strong>
+								<span>{tile.label}</span>
+							</li>
+						))}
+					</ul>
+
+					<div class="cv-role-strip" aria-label="Relevant roles">
+						<p>Relevant for</p>
+						<ul class="cv-chip-list cv-chip-list--strong">
+							{cvProfile.relevantFor.map((role) => (
+								<li>{role}</li>
+							))}
+						</ul>
+					</div>
+				</aside>
+			</div>
+		</section>
+
+		<div class="page-container cv-shell">
+			<nav class="cv-section-nav" aria-label="CV sections">
+				<div class="cv-section-nav__inner">
+					<span>CV sections</span>
+					<ul>
+						{cvProfile.sectionNav.map((item) => (
+							<li>
+								<a href={item.href} data-cv-section-link data-analytics="cv_section_nav_click">{item.label}</a>
+							</li>
+						))}
+					</ul>
+					<div class="cv-section-nav__actions" aria-label="CV quick actions">
+						<a href={withBase(cvProfile.links.pdf)} download data-analytics="cv_pdf_download">Download PDF</a>
+						<a href={withBase(cvProfile.links.contact)} data-analytics="cv_contact_click">Contact</a>
+					</div>
+				</div>
+			</nav>
+
+			<div class="cv-main-flow">
+		<section class="cv-section cv-readable" id="summary" aria-labelledby="summary-title" data-cv-section>
+			<div class="page-container">
+				<div class="cv-section__intro">
+					<p class="eyebrow">Recruiter snapshot</p>
+					<h2 id="summary-title">Executive Summary</h2>
+				</div>
+				<div class="cv-summary-block">
+					{cvProfile.executiveSummary.map((paragraph) => (
+						<p>{paragraph}</p>
+					))}
+				</div>
+			</div>
+		</section>
+
+		<section class="cv-section" id="expertise" aria-labelledby="expertise-title" data-cv-section>
+			<div class="page-container">
+				<div class="cv-section__intro">
+					<p class="eyebrow">Capability map</p>
+					<h2 id="expertise-title">Core Expertise</h2>
+				</div>
+				<div class="cv-featured-expertise-grid">
+					{cvProfile.expertise.map((group, index) => (
+						<article class={index === 0 ? 'cv-card cv-card--interactive cv-expertise-card cv-expertise-card--featured' : 'cv-card cv-card--interactive cv-expertise-card'}>
+							<h3>{group.title}</h3>
+							<ul>
+								{group.items.map((item) => (
+									<li>{item}</li>
+								))}
+							</ul>
+							{group.evidence && group.evidence.length >= 4 && (
+								<details class="cv-disclosure cv-disclosure--inline" data-analytics="cv_expertise_evidence_open">
+									<summary>Technical evidence</summary>
+									<ul class="cv-disclosure__content">
+										{group.evidence.map((item) => (
+											<li>{item}</li>
+										))}
+									</ul>
+								</details>
+							)}
+							{group.chips && (
+								<ul class="cv-chip-list" aria-label={`${group.title} methods`}>
+									{group.chips.map((chip) => (
+										<li>{chip}</li>
+									))}
+								</ul>
+							)}
+						</article>
+					))}
+				</div>
+			</div>
+		</section>
+
+		<section class="cv-section cv-section--compact" id="impact" aria-labelledby="impact-title" data-cv-section>
+			<div class="page-container">
+				<div class="cv-section__intro">
+					<p class="eyebrow">Selected impact</p>
+					<h2 id="impact-title">Engineering Outcomes</h2>
+				</div>
+				<ul class="cv-impact-list">
+					{cvProfile.impactHighlights.map((highlight, index) => (
+						<li>
+							<span aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+							<p>{highlight}</p>
+						</li>
+					))}
+				</ul>
+			</div>
+		</section>
+
+		<section class="cv-section" id="experience" aria-labelledby="experience-title" data-cv-section>
+			<div class="page-container">
+				<div class="cv-section__intro">
+					<p class="eyebrow">Experience</p>
+					<h2 id="experience-title">Experience Timeline</h2>
+					<p>Reverse-chronological roles with the strongest recruiter-facing evidence visible and secondary technical depth available on demand.</p>
+				</div>
+
+				<div class="cv-timeline" aria-label="Professional experience timeline">
+					{cvProfile.experience.map((item, index) => (
+						<article class={index === 0 ? 'cv-role cv-role--current' : 'cv-role'}>
+							<div class="cv-role__marker" aria-hidden="true">
+								<span>{String(index + 1).padStart(2, '0')}</span>
+							</div>
+							<div class="cv-role__content">
+								<div class="cv-role__header">
+									<div>
+										<p class="cv-role__period">{item.dates}</p>
+										{item.organization && <p class="cv-role__organization">{item.organization}</p>}
+										<h3>{item.title}</h3>
+									</div>
+									{item.location && <p class="cv-role__location">{item.location}</p>}
+								</div>
+								<p class="cv-role__summary">{item.summary}</p>
+								<div class="cv-role__ownership">
+									<h4>Key ownership</h4>
+									<ul class="cv-role__bullets">
+										{item.highlights.slice(0, 2).map((highlight) => (
+											<li>{highlight}</li>
+										))}
+									</ul>
+								</div>
+								<ul class="cv-chip-list" aria-label={`${item.title} technologies and methods`}>
+									{item.tags.slice(0, 8).map((tag) => (
+										<li>{tag}</li>
+									))}
+								</ul>
+								{getRoleDetailCount(item) >= 4 && (
+									<details class="cv-disclosure" data-analytics="cv_experience_depth_open">
+										<summary>{item.detailGroups?.[0]?.title ?? 'Technical details'}</summary>
+										<div class="cv-disclosure__content">
+											{item.detailGroups?.map((group) => (
+												<section class="cv-detail-group" aria-label={group.title}>
+													<h4>{group.title}</h4>
+													<ul>
+														{group.items.map((detail) => (
+															<li>{detail}</li>
+														))}
+													</ul>
+												</section>
+											))}
+										</div>
+									</details>
+								)}
+							</div>
+						</article>
+					))}
+				</div>
+
+				<section class="cv-earlier-experience" aria-labelledby="earlier-experience-title">
+					<div class="cv-section__intro cv-section__intro--tight">
+						<h3 id="earlier-experience-title">Earlier experience</h3>
+						<p>Earlier roles covering thesis work at Scania, hardware engineering, and software research.</p>
+					</div>
+					<div class="cv-card-grid cv-card-grid--three">
+						{cvProfile.earlierExperience.map((item) => (
+							<article class="cv-card cv-card--compact">
+								<p class="cv-card__meta">{item.dates}</p>
+								<h3>{item.title} - {item.organization}</h3>
+								<p>{item.summary}</p>
+							</article>
+						))}
+					</div>
+					<details class="cv-disclosure cv-disclosure--wide" data-analytics="cv_earlier_experience_open">
+						<summary>Earlier experience details</summary>
+						<div class="cv-disclosure__content cv-earlier-details">
+							{cvProfile.earlierExperience.map((item) => (
+								<section class="cv-detail-group" aria-label={`${item.title} details`}>
+									<h4>{item.title} - {item.organization}</h4>
+									<ul>
+										{item.bullets.map((bullet) => (
+											<li>{bullet}</li>
+										))}
+									</ul>
+								</section>
+							))}
+						</div>
+					</details>
+				</section>
+			</div>
+		</section>
+
+		<section class="cv-section" id="case-studies" aria-labelledby="case-studies-title" data-cv-section>
+			<div class="page-container">
+				<div class="cv-section__intro">
+					<p class="eyebrow">Engineering evidence</p>
+					<h2 id="case-studies-title">Selected Engineering Case Studies</h2>
+					<p>Control concepts translated into embedded software for electrified, autonomous, and safety-relevant systems.</p>
+				</div>
+				<div class="cv-case-grid">
+					{cvProfile.caseStudies.map((item) => (
+						<article class="cv-card cv-case-card cv-card--interactive" data-analytics="cv_case_study_view">
+							<p class="eyebrow">{item.eyebrow}</p>
+							<h3>{item.title}</h3>
+							<p>{item.statement}</p>
+							<dl>
+								<div>
+									<dt>Role</dt>
+									<dd>{item.role}</dd>
+								</div>
+								<div>
+									<dt>Focus</dt>
+									<dd>{item.focus}</dd>
+								</div>
+								<div>
+									<dt>Proof</dt>
+									<dd>{item.proof}</dd>
+								</div>
+							</dl>
+							<!-- TODO: Add "View related work" links when dedicated Work entries exist. -->
+						</article>
+					))}
+				</div>
+			</div>
+		</section>
+
+		<section class="cv-section" id="research" aria-labelledby="research-title" data-cv-section>
+			<div class="page-container">
+				<div class="cv-section__intro">
+					<p class="eyebrow">Technical depth</p>
+					<h2 id="research-title">Research, Patents & Publications</h2>
+					<p>{cvProfile.research.intro}</p>
+				</div>
+
+				<div class="cv-research-layout">
+					<article class="cv-card">
+						<h3>Research themes</h3>
+						<ul class="cv-chip-list" aria-label="Research themes">
+							{cvProfile.research.themes.map((theme) => (
+								<li>{theme}</li>
+							))}
+						</ul>
+					</article>
+					<article class="cv-card">
+						<h3>Research evidence</h3>
+						<ul class="cv-research-stats">
+							{cvProfile.research.evidence.map((item) => (
+								<li>
+									<strong>{item.value}</strong>
+									<span>{item.label}</span>
+								</li>
+							))}
+						</ul>
+					</article>
+				</div>
+
+				<article class="cv-card cv-publications">
+					<h3>Published research outcomes</h3>
+					<ul>
+						{cvProfile.research.outcomes.map((outcome) => (
+							<li>{outcome}</li>
+						))}
+					</ul>
+					<details class="cv-disclosure" data-analytics="cv_patents_open">
+						<summary>Show patent records</summary>
+						<ul class="cv-disclosure__content cv-compact-list">
+							{cvProfile.research.patents.map((patent) => (
+								<li>{patent}</li>
+							))}
+						</ul>
+					</details>
+					<details class="cv-disclosure" data-analytics="cv_publications_open">
+						<summary>Show selected publication records</summary>
+						<ol class="cv-disclosure__content">
+							{cvProfile.research.selectedPublications.map((publication) => (
+								<li>{publication}</li>
+							))}
+							{cvProfile.research.additionalPublications.map((publication) => (
+								<li>{publication}</li>
+							))}
+						</ol>
+					</details>
+				</article>
+			</div>
+		</section>
+
+		<section class="cv-section" id="education" aria-labelledby="education-title" data-cv-section>
+			<div class="page-container">
+				<div class="cv-section__intro">
+					<p class="eyebrow">Foundation</p>
+					<h2 id="education-title">Education</h2>
+				</div>
+				<div class="cv-card-grid cv-card-grid--three">
+					{cvProfile.education.map((item) => (
+						<article class="cv-card cv-education-card cv-card--interactive">
+							<p class="cv-card__meta">{item.year}</p>
+							<h3>{item.degree}</h3>
+							{item.dissertation && (
+								<p><strong>Dissertation:</strong> {item.dissertation}</p>
+							)}
+							{item.focus && <p><strong>Focus:</strong> {item.focus}</p>}
+							<p>{item.description}</p>
+							{item.links && (
+								<ul class="cv-link-list" aria-label={`${item.degree} links`}>
+									{item.links.map((link) => (
+										<li>
+											<a href={link.href} target="_blank" rel="noopener noreferrer">{link.label}</a>
+										</li>
+									))}
+								</ul>
+							)}
+						</article>
+					))}
+				</div>
+			</div>
+		</section>
+
+		<section class="cv-section" id="tools" aria-labelledby="tools-title" data-cv-section>
+			<div class="page-container">
+				<div class="cv-section__intro">
+					<p class="eyebrow">Execution stack</p>
+					<h2 id="tools-title">Tools, Methods, Standards, and Languages</h2>
+				</div>
+				<div class="cv-card-grid cv-card-grid--tools">
+					{cvProfile.tools.map((group) => (
+						<article class="cv-card cv-card--compact">
+							<h3>{group.title}</h3>
+							<ul class="cv-chip-list" aria-label={`${group.title} list`}>
+								{group.items.map((item) => (
+									<li>{item}</li>
+								))}
+							</ul>
+						</article>
+					))}
+					<article class="cv-card cv-card--compact">
+						<h3>Languages</h3>
+						<ul class="cv-language-list">
+							{cvProfile.languages.map((item) => (
+								<li>
+									<strong>{item.language}</strong>
+									<span>{item.level}</span>
+								</li>
+							))}
+						</ul>
+					</article>
+				</div>
+
+				<details class="cv-disclosure cv-disclosure--card" data-analytics="cv_extended_stack_open">
+					<summary>Show extended stack</summary>
+					<div class="cv-card-grid cv-card-grid--two cv-disclosure__content">
+						{cvProfile.extendedTools.map((group) => (
+							<article class="cv-card cv-card--compact">
+								<h3>{group.title}</h3>
+								<ul class="cv-chip-list" aria-label={`${group.title} extended list`}>
+									{group.items.map((item) => (
+										<li>{item}</li>
+									))}
+								</ul>
+							</article>
+						))}
+					</div>
+				</details>
+
+				<section class="cv-courses" aria-labelledby="courses-title">
+					<h3 id="courses-title">Courses &amp; Recognition</h3>
+					<ul class="cv-impact-list cv-impact-list--compact">
+						{cvProfile.coursesAndRecognition.featured.map((item, index) => (
+							<li>
+								<span aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+								<p>{item}</p>
+							</li>
+						))}
+					</ul>
+					<details class="cv-disclosure cv-disclosure--wide" data-analytics="cv_courses_recognition_open">
+						<summary>Show more courses and recognition</summary>
+						<ul class="cv-disclosure__content">
+							{cvProfile.coursesAndRecognition.additional.map((item) => (
+								<li>{item}</li>
+							))}
+						</ul>
+					</details>
+				</section>
+			</div>
+		</section>
+
+		<section class="cv-section cv-final" id="contact" aria-labelledby="contact-title" data-cv-section>
+			<div class="page-container cv-final__inner">
+				<div>
+					<p class="eyebrow">Contact</p>
+					<h2 id="contact-title">Let's Connect</h2>
+					<p>
+						For roles or technical conversations involving embedded controls, electric vehicles, battery and thermal
+						management, diagnostics, functional safety, autonomous machines, or reliable physical systems, contact me
+						directly or download the PDF resume.
+					</p>
+				</div>
+				<div class="button-row cv-final__actions" aria-label="Bottom CV actions">
+					{cvProfile.actions.map((action) => (
+						<a
+							class={action.primary ? 'button primary' : 'button'}
+							href={withBase(action.href)}
+							target={action.external ? '_blank' : undefined}
+							rel={action.external ? 'noopener noreferrer' : undefined}
+							download={action.download ? true : undefined}
+							data-analytics={action.analytics}
+						>
+							{action.label}
+						</a>
+					))}
+				</div>
+			</div>
+		</section>
+			</div>
+		</div>
+	</div>
+</Layout>
+
+<script is:inline>
+	(() => {
+		const progressBar = document.querySelector('[data-cv-scroll-progress]');
+		const navLinks = Array.from(document.querySelectorAll('[data-cv-section-link]'));
+		const sections = navLinks
+			.map((link) => {
+				const href = link.getAttribute('href');
+				return href ? document.querySelector(href) : null;
+			})
+			.filter(Boolean);
+
+		if (progressBar) {
+			let progressFrame = 0;
+
+			const updateProgress = () => {
+				progressFrame = 0;
+				const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+				const progress = maxScroll > 0 ? window.scrollY / maxScroll : 0;
+				progressBar.style.transform = `scaleX(${Math.min(1, Math.max(0, progress))})`;
+			};
+
+			const requestProgressUpdate = () => {
+				if (progressFrame === 0) {
+					progressFrame = window.requestAnimationFrame(updateProgress);
+				}
+			};
+
+			updateProgress();
+			window.addEventListener('scroll', requestProgressUpdate, { passive: true });
+			window.addEventListener('resize', requestProgressUpdate);
+		}
+
+		if ('IntersectionObserver' in window && navLinks.length > 0 && sections.length > 0) {
+			const setActiveSection = (id) => {
+				navLinks.forEach((link) => {
+					const isActive = link.getAttribute('href') === `#${id}`;
+					if (isActive) {
+						link.setAttribute('aria-current', 'true');
+					} else {
+						link.removeAttribute('aria-current');
+					}
+				});
+			};
+
+			const observer = new IntersectionObserver(
+				(entries) => {
+					const activeEntry = entries
+						.filter((entry) => entry.isIntersecting)
+						.sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+
+					if (activeEntry?.target?.id) {
+						setActiveSection(activeEntry.target.id);
+					}
+				},
+				{
+					rootMargin: '-24% 0px -58% 0px',
+					threshold: [0.1, 0.25, 0.5],
+				}
+			);
+
+			sections.forEach((section) => observer.observe(section));
+		}
+
+		const emitAnalyticsEvent = (element) => {
+			window.dispatchEvent(
+				new CustomEvent('cv:analytics', {
+					detail: {
+						event: element.dataset.analytics,
+						href: element.getAttribute?.('href') ?? undefined,
+					},
+				})
+			);
+		};
+
+		document.querySelectorAll('a[data-analytics]').forEach((link) => {
+			link.addEventListener('click', () => emitAnalyticsEvent(link));
+		});
+
+		document.querySelectorAll('details[data-analytics]').forEach((details) => {
+			details.addEventListener('toggle', () => {
+				if (!details.open) {
+					return;
+				}
+
+				emitAnalyticsEvent(details);
+			});
+		});
+	})();
+</script>
+
+<style>
+	.cv-page {
+		--cv-max-measure: 66ch;
+	}
+
+	:global(.cv-page .page-container) {
+		width: min(calc(100% - 2rem), 78rem);
+	}
+
+	.cv-shell {
+		display: grid;
+		grid-template-columns: minmax(11rem, 14rem) minmax(0, 1fr);
+		gap: clamp(2rem, 5vw, 4rem);
+		align-items: start;
+	}
+
+	.cv-main-flow {
+		min-width: 0;
+	}
+
+	:global(.cv-main-flow .page-container) {
+		width: 100%;
+		max-width: none;
+	}
+
+	.cv-scroll-progress {
+		position: fixed;
+		z-index: 30;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 2px;
+		background: transparent;
+		pointer-events: none;
+	}
+
+	.cv-scroll-progress__bar {
+		display: block;
+		width: 100%;
+		height: 100%;
+		background: var(--color-accent);
+		transform: scaleX(0);
+		transform-origin: left center;
+	}
+
+	.cv-hero {
+		border-bottom: 1px solid var(--color-border-soft);
+		background: transparent;
+		padding-block: clamp(3rem, 7vw, 6.25rem) clamp(2.5rem, 5vw, 4.25rem);
+	}
+
+	.cv-hero__inner {
+		display: grid;
+		gap: clamp(1.75rem, 4vw, 3rem);
+		align-items: start;
+	}
+
+	.cv-hero__content {
+		display: grid;
+		gap: 1rem;
+		min-width: 0;
+		max-width: 880px;
+	}
+
+	.cv-hero h1 {
+		font-size: clamp(2.75rem, 7vw, 5.75rem);
+		line-height: 0.98;
+	}
+
+	.cv-hero__subtitle {
+		max-width: 880px;
+		color: var(--color-text);
+		font-size: clamp(1.08rem, 2vw, 1.42rem);
+		font-weight: 700;
+		line-height: 1.35;
+		overflow-wrap: anywhere;
+	}
+
+	.cv-hero__summary,
+	.cv-hero__extended {
+		max-width: var(--cv-max-measure);
+		color: var(--color-muted);
+		font-size: 1rem;
+		line-height: 1.7;
+		overflow-wrap: anywhere;
+	}
+
+	.cv-actions {
+		margin-top: 0.65rem;
+	}
+
+	.cv-hero__evidence {
+		display: grid;
+		gap: 1rem;
+		min-width: 0;
+	}
+
+	.cv-proof-grid {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 1rem;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.cv-proof-grid li {
+		display: grid;
+		gap: 0.35rem;
+		margin: 0;
+		border: 1px solid var(--color-card-border);
+		background: var(--color-card-bg);
+		padding: 1rem;
+		transition:
+			background-color var(--motion-duration-fast-02) var(--motion-standard-productive),
+			border-color var(--motion-duration-fast-02) var(--motion-standard-productive),
+			transform var(--motion-duration-fast-02) var(--motion-standard-productive);
+	}
+
+	.cv-proof-grid li:hover {
+		border-color: var(--color-card-border-hover);
+		background: var(--color-card-bg-hover);
+		transform: translateY(-2px);
+	}
+
+	.cv-proof-grid strong {
+		color: var(--color-accent);
+		font-family: var(--font-display);
+		font-size: 1.12rem;
+		line-height: 1.1;
+	}
+
+	.cv-proof-grid span {
+		color: var(--color-muted);
+		font-size: 0.86rem;
+		line-height: 1.4;
+	}
+
+	.cv-role-strip {
+		display: grid;
+		gap: 0.75rem;
+		border: 1px solid var(--color-card-border);
+		background: var(--color-card-bg);
+		padding: 1rem;
+		transition:
+			background-color var(--motion-duration-fast-02) var(--motion-standard-productive),
+			border-color var(--motion-duration-fast-02) var(--motion-standard-productive),
+			transform var(--motion-duration-fast-02) var(--motion-standard-productive);
+	}
+
+	.cv-role-strip:hover,
+	.cv-role-strip:focus-within {
+		border-color: var(--color-card-border-hover);
+		background: var(--color-card-bg-hover);
+		transform: translateY(-2px);
+	}
+
+	.cv-role-strip > p {
+		color: var(--color-soft);
+		font-family: var(--font-mono);
+		font-size: 0.72rem;
+		font-weight: 600;
+		letter-spacing: 0.06em;
+		line-height: 1.25;
+		text-transform: uppercase;
+	}
+
+	.cv-section-nav {
+		position: sticky;
+		top: calc(var(--site-header-height, 4rem) + 2rem);
+		z-index: 20;
+		max-height: calc(100vh - var(--site-header-height, 4rem) - 4rem);
+		overflow: auto;
+		border-left: 1px solid var(--color-border);
+		padding-left: 1rem;
+	}
+
+	.cv-section-nav__inner {
+		display: grid;
+		gap: 1rem;
+		align-items: start;
+		padding-block: 0.25rem;
+	}
+
+	.cv-section-nav span,
+	.cv-section-nav a,
+	.cv-card__meta,
+	.cv-role__period,
+	.cv-role__location,
+	.cv-disclosure > summary {
+		font-family: var(--font-mono);
+		font-size: 0.74rem;
+		font-weight: 600;
+		letter-spacing: 0.04em;
+		line-height: 1.35;
+		text-transform: uppercase;
+	}
+
+	.cv-section-nav span {
+		color: var(--color-soft);
+	}
+
+	.cv-section-nav ul {
+		display: grid;
+		gap: 0.45rem;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.cv-section-nav li {
+		margin: 0;
+	}
+
+	.cv-section-nav a {
+		position: relative;
+		display: inline-flex;
+		align-items: center;
+		gap: 0.55rem;
+		color: var(--color-accent);
+		text-decoration: none;
+		transition:
+			color 140ms cubic-bezier(0.2, 0, 0, 1),
+			transform 140ms cubic-bezier(0.2, 0, 0, 1);
+	}
+
+	.cv-section-nav a::before {
+		content: '';
+		width: 0.38rem;
+		height: 0.38rem;
+		border: 1px solid currentColor;
+		background: transparent;
+		transform: rotate(45deg);
+		transition:
+			background-color 140ms cubic-bezier(0.2, 0, 0, 1),
+			transform 140ms cubic-bezier(0.2, 0, 0, 1);
+	}
+
+	.cv-section-nav a::after {
+		content: '';
+		position: absolute;
+		right: auto;
+		bottom: -0.22rem;
+		left: 0.92rem;
+		width: calc(100% - 0.92rem);
+		height: 1px;
+		background: currentColor;
+		transform: scaleX(0);
+		transform-origin: left center;
+		transition: transform 140ms cubic-bezier(0.2, 0, 0, 1);
+	}
+
+	.cv-section-nav a:hover,
+	.cv-section-nav a:focus-visible,
+	.cv-section-nav a[aria-current='true'] {
+		color: var(--color-text);
+	}
+
+	.cv-section-nav a[aria-current='true']::after,
+	.cv-section-nav a:hover::after,
+	.cv-section-nav a:focus-visible::after {
+		transform: scaleX(1);
+	}
+
+	.cv-section-nav a[aria-current='true']::before {
+		background: currentColor;
+		transform: rotate(45deg) scale(1.12);
+	}
+
+	.cv-section-nav__actions {
+		display: grid;
+		gap: 0.45rem;
+		border-top: 1px solid var(--color-border-soft);
+		padding-top: 1rem;
+	}
+
+	.cv-section-nav__actions a {
+		color: var(--color-soft);
+		font-size: 0.72rem;
+	}
+
+	.cv-section {
+		border-bottom: 1px solid var(--color-border-soft);
+		padding-block: clamp(3rem, 6vw, 5rem);
+		scroll-margin-top: 5.5rem;
+	}
+
+	.cv-section--compact {
+		padding-block: clamp(2.25rem, 5vw, 4rem);
+	}
+
+	.cv-readable .page-container {
+		max-width: 900px;
+	}
+
+	.cv-section__intro {
+		display: grid;
+		gap: 0.65rem;
+		max-width: var(--cv-max-measure);
+		margin-bottom: 1.5rem;
+	}
+
+	.cv-section__intro--tight {
+		margin-bottom: 1rem;
+	}
+
+	.cv-section__intro h2,
+	.cv-final h2 {
+		font-size: clamp(1.75rem, 3.4vw, 2.65rem);
+		line-height: 1.08;
+	}
+
+	.cv-section__intro h3,
+	.cv-courses h3 {
+		font-size: clamp(1.2rem, 2.1vw, 1.55rem);
+		line-height: 1.2;
+	}
+
+	.cv-section__intro p,
+	.cv-final p,
+	.cv-summary-block p,
+	.cv-card p,
+	.cv-card li,
+	.cv-card dd,
+	.cv-role__summary,
+	.cv-role__bullets li,
+	.cv-disclosure li {
+		color: var(--color-muted);
+		font-size: 0.96rem;
+		line-height: 1.62;
+	}
+
+	.cv-summary-block {
+		display: grid;
+		gap: 1rem;
+		max-width: var(--cv-max-measure);
+		border-left: 2px solid var(--color-accent);
+		padding-left: clamp(1rem, 3vw, 1.5rem);
+	}
+
+	.cv-card-grid {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: clamp(1.25rem, 3vw, 1.75rem);
+		background: transparent;
+	}
+
+	.cv-featured-expertise-grid,
+	.cv-case-grid {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: clamp(1.25rem, 3vw, 1.75rem);
+	}
+
+	.cv-card {
+		display: grid;
+		align-content: start;
+		gap: 0.85rem;
+		border: 1px solid var(--color-card-border);
+		background: var(--color-card-bg);
+		padding: clamp(1.15rem, 3vw, 1.55rem);
+	}
+
+	.cv-card--interactive {
+		transition:
+			background-color 140ms cubic-bezier(0.2, 0, 0, 1),
+			border-color 140ms cubic-bezier(0.2, 0, 0, 1),
+			transform 140ms cubic-bezier(0.2, 0, 0, 1);
+	}
+
+	.cv-card--interactive:hover {
+		border-color: var(--color-card-border-hover);
+		background: var(--color-card-bg-hover);
+		transform: translateY(-2px);
+	}
+
+	.cv-card--compact {
+		gap: 0.7rem;
+	}
+
+	.cv-card h3 {
+		font-size: 1.08rem;
+		line-height: 1.35;
+	}
+
+	.cv-expertise-card--featured {
+		gap: 1rem;
+	}
+
+	.cv-expertise-card--featured h3 {
+		max-width: 18ch;
+		font-size: clamp(1.35rem, 2.5vw, 2rem);
+		line-height: 1.12;
+	}
+
+	.cv-expertise-card--featured > ul:not(.cv-chip-list) {
+		max-width: 74ch;
+	}
+
+	.cv-card ul,
+	.cv-card ol,
+	.cv-role__bullets {
+		display: grid;
+		gap: 0.48rem;
+	}
+
+	.cv-card li,
+	.cv-role__bullets li,
+	.cv-disclosure li {
+		margin: 0;
+	}
+
+	.cv-card__meta,
+	.cv-role__period {
+		color: var(--color-accent);
+	}
+
+	.cv-chip-list {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.55rem 0.7rem;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.cv-chip-list li {
+		margin: 0;
+		border: 1px solid var(--color-card-border);
+		background: var(--color-surface-soft);
+		padding: 0.3rem 0.5rem;
+		color: var(--color-tag-text);
+		font-family: var(--font-mono);
+		font-size: 0.74rem;
+		font-weight: 600;
+		line-height: 1.25;
+		transition:
+			border-color 140ms cubic-bezier(0.2, 0, 0, 1),
+			background-color 140ms cubic-bezier(0.2, 0, 0, 1);
+	}
+
+	.cv-chip-list--strong li {
+		border-color: var(--color-card-border);
+		background: var(--color-card-bg);
+		color: var(--color-text);
+	}
+
+	.cv-impact-list {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: 0.85rem;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.cv-impact-list li {
+		display: grid;
+		grid-template-columns: auto minmax(0, 1fr);
+		gap: 0.8rem;
+		align-items: start;
+		margin: 0;
+		border: 1px solid var(--color-card-border);
+		background: var(--color-card-bg);
+		padding: 0.9rem 1rem;
+		color: var(--color-muted);
+		font-size: 0.96rem;
+		line-height: 1.55;
+		transition:
+			background-color var(--motion-duration-fast-02) var(--motion-standard-productive),
+			border-color var(--motion-duration-fast-02) var(--motion-standard-productive),
+			transform var(--motion-duration-fast-02) var(--motion-standard-productive);
+	}
+
+	.cv-impact-list li:hover {
+		border-color: var(--color-card-border-hover);
+		background: var(--color-card-bg-hover);
+		transform: translateY(-2px);
+	}
+
+	.cv-impact-list li > span {
+		color: var(--color-accent);
+		font-family: var(--font-mono);
+		font-size: 0.74rem;
+		font-weight: 700;
+		line-height: 1.55;
+	}
+
+	.cv-impact-list li > p {
+		color: var(--color-muted);
+		font-size: 0.95rem;
+		line-height: 1.55;
+	}
+
+	.cv-impact-list--compact {
+		gap: 0.65rem;
+	}
+
+	.cv-impact-list--compact li {
+		padding-block: 0.75rem;
+	}
+
+	.cv-timeline {
+		position: relative;
+		display: grid;
+		gap: 1rem;
+	}
+
+	.cv-timeline::before {
+		content: '';
+		position: absolute;
+		top: 0.2rem;
+		bottom: 0.2rem;
+		left: 1.1rem;
+		width: 1px;
+		background: linear-gradient(var(--color-accent), var(--color-border));
+	}
+
+	.cv-role {
+		position: relative;
+		display: grid;
+		grid-template-columns: 2.25rem minmax(0, 1fr);
+		gap: 1rem;
+	}
+
+	.cv-role__marker {
+		position: relative;
+		z-index: 1;
+		display: grid;
+		width: 2.25rem;
+		height: 2.25rem;
+		place-items: center;
+		border: 1px solid var(--color-card-border);
+		background: var(--color-card-bg);
+		color: var(--color-accent);
+		font-family: var(--font-mono);
+		font-size: 0.72rem;
+		font-weight: 700;
+		line-height: 1;
+	}
+
+	.cv-role--current .cv-role__marker {
+		border-color: var(--color-accent);
+		background: var(--color-accent);
+		color: var(--color-button-primary-text);
+	}
+
+	.cv-role__content {
+		display: grid;
+		gap: 0.85rem;
+		min-width: 0;
+		border: 1px solid var(--color-card-border);
+		background: var(--color-card-bg);
+		padding: clamp(1.15rem, 3vw, 1.7rem);
+		transition:
+			border-color 140ms cubic-bezier(0.2, 0, 0, 1),
+			background-color 140ms cubic-bezier(0.2, 0, 0, 1);
+	}
+
+	.cv-role--current .cv-role__content {
+		border-color: var(--color-card-border-hover);
+		background: color-mix(in srgb, var(--color-card-bg) 82%, var(--color-accent-wash));
+	}
+
+	.cv-role__content:hover {
+		border-color: var(--color-card-border-hover);
+		background: var(--color-card-bg-hover);
+	}
+
+	.cv-role__header {
+		display: grid;
+		gap: 0.55rem;
+	}
+
+	.cv-role__organization {
+		margin-top: 0.2rem;
+		color: var(--color-text);
+		font-weight: 700;
+		line-height: 1.45;
+	}
+
+	.cv-role__location {
+		color: var(--color-soft);
+	}
+
+	.cv-role__summary {
+		max-width: var(--cv-max-measure);
+		color: var(--color-text);
+		font-weight: 600;
+	}
+
+	.cv-role__ownership {
+		display: grid;
+		gap: 0.45rem;
+	}
+
+	.cv-role__ownership h4,
+	.cv-detail-group h4 {
+		color: var(--color-text);
+		font-size: 0.88rem;
+		font-weight: 700;
+		line-height: 1.35;
+	}
+
+	.cv-role__bullets {
+		max-width: 74ch;
+		padding-left: 1.15rem;
+	}
+
+	.cv-disclosure {
+		display: grid;
+		gap: 1rem;
+	}
+
+	.cv-disclosure--inline {
+		margin-top: 0.15rem;
+	}
+
+	.cv-disclosure--wide,
+	.cv-disclosure--card {
+		margin-top: 1.5rem;
+	}
+
+	.cv-disclosure--card {
+		border: 1px solid var(--color-card-border);
+		background: var(--color-card-bg);
+		padding: clamp(1.15rem, 3vw, 1.55rem);
+	}
+
+	.cv-disclosure > summary {
+		display: flex;
+		width: 100%;
+		align-items: center;
+		justify-content: space-between;
+		gap: 0.5rem;
+		border: 1px solid var(--color-card-border);
+		background: color-mix(in srgb, var(--color-card-bg) 72%, transparent);
+		padding: 0.65rem 0.75rem;
+		color: var(--color-accent);
+		cursor: pointer;
+		list-style: none;
+		transition:
+			background-color var(--motion-duration-fast-02) var(--motion-standard-productive),
+			border-color var(--motion-duration-fast-02) var(--motion-standard-productive),
+			color var(--motion-duration-fast-02) var(--motion-standard-productive);
+	}
+
+	.cv-disclosure > summary::-webkit-details-marker {
+		display: none;
+	}
+
+	.cv-disclosure > summary::after {
+		content: '+';
+		flex: 0 0 auto;
+		display: inline-grid;
+		width: 1.15rem;
+		height: 1.15rem;
+		place-items: center;
+		border: 1px solid var(--color-card-border);
+		color: var(--color-text);
+		font-family: var(--font-sans);
+		font-size: 0.9rem;
+		line-height: 1;
+		transition: transform 180ms cubic-bezier(0.2, 0, 0, 1);
+	}
+
+	.cv-disclosure[open] > summary::after {
+		content: '-';
+		transform: rotate(180deg);
+	}
+
+	.cv-disclosure > summary:hover,
+	.cv-disclosure > summary:focus-visible {
+		border-color: var(--color-card-border-hover);
+		background: var(--color-card-bg-hover);
+		color: var(--color-text);
+	}
+
+	.cv-disclosure__content {
+		margin-top: 1rem;
+	}
+
+	.cv-detail-group {
+		display: grid;
+		gap: 0.45rem;
+	}
+
+	.cv-detail-group + .cv-detail-group {
+		margin-top: 1rem;
+	}
+
+	.cv-earlier-experience,
+	.cv-courses {
+		display: grid;
+		gap: 1rem;
+		margin-top: clamp(1.75rem, 4vw, 2.5rem);
+	}
+
+	.cv-earlier-details {
+		display: grid;
+		gap: 1rem;
+	}
+
+	.cv-case-card dl {
+		display: grid;
+		gap: 0.55rem;
+		margin: 0;
+	}
+
+	.cv-case-card dl div {
+		display: grid;
+		grid-template-columns: minmax(4.5rem, auto) minmax(0, 1fr);
+		gap: 0.75rem;
+		border-top: 1px solid var(--color-border-soft);
+		padding-top: 0.55rem;
+	}
+
+	.cv-case-card dt {
+		color: var(--color-soft);
+		font-family: var(--font-mono);
+		font-size: 0.72rem;
+		font-weight: 700;
+		letter-spacing: 0.04em;
+		text-transform: uppercase;
+	}
+
+	.cv-case-card dd {
+		margin: 0;
+	}
+
+	.cv-research-layout {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: clamp(1.25rem, 3vw, 1.75rem);
+		background: transparent;
+	}
+
+	.cv-compact-list {
+		display: grid;
+		gap: 0.6rem;
+		padding-left: 1.15rem;
+	}
+
+	.cv-research-stats {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: 0.75rem;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.cv-research-stats li {
+		display: grid;
+		gap: 0.25rem;
+		margin: 0;
+		border: 1px solid var(--color-card-border);
+		background: var(--color-surface-soft);
+		padding: 0.85rem;
+	}
+
+	.cv-research-stats strong {
+		color: var(--color-accent);
+		font-family: var(--font-display);
+		font-size: 1.1rem;
+		line-height: 1.15;
+	}
+
+	.cv-research-stats span {
+		color: var(--color-muted);
+		font-size: 0.9rem;
+		line-height: 1.45;
+	}
+
+	.cv-publications {
+		margin-top: 1.5rem;
+	}
+
+	.cv-publications ol {
+		display: grid;
+		gap: 0.7rem;
+	}
+
+	.cv-link-list {
+		display: grid;
+		gap: 0.35rem;
+		padding-left: 1.15rem;
+	}
+
+	.cv-link-list a {
+		color: var(--color-accent);
+		font-weight: 700;
+		text-decoration: underline;
+		text-decoration-thickness: 1px;
+		text-underline-offset: 0.2em;
+	}
+
+	.cv-link-list a:hover,
+	.cv-link-list a:focus-visible {
+		color: var(--color-text);
+	}
+
+	.cv-language-list {
+		display: grid;
+		gap: 0.65rem;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.cv-language-list li {
+		display: flex;
+		justify-content: space-between;
+		gap: 1rem;
+		margin: 0;
+		border-bottom: 1px solid var(--color-border-soft);
+		padding-bottom: 0.5rem;
+	}
+
+	.cv-language-list strong {
+		color: var(--color-text);
+	}
+
+	.cv-language-list span {
+		color: var(--color-muted);
+	}
+
+	.cv-final {
+		border-bottom: 0;
+		background: transparent;
+	}
+
+	.cv-final__inner {
+		display: grid;
+		gap: 1.5rem;
+		align-items: start;
+	}
+
+	.cv-final__inner > div:first-child {
+		display: grid;
+		gap: 0.75rem;
+		max-width: var(--cv-max-measure);
+	}
+
+	.cv-final__actions {
+		align-items: start;
+	}
+
+	@media (min-width: 700px) {
+		.cv-proof-grid,
+		.cv-card-grid--three,
+		.cv-card-grid--tools {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+
+		.cv-card-grid--two,
+		.cv-research-layout,
+		.cv-featured-expertise-grid,
+		.cv-case-grid {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+
+		.cv-expertise-card--featured {
+			grid-column: 1 / -1;
+			grid-template-columns: minmax(0, 0.72fr) minmax(0, 1fr);
+			column-gap: clamp(1.5rem, 4vw, 3rem);
+			align-items: start;
+		}
+
+		.cv-expertise-card--featured h3 {
+			grid-row: span 3;
+		}
+
+		.cv-impact-list {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+
+		.cv-role__header {
+			grid-template-columns: minmax(0, 1fr) auto;
+			align-items: start;
+			gap: 1.5rem;
+		}
+
+		.cv-role__location {
+			max-width: 16rem;
+			text-align: right;
+		}
+	}
+
+	@media (min-width: 980px) {
+		.cv-hero__inner {
+			grid-template-columns: minmax(0, 1fr) minmax(20rem, 26rem);
+		}
+
+		.cv-card-grid--three,
+		.cv-card-grid--tools {
+			grid-template-columns: repeat(3, minmax(0, 1fr));
+		}
+
+		.cv-final__inner {
+			grid-template-columns: minmax(0, 1fr) auto;
+			gap: 2rem;
+		}
+
+		.cv-final__actions {
+			max-width: 22rem;
+			justify-content: flex-end;
+		}
+	}
+
+	@media (max-width: 900px) {
+		.cv-shell {
+			display: block;
+		}
+
+		.cv-section-nav {
+			position: sticky;
+			top: 0;
+			z-index: 20;
+			max-height: none;
+			margin-inline: -1rem;
+			overflow-x: auto;
+			overflow-y: hidden;
+			border-left: 0;
+			border-block: 1px solid var(--color-border-soft);
+			background: color-mix(in srgb, var(--color-section-bg) 94%, transparent);
+			padding: 0 1rem;
+			backdrop-filter: blur(10px);
+		}
+
+		.cv-section-nav__inner {
+			display: flex;
+			align-items: center;
+			gap: 0.9rem 1rem;
+			min-width: max-content;
+			padding-block: 0.8rem;
+			white-space: nowrap;
+		}
+
+		.cv-section-nav ul {
+			display: flex;
+			align-items: center;
+			gap: 0.9rem;
+		}
+
+		.cv-section-nav a::before {
+			display: none;
+		}
+
+		.cv-section-nav a::after {
+			left: 0;
+			width: 100%;
+		}
+
+		.cv-section-nav__actions {
+			display: none;
+		}
+
+		.cv-section {
+			scroll-margin-top: 5rem;
+		}
+	}
+
+	@media (max-width: 640px) {
+		:global(.cv-page .page-container) {
+			width: calc(100% - 2rem);
+		}
+
+		.cv-hero__content,
+		.cv-hero__evidence,
+		.cv-actions {
+			width: calc(100vw - 2rem);
+			max-width: calc(100vw - 2rem);
+		}
+
+		.cv-hero h1 {
+			font-size: clamp(2.35rem, 12vw, 3rem);
+		}
+
+		.cv-hero__subtitle {
+			max-width: 31ch;
+			font-size: 1rem;
+		}
+
+		.cv-hero__subtitle,
+		.cv-hero__summary,
+		.cv-hero__extended {
+			overflow-wrap: anywhere;
+		}
+
+		.cv-hero__summary,
+		.cv-hero__extended {
+			max-width: 34ch;
+		}
+
+		.cv-proof-grid {
+			grid-template-columns: 1fr;
+		}
+
+		.cv-section {
+			scroll-margin-top: 5rem;
+		}
+
+		.cv-role {
+			grid-template-columns: 1.75rem minmax(0, 1fr);
+			gap: 0.75rem;
+		}
+
+		.cv-role__marker {
+			width: 1.75rem;
+			height: 1.75rem;
+			font-size: 0.66rem;
+		}
+
+		.cv-timeline::before {
+			left: 0.85rem;
+		}
+
+		.cv-case-card dl div {
+			grid-template-columns: 1fr;
+			gap: 0.2rem;
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.cv-page *,
+		.cv-page *::before,
+		.cv-page *::after {
+			animation-duration: 0.001ms !important;
+			animation-iteration-count: 1 !important;
+			scroll-behavior: auto !important;
+			transition-duration: 0.001ms !important;
+		}
+	}
+
+	@media print {
+		:global(.site-header),
+		:global(.site-footer),
+		:global(.skip-link),
+		.cv-scroll-progress,
+		.cv-section-nav,
+		.cv-actions,
+		.cv-final__actions {
+			display: none !important;
+		}
+
+		.cv-hero,
+		.cv-section {
+			background: transparent;
+			padding-block: 1rem;
+			border-bottom-color: var(--color-border);
+		}
+
+		.cv-card,
+		.cv-role,
+		.cv-role__content,
+		.cv-disclosure--card,
+		.cv-impact-list li {
+			break-inside: avoid;
+		}
+
+		.cv-disclosure:not([open]) > *:not(summary) {
+			display: block;
+		}
+
+		.cv-disclosure > summary {
+			border: 0;
+			padding: 0;
+		}
+
+		a[href^='http']::after {
+			content: ' (' attr(href) ')';
+			font-weight: 400;
+		}
+	}
+</style>

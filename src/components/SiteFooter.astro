@@ -4,14 +4,14 @@ const normalizedBase = baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`;
 const withBase = (href: string) => (href === '/' ? normalizedBase : `${normalizedBase}${href.replace(/^\//, '')}`);
 ---
 
-<footer class="site-footer" id="contact">
+<footer class="site-footer" id="site-footer-contact">
 	<div class="page-container site-footer__inner">
 		<span>Making complex systems behave reliably.</span>
 
 		<nav class="site-footer__links" aria-label="Footer links">
 			<a href={withBase('/contact')}>Email</a>
 			<a href={withBase('/contact')}>LinkedIn</a>
-			<a href={withBase('/contact')}>CV</a>
+			<a href={withBase('/cv')}>CV</a>
 		</nav>
 	</div>
 </footer>

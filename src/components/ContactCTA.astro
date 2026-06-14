@@ -30,16 +30,19 @@ const normalizedBase = baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`;
 		grid-template-columns: minmax(0, 1fr);
 		gap: 1.25rem;
 		align-items: start;
-		border: 1px solid var(--color-border);
-		border-radius: var(--radius);
-		background: var(--color-footer-bg);
+		border: 1px solid var(--color-card-border);
+		background: var(--color-card-bg);
 		padding: 1.25rem;
 		transition:
+			background-color var(--motion-duration-fast-02) var(--motion-standard-productive),
+			border-color var(--motion-duration-fast-02) var(--motion-standard-productive),
 			transform var(--motion-duration-fast-02) var(--motion-standard-productive);
 	}
 
 	.contact-cta:hover,
 	.contact-cta:focus-within {
+		border-color: var(--color-card-border-hover);
+		background: var(--color-card-bg-hover);
 		transform: translateY(-2px);
 	}
 

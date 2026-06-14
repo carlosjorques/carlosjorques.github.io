@@ -60,8 +60,7 @@ const steps = [
 		flex-wrap: wrap;
 		align-items: center;
 		gap: 0.75rem;
-		border: 1px solid var(--color-border);
-		border-radius: var(--radius);
+		border: 1px solid var(--color-card-border);
 		background: transparent;
 		padding: 1rem;
 	}
@@ -72,22 +71,25 @@ const steps = [
 		right: 1rem;
 		top: 50%;
 		height: 1px;
-		background: var(--color-border);
+		background: var(--color-card-border);
 		content: '';
 	}
 
 	.chain-node {
 		position: relative;
 		z-index: 1;
-		border: 1px solid var(--color-border);
-		border-radius: var(--radius);
-		background: var(--color-surface);
+		border: 1px solid var(--color-card-border);
+		background: var(--color-card-bg);
 		padding: 0.55rem 0.75rem;
 		transition:
+			background-color var(--motion-duration-fast-02) var(--motion-standard-productive),
+			border-color var(--motion-duration-fast-02) var(--motion-standard-productive),
 			transform var(--motion-duration-fast-02) var(--motion-standard-productive);
 	}
 
 	.chain-node:hover {
+		border-color: var(--color-card-border-hover);
+		background: var(--color-card-bg-hover);
 		transform: translateY(-2px);
 	}
 
@@ -109,22 +111,24 @@ const steps = [
 	.mapping {
 		display: grid;
 		grid-template-columns: repeat(2, minmax(0, 1fr));
-		gap: 1px;
-		overflow: hidden;
-		border: 1px solid var(--color-border);
-		border-radius: var(--radius);
-		background: var(--color-border);
+		gap: 1rem;
+		background: transparent;
 	}
 
 	.mapping div {
-		background: var(--color-bg);
+		border: 1px solid var(--color-card-border);
+		background: var(--color-card-bg);
 		padding: 1rem;
 		transition:
+			background-color var(--motion-duration-fast-02) var(--motion-standard-productive),
+			border-color var(--motion-duration-fast-02) var(--motion-standard-productive),
 			transform var(--motion-duration-fast-02) var(--motion-standard-productive);
 	}
 
 	.mapping div:hover {
-		transform: translateY(-1px);
+		border-color: var(--color-card-border-hover);
+		background: var(--color-card-bg-hover);
+		transform: translateY(-2px);
 	}
 
 	.mapping h3 {
