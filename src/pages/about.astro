@@ -594,7 +594,7 @@ const evidenceLinks = [
 	}
 
 	.proof-item h3 {
-		color: var(--color-accent);
+		color: var(--color-text);
 		font-family: var(--font-mono);
 		font-size: 0.72rem;
 		font-weight: 600;
@@ -697,16 +697,14 @@ const evidenceLinks = [
 		gap: 0.25rem;
 		margin-top: var(--spacing-05);
 		padding: 1rem;
-		background: transparent;
-		border-left: 3px solid var(--color-accent);
+		background: linear-gradient(90deg, var(--color-accent) 0 3px, transparent 3px);
+		background-repeat: no-repeat;
 		transition:
-			border-left-width var(--motion-duration-fast-02) var(--motion-standard-productive),
 			transform var(--motion-duration-fast-02) var(--motion-standard-productive);
 	}
 
 	.section-footer-cta:hover,
 	.section-footer-cta:focus-within {
-		border-left-width: 6px;
 		transform: translateX(2px);
 	}
 
