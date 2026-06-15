@@ -10,49 +10,49 @@
 	   Only tokens used by the current site are defined here.
 	   ========================================================== */
 
-	--palette-light-paper-base: #f7f2ec;
-	--palette-light-paper-active: #fffaf4;
-	--palette-light-paper-muted: #eee5dc;
-	--palette-light-shell-base: #f4e8de;
-	--palette-light-shell-active: #ead6cc;
-	--palette-light-shell-muted: #fbf4ee;
-	--palette-light-blue-base: #b8c3cf;
-	--palette-light-blue-active: #526b82;
-	--palette-light-blue-muted: #d9e0e8;
-	--palette-light-rose-base: #d8aaa0;
-	--palette-light-rose-active: #b8725e;
-	--palette-light-rose-muted: #ead6cc;
+        --palette-light-paper-base: #f7f3eb;
+        --palette-light-paper-active: #fffdf8;
+        --palette-light-paper-muted: #f1e9df;
+        --palette-light-shell-base: #efe5d8;
+        --palette-light-shell-active: #e6d5c4;
+        --palette-light-shell-muted: #faf5ef;
+        --palette-light-blue-base: #c7d0d9;
+        --palette-light-blue-active: #526b82;
+        --palette-light-blue-muted: #dbe2e8;
+        --palette-light-rose-base: #d8c8ba;
+        --palette-light-rose-active: #8d5c40;
+        --palette-light-rose-muted: #eee4d9;
 
-	--palette-dark-navy-base: #182235;
-	--palette-dark-navy-active: #202b3a;
-	--palette-dark-navy-muted: #111824;
-	--palette-dark-glass-base: #10161d;
-	--palette-dark-glass-active: #18202b;
-	--palette-dark-glass-muted: #202b3a;
-	--palette-dark-blue-base: #b8c3d2;
-	--palette-dark-blue-active: #d9e0e8;
-	--palette-dark-blue-muted: #35495d;
-	--palette-dark-rose-base: #d8aaa0;
-	--palette-dark-rose-active: #e8c7bb;
-	--palette-dark-rose-muted: #a9827a;
+        --palette-dark-navy-base: #10151b;
+        --palette-dark-navy-active: #18212b;
+        --palette-dark-navy-muted: #0b1015;
+        --palette-dark-glass-base: #0f1419;
+        --palette-dark-glass-active: #171d24;
+        --palette-dark-glass-muted: #202833;
+        --palette-dark-blue-base: #c2cad4;
+        --palette-dark-blue-active: #eef2f6;
+        --palette-dark-blue-muted: #566273;
+        --palette-dark-rose-base: #cab5a4;
+        --palette-dark-rose-active: #e8d7ca;
+        --palette-dark-rose-muted: #8c7262;
 
-	--text-ink: #14181d;
-	--text-shadow-blue: #526b82;
-	--text-cocoa: #7a6258;
-	--text-rose-active: #b8725e;
-	--text-paper: #fbf4ec;
+        --text-ink: #171717;
+        --text-shadow-blue: #566273;
+        --text-cocoa: #75665b;
+        --text-rose-active: #8d5c40;
+        --text-paper: #f7f4ee;
 
-	--hero-background-light: linear-gradient(145deg, #fffaf4 0%, #f7f2ec 38%, #ead6cc 72%, #d9e0e8 100%);
-	--hero-background-dark: linear-gradient(135deg, #10161d 0%, #182235 52%, #202b3a 100%);
-	--hero-statement-light: linear-gradient(90deg, #526b82 0%, #7a6258 48%, #b8725e 100%);
-	--hero-statement-dark: linear-gradient(90deg, #b8c3d2 0%, #d8aaa0 54%, #ca9163 100%);
+        --hero-background-light: linear-gradient(145deg, #fffdf8 0%, #f7f2eb 38%, #eadfce 72%, #dbe3d6 100%);
+        --hero-background-dark: linear-gradient(135deg, #0f1419 0%, #151b23 52%, #1d2530 100%);
+        --hero-statement-light: linear-gradient(90deg, #526b82 0%, #7a6258 48%, #b8725e 100%);
+        --hero-statement-dark: linear-gradient(90deg, #b8c3d2 0%, #d8aaa0 54%, #ca9163 100%);
 
 	/* ==========================================================
 	   Semantic color roles consumed by components.
 	   ========================================================== */
 
-	--color-page: var(--palette-light-paper-base);
-	--color-page-gradient: var(--palette-light-paper-base);
+        --color-page: var(--palette-light-paper-active);
+        --color-page-gradient: linear-gradient(180deg, var(--palette-light-paper-active) 0%, var(--palette-light-paper-base) 100%);
 	--color-text: var(--text-ink);
 	--color-body-text: var(--text-ink);
 	--color-muted: var(--text-shadow-blue);
@@ -62,11 +62,11 @@
 	--color-bg: var(--palette-light-paper-active);
 	--color-surface: var(--palette-light-shell-muted);
 	--color-surface-soft: var(--palette-light-paper-muted);
-	--color-section-bg: var(--palette-light-paper-base);
+        --color-section-bg: var(--palette-light-paper-active);
 
-	--color-border: color-mix(in srgb, var(--text-cocoa) 22%, transparent);
-	--color-border-soft: color-mix(in srgb, var(--palette-light-blue-active) 18%, transparent);
-	--color-border-strong: color-mix(in srgb, var(--palette-light-blue-active) 42%, transparent);
+        --color-border: color-mix(in srgb, var(--text-cocoa) 20%, transparent);
+        --color-border-soft: color-mix(in srgb, var(--text-shadow-blue) 14%, transparent);
+        --color-border-strong: color-mix(in srgb, var(--text-shadow-blue) 28%, transparent);
 
 	--color-accent: var(--palette-light-blue-active);
 	--color-accent-wash: var(--palette-light-rose-muted);
@@ -75,12 +75,12 @@
 	--color-link: var(--text-shadow-blue);
 	--color-link-hover: var(--text-cocoa);
 
-	--color-header-bg: color-mix(in srgb, var(--palette-light-paper-active) 88%, var(--palette-light-blue-muted));
-	--color-header-text: var(--text-ink);
+        --color-header-bg: color-mix(in srgb, var(--palette-light-paper-active) 88%, var(--palette-light-shell-base));
+        --color-header-text: var(--text-ink);
 	--color-header-link: var(--palette-light-blue-active);
 	--color-header-link-hover: var(--text-cocoa);
-	--color-header-active: var(--text-ink);
-	--color-header-border: color-mix(in srgb, var(--text-cocoa) 20%, transparent);
+        --color-header-active: var(--text-ink);
+        --color-header-border: color-mix(in srgb, var(--text-cocoa) 20%, transparent);
 
 	--hero-gradient: var(--hero-background-light);
 	--slogan-gradient: var(--hero-statement-light);
@@ -99,9 +99,9 @@
 	--color-button-secondary-text: var(--text-shadow-blue);
 	--color-button-secondary-state-text: var(--text-cocoa);
 
-	--color-card-bg: var(--palette-light-shell-muted);
-	--color-card-bg-hover: var(--palette-light-shell-base);
-	--color-card-border: color-mix(in srgb, var(--text-cocoa) 20%, transparent);
+        --color-card-bg: var(--palette-light-shell-muted);
+        --color-card-bg-hover: var(--palette-light-shell-base);
+        --color-card-border: color-mix(in srgb, var(--text-cocoa) 18%, transparent);
 	--color-card-border-hover: color-mix(in srgb, var(--palette-light-blue-active) 38%, transparent);
 	--color-card-subtext: color-mix(in srgb, var(--palette-light-blue-active) 84%, var(--text-ink));
 
@@ -110,11 +110,11 @@
 	--color-quote-bg: var(--palette-light-paper-active);
 	--color-quote-text: var(--text-cocoa);
 
-	--color-footer-bg: color-mix(in srgb, var(--palette-light-paper-muted) 86%, var(--palette-light-rose-muted));
-	--color-footer-text: var(--text-cocoa);
+        --color-footer-bg: color-mix(in srgb, var(--palette-light-paper-muted) 86%, var(--palette-light-rose-muted));
+        --color-footer-text: var(--text-cocoa);
 	--color-footer-link: var(--text-shadow-blue);
 	--color-footer-link-hover: var(--palette-light-rose-active);
-	--color-footer-border: color-mix(in srgb, var(--text-cocoa) 20%, transparent);
+        --color-footer-border: color-mix(in srgb, var(--text-cocoa) 20%, transparent);
 
 	/* Layout */
 	--content-width: 1120px;
@@ -142,7 +142,8 @@
 	--motion-standard-productive: cubic-bezier(0.2, 0, 0.38, 0.9);
 	--motion-entrance-expressive: cubic-bezier(0, 0, 0.3, 1);
 
-	--radius: 2px;
+        --radius: 16px;
+        --radius-pill: 999px;
 
 	color-scheme: light;
 }
@@ -176,8 +177,8 @@
 	--color-header-text: var(--text-paper);
 	--color-header-link: var(--palette-dark-blue-base);
 	--color-header-link-hover: var(--palette-dark-rose-base);
-	--color-header-active: var(--text-paper);
-	--color-header-border: color-mix(in srgb, var(--palette-dark-blue-base) 22%, transparent);
+        --color-header-active: var(--text-paper);
+        --color-header-border: color-mix(in srgb, var(--palette-dark-blue-base) 18%, transparent);
 
 	--hero-gradient: var(--hero-background-dark);
 	--slogan-gradient: var(--hero-statement-dark);
@@ -196,11 +197,11 @@
 	--color-button-secondary-text: var(--palette-dark-rose-base);
 	--color-button-secondary-state-text: var(--palette-dark-blue-base);
 
-	--color-card-bg: var(--palette-dark-glass-muted);
-	--color-card-bg-hover: var(--palette-dark-navy-active);
-	--color-card-border: color-mix(in srgb, var(--palette-dark-blue-base) 18%, transparent);
+        --color-card-bg: var(--palette-dark-glass-muted);
+        --color-card-bg-hover: var(--palette-dark-navy-active);
+        --color-card-border: color-mix(in srgb, var(--palette-dark-blue-base) 14%, transparent);
 	--color-card-border-hover: color-mix(in srgb, var(--palette-dark-rose-base) 34%, transparent);
-	--color-card-subtext: var(--palette-dark-blue-active);
+        --color-card-subtext: var(--palette-dark-blue-active);
 
 	--color-tag-text: var(--text-paper);
 
@@ -211,7 +212,7 @@
 	--color-footer-text: var(--palette-dark-blue-active);
 	--color-footer-link: var(--palette-dark-rose-base);
 	--color-footer-link-hover: var(--palette-dark-blue-active);
-	--color-footer-border: color-mix(in srgb, var(--palette-dark-blue-base) 22%, transparent);
+        --color-footer-border: color-mix(in srgb, var(--palette-dark-blue-base) 18%, transparent);
 
 	color-scheme: dark;
 }
@@ -391,14 +392,15 @@ li::marker {
 }
 
 .button {
-	display: inline-flex;
-	min-height: 38px;
-	align-items: center;
-	justify-content: center;
-	gap: 0.5rem;
-	border: 1px solid var(--color-border);
-	background: transparent;
-	padding: 0.45rem 0.9rem;
+        display: inline-flex;
+        min-height: 38px;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-pill);
+        background: transparent;
+        padding: 0.45rem 0.9rem;
 	color: var(--color-button-secondary-text);
 	font-family: var(--font-mono);
 	font-size: 0.9rem;
@@ -448,9 +450,10 @@ li::marker {
 }
 
 .panel {
-	border: 1px solid var(--color-card-border);
-	background: var(--color-card-bg);
-	padding: 1.5rem;
+        border: 1px solid var(--color-card-border);
+        border-radius: var(--radius);
+        background: var(--color-card-bg);
+        padding: 1.5rem;
 	transition:
 		background-color var(--motion-duration-fast-02) var(--motion-standard-productive),
 		border-color var(--motion-duration-fast-02) var(--motion-standard-productive),
@@ -473,11 +476,12 @@ li::marker {
 }
 
 .tag {
-	display: inline-flex;
-	align-items: center;
-	border: 1px solid color-mix(in srgb, var(--color-accent) 22%, transparent);
-	background: color-mix(in srgb, var(--color-surface-soft) 86%, var(--color-accent-wash));
-	padding: 0.18rem 0.45rem;
+        display: inline-flex;
+        align-items: center;
+        border: 1px solid color-mix(in srgb, var(--color-accent) 22%, transparent);
+        border-radius: var(--radius-pill);
+        background: color-mix(in srgb, var(--color-surface-soft) 86%, var(--color-accent-wash));
+        padding: 0.18rem 0.45rem;
 	color: var(--color-tag-text);
 	font-family: var(--font-mono);
 	font-size: 0.76rem;

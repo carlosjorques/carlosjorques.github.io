@@ -693,6 +693,7 @@ const profileJsonLd = {
 		gap: 0.35rem;
 		margin: 0;
 		border: 1px solid var(--color-card-border);
+		border-radius: var(--radius);
 		background: var(--color-card-bg);
 		padding: 1rem;
 		transition:
@@ -724,6 +725,7 @@ const profileJsonLd = {
 		display: grid;
 		gap: 0.75rem;
 		border: 1px solid var(--color-card-border);
+		border-radius: var(--radius);
 		background: var(--color-card-bg);
 		padding: 1rem;
 		transition:
@@ -941,7 +943,8 @@ const profileJsonLd = {
 		align-content: start;
 		gap: 0.85rem;
 		border: 1px solid var(--color-card-border);
-		background: var(--color-card-bg);
+		border-radius: var(--radius);
+		background: transparent;
 		padding: clamp(1.15rem, 3vw, 1.55rem);
 	}
 
@@ -954,7 +957,7 @@ const profileJsonLd = {
 
 	.cv-card--interactive:hover {
 		border-color: var(--color-card-border-hover);
-		background: var(--color-card-bg-hover);
+		background: transparent;
 		transform: translateY(-2px);
 	}
 
@@ -1011,6 +1014,7 @@ const profileJsonLd = {
 	.cv-chip-list li {
 		margin: 0;
 		border: 1px solid var(--color-card-border);
+		border-radius: calc(var(--radius) * 0.6);
 		background: var(--color-surface-soft);
 		padding: 0.3rem 0.5rem;
 		color: var(--color-tag-text);
@@ -1045,7 +1049,8 @@ const profileJsonLd = {
 		align-items: start;
 		margin: 0;
 		border: 1px solid var(--color-card-border);
-		background: var(--color-card-bg);
+		border-radius: var(--radius);
+		background: transparent;
 		padding: 0.9rem 1rem;
 		color: var(--color-muted);
 		font-size: 0.96rem;
@@ -1058,7 +1063,7 @@ const profileJsonLd = {
 
 	.cv-impact-list li:hover {
 		border-color: var(--color-card-border-hover);
-		background: var(--color-card-bg-hover);
+		background: transparent;
 		transform: translateY(-2px);
 	}
 
@@ -1115,6 +1120,7 @@ const profileJsonLd = {
 		height: 2.25rem;
 		place-items: center;
 		border: 1px solid var(--color-card-border);
+		border-radius: var(--radius);
 		background: var(--color-card-bg);
 		color: var(--color-accent);
 		font-family: var(--font-mono);
@@ -1134,7 +1140,8 @@ const profileJsonLd = {
 		gap: 0.85rem;
 		min-width: 0;
 		border: 1px solid var(--color-card-border);
-		background: var(--color-card-bg);
+		border-radius: var(--radius);
+		background: transparent;
 		padding: clamp(1.15rem, 3vw, 1.7rem);
 		transition:
 			border-color 140ms cubic-bezier(0.2, 0, 0, 1),
@@ -1143,12 +1150,12 @@ const profileJsonLd = {
 
 	.cv-role--current .cv-role__content {
 		border-color: var(--color-card-border-hover);
-		background: color-mix(in srgb, var(--color-card-bg) 82%, var(--color-accent-wash));
+		background: transparent;
 	}
 
 	.cv-role__content:hover {
 		border-color: var(--color-card-border-hover);
-		background: var(--color-card-bg-hover);
+		background: transparent;
 	}
 
 	.cv-role__header {
@@ -1207,7 +1214,8 @@ const profileJsonLd = {
 
 	.cv-disclosure--card {
 		border: 1px solid var(--color-card-border);
-		background: var(--color-card-bg);
+		border-radius: var(--radius);
+		background: transparent;
 		padding: clamp(1.15rem, 3vw, 1.55rem);
 	}
 
@@ -1218,7 +1226,8 @@ const profileJsonLd = {
 		justify-content: space-between;
 		gap: 0.5rem;
 		border: 1px solid var(--color-card-border);
-		background: color-mix(in srgb, var(--color-card-bg) 72%, transparent);
+		border-radius: var(--radius);
+		background: transparent;
 		padding: 0.65rem 0.75rem;
 		color: var(--color-accent);
 		cursor: pointer;
@@ -1241,6 +1250,7 @@ const profileJsonLd = {
 		height: 1.15rem;
 		place-items: center;
 		border: 1px solid var(--color-card-border);
+		border-radius: calc(var(--radius) * 0.45);
 		color: var(--color-text);
 		font-family: var(--font-sans);
 		font-size: 0.9rem;
@@ -1256,7 +1266,7 @@ const profileJsonLd = {
 	.cv-disclosure > summary:hover,
 	.cv-disclosure > summary:focus-visible {
 		border-color: var(--color-card-border-hover);
-		background: var(--color-card-bg-hover);
+		background: transparent;
 		color: var(--color-text);
 	}
 
@@ -1339,7 +1349,8 @@ const profileJsonLd = {
 		gap: 0.25rem;
 		margin: 0;
 		border: 1px solid var(--color-card-border);
-		background: var(--color-surface-soft);
+		border-radius: var(--radius);
+		background: transparent;
 		padding: 0.85rem;
 	}
 
