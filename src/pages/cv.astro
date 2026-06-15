@@ -40,13 +40,20 @@ const profileJsonLd = {
 			<span class="cv-scroll-progress__bar" data-cv-scroll-progress></span>
 		</div>
 
+		<a class="cv-scroll-jump" href="#top" aria-label="Scroll to the top of the page" data-cv-scroll-jump>
+			<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+				<path d="M12 17V7.5" />
+				<path d="M8.75 10.75 12 7.5l3.25 3.25" />
+			</svg>
+		</a>
+
 		<section class="cv-hero" aria-labelledby="cv-title">
 			<div class="page-container cv-hero__inner">
 				<div class="cv-hero__content">
-					<p class="eyebrow">{cvProfile.hero.eyebrow}</p>
-					<h1 id="cv-title">{cvProfile.hero.title}</h1>
-					<p class="cv-hero__subtitle">{cvProfile.hero.subtitle}</p>
-					<p class="cv-hero__summary">{cvProfile.hero.summary}</p>
+					<p class="eyebrow section-eyebrow">{cvProfile.hero.eyebrow}</p>
+					<h1 id="cv-title" class="cv-hero__name hero-title">{cvProfile.hero.title}</h1>
+					<p class="cv-hero__subtitle hero-role cv-hero__role">{cvProfile.hero.subtitle}</p>
+					<p class="cv-hero__summary hero-summary">{cvProfile.hero.summary}</p>
 					<p class="cv-hero__extended">{cvProfile.hero.secondarySummary}</p>
 
 					<div class="button-row cv-actions" aria-label="CV actions">
@@ -495,6 +502,7 @@ const profileJsonLd = {
 <script is:inline>
 	(() => {
 		const progressBar = document.querySelector('[data-cv-scroll-progress]');
+		const scrollJump = document.querySelector('[data-cv-scroll-jump]');
 		const navLinks = Array.from(document.querySelectorAll('[data-cv-section-link]'));
 		const sections = navLinks
 			.map((link) => {
@@ -522,6 +530,16 @@ const profileJsonLd = {
 			updateProgress();
 			window.addEventListener('scroll', requestProgressUpdate, { passive: true });
 			window.addEventListener('resize', requestProgressUpdate);
+		}
+
+		if (scrollJump) {
+			scrollJump.addEventListener('click', (event) => {
+				event.preventDefault();
+				window.scrollTo({
+					top: 0,
+					behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
+				});
+			});
 		}
 
 		if ('IntersectionObserver' in window && navLinks.length > 0 && sections.length > 0) {
@@ -618,19 +636,59 @@ const profileJsonLd = {
 		pointer-events: none;
 	}
 
-	.cv-scroll-progress__bar {
-		display: block;
-		width: 100%;
-		height: 100%;
-		background: var(--color-accent);
-		transform: scaleX(0);
-		transform-origin: left center;
-	}
+        .cv-scroll-progress__bar {
+                display: block;
+                width: 100%;
+                height: 100%;
+                background: var(--color-accent);
+                transform: scaleX(0);
+                transform-origin: left center;
+        }
 
-	.cv-hero {
-		border-bottom: 1px solid var(--color-border-soft);
-		background: transparent;
-		padding-block: clamp(3rem, 7vw, 6.25rem) clamp(2.5rem, 5vw, 4.25rem);
+        .cv-scroll-jump {
+                position: fixed;
+                right: 1rem;
+                bottom: 1rem;
+                z-index: 28;
+                display: inline-grid;
+                width: 2.45rem;
+                height: 2.45rem;
+                place-items: center;
+                border: 1px solid color-mix(in srgb, var(--color-page) 12%, transparent);
+                border-radius: var(--radius-pill);
+                background: var(--color-text);
+                color: var(--color-page);
+                text-decoration: none;
+                box-shadow: 0 10px 24px color-mix(in srgb, #000 22%, transparent);
+                transition:
+                        transform var(--motion-duration-fast-02) var(--motion-standard-productive),
+                        border-color var(--motion-duration-fast-02) var(--motion-standard-productive),
+                        background-color var(--motion-duration-fast-02) var(--motion-standard-productive),
+                        box-shadow var(--motion-duration-fast-02) var(--motion-standard-productive);
+        }
+
+        .cv-scroll-jump svg {
+                width: 1.15rem;
+                height: 1.15rem;
+                stroke: currentColor;
+                stroke-width: 1.4;
+                fill: none;
+                stroke-linecap: round;
+                stroke-linejoin: round;
+        }
+
+        .cv-scroll-jump:hover,
+        .cv-scroll-jump:focus-visible {
+                transform: translateY(-2px);
+                border-color: color-mix(in srgb, var(--color-page) 22%, transparent);
+                background: color-mix(in srgb, var(--color-text) 90%, white);
+                box-shadow: 0 12px 28px color-mix(in srgb, #000 28%, transparent);
+        }
+
+        .cv-hero {
+                border-bottom: 1px solid var(--color-border-soft);
+                background: transparent;
+                padding-block: clamp(3rem, 7vw, 6.25rem) clamp(2.5rem, 5vw, 4.25rem);
 	}
 
 	.cv-hero__inner {
@@ -647,16 +705,18 @@ const profileJsonLd = {
 	}
 
 	.cv-hero h1 {
-		font-size: clamp(2.75rem, 7vw, 5.75rem);
-		line-height: 0.98;
+		font-size: var(--type-hero-name-size);
+		line-height: var(--type-hero-name-line);
+		letter-spacing: var(--type-hero-name-tracking);
 	}
 
 	.cv-hero__subtitle {
 		max-width: 880px;
 		color: var(--color-text);
-		font-size: clamp(1.08rem, 2vw, 1.42rem);
-		font-weight: 700;
-		line-height: 1.35;
+		font-size: var(--type-hero-role-size);
+		font-weight: var(--type-hero-role-weight);
+		line-height: var(--type-hero-role-line);
+		letter-spacing: var(--type-hero-role-tracking);
 		overflow-wrap: anywhere;
 	}
 
@@ -664,8 +724,9 @@ const profileJsonLd = {
 	.cv-hero__extended {
 		max-width: var(--cv-max-measure);
 		color: var(--color-muted);
-		font-size: 1rem;
-		line-height: 1.7;
+		font-size: var(--type-hero-summary-size);
+		line-height: var(--type-hero-summary-line);
+		letter-spacing: var(--type-hero-summary-tracking);
 		overflow-wrap: anywhere;
 	}
 
@@ -711,14 +772,17 @@ const profileJsonLd = {
 	.cv-proof-grid strong {
 		color: var(--color-text);
 		font-family: var(--font-display);
-		font-size: 1.12rem;
-		line-height: 1.1;
+		font-size: var(--type-card-title-size);
+		line-height: var(--type-card-title-line);
+		letter-spacing: var(--type-card-title-tracking);
 	}
 
 	.cv-proof-grid span {
 		color: var(--color-muted);
-		font-size: 0.86rem;
-		line-height: 1.4;
+		font-family: var(--font-body);
+		font-size: var(--type-card-body-size);
+		line-height: var(--type-card-body-line);
+		letter-spacing: var(--type-card-body-tracking);
 	}
 
 	.cv-role-strip {
@@ -744,10 +808,10 @@ const profileJsonLd = {
 	.cv-role-strip > p {
 		color: var(--color-soft);
 		font-family: var(--font-mono);
-		font-size: 0.72rem;
-		font-weight: 600;
-		letter-spacing: 0.06em;
-		line-height: 1.25;
+		font-size: var(--type-eyebrow-size);
+		font-weight: var(--type-eyebrow-weight);
+		letter-spacing: var(--type-eyebrow-tracking);
+		line-height: var(--type-eyebrow-line);
 		text-transform: uppercase;
 	}
 
@@ -775,10 +839,10 @@ const profileJsonLd = {
 	.cv-role__location,
 	.cv-disclosure > summary {
 		font-family: var(--font-mono);
-		font-size: 0.74rem;
-		font-weight: 600;
-		letter-spacing: 0.04em;
-		line-height: 1.35;
+		font-size: var(--type-meta-size);
+		font-weight: var(--type-meta-weight);
+		letter-spacing: var(--type-meta-tracking);
+		line-height: var(--type-meta-line);
 		text-transform: uppercase;
 	}
 
@@ -862,7 +926,7 @@ const profileJsonLd = {
 
 	.cv-section-nav__actions a {
 		color: var(--color-soft);
-		font-size: 0.72rem;
+		font-size: var(--type-nav-size);
 	}
 
 	.cv-section {
@@ -892,14 +956,18 @@ const profileJsonLd = {
 
 	.cv-section__intro h2,
 	.cv-final h2 {
-		font-size: clamp(1.75rem, 3.4vw, 2.65rem);
-		line-height: 1.08;
+		font-size: var(--type-section-title-size);
+		line-height: var(--type-section-title-line);
+		letter-spacing: var(--type-section-title-tracking);
+		font-weight: var(--type-section-title-weight);
 	}
 
 	.cv-section__intro h3,
 	.cv-courses h3 {
-		font-size: clamp(1.2rem, 2.1vw, 1.55rem);
-		line-height: 1.2;
+		font-size: var(--type-card-title-size);
+		line-height: var(--type-card-title-line);
+		letter-spacing: var(--type-card-title-tracking);
+		font-weight: var(--type-card-title-weight);
 	}
 
 	.cv-section__intro p,
@@ -912,8 +980,8 @@ const profileJsonLd = {
 	.cv-role__bullets li,
 	.cv-disclosure li {
 		color: var(--color-muted);
-		font-size: 0.96rem;
-		line-height: 1.62;
+		font-size: var(--type-card-body-size);
+		line-height: var(--type-card-body-line);
 	}
 
 	.cv-summary-block {
@@ -966,8 +1034,10 @@ const profileJsonLd = {
 	}
 
 	.cv-card h3 {
-		font-size: 1.08rem;
-		line-height: 1.35;
+		font-size: var(--type-card-title-size);
+		line-height: var(--type-card-title-line);
+		letter-spacing: var(--type-card-title-tracking);
+		font-weight: var(--type-card-title-weight);
 	}
 
 	.cv-expertise-card--featured {
@@ -976,8 +1046,10 @@ const profileJsonLd = {
 
 	.cv-expertise-card--featured h3 {
 		max-width: 18ch;
-		font-size: clamp(1.35rem, 2.5vw, 2rem);
-		line-height: 1.12;
+		font-size: clamp(1.55rem, 2.6vw, 2.45rem);
+		line-height: 1.02;
+		letter-spacing: -0.055em;
+		font-weight: 600;
 	}
 
 	.cv-expertise-card--featured > ul:not(.cv-chip-list) {
@@ -1019,9 +1091,10 @@ const profileJsonLd = {
 		padding: 0.3rem 0.5rem;
 		color: var(--color-tag-text);
 		font-family: var(--font-mono);
-		font-size: 0.74rem;
-		font-weight: 600;
-		line-height: 1.25;
+		font-size: var(--type-chip-size);
+		font-weight: var(--type-chip-weight);
+		line-height: var(--type-chip-line);
+		letter-spacing: var(--type-chip-tracking);
 		transition:
 			border-color 140ms cubic-bezier(0.2, 0, 0, 1),
 			background-color 140ms cubic-bezier(0.2, 0, 0, 1);
@@ -1053,8 +1126,8 @@ const profileJsonLd = {
 		background: transparent;
 		padding: 0.9rem 1rem;
 		color: var(--color-muted);
-		font-size: 0.96rem;
-		line-height: 1.55;
+		font-size: var(--type-card-body-size);
+		line-height: var(--type-card-body-line);
 		transition:
 			background-color var(--motion-duration-fast-02) var(--motion-standard-productive),
 			border-color var(--motion-duration-fast-02) var(--motion-standard-productive),
@@ -1070,15 +1143,17 @@ const profileJsonLd = {
 	.cv-impact-list li > span {
 		color: var(--color-muted);
 		font-family: var(--font-mono);
-		font-size: 0.74rem;
-		font-weight: 700;
-		line-height: 1.55;
+		font-size: var(--type-meta-size);
+		font-weight: var(--type-meta-weight);
+		line-height: var(--type-meta-line);
 	}
 
 	.cv-impact-list li > p {
 		color: var(--color-muted);
-		font-size: 0.95rem;
-		line-height: 1.55;
+		font-family: var(--font-body);
+		font-size: var(--type-card-body-size);
+		line-height: var(--type-card-body-line);
+		letter-spacing: var(--type-card-body-tracking);
 	}
 
 	.cv-impact-list--compact {
@@ -1124,8 +1199,8 @@ const profileJsonLd = {
 		background: var(--color-card-bg);
 		color: var(--color-text);
 		font-family: var(--font-mono);
-		font-size: 0.72rem;
-		font-weight: 700;
+		font-size: var(--type-meta-size);
+		font-weight: var(--type-meta-weight);
 		line-height: 1;
 	}
 
@@ -1188,9 +1263,9 @@ const profileJsonLd = {
 	.cv-role__ownership h4,
 	.cv-detail-group h4 {
 		color: var(--color-text);
-		font-size: 0.88rem;
+		font-size: var(--type-meta-size);
 		font-weight: 700;
-		line-height: 1.35;
+		line-height: var(--type-meta-line);
 	}
 
 	.cv-role__bullets {
@@ -1252,8 +1327,8 @@ const profileJsonLd = {
 		border: 1px solid var(--color-card-border);
 		border-radius: calc(var(--radius) * 0.45);
 		color: var(--color-text);
-		font-family: var(--font-sans);
-		font-size: 0.9rem;
+		font-family: var(--font-body);
+		font-size: var(--type-body-size);
 		line-height: 1;
 		transition: transform 180ms cubic-bezier(0.2, 0, 0, 1);
 	}
@@ -1312,9 +1387,9 @@ const profileJsonLd = {
 	.cv-case-card dt {
 		color: var(--color-soft);
 		font-family: var(--font-mono);
-		font-size: 0.72rem;
+		font-size: var(--type-meta-size);
 		font-weight: 700;
-		letter-spacing: 0.04em;
+		letter-spacing: var(--type-meta-tracking);
 		text-transform: uppercase;
 	}
 
@@ -1357,14 +1432,17 @@ const profileJsonLd = {
 	.cv-research-stats strong {
 		color: var(--color-text);
 		font-family: var(--font-display);
-		font-size: 1.1rem;
-		line-height: 1.15;
+		font-size: var(--type-card-title-size);
+		line-height: var(--type-card-title-line);
+		letter-spacing: var(--type-card-title-tracking);
 	}
 
 	.cv-research-stats span {
 		color: var(--color-muted);
-		font-size: 0.9rem;
-		line-height: 1.45;
+		font-family: var(--font-body);
+		font-size: var(--type-card-body-size);
+		line-height: var(--type-card-body-line);
+		letter-spacing: var(--type-card-body-tracking);
 	}
 
 	.cv-publications {
@@ -1569,12 +1647,12 @@ const profileJsonLd = {
 		}
 
 		.cv-hero h1 {
-			font-size: clamp(2.35rem, 12vw, 3rem);
+			font-size: var(--type-hero-name-size);
 		}
 
 		.cv-hero__subtitle {
 			max-width: 31ch;
-			font-size: 1rem;
+			font-size: var(--type-hero-role-size);
 		}
 
 		.cv-hero__subtitle,
@@ -1604,7 +1682,7 @@ const profileJsonLd = {
 		.cv-role__marker {
 			width: 1.75rem;
 			height: 1.75rem;
-			font-size: 0.66rem;
+			font-size: var(--type-chip-size);
 		}
 
 		.cv-timeline::before {
@@ -1619,25 +1697,30 @@ const profileJsonLd = {
 
 	@media (prefers-reduced-motion: reduce) {
 		.cv-page *,
-		.cv-page *::before,
-		.cv-page *::after {
-			animation-duration: 0.001ms !important;
-			animation-iteration-count: 1 !important;
-			scroll-behavior: auto !important;
-			transition-duration: 0.001ms !important;
-		}
-	}
+                .cv-page *::before,
+                .cv-page *::after {
+                        animation-duration: 0.001ms !important;
+                        animation-iteration-count: 1 !important;
+                        scroll-behavior: auto !important;
+                        transition-duration: 0.001ms !important;
+                }
+
+                .cv-scroll-jump {
+                        transition: none;
+                }
+        }
 
 	@media print {
 		:global(.site-header),
-		:global(.site-footer),
-		:global(.skip-link),
-		.cv-scroll-progress,
-		.cv-section-nav,
-		.cv-actions,
-		.cv-final__actions {
-			display: none !important;
-		}
+                :global(.site-footer),
+                :global(.skip-link),
+                .cv-scroll-progress,
+                .cv-scroll-jump,
+                .cv-section-nav,
+                .cv-actions,
+                .cv-final__actions {
+                        display: none !important;
+                }
 
 		.cv-hero,
 		.cv-section {

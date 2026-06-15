@@ -161,29 +161,29 @@ const evidenceLinks = [
 >
 	<section class="about-hero">
 		<div class="page-container about-hero__inner">
-			<h1>Hi, I’m Carlos.</h1>
+			<h1 class="hero-title">Hi, I’m Carlos.</h1>
 			<div class="about-hero__content">
-				<p class="about-hero__lead">
+				<p class="about-hero__lead hero-summary">
 					I lead technical teams designing <strong>real-time control</strong> and
 					<strong>embedded software</strong> for physical machines, from
 					<strong>electrified vehicles</strong> to <strong>autonomous machines</strong>.
 				</p>
 
-				<p class="about-hero__body">
+				<p class="about-hero__body body-text">
 					Physical systems shape how people move, build, transport, and use energy. For me,
 					improving their <strong>control software</strong> means helping machines consume less energy,
 					respond safely to faults, reduce downtime, and make advanced technologies more useful
 					in everyday life.
 				</p>
 
-				<p class="about-hero__body">
+				<p class="about-hero__body body-text">
 					My work centers on <strong>electric trucks</strong>, <strong>autonomous haulers</strong>,
 					and <strong>power electronics</strong>. I design control architectures, models, and
 					diagnostic strategies for systems such as thermal management, battery management
 					systems, and torque control.
 				</p>
 
-				<p class="about-hero__body">
+				<p class="about-hero__body body-text">
 					Based in <strong>Spain</strong>, I work with international, multidisciplinary teams. I bridge
 					the gap between advanced research and production reality, turning complex control
 					algorithms into clean, maintainable software that runs reliably under real-world
@@ -462,8 +462,6 @@ const evidenceLinks = [
 </Layout>
 
 <style>
-	@import url("https://fonts.googleapis.com/css2?family=Stack+Sans+Text:wght@200..700&display=swap");
-
 	.about-hero {
 		padding-block: clamp(4rem, 8vw, 7rem) clamp(3rem, 6vw, 5rem);
 		border-bottom: 1px solid var(--color-border-soft);
@@ -503,22 +501,29 @@ const evidenceLinks = [
 
 	.about-hero h1 {
 		max-width: 700px;
-		font-size: clamp(2.35rem, 5.2vw, 4.35rem);
-		line-height: 1.02;
+		font-family: var(--font-display);
+		font-size: var(--type-hero-name-size);
+		line-height: var(--type-hero-name-line);
+		letter-spacing: var(--type-hero-name-tracking);
+		font-weight: var(--type-hero-name-weight);
 	}
 
 	.about-hero__lead {
 		max-width: 700px;
 		color: var(--color-text);
-		font-size: clamp(1.15rem, 2vw, 1.45rem);
-		line-height: 1.55;
+		font-size: var(--type-hero-summary-size);
+		line-height: var(--type-hero-summary-line);
+		letter-spacing: var(--type-hero-summary-tracking);
+		font-weight: var(--type-hero-summary-weight);
 	}
 
 	.about-hero__body {
 		max-width: 680px;
 		color: var(--color-body-text);
-		font-size: 1.05rem;
-		line-height: 1.7;
+		font-family: var(--font-body);
+		font-size: var(--type-body-size);
+		line-height: var(--type-body-line);
+		letter-spacing: var(--type-body-tracking);
 	}
 
 	.about-hero strong,
@@ -596,28 +601,30 @@ const evidenceLinks = [
 	.proof-item h3 {
 		color: var(--color-text);
 		font-family: var(--font-mono);
-		font-size: 0.72rem;
-		font-weight: 600;
-		line-height: 1.35;
-		letter-spacing: 0.06em;
+		font-size: var(--type-eyebrow-size);
+		font-weight: var(--type-eyebrow-weight);
+		line-height: var(--type-eyebrow-line);
+		letter-spacing: var(--type-eyebrow-tracking);
 		text-transform: uppercase;
 	}
 
 	.proof-item__anchor {
 		color: var(--color-text);
 		font-family: var(--font-display);
-		font-size: 1.2rem;
-		font-weight: 600;
-		letter-spacing: 0;
-		line-height: 1.35;
+		font-size: var(--type-card-title-size);
+		font-weight: var(--type-card-title-weight);
+		letter-spacing: var(--type-card-title-tracking);
+		line-height: var(--type-card-title-line);
 		text-transform: none;
 	}
 
 	.proof-item span {
 		max-width: 100%;
 		color: var(--color-body-text);
-		font-size: 0.95rem;
-		line-height: 1.5;
+		font-family: var(--font-body);
+		font-size: var(--type-card-body-size);
+		line-height: var(--type-card-body-line);
+		letter-spacing: var(--type-card-body-tracking);
 	}
 
 	.about-split__grid {
@@ -643,17 +650,18 @@ const evidenceLinks = [
 		background: transparent;
 		color: var(--color-quote-text);
 		padding: clamp(1rem, 2.4vw, 1.5rem);
-		font-size: clamp(1.45rem, 3vw, 2.35rem);
-		font-weight: 400;
-		line-height: 1.18;
+		font-family: var(--font-display);
+		font-size: var(--type-hero-summary-size);
+		font-weight: var(--type-hero-summary-weight);
+		line-height: var(--type-hero-summary-line);
+		letter-spacing: var(--type-hero-summary-tracking);
 	}
 
 	.section-quote__mark {
 		margin-top: -0.18em;
 		color: var(--color-quote-text);
-		font-family: "Stack Sans Text", sans-serif;
-		font-optical-sizing: auto;
-		font-style: normal;
+		font-family: var(--font-display);
+		font-style: italic;
 		font-size: clamp(3rem, 6vw, 5.1rem);
 		font-weight: 400;
 		line-height: 1.0;
@@ -661,9 +669,9 @@ const evidenceLinks = [
 
 	.section-quote__text {
 		font-style: italic;
-		font-family: var(--font-mono);
+		font-family: var(--font-display);
 		color: var(--color-quote-text);
-		letter-spacing: 0;
+		letter-spacing: var(--type-body-tracking);
 		font-size: clamp(1.25rem, 2.4vw, 1.5rem);
 	}
 
@@ -671,15 +679,17 @@ const evidenceLinks = [
 	.section-intro h2,
 	.about-final h2 {
 		max-width: 760px;
-		font-size: clamp(1.7rem, 3.5vw, 2.65rem);
-		line-height: 1.08;
+		font-size: var(--type-section-title-size);
+		line-height: var(--type-section-title-line);
+		letter-spacing: var(--type-section-title-tracking);
+		font-weight: var(--type-section-title-weight);
 	}
 
 	.about-final p {
 		max-width: 700px;
 		color: var(--color-body-text);
-		font-size: 0.95rem;
-		line-height: 1.6;
+		font-size: var(--type-body-size);
+		line-height: var(--type-body-line);
 	}
 
 	.about-copy {
@@ -687,8 +697,8 @@ const evidenceLinks = [
 		gap: 1.2rem;
 		max-width: 760px;
 		color: var(--color-body-text);
-		font-size: 0.95rem;
-		line-height: 1.6;
+		font-size: var(--type-body-size);
+		line-height: var(--type-body-line);
 	}
 
 	.section-footer-cta {
@@ -710,15 +720,17 @@ const evidenceLinks = [
 
 	.section-footer-cta p {
 		color: var(--color-text);
-		font-size: 0.9rem;
+		font-size: var(--type-body-size);
 	}
 
 	.capability-item h3,
 	.challenge-item h3,
 	.evidence-item h3 {
 		color: var(--color-text);
-		font-size: 1.15rem;
-		line-height: 1.35;
+		font-size: var(--type-card-title-size);
+		line-height: var(--type-card-title-line);
+		letter-spacing: var(--type-card-title-tracking);
+		font-weight: var(--type-card-title-weight);
 	}
 
 	.capability-item p,
@@ -726,27 +738,27 @@ const evidenceLinks = [
 	.evidence-item p,
 	.section-intro p {
 		color: var(--color-body-text);
-		font-size: 0.95rem;
-		line-height: 1.6;
+		font-size: var(--type-card-body-size);
+		line-height: var(--type-card-body-line);
 	}
 
 	.capability-item__area {
 		color: var(--color-card-subtext) !important;
-		font-family: var(--font-sans);
-		font-size: 0.85rem !important;
+		font-family: var(--font-body);
+		font-size: var(--type-meta-size) !important;
 		font-weight: 500;
-		letter-spacing: 0.04em;
-		line-height: 1.35 !important;
+		letter-spacing: var(--type-meta-tracking);
+		line-height: var(--type-meta-line) !important;
 		margin-bottom: var(--spacing-01);
 	}
 
 	.challenge-item__context {
 		color: var(--color-card-subtext) !important;
-		font-family: var(--font-sans);
-		font-size: 0.85rem !important;
+		font-family: var(--font-body);
+		font-size: var(--type-meta-size) !important;
 		font-style: italic;
 		font-weight: 500;
-		line-height: 1.35 !important;
+		line-height: var(--type-meta-line) !important;
 	}
 
 	.section-intro {
@@ -796,13 +808,13 @@ const evidenceLinks = [
 		max-width: 520px;
 		background: transparent;
 		color: var(--color-body-text);
-		font-size: 0.9rem;
+		font-size: var(--type-body-size);
 		line-height: 1.5;
 	}
 
 	.applied-domain-visual figcaption small {
 		color: var(--color-body-text);
-		font-size: 0.78rem;
+		font-size: var(--type-meta-size);
 		line-height: 1.45;
 	}
 

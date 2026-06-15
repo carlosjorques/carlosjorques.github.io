@@ -61,15 +61,19 @@ const articles = [
 
 	.latest__header h2 {
 		margin: 0;
-		font-size: clamp(1.75rem, 3vw, 2.45rem);
-		line-height: 1.08;
+		font-size: var(--type-section-title-size);
+		line-height: var(--type-section-title-line);
+		letter-spacing: var(--type-section-title-tracking);
+		font-weight: var(--type-section-title-weight);
+		max-width: 13ch;
 	}
 
 	.latest__intro {
 		max-width: 720px;
 		margin: 0;
-		font-size: clamp(1rem, 1.25vw, 1.15rem);
-		line-height: 1.55;
+		font-size: var(--type-section-intro-size);
+		line-height: var(--type-section-intro-line);
+		letter-spacing: var(--type-section-intro-tracking);
 		color: var(--color-body-text);
 	}
 
@@ -79,9 +83,9 @@ const articles = [
 
 	.latest__footer a {
 		font-family: var(--font-mono);
-		font-size: 0.76rem;
-		font-weight: 600;
-		letter-spacing: 0.05em;
+		font-size: var(--type-chip-size);
+		font-weight: var(--type-chip-weight);
+		letter-spacing: var(--type-chip-tracking);
 		text-transform: uppercase;
 		color: var(--color-link);
 		text-decoration: none;

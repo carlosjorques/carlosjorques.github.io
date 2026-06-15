@@ -60,16 +60,20 @@ const selectedWork = [
 
 	.selected-work__header h2 {
 		margin: 0;
-		font-size: clamp(1.75rem, 3vw, 2.45rem);
-		line-height: 1.08;
+		font-size: var(--type-section-title-size);
+		line-height: var(--type-section-title-line);
+		letter-spacing: var(--type-section-title-tracking);
+		font-weight: var(--type-section-title-weight);
+		max-width: 13ch;
 	}
 
 	.selected-work__header p {
 		margin: 0;
 		max-width: var(--measure-compact);
 		color: var(--color-body-text);
-		font-size: clamp(1rem, 1.25vw, 1.12rem);
-		line-height: 1.55;
+		font-size: var(--type-section-intro-size);
+		line-height: var(--type-section-intro-line);
+		letter-spacing: var(--type-section-intro-tracking);
 	}
 
 	.selected-work__list {
@@ -97,26 +101,26 @@ const selectedWork = [
 	.selected-work__index {
 		color: var(--color-muted);
 		font-family: var(--font-mono);
-		font-size: 0.72rem;
-		font-weight: 600;
-		letter-spacing: 0.06em;
-		line-height: 1.35;
+		font-size: var(--type-chip-size);
+		font-weight: var(--type-chip-weight);
+		letter-spacing: var(--type-chip-tracking);
+		line-height: var(--type-chip-line);
 	}
 
 	.selected-work__item h3 {
 		margin: 0;
-		font-size: clamp(1rem, 1.4vw, 1.2rem);
-		line-height: 1.35;
-		font-weight: 500;
+		font-size: var(--type-card-title-size);
+		line-height: var(--type-card-title-line);
+		font-weight: var(--type-card-title-weight);
 	}
 
 	.selected-work__item a {
 		color: var(--color-link);
 		font-family: var(--font-mono);
-		font-size: 0.74rem;
-		font-weight: 600;
-		letter-spacing: 0.05em;
-		line-height: 1.35;
+		font-size: var(--type-chip-size);
+		font-weight: var(--type-chip-weight);
+		letter-spacing: var(--type-chip-tracking);
+		line-height: var(--type-chip-line);
 		text-transform: uppercase;
 		text-decoration: none;
 		border-bottom: 1px solid transparent;

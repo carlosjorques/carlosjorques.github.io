@@ -30,7 +30,9 @@ const withBase = (href: string) => (href === '/' ? normalizedBase : `${normalize
 		align-items: center;
 		gap: 1.5rem;
 		flex-wrap: wrap;
-		font-size: 0.9rem;
+		font-family: var(--font-body);
+		font-size: var(--type-body-size);
+		line-height: var(--type-body-line);
 	}
 
 	.site-footer__inner > span {
@@ -42,9 +44,9 @@ const withBase = (href: string) => (href === '/' ? normalizedBase : `${normalize
 		gap: 1.25rem;
 		flex-wrap: wrap;
 		font-family: var(--font-mono);
-		font-size: 0.78rem;
-		font-weight: 600;
-		letter-spacing: 0.06em;
+		font-size: var(--type-nav-size);
+		font-weight: var(--type-nav-weight);
+		letter-spacing: var(--type-nav-tracking);
 		text-transform: uppercase;
 	}
 

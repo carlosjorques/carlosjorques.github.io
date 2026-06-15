@@ -97,8 +97,8 @@ const steps = [
 
 	.chain-node strong {
 		font-family: var(--font-mono);
-		font-size: 0.8rem;
-		font-weight: 700;
+		font-size: var(--type-meta-size);
+		font-weight: var(--type-meta-weight);
 		text-transform: uppercase;
 	}
 
@@ -136,11 +136,14 @@ const steps = [
 
 	.mapping h3 {
 		margin-bottom: var(--spacing-03);
-		font-size: 1rem;
+		font-size: var(--type-card-title-size);
+		line-height: var(--type-card-title-line);
+		letter-spacing: var(--type-card-title-tracking);
+		font-weight: var(--type-card-title-weight);
 	}
 
 	.mapping p {
-		font-size: 0.9rem;
+		font-size: var(--type-card-body-size);
 		line-height: 1.55;
 	}
 

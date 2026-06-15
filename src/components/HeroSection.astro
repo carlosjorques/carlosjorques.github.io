@@ -12,13 +12,13 @@ const heroVideoUrl = `${normalizedBase}videos/333466_1_5.mp4`;
 	<div class="page-container">
 		<div class="hero">
 			<div class="hero__copy">
-				<p class="hero-kicker">Embedded Control Systems Architect · Technical Leader</p>
+				<p class="hero-kicker section-eyebrow">Embedded Control Systems Architect · Technical Leader</p>
 
-				<h1 class="hero-name">Carlos Jorques</h1>
-				<p class="hero-statement">
+				<h1 class="hero-name hero-title">Carlos Jorques</h1>
+				<p class="hero-statement hero-role">
 					Control Intelligence for Complex Physical Systems.
 				</p>
-				<p class="hero-substatement">
+				<p class="hero-substatement hero-summary">
 					With 10+ years of experience in the automotive industry, I lead the design of embedded control software that helps machines sense, decide, act, and operate reliably under real-world constraints.
 				</p>
 
@@ -134,31 +134,30 @@ const heroVideoUrl = `${normalizedBase}videos/333466_1_5.mp4`;
 	.hero-kicker {
 		margin: 0 0 var(--spacing-05);
 		font-family: var(--font-mono);
-		font-size: 0.72rem;
-		font-weight: 600;
-		letter-spacing: 0.08em;
+		font-size: var(--type-eyebrow-size);
+		font-weight: var(--type-eyebrow-weight);
+		letter-spacing: var(--type-eyebrow-tracking);
 		text-transform: uppercase;
 		color: var(--color-hero-kicker);
 	}
 
 	.hero-name {
 		margin: 0;
-		font-family: var(--font-display);
-		font-size: clamp(2.8rem, 6vw, 5.8rem);
-		line-height: 0.95;
-		font-weight: 700;
-		letter-spacing: 0;
+		font-size: var(--type-hero-name-size);
+		line-height: var(--type-hero-name-line);
+		letter-spacing: var(--type-hero-name-tracking);
+		font-weight: var(--type-hero-name-weight);
 		color: var(--color-hero-text);
 	}
 
 	.hero-statement {
 		max-width: 620px;
 		margin: var(--spacing-07) auto 0;
-		font-size: clamp(1.75rem, 3vw, 2.5rem);
-		line-height: 1.08;
-		font-weight: 400;
+		font-size: var(--type-hero-role-size);
+		line-height: var(--type-hero-role-line);
+		letter-spacing: var(--type-hero-role-tracking);
+		font-weight: var(--type-hero-role-weight);
 		color: var(--color-hero-text);
-		font-family: var(--font-display);
 	}
 
 	@supports ((-webkit-background-clip: text) or (background-clip: text)) {
@@ -174,9 +173,10 @@ const heroVideoUrl = `${normalizedBase}videos/333466_1_5.mp4`;
 	.hero-substatement {
 		max-width: 680px;
 		margin: var(--spacing-07) auto 0;
-		font-size: clamp(1.05rem, 1.25vw, 1.2rem);
-		line-height: 1.5;
-		font-weight: 400;
+		font-size: var(--type-hero-summary-size);
+		line-height: var(--type-hero-summary-line);
+		letter-spacing: var(--type-hero-summary-tracking);
+		font-weight: var(--type-hero-summary-weight);
 		color: var(--color-hero-text);
 	}
 
@@ -186,10 +186,10 @@ const heroVideoUrl = `${normalizedBase}videos/333466_1_5.mp4`;
 		justify-content: center;
 		gap: 1.25rem;
 		flex-wrap: wrap;
-		font-family: var(--font-display);
-		font-size: 0.78rem;
-		font-weight: 600;
-		letter-spacing: 0.06em;
+		font-family: var(--font-mono);
+		font-size: var(--type-nav-size);
+		font-weight: var(--type-nav-weight);
+		letter-spacing: var(--type-nav-tracking);
 		text-transform: uppercase;
 	}
 
@@ -255,9 +255,9 @@ const heroVideoUrl = `${normalizedBase}videos/333466_1_5.mp4`;
 		display: block;
 		margin-bottom: var(--spacing-02);
 		font-family: var(--font-mono);
-		font-size: 0.68rem;
+		font-size: var(--type-meta-size);
 		font-weight: 600;
-		letter-spacing: 0.075em;
+		letter-spacing: var(--type-meta-tracking);
 		text-transform: uppercase;
 		color: var(--color-hero-proof-value);
 	}
@@ -265,8 +265,10 @@ const heroVideoUrl = `${normalizedBase}videos/333466_1_5.mp4`;
 	.home-proof__label {
 		display: block;
 		max-width: 230px;
-		font-size: 0.82rem;
-		line-height: 1.4;
+		font-family: var(--font-body);
+		font-size: var(--type-card-body-size);
+		line-height: var(--type-card-body-line);
+		letter-spacing: var(--type-card-body-tracking);
 		color: var(--color-hero-proof-label);
 	}
 
@@ -298,11 +300,11 @@ const heroVideoUrl = `${normalizedBase}videos/333466_1_5.mp4`;
 		}
 
 		.hero-name {
-			font-size: clamp(2.4rem, 15vw, 4rem);
+			font-size: var(--type-hero-name-size);
 		}
 
 		.hero-statement {
-			font-size: clamp(1.35rem, 7vw, 2rem);
+			font-size: var(--type-hero-role-size);
 		}
 
 		.hero-links {
