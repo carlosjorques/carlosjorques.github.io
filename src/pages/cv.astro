@@ -50,7 +50,6 @@ const profileJsonLd = {
 		<section class="cv-hero" aria-labelledby="cv-title">
 			<div class="page-container cv-hero__inner">
 				<div class="cv-hero__content">
-					<p class="eyebrow section-eyebrow">{cvProfile.hero.eyebrow}</p>
 					<h1 id="cv-title" class="cv-hero__name hero-title">{cvProfile.hero.title}</h1>
 					<p class="cv-hero__subtitle hero-role cv-hero__role">{cvProfile.hero.subtitle}</p>
 					<p class="cv-hero__summary hero-summary">{cvProfile.hero.summary}</p>
@@ -113,11 +112,10 @@ const profileJsonLd = {
 			</nav>
 
 			<div class="cv-main-flow">
-		<section class="cv-section cv-readable" id="summary" aria-labelledby="summary-title" data-cv-section>
+			<section class="cv-section cv-readable" id="summary" aria-labelledby="summary-title" data-cv-section>
 			<div class="page-container">
 				<div class="cv-section__intro">
-					<p class="eyebrow">Recruiter snapshot</p>
-					<h2 id="summary-title">Executive Summary</h2>
+					<h2 id="summary-title">Summary</h2>
 				</div>
 				<div class="cv-summary-block">
 					{cvProfile.executiveSummary.map((paragraph) => (
@@ -130,7 +128,6 @@ const profileJsonLd = {
 		<section class="cv-section" id="expertise" aria-labelledby="expertise-title" data-cv-section>
 			<div class="page-container">
 				<div class="cv-section__intro">
-					<p class="eyebrow">Capability map</p>
 					<h2 id="expertise-title">Core Expertise</h2>
 				</div>
 				<div class="cv-featured-expertise-grid">
@@ -168,7 +165,6 @@ const profileJsonLd = {
 		<section class="cv-section cv-section--compact" id="impact" aria-labelledby="impact-title" data-cv-section>
 			<div class="page-container">
 				<div class="cv-section__intro">
-					<p class="eyebrow">Selected impact</p>
 					<h2 id="impact-title">Engineering Outcomes</h2>
 				</div>
 				<ul class="cv-impact-list">
@@ -185,15 +181,13 @@ const profileJsonLd = {
 		<section class="cv-section" id="experience" aria-labelledby="experience-title" data-cv-section>
 			<div class="page-container">
 				<div class="cv-section__intro">
-					<p class="eyebrow">Experience</p>
-					<h2 id="experience-title">Experience Timeline</h2>
-					<p>Reverse-chronological roles with the strongest recruiter-facing evidence visible and secondary technical depth available on demand.</p>
+					<h2 id="experience-title">Experience</h2>
 				</div>
 
 				<div class="cv-timeline" aria-label="Professional experience timeline">
 					{cvProfile.experience.map((item, index) => (
 						<article class={index === 0 ? 'cv-role cv-role--current' : 'cv-role'}>
-							<div class="cv-role__marker" aria-hidden="true">
+							<div class="cv-role__marker current-role-marker" aria-hidden="true">
 								<span>{String(index + 1).padStart(2, '0')}</span>
 							</div>
 							<div class="cv-role__content">
@@ -277,14 +271,12 @@ const profileJsonLd = {
 		<section class="cv-section" id="case-studies" aria-labelledby="case-studies-title" data-cv-section>
 			<div class="page-container">
 				<div class="cv-section__intro">
-					<p class="eyebrow">Engineering evidence</p>
-					<h2 id="case-studies-title">Selected Engineering Case Studies</h2>
+					<h2 id="case-studies-title">Selected Case Studies</h2>
 					<p>Control concepts translated into embedded software for electrified, autonomous, and safety-relevant systems.</p>
 				</div>
 				<div class="cv-case-grid">
 					{cvProfile.caseStudies.map((item) => (
 						<article class="cv-card cv-case-card cv-card--interactive" data-analytics="cv_case_study_view">
-							<p class="eyebrow">{item.eyebrow}</p>
 							<h3>{item.title}</h3>
 							<p>{item.statement}</p>
 							<dl>
@@ -311,7 +303,6 @@ const profileJsonLd = {
 		<section class="cv-section" id="research" aria-labelledby="research-title" data-cv-section>
 			<div class="page-container">
 				<div class="cv-section__intro">
-					<p class="eyebrow">Technical depth</p>
 					<h2 id="research-title">Research, Patents & Publications</h2>
 					<p>{cvProfile.research.intro}</p>
 				</div>
@@ -371,7 +362,6 @@ const profileJsonLd = {
 		<section class="cv-section" id="education" aria-labelledby="education-title" data-cv-section>
 			<div class="page-container">
 				<div class="cv-section__intro">
-					<p class="eyebrow">Foundation</p>
 					<h2 id="education-title">Education</h2>
 				</div>
 				<div class="cv-card-grid cv-card-grid--three">
@@ -402,7 +392,6 @@ const profileJsonLd = {
 		<section class="cv-section" id="tools" aria-labelledby="tools-title" data-cv-section>
 			<div class="page-container">
 				<div class="cv-section__intro">
-					<p class="eyebrow">Execution stack</p>
 					<h2 id="tools-title">Tools, Methods, Standards, and Languages</h2>
 				</div>
 				<div class="cv-card-grid cv-card-grid--tools">
@@ -470,7 +459,6 @@ const profileJsonLd = {
 		<section class="cv-section cv-final" id="contact" aria-labelledby="contact-title" data-cv-section>
 			<div class="page-container cv-final__inner">
 				<div>
-					<p class="eyebrow">Contact</p>
 					<h2 id="contact-title">Let's Connect</h2>
 					<p>
 						For roles or technical conversations involving embedded controls, electric vehicles, battery and thermal
@@ -640,7 +628,7 @@ const profileJsonLd = {
                 display: block;
                 width: 100%;
                 height: 100%;
-                background: var(--color-accent);
+                background: var(--color-accent-text);
                 transform: scaleX(0);
                 transform-origin: left center;
         }
@@ -900,11 +888,11 @@ const profileJsonLd = {
 		transition: transform 140ms cubic-bezier(0.2, 0, 0, 1);
 	}
 
-	.cv-section-nav a:hover,
-	.cv-section-nav a:focus-visible,
-	.cv-section-nav a[aria-current='true'] {
-		color: var(--color-text);
-	}
+		.cv-section-nav a:hover,
+		.cv-section-nav a:focus-visible,
+		.cv-section-nav a[aria-current='true'] {
+				color: var(--color-accent-text);
+		}
 
 	.cv-section-nav a[aria-current='true']::after,
 	.cv-section-nav a:hover::after,
@@ -912,10 +900,10 @@ const profileJsonLd = {
 		transform: scaleX(1);
 	}
 
-	.cv-section-nav a[aria-current='true']::before {
-		background: currentColor;
-		transform: rotate(45deg) scale(1.12);
-	}
+		.cv-section-nav a[aria-current='true']::before {
+				background: currentColor;
+				transform: rotate(45deg) scale(1.12);
+		}
 
 	.cv-section-nav__actions {
 		display: grid;
@@ -1069,10 +1057,10 @@ const profileJsonLd = {
 		margin: 0;
 	}
 
-	.cv-card__meta,
-	.cv-role__period {
-		color: var(--color-muted);
-	}
+		.cv-card__meta,
+		.cv-role__period {
+				color: var(--color-accent-text);
+		}
 
 	.cv-chip-list {
 		display: flex;
@@ -1170,15 +1158,15 @@ const profileJsonLd = {
 		gap: 1rem;
 	}
 
-	.cv-timeline::before {
-		content: '';
-		position: absolute;
-		top: 0.2rem;
-		bottom: 0.2rem;
-		left: 1.1rem;
-		width: 1px;
-		background: linear-gradient(var(--color-accent), var(--color-border));
-	}
+		.cv-timeline::before {
+                content: '';
+                position: absolute;
+                top: 0.2rem;
+                bottom: 0.2rem;
+                left: 1.1rem;
+                width: 1px;
+                background: linear-gradient(var(--color-accent-text), var(--color-border));
+        }
 
 	.cv-role {
 		position: relative;
@@ -1204,11 +1192,11 @@ const profileJsonLd = {
 		line-height: 1;
 	}
 
-	.cv-role--current .cv-role__marker {
-		border-color: var(--color-border-strong);
-		background: var(--color-accent);
-		color: var(--color-button-primary-text);
-	}
+        .cv-role--current .cv-role__marker {
+                border-color: var(--color-border-strong);
+                background: var(--color-accent-text);
+                color: var(--color-page);
+        }
 
 	.cv-role__content {
 		display: grid;

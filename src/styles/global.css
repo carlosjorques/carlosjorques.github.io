@@ -133,9 +133,9 @@
         --color-page: var(--palette-light-paper-active);
         --color-page-gradient: var(--color-page);
 	--color-text: var(--text-ink);
-	--color-body-text: var(--text-ink);
-	--color-muted: var(--text-shadow-blue);
-	--color-soft: var(--palette-light-paper-base);
+	--color-body-text: #2f2f2f;
+	--color-muted: #666666;
+	--color-soft: #8f8f8f;
 	--color-subtle: var(--palette-light-paper-muted);
 
 	--color-bg: var(--color-page);
@@ -147,9 +147,13 @@
         --color-border-soft: color-mix(in srgb, var(--text-ink) 10%, transparent);
         --color-border-strong: color-mix(in srgb, var(--text-ink) 26%, transparent);
 
-	--color-accent: var(--palette-light-blue-active);
-	--color-accent-wash: color-mix(in srgb, var(--palette-light-blue-active) 14%, var(--color-page));
-	--color-focus: var(--palette-light-blue-active);
+	--color-action: #d8b45a;
+	--color-action-hover: #c9a34f;
+	--color-accent-text: #9a4f3a;
+	--color-accent-border: #b86a4f;
+	--color-accent-wash: #f1ddd3;
+	--color-accent: var(--color-action);
+	--color-focus: var(--color-accent-text);
 
 	--color-link: var(--text-ink);
 	--color-link-hover: var(--text-cocoa);
@@ -168,12 +172,12 @@
 	--color-hero-kicker: var(--color-muted);
 	--color-hero-link: var(--text-ink);
 	--color-hero-link-hover: var(--text-cocoa);
-	--color-hero-proof-value: var(--color-text);
+	--color-hero-proof-value: var(--color-accent-text);
 	--color-hero-proof-label: var(--color-muted);
 
-	--color-button-primary-bg: var(--palette-light-blue-active);
+	--color-button-primary-bg: var(--color-action);
 	--color-button-primary-text: var(--text-ink);
-	--color-button-primary-state-bg: color-mix(in srgb, var(--palette-light-blue-active) 84%, black);
+	--color-button-primary-state-bg: var(--color-action-hover);
 	--color-button-primary-state-text: var(--text-ink);
 	--color-button-secondary-text: var(--text-ink);
 	--color-button-secondary-state-text: var(--text-ink);
@@ -186,8 +190,8 @@
 
 	--color-tag-text: var(--text-ink);
 
-	--color-quote-bg: var(--color-accent);
-	--color-quote-text: var(--text-ink);
+	--color-quote-bg: var(--color-accent-wash);
+	--color-quote-text: var(--color-accent-text);
 
         --color-footer-bg: color-mix(in srgb, var(--palette-light-paper-muted) 80%, var(--palette-light-shell-base));
         --color-footer-text: var(--text-cocoa);
@@ -231,9 +235,9 @@
 	--color-page: var(--palette-dark-glass-muted);
 	--color-page-gradient: var(--color-page);
 	--color-text: var(--text-paper);
-	--color-body-text: var(--text-paper);
-	--color-muted: #b8b8b8;
-	--color-soft: #9a9a9a;
+	--color-body-text: #d0d0d0;
+	--color-muted: #bababa;
+	--color-soft: #b7b7b7;
 	--color-subtle: #8a8a8a;
 
 	--color-bg: var(--color-page);
@@ -245,9 +249,13 @@
 	--color-border-soft: color-mix(in srgb, var(--palette-dark-blue-active) 10%, transparent);
 	--color-border-strong: color-mix(in srgb, var(--palette-dark-blue-active) 22%, transparent);
 
-	--color-accent: var(--palette-dark-blue-base);
-	--color-accent-wash: color-mix(in srgb, var(--palette-dark-blue-base) 14%, transparent);
-	--color-focus: var(--palette-dark-blue-active);
+	--color-action: #d8b45a;
+	--color-action-hover: #e0c06c;
+	--color-accent-text: #d89a7f;
+	--color-accent-border: #c77f64;
+	--color-accent-wash: #33231d;
+	--color-accent: var(--color-action);
+	--color-focus: var(--color-accent-text);
 
 	--color-link: var(--text-paper);
 	--color-link-hover: var(--text-paper);
@@ -266,12 +274,12 @@
 	--color-hero-kicker: var(--color-muted);
 	--color-hero-link: var(--text-paper);
 	--color-hero-link-hover: var(--text-paper);
-	--color-hero-proof-value: var(--text-paper);
+	--color-hero-proof-value: var(--color-accent-text);
 	--color-hero-proof-label: var(--color-muted);
 
-	--color-button-primary-bg: var(--palette-dark-blue-base);
+	--color-button-primary-bg: var(--color-action);
 	--color-button-primary-text: var(--text-ink);
-	--color-button-primary-state-bg: color-mix(in srgb, var(--palette-dark-blue-base) 82%, white);
+	--color-button-primary-state-bg: var(--color-action-hover);
 	--color-button-primary-state-text: var(--text-ink);
 	--color-button-secondary-text: var(--text-paper);
 	--color-button-secondary-state-text: var(--text-paper);
@@ -284,8 +292,8 @@
 
 	--color-tag-text: var(--text-paper);
 
-	--color-quote-bg: var(--color-accent);
-	--color-quote-text: var(--text-ink);
+	--color-quote-bg: var(--color-accent-wash);
+	--color-quote-text: var(--color-accent-text);
 
 	--color-footer-bg: color-mix(in srgb, var(--palette-dark-glass-base) 92%, var(--palette-dark-navy-active));
 	--color-footer-text: var(--palette-dark-blue-active);
@@ -347,6 +355,7 @@ a {
 
 p {
 	margin: 0;
+	color: var(--color-body-text);
 }
 
 h1,
@@ -412,7 +421,7 @@ h1.hero-title {
 }
 
 .section-eyebrow,
-.eyebrow,
+.eyebrow.section-eyebrow,
 .card-eyebrow,
 .case-study-eyebrow {
 	font-family: var(--font-mono);
@@ -421,7 +430,7 @@ h1.hero-title {
 	letter-spacing: var(--type-eyebrow-tracking);
 	font-weight: var(--type-eyebrow-weight);
 	text-transform: uppercase;
-	color: var(--color-muted);
+	color: var(--color-accent-text);
 	margin: 0 0 0.8rem;
 }
 
@@ -486,7 +495,7 @@ p,
 	line-height: var(--type-proof-number-line);
 	letter-spacing: var(--type-proof-number-tracking);
 	font-weight: var(--type-proof-number-weight);
-	color: var(--color-text);
+	color: var(--color-accent-text);
 }
 
 .proof-label,
@@ -566,7 +575,7 @@ p,
 	letter-spacing: var(--type-meta-tracking);
 	font-weight: 600;
 	text-transform: uppercase;
-	color: var(--color-muted);
+	color: var(--color-accent-text);
 }
 
 .experience-company,
@@ -638,7 +647,12 @@ p,
 
 .nav-link[aria-current="true"],
 .nav-link.is-active {
-	color: var(--color-text);
+	color: var(--color-accent-text);
+}
+
+.active-nav-link,
+.inline-accent {
+	color: var(--color-accent-text);
 }
 
 em {
@@ -850,7 +864,7 @@ li::marker {
 
 .prose {
 	max-width: var(--content-narrow);
-	color: var(--color-text);
+	color: var(--color-body-text);
 	font-size: 1rem;
 	line-height: 1.7;
 }
