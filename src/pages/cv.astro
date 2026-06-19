@@ -96,10 +96,6 @@ const profileJsonLd = {
 	<script type="application/ld+json" set:html={JSON.stringify(profileJsonLd)} />
 
 	<div class="cv-page">
-		<div class="cv-scroll-progress" aria-hidden="true">
-			<span class="cv-scroll-progress__bar" data-cv-scroll-progress></span>
-		</div>
-
 		<a class="cv-scroll-jump" href="#top" aria-label="Scroll to the top of the page" data-cv-scroll-jump>
 			<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
 				<path d="M12 17V7.5" />
@@ -154,23 +150,21 @@ const profileJsonLd = {
 			</div>
 		</section>
 
-		<div class="page-container cv-shell">
-			<nav class="cv-section-nav" aria-label="CV sections">
-				<div class="cv-section-nav__inner">
-					<span>CV sections</span>
-					<ul>
-						{cvProfile.sectionNav.map((item) => (
-							<li>
-								<a href={item.href} data-cv-section-link data-analytics="cv_section_nav_click">{item.label}</a>
-							</li>
-						))}
-					</ul>
-					<div class="cv-section-nav__actions" aria-label="CV quick actions">
-						<a href={withBase(cvProfile.links.pdf)} download data-analytics="cv_pdf_download">Download PDF</a>
-						<a href={withBase(cvProfile.links.contact)} data-analytics="cv_contact_click">Contact</a>
-					</div>
-				</div>
-			</nav>
+                <div class="cv-shell">
+                        <div class="cv-section-nav-shell">
+                                <nav class="page-container cv-section-nav" aria-label="CV page sections">
+                                        <div class="cv-section-nav__inner">
+                                                <span class="cv-section-nav__label">Jump to:</span>
+                                                <ul class="cv-section-nav__links">
+                                                        {cvProfile.sectionNav.map((item) => (
+                                                                <li>
+                                                                        <a class="cv-section-nav__link" href={item.href} data-cv-section-link data-analytics="cv_section_nav_click">{item.label}</a>
+                                                                </li>
+                                                        ))}
+                                                </ul>
+                                        </div>
+                                </nav>
+                        </div>
 
 			<div class="cv-main-flow">
 				<section class="cv-section" id="expertise" aria-labelledby="core-expertise-heading" data-cv-section>
@@ -634,8 +628,8 @@ const profileJsonLd = {
 
 <script is:inline>
 	(() => {
-		const progressBar = document.querySelector('[data-cv-scroll-progress]');
 		const scrollJump = document.querySelector('[data-cv-scroll-jump]');
+		const sectionNavShell = document.querySelector('.cv-section-nav-shell');
 		const navLinks = Array.from(document.querySelectorAll('[data-cv-section-link]'));
 		const sections = navLinks
 			.map((link) => {
@@ -643,27 +637,6 @@ const profileJsonLd = {
 				return href ? document.querySelector(href) : null;
 			})
 			.filter(Boolean);
-
-		if (progressBar) {
-			let progressFrame = 0;
-
-			const updateProgress = () => {
-				progressFrame = 0;
-				const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-				const progress = maxScroll > 0 ? window.scrollY / maxScroll : 0;
-				progressBar.style.transform = `scaleX(${Math.min(1, Math.max(0, progress))})`;
-			};
-
-			const requestProgressUpdate = () => {
-				if (progressFrame === 0) {
-					progressFrame = window.requestAnimationFrame(updateProgress);
-				}
-			};
-
-			updateProgress();
-			window.addEventListener('scroll', requestProgressUpdate, { passive: true });
-			window.addEventListener('resize', requestProgressUpdate);
-		}
 
 		if (scrollJump) {
 			scrollJump.addEventListener('click', (event) => {
@@ -675,7 +648,7 @@ const profileJsonLd = {
 			});
 		}
 
-		if ('IntersectionObserver' in window && navLinks.length > 0 && sections.length > 0) {
+		if (navLinks.length > 0 && sections.length > 0) {
 			const setActiveSection = (id) => {
 				navLinks.forEach((link) => {
 					const isActive = link.getAttribute('href') === `#${id}`;
@@ -687,23 +660,40 @@ const profileJsonLd = {
 				});
 			};
 
-			const observer = new IntersectionObserver(
-				(entries) => {
-					const activeEntry = entries
-						.filter((entry) => entry.isIntersecting)
-						.sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+			let activeFrame = 0;
 
-					if (activeEntry?.target?.id) {
-						setActiveSection(activeEntry.target.id);
+			const getStickyOffset = () => {
+				const shellHeight = sectionNavShell instanceof HTMLElement ? sectionNavShell.getBoundingClientRect().height : 0;
+				const rootStyles = window.getComputedStyle(document.documentElement);
+				const baseFontSize = Number.parseFloat(rootStyles.fontSize) || 16;
+				return shellHeight + baseFontSize;
+			};
+
+			const updateActiveSection = () => {
+				activeFrame = 0;
+				const activationLine = window.scrollY + getStickyOffset();
+				let activeSection = sections[0];
+
+				sections.forEach((section) => {
+					if (section instanceof HTMLElement && section.offsetTop <= activationLine) {
+						activeSection = section;
 					}
-				},
-				{
-					rootMargin: '-24% 0px -58% 0px',
-					threshold: [0.1, 0.25, 0.5],
-				}
-			);
+				});
 
-			sections.forEach((section) => observer.observe(section));
+				if (activeSection?.id) {
+					setActiveSection(activeSection.id);
+				}
+			};
+
+			const requestActiveSectionUpdate = () => {
+				if (activeFrame === 0) {
+					activeFrame = window.requestAnimationFrame(updateActiveSection);
+				}
+			};
+
+			updateActiveSection();
+			window.addEventListener('scroll', requestActiveSectionUpdate, { passive: true });
+			window.addEventListener('resize', requestActiveSectionUpdate);
 		}
 
 		const emitAnalyticsEvent = (element) => {
@@ -879,49 +869,22 @@ const profileJsonLd = {
 </script>
 
 <style>
-	.cv-page {
-		--cv-max-measure: 66ch;
-	}
+        .cv-page {
+                --cv-max-measure: 66ch;
+                --cv-nav-height: 1.85rem;
+                --cv-nav-sticky-top: 0px;
+                --cv-nav-shell-y-padding: 0.42rem;
+                --cv-nav-clearance: 1.35rem;
+                --cv-nav-shell-height: calc(var(--cv-nav-height) + (2 * var(--cv-nav-shell-y-padding)));
+        }
 
-	:global(.cv-page .page-container) {
-		width: min(calc(100% - 2rem), 78rem);
-	}
-
-	.cv-shell {
-		display: grid;
-		grid-template-columns: minmax(11rem, 14rem) minmax(0, 1fr);
-		gap: clamp(2rem, 5vw, 4rem);
-		align-items: start;
-	}
+        .cv-shell {
+                display: block;
+        }
 
 	.cv-main-flow {
 		min-width: 0;
 	}
-
-	:global(.cv-main-flow .page-container) {
-		width: 100%;
-		max-width: none;
-	}
-
-	.cv-scroll-progress {
-		position: fixed;
-		z-index: 30;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 2px;
-		background: transparent;
-		pointer-events: none;
-	}
-
-        .cv-scroll-progress__bar {
-                display: block;
-                width: 100%;
-                height: 100%;
-                background: var(--color-accent-text);
-                transform: scaleX(0);
-                transform-origin: left center;
-        }
 
         .cv-scroll-jump {
                 position: fixed;
@@ -1087,123 +1050,156 @@ const profileJsonLd = {
 		line-height: 1.35;
 	}
 
-	.cv-section-nav {
-		position: sticky;
-		top: calc(var(--site-header-height, 4rem) + 2rem);
-		z-index: 20;
-		max-height: calc(100vh - var(--site-header-height, 4rem) - 4rem);
-		overflow: auto;
-		border-left: 1px solid var(--color-border);
-		padding-left: 1rem;
-	}
+        .cv-section-nav-shell {
+                position: sticky;
+                top: var(--cv-nav-sticky-top);
+                z-index: 80;
+                margin: 0 0 var(--cv-nav-clearance);
+                background: color-mix(in srgb, var(--color-surface-soft) 26%, var(--color-page));
+                padding-block: var(--cv-nav-shell-y-padding);
+                isolation: isolate;
+        }
 
-	.cv-section-nav__inner {
-		display: grid;
-		gap: 1rem;
-		align-items: start;
-		padding-block: 0.25rem;
-	}
+        .cv-section-nav-shell::before {
+                content: '';
+                position: absolute;
+                inset: 0 calc(50% - 50vw);
+                z-index: -1;
+                border-bottom: 1px solid color-mix(in srgb, var(--color-card-border) 38%, transparent);
+                background: color-mix(in srgb, var(--color-surface-soft) 26%, var(--color-page));
+                box-shadow: none;
+                pointer-events: none;
+        }
 
-	.cv-section-nav span,
-	.cv-section-nav a,
-	.cv-card__meta,
-	.cv-role__period,
-	.cv-role__location,
-	.cv-disclosure > summary {
-		font-family: var(--font-mono);
+        .cv-section-nav-shell::after {
+                content: '';
+                position: absolute;
+                top: 100%;
+                right: calc(50% - 50vw);
+                left: calc(50% - 50vw);
+                height: var(--cv-nav-clearance);
+                background: linear-gradient(
+                        180deg,
+                        var(--color-page) 0%,
+                        var(--color-page) 48%,
+                        color-mix(in srgb, var(--color-page) 72%, transparent) 72%,
+                        transparent 100%
+                );
+                pointer-events: none;
+        }
+
+        .cv-section-nav {
+                margin: 0 auto;
+        }
+
+        .cv-section-nav__inner {
+                display: flex;
+                min-height: var(--cv-nav-height);
+                align-items: center;
+                gap: 0.75rem;
+                border: 0;
+                border-radius: 0;
+                background: transparent;
+                padding: 0;
+                box-shadow: none;
+        }
+
+        .cv-card__meta,
+        .cv-role__period,
+        .cv-role__location,
+        .cv-disclosure > summary {
+                font-family: var(--font-mono);
 		font-size: var(--type-meta-size);
 		font-weight: var(--type-meta-weight);
 		letter-spacing: var(--type-meta-tracking);
-		line-height: var(--type-meta-line);
-		text-transform: uppercase;
-	}
+                line-height: var(--type-meta-line);
+                text-transform: uppercase;
+        }
 
-	.cv-section-nav span {
-		color: var(--color-soft);
-	}
+        .cv-section-nav__label {
+                flex: 0 0 auto;
+                color: var(--color-soft);
+                font-family: var(--font-body);
+                font-size: 0.72rem;
+                font-weight: 500;
+                letter-spacing: 0;
+                line-height: 1.2;
+                text-transform: none;
+                white-space: nowrap;
+        }
 
-	.cv-section-nav ul {
-		display: grid;
-		gap: 0.45rem;
-		margin: 0;
-		padding: 0;
-		list-style: none;
-	}
+        .cv-section-nav__links {
+                display: flex;
+                flex: 1 1 auto;
+                align-items: center;
+                gap: clamp(0.65rem, 1.4vw, 1.1rem);
+                min-width: 0;
+                margin: 0;
+                padding: 0;
+                overflow-x: auto;
+                overscroll-behavior-x: contain;
+                list-style: none;
+                scrollbar-width: none;
+        }
 
-	.cv-section-nav li {
-		margin: 0;
-	}
+        .cv-section-nav__links::-webkit-scrollbar {
+                display: none;
+        }
 
-	.cv-section-nav a {
-		position: relative;
-		display: inline-flex;
-		align-items: center;
-		gap: 0.55rem;
-		color: var(--color-text);
-		text-decoration: none;
-		transition:
-			color 140ms cubic-bezier(0.2, 0, 0, 1),
-			transform 140ms cubic-bezier(0.2, 0, 0, 1);
-	}
+        .cv-section-nav__links li {
+                flex: 0 0 auto;
+                margin: 0;
+        }
 
-	.cv-section-nav a::before {
-		content: '';
-		width: 0.38rem;
-		height: 0.38rem;
-		border: 1px solid currentColor;
-		background: transparent;
-		transform: rotate(45deg);
-		transition:
-			background-color 140ms cubic-bezier(0.2, 0, 0, 1),
-			transform 140ms cubic-bezier(0.2, 0, 0, 1);
-	}
+        .cv-section-nav__link {
+                position: relative;
+                display: inline-flex;
+                align-items: center;
+                min-height: var(--cv-nav-height);
+                border-radius: 0;
+                padding: 0.25rem 0;
+                color: var(--color-muted);
+                font-family: var(--font-mono);
+                font-size: var(--type-meta-size);
+                font-weight: var(--type-meta-weight);
+                letter-spacing: 0.055em;
+                line-height: var(--type-meta-line);
+                text-decoration: none;
+                text-transform: uppercase;
+                transition:
+                        background-color var(--motion-duration-fast-02) var(--motion-standard-productive),
+                        color 140ms cubic-bezier(0.2, 0, 0, 1),
+                        transform 140ms cubic-bezier(0.2, 0, 0, 1);
+        }
 
-	.cv-section-nav a::after {
-		content: '';
-		position: absolute;
-		right: auto;
-		bottom: -0.22rem;
-		left: 0.92rem;
-		width: calc(100% - 0.92rem);
-		height: 1px;
-		background: currentColor;
-		transform: scaleX(0);
-		transform-origin: left center;
-		transition: transform 140ms cubic-bezier(0.2, 0, 0, 1);
-	}
+        .cv-section-nav__link:hover,
+        .cv-section-nav__link:focus-visible {
+                color: var(--color-text);
+        }
 
-		.cv-section-nav a:hover,
-		.cv-section-nav a:focus-visible,
-		.cv-section-nav a[aria-current='true'] {
-				color: var(--color-accent-text);
-		}
+        .cv-section-nav__link:focus-visible {
+                outline: 2px solid var(--color-accent-text);
+                outline-offset: 2px;
+        }
 
-	.cv-section-nav a[aria-current='true']::after,
-	.cv-section-nav a:hover::after,
-	.cv-section-nav a:focus-visible::after {
-		transform: scaleX(1);
-	}
+        .cv-section-nav__link[aria-current='true'] {
+                color: var(--color-text);
+                font-weight: 700;
+        }
 
-		.cv-section-nav a[aria-current='true']::before {
-				background: currentColor;
-				transform: rotate(45deg) scale(1.12);
-		}
-
-	.cv-section-nav__actions {
-		display: grid;
-		gap: 0.45rem;
-		border-top: 1px solid var(--color-border-soft);
-		padding-top: 1rem;
-	}
-
-	.cv-section-nav__actions a {
-		color: var(--color-soft);
-		font-size: var(--type-nav-size);
-	}
+        .cv-section-nav__link[aria-current='true']::after {
+                content: '';
+                position: absolute;
+                right: 0;
+                bottom: -0.22rem;
+                left: 0;
+                height: 1px;
+                background: color-mix(in srgb, var(--color-accent-text) 70%, transparent);
+        }
 
         .cv-section {
                 padding-block: clamp(3rem, 6vw, 5rem);
-                scroll-margin-top: 5.5rem;
+                scroll-margin-top: calc(var(--cv-nav-sticky-top) + var(--cv-nav-shell-height) + var(--cv-nav-clearance));
                 background-color: var(--color-page);
                 background-image: linear-gradient(
                         180deg,
@@ -1217,10 +1213,6 @@ const profileJsonLd = {
 
 	.cv-section--compact {
 		padding-block: clamp(2.25rem, 5vw, 4rem);
-	}
-
-	.cv-readable .page-container {
-		max-width: 900px;
 	}
 
 	.cv-section__intro {
@@ -2023,11 +2015,12 @@ const profileJsonLd = {
                 display: grid;
                 grid-template-columns: repeat(auto-fit, minmax(min(17rem, 100%), 1fr));
                 gap: clamp(1rem, 2vw, 1.25rem);
-                align-items: start;
+                align-items: stretch;
         }
 
         .cv-role__content--compact {
                 gap: 0.75rem;
+                height: 100%;
                 padding: clamp(1rem, 1.7vw, 1.35rem);
         }
 
@@ -2325,70 +2318,43 @@ const profileJsonLd = {
 		}
 	}
 
-        @media (max-width: 900px) {
-                .cv-shell {
-                        display: block;
-                }
-
-		.cv-section-nav {
-			position: sticky;
-			top: 0;
-			z-index: 20;
-			max-height: none;
-			margin-inline: -1rem;
-			overflow-x: auto;
-			overflow-y: hidden;
-			border-left: 0;
-			border-block: 1px solid var(--color-border-soft);
-			background: color-mix(in srgb, var(--color-section-bg) 94%, transparent);
-			padding: 0 1rem;
-			backdrop-filter: blur(10px);
-		}
-
-		.cv-section-nav__inner {
-			display: flex;
-			align-items: center;
-			gap: 0.9rem 1rem;
-			min-width: max-content;
-			padding-block: 0.8rem;
-			white-space: nowrap;
-		}
-
-		.cv-section-nav ul {
-			display: flex;
-			align-items: center;
-			gap: 0.9rem;
-		}
-
-		.cv-section-nav a::before {
-			display: none;
-		}
-
-		.cv-section-nav a::after {
-			left: 0;
-			width: 100%;
-		}
-
-		.cv-section-nav__actions {
-			display: none;
-		}
-
-                .cv-section {
-                        scroll-margin-top: 5rem;
-                }
-        }
-
         @media (max-width: 760px) {
+                .cv-page {
+                        --cv-nav-height: 1.85rem;
+                        --cv-nav-shell-y-padding: 0.4rem;
+                        --cv-nav-clearance: 1.2rem;
+                }
+
+                .cv-section-nav-shell {
+                        margin-bottom: var(--cv-nav-clearance);
+                        padding-block: var(--cv-nav-shell-y-padding);
+                        top: var(--cv-nav-sticky-top);
+                }
+
+                .cv-section-nav__inner {
+                        min-height: var(--cv-nav-height);
+                        white-space: nowrap;
+                }
+
+                .cv-section-nav__label {
+                        position: sticky;
+                        left: 0;
+                        z-index: 1;
+                        padding-left: 0;
+                        padding-right: 0.4rem;
+                        background: color-mix(in srgb, var(--color-surface-soft) 26%, var(--color-page));
+                }
+
+                .cv-section-nav__links {
+                        gap: 0.85rem;
+                }
+
                 .cv-role__details-grid {
                         grid-template-columns: 1fr;
                 }
         }
 
         @media (max-width: 640px) {
-                :global(.cv-page .page-container) {
-                        width: calc(100% - 2rem);
-                }
-
 		.cv-hero__content,
 		.cv-hero__evidence,
 		.cv-actions {
@@ -2424,13 +2390,9 @@ const profileJsonLd = {
                         grid-template-columns: 1fr;
                 }
 
-		.cv-section {
-			scroll-margin-top: 5rem;
-		}
-
-		.cv-role {
-			grid-template-columns: 1fr;
-			gap: 0.65rem;
+                .cv-role {
+                        grid-template-columns: 1fr;
+                        gap: 0.65rem;
 		}
 
 		.cv-role::before {
@@ -2473,8 +2435,8 @@ const profileJsonLd = {
 		:global(.site-header),
                 :global(.site-footer),
                 :global(.skip-link),
-                .cv-scroll-progress,
                 .cv-scroll-jump,
+                .cv-section-nav-shell,
                 .cv-section-nav,
                 .cv-actions,
                 .cv-final__actions {
