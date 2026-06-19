@@ -85,11 +85,13 @@ export const cvProfile = {
 	hero: {
 		eyebrow: 'Online CV',
 		title: 'Carlos Jorques',
-		subtitle: 'Senior Electronics Engineer | Embedded Controls Architect | Electric & Autonomous Vehicle Systems',
+		subtitle: 'Senior Software Developer | Embedded Controls Architect | Electric & Autonomous Vehicle Systems',
 		summary:
-			'Senior electronics and embedded controls engineer with 10+ years of experience developing real-time control software for automotive and heavy-duty vehicle systems. Focused on EV thermal management, BMS, autonomous propulsion control, diagnostics, functional safety, validation, and production embedded software.',
+			'I am a senior embedded controls engineer with 10+ years of experience developing real-time control software for automotive and heavy-duty vehicle systems. I focus on EV thermal management, battery systems, autonomous propulsion control, diagnostics, functional safety, validation, and production embedded software.',
 		secondarySummary:
-			'I translate automatic control concepts into robust, testable, safety-aware embedded software for complex physical systems across electric vehicles, autonomous machines, power electronics, and industrial control applications.',
+			'I translate automatic control concepts into robust, testable, safety-aware embedded software for complex physical systems where reliability, timing, diagnostics, and system integration matter. My work spans requirements, concept design, control architecture, model-based implementation, generated C/C++ code, integration, calibration, MIL/SIL/HIL validation, and production-oriented delivery.',
+		tertiarySummary:
+			'Recent work includes electric truck thermal management, battery and charger coordination, autonomous electric hauler propulsion control, e-bike motor control, wireless charging, DC/DC converter interfaces, and heavy-duty engine diagnostics. I also lead and mentor embedded software engineers across cross-functional automotive development environments.',
 	},
 	actions: [
 		{ label: 'Download PDF CV', href: '/cv/Carlos_Jorques_CV.pdf', primary: true, download: true, analytics: 'cv_pdf_download' },
@@ -98,7 +100,6 @@ export const cvProfile = {
 		{ label: 'Selected Work', href: '/work', analytics: 'cv_selected_work_click' },
 	] satisfies CvAction[],
 	sectionNav: [
-		{ label: 'Summary', href: '#summary' },
 		{ label: 'Expertise', href: '#expertise' },
 		{ label: 'Impact', href: '#impact' },
 		{ label: 'Experience', href: '#experience' },
@@ -137,6 +138,7 @@ export const cvProfile = {
 			title: 'Embedded Controls Architecture',
 			items: [
 				'Real-time control architecture for vehicle and powertrain systems',
+				'Estimators, regulators, diagnostic logic, and validation strategies for real-world systems with physical constraints',
 				'Control logic for thermal management, propulsion, torque allocation, battery systems, and diagnostics',
 				'System requirements, functional design, software architecture, and implementation strategy',
 				'Model-based development with MATLAB/Simulink and production-oriented generated code',
@@ -183,8 +185,8 @@ export const cvProfile = {
 		{
 			title: 'Technical Leadership',
 			items: [
-				'Technical leadership of embedded software engineers',
-				'Planning, mentoring, delivery coordination, and cross-functional alignment',
+				'Technical leadership of embedded software engineers, including mentoring junior developers',
+				'Planning, mentoring, delivery coordination, and cross-functional alignment across automotive organizations',
 				'Agile, Scrum, Kanban, SAFe, and CI/CD delivery environments',
 				'Interface between system engineering, software development, validation, suppliers, and project stakeholders',
 			],

@@ -81,6 +81,7 @@ export const cvProfile = {
 		subtitle: heroMeta.subtitle,
 		summary: heroMeta.summary,
 		secondarySummary: heroMeta.secondarysummary,
+		tertiarySummary: heroMeta.tertiarysummary,
 	},
 	actions: sections.actions.children.map((action, index) => ({
 		label: action.title,
@@ -95,7 +96,7 @@ export const cvProfile = {
 		label: firstPlainParagraph(tile),
 	})) satisfies ProofTile[],
 	relevantFor: listItems(sections.relevantFor),
-	executiveSummary: plainParagraphs(sections.executiveSummary),
+	executiveSummary: sections.executiveSummary ? plainParagraphs(sections.executiveSummary) : [],
 	expertise: sections.expertise.children.map((group) => ({
 		title: group.title,
 		items: childList(group, 'Items'),

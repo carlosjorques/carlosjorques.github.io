@@ -4,11 +4,11 @@
 
 ### Carlos Jorques
 
-Subtitle: Senior SW Developer | Embedded Controls Architect | Electric & Autonomous Vehicle Systems
+Subtitle: Senior Software Developer | Embedded Controls Architect | Electric & Autonomous Vehicle Systems
 
-Summary: I am a Senior embedded controls engineer with 10+ years of experience developing real-time control software for automotive and heavy-duty vehicle systems. I focuse on EV thermal management, BMS, autonomous propulsion control, diagnostics, functional safety, validation, and production embedded software.
+Summary: I am a senior embedded controls engineer with 10+ years of experience developing real-time control software for automotive and heavy-duty vehicle systems. My work focuses on EV thermal management, battery systems, autonomous propulsion control, diagnostics, functional safety, validation, and production embedded software.
 
-Secondary summary: I translate automatic control concepts into robust, testable, safety-aware embedded software for complex physical systems across electric vehicles, autonomous machines, power electronics, and industrial control applications.
+Secondary summary: I translate automatic control concepts into robust, testable, safety-aware embedded software for complex physical systems where reliability, timing, diagnostics, and system integration matter. My experience spans requirements, control architecture, model-based implementation, generated C/C++ code, integration, calibration, MIL/SIL/HIL validation, and production-oriented delivery, including technical leadership and mentoring across cross-functional automotive teams.
 
 ## Actions
 
@@ -22,7 +22,6 @@ Secondary summary: I translate automatic control concepts into robust, testable,
 
 ## Section Navigation
 
-- Summary
 - Expertise
 - Impact
 - Experience
@@ -70,14 +69,6 @@ Valencia, Spain / open to selected opportunities
 - Powertrain Software Engineer
 - Model-Based Development Lead
 
-## Executive Summary
-
-I specialize in developing embedded control software for complex physical systems where reliability, timing, diagnostics, and system integration matter. My experience covers the full engineering lifecycle: requirements, concept design, control architecture, model-based implementation, generated C/C++ code, integration, calibration, validation, and production-oriented delivery.
-
-In recent roles, I have worked on electric truck thermal management, battery and charger coordination, autonomous electric hauler propulsion control, e-bike motor control, wireless charging, DC/DC converter interfaces, and heavy-duty engine diagnostics. I have also led small engineering teams, coordinated technical delivery, mentored junior developers, and worked across cross-functional automotive organizations.
-
-My strongest technical identity is automatic control applied to embedded systems: designing estimators, regulators, diagnostic logic, safety-aware fallback behavior, and validation strategies for real-world systems with physical constraints.
-
 ## Core Expertise
 
 ### Embedded Controls Architecture
@@ -85,6 +76,7 @@ My strongest technical identity is automatic control applied to embedded systems
 #### Items
 
 - Real-time control architecture for vehicle and powertrain systems
+- Estimators, regulators, diagnostic logic, and validation strategies for real-world systems with physical constraints
 - Control logic for thermal management, propulsion, torque allocation, battery systems, and diagnostics
 - System requirements, functional design, software architecture, and implementation strategy
 - Model-based development with MATLAB/Simulink and production-oriented generated code
@@ -152,8 +144,8 @@ My strongest technical identity is automatic control applied to embedded systems
 
 #### Items
 
-- Technical leadership of embedded software engineers
-- Planning, mentoring, delivery coordination, and cross-functional alignment
+- Technical leadership of embedded software engineers, including mentoring junior developers
+- Planning, mentoring, delivery coordination, and cross-functional alignment across automotive organizations
 - Agile, Scrum, Kanban, SAFe, and CI/CD delivery environments
 - Interface between system engineering, software development, validation, suppliers, and project stakeholders
 

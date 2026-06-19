@@ -11,6 +11,7 @@ type MarkdownNode = {
 };
 
 const frontmatterPattern = /^---[\s\S]*?---\s*/;
+const keyValueLinePattern = /^([A-Za-z][A-Za-z ]+):\s*(.+)$/;
 
 const stripFrontmatter = (raw: string) => raw.replace(frontmatterPattern, '').trim();
 
@@ -72,7 +73,7 @@ const getParagraphStrings = (lines: string[]) => {
 			continue;
 		}
 
-		if (trimmed.startsWith('- ') || trimmed.startsWith('>')) {
+		if (/^[-*+]\s+/.test(trimmed) || trimmed.startsWith('>') || keyValueLinePattern.test(trimmed)) {
 			continue;
 		}
 
@@ -119,8 +120,9 @@ const firstPlainParagraph = (node: MarkdownNode) => plainParagraphs(node)[0] ?? 
 const listItems = (node: MarkdownNode) =>
 	node.lines
 		.map((line) => line.trim())
-		.filter((line) => line.startsWith('- '))
-		.map((line) => stripInlineMarkdown(line.slice(2).trim()));
+		.map((line) => /^[-*+]\s+(.+)$/.exec(line)?.[1])
+		.filter((item): item is string => Boolean(item))
+		.map((item) => stripInlineMarkdown(item.trim()));
 
 const quote = (node: MarkdownNode) =>
 	node.lines
@@ -134,7 +136,7 @@ const keyValue = (node: MarkdownNode) => {
 	const result: Record<string, string> = {};
 
 	for (const line of node.lines) {
-		const match = /^([A-Za-z][A-Za-z ]+):\s*(.+)$/.exec(line.trim());
+		const match = keyValueLinePattern.exec(line.trim());
 
 		if (match) {
 			result[match[1].toLowerCase().replace(/\s+/g, '')] = stripInlineMarkdown(match[2].trim());
@@ -254,7 +256,7 @@ export const parseCvContent = (raw: string) => {
 		sectionNav: findChild(page, 'Section Navigation'),
 		proofTiles: findChild(page, 'Proof Tiles'),
 		relevantFor: findChild(page, 'Relevant For'),
-		executiveSummary: findChild(page, 'Executive Summary'),
+		executiveSummary: findOptionalChild(page, 'Executive Summary'),
 		expertise: findChild(page, 'Core Expertise'),
 		impactHighlights: findChild(page, 'Engineering Outcomes'),
 		experience: findChild(page, 'Experience'),
