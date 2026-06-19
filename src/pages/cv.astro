@@ -1,6 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { cvProfile } from '../data/cv';
+import { cvProfile } from '../data/cvMarkdown';
 
 const baseUrl = import.meta.env.BASE_URL;
 const withBase = (href: string) => {
@@ -13,6 +13,11 @@ const withBase = (href: string) => {
 
 const getRoleDetailCount = (item: (typeof cvProfile.experience)[number]) =>
 	(item.detailGroups ?? []).reduce((count, group) => count + group.items.length, 0);
+
+const toolGroupsWithExtensions = cvProfile.tools.map((group, index) => ({
+	group,
+	extended: cvProfile.extendedTools[index] ?? null,
+}));
 
 const profileJsonLd = {
 	'@context': 'https://schema.org',
@@ -364,7 +369,7 @@ const profileJsonLd = {
 				<div class="cv-section__intro">
 					<h2 id="education-title">Education</h2>
 				</div>
-				<div class="cv-card-grid cv-card-grid--three">
+				<div class="cv-card-grid cv-card-grid--education">
 					{cvProfile.education.map((item) => (
 						<article class="cv-card cv-education-card cv-card--interactive">
 							<p class="cv-card__meta">{item.year}</p>
@@ -389,20 +394,30 @@ const profileJsonLd = {
 			</div>
 		</section>
 
-		<section class="cv-section" id="tools" aria-labelledby="tools-title" data-cv-section>
-			<div class="page-container">
-				<div class="cv-section__intro">
-					<h2 id="tools-title">Tools, Methods, Standards, and Languages</h2>
-				</div>
-				<div class="cv-card-grid cv-card-grid--tools">
-					{cvProfile.tools.map((group) => (
-						<article class="cv-card cv-card--compact">
+				<section class="cv-section" id="tools" aria-labelledby="tools-title" data-cv-section>
+					<div class="page-container">
+						<div class="cv-section__intro">
+							<h2 id="tools-title">Tools, Methods, Standards, and Languages</h2>
+						</div>
+						<div class="cv-card-grid cv-card-grid--tools">
+					{toolGroupsWithExtensions.map(({ group, extended }) => (
+						<article class="cv-card cv-card--compact cv-tool-card">
 							<h3>{group.title}</h3>
 							<ul class="cv-chip-list" aria-label={`${group.title} list`}>
 								{group.items.map((item) => (
 									<li>{item}</li>
 								))}
 							</ul>
+							{extended && (
+								<details class="cv-disclosure cv-disclosure--inline cv-tool-card__details" data-analytics="cv_extended_stack_open">
+									<summary>Show more</summary>
+									<ul class="cv-chip-list cv-chip-list--extended" aria-label={`${extended.title} extended list`}>
+										{extended.items.map((item) => (
+											<li>{item}</li>
+										))}
+									</ul>
+								</details>
+							)}
 						</article>
 					))}
 					<article class="cv-card cv-card--compact">
@@ -417,22 +432,6 @@ const profileJsonLd = {
 						</ul>
 					</article>
 				</div>
-
-				<details class="cv-disclosure cv-disclosure--card" data-analytics="cv_extended_stack_open">
-					<summary>Show extended stack</summary>
-					<div class="cv-card-grid cv-card-grid--two cv-disclosure__content">
-						{cvProfile.extendedTools.map((group) => (
-							<article class="cv-card cv-card--compact">
-								<h3>{group.title}</h3>
-								<ul class="cv-chip-list" aria-label={`${group.title} extended list`}>
-									{group.items.map((item) => (
-										<li>{item}</li>
-									))}
-								</ul>
-							</article>
-						))}
-					</div>
-				</details>
 
 				<section class="cv-courses" aria-labelledby="courses-title">
 					<h3 id="courses-title">Courses &amp; Recognition</h3>
@@ -460,11 +459,7 @@ const profileJsonLd = {
 			<div class="page-container cv-final__inner">
 				<div>
 					<h2 id="contact-title">Let's Connect</h2>
-					<p>
-						For roles or technical conversations involving embedded controls, electric vehicles, battery and thermal
-						management, diagnostics, functional safety, autonomous machines, or reliable physical systems, contact me
-						directly or download the PDF resume.
-					</p>
+					<p>{cvProfile.finalContact}</p>
 				</div>
 				<div class="button-row cv-final__actions" aria-label="Bottom CV actions">
 					{cvProfile.actions.map((action) => (
@@ -917,11 +912,19 @@ const profileJsonLd = {
 		font-size: var(--type-nav-size);
 	}
 
-	.cv-section {
-		border-bottom: 1px solid var(--color-border-soft);
-		padding-block: clamp(3rem, 6vw, 5rem);
-		scroll-margin-top: 5.5rem;
-	}
+        .cv-section {
+                padding-block: clamp(3rem, 6vw, 5rem);
+                scroll-margin-top: 5.5rem;
+                background-color: var(--color-page);
+                background-image: linear-gradient(
+                        180deg,
+                        color-mix(in srgb, var(--color-footer-bg) 28%, var(--color-page)) 0%,
+                        var(--color-page) 100%
+                );
+                background-repeat: no-repeat;
+                background-position: top left;
+                background-size: 100% clamp(5rem, 8vw, 6.5rem);
+        }
 
 	.cv-section--compact {
 		padding-block: clamp(2.25rem, 5vw, 4rem);
@@ -1021,12 +1024,24 @@ const profileJsonLd = {
 		gap: 0.7rem;
 	}
 
-	.cv-card h3 {
-		font-size: var(--type-card-title-size);
-		line-height: var(--type-card-title-line);
-		letter-spacing: var(--type-card-title-tracking);
-		font-weight: var(--type-card-title-weight);
-	}
+        .cv-card h3 {
+                font-size: var(--type-card-title-size);
+                line-height: var(--type-card-title-line);
+                letter-spacing: var(--type-card-title-tracking);
+                font-weight: var(--type-card-title-weight);
+        }
+
+        .cv-card-grid--education {
+                grid-template-columns: 1fr;
+                align-items: start;
+                grid-auto-rows: auto;
+        }
+
+        .cv-education-card {
+                gap: 0.75rem 1.5rem;
+                align-content: start;
+                height: fit-content;
+        }
 
 	.cv-expertise-card--featured {
 		gap: 1rem;
@@ -1071,14 +1086,13 @@ const profileJsonLd = {
 		list-style: none;
 	}
 
-	.cv-chip-list li {
-		margin: 0;
-		border: 1px solid var(--color-card-border);
-		border-radius: calc(var(--radius) * 0.6);
-		background: var(--color-surface-soft);
-		padding: 0.3rem 0.5rem;
-		color: var(--color-tag-text);
-		font-family: var(--font-mono);
+        .cv-chip-list li {
+                margin: 0;
+                border-radius: calc(var(--radius) * 0.6);
+                background: var(--color-surface-soft);
+                padding: 0.3rem 0.5rem;
+                color: var(--color-tag-text);
+                font-family: var(--font-mono);
 		font-size: var(--type-chip-size);
 		font-weight: var(--type-chip-weight);
 		line-height: var(--type-chip-line);
@@ -1088,11 +1102,43 @@ const profileJsonLd = {
 			background-color 140ms cubic-bezier(0.2, 0, 0, 1);
 	}
 
-	.cv-chip-list--strong li {
-		border-color: var(--color-card-border);
-		background: var(--color-card-bg);
-		color: var(--color-text);
-	}
+        .cv-chip-list--strong li {
+                background: var(--color-card-bg);
+                color: var(--color-text);
+        }
+
+        .cv-chip-list--extended {
+                margin-top: 0.15rem;
+        }
+
+        .cv-tool-card {
+                height: 100%;
+        }
+
+        .cv-tool-card__details {
+                gap: 0.65rem;
+                margin-top: 0.15rem;
+        }
+
+        .cv-tool-card__details > summary {
+                border: 0;
+                padding: 0;
+                background: transparent;
+                justify-content: flex-start;
+                gap: 0.35rem;
+                color: var(--color-accent-text);
+        }
+
+        .cv-tool-card__details > summary::after {
+                width: 0.95rem;
+                height: 0.95rem;
+                border-color: transparent;
+                color: var(--color-accent-text);
+        }
+
+        .cv-tool-card__details[open] > summary::after {
+                color: var(--color-accent-text);
+        }
 
 	.cv-impact-list {
 		display: grid;
@@ -1507,12 +1553,12 @@ const profileJsonLd = {
 		align-items: start;
 	}
 
-	@media (min-width: 700px) {
-		.cv-proof-grid,
-		.cv-card-grid--three,
-		.cv-card-grid--tools {
-			grid-template-columns: repeat(2, minmax(0, 1fr));
-		}
+        @media (min-width: 700px) {
+                .cv-proof-grid,
+                .cv-card-grid--three,
+                .cv-card-grid--tools {
+                        grid-template-columns: repeat(2, minmax(0, 1fr));
+                }
 
 		.cv-card-grid--two,
 		.cv-research-layout,
@@ -1542,21 +1588,36 @@ const profileJsonLd = {
 			gap: 1.5rem;
 		}
 
-		.cv-role__location {
-			max-width: 16rem;
-			text-align: right;
-		}
-	}
+                .cv-role__location {
+                        max-width: 16rem;
+                        text-align: right;
+                }
+
+                .cv-education-card {
+                        grid-template-columns: minmax(0, 0.35fr) minmax(0, 0.65fr);
+                        align-items: start;
+                        align-content: start;
+                }
+
+                .cv-education-card > .cv-card__meta,
+                .cv-education-card > h3 {
+                        grid-column: 1;
+                }
+
+                .cv-education-card > :not(.cv-card__meta):not(h3) {
+                        grid-column: 2;
+                }
+        }
 
 	@media (min-width: 980px) {
 		.cv-hero__inner {
 			grid-template-columns: minmax(0, 1fr) minmax(20rem, 26rem);
 		}
 
-		.cv-card-grid--three,
-		.cv-card-grid--tools {
-			grid-template-columns: repeat(3, minmax(0, 1fr));
-		}
+                .cv-card-grid--three,
+                .cv-card-grid--tools {
+                        grid-template-columns: repeat(3, minmax(0, 1fr));
+                }
 
 		.cv-final__inner {
 			grid-template-columns: minmax(0, 1fr) auto;
@@ -1714,7 +1775,6 @@ const profileJsonLd = {
 		.cv-section {
 			background: transparent;
 			padding-block: 1rem;
-			border-bottom-color: var(--color-border);
 		}
 
 		.cv-card,

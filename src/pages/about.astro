@@ -1,158 +1,19 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import aboutMarkdown from '../content/profile/about.md?raw';
+import { parseAboutContent } from '../lib/profileMarkdown';
 
 const baseUrl = import.meta.env.BASE_URL;
 const normalizedBase = baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`;
 const withBase = (href: string) => (href === '/' ? normalizedBase : `${normalizedBase}${href.replace(/^\//, '')}`);
 
-type TextPart = {
-	text: string;
-	strong?: boolean;
-};
-
-const professionalFoundation = [
-	{
-		context: 'EXPERIENCE',
-		anchor: '10+ years of embedded controls',
-		description: [
-			{ text: 'Production software development across heavy-duty transport, automotive, autonomous machines, research, and Tier 1 supplier environments.' },
-		] satisfies TextPart[],
-	},
-	{
-		context: 'LEADERSHIP',
-		anchor: 'Teams, Architecture, and Technical Direction',
-		description: [
-			{ text: 'Leading cross-functional teams in real-time control software, from control design and software implementation to integration, calibration, and release.' },
-		] satisfies TextPart[],
-	},
-	{
-		context: 'PROOF',
-		anchor: 'Patents, publications, and PhD research',
-		description: [
-			{ text: 'Patents and scientific publications in control systems, with research translated into production-oriented software and engineering decisions.' },
-		] satisfies TextPart[],
-	},
-	{
-		context: 'SYSTEMS',
-		anchor: 'Safety-related production environments',
-		description: [
-			{ text: 'Automotive software development experience with ISO 26262, AUTOSAR-oriented architectures, MIL/SIL/HIL testing, diagnostics, field data, and release processes.' },
-		] satisfies TextPart[],
-	},
-];
-
-const capabilities = [
-	{
-		domain: 'Controls Architecture',
-		challenge: 'Define behavior before implementation',
-		description: [
-			{
-				text: 'Model-based control architecture for feedback control, predictive strategies, optimal actuation, state estimation, and virtual sensing, applied to torque control, thermal management, and BMS systems.',
-			},
-		] satisfies TextPart[],
-	},
-	{
-		domain: 'Real-Time Embedded Software',
-		challenge: 'Translate control logic into production code',
-		description: [
-			{
-				text: 'Development and integration of real-time embedded application software using MATLAB/Simulink, C/C++, AUTOSAR workflows, automated CI/CD pipelines, and standard versioning practices.',
-			},
-		] satisfies TextPart[],
-	},
-	{
-		domain: 'Diagnostics & Fault Isolation',
-		challenge: 'Make physical system health observable',
-		description: [
-			{
-				text: 'Online diagnostics for fault detection, isolation, and automated degradation strategies that improve safety, system availability, and controlled behavior under component failures.',
-			},
-		] satisfies TextPart[],
-	},
-	{
-		domain: 'Validation, MIL/SIL/HIL, and Field Evidence',
-		challenge: 'Connect functional requirements with empirical data',
-		description: [
-			{
-				text: 'Verification of embedded control software against specifications through MIL/SIL/HIL environments, lab testing, wind-tunnel testing, vehicle logs, and field data analysis.',
-			},
-		] satisfies TextPart[],
-	},
-	{
-		domain: 'System Integration',
-		challenge: 'Keep software aligned with the physical machine',
-		description: [
-			{
-				text: 'Integration of software layers with high-voltage batteries, chargers, actuators, and sensors over CAN networks, ensuring calibrated behavior under real operating loads.',
-			},
-		] satisfies TextPart[],
-	},
-	{
-		domain: 'Technical Leadership',
-		challenge: 'Turn technical ambiguity into shared direction',
-		description: [
-			{
-				text: 'Technical review, mentoring, and team direction across the software development lifecycle to maintain system coherence, support decision-making, and reach release milestones.',
-			},
-		] satisfies TextPart[],
-	},
-];
-
-const appliedExpertise = [
-	{
-		domain: 'Heavy-Duty Transport & Electrification',
-		context: 'Scania trucks and powertrain control systems',
-		focus: [
-			{
-				text: 'Real-time control software for internal combustion and electric heavy-duty truck platforms, including thermal management, high-voltage battery systems, and charger coordination.',
-			},
-		] satisfies TextPart[],
-	},
-	{
-		domain: 'EV Thermal Management',
-		context: 'Predictive climate and component protection',
-		focus: [
-			{
-				text: 'Control architectures, model design, diagnostics, and calibration strategies for thermal systems where performance affects efficiency, charging speed, component protection, and battery lifespan.',
-			},
-		] satisfies TextPart[],
-	},
-	{
-		domain: 'Autonomous Mobility Systems',
-		context: 'Volvo CE TA15 autonomous hauler',
-		focus: [
-			{
-				text: 'Torque allocation strategies and dual e-axle speed control logic for propulsion, safety monitoring, and vehicle-level behavior in autonomous electric machines.',
-			},
-		] satisfies TextPart[],
-	},
-	{
-		domain: 'Safety-Related Diagnostics',
-		context: 'Fault isolation and system availability',
-		focus: [
-			{
-				text: 'Real-time monitoring software to detect faults, isolate component failures, and trigger degradation modes so vehicles can remain controlled under fault conditions.',
-			},
-		] satisfies TextPart[],
-	},
-];
-
-const evidenceLinks = [
-	{
-		title: 'Writing',
-		description:
-			'Practical and reflective articles combining engineering judgment, technical lessons learned, and analysis of current industry and research trends in automatic control.',
-		href: withBase('/writing'),
-		linkText: 'Read my articles',
-	},
-	{
-		title: 'Work',
-		description:
-			'A selection of my projects, engineering contributions, publications, patents, and research context.',
-		href: withBase('/work'),
-		linkText: 'View selected work, patents, and publications',
-	},
-];
+const aboutContent = parseAboutContent(aboutMarkdown);
+const heroLead = aboutContent.hero.paragraphs[0] ?? [];
+const heroBody = aboutContent.hero.paragraphs.slice(1);
+const evidenceLinks = aboutContent.exploreMore.items.map((item) => ({
+	...item,
+	href: withBase(item.title === 'Writing' ? '/writing' : '/work'),
+}));
 ---
 
 <Layout
@@ -161,34 +22,17 @@ const evidenceLinks = [
 >
 	<section class="about-hero">
 		<div class="page-container about-hero__inner">
-			<h1 class="hero-title">Hi, I’m Carlos.</h1>
+			<h1 class="hero-title">{aboutContent.hero.title}</h1>
 			<div class="about-hero__content">
 				<p class="about-hero__lead hero-summary">
-					I lead technical teams designing <strong>real-time control</strong> and
-					<strong>embedded software</strong> for physical machines, from
-					<strong>electrified vehicles</strong> to <strong>autonomous machines</strong>.
+					{heroLead.map((part) => part.strong ? <strong>{part.text}</strong> : part.text)}
 				</p>
 
-				<p class="about-hero__body body-text">
-					Physical systems shape how people move, build, transport, and use energy. For me,
-					improving their <strong>control software</strong> means helping machines consume less energy,
-					respond safely to faults, reduce downtime, and make advanced technologies more useful
-					in everyday life.
-				</p>
-
-				<p class="about-hero__body body-text">
-					My work centers on <strong>electric trucks</strong>, <strong>autonomous haulers</strong>,
-					and <strong>power electronics</strong>. I design control architectures, models, and
-					diagnostic strategies for systems such as thermal management, battery management
-					systems, and torque control.
-				</p>
-
-				<p class="about-hero__body body-text">
-					Based in <strong>Spain</strong>, I work with international, multidisciplinary teams. I bridge
-					the gap between advanced research and production reality, turning complex control
-					algorithms into clean, maintainable software that runs reliably under real-world
-					constraints.
-				</p>
+				{heroBody.map((paragraph) => (
+					<p class="about-hero__body body-text">
+						{paragraph.map((part) => part.strong ? <strong>{part.text}</strong> : part.text)}
+					</p>
+				))}
 
 				<div class="button-row" aria-label="About page primary navigation links">
 					<a class="button primary" href={withBase('/cv')}>View online CV</a>
@@ -213,20 +57,13 @@ const evidenceLinks = [
 	<section class="section about-proof" aria-labelledby="professional-foundation-title">
 		<div class="page-container">
 			<div class="section-intro section-intro--compact">
-				<h2 id="professional-foundation-title">Professional Foundation</h2>
-				<p>
-					Over the past decade, I have contributed to <strong>production and research work</strong>
-					across automotive OEM and Tier 1 environments, including Scania, Volvo CE, and Mahle.
-				</p>
-				<p>
-					I specialize in model-based control design and vertical system integration. My
-					background in Electrical Engineering includes doctoral research in control algorithms,
-					and my professional experience combines technical leadership, production delivery,
-					and system-level validation.
-				</p>
+				<h2 id="professional-foundation-title">{aboutContent.professionalFoundation.title}</h2>
+				{aboutContent.professionalFoundation.intro.map((paragraph) => (
+					<p>{paragraph.map((part) => part.strong ? <strong>{part.text}</strong> : part.text)}</p>
+				))}
 			</div>
 			<div class="proof-grid">
-				{professionalFoundation.map((item) => (
+				{aboutContent.professionalFoundation.items.map((item) => (
 					<article class="proof-item">
 						<h3>{item.context}</h3>
 						<p class="proof-item__anchor">{item.anchor}</p>
@@ -244,43 +81,17 @@ const evidenceLinks = [
 	<section class="section about-split about-band about-band--white" aria-labelledby="how-i-got-here-title">
 		<div class="page-container about-split__grid">
 			<div class="about-split__main">
-				<h2 id="how-i-got-here-title">How I Got Here</h2>
+				<h2 id="how-i-got-here-title">{aboutContent.howIGotHere.title}</h2>
 				<div class="about-copy">
-					<p>
-						My curiosity for electronics led me to build my first <strong>obstacle-avoiding robot kit</strong>.
-					</p>
-					<p>
-						The real turning point happened at <strong>Campus Party in Valencia</strong>, where I watched a
-						line-tracking robot competition. Some robots were incredibly fast and stable, while
-						mine oscillated from side to side. I wanted to understand why.
-					</p>
-					<p>
-						During my <strong>Electrical Engineering</strong> studies, I found one answer in a
-						<strong>PI controller</strong>.
-						That was my first clear step into control engineering. It gave me a language for
-						many things I had wondered about, from balancing a Segway to how climate control
-						regulates a room.
-					</p>
-					<p>
-						I started my <strong>Industrial Engineering</strong> studies in Valencia and later continued in
-						Sweden through a double-degree program in <strong>Electrical Engineering</strong>, including
-						advanced control studies at <strong>Lund University</strong>. There, I deepened my focus on
-						automatic control, dynamic systems, and model-based engineering. That path
-						eventually led me to pursue a <strong>PhD</strong> and apply those ideas to industrial control
-						problems.
-					</p>
-					<p>
-						Today, I develop control software for vehicles and intelligent machines, providing
-						technical guidance across architecture, validation, and delivery so the systems we
-						build can operate reliably in the real world.
-					</p>
+					{aboutContent.howIGotHere.paragraphs.map((paragraph) => (
+						<p>{paragraph.map((part) => part.strong ? <strong>{part.text}</strong> : part.text)}</p>
+					))}
 				</div>
 			</div>
 			<p class="section-quote">
 				<span class="section-quote__mark" aria-hidden="true">"</span>
 				<em class="section-quote__text">
-					As a child, I used to take toys apart to see what was inside because I wanted
-					to become an inventor
+					{aboutContent.howIGotHere.quote}
 				</em>
 			</p>
 		</div>
@@ -289,35 +100,17 @@ const evidenceLinks = [
 	<section class="section about-split about-split--reverse about-band about-band--warm" aria-labelledby="how-i-work-title">
 		<div class="page-container about-split__grid">
 			<div class="about-split__main">
-				<h2 id="how-i-work-title">How I Work</h2>
+				<h2 id="how-i-work-title">{aboutContent.howIWork.title}</h2>
 				<div class="about-copy">
-					<p>
-						The real engineering challenge is turning control ideas into <strong>real-time software</strong>
-						that can be integrated, calibrated, and maintained across a
-						<strong>long field lifecycle</strong>.
-						I value <strong>simple, robust solutions</strong> over unnecessary complexity, because advanced
-						algorithms only matter when they respect <strong>hardware constraints,
-						safety-related requirements, and validation evidence</strong>, and the realities of
-						production delivery.
-					</p>
-					<p>
-						When solving technical problems, I actively question underlying assumptions, verify
-						them with <strong>empirical data</strong>, and separate <strong>root cause, control strategy,
-						diagnostics, and degradation logic</strong> before jumping into code.
-					</p>
-					<p>
-						As a leader, my role is to bring <strong>structural clarity</strong>, remove friction, and provide
-						the team with the practical context and tools they need to execute with autonomy
-						and accountability. I guide deliveries by making technical trade-offs visible,
-						managing risk together, and turning different engineering perspectives into sound
-						technical decisions.
-					</p>
+					{aboutContent.howIWork.paragraphs.map((paragraph) => (
+						<p>{paragraph.map((part) => part.strong ? <strong>{part.text}</strong> : part.text)}</p>
+					))}
 				</div>
 			</div>
 			<p class="section-quote">
 				<span class="section-quote__mark" aria-hidden="true">"</span>
 				<em class="section-quote__text">
-					An elegant algorithm is only the beginning.
+					{aboutContent.howIWork.quote}
 				</em>
 			</p>
 		</div>
@@ -326,14 +119,11 @@ const evidenceLinks = [
 	<section class="section" aria-labelledby="technical-areas-title">
 		<div class="page-container">
 			<div class="section-intro">
-				<h2 id="technical-areas-title">Technical Areas &amp; Capabilities</h2>
-				<p>
-					The core engineering areas where my work connects control design, real-time
-					software, diagnostics, system validation, and technical team direction.
-				</p>
+				<h2 id="technical-areas-title">{aboutContent.technicalAreas.title}</h2>
+				<p>{aboutContent.technicalAreas.intro}</p>
 			</div>
 			<div class="capability-grid">
-				{capabilities.map((item) => (
+				{aboutContent.technicalAreas.items.map((item) => (
 					<article class="capability-item">
 						<h3>{item.domain}</h3>
 						<p class="capability-item__area">{item.challenge}</p>
@@ -351,10 +141,8 @@ const evidenceLinks = [
 	<section class="section" aria-labelledby="applied-domains-title">
 		<div class="page-container applied-domains__inner">
 			<div class="section-intro">
-				<h2 id="applied-domains-title">Applied Domains</h2>
-				<p>
-					Product and engineering environments where my control and systems experience applies.
-				</p>
+				<h2 id="applied-domains-title">{aboutContent.appliedDomains.title}</h2>
+				<p>{aboutContent.appliedDomains.intro}</p>
 			</div>
 			<div class="applied-domains__body">
 				<figure class="applied-domain-visual">
@@ -368,16 +156,14 @@ const evidenceLinks = [
 					/>
 					<figcaption>
 						<span>
-							A real-world machine is where control logic, embedded software, diagnostics,
-							and validation must come together to work reliably under real operating
-							conditions.
+							{aboutContent.appliedDomains.caption}
 						</span>
 					</figcaption>
 				</figure>
 
 				<div class="applied-domains__content">
 					<div class="challenge-grid">
-						{appliedExpertise.map((item) => (
+						{aboutContent.appliedDomains.items.map((item) => (
 							<article class="challenge-item">
 								<h3>{item.domain}</h3>
 								{item.context && <p class="challenge-item__context">{item.context}</p>}
@@ -401,22 +187,11 @@ const evidenceLinks = [
 	<section class="section about-split about-split--reverse about-band about-band--white" aria-labelledby="beyond-engineering-title">
 		<div class="page-container about-split__grid">
 			<div class="about-split__main">
-				<h2 id="beyond-engineering-title">Beyond Engineering</h2>
+				<h2 id="beyond-engineering-title">{aboutContent.beyondEngineering.title}</h2>
 				<div class="about-copy">
-					<p>
-						Outside work, I like activities where I can keep building, learning, and improving
-						things.
-					</p>
-					<p>
-						Basketball has been part of my life since childhood, and I still love playing the
-						game today. I also enjoy creative, hands-on hobbies like 3D printing, painting,
-						lamp design, Arduino-based projects, and home automation, where I keep
-						experimenting.
-					</p>
-					<p>
-						But most importantly, I enjoy spending time with my family: my wife, our kid, and
-						our dog. We are dog people, by the way.
-					</p>
+					{aboutContent.beyondEngineering.paragraphs.map((paragraph) => (
+						<p>{paragraph.map((part) => part.strong ? <strong>{part.text}</strong> : part.text)}</p>
+					))}
 				</div>
 			</div>
 		</div>
@@ -425,7 +200,7 @@ const evidenceLinks = [
 	<section class="section" aria-labelledby="explore-work-title">
 		<div class="page-container">
 			<div class="section-intro">
-				<h2 id="explore-work-title">Explore More of My Work</h2>
+				<h2 id="explore-work-title">{aboutContent.exploreMore.title}</h2>
 			</div>
 			<div class="evidence-grid">
 				{evidenceLinks.map((item) => (
@@ -442,16 +217,10 @@ const evidenceLinks = [
 	<section class="section about-final" aria-labelledby="connect-title">
 		<div class="page-container about-final__inner">
 			<div>
-				<h2 id="connect-title">Let’s Connect</h2>
-				<p>
-					For roles, collaborations, or technical conversations around
-					<strong>embedded controls, diagnostics, safety-related development, and reliable physical systems</strong>, I’m
-					open to hearing from you.
-				</p>
-				<p>
-					I am based in Spain and especially interested in remote or hybrid opportunities
-					with international teams.
-				</p>
+				<h2 id="connect-title">{aboutContent.connect.title}</h2>
+				{aboutContent.connect.paragraphs.map((paragraph) => (
+					<p>{paragraph.map((part) => part.strong ? <strong>{part.text}</strong> : part.text)}</p>
+				))}
 			</div>
 			<div class="about-final__actions">
 				<a class="button primary" href={withBase('/cv')}>View online CV</a>

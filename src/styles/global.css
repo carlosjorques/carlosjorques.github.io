@@ -96,10 +96,10 @@
         --palette-light-shell-active: #d2d2d2;
         --palette-light-shell-muted: #f6f6f6;
         --palette-light-blue-base: #bebebe;
-        --palette-light-blue-active: #ffdb5a;
+        --palette-light-blue-active: #ff5ab2;
         --palette-light-blue-muted: #dddddd;
         --palette-light-rose-base: #7a7a7a;
-        --palette-light-rose-active: #c9a93f;
+        --palette-light-rose-active: #c93f86;
         --palette-light-rose-muted: #ececec;
 
         --palette-dark-navy-base: #161616;
@@ -108,12 +108,12 @@
         --palette-dark-glass-base: #1a1a1a;
         --palette-dark-glass-active: #242424;
         --palette-dark-glass-muted: #2e2e2e;
-        --palette-dark-blue-base: #ffdb5a;
+        --palette-dark-blue-base: #ff5a8e;
         --palette-dark-blue-active: #fff0b8;
-        --palette-dark-blue-muted: #a98f27;
-        --palette-dark-rose-base: #f1e2b0;
+        --palette-dark-blue-muted: #a92771;
+        --palette-dark-rose-base: #f1b0dc;
         --palette-dark-rose-active: #fff6db;
-        --palette-dark-rose-muted: #cab56c;
+        --palette-dark-rose-muted: #ca6c9b;
 
         --text-ink: #161616;
         --text-shadow-blue: #565656;
@@ -123,15 +123,15 @@
 
         --hero-background-light: linear-gradient(145deg, #f2f2f2 0%, #e9e9e9 42%, #dcdcdc 78%, #efefef 100%);
         --hero-background-dark: linear-gradient(135deg, #161616 0%, #1d1d1d 52%, #272727 100%);
-        --hero-statement-light: linear-gradient(90deg, #161616 0%, #595959 55%, #c7a22f 100%);
+        --hero-statement-light: linear-gradient(90deg, #3c5685 0%, #ce50e7 55%, #c72f9c 100%);
         --hero-statement-dark: linear-gradient(90deg, #f2f2f2 0%, #ffdb5a 55%, #c5a13a 100%);
 
 	/* ==========================================================
 	   Semantic color roles consumed by components.
 	   ========================================================== */
 
-        --color-page: var(--palette-light-paper-active);
-        --color-page-gradient: var(--color-page);
+    --color-page: var(--palette-light-paper-active);
+    --color-page-gradient: var(--color-page);
 	--color-text: var(--text-ink);
 	--color-body-text: #2f2f2f;
 	--color-muted: #666666;
@@ -141,16 +141,16 @@
 	--color-bg: var(--color-page);
 	--color-surface: var(--color-page);
 	--color-surface-soft: var(--palette-light-paper-muted);
-        --color-section-bg: var(--color-page);
+    --color-section-bg: var(--color-page);
 
-        --color-border: color-mix(in srgb, var(--text-ink) 16%, transparent);
-        --color-border-soft: color-mix(in srgb, var(--text-ink) 10%, transparent);
-        --color-border-strong: color-mix(in srgb, var(--text-ink) 26%, transparent);
+    --color-border: color-mix(in srgb, var(--text-ink) 16%, transparent);
+	--color-border-soft: color-mix(in srgb, var(--text-ink) 10%, transparent);
+    --color-border-strong: color-mix(in srgb, var(--text-ink) 26%, transparent);
 
-	--color-action: #d8b45a;
-	--color-action-hover: #c9a34f;
-	--color-accent-text: #9a4f3a;
-	--color-accent-border: #b86a4f;
+	--color-action: #db8173;
+	--color-action-hover: #c9724f;
+	--color-accent-text: #9a5c3a;
+	--color-accent-border: #b86b4f;
 	--color-accent-wash: #f1ddd3;
 	--color-accent: var(--color-action);
 	--color-focus: var(--color-accent-text);
@@ -158,12 +158,12 @@
 	--color-link: var(--text-ink);
 	--color-link-hover: var(--text-cocoa);
 
-        --color-header-bg: var(--palette-light-paper-base);
-        --color-header-text: var(--text-ink);
+    --color-header-bg: var(--palette-light-paper-base);
+    --color-header-text: var(--text-ink);
 	--color-header-link: var(--text-ink);
 	--color-header-link-hover: var(--text-cocoa);
-        --color-header-active: var(--text-ink);
-        --color-header-border: color-mix(in srgb, var(--text-ink) 16%, transparent);
+    --color-header-active: var(--text-ink);
+    --color-header-border: color-mix(in srgb, var(--text-ink) 16%, transparent);
 
 	--hero-gradient: var(--hero-background-light);
 	--slogan-gradient: var(--hero-statement-light);
@@ -182,9 +182,9 @@
 	--color-button-secondary-text: var(--text-ink);
 	--color-button-secondary-state-text: var(--text-ink);
 
-        --color-card-bg: var(--color-header-bg);
-        --color-card-bg-hover: color-mix(in srgb, var(--color-card-bg) 88%, var(--color-page));
-        --color-card-border: color-mix(in srgb, var(--text-ink) 14%, transparent);
+    --color-card-bg: var(--color-header-bg);
+    --color-card-bg-hover: color-mix(in srgb, var(--color-card-bg) 88%, var(--color-page));
+    --color-card-border: color-mix(in srgb, var(--text-ink) 14%, transparent);
 	--color-card-border-hover: color-mix(in srgb, var(--text-ink) 24%, transparent);
 	--color-card-subtext: color-mix(in srgb, var(--text-ink) 82%, var(--text-cocoa));
 
@@ -193,11 +193,11 @@
 	--color-quote-bg: var(--color-accent-wash);
 	--color-quote-text: var(--color-accent-text);
 
-        --color-footer-bg: color-mix(in srgb, var(--palette-light-paper-muted) 80%, var(--palette-light-shell-base));
-        --color-footer-text: var(--text-cocoa);
+    --color-footer-bg: color-mix(in srgb, var(--palette-light-paper-muted) 80%, var(--palette-light-shell-base));
+    --color-footer-text: var(--text-cocoa);
 	--color-footer-link: var(--text-ink);
 	--color-footer-link-hover: var(--text-cocoa);
-        --color-footer-border: color-mix(in srgb, var(--text-ink) 16%, transparent);
+    --color-footer-border: color-mix(in srgb, var(--text-ink) 16%, transparent);
 
 	/* Layout */
 	--content-width: 1120px;
@@ -225,8 +225,8 @@
 	--motion-standard-productive: cubic-bezier(0.22, 1, 0.36, 1);
 	--motion-entrance-expressive: cubic-bezier(0.16, 1, 0.3, 1);
 
-        --radius: 16px;
-        --radius-pill: 999px;
+	--radius: 16px;
+	--radius-pill: 999px;
 
 	color-scheme: light;
 }
