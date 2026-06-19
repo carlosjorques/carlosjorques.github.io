@@ -18,10 +18,16 @@ export type ProofTile = {
 };
 
 export type ExpertiseGroup = {
+	eyebrow?: string;
 	title: string;
+	summary?: string;
+	compactSummary?: string;
+	detailSummary?: string;
 	items: string[];
 	chips?: string[];
 	evidence?: string[];
+	representativeWork?: string[];
+	methods?: string[];
 };
 
 export type ExperienceItem = {
@@ -89,7 +95,7 @@ export const cvProfile = {
 		summary:
 			'I am a senior embedded controls engineer with 10+ years of experience developing real-time control software for automotive and heavy-duty vehicle systems. I focus on EV thermal management, battery systems, autonomous propulsion control, diagnostics, functional safety, validation, and production embedded software.',
 		secondarySummary:
-			'I translate automatic control concepts into robust, testable, safety-aware embedded software for complex physical systems where reliability, timing, diagnostics, and system integration matter. My work spans requirements, concept design, control architecture, model-based implementation, generated C/C++ code, integration, calibration, MIL/SIL/HIL validation, and production-oriented delivery.',
+			'I translate automatic control concepts into robust, testable, safety-aware embedded software for complex physical systems where reliability, timing, diagnostics, and system integration matter. My work spans requirements, control architecture, model-based implementation, generated C/C++ code, vertical system integration, calibration, MIL/SIL/HIL validation, and production-oriented delivery across OEM and Tier 1 environments, including technical leadership and mentoring across cross-functional automotive teams.',
 		tertiarySummary:
 			'Recent work includes electric truck thermal management, battery and charger coordination, autonomous electric hauler propulsion control, e-bike motor control, wireless charging, DC/DC converter interfaces, and heavy-duty engine diagnostics. I also lead and mentor embedded software engineers across cross-functional automotive development environments.',
 	},
@@ -139,6 +145,7 @@ export const cvProfile = {
 			items: [
 				'Real-time control architecture for vehicle and powertrain systems',
 				'Estimators, regulators, diagnostic logic, and validation strategies for real-world systems with physical constraints',
+				'Model-based control design and vertical system integration across software, controls, diagnostics, sensors, actuators, and physical hardware',
 				'Control logic for thermal management, propulsion, torque allocation, battery systems, and diagnostics',
 				'System requirements, functional design, software architecture, and implementation strategy',
 				'Model-based development with MATLAB/Simulink and production-oriented generated code',
@@ -166,6 +173,7 @@ export const cvProfile = {
 			title: 'Embedded Software and Validation',
 			items: [
 				'Embedded C/C++ and model-based software implementation',
+				'Translation of complex control algorithms into clean, maintainable real-time software',
 				'ECU flashing, debugging, issue tracking, and software integration',
 				'MIL, SIL, HIL, unit testing, integration testing, field testing, and data-driven calibration',
 				'CI/CD workflows using GitLab, Jenkins, Git, Jira, and related development tooling',
@@ -176,6 +184,7 @@ export const cvProfile = {
 			title: 'Diagnostics, Safety, and Robustness',
 			items: [
 				'Diagnostic strategies for thermal systems, engine systems, fuel systems, and control software',
+				'Root-cause reasoning, degradation logic, field data analysis, and validation evidence for safety-related production environments',
 				'Functional safety context with ISO 26262-aligned development',
 				'Fault handling, fallback strategies, monitoring, and robustness-oriented design',
 				'A-SPICE and traceability-aware engineering practices',
@@ -460,7 +469,7 @@ export const cvProfile = {
 	] satisfies CaseStudy[],
 	research: {
 		intro:
-			'Research evidence showing depth in real-time control, virtual sensing, stochastic modeling, and hardware-constrained implementation for heavy-duty physical systems.',
+			'Research evidence showing depth in real-time control, virtual sensing, stochastic modeling, and hardware-constrained implementation for heavy-duty physical systems, with a bridge from advanced research into production-oriented engineering decisions.',
 		themes: [
 			'In-cycle closed-loop combustion control',
 			'Real-time model-based diagnostics and virtual sensing',

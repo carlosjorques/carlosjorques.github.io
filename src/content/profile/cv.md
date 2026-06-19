@@ -8,7 +8,7 @@ Subtitle: Senior Software Developer | Embedded Controls Architect | Electric & A
 
 Summary: I am a senior embedded controls engineer with 10+ years of experience developing real-time control software for automotive and heavy-duty vehicle systems. My work focuses on EV thermal management, battery systems, autonomous propulsion control, diagnostics, functional safety, validation, and production embedded software.
 
-Secondary summary: I translate automatic control concepts into robust, testable, safety-aware embedded software for complex physical systems where reliability, timing, diagnostics, and system integration matter. My experience spans requirements, control architecture, model-based implementation, generated C/C++ code, integration, calibration, MIL/SIL/HIL validation, and production-oriented delivery, including technical leadership and mentoring across cross-functional automotive teams.
+Secondary summary: I translate automatic control concepts into robust, testable, safety-aware embedded software for complex physical systems where reliability, timing, diagnostics, and system integration matter. My experience spans requirements, control architecture, model-based implementation, generated C/C++ code, vertical system integration, calibration, MIL/SIL/HIL validation, and production-oriented delivery across OEM and Tier 1 environments, including technical leadership and mentoring across cross-functional automotive teams.
 
 ## Actions
 
@@ -73,87 +73,183 @@ Valencia, Spain / open to selected opportunities
 
 ### Embedded Controls Architecture
 
+#### Eyebrow
+
+Control architecture
+
+#### Compact summary
+
+Real-time control software architecture for vehicle and powertrain systems.
+
 #### Items
 
-- Real-time control architecture for vehicle and powertrain systems
-- Estimators, regulators, diagnostic logic, and validation strategies for real-world systems with physical constraints
-- Control logic for thermal management, propulsion, torque allocation, battery systems, and diagnostics
-- System requirements, functional design, software architecture, and implementation strategy
-- Model-based development with MATLAB/Simulink and production-oriented generated code
+- Control architecture definition
+- Model-based control design
+- Real-time vehicle systems
+- Generated C/C++ workflows
+- Diagnostics-aware implementation
 
-#### Chips
+#### Detail summary
 
-- Control architecture
-- MBD
-- Generated code
+I define the boundaries between control intent, generated software, diagnostics, calibration hooks, and integration interfaces so algorithms can survive real ECU timing, signal quality, and validation constraints.
 
-#### Evidence
+#### Representative work
 
-- Electric truck thermal management and BMS controller architecture
-- Autonomous hauler propulsion control and torque allocation
-- Heavy-duty engine diagnostics and closed-loop combustion control
-- Production-oriented generated C/C++ code boundaries
+- Electric truck thermal management and battery-system controller architecture.
+- Autonomous electric hauler propulsion control, speed control, and torque allocation.
+- Heavy-duty engine diagnostics and closed-loop combustion control.
+- Production-oriented generated code and C/C++ workflows.
+
+#### Methods and evidence
+
+- Requirements-driven functional design and software architecture.
+- Control design for systems with physical constraints, timing constraints, diagnostics, and validation requirements.
+- Integration-aware architecture supporting calibration, testing, fault handling, and release maturity.
+- Experience across production and research environments.
 
 ### Electric and Autonomous Vehicle Systems
 
+#### Eyebrow
+
+Vehicle systems
+
+#### Compact summary
+
+Embedded control software for electric, autonomous, and heavy-duty vehicle platforms.
+
 #### Items
 
-- Electric truck thermal management for batteries, auxiliaries, power electronics, and charging systems
-- Battery thermal management and predictive thermal control concepts
-- Autonomous electric hauler traction and speed control
-- Torque allocation across dual electric motors and redundant actuator concepts
-- System-level validation in SIL, HIL, test bench, test track, and vehicle environments
+- EV thermal management
+- Battery and BMS control
+- Charger coordination
+- Autonomous propulsion control
+- Heavy-duty vehicle systems
 
-#### Chips
+#### Detail summary
 
-- EV systems
-- BMS
-- Autonomous machines
+The common thread is coordinating energy, actuation, sensing, and protection logic so vehicle behavior remains predictable across charging, propulsion, thermal limits, and degraded operating conditions.
+
+#### Representative work
+
+- Electric truck thermal management for batteries, auxiliaries, power electronics, and charging.
+- Battery management and SOC/SOH/SOP-related thermal control strategies.
+- Autonomous electric hauler traction and speed-control software.
+- E-bike motor control, wireless charging, and DC/DC converter software.
+
+#### Methods and evidence
+
+- System-level thinking across batteries, chargers, actuators, sensors, and vehicle behavior.
+- Validation in simulation, bench, test-track, vehicle, and field-data contexts where applicable.
+- Control strategies designed for efficiency, component protection, controlled degradation, and reliable operation.
+- Experience across heavy-duty transport, autonomous machines, e-mobility, and power electronics.
 
 ### Embedded Software and Validation
 
+#### Eyebrow
+
+Software delivery
+
+#### Compact summary
+
+Production-oriented embedded software development from model-based implementation to system validation.
+
 #### Items
 
-- Embedded C/C++ and model-based software implementation
-- ECU flashing, debugging, issue tracking, and software integration
-- MIL, SIL, HIL, unit testing, integration testing, field testing, and data-driven calibration
-- CI/CD workflows using GitLab, Jenkins, Git, Jira, and related development tooling
+- Model-based implementation
+- Embedded C/C++ development
+- MIL/SIL/HIL validation
+- CI/CD and integration
+- Calibration and release support
 
-#### Chips
+#### Detail summary
 
-- C/C++
-- MIL/SIL/HIL
-- CI/CD
+I focus on the handoff from model to machine: keeping generated code, handwritten integration points, test evidence, calibration needs, and release workflows coherent enough for repeated delivery.
+
+#### Representative work
+
+- Model-based software for electric truck thermal management and battery-system functionality.
+- Propulsion-control validation for autonomous electric haulers in manual and autonomous modes.
+- Application-layer software for e-bike motor control, wireless charging, and DC/DC converter interfaces.
+- Heavy-duty engine diagnostic software using model-based methods and generated C-code workflows.
+
+#### Methods and evidence
+
+- Full lifecycle involvement from requirements and concept design to validation and production-oriented delivery.
+- Testing across MIL, SIL, HIL, test bench, wind tunnel, test track, on-road, and field-data environments where applicable.
+- Use of Git, GitLab, Jenkins, Jira, CI/CD, debugging, ECU flashing, and traceable development workflows.
+- Focus on maintainable software boundaries, testability, calibration maturity, and integration quality.
 
 ### Diagnostics, Safety, and Robustness
 
+#### Eyebrow
+
+Safety & diagnostics
+
+#### Compact summary
+
+Diagnostic and safety-aware control software for reliable physical systems.
+
 #### Items
 
-- Diagnostic strategies for thermal systems, engine systems, fuel systems, and control software
-- Functional safety context with ISO 26262-aligned development
-- Fault handling, fallback strategies, monitoring, and robustness-oriented design
-- A-SPICE and traceability-aware engineering practices
+- Diagnostic strategy design
+- Fault detection and isolation
+- ISO 26262-aligned development
+- A-SPICE traceability
+- Fallback and degradation logic
 
-#### Chips
+#### Detail summary
 
-- ISO 26262
-- A-SPICE
-- Diagnostics
+My diagnostic work starts by separating physical cause, signal symptom, control response, and degraded behavior, then using evidence to decide what the system can still do safely and reliably.
+
+#### Representative work
+
+- Diagnostics and fallback strategies for EV thermal systems and battery-related functions.
+- Safety-related monitoring for autonomous propulsion and speed-control functionality.
+- Heavy-duty engine, fuel-system, oil-system, and cooling-system diagnostics.
+- Real-time model-based diagnostics and virtual sensing from industrial PhD research.
+
+#### Methods and evidence
+
+- Separate root cause, control strategy, diagnostic logic, degradation behavior, and implementation before coding.
+- Use empirical data, simulation, HIL, bench, vehicle, and field evidence to support diagnostic and robustness decisions.
+- Develop monitoring and degradation logic so systems can remain controlled under component or signal faults.
+- Apply functional safety and traceability-aware practices in production-oriented automotive environments.
 
 ### Technical Leadership
 
+#### Eyebrow
+
+Technical direction
+
+#### Compact summary
+
+Technical direction for embedded software teams in automotive development environments.
+
 #### Items
 
-- Technical leadership of embedded software engineers, including mentoring junior developers
-- Planning, mentoring, delivery coordination, and cross-functional alignment across automotive organizations
-- Agile, Scrum, Kanban, SAFe, and CI/CD delivery environments
-- Interface between system engineering, software development, validation, suppliers, and project stakeholders
+- Embedded software mentoring
+- Technical delivery coordination
+- Architecture reviews
+- Cross-functional alignment
+- Agile development support
 
-#### Chips
+#### Detail summary
 
-- Mentoring
-- Delivery
-- Cross-functional
+I help teams make ambiguous engineering work visible: what is known, what is assumed, what must be validated, and which technical choices affect delivery, quality, and long-term maintainability.
+
+#### Representative work
+
+- Technical leadership of a team of 3 embedded software engineers.
+- Planning, mentoring, delivery coordination, and technical-quality support in embedded automotive assignments.
+- Cross-functional coordination across system engineering, software, validation, suppliers, and stakeholders.
+- Support for Agile, Scrum, Kanban, SAFe, and CI/CD delivery environments.
+
+#### Methods and evidence
+
+- Provide structural clarity in technically ambiguous situations.
+- Make technical trade-offs, risks, assumptions, and validation needs visible.
+- Support team autonomy and accountability while maintaining architectural coherence.
+- Translate different engineering perspectives into practical technical decisions and release-oriented plans.
 
 ## Engineering Outcomes
 
@@ -463,7 +559,7 @@ Real-time control and diagnostic algorithms for heavy-duty combustion systems wi
 
 ## Research, Patents & Publications
 
-Research evidence showing depth in real-time control, virtual sensing, stochastic modeling, and hardware-constrained implementation for heavy-duty physical systems.
+Research evidence showing depth in real-time control, virtual sensing, stochastic modeling, and hardware-constrained implementation for heavy-duty physical systems, with a bridge from advanced research into production-oriented engineering decisions.
 
 ### Research themes
 
@@ -674,4 +770,4 @@ Full professional
 
 ## Let's Connect
 
-For roles or technical conversations involving embedded controls, electric vehicles, battery and thermal management, diagnostics, functional safety, autonomous machines, or reliable physical systems, contact me directly or download the PDF resume.
+For roles or technical conversations involving embedded controls, electric vehicles, battery and thermal management, diagnostics, functional safety, autonomous machines, or reliable physical systems, contact me directly or download the PDF resume. I am based in Spain and open to selected remote or hybrid opportunities with international teams.

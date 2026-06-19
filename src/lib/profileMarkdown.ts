@@ -161,11 +161,9 @@ export const parseAboutContent = (raw: string) => {
 	const page = findChild(root, 'About');
 
 	const hero = findChild(page, 'Hero');
-	const professionalFoundation = findChild(page, 'Professional Foundation');
+	const whyPhysicalSystems = findChild(page, 'Why Physical Systems');
 	const howIGotHere = findChild(page, 'How I Got Here');
 	const howIWork = findChild(page, 'How I Work');
-	const technicalAreas = findChild(page, 'Technical Areas & Capabilities');
-	const appliedDomains = findChild(page, 'Applied Domains');
 	const beyondEngineering = findChild(page, 'Beyond Engineering');
 	const exploreMore = findChild(page, 'Explore More of My Work');
 	const connect = findChild(page, 'Let’s Connect');
@@ -175,17 +173,9 @@ export const parseAboutContent = (raw: string) => {
 			title: firstPlainParagraph(findChild(hero, 'Title')),
 			paragraphs: hero.children.filter((child) => child.title !== 'Title').flatMap(paragraphs),
 		},
-		professionalFoundation: {
-			title: professionalFoundation.title,
-			intro: paragraphs(professionalFoundation),
-			items: professionalFoundation.children.map((child) => {
-				const [anchor = [], description = []] = paragraphs(child);
-				return {
-					context: child.title,
-					anchor: stripInlineMarkdown(anchor.map((part) => part.text).join('')),
-					description,
-				};
-			}),
+		whyPhysicalSystems: {
+			title: whyPhysicalSystems.title,
+			paragraphs: paragraphs(whyPhysicalSystems),
 		},
 		howIGotHere: {
 			title: howIGotHere.title,
@@ -196,33 +186,6 @@ export const parseAboutContent = (raw: string) => {
 			title: howIWork.title,
 			paragraphs: paragraphs(howIWork),
 			quote: quote(howIWork),
-		},
-		technicalAreas: {
-			title: technicalAreas.title,
-			intro: firstPlainParagraph(technicalAreas),
-			items: technicalAreas.children.map((child) => {
-				const meta = keyValue(child);
-				return {
-					domain: child.title,
-					challenge: meta.challenge,
-					description: paragraphs(child).filter((item) => !item.some((part) => part.text.startsWith('Challenge:')))[0] ?? [],
-				};
-			}),
-		},
-		appliedDomains: {
-			title: appliedDomains.title,
-			intro: firstPlainParagraph(appliedDomains),
-			caption: firstPlainParagraph(findChild(appliedDomains, 'Image Caption')),
-			items: appliedDomains.children
-				.filter((child) => child.title !== 'Image Caption')
-				.map((child) => {
-					const meta = keyValue(child);
-					return {
-						domain: child.title,
-						context: meta.context,
-						focus: paragraphs(child).filter((item) => !item.some((part) => part.text.startsWith('Context:')))[0] ?? [],
-					};
-				}),
 		},
 		beyondEngineering: {
 			title: beyondEngineering.title,
@@ -242,6 +205,58 @@ export const parseAboutContent = (raw: string) => {
 		connect: {
 			title: connect.title,
 			paragraphs: paragraphs(connect),
+		},
+	};
+};
+
+export const parseWorkContent = (raw: string) => {
+	const root = parseTree(raw);
+	const page = findChild(root, 'Work');
+	const hero = findChild(page, 'Hero');
+	const domains = findChild(page, 'Applied Domains');
+	const projects = findChild(page, 'Selected Work');
+	const researchContext = findChild(page, 'Research, Patents & Publications Context');
+	const validation = findChild(page, 'Validation Evidence');
+
+	return {
+		hero: {
+			title: firstPlainParagraph(findChild(hero, 'Title')),
+			paragraphs: hero.children.filter((child) => child.title !== 'Title').flatMap(paragraphs),
+		},
+		domains: {
+			title: domains.title,
+			intro: firstPlainParagraph(domains),
+			items: domains.children.map((child) => ({
+				title: child.title,
+				context: keyValue(child).context,
+				paragraphs: paragraphs(child).filter((item) => !item.some((part) => part.text.startsWith('Context:'))),
+			})),
+		},
+		projects: {
+			title: projects.title,
+			intro: firstPlainParagraph(projects),
+			items: projects.children.map((child) => {
+				const meta = keyValue(child);
+				return {
+					title: child.title,
+					role: meta.role,
+					focus: meta.focus,
+					proof: meta.proof,
+					image: meta.image,
+					imageAlt: meta.imagealt,
+					paragraphs: paragraphs(child).filter((item) =>
+						!item.some((part) => /^(Role|Focus|Proof|Image|Image alt):/.test(part.text))
+					),
+				};
+			}),
+		},
+		researchContext: {
+			title: researchContext.title,
+			paragraphs: paragraphs(researchContext),
+		},
+		validation: {
+			title: validation.title,
+			items: listItems(validation),
 		},
 	};
 };
