@@ -161,7 +161,7 @@ export const parseAboutContent = (raw: string) => {
 	const page = findChild(root, 'About');
 
 	const hero = findChild(page, 'Hero');
-	const whyPhysicalSystems = findChild(page, 'Why Physical Systems');
+	const whyPhysicalSystems = findChild(page, 'Why Control Systems');
 	const howIGotHere = findChild(page, 'How I Got Here');
 	const howIWork = findChild(page, 'How I Work');
 	const beyondEngineering = findChild(page, 'Beyond Engineering');
@@ -276,15 +276,12 @@ export const parseCvContent = (raw: string) => {
 		impactHighlights: findChild(page, 'Engineering Outcomes'),
 		experience: findChild(page, 'Experience'),
 		earlierExperience: findChild(page, 'Earlier Experience'),
-		caseStudies: findChild(page, 'Selected Case Studies'),
+		caseStudies: findChild(page, 'Representative Systems'),
 		research: findChild(page, 'Research, Patents & Publications'),
 		education: findChild(page, 'Education'),
-		tools: findChild(page, 'Tools, Methods, Standards, and Languages'),
-		extendedTools: findChild(page, 'Extended Tools'),
-		languages: findChild(page, 'Languages'),
-		coursesAndRecognition: findChild(page, 'Courses & Recognition'),
-		finalContact: findChild(page, "Let's Connect"),
-	};
+                tools: findChild(page, 'Tools, Methods & Continuous Learning'),
+                finalContact: findChild(page, "Let's Connect"),
+        };
 
 	return { hero, sections, findChild, findOptionalChild, firstPlainParagraph, plainParagraphs, listItems, keyValue };
 };

@@ -8,8 +8,6 @@ const normalizedBase = baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`;
 const withBase = (href: string) => (href === '/' ? normalizedBase : `${normalizedBase}${href.replace(/^\//, '')}`);
 
 const aboutContent = parseAboutContent(aboutMarkdown);
-const heroLead = aboutContent.hero.paragraphs[0] ?? [];
-const heroBody = aboutContent.hero.paragraphs.slice(1);
 const exploreHrefByTitle: Record<string, string> = {
 	CV: '/cv',
 	Work: '/work',
@@ -30,11 +28,7 @@ const evidenceLinks = aboutContent.exploreMore.items.map((item) => ({
 		<div class="page-container about-hero__inner">
 			<h1 class="hero-title">{aboutContent.hero.title}</h1>
 			<div class="about-hero__content">
-				<p class="about-hero__lead hero-summary">
-					{heroLead.map((part) => part.strong ? <strong>{part.text}</strong> : part.text)}
-				</p>
-
-				{heroBody.map((paragraph) => (
+				{aboutContent.hero.paragraphs.map((paragraph) => (
 					<p class="about-hero__body body-text">
 						{paragraph.map((part) => part.strong ? <strong>{part.text}</strong> : part.text)}
 					</p>
@@ -60,10 +54,10 @@ const evidenceLinks = aboutContent.exploreMore.items.map((item) => ({
 		</div>
 	</section>
 
-	<section class="section about-split about-band about-band--white" aria-labelledby="why-physical-systems-title">
+	<section class="section about-split about-band about-band--white" aria-labelledby="why-control-systems-title">
 		<div class="page-container about-split__grid">
 			<div class="about-split__main">
-				<h2 id="why-physical-systems-title">{aboutContent.whyPhysicalSystems.title}</h2>
+				<h2 id="why-control-systems-title">{aboutContent.whyPhysicalSystems.title}</h2>
 				<div class="about-copy">
 					{aboutContent.whyPhysicalSystems.paragraphs.map((paragraph) => (
 						<p>{paragraph.map((part) => part.strong ? <strong>{part.text}</strong> : part.text)}</p>

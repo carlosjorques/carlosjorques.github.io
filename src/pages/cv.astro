@@ -11,11 +11,6 @@ const withBase = (href: string) => {
 	return href === '/' ? baseUrl : `${baseUrl}${href.replace(/^\//, '')}`;
 };
 
-const toolGroupsWithExtensions = cvProfile.tools.map((group, index) => ({
-	group,
-	extended: cvProfile.extendedTools[index] ?? null,
-}));
-
 const expertiseCardId = (title: string) =>
 	`expertise-${title
 		.toLowerCase()
@@ -240,18 +235,22 @@ const profileJsonLd = {
 				</section>
 
 		<section class="cv-section cv-section--compact" id="impact" aria-labelledby="impact-title" data-cv-section>
-			<div class="page-container">
-				<div class="cv-section__intro">
-					<h2 id="impact-title">Engineering Outcomes</h2>
-				</div>
-				<ul class="cv-impact-list">
-					{cvProfile.impactHighlights.map((highlight, index) => (
-						<li>
-							<span aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
-							<p>{highlight}</p>
-						</li>
-					))}
-				</ul>
+                        <div class="page-container">
+                                <div class="cv-section__intro">
+                                        <h2 id="impact-title">Engineering Outcomes</h2>
+                                        <p>{cvProfile.impactIntro}</p>
+                                </div>
+                                <ul class="cv-impact-list">
+                                        {cvProfile.impactHighlights.map((highlight) => (
+                                                <li>
+                                                        <span>{highlight.category}</span>
+                                                        <div>
+                                                                <h3>{highlight.title}</h3>
+                                                                <p>{highlight.body}</p>
+                                                        </div>
+                                                </li>
+                                        ))}
+                                </ul>
 			</div>
 		</section>
 
@@ -417,18 +416,22 @@ const profileJsonLd = {
                         </div>
                 </section>
 
-		<section class="cv-section" id="case-studies" aria-labelledby="case-studies-title" data-cv-section>
+		<section class="cv-section representative-systems" id="representative-systems" aria-labelledby="representative-systems-title" data-cv-section>
 			<div class="page-container">
 				<div class="cv-section__intro">
-					<h2 id="case-studies-title">Selected Case Studies</h2>
-					<p>Control concepts translated into embedded software for electrified, autonomous, and safety-relevant systems.</p>
+					<h2 id="representative-systems-title">Representative Systems</h2>
+					<p>Compact examples of systems where my embedded controls work has been applied. Full project context is available on the Work page.</p>
 				</div>
-				<div class="cv-case-grid">
-					{cvProfile.caseStudies.map((item) => (
-						<article class="cv-card cv-case-card cv-card--interactive" data-analytics="cv_case_study_view">
-							<h3>{item.title}</h3>
-							<p>{item.statement}</p>
-							<dl>
+				<div class="representative-systems__grid">
+					{cvProfile.caseStudies.map((item) => {
+						const titleId = `representative-${expertiseCardId(item.title)}-title`;
+						return (
+						<article class="cv-card cv-card--interactive cv-expertise-card representative-system-card" data-analytics="cv_representative_system_view" aria-labelledby={titleId}>
+							<header class="cv-expertise-card__header representative-system-card__header">
+								<h3 id={titleId} class="cv-expertise-card__title">{item.title}</h3>
+								<p class="cv-expertise-card__summary">{item.statement}</p>
+							</header>
+							<dl class="representative-system-card__meta">
 								<div>
 									<dt>Role</dt>
 									<dd>{item.role}</dd>
@@ -438,13 +441,14 @@ const profileJsonLd = {
 									<dd>{item.focus}</dd>
 								</div>
 								<div>
-									<dt>Proof</dt>
+									<dt>Evidence</dt>
 									<dd>{item.proof}</dd>
 								</div>
 							</dl>
-							<!-- TODO: Add "View related work" links when dedicated Work entries exist. -->
+							<a class="cv-expertise-card__toggle representative-system-card__link" href={withBase(item.href)}>View work context →</a>
 						</article>
-					))}
+						);
+					})}
 				</div>
 			</div>
 		</section>
@@ -456,148 +460,136 @@ const profileJsonLd = {
 					<p>{cvProfile.research.intro}</p>
 				</div>
 
-				<div class="cv-research-layout">
-					<article class="cv-card">
-						<h3>Research themes</h3>
-						<ul class="cv-chip-list" aria-label="Research themes">
-							{cvProfile.research.themes.map((theme) => (
-								<li>{theme}</li>
-							))}
-						</ul>
-					</article>
-					<article class="cv-card">
-						<h3>Research evidence</h3>
-						<ul class="cv-research-stats">
-							{cvProfile.research.evidence.map((item) => (
-								<li>
-									<strong>{item.value}</strong>
-									<span>{item.label}</span>
-								</li>
-							))}
-						</ul>
-					</article>
-				</div>
+                                <div class="cv-research-layout">
+                                        <article class="cv-card">
+                                                <h3>Research focus</h3>
+                                                <ul class="cv-research-focus-list" aria-label="Research focus">
+                                                        {cvProfile.research.themes.map((theme) => (
+                                                                <li>{theme}</li>
+                                                        ))}
+                                                </ul>
+                                        </article>
+                                        <article class="cv-card">
+                                                <h3>Academic and patent record</h3>
+                                                <ul class="cv-research-stats">
+                                                        {cvProfile.research.evidence.map((item) => (
+                                                                <li>
+                                                                        <strong>{item.value}</strong>
+                                                                        <div>
+                                                                                <span>{item.label}</span>
+                                                                                {item.description && <p>{item.description}</p>}
+                                                                        </div>
+                                                                </li>
+                                                        ))}
+                                                </ul>
+                                        </article>
+                                </div>
 
-				<article class="cv-card cv-publications">
-					<h3>Published research outcomes</h3>
-					<ul>
-						{cvProfile.research.outcomes.map((outcome) => (
-							<li>{outcome}</li>
-						))}
-					</ul>
-					<details class="cv-disclosure" data-analytics="cv_patents_open">
-						<summary>Show patent records</summary>
-						<ul class="cv-disclosure__content cv-compact-list">
-							{cvProfile.research.patents.map((patent) => (
-								<li>{patent}</li>
-							))}
-						</ul>
-					</details>
-					<details class="cv-disclosure" data-analytics="cv_publications_open">
-						<summary>Show selected publication records</summary>
-						<ol class="cv-disclosure__content">
-							{cvProfile.research.selectedPublications.map((publication) => (
-								<li>{publication}</li>
-							))}
-							{cvProfile.research.additionalPublications.map((publication) => (
-								<li>{publication}</li>
-							))}
-						</ol>
-					</details>
-				</article>
-			</div>
-		</section>
+                                <article class="cv-card cv-research-outcomes">
+                                        <h3>Published outcomes</h3>
+                                        <ul class="cv-research-outcome-grid">
+                                                {cvProfile.research.outcomes.map((outcome) => (
+                                                        <li>
+                                                                <strong>{outcome.value}</strong>
+                                                                <span>{outcome.label}</span>
+                                                        </li>
+                                                ))}
+                                        </ul>
+                                        <div class="cv-research-relevance">
+                                                <h3>Engineering relevance</h3>
+                                                <p>{cvProfile.research.relevance}</p>
+                                        </div>
+                                        <a class="cv-research-link" href={withBase(cvProfile.research.workHref)}>View research context on the Work page</a>
+                                </article>
+                        </div>
+                </section>
 
 		<section class="cv-section" id="education" aria-labelledby="education-title" data-cv-section>
-			<div class="page-container">
-				<div class="cv-section__intro">
-					<h2 id="education-title">Education</h2>
-				</div>
-				<div class="cv-card-grid cv-card-grid--education">
-					{cvProfile.education.map((item) => (
-						<article class="cv-card cv-education-card cv-card--interactive">
-							<p class="cv-card__meta">{item.year}</p>
-							<h3>{item.degree}</h3>
-							{item.dissertation && (
-								<p><strong>Dissertation:</strong> {item.dissertation}</p>
-							)}
-							{item.focus && <p><strong>Focus:</strong> {item.focus}</p>}
-							<p>{item.description}</p>
-							{item.links && (
-								<ul class="cv-link-list" aria-label={`${item.degree} links`}>
-									{item.links.map((link) => (
-										<li>
-											<a href={link.href} target="_blank" rel="noopener noreferrer">{link.label}</a>
-										</li>
-									))}
-								</ul>
-							)}
-						</article>
-					))}
-				</div>
+                        <div class="page-container">
+                                <div class="cv-section__intro">
+                                        <h2 id="education-title">Education</h2>
+                                        <p>{cvProfile.educationIntro}</p>
+                                </div>
+                                <div class="cv-card-grid cv-card-grid--education">
+                                        {cvProfile.education.map((item) => (
+                                                <article class="cv-card cv-education-card cv-card--interactive">
+                                                        <div class="cv-education-card__identity">
+                                                                <p class="cv-card__meta">{item.year}</p>
+                                                                <h3>{item.degree}</h3>
+                                                                {item.institution && <p class="cv-education-card__institution">{item.institution}</p>}
+                                                        </div>
+                                                        <div class="cv-education-card__details">
+                                                                {item.dissertation && (
+                                                                        <p class="cv-education-card__field"><strong>Dissertation</strong><span>{item.dissertation}</span></p>
+                                                                )}
+                                                                {item.focus && <p class="cv-education-card__field"><strong>Focus</strong><span>{item.focus}</span></p>}
+                                                                <p class="cv-education-card__field"><strong>Relevance</strong><span>{item.description}</span></p>
+                                                        </div>
+                                                        {item.links && (
+                                                                <div class="cv-education-card__links" aria-label={`${item.degree} links`}>
+                                                                        {item.links.map((link) => (
+                                                                                <a href={withBase(link.href)} target={link.href.startsWith('http') ? '_blank' : undefined} rel={link.href.startsWith('http') ? 'noopener noreferrer' : undefined}>{link.label}</a>
+                                                                        ))}
+                                                                </div>
+                                                        )}
+                                                </article>
+                                        ))}
+                                </div>
 			</div>
 		</section>
 
-				<section class="cv-section" id="tools" aria-labelledby="tools-title" data-cv-section>
-					<div class="page-container">
-						<div class="cv-section__intro">
-							<h2 id="tools-title">Tools, Methods, Standards, and Languages</h2>
-						</div>
-						<div class="cv-card-grid cv-card-grid--tools">
-					{toolGroupsWithExtensions.map(({ group, extended }) => (
-						<article class="cv-card cv-card--compact cv-tool-card">
-							<h3>{group.title}</h3>
-							<ul class="cv-chip-list" aria-label={`${group.title} list`}>
-								{group.items.map((item) => (
-									<li>{item}</li>
-								))}
-							</ul>
-							{extended && (
-								<details class="cv-disclosure cv-disclosure--inline cv-tool-card__details" data-analytics="cv_extended_stack_open">
-									<summary>Show more</summary>
-									<ul class="cv-chip-list cv-chip-list--extended" aria-label={`${extended.title} extended list`}>
-										{extended.items.map((item) => (
-											<li>{item}</li>
-										))}
-									</ul>
-								</details>
-							)}
-						</article>
-					))}
-					<article class="cv-card cv-card--compact">
-						<h3>Languages</h3>
-						<ul class="cv-language-list">
-							{cvProfile.languages.map((item) => (
-								<li>
-									<strong>{item.language}</strong>
-									<span>{item.level}</span>
-								</li>
-							))}
-						</ul>
-					</article>
-				</div>
+                                <section class="cv-section" id="tools" aria-labelledby="tools-title" data-cv-section>
+                                        <div class="page-container">
+                                                <div class="cv-section__intro">
+                                                        <h2 id="tools-title">Tools, Methods &amp; Continuous Learning</h2>
+                                                        <p>{cvProfile.toolsIntro}</p>
+                                                </div>
+                                                <div class="cv-card-grid cv-card-grid--tools">
+                                                        {cvProfile.tools.map((group) => (
+                                                                <article class="cv-card cv-card--compact cv-tool-card">
+                                                                        <h3>{group.title}</h3>
+                                                                        {group.languages ? (
+                                                                                <ul class="cv-language-list">
+                                                                                        {group.languages.map((item) => (
+                                                                                                <li>
+                                                                                                        <strong>{item.language}</strong>
+                                                                                                        <span>{item.level}</span>
+                                                                                                </li>
+                                                                                        ))}
+                                                                                </ul>
+                                                                        ) : (
+                                                                                <div class="cv-tool-card__body">
+                                                                                        <p class="cv-tool-card__primary">{group.primaryTools}</p>
+                                                                                        <p class="cv-tool-card__methods">{group.methods}</p>
+                                                                                </div>
+                                                                        )}
+                                                                </article>
+                                                        ))}
+                                                </div>
 
-				<section class="cv-courses" aria-labelledby="courses-title">
-					<h3 id="courses-title">Courses &amp; Recognition</h3>
-					<ul class="cv-impact-list cv-impact-list--compact">
-						{cvProfile.coursesAndRecognition.featured.map((item, index) => (
-							<li>
-								<span aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
-								<p>{item}</p>
-							</li>
-						))}
-					</ul>
-					<details class="cv-disclosure cv-disclosure--wide" data-analytics="cv_courses_recognition_open">
-						<summary>Show more courses and recognition</summary>
-						<ul class="cv-disclosure__content">
-							{cvProfile.coursesAndRecognition.additional.map((item) => (
-								<li>{item}</li>
-							))}
-						</ul>
-					</details>
-				</section>
-			</div>
-		</section>
+                                                <article class="cv-card cv-card--compact cv-learning-card" aria-labelledby="learning-title">
+                                                        <h3 id="learning-title">Continuous Learning and Recognition</h3>
+                                                        <div class="cv-learning-card__grid">
+                                                                <section aria-label="Recognition">
+                                                                        <h4>Recognition</h4>
+                                                                        <ul>
+                                                                                {cvProfile.learningRecognition.recognition.map((item) => (
+                                                                                        <li>{item}</li>
+                                                                                ))}
+                                                                        </ul>
+                                                                </section>
+                                                                <section aria-label="Recent learning">
+                                                                        <h4>Recent learning</h4>
+                                                                        <ul>
+                                                                                {cvProfile.learningRecognition.recentLearning.map((item) => (
+                                                                                        <li>{item}</li>
+                                                                                ))}
+                                                                        </ul>
+                                                                </section>
+                                                        </div>
+                                                </article>
+                        </div>
+                </section>
 
 		<section class="cv-section cv-final" id="contact" aria-labelledby="contact-title" data-cv-section>
 			<div class="page-container cv-final__inner">
@@ -1278,7 +1270,7 @@ const profileJsonLd = {
 
 	.core-expertise-grid,
 	.cv-featured-expertise-grid,
-	.cv-case-grid {
+	.representative-systems__grid {
 		display: grid;
 		grid-template-columns: 1fr;
 		gap: clamp(1.25rem, 3vw, 1.75rem);
@@ -1326,9 +1318,75 @@ const profileJsonLd = {
         }
 
         .cv-education-card {
+                display: grid;
                 gap: 0.75rem 1.5rem;
                 align-content: start;
                 height: fit-content;
+        }
+
+        .cv-education-card__identity,
+        .cv-education-card__details {
+                display: grid;
+                gap: 0.45rem;
+        }
+
+        .cv-education-card__identity h3 {
+                margin: 0;
+                color: var(--color-text);
+                font-family: var(--font-display);
+                font-size: var(--type-card-title-size);
+                font-weight: var(--type-card-title-weight);
+                line-height: var(--type-card-title-line);
+                letter-spacing: var(--type-card-title-tracking);
+        }
+
+        .cv-education-card__institution {
+                margin: 0;
+                color: var(--color-muted);
+                font-size: var(--type-card-body-size);
+                line-height: var(--type-card-body-line);
+        }
+
+        .cv-education-card__field {
+                display: grid;
+                gap: 0.2rem;
+                margin: 0;
+        }
+
+        .cv-education-card__field strong {
+                color: var(--color-text);
+                font-size: var(--type-meta-size);
+                font-weight: 700;
+                line-height: var(--type-meta-line);
+                letter-spacing: var(--type-meta-tracking);
+                text-transform: uppercase;
+        }
+
+        .cv-education-card__field span {
+                color: var(--color-muted);
+                font-size: var(--type-card-body-size);
+                line-height: var(--type-card-body-line);
+        }
+
+        .cv-education-card__links {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0.55rem;
+                margin-top: 0.2rem;
+        }
+
+        .cv-education-card__links a {
+                width: fit-content;
+                color: var(--color-text);
+                font-weight: 700;
+                text-decoration: underline;
+                text-decoration-thickness: 1px;
+                text-underline-offset: 0.2em;
+        }
+
+        .cv-education-card__links a:hover,
+        .cv-education-card__links a:focus-visible {
+                color: var(--color-text);
         }
 
 	.cv-expertise-card {
@@ -1559,37 +1617,70 @@ const profileJsonLd = {
 		color: var(--color-text);
 	}
 
-        .cv-chip-list--extended {
-                margin-top: 0.15rem;
-        }
-
         .cv-tool-card {
+                display: grid;
+                align-content: start;
+                gap: 0.85rem;
                 height: 100%;
         }
 
-        .cv-tool-card__details {
-                gap: 0.65rem;
-                margin-top: 0.15rem;
+        .cv-tool-card__body {
+                display: grid;
+                gap: 0.55rem;
         }
 
-        .cv-tool-card__details > summary {
-                border: 0;
-                padding: 0;
-                background: transparent;
-                justify-content: flex-start;
-                gap: 0.35rem;
-                color: var(--color-accent-text);
+        .cv-tool-card__primary {
+                color: var(--color-text);
+                font-size: var(--type-card-body-size);
+                font-weight: 700;
+                line-height: var(--type-card-body-line);
         }
 
-        .cv-tool-card__details > summary::after {
-                width: 0.95rem;
-                height: 0.95rem;
-                border-color: transparent;
-                color: var(--color-accent-text);
+        .cv-tool-card__methods {
+                color: var(--color-muted);
+                font-size: var(--type-card-body-size);
+                line-height: var(--type-card-body-line);
         }
 
-        .cv-tool-card__details[open] > summary::after {
-                color: var(--color-accent-text);
+        .cv-learning-card {
+                display: grid;
+                gap: clamp(1rem, 2vw, 1.35rem);
+                margin-top: clamp(1rem, 2vw, 1.25rem);
+        }
+
+        .cv-learning-card__grid {
+                display: grid;
+                gap: clamp(1rem, 2vw, 1.5rem);
+        }
+
+        .cv-learning-card section {
+                display: grid;
+                gap: 0.55rem;
+                align-content: start;
+        }
+
+        .cv-learning-card h4 {
+                color: var(--color-soft);
+                font-family: var(--font-mono);
+                font-size: var(--type-meta-size);
+                font-weight: var(--type-meta-weight);
+                line-height: var(--type-meta-line);
+                letter-spacing: var(--type-meta-tracking);
+                text-transform: uppercase;
+        }
+
+        .cv-learning-card ul {
+                display: grid;
+                gap: 0.45rem;
+                margin: 0;
+                padding-left: 1.15rem;
+        }
+
+        .cv-learning-card li {
+                margin: 0;
+                color: var(--color-muted);
+                font-size: var(--type-card-body-size);
+                line-height: var(--type-card-body-line);
         }
 
 	.cv-impact-list {
@@ -1601,19 +1692,18 @@ const profileJsonLd = {
 		list-style: none;
 	}
 
-	.cv-impact-list li {
-		display: grid;
-		grid-template-columns: auto minmax(0, 1fr);
-		gap: 0.8rem;
-		align-items: start;
-		margin: 0;
-		border: 1px solid var(--color-card-border);
-		border-radius: var(--radius);
-		background: transparent;
-		padding: 0.9rem 1rem;
-		color: var(--color-muted);
-		font-size: var(--type-card-body-size);
-		line-height: var(--type-card-body-line);
+        .cv-impact-list li {
+                display: grid;
+                gap: 0.5rem;
+                align-items: start;
+                margin: 0;
+                border: 1px solid var(--color-card-border);
+                border-radius: var(--radius);
+                background: transparent;
+                padding: 0.95rem 1rem;
+                color: var(--color-muted);
+                font-size: var(--type-card-body-size);
+                line-height: var(--type-card-body-line);
 		transition:
 			background-color var(--motion-duration-fast-02) var(--motion-standard-productive),
 			border-color var(--motion-duration-fast-02) var(--motion-standard-productive),
@@ -1626,28 +1716,36 @@ const profileJsonLd = {
 		transform: translateY(-2px);
 	}
 
-	.cv-impact-list li > span {
-		color: var(--color-muted);
-		font-family: var(--font-mono);
-		font-size: var(--type-meta-size);
-		font-weight: var(--type-meta-weight);
-		line-height: var(--type-meta-line);
-	}
+        .cv-impact-list li > span {
+                color: var(--color-soft);
+                font-family: var(--font-mono);
+                font-size: var(--type-meta-size);
+                font-weight: var(--type-meta-weight);
+                line-height: var(--type-meta-line);
+                letter-spacing: var(--type-meta-tracking);
+                text-transform: uppercase;
+        }
 
-	.cv-impact-list li > p {
-		color: var(--color-muted);
-		font-family: var(--font-body);
-		font-size: var(--type-card-body-size);
+        .cv-impact-list li > div {
+                display: grid;
+                gap: 0.35rem;
+        }
+
+        .cv-impact-list h3 {
+                color: var(--color-text);
+                font-family: var(--font-display);
+                font-size: var(--type-card-title-size);
+                font-weight: var(--type-card-title-weight);
+                line-height: var(--type-card-title-line);
+                letter-spacing: var(--type-card-title-tracking);
+        }
+
+        .cv-impact-list p {
+                color: var(--color-muted);
+                font-family: var(--font-body);
+                font-size: var(--type-card-body-size);
 		line-height: var(--type-card-body-line);
 		letter-spacing: var(--type-card-body-tracking);
-	}
-
-	.cv-impact-list--compact {
-		gap: 0.65rem;
-	}
-
-	.cv-impact-list--compact li {
-		padding-block: 0.75rem;
 	}
 
 	.cv-timeline {
@@ -2005,12 +2103,6 @@ const profileJsonLd = {
                 margin-top: 0;
         }
 
-        .cv-courses {
-                display: grid;
-                gap: 1rem;
-                margin-top: clamp(1.75rem, 4vw, 2.5rem);
-        }
-
         .cv-earlier-grid {
                 display: grid;
                 grid-template-columns: repeat(auto-fit, minmax(min(17rem, 100%), 1fr));
@@ -2099,21 +2191,29 @@ const profileJsonLd = {
                 line-height: 1.42;
         }
 
-        .cv-case-card dl {
-                display: grid;
-                gap: 0.55rem;
+	.representative-system-card {
+		grid-template-rows: minmax(5.55rem, auto) 1fr auto;
+	}
+
+	.representative-system-card__header {
+		padding-right: 0;
+	}
+
+	.representative-system-card__meta {
+		display: grid;
+		gap: 0;
 		margin: 0;
 	}
 
-	.cv-case-card dl div {
+	.representative-system-card__meta div {
 		display: grid;
 		grid-template-columns: minmax(4.5rem, auto) minmax(0, 1fr);
 		gap: 0.75rem;
 		border-top: 1px solid var(--color-border-soft);
-		padding-top: 0.55rem;
+		padding: 0.55rem 0;
 	}
 
-	.cv-case-card dt {
+	.representative-system-card__meta dt {
 		color: var(--color-soft);
 		font-family: var(--font-mono);
 		font-size: var(--type-meta-size);
@@ -2122,70 +2222,195 @@ const profileJsonLd = {
 		text-transform: uppercase;
 	}
 
-	.cv-case-card dd {
+	.representative-system-card__meta dd {
 		margin: 0;
-	}
-
-	.cv-research-layout {
-		display: grid;
-		grid-template-columns: 1fr;
-		gap: clamp(1.25rem, 3vw, 1.75rem);
-		background: transparent;
-	}
-
-	.cv-compact-list {
-		display: grid;
-		gap: 0.6rem;
-		padding-left: 1.15rem;
-	}
-
-	.cv-research-stats {
-		display: grid;
-		grid-template-columns: 1fr;
-		gap: 0.75rem;
-		margin: 0;
-		padding: 0;
-		list-style: none;
-	}
-
-	.cv-research-stats li {
-		display: grid;
-		gap: 0.25rem;
-		margin: 0;
-		border: 1px solid var(--color-card-border);
-		border-radius: var(--radius);
-		background: transparent;
-		padding: 0.85rem;
-	}
-
-	.cv-research-stats strong {
-		color: var(--color-text);
-		font-family: var(--font-display);
-		font-size: var(--type-card-title-size);
-		line-height: var(--type-card-title-line);
-		letter-spacing: var(--type-card-title-tracking);
-	}
-
-	.cv-research-stats span {
 		color: var(--color-muted);
-		font-family: var(--font-body);
 		font-size: var(--type-card-body-size);
 		line-height: var(--type-card-body-line);
-		letter-spacing: var(--type-card-body-tracking);
 	}
 
-	.cv-publications {
-		margin-top: 1.5rem;
+	.representative-system-card__link {
+		text-decoration: none;
 	}
 
-	.cv-publications ol {
-		display: grid;
-		gap: 0.7rem;
+	.representative-system-card__link:focus-visible {
+		outline: 2px solid var(--color-accent-text);
+		outline-offset: 3px;
 	}
 
-	.cv-link-list {
-		display: grid;
-		gap: 0.35rem;
+        .cv-research-layout {
+                display: grid;
+                grid-template-columns: 1fr;
+                gap: clamp(1.25rem, 3vw, 1.75rem);
+                background: transparent;
+        }
+
+        .cv-research-focus-list {
+                display: grid;
+                gap: 0.55rem;
+                margin: 0;
+                padding: 0;
+                list-style: none;
+        }
+
+        .cv-research-focus-list li {
+                margin: 0;
+                border-bottom: 1px solid var(--color-border-soft);
+                padding-bottom: 0.45rem;
+                color: var(--color-muted);
+                font-family: var(--font-body);
+                font-size: var(--type-card-body-size);
+                line-height: var(--type-card-body-line);
+        }
+
+        .cv-research-focus-list li:last-child {
+                border-bottom: 0;
+                padding-bottom: 0;
+        }
+
+        .cv-compact-list {
+                display: grid;
+                gap: 0.6rem;
+                padding-left: 1.15rem;
+	}
+
+        .cv-research-stats {
+                display: grid;
+                grid-template-columns: 1fr;
+                gap: 0;
+                margin: 0;
+                padding: 0;
+                list-style: none;
+        }
+
+        .cv-research-stats li {
+                display: grid;
+                grid-template-columns: minmax(3.6rem, auto) minmax(0, 1fr);
+                gap: 0.8rem;
+                align-items: start;
+                margin: 0;
+                border-bottom: 1px solid var(--color-border-soft);
+                padding: 0.75rem 0;
+        }
+
+        .cv-research-stats li:first-child {
+                padding-top: 0;
+        }
+
+        .cv-research-stats li:last-child {
+                border-bottom: 0;
+                padding-bottom: 0;
+        }
+
+        .cv-research-stats strong {
+                color: var(--color-text);
+                font-family: var(--font-display);
+		font-size: var(--type-card-title-size);
+		line-height: var(--type-card-title-line);
+                letter-spacing: var(--type-card-title-tracking);
+        }
+
+        .cv-research-stats div {
+                display: grid;
+                gap: 0.2rem;
+        }
+
+        .cv-research-stats span,
+        .cv-research-outcome-grid span {
+                color: var(--color-text);
+                font-family: var(--font-body);
+                font-size: var(--type-card-body-size);
+                font-weight: 700;
+                line-height: var(--type-card-body-line);
+                letter-spacing: var(--type-card-body-tracking);
+        }
+
+        .cv-research-stats p {
+                color: var(--color-muted);
+                font-family: var(--font-body);
+                font-size: var(--type-card-body-size);
+                line-height: var(--type-card-body-line);
+                letter-spacing: var(--type-card-body-tracking);
+        }
+
+        .cv-research-outcomes {
+                display: grid;
+                gap: 1rem;
+                margin-top: 1.5rem;
+        }
+
+        .cv-research-outcome-grid {
+                display: grid;
+                grid-template-columns: 1fr;
+                gap: 0;
+                margin: 0;
+                padding: 0;
+                list-style: none;
+        }
+
+        .cv-research-outcome-grid li {
+                display: grid;
+                gap: 0.25rem;
+                margin: 0;
+                border-bottom: 1px solid var(--color-border-soft);
+                padding: 0.75rem 0;
+        }
+
+        .cv-research-outcome-grid li:first-child {
+                padding-top: 0;
+        }
+
+        .cv-research-outcome-grid li:last-child {
+                border-bottom: 0;
+                padding-bottom: 0;
+        }
+
+        .cv-research-outcome-grid strong {
+                color: var(--color-text);
+                font-family: var(--font-display);
+                font-size: var(--type-card-title-size);
+                line-height: var(--type-card-title-line);
+                letter-spacing: var(--type-card-title-tracking);
+        }
+
+        .cv-research-relevance {
+                display: grid;
+                gap: 0.45rem;
+                border-top: 1px solid var(--color-border-soft);
+                padding-top: 0.95rem;
+        }
+
+        .cv-research-relevance h3 {
+                font-size: var(--type-meta-size);
+                line-height: var(--type-meta-line);
+                letter-spacing: var(--type-meta-tracking);
+                text-transform: uppercase;
+        }
+
+        .cv-research-relevance p {
+                max-width: var(--cv-max-measure);
+                color: var(--color-muted);
+                font-size: var(--type-card-body-size);
+                line-height: var(--type-card-body-line);
+        }
+
+        .cv-research-link {
+                width: fit-content;
+                color: var(--color-text);
+                font-weight: 700;
+                text-decoration: underline;
+                text-decoration-thickness: 1px;
+                text-underline-offset: 0.2em;
+        }
+
+        .cv-research-link:hover,
+        .cv-research-link:focus-visible {
+                color: var(--color-text);
+        }
+
+        .cv-link-list {
+                display: grid;
+                gap: 0.35rem;
 		padding-left: 1.15rem;
 	}
 
@@ -2255,12 +2480,28 @@ const profileJsonLd = {
                         grid-template-columns: repeat(2, minmax(0, 1fr));
                 }
 
-		.cv-card-grid--two,
-		.core-expertise-grid,
-		.cv-research-layout,
-		.cv-case-grid {
-			grid-template-columns: repeat(2, minmax(0, 1fr));
-		}
+                .cv-card-grid--two,
+                .core-expertise-grid,
+                .cv-research-layout,
+                .representative-systems__grid {
+                        grid-template-columns: repeat(2, minmax(0, 1fr));
+                }
+
+                .cv-research-outcome-grid {
+                        grid-template-columns: repeat(3, minmax(0, 1fr));
+                        gap: 1.2rem;
+                }
+
+                .cv-research-outcome-grid li {
+                        border-right: 1px solid var(--color-border-soft);
+                        border-bottom: 0;
+                        padding: 0 1.2rem 0 0;
+                }
+
+                .cv-research-outcome-grid li:last-child {
+                        border-right: 0;
+                        padding-right: 0;
+                }
 
 		.core-expertise-detail__grid {
 			grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -2281,18 +2522,22 @@ const profileJsonLd = {
                         grid-template-columns: repeat(2, minmax(0, 1fr));
                 }
 
+                .cv-learning-card__grid {
+                        grid-template-columns: repeat(2, minmax(0, 1fr));
+                }
+
                 .cv-education-card {
                         grid-template-columns: minmax(0, 0.35fr) minmax(0, 0.65fr);
                         align-items: start;
                         align-content: start;
                 }
 
-                .cv-education-card > .cv-card__meta,
-                .cv-education-card > h3 {
+                .cv-education-card__identity {
                         grid-column: 1;
                 }
 
-                .cv-education-card > :not(.cv-card__meta):not(h3) {
+                .cv-education-card__details,
+                .cv-education-card__links {
                         grid-column: 2;
                 }
         }
@@ -2410,7 +2655,7 @@ const profileJsonLd = {
                         height: 0.7rem;
                 }
 
-		.cv-case-card dl div {
+		.representative-system-card__meta div {
 			grid-template-columns: 1fr;
 			gap: 0.2rem;
 		}

@@ -46,6 +46,8 @@ Model-based thermal and control software for e-bike motor control, wireless char
 
 ## Selected Work
 
+Selected project contexts where control architecture, embedded software, diagnostics, validation, and production constraints come together in real systems.
+
 ### Electric Truck Thermal Management and BMS Systems
 
 Role: Senior developer engineer

@@ -25,7 +25,7 @@ Secondary summary: I translate automatic control concepts into robust, testable,
 - Expertise
 - Impact
 - Experience
-- Case Studies
+- Systems
 - Research
 - Education
 - Tools
@@ -253,13 +253,43 @@ I help teams make ambiguous engineering work visible: what is known, what is ass
 
 ## Engineering Outcomes
 
-- Led and mentored a team of 3 embedded software engineers delivering model-based automotive software.
-- Developed embedded software for electric truck thermal management, battery systems, charger integration, diagnostics, and validation.
-- Designed and integrated traction and speed control software for autonomous electric haulers.
-- Developed control architecture and diagnostics for dual-motor torque allocation and redundant actuator concepts.
-- Created model-based thermal and control software for e-bike motor control, wireless charging, and DC/DC converter applications.
-- Developed real-time combustion control and diagnostic algorithms during an industrial PhD, resulting in publications and patent records.
-- Published research results include 25-75% reduction in controlled-parameter dispersion, 60% reduction in pilot fuel mass estimation error, and up to 96% real-time pilot misfire detection.
+Selected outcomes from embedded control software, electrification, diagnostics, autonomous systems, and applied control research.
+
+### Embedded software delivery
+
+Category: Leadership
+
+Led and mentored a team of 3 embedded software engineers developing model based automotive control software.
+
+### Electric truck control software
+
+Category: Electrification
+
+Delivered embedded software for thermal management, battery systems, charger coordination, diagnostics, and validation.
+
+### Vehicle level motion control
+
+Category: Autonomous systems
+
+Designed and integrated traction and speed control software for autonomous electric haulers.
+
+### Fault tolerant control concepts
+
+Category: Diagnostics
+
+Developed control architecture and diagnostics for dual motor torque allocation and redundant actuator concepts.
+
+### Electrified system control
+
+Category: Power electronics
+
+Created model based thermal and control software for e bike motor control, wireless charging, and DC/DC converter applications.
+
+### Validated control research
+
+Category: Research
+
+Published results showing 25 to 75 percent reduction in controlled parameter dispersion, 60 percent reduction in pilot fuel mass estimation error, and up to 96 percent real time pilot misfire detection.
 
 ## Experience
 
@@ -519,7 +549,7 @@ Summary: Engineering internship in mobile R&D focused on predictive algorithms f
 - Researched predictive screen interaction models for improved responsiveness.
 - Implemented selected algorithms at Android kernel level for real-time evaluation.
 
-## Selected Case Studies
+## Representative Systems
 
 ### Electric Truck Thermal Management and Battery Systems
 
@@ -527,6 +557,7 @@ Eyebrow: EV systems
 Role: Senior developer engineer
 Focus: BMS / thermal control / diagnostics
 Proof: MIL/SIL/HIL / vehicle testing / ISO 26262 context
+Href: /work#electric-truck-thermal-management
 
 Embedded control software for battery, auxiliary, power electronics, and charging thermal coordination in heavy-duty electric vehicles.
 
@@ -536,6 +567,7 @@ Eyebrow: Autonomous machines
 Role: Senior developer engineer / technical lead
 Focus: Traction control / torque allocation / diagnostics
 Proof: Dual motors / redundant actuators / SIL/HIL / vehicle testing
+Href: /work#autonomous-hauler-propulsion-control
 
 Propulsion and speed-control software for autonomous electric haulers operating in demanding off-road environments.
 
@@ -545,228 +577,158 @@ Eyebrow: Power electronics
 Role: Software lead / Scrum Master
 Focus: PMSM / AUTOSAR / power electronics
 Proof: 98% thermal model accuracy / bench validation / Agile delivery
+Href: /work#ebike-motor-control-power-electronics
 
 Embedded software for e-bike motor control, wireless charging, DC/DC conversion, and PMSM thermal modeling.
 
-### In-Cycle Combustion Control and Real-Time Diagnostics
+### Heavy-Duty Engine Diagnostics and Control Research
 
 Eyebrow: Real-time control research
 Role: Industrial PhD researcher
 Focus: Closed-loop control / virtual sensing / stochastic detection
 Proof: Patents / publications / test-bench validation
+Href: /work#heavy-duty-engine-diagnostics-control-research
 
-Real-time control and diagnostic algorithms for heavy-duty combustion systems with FPGA implementation and experimental validation.
+Real-time control and diagnostic algorithms for heavy-duty combustion systems with experimental validation.
 
 ## Research, Patents & Publications
 
-Research evidence showing depth in real-time control, virtual sensing, stochastic modeling, and hardware-constrained implementation for heavy-duty physical systems, with a bridge from advanced research into production-oriented engineering decisions.
+Research evidence behind my work in real time control, virtual sensing, diagnostics, stochastic modeling, and hardware constrained implementation for heavy duty physical systems.
 
-### Research themes
+### Research focus
 
-- In-cycle closed-loop combustion control
-- Real-time model-based diagnostics and virtual sensing
-- Stochastic detection and Bayesian estimation
-- Predictive control and online model adaptation
-- FPGA implementation of real-time control and signal-processing methods
-- Experimental validation on heavy-duty engine platforms
+- Closed loop combustion control
+- Virtual sensing and diagnostics
+- Stochastic detection and estimation
+- Predictive control and model adaptation
+- Real time hardware implementation
+- Experimental validation
 
-### Research evidence
+### Academic and patent record
 
 #### 5
 
-patent records
+Patent records
+
+Control, diagnostics, and combustion related inventions
 
 #### 15+
 
-scientific publications
+Scientific publications
+
+Real time control, diagnostics, estimation, and validation
 
 #### PhD
 
-industrial research with Scania and Lund University
+Industrial research
 
-### Published research outcomes
+Scania and Lund University
 
-- Published research results include 25-75% reduction in controlled-parameter dispersion.
-- Published research results include 60% reduction in pilot fuel mass estimation error.
-- Published research results include up to 96% real-time pilot misfire detection.
+### Published outcomes
 
-### Patent records
+#### 25 to 75%
 
-- Method and system for determining in-cycle a pilot injection fuel mass in a combustion chamber of an engine
-- Method and system for fuel pump regulation
-- System and method for improving heat release evaluation at a reciprocating internal combustion engine
-- Method and system for diagnosing a fuel system
-- Method and system for diagnosing a fuel system II
+Reduced controlled parameter dispersion
 
-### Selected publication records
+#### 60%
 
-- Indicated efficiency optimization by in-cycle closed-loop combustion control of diesel engines
-- Modular Design and Integration of In-Cycle Closed-Loop Combustion Controllers for a Wide Range of Operating Conditions
-- Stochastic Set-Point Optimization for In-Cycle Closed-Loop Combustion Control Operation
-- In-Cycle Closed-Loop Combustion Control for Pilot Misfire Compensation
-- Multi-Cylinder Adaptation of In-Cycle Predictive Combustion Models
-- Predictive In-Cycle Closed-Loop Combustion Control with Pilot-Main Injections
-- Bayesian Method for Fuel Mass Estimation of Short Pilot Injections Based on its Misfire Probability
-- Cylinder Pressure-Based Virtual Sensor for In-Cycle Pilot Mass Estimation
-- Cylinder Pressure-Based Method for In-Cycle Pilot Misfire Detection
+Reduced pilot fuel mass estimation error
 
-### Additional publication records
+#### Up to 96%
 
-- FPGA Implementation of In-Cycle Closed-Loop Combustion Control Methods
-- In-Cycle Closed-Loop Combustion Controllability with Pilot-Main Injections
-- Internal Combustion Engine Cylinder Volume Trace Deviation
-- Influence of small Pilot on Main Injection in a Heavy Duty Diesel Engine
-- Investigation of small Pilot Combustion in a Heavy Duty Diesel Engine
+Real time pilot misfire detection
+
+### Engineering relevance
+
+This research background informs my production engineering work: building models that are useful, validating them against real systems, and turning control concepts into software that can run under timing, hardware, and reliability constraints.
+
+### Work page link
+
+/work
 
 ## Education
 
-### PhD, Mechanical Engineering - Lund University
+Academic foundation in automatic control, dynamic systems, embedded software, and industrial research for heavy duty physical systems.
+
+### PhD, Mechanical Engineering
 
 Year: 2021
-Dissertation: Design and Optimization of In-Cycle Closed-Loop Combustion Control with Multiple Injection
-Description: Industrial PhD in collaboration with Scania, focused on real-time diagnostics and combustion control for heavy-duty diesel engines using biofuels. Developed model-based algorithms, FPGA-based controllers, virtual sensors, stochastic detection methods, and experimental validation strategies.
+Institution: Lund University
+Dissertation: Design and Optimization of In Cycle Closed Loop Combustion Control with Multiple Injection
+Description: Industrial PhD with Scania focused on real time control, diagnostics, virtual sensing, stochastic detection, FPGA based implementation, and experimental validation for heavy duty diesel engines.
 
 #### Links
 
 - Thesis publication: https://portal.research.lu.se/portal/files/96902493/PhD_Thesis_Open.pdf
 - Thesis presentation: https://www.youtube.com/watch?v=vTkDS-V9lFw
+- Research context: /work
 
-### MSc, Electrical Engineering - Lund University
+### MSc, Electrical Engineering
 
 Year: 2014
+Institution: Lund University
 Focus: Automatic control and automation.
-Description: Specialized in control systems, embedded software, mechatronics, signal processing, optimal control, power electronics, and robotics. Master thesis at Scania on a multi-pump fuel control system with real-time control algorithms and patent work.
+Description: Specialized in control systems, embedded software, mechatronics, signal processing, optimal control, power electronics, and robotics. Master thesis at Scania on a multi pump fuel control system with real time control algorithms and patent work.
 
-### MSc, Industrial Engineering - Polytechnic University of Valencia
+### MSc, Industrial Engineering
 
 Year: 2014
+Institution: Polytechnic University of Valencia
 Focus: Electronics and automation.
 Description: Multidisciplinary engineering program covering mechanical, electrical, electronic, control, automation, and energy systems. Graduated with honors and received academic scholarships and recognition.
 
-## Tools, Methods, Standards, and Languages
+## Tools, Methods & Continuous Learning
 
-### Control & Modeling
+A snapshot of the tools, methods, standards, languages, and learning habits that support my work across embedded control software, validation, diagnostics, and production delivery.
 
-- MATLAB
-- Simulink
-- Stateflow
-- Embedded Coder
-- LabVIEW
+### Control and Modeling
 
-### Embedded Software
-
-- C
-- C++
-- Python
-- CAPL
-- ECU flashing
-
-### Validation
-
-- MIL
-- SIL
-- HIL
-- CANalyzer
-- CANoe
-- Google Test
-
-### Standards
-
-- ISO 26262
-- A-SPICE
-- AUTOSAR
-- CAN/J1939
-
-### Delivery
-
-- Git
-- GitLab
-- Jenkins
-- Jira
-- CI/CD
-- SAFe
-
-## Extended Tools
-
-### Control, Modeling, and Data
-
-- model-based development
-- system identification
-- calibration
-- signal processing
-- data analysis
-- stochastic modeling
-- optimization
-- model predictive control
-- dynamic modeling
+Primary tools: MATLAB · Simulink · Stateflow · Embedded Coder · LabVIEW
+Methods: Model based development, system identification, calibration, observer design, virtual sensing, model adaptation, signal processing, Kalman filtering, stochastic modeling, optimization, model predictive control.
 
 ### Embedded Software
 
-- Java
-- Eclipse
-- Visual Studio
-- generated code workflows
-- real-time embedded implementation
+Primary tools: C · C++ · Python · CAPL · LabVIEW FPGA · ECU flashing
+Methods: Real time embedded implementation, generated code integration, diagnostics implementation, scripting, automation, AUTOSAR oriented workflows, hardware constrained algorithms.
 
 ### Validation and Testing
 
-- unit testing
-- integration testing
-- system testing
-- test bench
-- wind tunnel
-- test track
-- on-road testing
-- Vision
+Primary tools: MIL · SIL · HIL · CANalyzer · CANoe · Google Test
+Methods: Test bench validation, vehicle validation, wind tunnel, test track, on road testing, regression testing, fault injection, calibration support, ECU debugging.
 
-### Process and Delivery
+### Delivery and Collaboration
 
-- functional safety
-- diagnostics
-- fault handling
-- fallback strategies
-- requirements traceability
-- SVN
-- Agile
-- Scrum
-- Kanban
-- technical documentation
-- supplier coordination
-- mentoring
+Primary tools: Git · GitLab · Jenkins · Jira · CI/CD · SAFe
+Methods: Code review, issue tracking, requirements alignment, architecture coordination, release workflows, agile delivery, continuous integration, mentoring, cross functional coordination.
 
-## Languages
+### Standards and Automotive Context
 
-### Spanish
+Primary tools: ISO 26262 · A SPICE · AUTOSAR · CAN/J1939 · Functional Safety
+Methods: Functional safety awareness, FuSa analysis, process alignment, automotive communication, traceability, production oriented documentation.
 
-Native
+### Languages
 
-### Catalan
+Spanish, native
+Catalan, native
+English, full professional
+Swedish, full professional
 
-Native
+### Continuous Learning and Recognition
 
-### English
+#### Recognition
 
-Full professional
+- Outstanding Oral Presentation Award, SAE, 2017
+- Scania Innovation Challenge, Scania, 2019
+- Best Academic Record for First Year, Polytechnic University of Valencia, 2009
+- Double Degree Scholarship, COIICV, 2013
 
-### Swedish
+#### Recent learning
 
-Full professional
-
-## Courses & Recognition
-
-### Featured
-
-- Outstanding Oral Presentation Award - SAE
-- Introduction to Electromobility - Swedish Electromobility Centre
-- Project Management: Product Owner + Kanban
-- LangChain and LLMs with Python
-
-### Additional
-
-- Power Electronic Converters
-- Scania Innovation Challenge
-- GT-Power
-- Control of Mobile Robots
+- LangChain and LLMs with Python, Alten, 2025
+- Project Management: Product Owner and Kanban, Cualtis, 2024
+- Power Electronic Converters, 2022
+- Introduction to Electromobility, Swedish Electromobility Centre, 2020
+- GT Power, Gamma Technologies, 2015
 
 ## Let's Connect
 

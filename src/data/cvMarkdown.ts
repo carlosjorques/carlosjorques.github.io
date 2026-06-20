@@ -1,16 +1,19 @@
 import cvMarkdown from '../content/profile/cv.md?raw';
 import { parseCvContent } from '../lib/profileMarkdown';
 import type {
-	CaseStudy,
-	CompactExperienceItem,
-	CourseGroup,
-	CvAction,
-	EducationItem,
-	ExperienceItem,
-	ExpertiseGroup,
-	ProofTile,
-	SectionNavItem,
-	ToolGroup,
+        CaseStudy,
+        CompactExperienceItem,
+        CvAction,
+        EducationItem,
+        ExperienceItem,
+        ExpertiseGroup,
+        ImpactHighlight,
+        LearningRecognition,
+        ProofTile,
+        ResearchMetric,
+        ResearchOutcome,
+        SectionNavItem,
+        ToolGroup,
 } from './cv';
 
 const { hero, sections, findChild, findOptionalChild, firstPlainParagraph, plainParagraphs, listItems, keyValue } =
@@ -19,6 +22,7 @@ const { hero, sections, findChild, findOptionalChild, firstPlainParagraph, plain
 const heroMeta = keyValue(hero.children[0]);
 
 const sectionHref = (label: string) => `#${label.toLowerCase().replace(/ & /g, '-').replace(/\s+/g, '-').replace(/[^a-z-]/g, '')}`;
+const sectionNavHref = (label: string) => (label === 'Systems' ? '#representative-systems' : sectionHref(label));
 
 const actionConfig = [
 	{ href: '/cv/Carlos_Jorques_CV.pdf', primary: true, download: true, analytics: 'cv_pdf_download' },
@@ -64,8 +68,78 @@ const parseEarlierExperience = (node: (typeof sections)['earlierExperience']['ch
 };
 
 const parseLinkLine = (line: string) => {
-	const [label, ...hrefParts] = line.split(': ');
-	return { label, href: hrefParts.join(': ') };
+        const [label, ...hrefParts] = line.split(': ');
+        return { label, href: hrefParts.join(': ') };
+};
+
+const parseImpactHighlight = (node: (typeof sections)['impactHighlights']['children'][number]): ImpactHighlight => {
+        const meta = keyValue(node);
+
+        return {
+                category: meta.category,
+                title: node.title,
+                body: firstPlainParagraph(node),
+        };
+};
+
+const parseResearchMetric = (node: (typeof sections)['research']['children'][number]): ResearchMetric => {
+	const text = plainParagraphs(node);
+
+	return {
+		value: node.title,
+		label: text[0] ?? '',
+		description: text[1],
+	};
+};
+
+const parseResearchOutcome = (node: (typeof sections)['research']['children'][number]): ResearchOutcome => ({
+        value: node.title,
+        label: firstPlainParagraph(node),
+});
+
+const nonEmptyLines = (node: (typeof sections)['tools']['children'][number]) =>
+        node.lines.map((line) => line.trim()).filter((line) => line.length > 0);
+
+const parseToolGroup = (node: (typeof sections)['tools']['children'][number]): ToolGroup => {
+        if (node.title === 'Languages') {
+                return {
+                        title: node.title,
+                        languages: nonEmptyLines(node).map((line) => {
+                                const [language, ...levelParts] = line.split(',');
+                                return {
+                                        language: language.trim(),
+                                        level: levelParts.join(',').trim(),
+                                };
+                        }),
+                };
+        }
+
+        const meta = keyValue(node);
+
+        return {
+                title: node.title,
+                primaryTools: meta.primarytools,
+                methods: meta.methods,
+        };
+};
+
+const firstRawParagraph = (node: (typeof sections)['research']['children'][number]) => {
+	const paragraph: string[] = [];
+
+	for (const line of node.lines) {
+		const trimmed = line.trim();
+
+		if (!trimmed) {
+			if (paragraph.length > 0) {
+				break;
+			}
+			continue;
+		}
+
+		paragraph.push(trimmed);
+	}
+
+	return paragraph.join(' ');
 };
 
 export const cvProfile = {
@@ -89,7 +163,7 @@ export const cvProfile = {
 	})) satisfies CvAction[],
 	sectionNav: listItems(sections.sectionNav).map((label) => ({
 		label,
-		href: sectionHref(label),
+		href: sectionNavHref(label),
 	})) satisfies SectionNavItem[],
 	proofTiles: sections.proofTiles.children.map((tile) => ({
 		value: tile.title,
@@ -109,7 +183,8 @@ export const cvProfile = {
 		representativeWork: childList(group, 'Representative work'),
 		methods: childList(group, 'Methods and evidence'),
 	})) satisfies ExpertiseGroup[],
-	impactHighlights: listItems(sections.impactHighlights),
+        impactIntro: firstPlainParagraph(sections.impactHighlights),
+        impactHighlights: sections.impactHighlights.children.map(parseImpactHighlight) satisfies ImpactHighlight[],
 	experience: sections.experience.children.map(parseExperience) satisfies ExperienceItem[],
 	earlierExperience: sections.earlierExperience.children.map(parseEarlierExperience) satisfies CompactExperienceItem[],
 	caseStudies: sections.caseStudies.children.map((item) => {
@@ -121,19 +196,16 @@ export const cvProfile = {
 			role: meta.role,
 			focus: meta.focus,
 			proof: meta.proof,
+			href: meta.href,
 		};
 	}) satisfies CaseStudy[],
 	research: {
 		intro: firstPlainParagraph(sections.research),
-		themes: childList(sections.research, 'Research themes'),
-		outcomes: childList(sections.research, 'Published research outcomes'),
-		evidence: findChild(sections.research, 'Research evidence').children.map((item) => ({
-			value: item.title,
-			label: firstPlainParagraph(item),
-		})),
-		patents: childList(sections.research, 'Patent records'),
-		selectedPublications: childList(sections.research, 'Selected publication records'),
-		additionalPublications: childList(sections.research, 'Additional publication records'),
+		themes: childList(sections.research, 'Research focus'),
+		outcomes: findChild(sections.research, 'Published outcomes').children.map(parseResearchOutcome) satisfies ResearchOutcome[],
+		evidence: findChild(sections.research, 'Academic and patent record').children.map(parseResearchMetric) satisfies ResearchMetric[],
+		relevance: firstRawParagraph(findChild(sections.research, 'Engineering relevance')),
+		workHref: firstPlainParagraph(findChild(sections.research, 'Work page link')),
 	},
 	education: sections.education.children.map((item) => {
 		const meta = keyValue(item);
@@ -142,27 +214,19 @@ export const cvProfile = {
 		return {
 			degree: item.title,
 			year: meta.year,
+			institution: meta.institution,
 			focus: meta.focus,
 			dissertation: meta.dissertation,
 			description: meta.description,
 			links: links ? listItems(links).map(parseLinkLine) : undefined,
 		};
 	}) satisfies EducationItem[],
-	tools: sections.tools.children.map((group) => ({
-		title: group.title,
-		items: listItems(group),
-	})) satisfies ToolGroup[],
-	extendedTools: sections.extendedTools.children.map((group) => ({
-		title: group.title,
-		items: listItems(group),
-	})) satisfies ToolGroup[],
-	languages: sections.languages.children.map((item) => ({
-		language: item.title,
-		level: firstPlainParagraph(item),
-	})),
-	coursesAndRecognition: {
-		featured: childList(sections.coursesAndRecognition, 'Featured'),
-		additional: childList(sections.coursesAndRecognition, 'Additional'),
-	} satisfies CourseGroup,
-	finalContact: firstPlainParagraph(sections.finalContact),
+	educationIntro: firstPlainParagraph(sections.education),
+        toolsIntro: firstPlainParagraph(sections.tools),
+        tools: sections.tools.children.filter((group) => group.title !== 'Continuous Learning and Recognition').map(parseToolGroup) satisfies ToolGroup[],
+        learningRecognition: {
+                recognition: childList(findChild(sections.tools, 'Continuous Learning and Recognition'), 'Recognition'),
+                recentLearning: childList(findChild(sections.tools, 'Continuous Learning and Recognition'), 'Recent learning'),
+        } satisfies LearningRecognition,
+        finalContact: firstPlainParagraph(sections.finalContact),
 } as const;

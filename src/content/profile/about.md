@@ -8,51 +8,49 @@ Hi, I’m Carlos.
 
 ### Intro
 
-I lead and guide **real-time embedded control software** for physical machines: systems that have to sense, decide, act, and keep behaving reliably outside the comfort of a simulation.
+I lead the development of real-time embedded control software for physical machines: systems that must sense, decide, act, and behave reliably far beyond simulations in the real world.
 
-Most of my professional work has been in electric trucks, autonomous machines, power electronics, diagnostics, validation, and automotive software. But the reason I care about this field is broader than any one vehicle program. Better control software can reduce energy use, improve fault response, increase uptime, and make advanced machines safer, more reliable, and more useful in the real world.
+Most of my professional work has centered on electric trucks, autonomous machinery, power electronics, and automotive software. But my interest in this field goes deeper than just automotive software. Control software unlocked space exploration, it can reduce energy use, improve fault response, increase uptime, and make advanced machines safer, more reliable, and more useful in the real world.
 
-I am based in Spain and work with international, multidisciplinary teams. The part of engineering I enjoy most is the bridge between control theory, embedded software, physical hardware, and the evidence needed to trust a system in production.
+I am based in Spain and work with international, multidisciplinary teams. The part of engineering I enjoy most is the bridge between control theory, embedded software implementation, physical hardware, and the data collection needed to trust a system in production.
 
-## Why Physical Systems
+## Why Control Systems
 
-Physical systems keep engineers honest. A controller that looks elegant on a diagram still has to live with sensor noise, actuator limits, thermal inertia, timing constraints, fault cases, calibration maturity, and hardware that ages over a long field lifecycle.
+Control systems are one of those engineering disciplines that become more fascinating the closer you look. They are the quiet intelligence behind vehicle powertrains, buildings regulating climate, walking robots, and industrial machines adjusting their behavior instead of simply running blindly.
 
-That is why I am drawn to machines that move, carry, charge, heat, cool, and recover from faults. The software is not just an implementation detail. It shapes energy use, comfort, safety-aware behavior, availability, and the confidence a team has when releasing a system into the field.
+To me, that is the interesting part: control systems turned my curiosity about how things behave into a practical way to design them. They help explain why a system oscillates, why it reacts too slowly, where it wastes energy, or how a small adjustment can make the whole operation more stable.
 
-For me, embedded control work is about turning uncertainty into dependable behavior. The algorithm matters, but so do diagnostics, degradation logic, calibration evidence, validation data, and the practical constraints of production delivery.
+That curiosity is what drew me to engineering in the first place.
 
 ## How I Got Here
 
-As a child, I used to take toys apart to see what was inside. I wanted to understand how things worked, and for a long time I thought that meant becoming an inventor.
+As a child, I used to take toys apart just to see how they worked. I thought engineering meant inventing things, but what really fascinated me was understanding how things behaved.
 
-My first real step toward control systems came through robotics. I built an **obstacle-avoiding robot kit**, then later went to **Campus Party in Valencia**, where I watched a line-tracking robot competition. Some robots were fast and stable. Mine oscillated from side to side. I wanted to understand why.
+My first real encounter with control systems came through robotics. After building a basic obstacle avoiding robot kit, I attended Campus Party in Valencia and watched a line tracking robot competition. Some robots were remarkably fast and stable. Mine oscillated from side to side. I wanted to understand why.
 
-During my engineering studies, I found one answer in a **PI controller**. It was a small discovery, but it changed how I saw machines. Suddenly, feedback was not an abstract formula. It was a way to explain why a robot followed a line, how a Segway balances, or how climate control regulates a room.
+During my university studies, I found the answer in the PI controller during an automatic control course. It was a modest discovery, but it changed how I saw machines. Suddenly, feedback was not just an abstract formula on a whiteboard. It was the reason a robot follows a line, a Segway balances, or a climate system stabilizes a room temperature regardless of whether windows are open or not.
 
-I started **Industrial Engineering** in Valencia and later continued in Sweden through a double-degree path in **Electrical Engineering**. At **Lund University**, I deepened my focus on automatic control, dynamic systems, and model-based engineering. That path led to an industrial **PhD** and then to production embedded control software for real vehicles and machines.
+I began in Industrial Engineering in Valencia and later moved to Sweden through a double degree program in Electrical Engineering. At Lund University, I deepened my focus on automatic control, dynamic systems, and model-based engineering. That path eventually led to an industrial PhD, and later to production embedded control software for heavy vehicles and complex machinery.
 
-The thread has stayed consistent: understand the physical behavior, design a control strategy, turn it into maintainable real-time software, and prove that it works under real operating conditions.
-
-> "As a child, I used to take toys apart to see what was inside because I wanted to become an inventor"
+> "As a child, I took things apart to understand how they worked. Today, I build software that helps complex machines run reliably."
 
 ## How I Work
 
-I value simple, robust solutions over unnecessary complexity. Advanced algorithms only matter when they respect hardware constraints, timing behavior, safety-related requirements, validation evidence, and the realities of production delivery.
+I value simple, robust solutions over unnecessary complexity. Advanced algorithms only matter when they respect hardware constraints, timing behavior, safety requirements, validation evidence, and the realities of production delivery.
 
-When a system behaves unexpectedly, I try to separate the problem before solving it: root cause, control strategy, diagnostics, degradation logic, and implementation are not the same thing. Mixing them too early often creates software that is harder to test, calibrate, explain, and maintain.
+When a system behaves unexpectedly, I try to understand the problem before solving it. Root causes, control strategies, diagnostics, degradation logic, and implementation are not the same thing. Mixing them too early often creates software that is harder to test, calibrate, explain, and maintain.
 
-I rely heavily on empirical data. Simulation and models are essential, but real machines expose the missing assumptions: operating envelopes, component tolerances, integration effects, and failure modes that only become visible when software meets hardware.
+I rely heavily on empirical data. Simulations and models are essential, but real machines expose the missing assumptions: component tolerances, environmental conditions, integration effects, and failure modes that only become visible when software is running.
 
-As a technical leader, I try to create structural clarity. That means making trade-offs visible, defining interfaces and responsibilities, helping teams understand risk, and giving engineers enough context to act with autonomy and accountability. Good technical direction is not about controlling every detail. It is about helping multidisciplinary teams make decisions that remain coherent when the system gets complex.
+As a technical leader, I try to create clarity. That means making trade-offs visible, defining interfaces and responsibilities, helping teams understand risk, and giving engineers enough context to act with autonomy and accountability. Good technical direction is not about controlling every detail. It is about helping multidisciplinary teams make decisions that remain coherent when the system becomes complex.
 
-> "An elegant algorithm is only the beginning."
+> "An elegant algorithm is only the beginning. Production readiness is where engineering earns trust."
 
 ## Beyond Engineering
 
-Outside work, I still like activities where learning, building, and iteration are part of the process.
+Outside work, I still enjoy activities for learning and building.
 
-Basketball has been part of my life since childhood, and I still enjoy playing and mentoring younger teammates. I also like creative hands-on work: **3D printing**, **painting**, **lamp design**, **Arduino projects**, and **home automation**. Those projects are smaller than vehicle systems, but they satisfy the same curiosity: how can an idea become something useful, physical, and reliable?
+Basketball has been part of my life since childhood, and I still enjoy playing and mentoring younger teammates. I also like creative hands-on projects: 3D printing, painting, lamp design, Arduino prototyping, and home automation. These projects are much smaller than vehicle systems, but they satisfy the same curiosity: how can an idea become something useful, physical, and reliable?
 
 Most importantly, I enjoy time with my family: my wife, our child, and our dog.
 

@@ -6,6 +6,12 @@ import { parseWorkContent } from '../lib/profileMarkdown';
 const baseUrl = import.meta.env.BASE_URL;
 const withBase = (href: string) => (href.startsWith('http') ? href : `${baseUrl}${href.replace(/^\//, '')}`);
 const workContent = parseWorkContent(workMarkdown);
+const workAnchorsByTitle: Record<string, string> = {
+	'Electric Truck Thermal Management and BMS Systems': 'electric-truck-thermal-management',
+	'Autonomous Electric Hauler Propulsion Control': 'autonomous-hauler-propulsion-control',
+	'E-Bike Motor Control and Power Electronics Software': 'ebike-motor-control-power-electronics',
+	'Heavy-Duty Engine Diagnostics and Control Research': 'heavy-duty-engine-diagnostics-control-research',
+};
 ---
 
 <BaseLayout
@@ -23,11 +29,15 @@ const workContent = parseWorkContent(workMarkdown);
 		</div>
 	</section>
 
-	<section class="section work-section work-section--selected" aria-label="Selected work">
+	<section class="section work-section work-section--selected" aria-labelledby="selected-work-title">
 		<div class="page-container">
+			<div class="work-section__intro">
+				<h2 id="selected-work-title">{workContent.projects.title}</h2>
+				{workContent.projects.intro && <p>{workContent.projects.intro}</p>}
+			</div>
 			<div class="work-list">
 				{workContent.projects.items.map((item, index) => (
-					<article class="work-case">
+					<article class="work-case" id={workAnchorsByTitle[item.title]}>
 						<h3>{item.title}</h3>
 						<div class="work-case__content">
 							<figure class="work-case__media">
