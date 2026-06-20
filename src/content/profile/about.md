@@ -32,7 +32,7 @@ During my university studies, I found the answer in the PI controller during an 
 
 I began in Industrial Engineering in Valencia and later moved to Sweden through a double degree program in Electrical Engineering. At Lund University, I deepened my focus on automatic control, dynamic systems, and model-based engineering. That path eventually led to an industrial PhD, and later to production embedded control software for heavy vehicles and complex machinery.
 
-> "As a child, I took things apart to understand how they worked. Today, I build software that helps complex machines run reliably."
+> As a child, I took things apart to understand how they worked. Today, I build software that helps complex machines behave reliably.
 
 ## How I Work
 
@@ -44,7 +44,7 @@ I rely heavily on empirical data. Simulations and models are essential, but real
 
 As a technical leader, I try to create clarity. That means making trade-offs visible, defining interfaces and responsibilities, helping teams understand risk, and giving engineers enough context to act with autonomy and accountability. Good technical direction is not about controlling every detail. It is about helping multidisciplinary teams make decisions that remain coherent when the system becomes complex.
 
-> "An elegant algorithm is only the beginning. Production readiness is where engineering earns trust."
+> An elegant algorithm is only the beginning. Production readiness is where engineering earns trust.
 
 ## Beyond Engineering
 
