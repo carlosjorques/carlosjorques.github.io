@@ -105,7 +105,7 @@ const profileJsonLd = {
 					<p class="cv-hero__subtitle hero-role cv-hero__role">{cvProfile.hero.subtitle}</p>
 					<p class="cv-hero__summary hero-summary">{cvProfile.hero.summary}</p>
 					<p class="cv-hero__extended">{cvProfile.hero.secondarySummary}</p>
-					<p class="cv-hero__extended">{cvProfile.hero.tertiarySummary}</p>
+					{cvProfile.hero.tertiarySummary && <p class="cv-hero__extended">{cvProfile.hero.tertiarySummary}</p>}
 
 					<div class="button-row cv-actions" aria-label="CV actions">
 						{cvProfile.actions.map((action) => (
@@ -420,7 +420,7 @@ const profileJsonLd = {
 			<div class="page-container">
 				<div class="cv-section__intro">
 					<h2 id="representative-systems-title">Representative Systems</h2>
-					<p>Compact examples of systems where my embedded controls work has been applied. Full project context is available on the Work page.</p>
+					<p>Compact examples of systems where my embedded controls work has been applied. The same capabilities transfer to electrified equipment, autonomous machines, robotics, industrial automation, energy systems, and other software controlled physical systems. Full project context is available on the Work page.</p>
 				</div>
 				<div class="representative-systems__grid">
 					{cvProfile.caseStudies.map((item) => {
@@ -863,11 +863,19 @@ const profileJsonLd = {
 <style>
         .cv-page {
                 --cv-max-measure: 66ch;
-                --cv-nav-height: 1.85rem;
+                --cv-hero-header-offset: 68px;
+                --cv-nav-height: 2.15rem;
                 --cv-nav-sticky-top: 0px;
-                --cv-nav-shell-y-padding: 0.42rem;
-                --cv-nav-clearance: 1.35rem;
+                --cv-nav-shell-y-padding: 0.36rem;
+                --cv-nav-clearance: 1.1rem;
                 --cv-nav-shell-height: calc(var(--cv-nav-height) + (2 * var(--cv-nav-shell-y-padding)));
+                --type-compact-size: clamp(0.95rem, 0.92rem + 0.14vw, 1.02rem);
+                --type-compact-line: 1.55;
+                --type-reading-size: clamp(1.02rem, 0.98rem + 0.18vw, 1.12rem);
+                --type-reading-line: 1.62;
+                --type-metadata-size: clamp(0.78rem, 0.75rem + 0.1vw, 0.84rem);
+                --type-meta-size: var(--type-metadata-size);
+                --type-chip-size: clamp(0.78rem, 0.75rem + 0.1vw, 0.84rem);
         }
 
         .cv-shell {
@@ -919,57 +927,69 @@ const profileJsonLd = {
         }
 
         .cv-hero {
+                display: grid;
+                min-height: calc(100svh - var(--cv-hero-header-offset));
+                min-height: calc(100dvh - var(--cv-hero-header-offset));
+                align-items: center;
                 border-bottom: 1px solid var(--color-border-soft);
                 background: transparent;
-                padding-block: clamp(3rem, 7vw, 6.25rem) clamp(2.5rem, 5vw, 4.25rem);
+                padding-block: clamp(2.25rem, 4.5vw, 4rem);
 	}
 
 	.cv-hero__inner {
 		display: grid;
-		gap: clamp(1.75rem, 4vw, 3rem);
-		align-items: start;
+		gap: clamp(1.5rem, 2.5vw, 2.25rem);
+		align-items: center;
 	}
 
 	.cv-hero__content {
 		display: grid;
-		gap: 1rem;
+		gap: clamp(0.95rem, 1.6vw, 1.35rem);
 		min-width: 0;
-		max-width: 880px;
+		max-width: 74ch;
 	}
 
 	.cv-hero h1 {
-		font-size: var(--type-hero-name-size);
-		line-height: var(--type-hero-name-line);
-		letter-spacing: var(--type-hero-name-tracking);
+		margin-bottom: clamp(0.15rem, 0.7vw, 0.45rem);
+		font-size: clamp(4.5rem, 8vw, 7.8rem);
+		line-height: 0.92;
+		letter-spacing: -0.07em;
 	}
 
 	.cv-hero__subtitle {
-		max-width: 880px;
+		max-width: 27ch;
 		color: var(--color-text);
-		font-size: var(--type-hero-role-size);
+		font-size: clamp(1.45rem, 2vw, 1.95rem);
 		font-weight: var(--type-hero-role-weight);
-		line-height: var(--type-hero-role-line);
-		letter-spacing: var(--type-hero-role-tracking);
+		line-height: 1.2;
+		letter-spacing: -0.03em;
 		overflow-wrap: anywhere;
 	}
 
 	.cv-hero__summary,
 	.cv-hero__extended {
-		max-width: var(--cv-max-measure);
+		max-width: 68ch;
 		color: var(--color-muted);
-		font-size: clamp(0.98rem, 1.08vw, 1.12rem);
-		line-height: 1.5;
+		font-size: clamp(1.05rem, 1.2vw, 1.18rem);
+		line-height: 1.58;
 		letter-spacing: var(--type-hero-summary-tracking);
 		overflow-wrap: anywhere;
 	}
 
 	.cv-actions {
-		margin-top: 0.65rem;
+		margin-top: clamp(0.35rem, 1vw, 0.75rem);
+		gap: 0.85rem;
+	}
+
+	.cv-actions .button {
+		min-height: 2.75rem;
+		padding: 0.58rem 1rem;
+		font-size: clamp(0.85rem, 0.78rem + 0.1vw, 0.92rem);
 	}
 
 	.cv-hero__evidence {
 		display: grid;
-		gap: 0.75rem;
+		gap: clamp(0.9rem, 1.8vw, 1.25rem);
 		min-width: 0;
 	}
 
@@ -1005,30 +1025,35 @@ const profileJsonLd = {
 	.cv-proof-grid strong {
 		color: var(--color-text);
 		font-family: var(--font-display);
-		font-size: clamp(0.98rem, 1.15vw, 1.18rem);
-		line-height: 1.16;
+		font-size: clamp(1.02rem, 1.15vw, 1.2rem);
+		line-height: 1.18;
 		letter-spacing: -0.015em;
 	}
 
 	.cv-proof-grid span {
 		color: var(--color-muted);
 		font-family: var(--font-body);
-		font-size: 0.76rem;
-		line-height: 1.38;
+		font-size: clamp(0.88rem, 0.95vw, 0.96rem);
+		line-height: 1.42;
 		letter-spacing: 0;
 		text-transform: none;
 	}
 
 	.cv-role-strip {
 		display: grid;
-		gap: 0.55rem;
-		padding: 0.15rem 0.05rem 0;
+		gap: 0.65rem;
+		padding: 0.05rem 0.05rem 0;
+	}
+
+	.cv-role-strip .cv-chip-list {
+		display: grid;
+		gap: 0.42rem;
 	}
 
 	.cv-role-strip > p {
 		color: var(--color-soft);
 		font-family: var(--font-mono);
-		font-size: 0.64rem;
+		font-size: 0.78rem;
 		font-weight: var(--type-eyebrow-weight);
 		letter-spacing: 0.08em;
 		line-height: var(--type-eyebrow-line);
@@ -1038,8 +1063,8 @@ const profileJsonLd = {
 		background: transparent;
 		padding: 0;
 		color: var(--color-text);
-		font-size: 0.64rem;
-		line-height: 1.35;
+		font-size: clamp(0.78rem, 0.9vw, 0.86rem);
+		line-height: 1.45;
 	}
 
         .cv-section-nav-shell {
@@ -1249,7 +1274,12 @@ const profileJsonLd = {
 	}
 
 	.cv-section__intro p,
-	.cv-final p,
+	.cv-final p {
+		color: var(--color-muted);
+		font-size: var(--type-reading-size);
+		line-height: var(--type-reading-line);
+	}
+
 	.cv-card p,
 	.cv-card li,
 	.cv-card dd,
@@ -1257,8 +1287,8 @@ const profileJsonLd = {
 	.cv-role__bullets li,
 	.cv-disclosure li {
 		color: var(--color-muted);
-		font-size: var(--type-card-body-size);
-		line-height: var(--type-card-body-line);
+		font-size: var(--type-compact-size);
+		line-height: var(--type-compact-line);
 	}
 
 	.cv-card-grid {
@@ -1417,8 +1447,8 @@ const profileJsonLd = {
 		top: clamp(0.75rem, 1.5vw, 1rem);
 		right: clamp(0.75rem, 1.5vw, 1rem);
 		display: inline-grid;
-		width: 1.5rem;
-		height: 1.5rem;
+		width: 2.5rem;
+		height: 2.5rem;
 		place-items: center;
 		border: 1px solid var(--color-card-border);
 		border-radius: var(--radius-pill);
@@ -1478,8 +1508,8 @@ const profileJsonLd = {
 
 	.cv-expertise-card__capabilities li {
 		color: var(--color-muted);
-		font-size: var(--type-meta-size);
-		line-height: 1.35;
+		font-size: var(--type-compact-size);
+		line-height: var(--type-compact-line);
 	}
 
 	.cv-expertise-card__toggle {
@@ -1489,7 +1519,8 @@ const profileJsonLd = {
 		border: 1px solid var(--color-card-border);
 		border-radius: var(--radius-pill);
 		background: transparent;
-		padding: 0.44rem 0.64rem;
+		padding: 0.5rem 0.75rem;
+		min-height: 2.5rem;
 		color: var(--color-text);
 		cursor: pointer;
 		font-family: var(--font-mono);
@@ -1524,8 +1555,8 @@ const profileJsonLd = {
 	.core-expertise-detail__summary {
 		max-width: var(--cv-max-measure);
 		color: var(--color-muted);
-		font-size: var(--type-meta-size);
-		line-height: var(--type-meta-line);
+		font-size: var(--type-reading-size);
+		line-height: var(--type-reading-line);
 	}
 
 	.core-expertise-detail__grid {
@@ -1536,7 +1567,7 @@ const profileJsonLd = {
 
 	.core-expertise-detail .cv-detail-group {
 		display: grid;
-		gap: 0.55rem;
+		gap: 0.7rem;
 	}
 
 	.core-expertise-detail .cv-detail-group + .cv-detail-group {
@@ -1545,17 +1576,17 @@ const profileJsonLd = {
 
 	.core-expertise-detail .cv-detail-group ul {
 		display: grid;
-		gap: 0.55rem;
+		gap: 0.65rem;
 		margin: 0;
-		padding-left: 0;
-		list-style-position: inside;
+		padding-left: 1.15rem;
+		list-style-position: outside;
 	}
 
 	.core-expertise-detail .cv-detail-group li {
 		padding-left: 0;
-		list-style-position: inside;
-		font-size: var(--type-meta-size);
-		line-height: var(--type-meta-line);
+		list-style-position: outside;
+		font-size: var(--type-reading-size);
+		line-height: var(--type-reading-line);
 	}
 
 	.cv-card ul,
@@ -1582,10 +1613,13 @@ const profileJsonLd = {
 		gap: 0.55rem 0.7rem;
 		margin: 0;
 		padding: 0;
+		min-width: 0;
 		list-style: none;
 	}
 
 	.cv-chip-list li {
+		max-width: 100%;
+		min-width: 0;
 		margin: 0;
 		border-radius: calc(var(--radius) * 0.6);
 		background: var(--color-surface-soft);
@@ -1596,6 +1630,7 @@ const profileJsonLd = {
 		font-weight: var(--type-chip-weight);
 		line-height: var(--type-chip-line);
 		letter-spacing: var(--type-chip-tracking);
+		overflow-wrap: anywhere;
 		transition:
 			border-color 140ms cubic-bezier(0.2, 0, 0, 1),
 			background-color 140ms cubic-bezier(0.2, 0, 0, 1);
@@ -1861,8 +1896,8 @@ const profileJsonLd = {
                 top: clamp(0.75rem, 1.5vw, 1rem);
                 right: clamp(0.75rem, 1.5vw, 1rem);
                 display: inline-grid;
-                width: 1.5rem;
-                height: 1.5rem;
+                width: 2.5rem;
+                height: 2.5rem;
                 place-items: center;
                 border: 1px solid var(--color-card-border);
                 border-radius: var(--radius-pill);
@@ -1942,7 +1977,8 @@ const profileJsonLd = {
                 border: 1px solid var(--color-card-border);
                 border-radius: var(--radius-pill);
                 background: transparent;
-                padding: 0.44rem 0.64rem;
+                padding: 0.5rem 0.75rem;
+                min-height: 2.5rem;
                 color: var(--color-text);
                 cursor: pointer;
                 font-family: var(--font-mono);
@@ -1971,10 +2007,10 @@ const profileJsonLd = {
 
         .cv-role__details {
                 display: grid;
-                gap: 0.85rem;
+                gap: 1rem;
                 margin-top: 0.15rem;
                 border-top: 1px solid var(--color-border-soft);
-                padding-top: 1rem;
+                padding-top: 1.1rem;
         }
 
 	.cv-role__details[hidden] {
@@ -1993,25 +2029,25 @@ const profileJsonLd = {
         }
 
         .cv-role__details-grid--single .cv-detail-group {
-                max-width: 75ch;
+                max-width: 68ch;
         }
 
         .cv-role__details .cv-detail-group {
-                gap: 0.45rem;
+                gap: 0.6rem;
                 margin-top: 0;
         }
 
         .cv-role__details .cv-detail-group ul {
                 display: grid;
-                gap: 0.38rem;
+                gap: 0.55rem;
                 margin: 0;
                 padding-left: 1.15rem;
         }
 
         .cv-role__details .cv-detail-group li {
                 margin: 0;
-                font-size: var(--type-meta-size);
-                line-height: 1.42;
+                font-size: var(--type-reading-size);
+                line-height: var(--type-reading-line);
         }
 
 	.cv-disclosure {
@@ -2045,6 +2081,7 @@ const profileJsonLd = {
 		border-radius: var(--radius);
 		background: transparent;
 		padding: 0.65rem 0.75rem;
+		min-height: 2.5rem;
 		color: var(--color-text);
 		cursor: pointer;
 		list-style: none;
@@ -2187,8 +2224,8 @@ const profileJsonLd = {
 
         .cv-role__details--compact .cv-detail-group li {
                 margin: 0;
-                font-size: var(--type-meta-size);
-                line-height: 1.42;
+                font-size: var(--type-reading-size);
+                line-height: var(--type-reading-line);
         }
 
 	.representative-system-card {
@@ -2394,19 +2431,24 @@ const profileJsonLd = {
                 line-height: var(--type-card-body-line);
         }
 
-        .cv-research-link {
-                width: fit-content;
-                color: var(--color-text);
-                font-weight: 700;
-                text-decoration: underline;
+	.cv-research-link {
+		width: fit-content;
+		color: var(--color-text);
+		font-weight: 700;
+		text-decoration: underline;
                 text-decoration-thickness: 1px;
                 text-underline-offset: 0.2em;
         }
 
-        .cv-research-link:hover,
-        .cv-research-link:focus-visible {
-                color: var(--color-text);
-        }
+	.cv-research-link:hover,
+	.cv-research-link:focus-visible {
+		color: var(--color-text);
+	}
+
+	.cv-research-link:focus-visible {
+		outline: 2px solid var(--color-accent-text);
+		outline-offset: 3px;
+	}
 
         .cv-link-list {
                 display: grid;
@@ -2425,6 +2467,12 @@ const profileJsonLd = {
 	.cv-link-list a:hover,
 	.cv-link-list a:focus-visible {
 		color: var(--color-text);
+	}
+
+	.cv-link-list a:focus-visible,
+	.cv-education-card__links a:focus-visible {
+		outline: 2px solid var(--color-accent-text);
+		outline-offset: 3px;
 	}
 
 	.cv-language-list {
@@ -2505,17 +2553,7 @@ const profileJsonLd = {
 
 		.core-expertise-detail__grid {
 			grid-template-columns: repeat(2, minmax(0, 1fr));
-			grid-template-rows: auto repeat(4, auto);
 			gap: clamp(1.25rem, 3vw, 2rem);
-		}
-
-		.core-expertise-detail .cv-detail-group {
-			grid-row: span 5;
-			grid-template-rows: subgrid;
-		}
-
-		.core-expertise-detail .cv-detail-group ul {
-			display: contents;
 		}
 
                 .cv-impact-list {
@@ -2544,7 +2582,7 @@ const profileJsonLd = {
 
 	@media (min-width: 980px) {
 		.cv-hero__inner {
-			grid-template-columns: minmax(0, 1fr) minmax(18rem, 23rem);
+			grid-template-columns: minmax(0, 1fr) minmax(18rem, 22rem);
 		}
 
                 .cv-card-grid--three,
@@ -2565,7 +2603,7 @@ const profileJsonLd = {
 
         @media (max-width: 760px) {
                 .cv-page {
-                        --cv-nav-height: 1.85rem;
+                        --cv-nav-height: 2.35rem;
                         --cv-nav-shell-y-padding: 0.4rem;
                         --cv-nav-clearance: 1.2rem;
                 }
@@ -2600,6 +2638,13 @@ const profileJsonLd = {
         }
 
         @media (max-width: 640px) {
+		.cv-hero {
+			min-height: calc(100svh - 7.5rem);
+			min-height: calc(100dvh - 7.5rem);
+			align-items: start;
+			padding-block: clamp(2rem, 8vw, 3rem);
+		}
+
 		.cv-hero__content,
 		.cv-hero__evidence,
 		.cv-actions {
@@ -2607,13 +2652,25 @@ const profileJsonLd = {
 			max-width: calc(100vw - 2rem);
 		}
 
+		.cv-hero__content > * {
+			min-width: 0;
+		}
+
 		.cv-hero h1 {
-			font-size: var(--type-hero-name-size);
+			max-width: 8ch;
+			font-size: clamp(3rem, 16vw, 3.6rem);
+			overflow-wrap: break-word;
 		}
 
 		.cv-hero__subtitle {
-			max-width: 31ch;
-			font-size: var(--type-hero-role-size);
+			width: 100%;
+			max-width: min(18rem, 100%);
+			min-width: 0;
+			font-size: 1.12rem;
+			line-height: 1.28;
+			white-space: normal;
+			overflow-wrap: anywhere;
+			word-break: break-word;
 		}
 
 		.cv-hero__subtitle,
@@ -2625,6 +2682,18 @@ const profileJsonLd = {
 		.cv-hero__summary,
 		.cv-hero__extended {
 			max-width: 34ch;
+			font-size: 1rem;
+			line-height: 1.56;
+		}
+
+		.cv-role-strip .cv-chip-list {
+			display: grid;
+			gap: 0.42rem;
+		}
+
+		.cv-role-strip .cv-chip-list li {
+			max-width: 100%;
+			overflow-wrap: anywhere;
 		}
 
                 .cv-proof-grid {
@@ -2659,6 +2728,12 @@ const profileJsonLd = {
 			grid-template-columns: 1fr;
 			gap: 0.2rem;
 		}
+
+		.cv-expertise-card__icon-button,
+		.cv-role__icon-button {
+			width: 2.5rem;
+			height: 2.5rem;
+		}
 	}
 
 	@media (prefers-reduced-motion: reduce) {
@@ -2683,6 +2758,10 @@ const profileJsonLd = {
                 .cv-scroll-jump,
                 .cv-section-nav-shell,
                 .cv-section-nav,
+                .cv-expertise-card__icon-button,
+                .cv-expertise-card__toggle,
+                .cv-role__icon-button,
+                .cv-role__toggle,
                 .cv-actions,
                 .cv-final__actions {
                         display: none !important;

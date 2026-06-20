@@ -4,11 +4,11 @@
 
 ### Carlos Jorques
 
-Subtitle: Senior Software Developer | Embedded Controls Architect | Electric & Autonomous Vehicle Systems
+Subtitle: Senior Embedded Controls Engineer | Technical Lead | Electric & Autonomous Vehicle Systems
 
-Summary: I am a senior embedded controls engineer with 10+ years of experience developing real-time control software for automotive and heavy-duty vehicle systems. My work focuses on EV thermal management, battery systems, autonomous propulsion control, diagnostics, functional safety, validation, and production embedded software.
+Summary: I am a senior embedded controls engineer with 10+ years of experience developing real time control software for automotive and heavy duty physical systems. My work focuses on EV thermal management, battery systems, autonomous propulsion control, diagnostics, functional safety, validation, and production software delivery.
 
-Secondary summary: I translate automatic control concepts into robust, testable, safety-aware embedded software for complex physical systems where reliability, timing, diagnostics, and system integration matter. My experience spans requirements, control architecture, model-based implementation, generated C/C++ code, vertical system integration, calibration, MIL/SIL/HIL validation, and production-oriented delivery across OEM and Tier 1 environments, including technical leadership and mentoring across cross-functional automotive teams.
+Secondary summary: I translate automatic control concepts into robust embedded software that can be tested, calibrated, validated, and trusted in real machines. My experience spans control architecture, model based implementation, generated C/C++ workflows, MIL/SIL/HIL validation, and technical leadership across international automotive teams.
 
 ## Actions
 
@@ -79,32 +79,32 @@ Control architecture
 
 #### Compact summary
 
-Real-time control software architecture for vehicle and powertrain systems.
+Technical definition of embedded control functions for vehicle, powertrain, and physical systems.
 
 #### Items
 
-- Control architecture definition
-- Model-based control design
-- Real-time vehicle systems
-- Generated C/C++ workflows
-- Diagnostics-aware implementation
+- Control function decomposition
+- Software, sensor, actuator, and plant model interfaces
+- Vehicle and powertrain behavior definition
+- Diagnostics, fallback, and degradation concepts
+- Real time robustness and integration tradeoffs
 
 #### Detail summary
 
-I define the boundaries between control intent, generated software, diagnostics, calibration hooks, and integration interfaces so algorithms can survive real ECU timing, signal quality, and validation constraints.
+I define the boundaries between control intent, software architecture, diagnostics, calibration hooks, and integration interfaces so algorithms can survive real ECU timing, signal quality, physical constraints, and validation requirements.
 
 #### Representative work
 
-- Electric truck thermal management and battery-system controller architecture.
+- Electric truck thermal management and battery system controller architecture.
 - Autonomous electric hauler propulsion control, speed control, and torque allocation.
-- Heavy-duty engine diagnostics and closed-loop combustion control.
-- Production-oriented generated code and C/C++ workflows.
+- Heavy duty engine diagnostics and closed loop combustion control.
+- Architecture for production oriented generated code and C/C++ integration workflows.
 
 #### Methods and evidence
 
-- Requirements-driven functional design and software architecture.
+- Requirements driven functional design and software architecture.
 - Control design for systems with physical constraints, timing constraints, diagnostics, and validation requirements.
-- Integration-aware architecture supporting calibration, testing, fault handling, and release maturity.
+- Integration aware architecture supporting calibration, testing, fault handling, and release maturity.
 - Experience across production and research environments.
 
 ### Electric and Autonomous Vehicle Systems
@@ -143,6 +143,42 @@ The common thread is coordinating energy, actuation, sensing, and protection log
 - Control strategies designed for efficiency, component protection, controlled degradation, and reliable operation.
 - Experience across heavy-duty transport, autonomous machines, e-mobility, and power electronics.
 
+### Control Systems and Estimation
+
+#### Eyebrow
+
+Automatic control
+
+#### Compact summary
+
+Real time control, virtual sensing, observer design, calibration, model adaptation, and system identification for physical systems.
+
+#### Items
+
+- Feedback control
+- Virtual sensing
+- Observer design
+- Calibration and model adaptation
+- System identification
+
+#### Detail summary
+
+Control systems and estimation connect physical behavior, models, measurements, and software implementation. My work has included feedback control, virtual sensing, observer design, calibration, model adaptation, stochastic detection, and system identification for heavy duty physical systems.
+
+#### Representative work
+
+- Real time control for physical systems.
+- Virtual sensing and observer based estimation.
+- Calibration and model adaptation.
+- System identification and signal analysis.
+
+#### Methods and evidence
+
+- Feedback control, virtual sensing, and observer design.
+- Calibration, model adaptation, and system identification.
+- Stochastic detection and diagnostic reasoning.
+- Model based implementation for embedded software.
+
 ### Embedded Software and Validation
 
 #### Eyebrow
@@ -151,31 +187,31 @@ Software delivery
 
 #### Compact summary
 
-Production-oriented embedded software development from model-based implementation to system validation.
+Production delivery of embedded control software from implementation to validated release.
 
 #### Items
 
-- Model-based implementation
-- Embedded C/C++ development
+- Model based implementation
+- Generated C/C++ integration
 - MIL/SIL/HIL validation
-- CI/CD and integration
-- Calibration and release support
+- CI/CD and software integration
+- Calibration, debugging, and release support
 
 #### Detail summary
 
-I focus on the handoff from model to machine: keeping generated code, handwritten integration points, test evidence, calibration needs, and release workflows coherent enough for repeated delivery.
+I turn control concepts and software architecture into testable embedded software, integrating generated code, C/C++ implementation, calibration workflows, validation evidence, and release oriented delivery practices.
 
 #### Representative work
 
-- Model-based software for electric truck thermal management and battery-system functionality.
-- Propulsion-control validation for autonomous electric haulers in manual and autonomous modes.
-- Application-layer software for e-bike motor control, wireless charging, and DC/DC converter interfaces.
-- Heavy-duty engine diagnostic software using model-based methods and generated C-code workflows.
+- Model based software for electric truck thermal management and battery system functionality.
+- Propulsion control validation for autonomous electric haulers in manual and autonomous modes.
+- Application layer software for e-bike motor control, wireless charging, and DC/DC converter interfaces.
+- Heavy duty engine diagnostic software using model based methods and generated C code workflows.
 
 #### Methods and evidence
 
-- Full lifecycle involvement from requirements and concept design to validation and production-oriented delivery.
-- Testing across MIL, SIL, HIL, test bench, wind tunnel, test track, on-road, and field-data environments where applicable.
+- Full lifecycle involvement from requirements and concept design to validation and production oriented delivery.
+- Testing across MIL, SIL, HIL, test bench, wind tunnel, test track, on road, and field data environments where applicable.
 - Use of Git, GitLab, Jenkins, Jira, CI/CD, debugging, ECU flashing, and traceable development workflows.
 - Focus on maintainable software boundaries, testability, calibration maturity, and integration quality.
 
@@ -253,43 +289,43 @@ I help teams make ambiguous engineering work visible: what is known, what is ass
 
 ## Engineering Outcomes
 
-Selected outcomes from embedded control software, electrification, diagnostics, autonomous systems, and applied control research.
+Selected outcomes showing how embedded control software, electrification, diagnostics, autonomous systems, and applied control research translated into system value.
 
 ### Embedded software delivery
 
 Category: Leadership
 
-Led and mentored a team of 3 embedded software engineers developing model based automotive control software.
+Led and mentored a team of 3 embedded software engineers, supporting architecture clarity, delivery coordination, and model based automotive control software development.
 
 ### Electric truck control software
 
 Category: Electrification
 
-Delivered embedded software for thermal management, battery systems, charger coordination, diagnostics, and validation.
+Delivered control software for thermal coordination, battery systems, charger interfaces, diagnostics, and validation evidence.
 
 ### Vehicle level motion control
 
 Category: Autonomous systems
 
-Designed and integrated traction and speed control software for autonomous electric haulers.
+Designed and integrated traction and speed-control software for autonomous electric haulers.
 
 ### Fault tolerant control concepts
 
 Category: Diagnostics
 
-Developed control architecture and diagnostics for dual motor torque allocation and redundant actuator concepts.
+Developed control architecture and diagnostics for dual-motor torque allocation and redundant actuator concepts.
 
 ### Electrified system control
 
 Category: Power electronics
 
-Created model based thermal and control software for e bike motor control, wireless charging, and DC/DC converter applications.
+Created model-based thermal and control software for e-bike motor control, wireless charging, and DC/DC converter applications.
 
 ### Validated control research
 
 Category: Research
 
-Published results showing 25 to 75 percent reduction in controlled parameter dispersion, 60 percent reduction in pilot fuel mass estimation error, and up to 96 percent real time pilot misfire detection.
+Published results showing 25 to 75 percent reduction in controlled parameter dispersion, 60 percent reduction in pilot fuel mass estimation error, and up to 96 percent real-time pilot misfire detection.
 
 ## Experience
 
@@ -334,7 +370,7 @@ Summary: Embedded software for electric truck thermal management, battery system
 Organization: Alten Delivery Center
 Location: Valencia, Spain
 Dates: 2023-Present
-Summary: Technical lead for embedded automotive software development assignments, coordinating delivery and mentoring a small engineering team.
+Summary: Provided technical direction across architecture, planning, software quality, mentoring, and cross functional delivery alignment.
 
 #### Highlights
 
@@ -593,15 +629,15 @@ Real-time control and diagnostic algorithms for heavy-duty combustion systems wi
 
 ## Research, Patents & Publications
 
-Research evidence behind my work in real time control, virtual sensing, diagnostics, stochastic modeling, and hardware constrained implementation for heavy duty physical systems.
+Research evidence behind my work in real-time control, virtual sensing, diagnostics, stochastic modeling, and hardware-constrained implementation for heavy-duty physical systems.
 
 ### Research focus
 
-- Closed loop combustion control
+- Closed-loop combustion control
 - Virtual sensing and diagnostics
 - Stochastic detection and estimation
 - Predictive control and model adaptation
-- Real time hardware implementation
+- Real-time hardware implementation
 - Experimental validation
 
 ### Academic and patent record
@@ -616,7 +652,7 @@ Control, diagnostics, and combustion related inventions
 
 Scientific publications
 
-Real time control, diagnostics, estimation, and validation
+Real-time control, diagnostics, estimation, and validation
 
 #### PhD
 
@@ -648,14 +684,14 @@ This research background informs my production engineering work: building models
 
 ## Education
 
-Academic foundation in automatic control, dynamic systems, embedded software, and industrial research for heavy duty physical systems.
+Academic foundation in automatic control, dynamic systems, embedded software, and industrial research for heavy-duty physical systems.
 
 ### PhD, Mechanical Engineering
 
 Year: 2021
 Institution: Lund University
 Dissertation: Design and Optimization of In Cycle Closed Loop Combustion Control with Multiple Injection
-Description: Industrial PhD with Scania focused on real time control, diagnostics, virtual sensing, stochastic detection, FPGA based implementation, and experimental validation for heavy duty diesel engines.
+Description: Industrial PhD with Scania focused on real-time control, diagnostics, virtual sensing, stochastic detection, FPGA-based implementation, and experimental validation for heavy-duty diesel engines.
 
 #### Links
 
@@ -668,7 +704,7 @@ Description: Industrial PhD with Scania focused on real time control, diagnostic
 Year: 2014
 Institution: Lund University
 Focus: Automatic control and automation.
-Description: Specialized in control systems, embedded software, mechatronics, signal processing, optimal control, power electronics, and robotics. Master thesis at Scania on a multi pump fuel control system with real time control algorithms and patent work.
+Description: Specialized in control systems, embedded software, mechatronics, signal processing, optimal control, power electronics, and robotics. Master thesis at Scania on a multi-pump fuel control system with real-time control algorithms and patent work.
 
 ### MSc, Industrial Engineering
 
@@ -684,12 +720,12 @@ A snapshot of the tools, methods, standards, languages, and learning habits that
 ### Control and Modeling
 
 Primary tools: MATLAB · Simulink · Stateflow · Embedded Coder · LabVIEW
-Methods: Model based development, system identification, calibration, observer design, virtual sensing, model adaptation, signal processing, Kalman filtering, stochastic modeling, optimization, model predictive control.
+Methods: Model-based development, system identification, calibration, observer design, virtual sensing, model adaptation, signal processing, Kalman filtering, stochastic modeling, optimization, model predictive control.
 
 ### Embedded Software
 
 Primary tools: C · C++ · Python · CAPL · LabVIEW FPGA · ECU flashing
-Methods: Real time embedded implementation, generated code integration, diagnostics implementation, scripting, automation, AUTOSAR oriented workflows, hardware constrained algorithms.
+Methods: Real-time embedded implementation, generated code integration, diagnostics implementation, scripting, automation, AUTOSAR-oriented workflows, hardware-constrained algorithms.
 
 ### Validation and Testing
 
@@ -703,8 +739,8 @@ Methods: Code review, issue tracking, requirements alignment, architecture coord
 
 ### Standards and Automotive Context
 
-Primary tools: ISO 26262 · A SPICE · AUTOSAR · CAN/J1939 · Functional Safety
-Methods: Functional safety awareness, FuSa analysis, process alignment, automotive communication, traceability, production oriented documentation.
+Primary tools: ISO 26262 · A-SPICE · AUTOSAR · CAN/J1939 · Functional Safety
+Methods: Functional safety awareness, FuSa analysis, process alignment, automotive communication, traceability, production-oriented documentation.
 
 ### Languages
 

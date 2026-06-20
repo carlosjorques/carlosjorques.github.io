@@ -54,6 +54,11 @@
 	--type-card-body-tracking: -0.004em;
 	--type-card-body-weight: 400;
 
+	--type-compact-size: clamp(0.9rem, 0.86rem + 0.15vw, 0.98rem);
+	--type-compact-line: 1.5;
+	--type-reading-size: clamp(0.98rem, 0.94rem + 0.2vw, 1.08rem);
+	--type-reading-line: 1.6;
+
 	--type-proof-number-size: clamp(2.8rem, 6.2vw, 5.5rem);
 	--type-proof-number-line: 0.88;
 	--type-proof-number-tracking: -0.07em;
@@ -64,13 +69,15 @@
 	--type-impact-number-tracking: -0.07em;
 	--type-impact-number-weight: 600;
 
-	--type-meta-size: 0.75rem;
-	--type-meta-line: 1.25;
+	--type-metadata-size: clamp(0.75rem, 0.72rem + 0.1vw, 0.82rem);
+	--type-metadata-line: 1.3;
+	--type-meta-size: var(--type-metadata-size);
+	--type-meta-line: var(--type-metadata-line);
 	--type-meta-tracking: 0.06em;
 	--type-meta-weight: 500;
 
-	--type-chip-size: 0.72rem;
-	--type-chip-line: 1;
+	--type-chip-size: clamp(0.75rem, 0.72rem + 0.1vw, 0.82rem);
+	--type-chip-line: 1.2;
 	--type-chip-tracking: 0.045em;
 	--type-chip-weight: 500;
 

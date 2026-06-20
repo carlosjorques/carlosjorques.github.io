@@ -16,11 +16,11 @@ I am based in Spain and work with international, multidisciplinary teams. The pa
 
 ## Why Control Systems
 
-Control systems are one of those engineering disciplines that become more fascinating the closer you look. They are the quiet intelligence behind vehicle powertrains, buildings regulating climate, walking robots, and industrial machines adjusting their behavior instead of simply running blindly.
+Long before control systems became software, engineers were already building feedback into physical machines. A steam engine governor is one of my favorite examples: a mechanical device that responds to speed, moves through levers and weights, and helps bring the machine back toward balance.
 
-To me, that is the interesting part: control systems turned my curiosity about how things behave into a practical way to design them. They help explain why a system oscillates, why it reacts too slowly, where it wastes energy, or how a small adjustment can make the whole operation more stable.
+That same idea still sits at the heart of modern control systems. A machine observes what is happening, compares it with what should happen, and acts to improve the outcome. Today the mechanism may be sensors, embedded software, models, diagnostics, and advanced algorithms, but the purpose is familiar: make physical systems more stable, efficient, safe, and useful.
 
-That curiosity is what drew me to engineering in the first place.
+That is why control systems become more fascinating the closer you look. They connect physical behavior with software intelligence, from simple feedback loops to model based control, estimation, optimization, and fault detection. My own path into that idea started through mechatronics and robotics.
 
 ## How I Got Here
 
