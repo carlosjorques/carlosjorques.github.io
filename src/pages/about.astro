@@ -1,16 +1,218 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import aboutMarkdown from '../content/profile/about.md?raw';
-import { parseAboutContent } from '../lib/profileMarkdown';
 
 const baseUrl = import.meta.env.BASE_URL;
 const normalizedBase = baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`;
 const withBase = (href: string) => (href === '/' ? normalizedBase : `${normalizedBase}${href.replace(/^\//, '')}`);
 
-const aboutContent = parseAboutContent(aboutMarkdown);
+type TextPart = {
+	text: string;
+	strong?: boolean;
+};
+
+const aboutContent = {
+	hero: {
+		title: 'Hi, I’m Carlos.',
+		descriptor: 'Embedded control architect and technical leader focused on software-defined physical systems.',
+		paragraphs: [
+			[
+				{
+					text:
+						'I am an embedded control architect and technical leader focused on software-defined physical systems: vehicles, machines, energy systems, and other products that must sense, decide, act, and behave reliably beyond simulation.',
+				},
+			],
+			[
+				{
+					text:
+						'I lead the development of real-time embedded control software for electrified, automated, and safety-critical systems operating under real-world constraints.',
+				},
+			],
+			[
+				{
+					text:
+						'Most of my professional work has centered on electric trucks, autonomous machinery, power electronics, automotive software, and production embedded systems. Across those domains, the goal is the same: turn control theory, embedded software, diagnostics, calibration, validation, and production data into trustworthy system behavior.',
+				},
+			],
+			[
+				{
+					text:
+						'I am based in Spain and work with international, multidisciplinary teams. The part of engineering I enjoy most is the bridge between control objectives, embedded software implementation, hardware behavior, production constraints, safety considerations, and the evidence needed to trust a system in the real world.',
+				},
+			],
+		] satisfies TextPart[][],
+	},
+	whyPhysicalSystems: {
+		title: 'Why Control Systems Matter',
+		paragraphs: [
+			[
+				{
+					text:
+						'Long before control systems became software, engineers were already building feedback into real-world machines. A steam engine governor is one of my favorite examples: rotating balls, levers, linkages, and valves working together to regulate speed. It is a classic control example because it shows something fundamental: feedback made powerful machines more stable, usable, and productive.',
+				},
+			],
+			[
+				{
+					text:
+						'Embedded software changed the scale of what feedback could become. Functions that once depended on mechanical linkages could be implemented as real-time logic connected to sensors, actuators, communication networks, and data. As microprocessors, power electronics, sensing, and storage evolved, control software made it possible to coordinate more complex behavior, calibrate from real operation, diagnose faults, and improve systems across their lifecycle.',
+				},
+			],
+			[
+				{
+					text:
+						'That is why control systems matter. They are often invisible, but they shape how physical products behave: vehicles manage energy, robots move and recover, batteries operate safely, buildings reduce consumption, factories coordinate demand, and power systems absorb more renewable energy.',
+				},
+			],
+			[
+				{
+					text:
+						'My work sits inside that evolution. I focus on the layer where feedback control, predictive control, diagnostics, calibration, embedded software, and production data turn advanced ideas into reliable behavior on real hardware.',
+				},
+			],
+		] satisfies TextPart[][],
+	},
+	howIGotHere: {
+		title: 'From Curiosity to Production Control Systems',
+		paragraphs: [
+			[
+				{
+					text:
+						'As a child, I wanted to become an inventor, even though I often felt that everything worth inventing had already been created. My toys became my main source of inspiration. I did not just play with them. I took them apart to see what was inside, fascinated by how something like a remote controlled car was actually able to move, steer, and respond. Once I understood the mechanics, I would harvest the motors, wires, and circuit boards, trying to reuse them in my own electronic projects.',
+				},
+			],
+		] satisfies TextPart[][],
+		milestones: [
+			{
+				title: 'Taking things apart',
+				description: 'Opening toys, looking inside, and trying to understand the behavior behind the mechanism.',
+			},
+			{
+				title: 'Small robots',
+				description:
+					'After building a basic obstacle-avoiding robot kit, I watched a line-tracking robot competition at Campus Party in Valencia. Some robots were fast and stable. Mine oscillated from side to side. I wanted to understand why.',
+			},
+			{
+				title: 'Valencia to Lund',
+				description:
+					'Industrial Engineering in Valencia led to a double degree in Electrical Engineering in Sweden, where I deepened my focus on automatic control, dynamic systems, and model-based engineering.',
+			},
+			{
+				title: 'Control theory',
+				description:
+					'At university, feedback control changed from equations on a whiteboard into an explanation for real behavior: why a robot follows a line, a balancing system recovers, or a climate system stabilizes a room despite disturbances.',
+			},
+			{
+				title: 'Production systems',
+				description:
+					'An industrial PhD and production embedded control work connected theory with heavy vehicles, advanced functions, and the constraints of systems that must work reliably in operation.',
+			},
+		],
+		closing:
+			'Over time, that childhood drive to build and understand evolved into a persistent engineering question: how do you make a physical system behave reliably when the environment around it is constantly changing?',
+	},
+	howIWork: {
+		title: 'How I Approach Complex Systems',
+		quote: 'An elegant algorithm is only the beginning. Production readiness is where engineering earns trust.',
+		paragraphs: [
+			[
+				{
+					text:
+						'Complex engineering problems are rarely solved by one discipline in isolation. I help teams build a shared understanding of the system, the constraints, the risks, and the decisions needed to move from uncertainty to reliable product behavior.',
+				},
+			],
+		] satisfies TextPart[][],
+		principles: [
+			{
+				title: 'Build a shared system view',
+				description:
+					'I connect control objectives, software architecture, hardware constraints, safety requirements, calibration needs, validation evidence, production data, and product expectations into one coherent picture.',
+			},
+			{
+				title: 'Isolate root causes before implementing solutions',
+				description:
+					'System dynamics, control strategies, diagnostics, and degradation logic exist at distinct layers of an architecture. I enforce a disciplined approach that separates the underlying problem from the implementation detail. This prevents premature, localized fixes and yields clean, modular solutions that are inherently easier to test, explain, maintain, and trust.',
+			},
+			{
+				title: 'Make trade-offs explicit',
+				description:
+					'Technical decisions are made under constraints: time, resources, hardware limits, safety requirements, dependencies, legacy systems, and unexpected contingencies. I value making those trade-offs visible so teams can compare options, understand risk, and commit with clarity.',
+			},
+			{
+				title: 'Support teams from decision to delivery',
+				description:
+					'Good technical leadership is not about controlling every detail. It is about giving engineers context, helping them anticipate problems, aligning interfaces and responsibilities, and supporting decisions until they become reliable production behavior.',
+			},
+		],
+	},
+	beyondEngineering: {
+		title: 'Beyond Engineering',
+		paragraphs: [
+			[
+				{
+					text:
+						'Outside of work, I stay connected to the same hands-on curiosity that drew me to engineering in the first place, just on a different scale.',
+				},
+			],
+			[
+				{
+					text:
+						'I spend time on personal projects that mix design and functionality, like 3D printing, lamp design, painting, and home automation prototyping. I have also played basketball since childhood, and I still enjoy the dynamic of competing and mentoring younger players on the court.',
+				},
+			],
+			[
+				{
+					text:
+						'Most importantly, I balance all of this with my favorite and most grounding focus: my wife, our child, and our dog.',
+				},
+			],
+		] satisfies TextPart[][],
+	},
+	exploreMore: {
+		title: 'Where to Go Next',
+		items: [
+			{
+				title: 'Selected Work',
+				description: 'Projects, domains, patents, publications, and applied engineering context.',
+				linkText: 'View selected work',
+			},
+			{
+				title: 'CV',
+				description: 'Roles, education, research, publications, and technical leadership experience.',
+				linkText: 'View CV',
+			},
+			{
+				title: 'Writing',
+				description: 'Articles on embedded controls, diagnostics, validation, and technical leadership.',
+				linkText: 'Read articles',
+			},
+			{
+				title: 'Contact',
+				description: 'Start a conversation about roles, collaboration, or technical topics.',
+				linkText: 'Contact me',
+			},
+		],
+	},
+	connect: {
+		title: 'Let’s Connect',
+		paragraphs: [
+			[
+				{
+					text:
+						'For roles, collaborations, or technical conversations about embedded controls, diagnostics, and reliable real-world systems, I’m open to hearing from you.',
+				},
+			],
+			[
+				{
+					text:
+						'I am based in Spain and especially interested in remote or hybrid opportunities with international teams.',
+				},
+			],
+		] satisfies TextPart[][],
+	},
+};
+
 const exploreHrefByTitle: Record<string, string> = {
 	CV: '/cv',
-	'Selected work': '/work',
+	'Selected Work': '/work',
 	Writing: '/writing',
 	Contact: '/contact',
 };
@@ -21,8 +223,8 @@ const evidenceLinks = aboutContent.exploreMore.items.map((item) => ({
 ---
 
 <Layout
-	title="About Carlos Jorques | Embedded Controls Architect"
-	description="About Carlos Jorques, an embedded controls architect and technical leader developing control algorithms and real-time embedded software for reliable real-world systems."
+	title="About Carlos Jorques | Embedded Control Architect"
+	description="About Carlos Jorques, an embedded control architect and technical leader for software-defined physical systems, real-time control software, diagnostics, validation, and production embedded systems."
 >
 	<section class="about-hero">
 		<div class="page-container about-hero__inner">
@@ -35,8 +237,7 @@ const evidenceLinks = aboutContent.exploreMore.items.map((item) => ({
 						{paragraph.map((part) => part.strong ? <strong>{part.text}</strong> : part.text)}
 					</p>
 				))}
-
-				<div class="button-row" aria-label="About page primary navigation links">
+                                <div class="button-row" aria-label="About page primary navigation links">
 					<a class="button primary" href={withBase('/work')}>View selected work</a>
 					<a class="button" href={withBase('/cv')}>View CV</a>
 					<a class="button" href={withBase('/writing')}>Read articles</a>
@@ -78,7 +279,7 @@ const evidenceLinks = aboutContent.exploreMore.items.map((item) => ({
 					/>
 				</div>
 				<figcaption>
-					A mechanical speed governor: a classic feedback control example from the long history of making powerful machines stable and useful.
+					A mechanical speed governor: an early feedback-control mechanism for making powerful machines stable and useful.
 				</figcaption>
 			</figure>
 		</div>
@@ -257,7 +458,7 @@ const evidenceLinks = aboutContent.exploreMore.items.map((item) => ({
 		margin-top: 0.55rem;
 	}
 
-	.about-hero strong,
+        .about-hero strong,
 	.about-copy strong,
 	.about-final strong,
 	.proof-item strong,
@@ -381,14 +582,14 @@ const evidenceLinks = aboutContent.exploreMore.items.map((item) => ({
 		max-width: 760px;
 	}
 
-	.governor-visual {
-		display: grid;
-		gap: 0.65rem;
-		margin: 0;
-		max-width: 340px;
-		justify-self: start;
-		pointer-events: none;
-	}
+        .governor-visual {
+                display: grid;
+                gap: 0.65rem;
+                margin: 0;
+                max-width: 460px;
+                justify-self: start;
+                pointer-events: none;
+        }
 
 	.governor-visual__crop {
 		overflow: hidden;
@@ -572,6 +773,7 @@ const evidenceLinks = aboutContent.exploreMore.items.map((item) => ({
 		padding-inline-start: clamp(1rem, 2vw, 1.4rem);
 		border-left: 3px solid var(--color-accent-text);
 	}
+
 
 	.section-footer-cta {
 		display: flex;
@@ -827,11 +1029,11 @@ const evidenceLinks = aboutContent.exploreMore.items.map((item) => ({
 			gap: clamp(2rem, 4vw, 3rem);
 		}
 
-		.governor-visual {
-			width: min(100%, 340px);
-			justify-self: end;
-			align-self: start;
-		}
+                .governor-visual {
+                        width: min(100%, 460px);
+                        justify-self: end;
+                        align-self: start;
+                }
 
 		.governor-visual__crop {
 			height: auto;
@@ -905,11 +1107,11 @@ const evidenceLinks = aboutContent.exploreMore.items.map((item) => ({
 			font-size: clamp(3.5rem, 16vw, 4.5rem);
 		}
 
-		.governor-visual {
-			max-width: 100%;
-			width: min(72vw, 260px);
-			margin-top: 0.35rem;
-		}
+                .governor-visual {
+                        max-width: 100%;
+                        width: min(84vw, 340px);
+                        margin-top: 1.25rem;
+                }
 
 		.governor-visual img {
 			width: 100%;

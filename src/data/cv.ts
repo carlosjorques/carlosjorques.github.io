@@ -112,7 +112,7 @@ export const cvProfile = {
 	hero: {
 		eyebrow: 'Online CV',
 		title: 'Carlos Jorques',
-		subtitle: 'Senior Software Developer | Embedded Controls Architect | Electric & Autonomous Vehicle Systems',
+                subtitle: 'Senior Software Developer | Embedded Control Architect | Electric & Autonomous Vehicle Systems',
 		summary:
 			'I am a senior embedded controls engineer with 10+ years of experience developing real-time control software for automotive and heavy-duty vehicle systems. I focus on EV thermal management, battery systems, autonomous propulsion control, diagnostics, functional safety, validation, and production embedded software.',
 		secondarySummary:
@@ -146,7 +146,7 @@ export const cvProfile = {
 	] satisfies ProofTile[],
 	relevantFor: [
 		'Senior Electronics Engineer',
-		'Embedded Controls Architect',
+                'Embedded Control Architect',
 		'Technical Lead',
 		'Control Systems Engineer',
 		'BMS / Thermal Management Engineer',
@@ -162,7 +162,7 @@ export const cvProfile = {
 	],
 	expertise: [
 		{
-			title: 'Embedded Controls Architecture',
+                        title: 'Embedded Control Architecture',
 			items: [
 				'Real-time control architecture for vehicle and powertrain systems',
 				'Estimators, regulators, diagnostic logic, and validation strategies for real-world systems with physical constraints',

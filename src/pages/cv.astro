@@ -1,6 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { cvProfile } from '../data/cvMarkdown';
+import { cvProfile } from '../data/cv';
 
 const baseUrl = import.meta.env.BASE_URL;
 const withBase = (href: string) => {
@@ -75,7 +75,7 @@ const profileJsonLd = {
 	mainEntity: {
 		'@type': 'Person',
 		name: cvProfile.hero.title,
-		jobTitle: 'Senior Electronics Engineer and Embedded Controls Architect',
+                jobTitle: 'Senior Electronics Engineer and Embedded Control Architect',
 		description:
 			'Senior electronics and embedded controls engineer specializing in EV thermal management, BMS, autonomous propulsion control, diagnostics, functional safety, model-based development, and real-time embedded software.',
 		url: Astro.url.href,
@@ -85,7 +85,7 @@ const profileJsonLd = {
 ---
 
 <Layout
-	title="Senior Embedded Controls Engineer CV | Carlos Jorques"
+        title="Senior Embedded Control Engineer CV | Carlos Jorques"
 	description="Senior electronics and embedded controls engineer specializing in EV thermal management, BMS, autonomous propulsion control, diagnostics, functional safety, model-based development, and real-time embedded software."
 >
 	<script type="application/ld+json" set:html={JSON.stringify(profileJsonLd)} />
@@ -167,7 +167,7 @@ const profileJsonLd = {
 						<header class="cv-section__intro cv-section__intro--expertise">
 							<h2 id="core-expertise-heading">Core Expertise</h2>
 							<p>
-								A capability map across embedded controls architecture, automotive software, electric and autonomous vehicle systems,
+                                                                A capability map across embedded control architecture, automotive software, electric and autonomous vehicle systems,
 								production software validation, diagnostics, safety, robustness, and technical leadership.
 							</p>
 						</header>
