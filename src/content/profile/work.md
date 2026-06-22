@@ -44,7 +44,7 @@ Context: Mahle electrified powertrain and power electronics environments
 
 Model-based thermal and control software for e-bike motor control, wireless charging, DC/DC converter interfaces, power electronics, and AUTOSAR-oriented software architecture.
 
-## Selected Work
+## Selected Project Contexts
 
 Selected project contexts where control architecture, embedded software, diagnostics, validation, and production constraints come together in real systems.
 
