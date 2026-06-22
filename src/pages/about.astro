@@ -18,13 +18,7 @@ const aboutContent = {
 			[
 				{
 					text:
-						'I am an embedded control architect and technical leader focused on software-defined physical systems: vehicles, machines, energy systems, and other products that must sense, decide, act, and behave reliably beyond simulation.',
-				},
-			],
-			[
-				{
-					text:
-						'I lead the development of real-time embedded control software for electrified, automated, and safety-critical systems operating under real-world constraints.',
+						'I am an embedded control architect and technical leader focused on software-defined physical systems: vehicles, machines, energy systems, and other products that must sense, decide, act, and behave reliably beyond simulation. I lead the development of real-time embedded control software for electrified, automated, and safety-critical systems operating under real-world constraints.',
 				},
 			],
 			[
@@ -36,7 +30,7 @@ const aboutContent = {
 			[
 				{
 					text:
-						'I am based in Spain and work with international, multidisciplinary teams. The part of engineering I enjoy most is the bridge between control objectives, embedded software implementation, hardware behavior, production constraints, safety considerations, and the evidence needed to trust a system in the real world.',
+						'I am based in Spain and work with international, multidisciplinary teams across engineering, software, hardware, and product domains.',
 				},
 			],
 		] satisfies TextPart[][],
@@ -237,7 +231,8 @@ const evidenceLinks = aboutContent.exploreMore.items.map((item) => ({
 						{paragraph.map((part) => part.strong ? <strong>{part.text}</strong> : part.text)}
 					</p>
 				))}
-                                <div class="button-row" aria-label="About page primary navigation links">
+
+				<div class="button-row" aria-label="About page primary navigation links">
 					<a class="button primary" href={withBase('/work')}>View selected work</a>
 					<a class="button" href={withBase('/cv')}>View CV</a>
 					<a class="button" href={withBase('/writing')}>Read articles</a>
@@ -458,7 +453,7 @@ const evidenceLinks = aboutContent.exploreMore.items.map((item) => ({
 		margin-top: 0.55rem;
 	}
 
-        .about-hero strong,
+	.about-hero strong,
 	.about-copy strong,
 	.about-final strong,
 	.proof-item strong,
@@ -582,14 +577,14 @@ const evidenceLinks = aboutContent.exploreMore.items.map((item) => ({
 		max-width: 760px;
 	}
 
-        .governor-visual {
-                display: grid;
-                gap: 0.65rem;
-                margin: 0;
-                max-width: 460px;
-                justify-self: start;
-                pointer-events: none;
-        }
+	.governor-visual {
+		display: grid;
+		gap: 0.65rem;
+		margin: 0;
+		max-width: 460px;
+		justify-self: start;
+		pointer-events: none;
+	}
 
 	.governor-visual__crop {
 		overflow: hidden;
@@ -773,7 +768,6 @@ const evidenceLinks = aboutContent.exploreMore.items.map((item) => ({
 		padding-inline-start: clamp(1rem, 2vw, 1.4rem);
 		border-left: 3px solid var(--color-accent-text);
 	}
-
 
 	.section-footer-cta {
 		display: flex;
@@ -1029,11 +1023,11 @@ const evidenceLinks = aboutContent.exploreMore.items.map((item) => ({
 			gap: clamp(2rem, 4vw, 3rem);
 		}
 
-                .governor-visual {
-                        width: min(100%, 460px);
-                        justify-self: end;
-                        align-self: start;
-                }
+		.governor-visual {
+			width: min(100%, 460px);
+			justify-self: end;
+			align-self: start;
+		}
 
 		.governor-visual__crop {
 			height: auto;
@@ -1107,11 +1101,11 @@ const evidenceLinks = aboutContent.exploreMore.items.map((item) => ({
 			font-size: clamp(3.5rem, 16vw, 4.5rem);
 		}
 
-                .governor-visual {
-                        max-width: 100%;
-                        width: min(84vw, 340px);
-                        margin-top: 1.25rem;
-                }
+		.governor-visual {
+			max-width: 100%;
+			width: min(84vw, 340px);
+			margin-top: 1.25rem;
+		}
 
 		.governor-visual img {
 			width: 100%;
