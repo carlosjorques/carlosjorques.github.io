@@ -1,64 +1,291 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import SectionHeading from '../components/SectionHeading.astro';
+import { cvProfile } from '../data/cvMarkdown';
 
 const baseUrl = import.meta.env.BASE_URL;
-const withBase = (href: string) => (href === '/' ? baseUrl : `${baseUrl}${href.replace(/^\//, '')}`);
+const normalizedBase = baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`;
+const withBase = (href: string) =>
+	href.startsWith('http') || href.startsWith('mailto:') || href.startsWith('#')
+		? href
+		: `${normalizedBase}${href.replace(/^\//, '')}`;
+
+const contactEmail = 'carlosjorques@gmail.com';
+const emailHref = `mailto:${contactEmail}`;
+const links = {
+	cv: withBase('/cv'),
+	pdfCv: withBase(cvProfile.links.pdf),
+	work: withBase(cvProfile.links.work),
+	linkedin: cvProfile.links.linkedin,
+	privacy: withBase('/privacy'),
+};
+
+const secondaryLinks = [
+	{
+		label: 'LinkedIn',
+		href: links.linkedin,
+		external: true,
+		ariaLabel: 'Open Carlos Jorques on LinkedIn in a new tab',
+	},
+	{
+		label: 'Download CV',
+		href: links.pdfCv,
+	},
+];
 ---
 
 <Layout
-	title="Contact"
-	description="Contact Carlos Jorques for embedded control systems architecture, automotive software/control projects, and technical leadership roles."
+	title="Contact Carlos Jorques | Embedded Controls Engineer"
+	description="Contact Carlos Jorques about embedded controls, electrification, autonomy, diagnostics, safety-critical software, technical leadership, or collaboration."
 >
-	<section class="section">
-		<div class="container contact-grid">
-			<div>
-				<SectionHeading
-					eyebrow="Contact"
-					title="Discuss control intelligence for physical systems"
-					description="For technical leadership roles, embedded control systems architecture, automotive software/control projects, or discussions around control intelligence for physical systems, feel free to contact me."
-				/>
+	<section class="contact-hero" aria-labelledby="contact-title">
+		<div class="page-container contact-hero__content">
+			<p class="section-eyebrow">Contact</p>
+			<h1 id="contact-title">Get in touch</h1>
+			<p class="contact-hero__lead">
+				If you are working on embedded controls, electrification, autonomy, diagnostics, validation, or safety-critical software, I would be glad to hear from you.
+			</p>
+			<p class="contact-hero__lead contact-hero__lead--secondary">
+				Email is the best way to reach me. You can also send a short message below with the context needed to start the conversation.
+			</p>
+			<p class="contact-hero__context">Based in Spain · working with international teams</p>
+		</div>
+	</section>
+
+	<section class="section contact-content" aria-labelledby="direct-contact-title">
+		<div class="page-container contact-content__grid">
+			<div class="contact-stack">
+				<article class="direct-contact-card">
+					<p class="contact-card__label">Direct email</p>
+					<h2 id="direct-contact-title">Email Carlos</h2>
+					<p class="direct-contact-card__copy">
+						For roles, collaborations, technical conversations, or focused questions about embedded control software for physical systems.
+					</p>
+					<p class="direct-contact-card__email">
+						<a href={emailHref}>Email Carlos</a>
+					</p>
+					<div class="button-row direct-contact-card__actions">
+						<a class="button primary" href={emailHref}>Email Carlos</a>
+						<button
+							class="button"
+							type="button"
+							data-copy-email
+							data-email={contactEmail}
+							aria-describedby="copy-email-status"
+						>
+							Copy email
+						</button>
+					</div>
+					<p class="contact-note" id="copy-email-status" data-copy-email-status role="status" aria-live="polite">
+						Use the buttons above to email or copy the address.
+					</p>
+				</article>
+
+				<nav class="secondary-contact-links" aria-label="Secondary contact links">
+					{secondaryLinks.map((link) => (
+						<a href={link.href} target={link.external ? '_blank' : undefined} rel={link.external ? 'noopener noreferrer' : undefined} aria-label={link.ariaLabel}>
+							<span>{link.label}</span>
+							<strong>{link.external ? 'Professional profile' : 'PDF resume'}</strong>
+						</a>
+					))}
+					<a href={links.cv}>
+						<span>Online CV</span>
+						<strong>Structured experience overview</strong>
+					</a>
+				</nav>
 			</div>
-			<div class="contact-panel">
-				<div>
-					<span>Email</span>
-					<strong>Launch TODO: add preferred public email</strong>
+
+			<form
+				class="contact-form"
+				action={emailHref}
+				method="post"
+				enctype="text/plain"
+				aria-labelledby="message-title"
+				aria-describedby="form-status privacy-note"
+				data-contact-form
+			>
+				<div class="contact-form__header">
+					<h2 id="message-title">Send a message</h2>
+					<p id="form-status" class="contact-note" role="status" aria-live="polite">
+						Use this form for a short introduction, project context, role discussion, or collaboration proposal.
+					</p>
 				</div>
-				<div>
-					<span>LinkedIn</span>
-					<strong>Launch TODO: add verified LinkedIn profile</strong>
+
+				<div class="form-field">
+					<label for="contact-name">Name <span aria-hidden="true">*</span></label>
+					<input id="contact-name" name="name" type="text" autocomplete="name" required aria-describedby="contact-name-error" />
+					<p class="field-error" id="contact-name-error">Enter your name.</p>
 				</div>
-				<a href={withBase('/cv')}>
-					<span>Online CV</span>
-					<strong>View Carlos Jorques's structured online CV</strong>
-				</a>
-				<a href={withBase('/cv/Carlos_Jorques_CV.pdf')}>
-					<span>PDF CV</span>
-					<strong>Download Carlos Jorques's PDF CV</strong>
-				</a>
-			</div>
+
+				<div class="form-field">
+					<label for="contact-email">Email <span aria-hidden="true">*</span></label>
+					<input id="contact-email" name="email" type="email" autocomplete="email" required aria-describedby="contact-email-error" />
+					<p class="field-error" id="contact-email-error">Enter a valid email address.</p>
+				</div>
+
+				<fieldset class="form-field form-fieldset">
+					<legend>What are you reaching out about?</legend>
+					<div class="radio-group">
+						<label><input type="radio" name="context" value="project" /> Project</label>
+						<label><input type="radio" name="context" value="role" /> Role</label>
+						<label><input type="radio" name="context" value="collaboration" /> Collaboration</label>
+						<label><input type="radio" name="context" value="other" /> Other</label>
+					</div>
+				</fieldset>
+
+				<div class="form-field">
+					<label for="contact-message">Message <span aria-hidden="true">*</span></label>
+					<textarea id="contact-message" name="message" rows="8" required aria-describedby="contact-message-helper contact-message-error"></textarea>
+					<p class="field-helper" id="contact-message-helper">Share the role, system, collaboration model, location or remote setup, and any useful technical context.</p>
+					<p class="field-error" id="contact-message-error">Enter a message.</p>
+				</div>
+
+				<div class="contact-honeypot" aria-hidden="true">
+					<label for="contact-company">Company</label>
+					<input id="contact-company" name="company" type="text" tabindex="-1" autocomplete="off" />
+					<p>Leave this field empty.</p>
+				</div>
+
+				<p class="contact-note" id="privacy-note">
+					I&apos;ll use your details only to reply to your message. <a href={links.privacy}>Read the privacy notice.</a>
+				</p>
+				<button class="button primary" type="submit" aria-describedby="privacy-note form-status">Send message</button>
+			</form>
 		</div>
 	</section>
 </Layout>
 
 <style>
-	.contact-grid {
-		display: grid;
-		grid-template-columns: minmax(0, 1fr);
-		gap: 1.5rem;
-		align-items: start;
-	}
-
-	.contact-panel {
-		display: grid;
-		gap: 1rem;
+	.contact-hero {
+		padding-block: clamp(4rem, 8vw, 7rem) clamp(2.75rem, 5vw, 4.25rem);
+		border-bottom: 1px solid var(--color-border-soft);
 		background: transparent;
 	}
 
-	.contact-panel div,
-	.contact-panel a {
+	.contact-hero__content {
 		display: grid;
-		gap: 0.4rem;
+		gap: var(--spacing-05);
+		max-width: 820px;
+	}
+
+	.contact-hero h1 {
+		max-width: 13ch;
+		font-family: var(--font-display);
+		font-size: var(--type-hero-name-size);
+		font-weight: var(--type-hero-name-weight);
+		letter-spacing: var(--type-hero-name-tracking);
+		line-height: var(--type-hero-name-line);
+	}
+
+	.contact-hero__lead {
+		max-width: 760px;
+		color: var(--color-text);
+		font-size: var(--type-hero-summary-size);
+		font-weight: var(--type-hero-summary-weight);
+		letter-spacing: var(--type-hero-summary-tracking);
+		line-height: var(--type-hero-summary-line);
+	}
+
+	.contact-hero__context {
+		max-width: 620px;
+		color: var(--color-body-text);
+		font-size: var(--type-body-size);
+		line-height: var(--type-body-line);
+	}
+
+	.contact-content {
+		background: transparent;
+	}
+
+	.contact-content__grid {
+		display: grid;
+		gap: clamp(1.5rem, 4vw, 3rem);
+		align-items: start;
+	}
+
+	.contact-stack {
+		display: grid;
+		gap: var(--spacing-06);
+	}
+
+	.direct-contact-card,
+	.contact-form {
+		display: grid;
+		gap: var(--spacing-05);
+		border: 1px solid var(--color-card-border);
+		border-radius: var(--radius);
+		background: var(--color-card-bg);
+		padding: clamp(1.15rem, 3vw, 1.6rem);
+		transition:
+			background-color var(--motion-duration-fast-02) var(--motion-standard-productive),
+			border-color var(--motion-duration-fast-02) var(--motion-standard-productive);
+	}
+
+	.direct-contact-card:hover,
+	.direct-contact-card:focus-within,
+	.contact-form:focus-within {
+		border-color: var(--color-card-border-hover);
+		background: var(--color-card-bg-hover);
+	}
+
+	.contact-card__label {
+		color: var(--color-accent-text);
+		font-family: var(--font-mono);
+		font-size: var(--type-meta-size);
+		font-weight: var(--type-meta-weight);
+		letter-spacing: var(--type-meta-tracking);
+		line-height: var(--type-meta-line);
+		text-transform: uppercase;
+	}
+
+	.direct-contact-card h2,
+	.contact-form h2 {
+		max-width: 100%;
+		font-size: clamp(1.55rem, 2.5vw, 2.35rem);
+		letter-spacing: -0.045em;
+		line-height: 1.05;
+	}
+
+	.direct-contact-card__copy,
+	.contact-form__header p,
+	.field-helper,
+	.contact-note {
+		color: var(--color-body-text);
+		font-size: var(--type-card-body-size);
+		line-height: var(--type-card-body-line);
+	}
+
+	.direct-contact-card__email {
+		overflow-wrap: anywhere;
+		color: var(--color-text);
+		font-family: var(--font-display);
+		font-size: clamp(1.35rem, 2.4vw, 2rem);
+		font-weight: 600;
+		letter-spacing: -0.04em;
+		line-height: 1.1;
+	}
+
+	.contact-note a {
+		color: var(--color-link);
+		font-weight: 700;
+		text-decoration: underline;
+		text-decoration-thickness: 1px;
+		text-underline-offset: 0.2em;
+	}
+
+	.contact-note a:hover,
+	.contact-note a:focus-visible {
+		color: var(--color-link-hover);
+	}
+
+	.direct-contact-card__actions,
+	.secondary-contact-links {
+		display: grid;
+		gap: 0.75rem;
+	}
+
+	.secondary-contact-links a {
+		display: grid;
+		gap: 0.25rem;
 		border: 1px solid var(--color-card-border);
 		border-radius: var(--radius);
 		background: var(--color-card-bg);
@@ -71,28 +298,192 @@ const withBase = (href: string) => (href === '/' ? baseUrl : `${baseUrl}${href.r
 			transform var(--motion-duration-fast-02) var(--motion-standard-productive);
 	}
 
-	.contact-panel a:hover,
-	.contact-panel a:focus-visible {
+	.secondary-contact-links a:hover,
+	.secondary-contact-links a:focus-visible {
 		border-color: var(--color-card-border-hover);
 		background: var(--color-card-bg-hover);
-		transform: translateY(-2px);
+		transform: translateY(-1px);
 	}
 
-	.contact-panel span {
-		color: var(--color-subtle);
+	.secondary-contact-links span,
+	.form-field label,
+	.form-fieldset legend {
+		color: var(--color-text);
 		font-family: var(--font-mono);
-		font-size: 0.75rem;
+		font-size: var(--type-meta-size);
+		font-weight: var(--type-meta-weight);
+		letter-spacing: var(--type-meta-tracking);
+		line-height: var(--type-meta-line);
+		text-transform: uppercase;
 	}
 
-	.contact-panel strong {
-		font-size: 1.05rem;
-		overflow-wrap: anywhere;
+	.secondary-contact-links strong {
+		color: var(--color-body-text);
+		font-size: var(--type-card-body-size);
+		line-height: var(--type-card-body-line);
 	}
 
-	@media (min-width: 850px) {
-		.contact-grid {
-			grid-template-columns: minmax(0, 1fr) 320px;
-			gap: 2rem;
+	.contact-form__header {
+		display: grid;
+		gap: 0.65rem;
+	}
+
+	.form-field {
+		display: grid;
+		gap: 0.45rem;
+	}
+
+	.form-field input[type="text"],
+	.form-field input[type="email"],
+	.form-field textarea {
+		width: 100%;
+		border: 1px solid var(--color-border);
+		border-radius: calc(var(--radius) * 0.75);
+		background: var(--color-page);
+		padding: 0.78rem 0.85rem;
+		color: var(--color-text);
+		font: inherit;
+	}
+
+	.form-field textarea {
+		min-height: 11rem;
+		resize: vertical;
+	}
+
+	.form-field input:focus-visible,
+	.form-field textarea:focus-visible,
+	.radio-group input:focus-visible {
+		outline: 2px solid var(--color-focus);
+		outline-offset: 3px;
+	}
+
+	.form-fieldset {
+		margin: 0;
+		border: 0;
+		padding: 0;
+	}
+
+	.radio-group {
+		display: grid;
+		gap: 0.55rem;
+		margin-top: var(--spacing-03);
+	}
+
+	.radio-group label {
+		display: flex;
+		gap: 0.55rem;
+		align-items: center;
+		color: var(--color-body-text);
+		font-size: var(--type-card-body-size);
+		line-height: var(--type-card-body-line);
+	}
+
+	.radio-group input {
+		width: 1rem;
+		height: 1rem;
+		accent-color: var(--color-accent-text);
+	}
+
+	.field-error {
+		display: none;
+		color: var(--color-accent-text);
+		font-size: var(--type-meta-size);
+		line-height: var(--type-meta-line);
+	}
+
+	.form-field input:user-invalid + .field-error,
+	.form-field textarea:user-invalid ~ .field-error {
+		display: block;
+	}
+
+	.contact-honeypot {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		overflow: hidden;
+		clip: rect(0 0 0 0);
+		clip-path: inset(50%);
+		white-space: nowrap;
+	}
+
+	.button:disabled,
+	.button[disabled] {
+		cursor: not-allowed;
+		opacity: 0.55;
+		transform: none;
+	}
+
+	@media (min-width: 760px) {
+		.direct-contact-card__actions {
+			grid-template-columns: repeat(2, minmax(0, max-content));
+		}
+	}
+
+	@media (min-width: 980px) {
+		.contact-content__grid {
+			grid-template-columns: minmax(18rem, 0.72fr) minmax(0, 1fr);
+		}
+	}
+
+	@media (max-width: 640px) {
+		.contact-hero {
+			padding-block: 3.5rem 2.75rem;
+		}
+
+		.contact-hero h1 {
+			max-width: 100%;
+			overflow-wrap: anywhere;
 		}
 	}
 </style>
+
+<script>
+	const encodeMailBody = (form: HTMLFormElement) => {
+		const data = new FormData(form);
+		const context = data.get('context');
+		const lines = [
+			`Name: ${data.get('name') ?? ''}`,
+			`Email: ${data.get('email') ?? ''}`,
+			`Context: ${typeof context === 'string' && context ? context : 'Not specified'}`,
+			'',
+			`${data.get('message') ?? ''}`,
+		];
+
+		return encodeURIComponent(lines.join('\n'));
+	};
+
+	const copyButton = document.querySelector<HTMLButtonElement>('[data-copy-email]');
+	const copyStatus = document.querySelector<HTMLElement>('[data-copy-email-status]');
+	const contactForm = document.querySelector<HTMLFormElement>('[data-contact-form]');
+	const formStatus = document.querySelector<HTMLElement>('#form-status');
+
+	copyButton?.addEventListener('click', async () => {
+		const email = copyButton.dataset.email;
+
+		if (!email || !copyStatus) {
+			return;
+		}
+
+		try {
+			await navigator.clipboard.writeText(email);
+			copyStatus.textContent = 'Email address copied.';
+		} catch {
+			copyStatus.textContent = 'Could not copy the email address. Select and copy it manually.';
+		}
+	});
+
+	contactForm?.addEventListener('submit', (event) => {
+		event.preventDefault();
+
+		if (!contactForm.reportValidity()) {
+			return;
+		}
+
+		if (formStatus) {
+			formStatus.textContent = 'Opening your email client with the message details.';
+		}
+
+		const subject = encodeURIComponent('Portfolio contact');
+		window.location.href = `mailto:${copyButton?.dataset.email ?? ''}?subject=${subject}&body=${encodeMailBody(contactForm)}`;
+	});
+</script>

@@ -183,7 +183,7 @@ const evidenceLinks = aboutContent.exploreMore.items.map((item) => ({
 
 	.about-hero__inner {
 		display: grid;
-		row-gap: 1rem;
+		row-gap: clamp(1.5rem, 3vw, 2.15rem);
 		column-gap: clamp(2rem, 5vw, 4rem);
 		align-items: start;
 		max-width: 1120px;
@@ -191,7 +191,6 @@ const evidenceLinks = aboutContent.exploreMore.items.map((item) => ({
 
 	.about-hero__content {
 		display: grid;
-		gap: 1rem;
 		max-width: 700px;
 	}
 
@@ -220,6 +219,11 @@ const evidenceLinks = aboutContent.exploreMore.items.map((item) => ({
 		font-size: var(--type-body-size);
 		line-height: var(--type-body-line);
 		letter-spacing: var(--type-body-tracking);
+		margin: 0;
+	}
+
+	.about-hero__body + .about-hero__body {
+		margin-top: 0.55rem;
 	}
 
 	.about-hero strong,
@@ -234,9 +238,16 @@ const evidenceLinks = aboutContent.exploreMore.items.map((item) => ({
 
 	.about-hero .button-row {
 		margin-top: var(--spacing-06);
+		margin-bottom: clamp(1.8rem, 4vw, 2.75rem);
 		display: flex;
 		flex-wrap: wrap;
-		gap: 1rem;
+		gap: 0.75rem;
+		align-items: center;
+	}
+
+	.about-hero .button {
+		min-height: 38px;
+		padding: 0.45rem 0.9rem;
 	}
 
 	.about-hero .button:not(.primary):hover,
@@ -247,6 +258,8 @@ const evidenceLinks = aboutContent.exploreMore.items.map((item) => ({
 	.about-hero__portrait {
 		margin: var(--spacing-05) 0 0;
 		width: min(100%, 380px);
+		overflow: hidden;
+		border-radius: var(--radius);
 		justify-self: start;
 	}
 
@@ -255,6 +268,7 @@ const evidenceLinks = aboutContent.exploreMore.items.map((item) => ({
 		width: 100%;
 		aspect-ratio: 3 / 4;
 		height: auto;
+		border-radius: inherit;
 		object-fit: cover;
 		object-position: center;
 		transition: transform var(--motion-duration-moderate-02) var(--motion-standard-productive);
@@ -655,7 +669,7 @@ const evidenceLinks = aboutContent.exploreMore.items.map((item) => ({
 		}
 
 		.about-hero h1 {
-			grid-column: 1 / -1;
+			grid-column: 1;
 		}
 
 		.about-hero__content {
@@ -666,13 +680,13 @@ const evidenceLinks = aboutContent.exploreMore.items.map((item) => ({
 
 		.about-hero .button-row {
 			flex-wrap: nowrap;
-			margin-top: auto;
 		}
 
 		.about-hero__portrait {
 			grid-column: 2;
-			grid-row: 2;
+			grid-row: 1 / 3;
 			margin: 0;
+			align-self: center;
 			justify-self: end;
 		}
 
@@ -737,6 +751,19 @@ const evidenceLinks = aboutContent.exploreMore.items.map((item) => ({
 	@media (max-width: 640px) {
 		.about-hero {
 			padding-block: 3.5rem 2.75rem;
+		}
+
+		.about-hero__inner {
+			row-gap: 1.35rem;
+		}
+
+		.about-hero__body + .about-hero__body {
+			margin-top: 0.55rem;
+		}
+
+		.about-hero .button-row {
+			margin-top: var(--spacing-06);
+			margin-bottom: 2rem;
 		}
 
 		.section-quote {
