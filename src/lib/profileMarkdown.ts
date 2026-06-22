@@ -11,7 +11,7 @@ type MarkdownNode = {
 };
 
 const frontmatterPattern = /^---[\s\S]*?---\s*/;
-const keyValueLinePattern = /^([A-Za-z][A-Za-z ]+):\s*(.+)$/;
+const keyValueLinePattern = /^([A-Za-z][A-Za-z]*(?: [A-Za-z][A-Za-z]*){0,2}):\s*(.+)$/;
 
 const stripFrontmatter = (raw: string) => raw.replace(frontmatterPattern, '').trim();
 
@@ -156,22 +156,33 @@ const cardsFromChildren = (node: MarkdownNode) =>
 		};
 	});
 
+const childCards = (node: MarkdownNode) =>
+	cardsFromChildren(node).map((child) => ({
+		title: child.title,
+		description: child.plainParagraphs[0] ?? '',
+		paragraphs: child.paragraphs,
+	}));
+
 export const parseAboutContent = (raw: string) => {
 	const root = parseTree(raw);
 	const page = findChild(root, 'About');
 
 	const hero = findChild(page, 'Hero');
-	const whyPhysicalSystems = findChild(page, 'Why Control Systems');
-	const howIGotHere = findChild(page, 'How I Got Here');
-	const howIWork = findChild(page, 'How I Work');
+	const whyPhysicalSystems = findChild(page, 'Why Control Systems Matter');
+	const howIGotHere = findChild(page, 'From Robotics to Production Systems');
+	const howIWork = findChild(page, 'How I Approach Complex Systems');
 	const beyondEngineering = findChild(page, 'Beyond Engineering');
-	const exploreMore = findChild(page, 'Explore More of My Work');
+	const exploreMore = findChild(page, 'Where to go next');
 	const connect = findChild(page, 'Let’s Connect');
+	const heroDescriptor = findOptionalChild(hero, 'Descriptor');
 
 	return {
 		hero: {
 			title: firstPlainParagraph(findChild(hero, 'Title')),
-			paragraphs: hero.children.filter((child) => child.title !== 'Title').flatMap(paragraphs),
+			descriptor: heroDescriptor ? firstPlainParagraph(heroDescriptor) : '',
+			paragraphs: hero.children
+				.filter((child) => child.title !== 'Title' && child.title !== 'Descriptor')
+				.flatMap(paragraphs),
 		},
 		whyPhysicalSystems: {
 			title: whyPhysicalSystems.title,
@@ -180,12 +191,14 @@ export const parseAboutContent = (raw: string) => {
 		howIGotHere: {
 			title: howIGotHere.title,
 			paragraphs: paragraphs(howIGotHere),
-			quote: quote(howIGotHere),
+			milestones: childCards(howIGotHere).filter((child) => child.title !== 'Closing'),
+			closing: childCards(howIGotHere).find((child) => child.title === 'Closing')?.description ?? '',
 		},
 		howIWork: {
 			title: howIWork.title,
 			paragraphs: paragraphs(howIWork),
 			quote: quote(howIWork),
+			principles: childCards(howIWork),
 		},
 		beyondEngineering: {
 			title: beyondEngineering.title,
