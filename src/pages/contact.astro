@@ -1,6 +1,5 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { cvProfile } from '../data/cv';
 
 const baseUrl = import.meta.env.BASE_URL;
 const normalizedBase = baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`;
@@ -11,11 +10,13 @@ const withBase = (href: string) =>
 
 const contactEmail = 'carlosjorques@gmail.com';
 const emailHref = `mailto:${contactEmail}`;
+const cvPdfHref = '/cv/Carlos_Jorques_CV.pdf';
+const linkedinHref = 'https://www.linkedin.com/in/carlosjorques/';
 const links = {
 	cv: withBase('/cv'),
-	pdfCv: withBase(cvProfile.links.pdf),
-	work: withBase(cvProfile.links.work),
-	linkedin: cvProfile.links.linkedin,
+	pdfCv: withBase(cvPdfHref),
+	work: withBase('/work'),
+	linkedin: linkedinHref,
 	privacy: withBase('/privacy'),
 };
 
