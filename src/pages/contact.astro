@@ -60,9 +60,6 @@ const secondaryLinks = [
 					<p class="direct-contact-card__copy">
 						For roles, collaborations, technical conversations, or focused questions about embedded control software for physical systems.
 					</p>
-					<p class="direct-contact-card__email">
-						<a href={emailHref}>Email Carlos</a>
-					</p>
 					<div class="button-row direct-contact-card__actions">
 						<a class="button primary" href={emailHref}>Email Carlos</a>
 						<button
@@ -75,9 +72,7 @@ const secondaryLinks = [
 							Copy email
 						</button>
 					</div>
-					<p class="contact-note" id="copy-email-status" data-copy-email-status role="status" aria-live="polite">
-						Use the buttons above to email or copy the address.
-					</p>
+					<p class="contact-note contact-note--status" id="copy-email-status" data-copy-email-status role="status" aria-live="polite"></p>
 				</article>
 
 				<nav class="secondary-contact-links" aria-label="Secondary contact links">
@@ -254,16 +249,6 @@ const secondaryLinks = [
 		line-height: var(--type-card-body-line);
 	}
 
-	.direct-contact-card__email {
-		overflow-wrap: anywhere;
-		color: var(--color-text);
-		font-family: var(--font-display);
-		font-size: clamp(1.35rem, 2.4vw, 2rem);
-		font-weight: 600;
-		letter-spacing: -0.04em;
-		line-height: 1.1;
-	}
-
 	.contact-note a {
 		color: var(--color-link);
 		font-weight: 700;
@@ -275,6 +260,10 @@ const secondaryLinks = [
 	.contact-note a:hover,
 	.contact-note a:focus-visible {
 		color: var(--color-link-hover);
+	}
+
+	.contact-note--status:empty {
+		display: none;
 	}
 
 	.direct-contact-card__actions,
