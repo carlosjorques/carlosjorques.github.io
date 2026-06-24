@@ -9,6 +9,13 @@ const withBase = (href: string) => {
 
 	return href === '/' ? baseUrl : `${baseUrl}${href.replace(/^\//, '')}`;
 };
+
+const toTagSlug = (value: string) =>
+	value
+		.toLowerCase()
+		.replaceAll('/', '-')
+		.replace(/[^a-z0-9]+/g, '-')
+		.replace(/^-|-$/g, '');
 const projectNotes = [
 	{
 		id: 'electric-truck-thermal-management',
@@ -62,71 +69,108 @@ const projectNotes = [
 
 const researchNotes = [
 	{
-		id: 'virtual-sensing-heavy-duty-engine-diagnostics',
-		title: 'Virtual Sensing for Heavy-Duty Engine Diagnostics',
+		id: 'virtual-sensing-in-cycle-combustion-diagnostics',
+		title: 'Virtual Sensing for In-Cycle Combustion Diagnostics',
 		institution: 'Lund University / Scania',
 		overview:
-			'Research on estimating internal combustion-system states that are difficult or impractical to measure directly in production environments.',
-		technicalArea: ['Virtual sensing', 'Diagnostics', 'Model-based estimation', 'Heavy-duty engines'],
-		outcomes: ['Industrial PhD research', 'Scientific publication', 'Patent contribution', 'Test-bench validation'],
-		ctaLabel: 'Read research note on Virtual Sensing for Heavy-Duty Engine Diagnostics',
-		href: '#virtual-sensing-heavy-duty-engine-diagnostics',
+			'Research on estimating combustion states that are difficult to measure directly during engine operation.',
+		technicalArea: ['Virtual sensing', 'In-cycle estimation', 'Combustion diagnostics', 'Heavy-duty engines'],
+		outcomes: [
+			'Developed model-based estimators for combustion states not directly available to production control logic.',
+			'Validated virtual-sensing behavior using heavy-duty engine test-bench data.',
+		],
+		ctaLabel: 'Read research note on Virtual Sensing for In-Cycle Combustion Diagnostics',
+		href: '#virtual-sensing-in-cycle-combustion-diagnostics',
 	},
 	{
 		id: 'stochastic-fault-detection-diagnostic-decision-logic',
 		title: 'Stochastic Fault Detection and Diagnostic Decision Logic',
 		institution: 'Lund University / Scania',
 		overview:
-			'Research on detecting abnormal combustion-system behavior using probabilistic reasoning, measurement data, and diagnostic thresholds.',
-		technicalArea: ['Stochastic detection', 'Fault isolation', 'Diagnostic logic', 'Statistical modeling'],
-		outcomes: ['Scientific publication', 'Diagnostic method development', 'Experimental validation', 'Patent-related work'],
+			'Research on detecting abnormal combustion-system behavior using probability, sensor data, and diagnostic thresholds.',
+		technicalArea: ['Stochastic detection', 'Misfire diagnosis', 'Adaptive thresholds', 'Sensor fusion', 'Diagnostic logic'],
+		outcomes: [
+			'Developed diagnostic decision methods for combustion fault detection.',
+			'Evaluated diagnostic robustness under changing operating conditions.',
+		],
 		ctaLabel: 'Read research note on Stochastic Fault Detection and Diagnostic Decision Logic',
 		href: '#stochastic-fault-detection-diagnostic-decision-logic',
 	},
 	{
-		id: 'real-time-combustion-control-prototyping',
-		title: 'Real-Time Combustion Control Prototyping',
+		id: 'predictive-in-cycle-combustion-control',
+		title: 'Predictive In-Cycle Combustion Control',
 		institution: 'Lund University / Scania',
 		overview:
-			'Research and prototyping work connecting combustion-control algorithms with real-time implementation and physical test-bench constraints.',
-		technicalArea: ['Closed-loop control', 'Combustion control', 'Real-time implementation', 'Hardware-constrained systems'],
-		outcomes: ['Industrial PhD research', 'Control prototype', 'Experimental test-bench validation', 'Publication record'],
-		ctaLabel: 'Read research note on Real-Time Combustion Control Prototyping',
-		href: '#real-time-combustion-control-prototyping',
+			'Research on predictive closed-loop controllers that adjust fuel injection within the same combustion cycle.',
+		technicalArea: ['Closed-loop control', 'Predictive control', 'Combustion control', 'Model adaptation', 'FPGA implementation'],
+		outcomes: [
+			'Developed predictive controllers for cycle-resolved combustion regulation.',
+			'Validated control robustness under model uncertainty and changing fuel conditions.',
+		],
+		ctaLabel: 'Read research note on Predictive In-Cycle Combustion Control',
+		href: '#predictive-in-cycle-combustion-control',
+	},
+	{
+		id: 'stochastic-set-point-optimization-efficiency',
+		title: 'Stochastic Set-Point Optimization for Efficiency',
+		institution: 'Lund University / Scania',
+		overview:
+			'Research on using stochastic combustion models and Monte Carlo simulation to optimize combustion-control set-points.',
+		technicalArea: ['Efficiency optimization', 'Stochastic modeling', 'Monte Carlo simulation', 'Set-point optimization', 'Constraint handling'],
+		outcomes: [
+			'Developed set-point optimization methods for combustion efficiency.',
+			'Evaluated trade-offs between efficiency, pressure-rise constraints, and misfire risk.',
+		],
+		ctaLabel: 'Read research note on Stochastic Set-Point Optimization for Efficiency',
+		href: '#stochastic-set-point-optimization-efficiency',
+	},
+	{
+		id: 'real-time-combustion-control-implementation',
+		title: 'Real-Time Combustion Control Implementation',
+		institution: 'Lund University / Scania',
+		overview:
+			'Research on implementing combustion observers, virtual sensors, and control algorithms under real-time hardware constraints.',
+		technicalArea: ['Real-time implementation', 'FPGA', 'Hardware-constrained systems', 'Signal processing', 'Embedded control'],
+		outcomes: [
+			'Implemented in-cycle combustion-control methods for real-time execution on FPGA hardware.',
+			'Quantified timing, resource, and implementation constraints for embedded control deployment.',
+		],
+		ctaLabel: 'Read research note on Real-Time Combustion Control Implementation',
+		href: '#real-time-combustion-control-implementation',
 	},
 ];
 
-const recurringThreadGroups = [
+const technicalAreaGroups = [
 	{
-		title: 'Control behavior',
+		title: 'Control and Modeling',
 		items: ['Real-time control', 'Model-based implementation', 'Calibration', 'Research prototypes'],
 	},
 	{
-		title: 'Embedded implementation',
+		title: 'Embedded Systems',
 		items: ['Embedded software', 'Power electronics', 'Hardware-constrained systems'],
 	},
 	{
-		title: 'Diagnostics and validation',
+		title: 'Diagnostics and Validation',
 		items: ['Diagnostics', 'Fault handling', 'MIL/SIL/HIL', 'Bench validation', 'Vehicle validation'],
 	},
 	{
-		title: 'Physical-system context',
+		title: 'Physical-System Context',
 		items: ['Thermal systems', 'Energy management', 'Virtual sensing'],
 	},
 ];
 ---
 
 <BaseLayout
-	title="Work"
-	description="Selected projects and research notes in embedded control software for complex physical systems by Carlos Jorques."
+        title="Work"
+        description="Selected projects and research notes on embedded control software for complex physical systems by Carlos Jorques."
 >
-	<section class="work-hero" aria-labelledby="work-title">
-		<div class="page-container work-hero__inner">
-			<div class="work-hero__copy">
-				<h1 id="work-title">Work</h1>
-				<p class="work-hero__lead">
-					Selected projects and research notes in embedded control software for complex physical systems.
-				</p>
+        <section class="work-hero" aria-labelledby="work-title">
+                <div class="page-container work-hero__inner">
+                        <div class="work-hero__copy">
+                                <h1 id="work-title" class="hero-title">Work</h1>
+                                <p class="work-hero__lead">
+                                        Selected projects and research notes on embedded control software for complex physical systems.
+                                </p>
 				<p>
 					A curated index of project and research contexts that point to deeper notes about control software,
 					diagnostics, validation, and software-controlled physical systems.
@@ -183,7 +227,8 @@ const recurringThreadGroups = [
 				<h2 id="selected-research-title">Selected Research</h2>
 				<p>
 					Research-connected notes on diagnostics, control algorithms, virtual sensing, experimental validation,
-					and real-time implementation. The CV contains the formal publication and patent record.
+					and real-time implementation. The <a href={withBase('/cv/')}>CV</a> contains the formal publication and
+					patent record.
 				</p>
 			</div>
 			<div class="work-index-grid work-index-grid--research">
@@ -203,14 +248,14 @@ const recurringThreadGroups = [
 									</ul>
 								</div>
 								<div class="research-detail-group">
-									<p class="research-detail-group__label">Outcomes</p>
-									<ul class="work-label-list" aria-label={`${item.title} outcomes`}>
-										{item.outcomes.map((label) => <li>{label}</li>)}
+									<p class="research-detail-group__label">Research outcomes</p>
+									<ul class="research-outcome-list" aria-label={`${item.title} research outcomes`}>
+										{item.outcomes.map((outcome) => <li>{outcome}</li>)}
 									</ul>
 								</div>
 							</div>
-							<a class="work-note-link" href={item.href} aria-label={item.ctaLabel}>
-								Read research note <span aria-hidden="true">-&gt;</span>
+							<a class="work-note-link research-note-link" href={item.href} aria-label={item.ctaLabel}>
+								Read research note <span aria-hidden="true">→</span>
 							</a>
 						</div>
 					</article>
@@ -219,22 +264,28 @@ const recurringThreadGroups = [
 		</div>
 	</section>
 
-	<section class="section work-section work-section--threads" aria-labelledby="recurring-threads-title">
+	<section class="section work-section work-section--threads" aria-labelledby="technical-areas-title">
 		<div class="page-container work-thread-summary">
 			<div class="work-section__intro">
-				<h2 id="recurring-threads-title">Explore Recurring Threads</h2>
+				<h2 id="technical-areas-title">Explore By Technical Area</h2>
 				<p>
-					Across these project and research notes, recurring technical threads include real-time control software,
-					diagnostics, model-based implementation, calibration, thermal and energy management, power electronics,
-					virtual sensing, and validation across simulation, lab, and physical systems.
+					The projects and research notes differ in system context, but they share a common engineering base: software
+					that controls physical behavior, handles diagnostics and constraints, and is validated across models, lab
+					environments, and real systems.
 				</p>
 			</div>
-			<ul class="work-thread-group-list" aria-label="Recurring technical thread groups">
-				{recurringThreadGroups.map((group) => (
+			<ul class="work-thread-group-list" aria-label="Technical area groups">
+				{technicalAreaGroups.map((group) => (
 					<li class="work-thread-group">
 						<p class="work-thread-group__title">{group.title}</p>
-						<ul class="work-thread-list" aria-label={`${group.title} threads`}>
-							{group.items.map((item) => <li>{item}</li>)}
+						<ul class="work-thread-list" aria-label={`${group.title} tags`}>
+							{group.items.map((item) => (
+								<li>
+									<a href={withBase(`/writing?tag=${toTagSlug(item)}`)} aria-label={`Browse posts tagged ${item}`}>
+										{item}
+									</a>
+								</li>
+							))}
 						</ul>
 					</li>
 				))}
@@ -244,22 +295,28 @@ const recurringThreadGroups = [
 
 	<section class="section work-section work-final" aria-labelledby="work-final-title">
 		<div class="page-container work-final__inner">
-			<h2 id="work-final-title">For the full formal record, roles, publications, and patents:</h2>
-			<div class="button-row work-final__actions">
-				<a class="button primary" href={withBase('/cv/')}>View CV <span aria-hidden="true">-&gt;</span></a>
-				<a class="button" href={withBase('/writing/')}>Browse writing <span aria-hidden="true">-&gt;</span></a>
-				<a class="button" href={withBase('/contact/')}>Contact me <span aria-hidden="true">-&gt;</span></a>
+			<div class="work-final__copy">
+				<h2 id="work-final-title">Continue exploring</h2>
+				<p>
+					For the full formal record, see the CV. For deeper technical notes, browse writing. For collaboration or
+					hiring conversations, get in touch.
+				</p>
+			</div>
+			<div class="work-final__actions" aria-label="Continue exploring links">
+				<a class="button primary" href={withBase('/contact/')}>Contact me</a>
+				<a class="button" href={withBase('/cv/')}>View CV</a>
+				<a class="button" href={withBase('/writing/')}>Browse writing</a>
 			</div>
 		</div>
 	</section>
 </BaseLayout>
 
 <style>
-	.work-hero {
-		padding-block: clamp(3.5rem, 6vw, 5.5rem) clamp(2.5rem, 4.5vw, 3.8rem);
-		border-bottom: 1px solid var(--color-border-soft);
-		background: transparent;
-	}
+        .work-hero {
+                padding-block: clamp(3rem, 5vw, 4.6rem) clamp(1.55rem, 3vw, 2.25rem);
+                border-bottom: 1px solid var(--color-border-soft);
+                background: transparent;
+        }
 
 	.work-hero .page-container,
 	.work-section .page-container {
@@ -288,20 +345,14 @@ const recurringThreadGroups = [
 		gap: 1rem;
 	}
 
-	.work-hero__copy {
-		gap: clamp(0.85rem, 1.8vw, 1.15rem);
-		max-width: 800px;
-	}
+        .work-hero__copy {
+                gap: clamp(0.72rem, 1.4vw, 1rem);
+                max-width: 700px;
+        }
 
-	.work-hero h1 {
-		max-width: 12ch;
-		font-family: var(--font-display);
-		font-size: clamp(4.8rem, 11vw, 8.8rem);
-		font-weight: var(--type-hero-name-weight);
-		line-height: var(--type-hero-name-line);
-		letter-spacing: var(--type-hero-name-tracking);
-		overflow-wrap: anywhere;
-	}
+        .work-hero .hero-title {
+                overflow-wrap: anywhere;
+        }
 
 	.work-hero p,
 	.work-section__intro p,
@@ -312,10 +363,10 @@ const recurringThreadGroups = [
 		overflow-wrap: anywhere;
 	}
 
-	.work-hero__lead {
-		max-width: 760px;
-		color: var(--color-text);
-		font-size: clamp(1.16rem, 1.55vw, 1.45rem);
+        .work-hero__lead {
+                max-width: 680px;
+                color: var(--color-text);
+                font-size: clamp(1.16rem, 1.55vw, 1.45rem);
 		font-weight: var(--type-hero-summary-weight);
 		line-height: 1.42;
 		letter-spacing: -0.018em;
@@ -328,6 +379,7 @@ const recurringThreadGroups = [
 	}
 
 	.work-hero__note a,
+	.work-section__intro a,
 	.work-note-link {
 		color: var(--color-text);
 		font-weight: 700;
@@ -341,6 +393,8 @@ const recurringThreadGroups = [
 
 	.work-hero__note a:hover,
 	.work-hero__note a:focus-visible,
+	.work-section__intro a:hover,
+	.work-section__intro a:focus-visible,
 	.work-note-link:hover,
 	.work-note-link:focus-visible {
 		color: var(--color-link-hover);
@@ -350,23 +404,23 @@ const recurringThreadGroups = [
 		padding-block: clamp(3rem, 6vw, 5rem);
 	}
 
-	.work-section--selected {
-		padding-block-start: clamp(2.8rem, 5vw, 4.5rem);
-	}
+        .work-section--selected {
+                padding-block-start: clamp(1.75rem, 3.4vw, 2.8rem);
+        }
 
-	.work-section__intro {
-		gap: clamp(0.65rem, 1.5vw, 0.95rem);
-		max-width: 800px;
-		margin-bottom: clamp(1.45rem, 3vw, 2.35rem);
-	}
+        .work-section__intro {
+                gap: clamp(0.5rem, 1.1vw, 0.75rem);
+                max-width: 700px;
+                margin-bottom: clamp(1.15rem, 2.2vw, 1.8rem);
+        }
 
-	.work-section h2 {
-		max-width: 14ch;
-		font-size: var(--type-section-title-size);
-		line-height: var(--type-section-title-line);
-		letter-spacing: var(--type-section-title-tracking);
-		overflow-wrap: anywhere;
-	}
+        .work-section h2 {
+                max-width: 14ch;
+                font-size: clamp(2.25rem, 4.4vw, 3.7rem);
+                line-height: 1;
+                letter-spacing: -0.055em;
+                overflow-wrap: anywhere;
+        }
 
 	.work-index-grid {
 		display: grid;
@@ -376,6 +430,8 @@ const recurringThreadGroups = [
 
 	.work-index-grid--research {
 		gap: clamp(0.8rem, 1.6vw, 0.95rem);
+		align-items: stretch;
+		grid-auto-rows: 1fr;
 	}
 
 	.work-index-card {
@@ -385,7 +441,7 @@ const recurringThreadGroups = [
 		min-width: 0;
 		overflow: hidden;
 		border: 1px solid var(--color-card-border);
-		border-radius: calc(var(--radius) * 0.75);
+		border-radius: var(--radius);
 		background: transparent;
 		padding: clamp(0.95rem, 1.7vw, 1.2rem);
 	}
@@ -395,7 +451,10 @@ const recurringThreadGroups = [
 	}
 
 	.work-index-card--research {
+		display: flex;
+		height: 100%;
 		background: transparent;
+		padding: clamp(0.9rem, 1.45vw, 1.05rem);
 	}
 
 	.work-index-card__media {
@@ -415,6 +474,7 @@ const recurringThreadGroups = [
 		gap: 0.76rem;
 		align-content: start;
 		width: 100%;
+		height: 100%;
 		min-width: 0;
 	}
 
@@ -461,6 +521,23 @@ const recurringThreadGroups = [
 		overflow-wrap: anywhere;
 	}
 
+	.work-index-card--research h3 {
+		font-size: clamp(1.04rem, 1.25vw, 1.22rem);
+		line-height: 1.13;
+		letter-spacing: -0.026em;
+	}
+
+	.work-index-card--research .work-index-card__body {
+		display: flex;
+		flex-direction: column;
+		gap: 0.62rem;
+	}
+
+	.work-index-card--research .work-index-card__overview {
+		font-size: clamp(0.88rem, 0.95vw, 0.95rem);
+		line-height: 1.47;
+	}
+
 	.work-label-list,
 	.work-thread-list {
 		display: flex;
@@ -490,13 +567,44 @@ const recurringThreadGroups = [
 	}
 
 	.research-detail-grid {
-		gap: 0.72rem;
+		gap: 0.58rem;
 		border-top: 1px solid var(--color-border-soft);
-		padding-top: 0.72rem;
+		padding-top: 0.58rem;
 	}
 
 	.research-detail-group {
-		gap: 0.4rem;
+		gap: 0.32rem;
+	}
+
+	.research-outcome-list {
+		display: grid;
+		gap: 0.42rem;
+		margin: 0;
+		padding-left: 1rem;
+		color: var(--color-body-text);
+		font-size: clamp(0.82rem, 0.9vw, 0.9rem);
+		line-height: 1.42;
+		letter-spacing: -0.003em;
+	}
+
+	.research-outcome-list li {
+		margin: 0;
+		padding-left: 0.08rem;
+	}
+
+	.research-outcome-list li::marker {
+		color: var(--color-accent-text);
+	}
+
+	.work-index-card--research .work-label-list {
+		gap: 0.24rem 0.28rem;
+	}
+
+	.work-index-card--research .work-label-list li {
+		background: color-mix(in srgb, var(--color-surface-soft) 24%, transparent);
+		padding: 0.14rem 0.32rem;
+		color: var(--color-muted);
+		font-size: clamp(0.62rem, 0.68vw, 0.68rem);
 	}
 
 	.work-note-link {
@@ -505,14 +613,19 @@ const recurringThreadGroups = [
 		line-height: var(--type-card-body-line);
 	}
 
+	.research-note-link {
+		margin-top: auto;
+		padding-top: 0.38rem;
+	}
+
 	.work-section--threads {
 		border-block: 1px solid var(--color-border-soft);
 		background: color-mix(in srgb, var(--color-card-bg) 34%, transparent);
 	}
 
-	.work-thread-summary {
-		gap: clamp(1.25rem, 4vw, 2.25rem);
-		align-items: start;
+        .work-thread-summary {
+                gap: clamp(1.25rem, 4vw, 2.25rem);
+                align-items: start;
 	}
 
 	.work-thread-group-list {
@@ -548,25 +661,61 @@ const recurringThreadGroups = [
 		background: transparent;
 	}
 
+	.work-thread-list a {
+		display: block;
+		color: inherit;
+		text-decoration: none;
+		border-radius: calc(var(--radius) * 0.35);
+		outline-offset: 3px;
+	}
+
+	.work-thread-list a:hover,
+	.work-thread-list a:focus-visible {
+		color: var(--color-text);
+	}
+
 	.work-final {
 		border-top: 1px solid var(--color-border-soft);
-		padding-block-end: clamp(4rem, 8vw, 6rem);
+		padding-block: clamp(2.6rem, 5vw, 4rem) clamp(3.2rem, 6vw, 4.8rem);
 	}
 
 	.work-final__inner {
-		gap: 1.25rem;
+		gap: clamp(1.1rem, 3vw, 1.8rem);
 		align-items: start;
+	}
+
+	.work-final__copy {
+		display: grid;
+		gap: 0.65rem;
+		max-width: 680px;
 	}
 
 	.work-final h2 {
-		max-width: 17ch;
-		font-size: clamp(1.65rem, 3.6vw, 3.4rem);
-		line-height: 1.05;
-		letter-spacing: -0.055em;
+		max-width: none;
+		font-size: clamp(1.65rem, 2.5vw, 2.35rem);
+		line-height: 1.08;
+		letter-spacing: -0.035em;
+	}
+
+	.work-final p {
+		max-width: 64ch;
+		color: var(--color-body-text);
+		font-size: var(--type-reading-size);
+		line-height: var(--type-reading-line);
 	}
 
 	.work-final__actions {
+		display: grid;
+		gap: 0.9rem;
 		align-items: start;
+		width: 100%;
+	}
+
+	.work-final__actions .button {
+		width: 100%;
+		min-height: 2.75rem;
+		padding: 0.58rem 1rem;
+		font-size: clamp(0.85rem, 0.78rem + 0.1vw, 0.92rem);
 	}
 
 	@media (min-width: 700px) {
@@ -594,7 +743,9 @@ const recurringThreadGroups = [
 		}
 
 		.work-final__actions {
-			justify-content: flex-end;
+			min-width: 230px;
+			max-width: 22rem;
+			justify-self: end;
 		}
 	}
 
@@ -604,12 +755,8 @@ const recurringThreadGroups = [
 			width: min(calc(100% - 48px), 1120px);
 		}
 
-		.work-hero h1 {
-			font-size: clamp(3rem, 16vw, 4.2rem);
-		}
-
-		.work-hero__copy,
-		.work-section__intro,
+                .work-hero__copy,
+                .work-section__intro,
 		.work-index-card__body {
 			overflow-wrap: anywhere;
 		}

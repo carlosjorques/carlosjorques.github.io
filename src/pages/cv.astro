@@ -1462,7 +1462,7 @@ const profileJsonLd = {
 					<h2 id="contact-title">Let's Connect</h2>
 					<p>{cvProfile.finalContact}</p>
 				</div>
-				<div class="button-row cv-final__actions" aria-label="Bottom CV actions">
+				<div class="cv-final__actions" aria-label="Bottom CV actions">
 					{cvProfile.actions.map((action) => (
 						<a
 							class={action.primary ? 'button primary' : 'button'}
@@ -3383,7 +3383,13 @@ const profileJsonLd = {
 	}
 
 	.cv-final__actions {
+		display: grid;
+		gap: 0.9rem;
 		align-items: start;
+	}
+
+	.cv-final__actions > .button {
+		width: 100%;
 	}
 
         @media (min-width: 700px) {
@@ -3461,8 +3467,7 @@ const profileJsonLd = {
                 }
 
 		.cv-final__actions {
-			max-width: 22rem;
-			justify-content: flex-end;
+			min-width: 230px;
 		}
 	}
 
