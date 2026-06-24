@@ -167,16 +167,9 @@ const technicalAreaGroups = [
         <section class="work-hero" aria-labelledby="work-title">
                 <div class="page-container work-hero__inner">
                         <div class="work-hero__copy">
-                                <h1 id="work-title" class="hero-title">Work</h1>
-                                <p class="work-hero__lead">
-                                        Selected projects and research notes on embedded control software for complex physical systems.
-                                </p>
-				<p>
-					A curated index of project and research contexts that point to deeper notes about control software,
-					diagnostics, validation, and software-controlled physical systems.
-				</p>
-				<p class="work-hero__note">
-					For full chronology, roles, publications, and patents, see the <a href={withBase('/cv/')}>CV</a>.
+				<h1 id="work-title" class="hero-title">Work</h1>
+				<p class="work-hero__lead">
+					Selected project and research notes on embedded control software, diagnostics, and validation.
 				</p>
 			</div>
 		</div>
@@ -226,9 +219,9 @@ const technicalAreaGroups = [
 			<div class="work-section__intro">
 				<h2 id="selected-research-title">Selected Research</h2>
 				<p>
-					Research-connected notes on diagnostics, control algorithms, virtual sensing, experimental validation,
-					and real-time implementation. The <a href={withBase('/cv/')}>CV</a> contains the formal publication and
-					patent record.
+					Research-connected notes from Lund University / Scania on diagnostics, control algorithms, virtual sensing,
+					experimental validation, and real-time implementation. The <a href={withBase('/cv/')}>CV</a> contains the
+					formal publication and patent record.
 				</p>
 			</div>
 			<div class="work-index-grid work-index-grid--research">
@@ -237,7 +230,6 @@ const technicalAreaGroups = [
 						<div class="work-index-card__body">
 							<header class="work-index-card__header">
 								<h3 id={`${item.id}-title`}>{item.title}</h3>
-								<p class="work-index-card__institution">{item.institution}</p>
 							</header>
 							<p class="work-index-card__overview">{item.overview}</p>
 							<div class="research-detail-grid">
@@ -267,7 +259,7 @@ const technicalAreaGroups = [
 	<section class="section work-section work-section--threads" aria-labelledby="technical-areas-title">
 		<div class="page-container work-thread-summary">
 			<div class="work-section__intro">
-				<h2 id="technical-areas-title">Explore By Technical Area</h2>
+				<h2 id="technical-areas-title">Explore Technical Areas</h2>
 				<p>
 					The projects and research notes differ in system context, but they share a common engineering base: software
 					that controls physical behavior, handles diagnostics and constraints, and is validated across models, lab
@@ -363,13 +355,13 @@ const technicalAreaGroups = [
 		overflow-wrap: anywhere;
 	}
 
-        .work-hero__lead {
-                max-width: 680px;
-                color: var(--color-text);
-                font-size: clamp(1.16rem, 1.55vw, 1.45rem);
-		font-weight: var(--type-hero-summary-weight);
-		line-height: 1.42;
-		letter-spacing: -0.018em;
+	.work-hero__lead {
+		max-width: 680px;
+		color: var(--color-body-text);
+		font-size: clamp(1.05rem, 1.25vw, 1.18rem);
+		font-weight: 400;
+		line-height: 1.55;
+		letter-spacing: var(--type-body-tracking);
 	}
 
 	.work-hero__note {
@@ -567,9 +559,9 @@ const technicalAreaGroups = [
 	}
 
 	.research-detail-grid {
-		gap: 0.58rem;
+		gap: clamp(0.9rem, 1.8vw, 1.15rem);
 		border-top: 1px solid var(--color-border-soft);
-		padding-top: 0.58rem;
+		padding-top: 0.72rem;
 	}
 
 	.research-detail-group {
@@ -708,14 +700,10 @@ const technicalAreaGroups = [
 		display: grid;
 		gap: 0.9rem;
 		align-items: start;
-		width: 100%;
 	}
 
-	.work-final__actions .button {
+	.work-final__actions > .button {
 		width: 100%;
-		min-height: 2.75rem;
-		padding: 0.58rem 1rem;
-		font-size: clamp(0.85rem, 0.78rem + 0.1vw, 0.92rem);
 	}
 
 	@media (min-width: 700px) {
@@ -724,16 +712,13 @@ const technicalAreaGroups = [
 		}
 	}
 
-	@media (min-width: 860px) {
-		.work-index-grid--research {
-			grid-template-columns: repeat(3, minmax(0, 1fr));
-		}
-	}
-
 	@media (min-width: 980px) {
-		.work-thread-summary,
+                .work-thread-summary {
+                        grid-template-columns: minmax(0, 0.8fr) minmax(0, 1fr);
+                }
+
 		.work-final__inner {
-			grid-template-columns: minmax(0, 0.8fr) minmax(0, 1fr);
+			grid-template-columns: minmax(0, 1fr) auto;
 		}
 
 		.work-thread-group {
@@ -744,8 +729,6 @@ const technicalAreaGroups = [
 
 		.work-final__actions {
 			min-width: 230px;
-			max-width: 22rem;
-			justify-self: end;
 		}
 	}
 
