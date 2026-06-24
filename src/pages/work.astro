@@ -12,7 +12,6 @@ const withBase = (href: string) => {
 const projectNotes = [
 	{
 		id: 'electric-truck-thermal-management',
-		number: '01',
 		title: 'Electric Truck Thermal Management and BMS Systems',
 		institution: 'Scania',
 		image: '/images/work/electric-truck-thermal-bms.webp',
@@ -25,7 +24,6 @@ const projectNotes = [
 	},
 	{
 		id: 'autonomous-hauler-propulsion-control',
-		number: '02',
 		title: 'Autonomous Electric Hauler Propulsion Control',
 		institution: 'Volvo Construction Equipment',
 		image: '/images/work/autonomous-hauler-propulsion.webp',
@@ -38,7 +36,6 @@ const projectNotes = [
 	},
 	{
 		id: 'ebike-motor-control-power-electronics',
-		number: '03',
 		title: 'E-Bike Motor Control and Power Electronics Software',
 		institution: 'MAHLE',
 		image: '/images/work/ebike-motor-control.webp',
@@ -51,7 +48,6 @@ const projectNotes = [
 	},
 	{
 		id: 'heavy-duty-engine-diagnostics-control-research',
-		number: '04',
 		title: 'Heavy-Duty Engine Diagnostics and Control Research',
 		institution: 'Lund University / Scania',
 		image: '/images/work/heavy-duty-engine-diagnostics.webp',
@@ -67,7 +63,6 @@ const projectNotes = [
 const researchNotes = [
 	{
 		id: 'virtual-sensing-heavy-duty-engine-diagnostics',
-		number: 'R1',
 		title: 'Virtual Sensing for Heavy-Duty Engine Diagnostics',
 		institution: 'Lund University / Scania',
 		overview:
@@ -79,7 +74,6 @@ const researchNotes = [
 	},
 	{
 		id: 'stochastic-fault-detection-diagnostic-decision-logic',
-		number: 'R2',
 		title: 'Stochastic Fault Detection and Diagnostic Decision Logic',
 		institution: 'Lund University / Scania',
 		overview:
@@ -91,7 +85,6 @@ const researchNotes = [
 	},
 	{
 		id: 'real-time-combustion-control-prototyping',
-		number: 'R3',
 		title: 'Real-Time Combustion Control Prototyping',
 		institution: 'Lund University / Scania',
 		overview:
@@ -167,7 +160,6 @@ const recurringThreadGroups = [
 						</figure>
 						<div class="work-index-card__body">
 							<header class="work-index-card__header">
-								<p class="work-index-card__number">{item.number}</p>
 								<h3 id={`${item.id}-title`}>{item.title}</h3>
 								<p class="work-index-card__institution">{item.institution}</p>
 							</header>
@@ -199,7 +191,6 @@ const recurringThreadGroups = [
 					<article class="work-index-card work-index-card--research" id={item.id} aria-labelledby={`${item.id}-title`}>
 						<div class="work-index-card__body">
 							<header class="work-index-card__header">
-								<p class="work-index-card__number">{item.number}</p>
 								<h3 id={`${item.id}-title`}>{item.title}</h3>
 								<p class="work-index-card__institution">{item.institution}</p>
 							</header>
@@ -395,7 +386,7 @@ const recurringThreadGroups = [
 		overflow: hidden;
 		border: 1px solid var(--color-card-border);
 		border-radius: calc(var(--radius) * 0.75);
-		background: color-mix(in srgb, var(--color-card-bg) 70%, transparent);
+		background: transparent;
 		padding: clamp(0.95rem, 1.7vw, 1.2rem);
 	}
 
@@ -404,13 +395,13 @@ const recurringThreadGroups = [
 	}
 
 	.work-index-card--research {
-		background: color-mix(in srgb, var(--color-card-bg) 50%, transparent);
+		background: transparent;
 	}
 
 	.work-index-card__media {
 		overflow: hidden;
 		margin: 0;
-		aspect-ratio: 1 / 1;
+		aspect-ratio: 3 / 2;
 		background: var(--color-surface-soft);
 	}
 
@@ -435,7 +426,6 @@ const recurringThreadGroups = [
 		gap: 0.34rem;
 	}
 
-	.work-index-card__number,
 	.research-detail-group__label {
 		margin: 0;
 		color: var(--color-accent-text);
@@ -643,7 +633,7 @@ const recurringThreadGroups = [
 		}
 
 		.work-index-card__media {
-			aspect-ratio: 1 / 1;
+			aspect-ratio: 3 / 2;
 		}
 	}
 </style>
