@@ -16,10 +16,11 @@ const heroVideoUrl = `${normalizedBase}videos/333466_1_5.mp4`;
 
 				<h1 class="hero-name hero-title">Carlos Jorques</h1>
 				<p class="hero-statement hero-role">
-					Control software for software-defined physical systems.
+					<span>Control software for</span>
+					<span>software-defined physical systems.</span>
 				</p>
 				<p class="hero-substatement hero-summary">
-					With 10+ years in automotive and production embedded systems, I lead embedded control software development that helps teams close the gap between control design and real-world behavior, turning complex physical systems into products that are predictable, maintainable, and trusted in operation beyond simulation.
+					With 10+ years in automotive and production embedded systems, I lead embedded control software development that helps teams close the gap between control design and real-world behavior, making complex systems predictable, maintainable, and trusted beyond simulation.
 				</p>
 
 				<div class="hero-links" aria-label="Primary contact links">
@@ -153,13 +154,17 @@ const heroVideoUrl = `${normalizedBase}videos/333466_1_5.mp4`;
 	}
 
 	.hero-statement {
-		max-width: 620px;
+		max-width: 760px;
 		margin: var(--spacing-07) auto 0;
 		font-size: var(--type-hero-role-size);
 		line-height: var(--type-hero-role-line);
 		letter-spacing: var(--type-hero-role-tracking);
 		font-weight: var(--type-hero-role-weight);
 		color: var(--color-hero-text);
+	}
+
+	.hero-statement span {
+		display: block;
 	}
 
 	@supports ((-webkit-background-clip: text) or (background-clip: text)) {
@@ -226,7 +231,7 @@ const heroVideoUrl = `${normalizedBase}videos/333466_1_5.mp4`;
 
 	.home-proof {
 		margin-top: clamp(3rem, 5vw, 6rem);
-		padding-top: clamp(1rem, 2vw, 1.25rem);
+		padding-top: clamp(0.85rem, 1.6vw, 1.1rem);
 		border-top: 1px solid var(--color-border);
 	}
 
@@ -237,7 +242,7 @@ const heroVideoUrl = `${normalizedBase}videos/333466_1_5.mp4`;
 	}
 
 	.home-proof__item {
-		min-height: 58px;
+		min-height: 52px;
 		padding: 0.15rem 1.1rem 0.15rem 0;
 		transition:
 			background-color var(--motion-duration-fast-02) var(--motion-standard-productive),
@@ -255,7 +260,7 @@ const heroVideoUrl = `${normalizedBase}videos/333466_1_5.mp4`;
 
 	.home-proof__value {
 		display: block;
-		margin-bottom: var(--spacing-02);
+		margin-bottom: 0.35rem;
 		font-family: var(--font-mono);
 		font-size: var(--type-meta-size);
 		font-weight: 600;
@@ -268,9 +273,9 @@ const heroVideoUrl = `${normalizedBase}videos/333466_1_5.mp4`;
 		display: block;
 		max-width: 230px;
 		font-family: var(--font-body);
-		font-size: var(--type-card-body-size);
-		line-height: var(--type-card-body-line);
-		letter-spacing: var(--type-card-body-tracking);
+		font-size: var(--type-meta-size);
+		line-height: 1.45;
+		letter-spacing: 0;
 		color: var(--color-hero-proof-label);
 	}
 
