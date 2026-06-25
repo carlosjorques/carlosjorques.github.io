@@ -40,47 +40,46 @@ const topics = Array.from(new Set(articles.flatMap((article) => article.tags))).
 ---
 
 <Layout
-	title="Writing | Carlos Jorques"
+	title="Latest Articles | Carlos Jorques"
 	description="Writing by Carlos Jorques on embedded controls, diagnostics, validation, physical systems, software architecture, and technical leadership."
 >
 	<div class="writing-page">
-		<section class="writing-intro" aria-labelledby="writing-title">
-			<div class="page-container writing-container">
-				<p class="section-eyebrow">Writing</p>
-				<h1 id="writing-title">Writing</h1>
-				<p>
-					Notes on embedded control systems, diagnostics, validation, technical leadership, and the work
-					of turning physical-system intent into reliable software.
-				</p>
-			</div>
-		</section>
+		<section class="writing-hero" aria-labelledby="writing-title">
+			<div class="page-container writing-hero__inner">
+				<div class="writing-hero__copy">
+					<h1 id="writing-title" class="hero-title">Latest Articles</h1>
+					<p class="writing-hero__lead">
+						Notes on embedded control systems, diagnostics, validation, technical leadership, and the work of
+						turning physical-system intent into reliable software.
+					</p>
+				</div>
 
-		<section class="writing-filters" aria-labelledby="writing-filter-title">
-			<div class="page-container writing-container">
-				<h2 id="writing-filter-title">Browse by topic</h2>
-				<div class="filter-chips" role="group" aria-label="Filter articles by topic">
-					<button class="filter-chip is-active" type="button" data-filter="all" aria-pressed="true">
-						All
-					</button>
-					{
-						topics.map((topic) => (
-							<button
-								class="filter-chip"
-								type="button"
-								data-filter={toTagSlug(topic)}
-								aria-pressed="false"
-							>
-								{topic}
-							</button>
-						))
-					}
+				<div class="writing-filter-strip" aria-labelledby="writing-filter-title">
+					<h2 id="writing-filter-title">Browse by topic</h2>
+					<div class="filter-chips" role="group" aria-label="Filter articles by topic">
+						<button class="filter-chip is-active" type="button" data-filter="all" aria-pressed="true">
+							All
+						</button>
+						{
+							topics.map((topic) => (
+								<button
+									class="filter-chip"
+									type="button"
+									data-filter={toTagSlug(topic)}
+									aria-pressed="false"
+								>
+									{topic}
+								</button>
+							))
+						}
+					</div>
 				</div>
 			</div>
 		</section>
 
 		<section class="writing-list-section" aria-labelledby="writing-list-title">
 			<div class="page-container writing-container">
-				<h2 id="writing-list-title" class="visually-hidden">Articles</h2>
+				<h2 id="writing-list-title" class="visually-hidden">Article list</h2>
 
 				<div class="article-list" data-article-list>
 					{
@@ -128,44 +127,58 @@ const topics = Array.from(new Set(articles.flatMap((article) => article.tags))).
 		max-width: 100%;
 	}
 
-	.writing-intro {
+	.writing-hero {
+		overflow-x: clip;
 		border-bottom: 1px solid var(--color-border-soft);
-		padding-block: clamp(4rem, 8vw, 6.5rem) clamp(2.2rem, 5vw, 3.4rem);
+		background: transparent;
+		padding-block: clamp(3rem, 5vw, 4.6rem) clamp(1.55rem, 3vw, 2.25rem);
 	}
 
-	.writing-intro .writing-container {
+	.writing-hero .page-container,
+	.writing-list-section .page-container {
+		width: min(calc(100% - 32px), 1120px);
+		max-width: 100%;
+	}
+
+	.writing-hero__inner,
+	.writing-hero__copy,
+	.writing-filter-strip {
 		display: grid;
-		gap: var(--spacing-04);
 	}
 
-	.writing-intro h1 {
-		color: var(--color-text);
-		font-size: clamp(3.1rem, 9vw, 6.6rem);
-		font-weight: 650;
-		letter-spacing: -0.065em;
-		line-height: 0.92;
+	.writing-hero__inner {
+		gap: clamp(1.25rem, 3vw, 1.85rem);
 	}
 
-	.writing-intro p:not(.section-eyebrow) {
-		max-width: 710px;
-		color: var(--color-body-text);
-		font-size: var(--type-section-intro-size);
-		letter-spacing: var(--type-section-intro-tracking);
-		line-height: var(--type-section-intro-line);
+	.writing-hero__copy {
+		gap: clamp(0.72rem, 1.4vw, 1rem);
+		width: 100%;
+		max-width: 820px;
+		margin-inline: auto;
+	}
+
+	.writing-hero .hero-title {
+		max-width: none;
 		overflow-wrap: anywhere;
 	}
 
-	.writing-filters {
-		border-bottom: 1px solid var(--color-border-soft);
-		padding-block: clamp(1.25rem, 3vw, 1.9rem);
+	.writing-hero__lead {
+		max-width: 680px;
+		color: var(--color-body-text);
+		font-size: clamp(1.05rem, 1.25vw, 1.18rem);
+		font-weight: 400;
+		letter-spacing: var(--type-body-tracking);
+		line-height: 1.55;
+		overflow-wrap: anywhere;
 	}
 
-	.writing-filters .writing-container {
-		display: grid;
+	.writing-filter-strip {
 		gap: 0.85rem;
+		max-width: 820px;
+		margin-inline: auto;
 	}
 
-	.writing-filters h2 {
+	.writing-filter-strip h2 {
 		color: var(--color-text);
 		font-size: clamp(1rem, 1.3vw, 1.12rem);
 		font-weight: 650;
@@ -234,6 +247,8 @@ const topics = Array.from(new Set(articles.flatMap((article) => article.tags))).
 	.article-list {
 		display: grid;
 		gap: 0.85rem;
+		max-width: 820px;
+		margin-inline: auto;
 	}
 
 	.article-card {
@@ -344,6 +359,8 @@ const topics = Array.from(new Set(articles.flatMap((article) => article.tags))).
 
 	.empty-state {
 		margin-top: 1rem;
+		margin-inline: auto;
+		max-width: 820px;
 		border: 1px solid var(--color-border-soft);
 		border-radius: var(--radius);
 		background: var(--color-card-bg);
@@ -374,17 +391,15 @@ const topics = Array.from(new Set(articles.flatMap((article) => article.tags))).
 	}
 
 	@media (max-width: 640px) {
-		.writing-container {
-			width: calc(100% - 32px);
-			max-width: calc(100% - 32px);
+		.writing-hero .page-container,
+		.writing-list-section .page-container {
+			width: min(calc(100% - 48px), 1120px);
 		}
 
-		.writing-intro {
-			padding-block: 3.5rem 2.25rem;
-		}
-
-		.writing-intro h1 {
-			font-size: clamp(3rem, 17vw, 4.6rem);
+		.writing-hero__copy,
+		.writing-filter-strip,
+		.article-card__content {
+			overflow-wrap: anywhere;
 		}
 
 		.article-card__meta span::before {
