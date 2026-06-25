@@ -724,6 +724,7 @@ This repository includes reusable Codex skills under .agents/skills/. Prefer the
 ## Design and quality:
 
 - nordic-design-system
+- site-identity-guidelines
 - seo-accessibility-performance
 
 When multiple local skills apply, use the smallest set that covers the task.
