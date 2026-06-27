@@ -1,0 +1,155 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const baseUrl = import.meta.env.BASE_URL;
+const normalizedBase = baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`;
+const withBase = (href: string) => (href === '/' ? normalizedBase : `${normalizedBase}${href.replace(/^\//, '')}`);
+---
+
+<Layout
+	title="Privacy notice | Carlos Jorques"
+	description="How personal information submitted through this website is handled."
+>
+	<section class="privacy-hero" aria-labelledby="privacy-title">
+		<div class="page-container privacy-page">
+			<p class="section-eyebrow">Privacy</p>
+			<h1 id="privacy-title">Privacy notice</h1>
+			<p class="privacy-page__intro">
+				This privacy notice explains how I handle personal information submitted through this website.
+			</p>
+		</div>
+	</section>
+
+	<section class="section privacy-content" aria-label="Privacy notice details">
+		<div class="page-container privacy-prose">
+			<section aria-labelledby="privacy-owner-title">
+				<h2 id="privacy-owner-title">Who is responsible for this website</h2>
+				<p>This website is operated by Carlos Jorques. You can contact me through the <a href={withBase('/contact')}>contact page</a>.</p>
+			</section>
+
+			<section aria-labelledby="privacy-collected-title">
+				<h2 id="privacy-collected-title">What information is collected</h2>
+				<p>If you send a message through the contact form or by email, I may collect your name, email address, the topic of your message, and the message content you provide.</p>
+			</section>
+
+			<section aria-labelledby="privacy-used-title">
+				<h2 id="privacy-used-title">How the information is used</h2>
+				<p>I use this information only to read your message and reply to you. I do not use contact messages for newsletters, advertising, or automated profiling.</p>
+			</section>
+
+			<section aria-labelledby="privacy-basis-title">
+				<h2 id="privacy-basis-title">Legal basis</h2>
+				<p>The information is processed because you asked me to respond to your message, or because there is a legitimate interest in handling professional enquiries sent through this website.</p>
+			</section>
+
+			<section aria-labelledby="privacy-retention-title">
+				<h2 id="privacy-retention-title">How long the information is kept</h2>
+				<p>I keep messages only as long as needed to respond and maintain a relevant professional conversation. Messages that are no longer useful are deleted periodically.</p>
+			</section>
+
+			<section aria-labelledby="privacy-sharing-title">
+				<h2 id="privacy-sharing-title">Sharing</h2>
+				<p>I do not sell your personal information. I may use standard website hosting, email, or form-processing services that process information only as needed to operate the website and deliver messages.</p>
+			</section>
+
+			<section aria-labelledby="privacy-rights-title">
+				<h2 id="privacy-rights-title">Your rights</h2>
+				<p>Depending on where you live, you may have rights to access, correct, delete, or restrict the use of your personal information. You can contact me through the <a href={withBase('/contact')}>contact page</a> if you want to exercise these rights.</p>
+			</section>
+
+			<section aria-labelledby="privacy-cookies-title">
+				<h2 id="privacy-cookies-title">Cookies and analytics</h2>
+				<p>I do not use analytics cookies on this website. The site stores your light or dark theme preference in your browser so the interface can keep your chosen display mode.</p>
+			</section>
+
+			<section aria-labelledby="privacy-updated-title">
+				<h2 id="privacy-updated-title">Last updated</h2>
+				<p>June 2026</p>
+			</section>
+		</div>
+	</section>
+</Layout>
+
+<style>
+	.privacy-hero {
+		padding-block: clamp(4rem, 8vw, 7rem) clamp(2.5rem, 5vw, 4rem);
+		border-bottom: 1px solid var(--color-border-soft);
+		background: transparent;
+	}
+
+	.privacy-page {
+		display: grid;
+		gap: var(--spacing-05);
+		max-width: 820px;
+	}
+
+	.privacy-page h1 {
+		max-width: 12ch;
+		font-family: var(--font-display);
+		font-size: var(--type-hero-name-size);
+		font-weight: var(--type-hero-name-weight);
+		letter-spacing: var(--type-hero-name-tracking);
+		line-height: var(--type-hero-name-line);
+	}
+
+	.privacy-page__intro {
+		max-width: 760px;
+		color: var(--color-text);
+		font-size: var(--type-hero-summary-size);
+		font-weight: var(--type-hero-summary-weight);
+		letter-spacing: var(--type-hero-summary-tracking);
+		line-height: var(--type-hero-summary-line);
+	}
+
+	.privacy-content {
+		background: transparent;
+	}
+
+	.privacy-prose {
+		display: grid;
+		gap: clamp(1.5rem, 4vw, 2.25rem);
+		max-width: 780px;
+	}
+
+	.privacy-prose section {
+		display: grid;
+		gap: 0.55rem;
+	}
+
+	.privacy-prose h2 {
+		max-width: 100%;
+		font-size: clamp(1.45rem, 2.2vw, 2.1rem);
+		letter-spacing: -0.045em;
+		line-height: 1.08;
+	}
+
+	.privacy-prose p {
+		color: var(--color-body-text);
+		font-size: var(--type-reading-size);
+		line-height: var(--type-reading-line);
+	}
+
+	.privacy-prose a {
+		color: var(--color-link);
+		font-weight: 700;
+		text-decoration: underline;
+		text-decoration-thickness: 1px;
+		text-underline-offset: 0.2em;
+	}
+
+	.privacy-prose a:hover,
+	.privacy-prose a:focus-visible {
+		color: var(--color-link-hover);
+	}
+
+	@media (max-width: 640px) {
+		.privacy-hero {
+			padding-block: 3.5rem 2.75rem;
+		}
+
+		.privacy-page h1 {
+			max-width: 100%;
+			overflow-wrap: anywhere;
+		}
+	}
+</style>

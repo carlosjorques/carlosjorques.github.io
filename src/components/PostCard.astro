@@ -42,7 +42,7 @@ const label = data.draft ? 'Planned article' : data.publishDate.toLocaleDateStri
 		gap: 0.75rem;
 		border: 0;
 		border-top: 1px solid var(--color-border);
-		border-radius: 0;
+		border-radius: var(--radius);
 		background: transparent;
 		padding: 1.25rem 0 0;
 		transition:
@@ -52,7 +52,7 @@ const label = data.draft ? 'Planned article' : data.publishDate.toLocaleDateStri
 	}
 
 	.post-card:hover {
-		border-color: var(--color-accent);
+		border-color: var(--color-border-strong);
 		transform: translateY(-2px);
 	}
 
@@ -78,6 +78,6 @@ const label = data.draft ? 'Planned article' : data.publishDate.toLocaleDateStri
 	.post-meta span {
 		color: var(--color-subtle);
 		font-family: var(--font-mono);
-		font-size: 0.76rem;
+		font-size: var(--type-chip-size);
 	}
 </style>

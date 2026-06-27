@@ -1,6 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { cvProfile } from '../data/cv';
+import { cvProfile } from '../data/cvMarkdown';
 
 const baseUrl = import.meta.env.BASE_URL;
 const withBase = (href: string) => {
@@ -11,8 +11,63 @@ const withBase = (href: string) => {
 	return href === '/' ? baseUrl : `${baseUrl}${href.replace(/^\//, '')}`;
 };
 
-const getRoleDetailCount = (item: (typeof cvProfile.experience)[number]) =>
-	(item.detailGroups ?? []).reduce((count, group) => count + group.items.length, 0);
+const expertiseCardId = (title: string) =>
+	`expertise-${title
+		.toLowerCase()
+		.replace(/&/g, 'and')
+		.replace(/[^a-z0-9]+/g, '-')
+		.replace(/^-|-$/g, '')}`;
+
+const experienceItemId = (item: (typeof cvProfile.experience)[number], index: number) =>
+        `experience-${index + 1}-${item.title
+                .toLowerCase()
+                .replace(/&/g, 'and')
+                .replace(/[^a-z0-9]+/g, '-')
+                .replace(/^-|-$/g, '')}`;
+
+const earlierExperienceItemId = (item: (typeof cvProfile.earlierExperience)[number], index: number) =>
+        `earlier-experience-${index + 1}-${item.title
+                .toLowerCase()
+                .replace(/&/g, 'and')
+                .replace(/[^a-z0-9]+/g, '-')
+                .replace(/^-|-$/g, '')}`;
+
+const addUnique = (items: string[], item: string) => {
+        if (!items.includes(item)) {
+                items.push(item);
+        }
+};
+
+const groupExperienceDetails = (item: (typeof cvProfile.experience)[number]) => {
+	const grouped = {
+		technicalScope: [] as string[],
+		deliveryValidation: [] as string[],
+		leadershipCollaboration: [] as string[],
+	};
+
+	item.detailGroups?.forEach((group) => {
+		group.items.forEach((detail) => {
+			const normalized = detail.toLowerCase();
+			const isLeadership =
+				/mentor|coordination|supplier|stakeholder|planning|scrum|agile|knowledge|conference|thesis|key people|project management/.test(normalized);
+			const isDelivery =
+				/validation|test|mil|sil|hil|bench|wind tunnel|track|on-road|vehicle|field|calibration|ci\/cd|pipeline|debugging|issue tracking|ecu flashing|release|integration quality|cycle time|data analysis|process|a-spice|spice/.test(normalized);
+
+			if (isLeadership) {
+				addUnique(grouped.leadershipCollaboration, detail);
+			} else if (isDelivery || group.title === 'Validation scope') {
+				addUnique(grouped.deliveryValidation, detail);
+			} else {
+				addUnique(grouped.technicalScope, detail);
+			}
+		});
+	});
+
+	return grouped;
+};
+
+const hasExperienceDetails = (groups: ReturnType<typeof groupExperienceDetails>) =>
+	groups.technicalScope.length > 0 || groups.deliveryValidation.length > 0 || groups.leadershipCollaboration.length > 0;
 
 const profileJsonLd = {
 	'@context': 'https://schema.org',
@@ -36,18 +91,21 @@ const profileJsonLd = {
 	<script type="application/ld+json" set:html={JSON.stringify(profileJsonLd)} />
 
 	<div class="cv-page">
-		<div class="cv-scroll-progress" aria-hidden="true">
-			<span class="cv-scroll-progress__bar" data-cv-scroll-progress></span>
-		</div>
+		<a class="cv-scroll-jump" href="#top" aria-label="Scroll to the top of the page" data-cv-scroll-jump>
+			<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+				<path d="M12 17V7.5" />
+				<path d="M8.75 10.75 12 7.5l3.25 3.25" />
+			</svg>
+		</a>
 
 		<section class="cv-hero" aria-labelledby="cv-title">
 			<div class="page-container cv-hero__inner">
 				<div class="cv-hero__content">
-					<p class="eyebrow">{cvProfile.hero.eyebrow}</p>
-					<h1 id="cv-title">{cvProfile.hero.title}</h1>
-					<p class="cv-hero__subtitle">{cvProfile.hero.subtitle}</p>
-					<p class="cv-hero__summary">{cvProfile.hero.summary}</p>
+					<h1 id="cv-title" class="cv-hero__name hero-title">{cvProfile.hero.title}</h1>
+					<p class="cv-hero__subtitle hero-role cv-hero__role">{cvProfile.hero.subtitle}</p>
+					<p class="cv-hero__summary hero-summary">{cvProfile.hero.summary}</p>
 					<p class="cv-hero__extended">{cvProfile.hero.secondarySummary}</p>
+					{cvProfile.hero.tertiarySummary && <p class="cv-hero__extended">{cvProfile.hero.tertiarySummary}</p>}
 
 					<div class="button-row cv-actions" aria-label="CV actions">
 						{cvProfile.actions.map((action) => (
@@ -87,137 +145,201 @@ const profileJsonLd = {
 			</div>
 		</section>
 
-		<div class="page-container cv-shell">
-			<nav class="cv-section-nav" aria-label="CV sections">
-				<div class="cv-section-nav__inner">
-					<span>CV sections</span>
-					<ul>
-						{cvProfile.sectionNav.map((item) => (
-							<li>
-								<a href={item.href} data-cv-section-link data-analytics="cv_section_nav_click">{item.label}</a>
-							</li>
-						))}
-					</ul>
-					<div class="cv-section-nav__actions" aria-label="CV quick actions">
-						<a href={withBase(cvProfile.links.pdf)} download data-analytics="cv_pdf_download">Download PDF</a>
-						<a href={withBase(cvProfile.links.contact)} data-analytics="cv_contact_click">Contact</a>
-					</div>
-				</div>
-			</nav>
+                <div class="cv-shell">
+                        <div class="cv-section-nav-shell">
+                                <nav class="page-container cv-section-nav" aria-label="CV page sections">
+                                        <div class="cv-section-nav__inner">
+                                                <span class="cv-section-nav__label">Jump to:</span>
+                                                <ul class="cv-section-nav__links">
+                                                        {cvProfile.sectionNav.map((item) => (
+                                                                <li>
+                                                                        <a class="cv-section-nav__link" href={item.href} data-cv-section-link data-analytics="cv_section_nav_click">{item.label}</a>
+                                                                </li>
+                                                        ))}
+                                                </ul>
+                                        </div>
+                                </nav>
+                        </div>
 
 			<div class="cv-main-flow">
-		<section class="cv-section cv-readable" id="summary" aria-labelledby="summary-title" data-cv-section>
-			<div class="page-container">
-				<div class="cv-section__intro">
-					<p class="eyebrow">Recruiter snapshot</p>
-					<h2 id="summary-title">Executive Summary</h2>
-				</div>
-				<div class="cv-summary-block">
-					{cvProfile.executiveSummary.map((paragraph) => (
-						<p>{paragraph}</p>
-					))}
-				</div>
-			</div>
-		</section>
-
-		<section class="cv-section" id="expertise" aria-labelledby="expertise-title" data-cv-section>
-			<div class="page-container">
-				<div class="cv-section__intro">
-					<p class="eyebrow">Capability map</p>
-					<h2 id="expertise-title">Core Expertise</h2>
-				</div>
-				<div class="cv-featured-expertise-grid">
-					{cvProfile.expertise.map((group, index) => (
-						<article class={index === 0 ? 'cv-card cv-card--interactive cv-expertise-card cv-expertise-card--featured' : 'cv-card cv-card--interactive cv-expertise-card'}>
-							<h3>{group.title}</h3>
-							<ul>
-								{group.items.map((item) => (
-									<li>{item}</li>
-								))}
-							</ul>
-							{group.evidence && group.evidence.length >= 4 && (
-								<details class="cv-disclosure cv-disclosure--inline" data-analytics="cv_expertise_evidence_open">
-									<summary>Technical evidence</summary>
-									<ul class="cv-disclosure__content">
-										{group.evidence.map((item) => (
-											<li>{item}</li>
-										))}
-									</ul>
-								</details>
-							)}
-							{group.chips && (
-								<ul class="cv-chip-list" aria-label={`${group.title} methods`}>
-									{group.chips.map((chip) => (
-										<li>{chip}</li>
-									))}
-								</ul>
-							)}
-						</article>
-					))}
-				</div>
-			</div>
-		</section>
+				<section class="cv-section" id="expertise" aria-labelledby="core-expertise-heading" data-cv-section>
+					<div class="page-container">
+						<header class="cv-section__intro cv-section__intro--expertise">
+							<h2 id="core-expertise-heading">Core Expertise</h2>
+							<p>
+								A capability map across embedded controls architecture, automotive software, electric and autonomous vehicle systems,
+								production software validation, diagnostics, safety, robustness, and technical leadership.
+							</p>
+						</header>
+						<div class="core-expertise-grid">
+							{cvProfile.expertise.map((group) => {
+								const panelId = `${expertiseCardId(group.title)}-detail-panel`;
+								const titleId = `${expertiseCardId(group.title)}-title`;
+								return (
+									<article class="cv-card cv-card--interactive cv-expertise-card" data-expertise-card data-panel-id={panelId} data-expanded="false" aria-labelledby={titleId}>
+										<button
+											class="cv-expertise-card__icon-button"
+											type="button"
+											aria-expanded="false"
+											aria-controls={panelId}
+											aria-label={`View details for ${group.title}`}
+											data-expertise-toggle
+											data-analytics="cv_expertise_evidence_open"
+										>
+											<span aria-hidden="true">+</span>
+										</button>
+										<header class="cv-expertise-card__header">
+											<h3 id={titleId} class="cv-expertise-card__title">{group.title}</h3>
+											{group.compactSummary && <p class="cv-expertise-card__summary">{group.compactSummary}</p>}
+										</header>
+										<div class="cv-expertise-card__capabilities-block">
+											<ul class="cv-expertise-card__capabilities">
+												{group.items.map((item) => (
+													<li>{item}</li>
+												))}
+											</ul>
+										</div>
+										<button class="cv-expertise-card__toggle" type="button" aria-expanded="false" aria-controls={panelId} data-expertise-toggle>
+											<span data-expertise-toggle-label>View details</span>
+										</button>
+										<div class="core-expertise-detail" id={panelId} data-expertise-detail hidden>
+											{group.detailSummary && <p class="core-expertise-detail__summary">{group.detailSummary}</p>}
+											<div class="core-expertise-detail__grid">
+												{group.representativeWork && group.representativeWork.length > 0 && (
+													<section class="cv-detail-group" aria-label={`${group.title} representative work`}>
+														<h4>Representative work</h4>
+														<ul>
+															{group.representativeWork.map((item) => (
+																<li>{item}</li>
+															))}
+														</ul>
+													</section>
+												)}
+												{group.methods && group.methods.length > 0 && (
+													<section class="cv-detail-group" aria-label={`${group.title} methods and evidence`}>
+														<h4>Methods and evidence</h4>
+														<ul>
+															{group.methods.map((item) => (
+																<li>{item}</li>
+															))}
+														</ul>
+													</section>
+												)}
+											</div>
+										</div>
+									</article>
+								);
+							})}
+						</div>
+					</div>
+				</section>
 
 		<section class="cv-section cv-section--compact" id="impact" aria-labelledby="impact-title" data-cv-section>
-			<div class="page-container">
-				<div class="cv-section__intro">
-					<p class="eyebrow">Selected impact</p>
-					<h2 id="impact-title">Engineering Outcomes</h2>
-				</div>
-				<ul class="cv-impact-list">
-					{cvProfile.impactHighlights.map((highlight, index) => (
-						<li>
-							<span aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
-							<p>{highlight}</p>
-						</li>
-					))}
-				</ul>
+                        <div class="page-container">
+                                <div class="cv-section__intro">
+                                        <h2 id="impact-title">Engineering Outcomes</h2>
+                                        <p>{cvProfile.impactIntro}</p>
+                                </div>
+                                <ul class="cv-impact-list">
+                                        {cvProfile.impactHighlights.map((highlight) => (
+                                                <li>
+                                                        <span>{highlight.category}</span>
+                                                        <div>
+                                                                <h3>{highlight.title}</h3>
+                                                                <p>{highlight.body}</p>
+                                                        </div>
+                                                </li>
+                                        ))}
+                                </ul>
 			</div>
 		</section>
 
 		<section class="cv-section" id="experience" aria-labelledby="experience-title" data-cv-section>
 			<div class="page-container">
 				<div class="cv-section__intro">
-					<p class="eyebrow">Experience</p>
-					<h2 id="experience-title">Experience Timeline</h2>
-					<p>Reverse-chronological roles with the strongest recruiter-facing evidence visible and secondary technical depth available on demand.</p>
+					<h2 id="experience-title">Experience</h2>
+					<p>
+						Selected professional experience across embedded controls, automotive software, electric vehicles,
+						autonomous machines, diagnostics, validation, and technical leadership.
+					</p>
 				</div>
 
-				<div class="cv-timeline" aria-label="Professional experience timeline">
-					{cvProfile.experience.map((item, index) => (
-						<article class={index === 0 ? 'cv-role cv-role--current' : 'cv-role'}>
-							<div class="cv-role__marker" aria-hidden="true">
-								<span>{String(index + 1).padStart(2, '0')}</span>
-							</div>
-							<div class="cv-role__content">
-								<div class="cv-role__header">
-									<div>
-										<p class="cv-role__period">{item.dates}</p>
-										{item.organization && <p class="cv-role__organization">{item.organization}</p>}
-										<h3>{item.title}</h3>
-									</div>
-									{item.location && <p class="cv-role__location">{item.location}</p>}
-								</div>
-								<p class="cv-role__summary">{item.summary}</p>
-								<div class="cv-role__ownership">
-									<h4>Key ownership</h4>
-									<ul class="cv-role__bullets">
-										{item.highlights.slice(0, 2).map((highlight) => (
-											<li>{highlight}</li>
-										))}
-									</ul>
-								</div>
+				<ol class="cv-timeline" aria-label="Professional experience timeline">
+					{cvProfile.experience.map((item, index) => {
+						const detailsId = `${experienceItemId(item, index)}-details`;
+						const groupedDetails = groupExperienceDetails(item);
+						const deliveryValidationCollaboration = [
+							...groupedDetails.deliveryValidation,
+							...groupedDetails.leadershipCollaboration,
+						];
+						const detailGroups = [
+							groupedDetails.technicalScope.length > 0
+								? { title: 'Technical scope', items: groupedDetails.technicalScope }
+								: null,
+							deliveryValidationCollaboration.length > 0
+								? {
+									title: 'Delivery, validation, and collaboration',
+									items: deliveryValidationCollaboration,
+								}
+								: null,
+						].filter((group): group is { title: string; items: string[] } => Boolean(group));
+						const canExpand = hasExperienceDetails(groupedDetails);
+						return (
+                                                <li class={index === 0 ? 'cv-role cv-role--current' : 'cv-role'}>
+                                                        <aside class="cv-role__milestone" aria-label={`${item.dates}${item.organization ? `, ${item.organization}` : ''}`}>
+                                                                <span class="cv-role__marker" aria-hidden="true"></span>
+                                                                <div class="cv-role__milestone-meta">
+                                                                        <p class="cv-role__period">{item.dates}</p>
+                                                                        {item.organization && <p class="cv-role__organization">{item.organization}</p>}
+                                                                        {item.location && <p class="cv-role__location">{item.location}</p>}
+                                                                </div>
+                                                        </aside>
+                                                        <article class="cv-role__content" data-experience-card data-experience-details-id={detailsId} data-expanded="false">
+                                                                {canExpand && (
+                                                                        <button
+                                                                                class="cv-role__icon-button"
+                                                                                type="button"
+                                                                                aria-expanded="false"
+                                                                                aria-controls={detailsId}
+                                                                                aria-label={`View details for ${item.title}`}
+                                                                                data-experience-toggle
+                                                                                data-analytics="cv_experience_depth_open"
+                                                                        >
+                                                                                <span aria-hidden="true" data-experience-toggle-icon>+</span>
+                                                                        </button>
+                                                                )}
+                                                                <header class="cv-role__header">
+                                                                        <h3>{item.title}</h3>
+                                                                        <p class="cv-role__summary">{item.summary}</p>
+                                                                </header>
+                                                                <ul class="cv-role__bullets" aria-label={`${item.title} key responsibilities`}>
+                                                                        {item.highlights.slice(0, 3).map((highlight) => (
+                                                                                <li>{highlight}</li>
+                                                                        ))}
+                                                                </ul>
 								<ul class="cv-chip-list" aria-label={`${item.title} technologies and methods`}>
 									{item.tags.slice(0, 8).map((tag) => (
 										<li>{tag}</li>
 									))}
 								</ul>
-								{getRoleDetailCount(item) >= 4 && (
-									<details class="cv-disclosure" data-analytics="cv_experience_depth_open">
-										<summary>{item.detailGroups?.[0]?.title ?? 'Technical details'}</summary>
-										<div class="cv-disclosure__content">
-											{item.detailGroups?.map((group) => (
-												<section class="cv-detail-group" aria-label={group.title}>
+								{canExpand && (
+									<button
+										class="cv-role__toggle"
+										type="button"
+										aria-expanded="false"
+										aria-controls={detailsId}
+										data-experience-toggle
+										data-analytics="cv_experience_depth_open"
+									>
+										<span data-experience-toggle-label>Technical details</span>
+										<span aria-hidden="true" data-experience-toggle-icon>+</span>
+									</button>
+								)}
+								{canExpand && (
+									<div id={detailsId} class="cv-role__details" data-experience-details hidden>
+										<div class={detailGroups.length === 1 ? 'cv-role__details-grid cv-role__details-grid--single' : 'cv-role__details-grid'}>
+											{detailGroups.map((group) => (
+												<section class="cv-detail-group" aria-label={`${item.title} ${group.title.toLowerCase()}`}>
 													<h4>{group.title}</h4>
 													<ul>
 														{group.items.map((detail) => (
@@ -227,60 +349,89 @@ const profileJsonLd = {
 												</section>
 											))}
 										</div>
-									</details>
+									</div>
 								)}
-							</div>
-						</article>
-					))}
-				</div>
-
-				<section class="cv-earlier-experience" aria-labelledby="earlier-experience-title">
-					<div class="cv-section__intro cv-section__intro--tight">
-						<h3 id="earlier-experience-title">Earlier experience</h3>
-						<p>Earlier roles covering thesis work at Scania, hardware engineering, and software research.</p>
-					</div>
-					<div class="cv-card-grid cv-card-grid--three">
-						{cvProfile.earlierExperience.map((item) => (
-							<article class="cv-card cv-card--compact">
-								<p class="cv-card__meta">{item.dates}</p>
-								<h3>{item.title} - {item.organization}</h3>
-								<p>{item.summary}</p>
 							</article>
-						))}
-					</div>
-					<details class="cv-disclosure cv-disclosure--wide" data-analytics="cv_earlier_experience_open">
-						<summary>Earlier experience details</summary>
-						<div class="cv-disclosure__content cv-earlier-details">
-							{cvProfile.earlierExperience.map((item) => (
-								<section class="cv-detail-group" aria-label={`${item.title} details`}>
-									<h4>{item.title} - {item.organization}</h4>
-									<ul>
-										{item.bullets.map((bullet) => (
-											<li>{bullet}</li>
-										))}
-									</ul>
-								</section>
-							))}
-						</div>
-					</details>
-				</section>
-			</div>
-		</section>
+						</li>
+                                                );
+                                        })}
+                                        <li class="cv-role cv-role--earlier">
+                                                <aside class="cv-role__milestone" aria-label="May 2013-2014, Earlier experience">
+                                                        <span class="cv-role__marker" aria-hidden="true"></span>
+                                                        <div class="cv-role__milestone-meta">
+                                                                <p class="cv-role__period">May 2013-2014</p>
+                                                                <p class="cv-role__organization">Earlier experience</p>
+                                                        </div>
+                                                </aside>
+                                                <section class="cv-role__content cv-role__content--earlier" aria-label="Earlier experience roles">
+                                                        <div class="cv-earlier-grid">
+                                                                {cvProfile.earlierExperience.map((item, index) => {
+                                                                        const detailsId = `${earlierExperienceItemId(item, index)}-details`;
+                                                                        const titleId = `${earlierExperienceItemId(item, index)}-title`;
 
-		<section class="cv-section" id="case-studies" aria-labelledby="case-studies-title" data-cv-section>
+                                                                        return (
+                                                                                <article
+                                                                                        class="cv-role__content cv-role__content--compact cv-earlier-card"
+                                                                                        data-earlier-experience-card
+                                                                                        data-earlier-experience-details-id={detailsId}
+                                                                                        data-expanded="false"
+                                                                                        aria-labelledby={titleId}
+                                                                                >
+                                                                                        <header class="cv-role__header cv-role__header--compact">
+                                                                                                <p class="cv-role__meta-inline">
+                                                                                                        <span>{item.dates}</span>
+                                                                                                        <span>{item.organization}</span>
+                                                                                                </p>
+                                                                                                <h4 id={titleId} class="cv-role__title cv-role__title--compact">{item.title}</h4>
+                                                                                                <p class="cv-role__summary cv-role__summary--compact">{item.summary}</p>
+                                                                                        </header>
+                                                                                        <button
+                                                                                                class="cv-role__toggle cv-role__toggle--compact"
+                                                                                                type="button"
+                                                                                                aria-expanded="false"
+                                                                                                aria-controls={detailsId}
+                                                                                                data-earlier-experience-toggle
+                                                                                                data-analytics="cv_earlier_experience_open"
+                                                                                        >
+                                                                                                <span data-earlier-experience-toggle-label>Technical details</span>
+                                                                                                <span aria-hidden="true" data-earlier-experience-toggle-icon>+</span>
+                                                                                        </button>
+                                                                                        <div class="cv-role__details cv-role__details--compact" id={detailsId} data-earlier-experience-details hidden>
+                                                                                                <section class="cv-detail-group" aria-label={`${item.title} details`}>
+                                                                                                        <h5>Details</h5>
+                                                                                                        <ul>
+                                                                                                                {item.bullets.map((bullet) => (
+                                                                                                                        <li>{bullet}</li>
+                                                                                                                ))}
+                                                                                                        </ul>
+                                                                                                </section>
+                                                                                        </div>
+                                                                                </article>
+                                                                        );
+                                                                })}
+                                                        </div>
+                                                </section>
+                                        </li>
+                                </ol>
+                        </div>
+                </section>
+
+		<section class="cv-section representative-systems" id="representative-systems" aria-labelledby="representative-systems-title" data-cv-section>
 			<div class="page-container">
 				<div class="cv-section__intro">
-					<p class="eyebrow">Engineering evidence</p>
-					<h2 id="case-studies-title">Selected Engineering Case Studies</h2>
-					<p>Control concepts translated into embedded software for electrified, autonomous, and safety-relevant systems.</p>
+					<h2 id="representative-systems-title">Representative Systems</h2>
+					<p>Compact examples of systems where my embedded controls work has been applied. The same capabilities transfer to electrified equipment, autonomous machines, robotics, industrial automation, energy systems, and other software controlled physical systems. Full project context is available on the Work page.</p>
 				</div>
-				<div class="cv-case-grid">
-					{cvProfile.caseStudies.map((item) => (
-						<article class="cv-card cv-case-card cv-card--interactive" data-analytics="cv_case_study_view">
-							<p class="eyebrow">{item.eyebrow}</p>
-							<h3>{item.title}</h3>
-							<p>{item.statement}</p>
-							<dl>
+				<div class="representative-systems__grid">
+					{cvProfile.caseStudies.map((item) => {
+						const titleId = `representative-${expertiseCardId(item.title)}-title`;
+						return (
+						<article class="cv-card cv-card--interactive cv-expertise-card representative-system-card" data-analytics="cv_representative_system_view" aria-labelledby={titleId}>
+							<header class="cv-expertise-card__header representative-system-card__header">
+								<h3 id={titleId} class="cv-expertise-card__title">{item.title}</h3>
+								<p class="cv-expertise-card__summary">{item.statement}</p>
+							</header>
+							<dl class="representative-system-card__meta">
 								<div>
 									<dt>Role</dt>
 									<dd>{item.role}</dd>
@@ -290,13 +441,14 @@ const profileJsonLd = {
 									<dd>{item.focus}</dd>
 								</div>
 								<div>
-									<dt>Proof</dt>
+									<dt>Evidence</dt>
 									<dd>{item.proof}</dd>
 								</div>
 							</dl>
-							<!-- TODO: Add "View related work" links when dedicated Work entries exist. -->
+							<a class="cv-expertise-card__toggle representative-system-card__link" href={withBase(item.href)}>View work context →</a>
 						</article>
-					))}
+						);
+					})}
 				</div>
 			</div>
 		</section>
@@ -304,172 +456,146 @@ const profileJsonLd = {
 		<section class="cv-section" id="research" aria-labelledby="research-title" data-cv-section>
 			<div class="page-container">
 				<div class="cv-section__intro">
-					<p class="eyebrow">Technical depth</p>
 					<h2 id="research-title">Research, Patents & Publications</h2>
 					<p>{cvProfile.research.intro}</p>
 				</div>
 
-				<div class="cv-research-layout">
-					<article class="cv-card">
-						<h3>Research themes</h3>
-						<ul class="cv-chip-list" aria-label="Research themes">
-							{cvProfile.research.themes.map((theme) => (
-								<li>{theme}</li>
-							))}
-						</ul>
-					</article>
-					<article class="cv-card">
-						<h3>Research evidence</h3>
-						<ul class="cv-research-stats">
-							{cvProfile.research.evidence.map((item) => (
-								<li>
-									<strong>{item.value}</strong>
-									<span>{item.label}</span>
-								</li>
-							))}
-						</ul>
-					</article>
-				</div>
+                                <div class="cv-research-layout">
+                                        <article class="cv-card">
+                                                <h3>Research focus</h3>
+                                                <ul class="cv-research-focus-list" aria-label="Research focus">
+                                                        {cvProfile.research.themes.map((theme) => (
+                                                                <li>{theme}</li>
+                                                        ))}
+                                                </ul>
+                                        </article>
+                                        <article class="cv-card">
+                                                <h3>Academic and patent record</h3>
+                                                <ul class="cv-research-stats">
+                                                        {cvProfile.research.evidence.map((item) => (
+                                                                <li>
+                                                                        <strong>{item.value}</strong>
+                                                                        <div>
+                                                                                <span>{item.label}</span>
+                                                                                {item.description && <p>{item.description}</p>}
+                                                                        </div>
+                                                                </li>
+                                                        ))}
+                                                </ul>
+                                        </article>
+                                </div>
 
-				<article class="cv-card cv-publications">
-					<h3>Published research outcomes</h3>
-					<ul>
-						{cvProfile.research.outcomes.map((outcome) => (
-							<li>{outcome}</li>
-						))}
-					</ul>
-					<details class="cv-disclosure" data-analytics="cv_patents_open">
-						<summary>Show patent records</summary>
-						<ul class="cv-disclosure__content cv-compact-list">
-							{cvProfile.research.patents.map((patent) => (
-								<li>{patent}</li>
-							))}
-						</ul>
-					</details>
-					<details class="cv-disclosure" data-analytics="cv_publications_open">
-						<summary>Show selected publication records</summary>
-						<ol class="cv-disclosure__content">
-							{cvProfile.research.selectedPublications.map((publication) => (
-								<li>{publication}</li>
-							))}
-							{cvProfile.research.additionalPublications.map((publication) => (
-								<li>{publication}</li>
-							))}
-						</ol>
-					</details>
-				</article>
-			</div>
-		</section>
+                                <article class="cv-card cv-research-outcomes">
+                                        <h3>Published outcomes</h3>
+                                        <ul class="cv-research-outcome-grid">
+                                                {cvProfile.research.outcomes.map((outcome) => (
+                                                        <li>
+                                                                <strong>{outcome.value}</strong>
+                                                                <span>{outcome.label}</span>
+                                                        </li>
+                                                ))}
+                                        </ul>
+                                        <div class="cv-research-relevance">
+                                                <h3>Engineering relevance</h3>
+                                                <p>{cvProfile.research.relevance}</p>
+                                        </div>
+                                        <a class="cv-research-link" href={withBase(cvProfile.research.workHref)}>View research context on the Work page</a>
+                                </article>
+                        </div>
+                </section>
 
 		<section class="cv-section" id="education" aria-labelledby="education-title" data-cv-section>
-			<div class="page-container">
-				<div class="cv-section__intro">
-					<p class="eyebrow">Foundation</p>
-					<h2 id="education-title">Education</h2>
-				</div>
-				<div class="cv-card-grid cv-card-grid--three">
-					{cvProfile.education.map((item) => (
-						<article class="cv-card cv-education-card cv-card--interactive">
-							<p class="cv-card__meta">{item.year}</p>
-							<h3>{item.degree}</h3>
-							{item.dissertation && (
-								<p><strong>Dissertation:</strong> {item.dissertation}</p>
-							)}
-							{item.focus && <p><strong>Focus:</strong> {item.focus}</p>}
-							<p>{item.description}</p>
-							{item.links && (
-								<ul class="cv-link-list" aria-label={`${item.degree} links`}>
-									{item.links.map((link) => (
-										<li>
-											<a href={link.href} target="_blank" rel="noopener noreferrer">{link.label}</a>
-										</li>
-									))}
-								</ul>
-							)}
-						</article>
-					))}
-				</div>
+                        <div class="page-container">
+                                <div class="cv-section__intro">
+                                        <h2 id="education-title">Education</h2>
+                                        <p>{cvProfile.educationIntro}</p>
+                                </div>
+                                <div class="cv-card-grid cv-card-grid--education">
+                                        {cvProfile.education.map((item) => (
+                                                <article class="cv-card cv-education-card cv-card--interactive">
+                                                        <div class="cv-education-card__identity">
+                                                                <p class="cv-card__meta">{item.year}</p>
+                                                                <h3>{item.degree}</h3>
+                                                                {item.institution && <p class="cv-education-card__institution">{item.institution}</p>}
+                                                        </div>
+                                                        <div class="cv-education-card__details">
+                                                                {item.dissertation && (
+                                                                        <p class="cv-education-card__field"><strong>Dissertation</strong><span>{item.dissertation}</span></p>
+                                                                )}
+                                                                {item.focus && <p class="cv-education-card__field"><strong>Focus</strong><span>{item.focus}</span></p>}
+                                                                <p class="cv-education-card__field"><strong>Relevance</strong><span>{item.description}</span></p>
+                                                        </div>
+                                                        {item.links && (
+                                                                <div class="cv-education-card__links" aria-label={`${item.degree} links`}>
+                                                                        {item.links.map((link) => (
+                                                                                <a href={withBase(link.href)} target={link.href.startsWith('http') ? '_blank' : undefined} rel={link.href.startsWith('http') ? 'noopener noreferrer' : undefined}>{link.label}</a>
+                                                                        ))}
+                                                                </div>
+                                                        )}
+                                                </article>
+                                        ))}
+                                </div>
 			</div>
 		</section>
 
-		<section class="cv-section" id="tools" aria-labelledby="tools-title" data-cv-section>
-			<div class="page-container">
-				<div class="cv-section__intro">
-					<p class="eyebrow">Execution stack</p>
-					<h2 id="tools-title">Tools, Methods, Standards, and Languages</h2>
-				</div>
-				<div class="cv-card-grid cv-card-grid--tools">
-					{cvProfile.tools.map((group) => (
-						<article class="cv-card cv-card--compact">
-							<h3>{group.title}</h3>
-							<ul class="cv-chip-list" aria-label={`${group.title} list`}>
-								{group.items.map((item) => (
-									<li>{item}</li>
-								))}
-							</ul>
-						</article>
-					))}
-					<article class="cv-card cv-card--compact">
-						<h3>Languages</h3>
-						<ul class="cv-language-list">
-							{cvProfile.languages.map((item) => (
-								<li>
-									<strong>{item.language}</strong>
-									<span>{item.level}</span>
-								</li>
-							))}
-						</ul>
-					</article>
-				</div>
+                                <section class="cv-section" id="tools" aria-labelledby="tools-title" data-cv-section>
+                                        <div class="page-container">
+                                                <div class="cv-section__intro">
+                                                        <h2 id="tools-title">Tools, Methods &amp; Continuous Learning</h2>
+                                                        <p>{cvProfile.toolsIntro}</p>
+                                                </div>
+                                                <div class="cv-card-grid cv-card-grid--tools">
+                                                        {cvProfile.tools.map((group) => (
+                                                                <article class="cv-card cv-card--compact cv-tool-card">
+                                                                        <h3>{group.title}</h3>
+                                                                        {group.languages ? (
+                                                                                <ul class="cv-language-list">
+                                                                                        {group.languages.map((item) => (
+                                                                                                <li>
+                                                                                                        <strong>{item.language}</strong>
+                                                                                                        <span>{item.level}</span>
+                                                                                                </li>
+                                                                                        ))}
+                                                                                </ul>
+                                                                        ) : (
+                                                                                <div class="cv-tool-card__body">
+                                                                                        <p class="cv-tool-card__primary">{group.primaryTools}</p>
+                                                                                        <p class="cv-tool-card__methods">{group.methods}</p>
+                                                                                </div>
+                                                                        )}
+                                                                </article>
+                                                        ))}
+                                                </div>
 
-				<details class="cv-disclosure cv-disclosure--card" data-analytics="cv_extended_stack_open">
-					<summary>Show extended stack</summary>
-					<div class="cv-card-grid cv-card-grid--two cv-disclosure__content">
-						{cvProfile.extendedTools.map((group) => (
-							<article class="cv-card cv-card--compact">
-								<h3>{group.title}</h3>
-								<ul class="cv-chip-list" aria-label={`${group.title} extended list`}>
-									{group.items.map((item) => (
-										<li>{item}</li>
-									))}
-								</ul>
-							</article>
-						))}
-					</div>
-				</details>
-
-				<section class="cv-courses" aria-labelledby="courses-title">
-					<h3 id="courses-title">Courses &amp; Recognition</h3>
-					<ul class="cv-impact-list cv-impact-list--compact">
-						{cvProfile.coursesAndRecognition.featured.map((item, index) => (
-							<li>
-								<span aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
-								<p>{item}</p>
-							</li>
-						))}
-					</ul>
-					<details class="cv-disclosure cv-disclosure--wide" data-analytics="cv_courses_recognition_open">
-						<summary>Show more courses and recognition</summary>
-						<ul class="cv-disclosure__content">
-							{cvProfile.coursesAndRecognition.additional.map((item) => (
-								<li>{item}</li>
-							))}
-						</ul>
-					</details>
-				</section>
-			</div>
-		</section>
+                                                <article class="cv-card cv-card--compact cv-learning-card" aria-labelledby="learning-title">
+                                                        <h3 id="learning-title">Continuous Learning and Recognition</h3>
+                                                        <div class="cv-learning-card__grid">
+                                                                <section aria-label="Recognition">
+                                                                        <h4>Recognition</h4>
+                                                                        <ul>
+                                                                                {cvProfile.learningRecognition.recognition.map((item) => (
+                                                                                        <li>{item}</li>
+                                                                                ))}
+                                                                        </ul>
+                                                                </section>
+                                                                <section aria-label="Recent learning">
+                                                                        <h4>Recent learning</h4>
+                                                                        <ul>
+                                                                                {cvProfile.learningRecognition.recentLearning.map((item) => (
+                                                                                        <li>{item}</li>
+                                                                                ))}
+                                                                        </ul>
+                                                                </section>
+                                                        </div>
+                                                </article>
+                        </div>
+                </section>
 
 		<section class="cv-section cv-final" id="contact" aria-labelledby="contact-title" data-cv-section>
 			<div class="page-container cv-final__inner">
 				<div>
-					<p class="eyebrow">Contact</p>
 					<h2 id="contact-title">Let's Connect</h2>
-					<p>
-						For roles or technical conversations involving embedded controls, electric vehicles, battery and thermal
-						management, diagnostics, functional safety, autonomous machines, or reliable physical systems, contact me
-						directly or download the PDF resume.
-					</p>
+					<p>{cvProfile.finalContact}</p>
 				</div>
 				<div class="button-row cv-final__actions" aria-label="Bottom CV actions">
 					{cvProfile.actions.map((action) => (
@@ -494,7 +620,8 @@ const profileJsonLd = {
 
 <script is:inline>
 	(() => {
-		const progressBar = document.querySelector('[data-cv-scroll-progress]');
+		const scrollJump = document.querySelector('[data-cv-scroll-jump]');
+		const sectionNavShell = document.querySelector('.cv-section-nav-shell');
 		const navLinks = Array.from(document.querySelectorAll('[data-cv-section-link]'));
 		const sections = navLinks
 			.map((link) => {
@@ -503,28 +630,17 @@ const profileJsonLd = {
 			})
 			.filter(Boolean);
 
-		if (progressBar) {
-			let progressFrame = 0;
-
-			const updateProgress = () => {
-				progressFrame = 0;
-				const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-				const progress = maxScroll > 0 ? window.scrollY / maxScroll : 0;
-				progressBar.style.transform = `scaleX(${Math.min(1, Math.max(0, progress))})`;
-			};
-
-			const requestProgressUpdate = () => {
-				if (progressFrame === 0) {
-					progressFrame = window.requestAnimationFrame(updateProgress);
-				}
-			};
-
-			updateProgress();
-			window.addEventListener('scroll', requestProgressUpdate, { passive: true });
-			window.addEventListener('resize', requestProgressUpdate);
+		if (scrollJump) {
+			scrollJump.addEventListener('click', (event) => {
+				event.preventDefault();
+				window.scrollTo({
+					top: 0,
+					behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
+				});
+			});
 		}
 
-		if ('IntersectionObserver' in window && navLinks.length > 0 && sections.length > 0) {
+		if (navLinks.length > 0 && sections.length > 0) {
 			const setActiveSection = (id) => {
 				navLinks.forEach((link) => {
 					const isActive = link.getAttribute('href') === `#${id}`;
@@ -536,23 +652,40 @@ const profileJsonLd = {
 				});
 			};
 
-			const observer = new IntersectionObserver(
-				(entries) => {
-					const activeEntry = entries
-						.filter((entry) => entry.isIntersecting)
-						.sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+			let activeFrame = 0;
 
-					if (activeEntry?.target?.id) {
-						setActiveSection(activeEntry.target.id);
+			const getStickyOffset = () => {
+				const shellHeight = sectionNavShell instanceof HTMLElement ? sectionNavShell.getBoundingClientRect().height : 0;
+				const rootStyles = window.getComputedStyle(document.documentElement);
+				const baseFontSize = Number.parseFloat(rootStyles.fontSize) || 16;
+				return shellHeight + baseFontSize;
+			};
+
+			const updateActiveSection = () => {
+				activeFrame = 0;
+				const activationLine = window.scrollY + getStickyOffset();
+				let activeSection = sections[0];
+
+				sections.forEach((section) => {
+					if (section instanceof HTMLElement && section.offsetTop <= activationLine) {
+						activeSection = section;
 					}
-				},
-				{
-					rootMargin: '-24% 0px -58% 0px',
-					threshold: [0.1, 0.25, 0.5],
-				}
-			);
+				});
 
-			sections.forEach((section) => observer.observe(section));
+				if (activeSection?.id) {
+					setActiveSection(activeSection.id);
+				}
+			};
+
+			const requestActiveSectionUpdate = () => {
+				if (activeFrame === 0) {
+					activeFrame = window.requestAnimationFrame(updateActiveSection);
+				}
+			};
+
+			updateActiveSection();
+			window.addEventListener('scroll', requestActiveSectionUpdate, { passive: true });
+			window.addEventListener('resize', requestActiveSectionUpdate);
 		}
 
 		const emitAnalyticsEvent = (element) => {
@@ -570,11 +703,156 @@ const profileJsonLd = {
 			link.addEventListener('click', () => emitAnalyticsEvent(link));
 		});
 
-		document.querySelectorAll('details[data-analytics]').forEach((details) => {
-			details.addEventListener('toggle', () => {
-				if (!details.open) {
+		const expertiseCards = Array.from(document.querySelectorAll('[data-expertise-card]'));
+
+		const setActiveExpertiseCard = (activeCard) => {
+			expertiseCards.forEach((card) => {
+				const isActive = Boolean(activeCard) && card === activeCard;
+				const panelId = card.dataset.panelId;
+				card.dataset.expanded = String(isActive);
+
+				card.querySelectorAll('[data-expertise-toggle]').forEach((toggle) => {
+					toggle.setAttribute('aria-expanded', String(isActive));
+
+					if (toggle.classList.contains('cv-expertise-card__icon-button')) {
+						const title = card.querySelector('.cv-expertise-card__title')?.textContent?.trim() ?? 'this expertise area';
+						toggle.setAttribute('aria-label', `${isActive ? 'Hide' : 'View'} details for ${title}`);
+						const icon = toggle.querySelector('[aria-hidden="true"]');
+						if (icon) {
+							icon.textContent = isActive ? '-' : '+';
+						}
+					}
+				});
+
+				card.querySelectorAll('[data-expertise-toggle-label]').forEach((label) => {
+					label.textContent = isActive ? 'Hide details' : 'View details';
+				});
+
+				card.querySelectorAll('[data-expertise-detail]').forEach((panel) => {
+					if (panel.id === panelId) {
+						panel.hidden = !isActive;
+					}
+				});
+			});
+		};
+
+		document.querySelectorAll('[data-expertise-toggle]').forEach((button) => {
+			button.addEventListener('click', () => {
+				const card = button.closest('[data-expertise-card]');
+
+				if (!card) {
 					return;
 				}
+
+				const shouldExpand = card.dataset.expanded !== 'true';
+				setActiveExpertiseCard(shouldExpand ? card : null);
+
+				if (shouldExpand && button instanceof HTMLElement && button.dataset.analytics) {
+					emitAnalyticsEvent(button);
+				}
+			});
+		});
+
+		const experienceCards = Array.from(document.querySelectorAll('[data-experience-card]'));
+
+		const setActiveExperienceCard = (activeCard) => {
+			experienceCards.forEach((card) => {
+				const isActive = Boolean(activeCard) && card === activeCard;
+				const detailsId = card.dataset.experienceDetailsId;
+				card.dataset.expanded = String(isActive);
+
+				card.querySelectorAll('[data-experience-toggle]').forEach((toggle) => {
+					toggle.setAttribute('aria-expanded', String(isActive));
+
+					if (toggle.classList.contains('cv-role__icon-button')) {
+						const title = card.querySelector('.cv-role__header h3')?.textContent?.trim() ?? 'this experience';
+						toggle.setAttribute('aria-label', `${isActive ? 'Hide' : 'View'} details for ${title}`);
+					}
+				});
+
+				card.querySelectorAll('[data-experience-toggle-label]').forEach((label) => {
+					label.textContent = isActive ? 'Hide details' : 'Technical details';
+				});
+
+				card.querySelectorAll('[data-experience-toggle-icon]').forEach((icon) => {
+					icon.textContent = isActive ? '-' : '+';
+				});
+
+				card.querySelectorAll('[data-experience-details]').forEach((details) => {
+					if (details.id === detailsId) {
+						details.hidden = !isActive;
+					}
+				});
+			});
+		};
+
+                document.querySelectorAll('[data-experience-toggle]').forEach((button) => {
+                        button.addEventListener('click', () => {
+                                const card = button.closest('[data-experience-card]');
+
+                                if (!card) {
+					return;
+				}
+
+				const shouldExpand = card.dataset.expanded !== 'true';
+				setActiveExperienceCard(shouldExpand ? card : null);
+
+				if (shouldExpand && button instanceof HTMLElement && button.dataset.analytics) {
+					emitAnalyticsEvent(button);
+                                }
+                        });
+                });
+
+                const earlierExperienceCards = Array.from(document.querySelectorAll('[data-earlier-experience-card]'));
+
+                const setActiveEarlierExperienceCard = (activeCard) => {
+                        earlierExperienceCards.forEach((card) => {
+                                const isActive = Boolean(activeCard) && card === activeCard;
+                                const detailsId = card.dataset.earlierExperienceDetailsId;
+                                card.dataset.expanded = String(isActive);
+
+                                card.querySelectorAll('[data-earlier-experience-toggle]').forEach((toggle) => {
+                                        toggle.setAttribute('aria-expanded', String(isActive));
+                                });
+
+                card.querySelectorAll('[data-earlier-experience-toggle-label]').forEach((label) => {
+                                        label.textContent = isActive ? 'Hide details' : 'Technical details';
+                                });
+
+                                card.querySelectorAll('[data-earlier-experience-toggle-icon]').forEach((icon) => {
+                                        icon.textContent = isActive ? '-' : '+';
+                                });
+
+                                card.querySelectorAll('[data-earlier-experience-details]').forEach((details) => {
+                                        if (details.id === detailsId) {
+                                                details.hidden = !isActive;
+                                        }
+                                });
+                        });
+                };
+
+                document.querySelectorAll('[data-earlier-experience-toggle]').forEach((button) => {
+                        button.addEventListener('click', () => {
+                                const card = button.closest('[data-earlier-experience-card]');
+
+                                if (!card) {
+                                        return;
+                                }
+
+                                const shouldExpand = card.dataset.expanded !== 'true';
+                                setActiveEarlierExperienceCard(shouldExpand ? card : null);
+
+                                if (shouldExpand && button instanceof HTMLElement && button.dataset.analytics) {
+                                        emitAnalyticsEvent(button);
+                                }
+                        });
+                });
+
+                document.querySelectorAll('details[data-analytics]').forEach((details) => {
+                        details.addEventListener('toggle', () => {
+                                if (!details.open) {
+                                        return;
+                                }
 
 				emitAnalyticsEvent(details);
 			});
@@ -583,106 +861,142 @@ const profileJsonLd = {
 </script>
 
 <style>
-	.cv-page {
-		--cv-max-measure: 66ch;
-	}
+        .cv-page {
+                --cv-max-measure: 66ch;
+                --cv-hero-header-offset: 68px;
+                --cv-nav-height: 2.15rem;
+                --cv-nav-sticky-top: 0px;
+                --cv-nav-shell-y-padding: 0.36rem;
+                --cv-nav-clearance: 1.1rem;
+                --cv-nav-shell-height: calc(var(--cv-nav-height) + (2 * var(--cv-nav-shell-y-padding)));
+                --type-compact-size: clamp(0.95rem, 0.92rem + 0.14vw, 1.02rem);
+                --type-compact-line: 1.55;
+                --type-reading-size: clamp(1.02rem, 0.98rem + 0.18vw, 1.12rem);
+                --type-reading-line: 1.62;
+                --type-metadata-size: clamp(0.78rem, 0.75rem + 0.1vw, 0.84rem);
+                --type-meta-size: var(--type-metadata-size);
+                --type-chip-size: clamp(0.78rem, 0.75rem + 0.1vw, 0.84rem);
+        }
 
-	:global(.cv-page .page-container) {
-		width: min(calc(100% - 2rem), 78rem);
-	}
-
-	.cv-shell {
-		display: grid;
-		grid-template-columns: minmax(11rem, 14rem) minmax(0, 1fr);
-		gap: clamp(2rem, 5vw, 4rem);
-		align-items: start;
-	}
+        .cv-shell {
+                display: block;
+        }
 
 	.cv-main-flow {
 		min-width: 0;
 	}
 
-	:global(.cv-main-flow .page-container) {
-		width: 100%;
-		max-width: none;
-	}
+        .cv-scroll-jump {
+                position: fixed;
+                right: 1rem;
+                bottom: 1rem;
+                z-index: 28;
+                display: inline-grid;
+                width: 2.45rem;
+                height: 2.45rem;
+                place-items: center;
+                border: 1px solid color-mix(in srgb, var(--color-page) 12%, transparent);
+                border-radius: var(--radius-pill);
+                background: var(--color-text);
+                color: var(--color-page);
+                text-decoration: none;
+                box-shadow: 0 10px 24px color-mix(in srgb, #000 22%, transparent);
+                transition:
+                        transform var(--motion-duration-fast-02) var(--motion-standard-productive),
+                        border-color var(--motion-duration-fast-02) var(--motion-standard-productive),
+                        background-color var(--motion-duration-fast-02) var(--motion-standard-productive),
+                        box-shadow var(--motion-duration-fast-02) var(--motion-standard-productive);
+        }
 
-	.cv-scroll-progress {
-		position: fixed;
-		z-index: 30;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 2px;
-		background: transparent;
-		pointer-events: none;
-	}
+        .cv-scroll-jump svg {
+                width: 1.15rem;
+                height: 1.15rem;
+                stroke: currentColor;
+                stroke-width: 1.4;
+                fill: none;
+                stroke-linecap: round;
+                stroke-linejoin: round;
+        }
 
-	.cv-scroll-progress__bar {
-		display: block;
-		width: 100%;
-		height: 100%;
-		background: var(--color-accent);
-		transform: scaleX(0);
-		transform-origin: left center;
-	}
+        .cv-scroll-jump:hover,
+        .cv-scroll-jump:focus-visible {
+                transform: translateY(-2px);
+                border-color: color-mix(in srgb, var(--color-page) 22%, transparent);
+                background: color-mix(in srgb, var(--color-text) 90%, white);
+                box-shadow: 0 12px 28px color-mix(in srgb, #000 28%, transparent);
+        }
 
-	.cv-hero {
-		border-bottom: 1px solid var(--color-border-soft);
-		background: transparent;
-		padding-block: clamp(3rem, 7vw, 6.25rem) clamp(2.5rem, 5vw, 4.25rem);
+        .cv-hero {
+                display: grid;
+                min-height: calc(100svh - var(--cv-hero-header-offset));
+                min-height: calc(100dvh - var(--cv-hero-header-offset));
+                align-items: center;
+                border-bottom: 1px solid var(--color-border-soft);
+                background: transparent;
+                padding-block: clamp(2.25rem, 4.5vw, 4rem);
 	}
 
 	.cv-hero__inner {
 		display: grid;
-		gap: clamp(1.75rem, 4vw, 3rem);
-		align-items: start;
+		gap: clamp(1.5rem, 2.5vw, 2.25rem);
+		align-items: center;
 	}
 
 	.cv-hero__content {
 		display: grid;
-		gap: 1rem;
+		gap: clamp(0.95rem, 1.6vw, 1.35rem);
 		min-width: 0;
-		max-width: 880px;
+		max-width: 74ch;
 	}
 
 	.cv-hero h1 {
-		font-size: clamp(2.75rem, 7vw, 5.75rem);
-		line-height: 0.98;
+		margin-bottom: clamp(0.15rem, 0.7vw, 0.45rem);
+		font-size: clamp(4.5rem, 8vw, 7.8rem);
+		line-height: 0.92;
+		letter-spacing: -0.07em;
 	}
 
 	.cv-hero__subtitle {
-		max-width: 880px;
+		max-width: 27ch;
 		color: var(--color-text);
-		font-size: clamp(1.08rem, 2vw, 1.42rem);
-		font-weight: 700;
-		line-height: 1.35;
+		font-size: clamp(1.45rem, 2vw, 1.95rem);
+		font-weight: var(--type-hero-role-weight);
+		line-height: 1.2;
+		letter-spacing: -0.03em;
 		overflow-wrap: anywhere;
 	}
 
 	.cv-hero__summary,
 	.cv-hero__extended {
-		max-width: var(--cv-max-measure);
+		max-width: 68ch;
 		color: var(--color-muted);
-		font-size: 1rem;
-		line-height: 1.7;
+		font-size: clamp(1.05rem, 1.2vw, 1.18rem);
+		line-height: 1.58;
+		letter-spacing: var(--type-hero-summary-tracking);
 		overflow-wrap: anywhere;
 	}
 
 	.cv-actions {
-		margin-top: 0.65rem;
+		margin-top: clamp(0.35rem, 1vw, 0.75rem);
+		gap: 0.85rem;
+	}
+
+	.cv-actions .button {
+		min-height: 2.75rem;
+		padding: 0.58rem 1rem;
+		font-size: clamp(0.85rem, 0.78rem + 0.1vw, 0.92rem);
 	}
 
 	.cv-hero__evidence {
 		display: grid;
-		gap: 1rem;
+		gap: clamp(0.9rem, 1.8vw, 1.25rem);
 		min-width: 0;
 	}
 
 	.cv-proof-grid {
 		display: grid;
 		grid-template-columns: repeat(2, minmax(0, 1fr));
-		gap: 1rem;
+		gap: 0.75rem;
 		margin: 0;
 		padding: 0;
 		list-style: none;
@@ -690,11 +1004,12 @@ const profileJsonLd = {
 
 	.cv-proof-grid li {
 		display: grid;
-		gap: 0.35rem;
+		gap: 0.28rem;
 		margin: 0;
 		border: 1px solid var(--color-card-border);
+		border-radius: var(--radius);
 		background: var(--color-card-bg);
-		padding: 1rem;
+		padding: 0.78rem 0.85rem;
 		transition:
 			background-color var(--motion-duration-fast-02) var(--motion-standard-productive),
 			border-color var(--motion-duration-fast-02) var(--motion-standard-productive),
@@ -708,173 +1023,213 @@ const profileJsonLd = {
 	}
 
 	.cv-proof-grid strong {
-		color: var(--color-accent);
+		color: var(--color-text);
 		font-family: var(--font-display);
-		font-size: 1.12rem;
-		line-height: 1.1;
+		font-size: clamp(1.02rem, 1.15vw, 1.2rem);
+		line-height: 1.18;
+		letter-spacing: -0.015em;
 	}
 
 	.cv-proof-grid span {
 		color: var(--color-muted);
-		font-size: 0.86rem;
-		line-height: 1.4;
+		font-family: var(--font-body);
+		font-size: clamp(0.88rem, 0.95vw, 0.96rem);
+		line-height: 1.42;
+		letter-spacing: 0;
+		text-transform: none;
 	}
 
 	.cv-role-strip {
 		display: grid;
-		gap: 0.75rem;
-		border: 1px solid var(--color-card-border);
-		background: var(--color-card-bg);
-		padding: 1rem;
-		transition:
-			background-color var(--motion-duration-fast-02) var(--motion-standard-productive),
-			border-color var(--motion-duration-fast-02) var(--motion-standard-productive),
-			transform var(--motion-duration-fast-02) var(--motion-standard-productive);
+		gap: 0.65rem;
+		padding: 0.05rem 0.05rem 0;
 	}
 
-	.cv-role-strip:hover,
-	.cv-role-strip:focus-within {
-		border-color: var(--color-card-border-hover);
-		background: var(--color-card-bg-hover);
-		transform: translateY(-2px);
+	.cv-role-strip .cv-chip-list {
+		display: grid;
+		gap: 0.42rem;
 	}
 
 	.cv-role-strip > p {
 		color: var(--color-soft);
 		font-family: var(--font-mono);
-		font-size: 0.72rem;
-		font-weight: 600;
-		letter-spacing: 0.06em;
-		line-height: 1.25;
-		text-transform: uppercase;
+		font-size: 0.78rem;
+		font-weight: var(--type-eyebrow-weight);
+		letter-spacing: 0.08em;
+		line-height: var(--type-eyebrow-line);
 	}
 
-	.cv-section-nav {
-		position: sticky;
-		top: calc(var(--site-header-height, 4rem) + 2rem);
-		z-index: 20;
-		max-height: calc(100vh - var(--site-header-height, 4rem) - 4rem);
-		overflow: auto;
-		border-left: 1px solid var(--color-border);
-		padding-left: 1rem;
-	}
-
-	.cv-section-nav__inner {
-		display: grid;
-		gap: 1rem;
-		align-items: start;
-		padding-block: 0.25rem;
-	}
-
-	.cv-section-nav span,
-	.cv-section-nav a,
-	.cv-card__meta,
-	.cv-role__period,
-	.cv-role__location,
-	.cv-disclosure > summary {
-		font-family: var(--font-mono);
-		font-size: 0.74rem;
-		font-weight: 600;
-		letter-spacing: 0.04em;
-		line-height: 1.35;
-		text-transform: uppercase;
-	}
-
-	.cv-section-nav span {
-		color: var(--color-soft);
-	}
-
-	.cv-section-nav ul {
-		display: grid;
-		gap: 0.45rem;
-		margin: 0;
-		padding: 0;
-		list-style: none;
-	}
-
-	.cv-section-nav li {
-		margin: 0;
-	}
-
-	.cv-section-nav a {
-		position: relative;
-		display: inline-flex;
-		align-items: center;
-		gap: 0.55rem;
-		color: var(--color-accent);
-		text-decoration: none;
-		transition:
-			color 140ms cubic-bezier(0.2, 0, 0, 1),
-			transform 140ms cubic-bezier(0.2, 0, 0, 1);
-	}
-
-	.cv-section-nav a::before {
-		content: '';
-		width: 0.38rem;
-		height: 0.38rem;
-		border: 1px solid currentColor;
+	.cv-role-strip .cv-chip-list li {
 		background: transparent;
-		transform: rotate(45deg);
-		transition:
-			background-color 140ms cubic-bezier(0.2, 0, 0, 1),
-			transform 140ms cubic-bezier(0.2, 0, 0, 1);
-	}
-
-	.cv-section-nav a::after {
-		content: '';
-		position: absolute;
-		right: auto;
-		bottom: -0.22rem;
-		left: 0.92rem;
-		width: calc(100% - 0.92rem);
-		height: 1px;
-		background: currentColor;
-		transform: scaleX(0);
-		transform-origin: left center;
-		transition: transform 140ms cubic-bezier(0.2, 0, 0, 1);
-	}
-
-	.cv-section-nav a:hover,
-	.cv-section-nav a:focus-visible,
-	.cv-section-nav a[aria-current='true'] {
+		padding: 0;
 		color: var(--color-text);
+		font-size: clamp(0.78rem, 0.9vw, 0.86rem);
+		line-height: 1.45;
 	}
 
-	.cv-section-nav a[aria-current='true']::after,
-	.cv-section-nav a:hover::after,
-	.cv-section-nav a:focus-visible::after {
-		transform: scaleX(1);
-	}
+        .cv-section-nav-shell {
+                position: sticky;
+                top: var(--cv-nav-sticky-top);
+                z-index: 80;
+                margin: 0 0 var(--cv-nav-clearance);
+                background: color-mix(in srgb, var(--color-surface-soft) 26%, var(--color-page));
+                padding-block: var(--cv-nav-shell-y-padding);
+                isolation: isolate;
+        }
 
-	.cv-section-nav a[aria-current='true']::before {
-		background: currentColor;
-		transform: rotate(45deg) scale(1.12);
-	}
+        .cv-section-nav-shell::before {
+                content: '';
+                position: absolute;
+                inset: 0 calc(50% - 50vw);
+                z-index: -1;
+                border-bottom: 1px solid color-mix(in srgb, var(--color-card-border) 38%, transparent);
+                background: color-mix(in srgb, var(--color-surface-soft) 26%, var(--color-page));
+                box-shadow: none;
+                pointer-events: none;
+        }
 
-	.cv-section-nav__actions {
-		display: grid;
-		gap: 0.45rem;
-		border-top: 1px solid var(--color-border-soft);
-		padding-top: 1rem;
-	}
+        .cv-section-nav-shell::after {
+                content: '';
+                position: absolute;
+                top: 100%;
+                right: calc(50% - 50vw);
+                left: calc(50% - 50vw);
+                height: var(--cv-nav-clearance);
+                background: linear-gradient(
+                        180deg,
+                        var(--color-page) 0%,
+                        var(--color-page) 48%,
+                        color-mix(in srgb, var(--color-page) 72%, transparent) 72%,
+                        transparent 100%
+                );
+                pointer-events: none;
+        }
 
-	.cv-section-nav__actions a {
-		color: var(--color-soft);
-		font-size: 0.72rem;
-	}
+        .cv-section-nav {
+                margin: 0 auto;
+        }
 
-	.cv-section {
-		border-bottom: 1px solid var(--color-border-soft);
-		padding-block: clamp(3rem, 6vw, 5rem);
-		scroll-margin-top: 5.5rem;
-	}
+        .cv-section-nav__inner {
+                display: flex;
+                min-height: var(--cv-nav-height);
+                align-items: center;
+                gap: 0.75rem;
+                border: 0;
+                border-radius: 0;
+                background: transparent;
+                padding: 0;
+                box-shadow: none;
+        }
+
+        .cv-card__meta,
+        .cv-role__period,
+        .cv-role__location,
+        .cv-disclosure > summary {
+                font-family: var(--font-mono);
+		font-size: var(--type-meta-size);
+		font-weight: var(--type-meta-weight);
+		letter-spacing: var(--type-meta-tracking);
+                line-height: var(--type-meta-line);
+                text-transform: uppercase;
+        }
+
+        .cv-section-nav__label {
+                flex: 0 0 auto;
+                color: var(--color-soft);
+                font-family: var(--font-body);
+                font-size: 0.72rem;
+                font-weight: 500;
+                letter-spacing: 0;
+                line-height: 1.2;
+                text-transform: none;
+                white-space: nowrap;
+        }
+
+        .cv-section-nav__links {
+                display: flex;
+                flex: 1 1 auto;
+                align-items: center;
+                gap: clamp(0.65rem, 1.4vw, 1.1rem);
+                min-width: 0;
+                margin: 0;
+                padding: 0;
+                overflow-x: auto;
+                overscroll-behavior-x: contain;
+                list-style: none;
+                scrollbar-width: none;
+        }
+
+        .cv-section-nav__links::-webkit-scrollbar {
+                display: none;
+        }
+
+        .cv-section-nav__links li {
+                flex: 0 0 auto;
+                margin: 0;
+        }
+
+        .cv-section-nav__link {
+                position: relative;
+                display: inline-flex;
+                align-items: center;
+                min-height: var(--cv-nav-height);
+                border-radius: 0;
+                padding: 0.25rem 0;
+                color: var(--color-muted);
+                font-family: var(--font-mono);
+                font-size: var(--type-meta-size);
+                font-weight: var(--type-meta-weight);
+                letter-spacing: 0.055em;
+                line-height: var(--type-meta-line);
+                text-decoration: none;
+                text-transform: uppercase;
+                transition:
+                        background-color var(--motion-duration-fast-02) var(--motion-standard-productive),
+                        color 140ms cubic-bezier(0.2, 0, 0, 1),
+                        transform 140ms cubic-bezier(0.2, 0, 0, 1);
+        }
+
+        .cv-section-nav__link:hover,
+        .cv-section-nav__link:focus-visible {
+                color: var(--color-text);
+        }
+
+        .cv-section-nav__link:focus-visible {
+                outline: 2px solid var(--color-accent-text);
+                outline-offset: 2px;
+        }
+
+        .cv-section-nav__link[aria-current='true'] {
+                color: var(--color-text);
+                font-weight: 700;
+        }
+
+        .cv-section-nav__link[aria-current='true']::after {
+                content: '';
+                position: absolute;
+                right: 0;
+                bottom: -0.22rem;
+                left: 0;
+                height: 1px;
+                background: color-mix(in srgb, var(--color-accent-text) 70%, transparent);
+        }
+
+        .cv-section {
+                padding-block: clamp(3rem, 6vw, 5rem);
+                scroll-margin-top: calc(var(--cv-nav-sticky-top) + var(--cv-nav-shell-height) + var(--cv-nav-clearance));
+                background-color: var(--color-page);
+                background-image: linear-gradient(
+                        180deg,
+                        color-mix(in srgb, var(--color-footer-bg) 28%, var(--color-page)) 0%,
+                        var(--color-page) 100%
+                );
+                background-repeat: no-repeat;
+                background-position: top left;
+                background-size: 100% clamp(5rem, 8vw, 6.5rem);
+        }
 
 	.cv-section--compact {
 		padding-block: clamp(2.25rem, 5vw, 4rem);
-	}
-
-	.cv-readable .page-container {
-		max-width: 900px;
 	}
 
 	.cv-section__intro {
@@ -884,25 +1239,47 @@ const profileJsonLd = {
 		margin-bottom: 1.5rem;
 	}
 
+	.cv-section__intro--expertise {
+		margin-bottom: clamp(1.35rem, 3vw, 2rem);
+	}
+
 	.cv-section__intro--tight {
 		margin-bottom: 1rem;
 	}
 
+	.cv-section__eyebrow {
+		color: var(--color-soft);
+		font-family: var(--font-mono);
+		font-size: var(--type-eyebrow-size);
+		font-weight: var(--type-eyebrow-weight);
+		line-height: var(--type-eyebrow-line);
+		letter-spacing: var(--type-eyebrow-tracking);
+		text-transform: uppercase;
+	}
+
 	.cv-section__intro h2,
 	.cv-final h2 {
-		font-size: clamp(1.75rem, 3.4vw, 2.65rem);
-		line-height: 1.08;
+		font-size: var(--type-section-title-size);
+		line-height: var(--type-section-title-line);
+		letter-spacing: var(--type-section-title-tracking);
+		font-weight: var(--type-section-title-weight);
 	}
 
 	.cv-section__intro h3,
 	.cv-courses h3 {
-		font-size: clamp(1.2rem, 2.1vw, 1.55rem);
-		line-height: 1.2;
+		font-size: var(--type-card-title-size);
+		line-height: var(--type-card-title-line);
+		letter-spacing: var(--type-card-title-tracking);
+		font-weight: var(--type-card-title-weight);
 	}
 
 	.cv-section__intro p,
-	.cv-final p,
-	.cv-summary-block p,
+	.cv-final p {
+		color: var(--color-muted);
+		font-size: var(--type-reading-size);
+		line-height: var(--type-reading-line);
+	}
+
 	.cv-card p,
 	.cv-card li,
 	.cv-card dd,
@@ -910,16 +1287,8 @@ const profileJsonLd = {
 	.cv-role__bullets li,
 	.cv-disclosure li {
 		color: var(--color-muted);
-		font-size: 0.96rem;
-		line-height: 1.62;
-	}
-
-	.cv-summary-block {
-		display: grid;
-		gap: 1rem;
-		max-width: var(--cv-max-measure);
-		border-left: 2px solid var(--color-accent);
-		padding-left: clamp(1rem, 3vw, 1.5rem);
+		font-size: var(--type-compact-size);
+		line-height: var(--type-compact-line);
 	}
 
 	.cv-card-grid {
@@ -929,11 +1298,13 @@ const profileJsonLd = {
 		background: transparent;
 	}
 
+	.core-expertise-grid,
 	.cv-featured-expertise-grid,
-	.cv-case-grid {
+	.representative-systems__grid {
 		display: grid;
 		grid-template-columns: 1fr;
 		gap: clamp(1.25rem, 3vw, 1.75rem);
+		align-items: stretch;
 	}
 
 	.cv-card {
@@ -941,7 +1312,8 @@ const profileJsonLd = {
 		align-content: start;
 		gap: 0.85rem;
 		border: 1px solid var(--color-card-border);
-		background: var(--color-card-bg);
+		border-radius: var(--radius);
+		background: transparent;
 		padding: clamp(1.15rem, 3vw, 1.55rem);
 	}
 
@@ -954,7 +1326,7 @@ const profileJsonLd = {
 
 	.cv-card--interactive:hover {
 		border-color: var(--color-card-border-hover);
-		background: var(--color-card-bg-hover);
+		background: transparent;
 		transform: translateY(-2px);
 	}
 
@@ -962,23 +1334,259 @@ const profileJsonLd = {
 		gap: 0.7rem;
 	}
 
-	.cv-card h3 {
-		font-size: 1.08rem;
-		line-height: 1.35;
+        .cv-card h3 {
+                font-size: var(--type-card-title-size);
+                line-height: var(--type-card-title-line);
+                letter-spacing: var(--type-card-title-tracking);
+                font-weight: var(--type-card-title-weight);
+        }
+
+        .cv-card-grid--education {
+                grid-template-columns: 1fr;
+                align-items: start;
+                grid-auto-rows: auto;
+        }
+
+        .cv-education-card {
+                display: grid;
+                gap: 0.75rem 1.5rem;
+                align-content: start;
+                height: fit-content;
+        }
+
+        .cv-education-card__identity,
+        .cv-education-card__details {
+                display: grid;
+                gap: 0.45rem;
+        }
+
+        .cv-education-card__identity h3 {
+                margin: 0;
+                color: var(--color-text);
+                font-family: var(--font-display);
+                font-size: var(--type-card-title-size);
+                font-weight: var(--type-card-title-weight);
+                line-height: var(--type-card-title-line);
+                letter-spacing: var(--type-card-title-tracking);
+        }
+
+        .cv-education-card__institution {
+                margin: 0;
+                color: var(--color-muted);
+                font-size: var(--type-card-body-size);
+                line-height: var(--type-card-body-line);
+        }
+
+        .cv-education-card__field {
+                display: grid;
+                gap: 0.2rem;
+                margin: 0;
+        }
+
+        .cv-education-card__field strong {
+                color: var(--color-text);
+                font-size: var(--type-meta-size);
+                font-weight: 700;
+                line-height: var(--type-meta-line);
+                letter-spacing: var(--type-meta-tracking);
+                text-transform: uppercase;
+        }
+
+        .cv-education-card__field span {
+                color: var(--color-muted);
+                font-size: var(--type-card-body-size);
+                line-height: var(--type-card-body-line);
+        }
+
+        .cv-education-card__links {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0.55rem;
+                margin-top: 0.2rem;
+        }
+
+        .cv-education-card__links a {
+                width: fit-content;
+                color: var(--color-text);
+                font-weight: 700;
+                text-decoration: underline;
+                text-decoration-thickness: 1px;
+                text-underline-offset: 0.2em;
+        }
+
+        .cv-education-card__links a:hover,
+        .cv-education-card__links a:focus-visible {
+                color: var(--color-text);
+        }
+
+	.cv-expertise-card {
+		position: relative;
+		grid-template-rows: minmax(5.55rem, auto) 1fr auto auto;
+		gap: 0.65rem;
+		height: 100%;
+		padding: clamp(1rem, 2.2vw, 1.25rem);
+		transition:
+			background-color var(--motion-duration-fast-02) var(--motion-standard-productive),
+			border-color var(--motion-duration-fast-02) var(--motion-standard-productive),
+			box-shadow var(--motion-duration-fast-02) var(--motion-standard-productive),
+			transform var(--motion-duration-fast-02) var(--motion-standard-productive);
 	}
 
-	.cv-expertise-card--featured {
+	.cv-expertise-card[data-expanded='true'] {
+		grid-column: 1 / -1;
+		grid-template-rows: auto auto auto auto;
+		height: auto;
+		border-color: var(--color-card-border-hover);
+		background: color-mix(in srgb, var(--color-surface-soft) 42%, transparent);
+		box-shadow: 0 12px 28px color-mix(in srgb, var(--color-text) 7%, transparent);
+	}
+
+	.cv-expertise-card__icon-button {
+		position: absolute;
+		z-index: 2;
+		top: clamp(0.75rem, 1.5vw, 1rem);
+		right: clamp(0.75rem, 1.5vw, 1rem);
+		display: inline-grid;
+		width: 2.5rem;
+		height: 2.5rem;
+		place-items: center;
+		border: 1px solid var(--color-card-border);
+		border-radius: var(--radius-pill);
+		background: transparent;
+		color: var(--color-text);
+		cursor: pointer;
+		font-family: var(--font-body);
+		font-size: 0.9rem;
+		line-height: 1;
+		transition:
+			background-color var(--motion-duration-fast-02) var(--motion-standard-productive),
+			border-color var(--motion-duration-fast-02) var(--motion-standard-productive),
+			transform var(--motion-duration-fast-02) var(--motion-standard-productive);
+	}
+
+	.cv-expertise-card[data-expanded='true'] .cv-expertise-card__icon-button {
+		border-color: var(--color-card-border-hover);
+		background: var(--color-surface-soft);
+	}
+
+	.cv-expertise-card__header {
+		display: grid;
+		gap: 0.55rem;
+		padding-right: 2.25rem;
+	}
+
+	.cv-expertise-card__icon-button:focus-visible,
+	.cv-expertise-card__toggle:focus-visible {
+		outline: 2px solid var(--color-accent-text);
+		outline-offset: 3px;
+	}
+
+	.cv-expertise-card__title {
+		max-width: 18rem;
+		padding-right: 0;
+	}
+
+	.cv-expertise-card__summary {
+		max-width: 36ch;
+		color: var(--color-text);
+		font-weight: 600;
+	}
+
+	.cv-expertise-card__capabilities-block {
+		display: grid;
+		margin-bottom: clamp(0.45rem, 1.4vw, 0.8rem);
+	}
+
+	.cv-expertise-card__capabilities {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 0.45rem 0.7rem;
+		align-content: start;
+		margin: 0;
+		padding-left: 1rem;
+	}
+
+	.cv-expertise-card__capabilities li {
+		color: var(--color-muted);
+		font-size: var(--type-compact-size);
+		line-height: var(--type-compact-line);
+	}
+
+	.cv-expertise-card__toggle {
+		justify-self: start;
+		align-self: end;
+		margin-top: auto;
+		border: 1px solid var(--color-card-border);
+		border-radius: var(--radius-pill);
+		background: transparent;
+		padding: 0.5rem 0.75rem;
+		min-height: 2.5rem;
+		color: var(--color-text);
+		cursor: pointer;
+		font-family: var(--font-mono);
+		font-size: var(--type-meta-size);
+		font-weight: var(--type-meta-weight);
+		letter-spacing: var(--type-meta-tracking);
+		line-height: var(--type-meta-line);
+		text-transform: uppercase;
+		transition:
+			background-color var(--motion-duration-fast-02) var(--motion-standard-productive),
+			border-color var(--motion-duration-fast-02) var(--motion-standard-productive),
+			color var(--motion-duration-fast-02) var(--motion-standard-productive);
+	}
+
+	.cv-expertise-card__toggle:hover {
+		border-color: var(--color-card-border-hover);
+		background: var(--color-surface-soft);
+	}
+
+	.core-expertise-detail {
+		display: grid;
 		gap: 1rem;
+		margin-top: 0.35rem;
+		border-top: 1px solid var(--color-card-border-hover);
+		padding-top: clamp(1rem, 2.5vw, 1.35rem);
 	}
 
-	.cv-expertise-card--featured h3 {
-		max-width: 18ch;
-		font-size: clamp(1.35rem, 2.5vw, 2rem);
-		line-height: 1.12;
+	.core-expertise-detail[hidden] {
+		display: none;
 	}
 
-	.cv-expertise-card--featured > ul:not(.cv-chip-list) {
-		max-width: 74ch;
+	.core-expertise-detail__summary {
+		max-width: var(--cv-max-measure);
+		color: var(--color-muted);
+		font-size: var(--type-reading-size);
+		line-height: var(--type-reading-line);
+	}
+
+	.core-expertise-detail__grid {
+		display: grid;
+		gap: 1rem;
+		align-items: start;
+	}
+
+	.core-expertise-detail .cv-detail-group {
+		display: grid;
+		gap: 0.7rem;
+	}
+
+	.core-expertise-detail .cv-detail-group + .cv-detail-group {
+		margin-top: 0;
+	}
+
+	.core-expertise-detail .cv-detail-group ul {
+		display: grid;
+		gap: 0.65rem;
+		margin: 0;
+		padding-left: 1.15rem;
+		list-style-position: outside;
+	}
+
+	.core-expertise-detail .cv-detail-group li {
+		padding-left: 0;
+		list-style-position: outside;
+		font-size: var(--type-reading-size);
+		line-height: var(--type-reading-line);
 	}
 
 	.cv-card ul,
@@ -994,10 +1602,10 @@ const profileJsonLd = {
 		margin: 0;
 	}
 
-	.cv-card__meta,
-	.cv-role__period {
-		color: var(--color-accent);
-	}
+		.cv-card__meta,
+		.cv-role__period {
+				color: var(--color-accent-text);
+		}
 
 	.cv-chip-list {
 		display: flex;
@@ -1005,29 +1613,110 @@ const profileJsonLd = {
 		gap: 0.55rem 0.7rem;
 		margin: 0;
 		padding: 0;
+		min-width: 0;
 		list-style: none;
 	}
 
 	.cv-chip-list li {
+		max-width: 100%;
+		min-width: 0;
 		margin: 0;
-		border: 1px solid var(--color-card-border);
+		border-radius: calc(var(--radius) * 0.6);
 		background: var(--color-surface-soft);
-		padding: 0.3rem 0.5rem;
-		color: var(--color-tag-text);
-		font-family: var(--font-mono);
-		font-size: 0.74rem;
-		font-weight: 600;
-		line-height: 1.25;
+                padding: 0.3rem 0.5rem;
+                color: var(--color-tag-text);
+                font-family: var(--font-mono);
+		font-size: var(--type-chip-size);
+		font-weight: var(--type-chip-weight);
+		line-height: var(--type-chip-line);
+		letter-spacing: var(--type-chip-tracking);
+		overflow-wrap: anywhere;
 		transition:
 			border-color 140ms cubic-bezier(0.2, 0, 0, 1),
 			background-color 140ms cubic-bezier(0.2, 0, 0, 1);
 	}
 
+	.cv-card .cv-expertise-card__capabilities {
+		display: grid;
+		gap: 0.45rem 0.7rem;
+		margin: 0;
+		padding-left: 1rem;
+	}
+
+	.cv-card .cv-expertise-card__capabilities li {
+		width: auto;
+	}
+
 	.cv-chip-list--strong li {
-		border-color: var(--color-card-border);
 		background: var(--color-card-bg);
 		color: var(--color-text);
 	}
+
+        .cv-tool-card {
+                display: grid;
+                align-content: start;
+                gap: 0.85rem;
+                height: 100%;
+        }
+
+        .cv-tool-card__body {
+                display: grid;
+                gap: 0.55rem;
+        }
+
+        .cv-tool-card__primary {
+                color: var(--color-text);
+                font-size: var(--type-card-body-size);
+                font-weight: 700;
+                line-height: var(--type-card-body-line);
+        }
+
+        .cv-tool-card__methods {
+                color: var(--color-muted);
+                font-size: var(--type-card-body-size);
+                line-height: var(--type-card-body-line);
+        }
+
+        .cv-learning-card {
+                display: grid;
+                gap: clamp(1rem, 2vw, 1.35rem);
+                margin-top: clamp(1rem, 2vw, 1.25rem);
+        }
+
+        .cv-learning-card__grid {
+                display: grid;
+                gap: clamp(1rem, 2vw, 1.5rem);
+        }
+
+        .cv-learning-card section {
+                display: grid;
+                gap: 0.55rem;
+                align-content: start;
+        }
+
+        .cv-learning-card h4 {
+                color: var(--color-soft);
+                font-family: var(--font-mono);
+                font-size: var(--type-meta-size);
+                font-weight: var(--type-meta-weight);
+                line-height: var(--type-meta-line);
+                letter-spacing: var(--type-meta-tracking);
+                text-transform: uppercase;
+        }
+
+        .cv-learning-card ul {
+                display: grid;
+                gap: 0.45rem;
+                margin: 0;
+                padding-left: 1.15rem;
+        }
+
+        .cv-learning-card li {
+                margin: 0;
+                color: var(--color-muted);
+                font-size: var(--type-card-body-size);
+                line-height: var(--type-card-body-line);
+        }
 
 	.cv-impact-list {
 		display: grid;
@@ -1038,18 +1727,18 @@ const profileJsonLd = {
 		list-style: none;
 	}
 
-	.cv-impact-list li {
-		display: grid;
-		grid-template-columns: auto minmax(0, 1fr);
-		gap: 0.8rem;
-		align-items: start;
-		margin: 0;
-		border: 1px solid var(--color-card-border);
-		background: var(--color-card-bg);
-		padding: 0.9rem 1rem;
-		color: var(--color-muted);
-		font-size: 0.96rem;
-		line-height: 1.55;
+        .cv-impact-list li {
+                display: grid;
+                gap: 0.5rem;
+                align-items: start;
+                margin: 0;
+                border: 1px solid var(--color-card-border);
+                border-radius: var(--radius);
+                background: transparent;
+                padding: 0.95rem 1rem;
+                color: var(--color-muted);
+                font-size: var(--type-card-body-size);
+                line-height: var(--type-card-body-line);
 		transition:
 			background-color var(--motion-duration-fast-02) var(--motion-standard-productive),
 			border-color var(--motion-duration-fast-02) var(--motion-standard-productive),
@@ -1058,138 +1747,308 @@ const profileJsonLd = {
 
 	.cv-impact-list li:hover {
 		border-color: var(--color-card-border-hover);
-		background: var(--color-card-bg-hover);
+		background: transparent;
 		transform: translateY(-2px);
 	}
 
-	.cv-impact-list li > span {
-		color: var(--color-accent);
-		font-family: var(--font-mono);
-		font-size: 0.74rem;
-		font-weight: 700;
-		line-height: 1.55;
-	}
+        .cv-impact-list li > span {
+                color: var(--color-soft);
+                font-family: var(--font-mono);
+                font-size: var(--type-meta-size);
+                font-weight: var(--type-meta-weight);
+                line-height: var(--type-meta-line);
+                letter-spacing: var(--type-meta-tracking);
+                text-transform: uppercase;
+        }
 
-	.cv-impact-list li > p {
-		color: var(--color-muted);
-		font-size: 0.95rem;
-		line-height: 1.55;
-	}
+        .cv-impact-list li > div {
+                display: grid;
+                gap: 0.35rem;
+        }
 
-	.cv-impact-list--compact {
-		gap: 0.65rem;
-	}
+        .cv-impact-list h3 {
+                color: var(--color-text);
+                font-family: var(--font-display);
+                font-size: var(--type-card-title-size);
+                font-weight: var(--type-card-title-weight);
+                line-height: var(--type-card-title-line);
+                letter-spacing: var(--type-card-title-tracking);
+        }
 
-	.cv-impact-list--compact li {
-		padding-block: 0.75rem;
+        .cv-impact-list p {
+                color: var(--color-muted);
+                font-family: var(--font-body);
+                font-size: var(--type-card-body-size);
+		line-height: var(--type-card-body-line);
+		letter-spacing: var(--type-card-body-tracking);
 	}
 
 	.cv-timeline {
-		position: relative;
 		display: grid;
-		gap: 1rem;
-	}
-
-	.cv-timeline::before {
-		content: '';
-		position: absolute;
-		top: 0.2rem;
-		bottom: 0.2rem;
-		left: 1.1rem;
-		width: 1px;
-		background: linear-gradient(var(--color-accent), var(--color-border));
+		gap: clamp(1.5rem, 3vw, 2.5rem);
+		margin: 0;
+		padding: 0;
+		list-style: none;
 	}
 
 	.cv-role {
 		position: relative;
 		display: grid;
-		grid-template-columns: 2.25rem minmax(0, 1fr);
-		gap: 1rem;
+		grid-template-columns: minmax(10rem, 14rem) minmax(0, 1fr);
+		gap: clamp(1rem, 2.5vw, 2rem);
+		align-items: start;
 	}
 
-	.cv-role__marker {
-		position: relative;
-		z-index: 1;
+        .cv-role::before {
+                content: '';
+                position: absolute;
+                top: 0.55rem;
+                bottom: calc(-1 * clamp(1.5rem, 3vw, 2.5rem));
+                left: 0.35rem;
+                width: 1px;
+                background: linear-gradient(
+                        color-mix(in srgb, var(--color-accent-text) 62%, transparent),
+                        var(--color-border-soft)
+                );
+        }
+
+	.cv-role:last-child::before {
+		bottom: 0;
+	}
+
+        .cv-role__milestone {
+                position: sticky;
+                top: 6rem;
+                display: grid;
+                grid-template-columns: 0.75rem minmax(0, 1fr);
+                gap: 0.75rem;
+                align-items: start;
+        }
+
+        .cv-role__marker {
+                position: relative;
+                z-index: 1;
+                display: block;
+                width: 0.7rem;
+                height: 0.7rem;
+                margin-top: 0.35rem;
+                border: 1px solid var(--color-card-border-hover);
+                border-radius: var(--radius-pill);
+                background: var(--color-page);
+        }
+
+        .cv-role--current .cv-role__marker {
+                border-color: var(--color-border-strong);
+                background: var(--color-accent-text);
+        }
+
+	.cv-role__milestone-meta {
 		display: grid;
-		width: 2.25rem;
-		height: 2.25rem;
-		place-items: center;
-		border: 1px solid var(--color-card-border);
-		background: var(--color-card-bg);
-		color: var(--color-accent);
-		font-family: var(--font-mono);
-		font-size: 0.72rem;
-		font-weight: 700;
-		line-height: 1;
-	}
-
-	.cv-role--current .cv-role__marker {
-		border-color: var(--color-accent);
-		background: var(--color-accent);
-		color: var(--color-button-primary-text);
-	}
-
-	.cv-role__content {
-		display: grid;
-		gap: 0.85rem;
+		gap: 0.25rem;
+		padding-top: 0.1rem;
 		min-width: 0;
-		border: 1px solid var(--color-card-border);
-		background: var(--color-card-bg);
+	}
+
+	.cv-role__milestone-meta p {
+		margin: 0;
+		font-family: var(--font-mono);
+		font-size: var(--type-meta-size);
+		line-height: var(--type-meta-line);
+		letter-spacing: var(--type-meta-tracking);
+		text-transform: uppercase;
+	}
+
+        .cv-role__content {
+                position: relative;
+                display: grid;
+                gap: 0.85rem;
+                min-width: 0;
+                border: 1px solid var(--color-card-border);
+                border-radius: var(--radius);
+		background: transparent;
 		padding: clamp(1.15rem, 3vw, 1.7rem);
 		transition:
 			border-color 140ms cubic-bezier(0.2, 0, 0, 1),
 			background-color 140ms cubic-bezier(0.2, 0, 0, 1);
 	}
 
-	.cv-role--current .cv-role__content {
+	.cv-role--current .cv-role__content,
+	.cv-role__content[data-expanded='true'] {
 		border-color: var(--color-card-border-hover);
-		background: color-mix(in srgb, var(--color-card-bg) 82%, var(--color-accent-wash));
+		background: transparent;
 	}
 
-	.cv-role__content:hover {
-		border-color: var(--color-card-border-hover);
-		background: var(--color-card-bg-hover);
-	}
+        .cv-role__content:hover {
+                border-color: var(--color-card-border-hover);
+                background: transparent;
+        }
 
-	.cv-role__header {
-		display: grid;
-		gap: 0.55rem;
-	}
+        .cv-role__content--earlier,
+        .cv-role__content--earlier:hover {
+                border: 0;
+                background: transparent;
+                padding: 0;
+        }
+
+        .cv-role__icon-button {
+                position: absolute;
+                z-index: 2;
+                top: clamp(0.75rem, 1.5vw, 1rem);
+                right: clamp(0.75rem, 1.5vw, 1rem);
+                display: inline-grid;
+                width: 2.5rem;
+                height: 2.5rem;
+                place-items: center;
+                border: 1px solid var(--color-card-border);
+                border-radius: var(--radius-pill);
+                background: transparent;
+                color: var(--color-text);
+                cursor: pointer;
+                font-family: var(--font-body);
+                font-size: 0.9rem;
+                line-height: 1;
+                transition:
+                        background-color var(--motion-duration-fast-02) var(--motion-standard-productive),
+                        border-color var(--motion-duration-fast-02) var(--motion-standard-productive),
+                        transform var(--motion-duration-fast-02) var(--motion-standard-productive);
+        }
+
+        .cv-role__content[data-expanded='true'] .cv-role__icon-button {
+                border-color: var(--color-card-border-hover);
+                background: var(--color-surface-soft);
+        }
+
+        .cv-role__icon-button:focus-visible {
+                outline: 2px solid var(--color-accent-text);
+                outline-offset: 3px;
+        }
+
+        .cv-role__header {
+                display: grid;
+                gap: 0.55rem;
+                padding-right: 2.25rem;
+        }
 
 	.cv-role__organization {
-		margin-top: 0.2rem;
 		color: var(--color-text);
 		font-weight: 700;
-		line-height: 1.45;
 	}
 
 	.cv-role__location {
 		color: var(--color-soft);
 	}
 
-	.cv-role__summary {
-		max-width: var(--cv-max-measure);
+        .cv-role__summary {
+                max-width: var(--cv-max-measure);
+                color: var(--color-text);
+                font-weight: 600;
+        }
+
+        .cv-detail-group h4,
+        .cv-detail-group h5 {
+                color: var(--color-text);
+                font-size: var(--type-meta-size);
+                font-weight: 700;
+		line-height: var(--type-meta-line);
+	}
+
+        .cv-role__bullets {
+                max-width: 74ch;
+                margin: 0.1rem 0 0;
+                padding-left: 1.15rem;
+        }
+
+        .cv-role__bullets li {
+                margin-bottom: 0.38rem;
+        }
+
+        .cv-role__bullets li:last-child {
+                margin-bottom: 0;
+        }
+
+        .cv-role__toggle {
+                display: inline-flex;
+                width: auto;
+                max-width: max-content;
+                align-self: flex-start;
+                align-items: center;
+                justify-content: center;
+                gap: 0.5rem;
+                border: 1px solid var(--color-card-border);
+                border-radius: var(--radius-pill);
+                background: transparent;
+                padding: 0.5rem 0.75rem;
+                min-height: 2.5rem;
+                color: var(--color-text);
+                cursor: pointer;
+                font-family: var(--font-mono);
+		font-size: var(--type-meta-size);
+		font-weight: var(--type-meta-weight);
+		letter-spacing: var(--type-meta-tracking);
+		line-height: var(--type-meta-line);
+		text-transform: uppercase;
+		transition:
+			background-color var(--motion-duration-fast-02) var(--motion-standard-productive),
+			border-color var(--motion-duration-fast-02) var(--motion-standard-productive),
+			color var(--motion-duration-fast-02) var(--motion-standard-productive);
+	}
+
+	.cv-role__toggle:hover,
+	.cv-role__toggle:focus-visible {
+		border-color: var(--color-card-border-hover);
+		background: transparent;
 		color: var(--color-text);
-		font-weight: 600;
 	}
 
-	.cv-role__ownership {
-		display: grid;
-		gap: 0.45rem;
+	.cv-role__toggle:focus-visible {
+		outline: 2px solid var(--color-accent-text);
+		outline-offset: 3px;
 	}
 
-	.cv-role__ownership h4,
-	.cv-detail-group h4 {
-		color: var(--color-text);
-		font-size: 0.88rem;
-		font-weight: 700;
-		line-height: 1.35;
+        .cv-role__details {
+                display: grid;
+                gap: 1rem;
+                margin-top: 0.15rem;
+                border-top: 1px solid var(--color-border-soft);
+                padding-top: 1.1rem;
+        }
+
+	.cv-role__details[hidden] {
+		display: none;
 	}
 
-	.cv-role__bullets {
-		max-width: 74ch;
-		padding-left: 1.15rem;
-	}
+        .cv-role__details-grid {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: clamp(1.1rem, 2.5vw, 1.65rem);
+                align-items: start;
+        }
+
+        .cv-role__details-grid--single {
+                grid-template-columns: minmax(0, 1fr);
+        }
+
+        .cv-role__details-grid--single .cv-detail-group {
+                max-width: 68ch;
+        }
+
+        .cv-role__details .cv-detail-group {
+                gap: 0.6rem;
+                margin-top: 0;
+        }
+
+        .cv-role__details .cv-detail-group ul {
+                display: grid;
+                gap: 0.55rem;
+                margin: 0;
+                padding-left: 1.15rem;
+        }
+
+        .cv-role__details .cv-detail-group li {
+                margin: 0;
+                font-size: var(--type-reading-size);
+                line-height: var(--type-reading-line);
+        }
 
 	.cv-disclosure {
 		display: grid;
@@ -1207,7 +2066,8 @@ const profileJsonLd = {
 
 	.cv-disclosure--card {
 		border: 1px solid var(--color-card-border);
-		background: var(--color-card-bg);
+		border-radius: var(--radius);
+		background: transparent;
 		padding: clamp(1.15rem, 3vw, 1.55rem);
 	}
 
@@ -1218,9 +2078,11 @@ const profileJsonLd = {
 		justify-content: space-between;
 		gap: 0.5rem;
 		border: 1px solid var(--color-card-border);
-		background: color-mix(in srgb, var(--color-card-bg) 72%, transparent);
+		border-radius: var(--radius);
+		background: transparent;
 		padding: 0.65rem 0.75rem;
-		color: var(--color-accent);
+		min-height: 2.5rem;
+		color: var(--color-text);
 		cursor: pointer;
 		list-style: none;
 		transition:
@@ -1241,9 +2103,10 @@ const profileJsonLd = {
 		height: 1.15rem;
 		place-items: center;
 		border: 1px solid var(--color-card-border);
+		border-radius: calc(var(--radius) * 0.45);
 		color: var(--color-text);
-		font-family: var(--font-sans);
-		font-size: 0.9rem;
+		font-family: var(--font-body);
+		font-size: var(--type-body-size);
 		line-height: 1;
 		transition: transform 180ms cubic-bezier(0.2, 0, 0, 1);
 	}
@@ -1256,7 +2119,7 @@ const profileJsonLd = {
 	.cv-disclosure > summary:hover,
 	.cv-disclosure > summary:focus-visible {
 		border-color: var(--color-card-border-hover);
-		background: var(--color-card-bg-hover);
+		background: transparent;
 		color: var(--color-text);
 	}
 
@@ -1269,110 +2132,332 @@ const profileJsonLd = {
 		gap: 0.45rem;
 	}
 
-	.cv-detail-group + .cv-detail-group {
-		margin-top: 1rem;
+        .cv-detail-group + .cv-detail-group {
+                margin-top: 1rem;
+        }
+
+        .cv-role__details .cv-detail-group + .cv-detail-group {
+                margin-top: 0;
+        }
+
+        .cv-earlier-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(min(17rem, 100%), 1fr));
+                gap: clamp(1rem, 2vw, 1.25rem);
+                align-items: stretch;
+        }
+
+        .cv-role__content--compact {
+                gap: 0.75rem;
+                height: 100%;
+                padding: clamp(1rem, 1.7vw, 1.35rem);
+        }
+
+        .cv-role__header--compact {
+                gap: 0.5rem;
+                padding-right: 0;
+        }
+
+        .cv-role__meta-inline {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0.25rem 0.65rem;
+                margin: 0;
+                color: var(--color-soft);
+                font-family: var(--font-mono);
+                font-size: var(--type-meta-size);
+                font-weight: var(--type-meta-weight);
+                letter-spacing: var(--type-meta-tracking);
+                line-height: var(--type-meta-line);
+                text-transform: uppercase;
+        }
+
+        .cv-role__meta-inline span:not(:last-child)::after {
+                content: "·";
+                margin-left: 0.65rem;
+                color: var(--color-soft);
+        }
+
+        .cv-role__title--compact {
+                margin: 0;
+                color: var(--color-text);
+                font-family: var(--font-display);
+                font-size: clamp(1.12rem, 1.55vw, 1.32rem);
+                font-weight: var(--type-card-title-weight);
+                line-height: var(--type-card-title-line);
+                letter-spacing: var(--type-card-title-tracking);
+        }
+
+        .cv-role__summary--compact {
+                max-width: 44ch;
+                margin: 0;
+                color: var(--color-muted);
+                font-size: var(--type-card-body-size);
+                font-weight: 400;
+                line-height: var(--type-card-body-line);
+        }
+
+        .cv-role__toggle--compact {
+                margin-top: 0.15rem;
+        }
+
+        .cv-role__details--compact {
+                gap: 0.65rem;
+                margin-top: 0.2rem;
+                padding-top: 0.9rem;
+        }
+
+        .cv-role__details--compact .cv-detail-group {
+                gap: 0.45rem;
+        }
+
+        .cv-role__details--compact .cv-detail-group h5 {
+                margin: 0;
+        }
+
+        .cv-role__details--compact .cv-detail-group ul {
+                display: grid;
+                gap: 0.38rem;
+                margin: 0;
+                padding-left: 1.15rem;
+        }
+
+        .cv-role__details--compact .cv-detail-group li {
+                margin: 0;
+                font-size: var(--type-reading-size);
+                line-height: var(--type-reading-line);
+        }
+
+	.representative-system-card {
+		grid-template-rows: minmax(5.55rem, auto) 1fr auto;
 	}
 
-	.cv-earlier-experience,
-	.cv-courses {
-		display: grid;
-		gap: 1rem;
-		margin-top: clamp(1.75rem, 4vw, 2.5rem);
+	.representative-system-card__header {
+		padding-right: 0;
 	}
 
-	.cv-earlier-details {
+	.representative-system-card__meta {
 		display: grid;
-		gap: 1rem;
-	}
-
-	.cv-case-card dl {
-		display: grid;
-		gap: 0.55rem;
+		gap: 0;
 		margin: 0;
 	}
 
-	.cv-case-card dl div {
+	.representative-system-card__meta div {
 		display: grid;
 		grid-template-columns: minmax(4.5rem, auto) minmax(0, 1fr);
 		gap: 0.75rem;
 		border-top: 1px solid var(--color-border-soft);
-		padding-top: 0.55rem;
+		padding: 0.55rem 0;
 	}
 
-	.cv-case-card dt {
+	.representative-system-card__meta dt {
 		color: var(--color-soft);
 		font-family: var(--font-mono);
-		font-size: 0.72rem;
+		font-size: var(--type-meta-size);
 		font-weight: 700;
-		letter-spacing: 0.04em;
+		letter-spacing: var(--type-meta-tracking);
 		text-transform: uppercase;
 	}
 
-	.cv-case-card dd {
+	.representative-system-card__meta dd {
 		margin: 0;
-	}
-
-	.cv-research-layout {
-		display: grid;
-		grid-template-columns: 1fr;
-		gap: clamp(1.25rem, 3vw, 1.75rem);
-		background: transparent;
-	}
-
-	.cv-compact-list {
-		display: grid;
-		gap: 0.6rem;
-		padding-left: 1.15rem;
-	}
-
-	.cv-research-stats {
-		display: grid;
-		grid-template-columns: 1fr;
-		gap: 0.75rem;
-		margin: 0;
-		padding: 0;
-		list-style: none;
-	}
-
-	.cv-research-stats li {
-		display: grid;
-		gap: 0.25rem;
-		margin: 0;
-		border: 1px solid var(--color-card-border);
-		background: var(--color-surface-soft);
-		padding: 0.85rem;
-	}
-
-	.cv-research-stats strong {
-		color: var(--color-accent);
-		font-family: var(--font-display);
-		font-size: 1.1rem;
-		line-height: 1.15;
-	}
-
-	.cv-research-stats span {
 		color: var(--color-muted);
-		font-size: 0.9rem;
-		line-height: 1.45;
+		font-size: var(--type-card-body-size);
+		line-height: var(--type-card-body-line);
 	}
 
-	.cv-publications {
-		margin-top: 1.5rem;
+	.representative-system-card__link {
+		text-decoration: none;
 	}
 
-	.cv-publications ol {
-		display: grid;
-		gap: 0.7rem;
+	.representative-system-card__link:focus-visible {
+		outline: 2px solid var(--color-accent-text);
+		outline-offset: 3px;
 	}
 
-	.cv-link-list {
-		display: grid;
-		gap: 0.35rem;
+        .cv-research-layout {
+                display: grid;
+                grid-template-columns: 1fr;
+                gap: clamp(1.25rem, 3vw, 1.75rem);
+                background: transparent;
+        }
+
+        .cv-research-focus-list {
+                display: grid;
+                gap: 0.55rem;
+                margin: 0;
+                padding: 0;
+                list-style: none;
+        }
+
+        .cv-research-focus-list li {
+                margin: 0;
+                border-bottom: 1px solid var(--color-border-soft);
+                padding-bottom: 0.45rem;
+                color: var(--color-muted);
+                font-family: var(--font-body);
+                font-size: var(--type-card-body-size);
+                line-height: var(--type-card-body-line);
+        }
+
+        .cv-research-focus-list li:last-child {
+                border-bottom: 0;
+                padding-bottom: 0;
+        }
+
+        .cv-compact-list {
+                display: grid;
+                gap: 0.6rem;
+                padding-left: 1.15rem;
+	}
+
+        .cv-research-stats {
+                display: grid;
+                grid-template-columns: 1fr;
+                gap: 0;
+                margin: 0;
+                padding: 0;
+                list-style: none;
+        }
+
+        .cv-research-stats li {
+                display: grid;
+                grid-template-columns: minmax(3.6rem, auto) minmax(0, 1fr);
+                gap: 0.8rem;
+                align-items: start;
+                margin: 0;
+                border-bottom: 1px solid var(--color-border-soft);
+                padding: 0.75rem 0;
+        }
+
+        .cv-research-stats li:first-child {
+                padding-top: 0;
+        }
+
+        .cv-research-stats li:last-child {
+                border-bottom: 0;
+                padding-bottom: 0;
+        }
+
+        .cv-research-stats strong {
+                color: var(--color-text);
+                font-family: var(--font-display);
+		font-size: var(--type-card-title-size);
+		line-height: var(--type-card-title-line);
+                letter-spacing: var(--type-card-title-tracking);
+        }
+
+        .cv-research-stats div {
+                display: grid;
+                gap: 0.2rem;
+        }
+
+        .cv-research-stats span,
+        .cv-research-outcome-grid span {
+                color: var(--color-text);
+                font-family: var(--font-body);
+                font-size: var(--type-card-body-size);
+                font-weight: 700;
+                line-height: var(--type-card-body-line);
+                letter-spacing: var(--type-card-body-tracking);
+        }
+
+        .cv-research-stats p {
+                color: var(--color-muted);
+                font-family: var(--font-body);
+                font-size: var(--type-card-body-size);
+                line-height: var(--type-card-body-line);
+                letter-spacing: var(--type-card-body-tracking);
+        }
+
+        .cv-research-outcomes {
+                display: grid;
+                gap: 1rem;
+                margin-top: 1.5rem;
+        }
+
+        .cv-research-outcome-grid {
+                display: grid;
+                grid-template-columns: 1fr;
+                gap: 0;
+                margin: 0;
+                padding: 0;
+                list-style: none;
+        }
+
+        .cv-research-outcome-grid li {
+                display: grid;
+                gap: 0.25rem;
+                margin: 0;
+                border-bottom: 1px solid var(--color-border-soft);
+                padding: 0.75rem 0;
+        }
+
+        .cv-research-outcome-grid li:first-child {
+                padding-top: 0;
+        }
+
+        .cv-research-outcome-grid li:last-child {
+                border-bottom: 0;
+                padding-bottom: 0;
+        }
+
+        .cv-research-outcome-grid strong {
+                color: var(--color-text);
+                font-family: var(--font-display);
+                font-size: var(--type-card-title-size);
+                line-height: var(--type-card-title-line);
+                letter-spacing: var(--type-card-title-tracking);
+        }
+
+        .cv-research-relevance {
+                display: grid;
+                gap: 0.45rem;
+                border-top: 1px solid var(--color-border-soft);
+                padding-top: 0.95rem;
+        }
+
+        .cv-research-relevance h3 {
+                font-size: var(--type-meta-size);
+                line-height: var(--type-meta-line);
+                letter-spacing: var(--type-meta-tracking);
+                text-transform: uppercase;
+        }
+
+        .cv-research-relevance p {
+                max-width: var(--cv-max-measure);
+                color: var(--color-muted);
+                font-size: var(--type-card-body-size);
+                line-height: var(--type-card-body-line);
+        }
+
+	.cv-research-link {
+		width: fit-content;
+		color: var(--color-text);
+		font-weight: 700;
+		text-decoration: underline;
+                text-decoration-thickness: 1px;
+                text-underline-offset: 0.2em;
+        }
+
+	.cv-research-link:hover,
+	.cv-research-link:focus-visible {
+		color: var(--color-text);
+	}
+
+	.cv-research-link:focus-visible {
+		outline: 2px solid var(--color-accent-text);
+		outline-offset: 3px;
+	}
+
+        .cv-link-list {
+                display: grid;
+                gap: 0.35rem;
 		padding-left: 1.15rem;
 	}
 
 	.cv-link-list a {
-		color: var(--color-accent);
+		color: var(--color-text);
 		font-weight: 700;
 		text-decoration: underline;
 		text-decoration-thickness: 1px;
@@ -1382,6 +2467,12 @@ const profileJsonLd = {
 	.cv-link-list a:hover,
 	.cv-link-list a:focus-visible {
 		color: var(--color-text);
+	}
+
+	.cv-link-list a:focus-visible,
+	.cv-education-card__links a:focus-visible {
+		outline: 2px solid var(--color-accent-text);
+		outline-offset: 3px;
 	}
 
 	.cv-language-list {
@@ -1430,61 +2521,79 @@ const profileJsonLd = {
 		align-items: start;
 	}
 
-	@media (min-width: 700px) {
-		.cv-proof-grid,
-		.cv-card-grid--three,
-		.cv-card-grid--tools {
+        @media (min-width: 700px) {
+                .cv-proof-grid,
+                .cv-card-grid--three,
+                .cv-card-grid--tools {
+                        grid-template-columns: repeat(2, minmax(0, 1fr));
+                }
+
+                .cv-card-grid--two,
+                .core-expertise-grid,
+                .cv-research-layout,
+                .representative-systems__grid {
+                        grid-template-columns: repeat(2, minmax(0, 1fr));
+                }
+
+                .cv-research-outcome-grid {
+                        grid-template-columns: repeat(3, minmax(0, 1fr));
+                        gap: 1.2rem;
+                }
+
+                .cv-research-outcome-grid li {
+                        border-right: 1px solid var(--color-border-soft);
+                        border-bottom: 0;
+                        padding: 0 1.2rem 0 0;
+                }
+
+                .cv-research-outcome-grid li:last-child {
+                        border-right: 0;
+                        padding-right: 0;
+                }
+
+		.core-expertise-detail__grid {
 			grid-template-columns: repeat(2, minmax(0, 1fr));
+			gap: clamp(1.25rem, 3vw, 2rem);
 		}
 
-		.cv-card-grid--two,
-		.cv-research-layout,
-		.cv-featured-expertise-grid,
-		.cv-case-grid {
-			grid-template-columns: repeat(2, minmax(0, 1fr));
-		}
+                .cv-impact-list {
+                        grid-template-columns: repeat(2, minmax(0, 1fr));
+                }
 
-		.cv-expertise-card--featured {
-			grid-column: 1 / -1;
-			grid-template-columns: minmax(0, 0.72fr) minmax(0, 1fr);
-			column-gap: clamp(1.5rem, 4vw, 3rem);
-			align-items: start;
-		}
+                .cv-learning-card__grid {
+                        grid-template-columns: repeat(2, minmax(0, 1fr));
+                }
 
-		.cv-expertise-card--featured h3 {
-			grid-row: span 3;
-		}
+                .cv-education-card {
+                        grid-template-columns: minmax(0, 0.35fr) minmax(0, 0.65fr);
+                        align-items: start;
+                        align-content: start;
+                }
 
-		.cv-impact-list {
-			grid-template-columns: repeat(2, minmax(0, 1fr));
-		}
+                .cv-education-card__identity {
+                        grid-column: 1;
+                }
 
-		.cv-role__header {
-			grid-template-columns: minmax(0, 1fr) auto;
-			align-items: start;
-			gap: 1.5rem;
-		}
-
-		.cv-role__location {
-			max-width: 16rem;
-			text-align: right;
-		}
-	}
+                .cv-education-card__details,
+                .cv-education-card__links {
+                        grid-column: 2;
+                }
+        }
 
 	@media (min-width: 980px) {
 		.cv-hero__inner {
-			grid-template-columns: minmax(0, 1fr) minmax(20rem, 26rem);
+			grid-template-columns: minmax(0, 1fr) minmax(18rem, 22rem);
 		}
 
-		.cv-card-grid--three,
-		.cv-card-grid--tools {
-			grid-template-columns: repeat(3, minmax(0, 1fr));
-		}
+                .cv-card-grid--three,
+                .cv-card-grid--tools {
+                        grid-template-columns: repeat(3, minmax(0, 1fr));
+                }
 
-		.cv-final__inner {
-			grid-template-columns: minmax(0, 1fr) auto;
-			gap: 2rem;
-		}
+                .cv-final__inner {
+                        grid-template-columns: minmax(0, 1fr) auto;
+                        gap: 2rem;
+                }
 
 		.cv-final__actions {
 			max-width: 22rem;
@@ -1492,62 +2601,48 @@ const profileJsonLd = {
 		}
 	}
 
-	@media (max-width: 900px) {
-		.cv-shell {
-			display: block;
-		}
+        @media (max-width: 760px) {
+                .cv-page {
+                        --cv-nav-height: 2.35rem;
+                        --cv-nav-shell-y-padding: 0.4rem;
+                        --cv-nav-clearance: 1.2rem;
+                }
 
-		.cv-section-nav {
-			position: sticky;
-			top: 0;
-			z-index: 20;
-			max-height: none;
-			margin-inline: -1rem;
-			overflow-x: auto;
-			overflow-y: hidden;
-			border-left: 0;
-			border-block: 1px solid var(--color-border-soft);
-			background: color-mix(in srgb, var(--color-section-bg) 94%, transparent);
-			padding: 0 1rem;
-			backdrop-filter: blur(10px);
-		}
+                .cv-section-nav-shell {
+                        margin-bottom: var(--cv-nav-clearance);
+                        padding-block: var(--cv-nav-shell-y-padding);
+                        top: var(--cv-nav-sticky-top);
+                }
 
-		.cv-section-nav__inner {
-			display: flex;
-			align-items: center;
-			gap: 0.9rem 1rem;
-			min-width: max-content;
-			padding-block: 0.8rem;
-			white-space: nowrap;
-		}
+                .cv-section-nav__inner {
+                        min-height: var(--cv-nav-height);
+                        white-space: nowrap;
+                }
 
-		.cv-section-nav ul {
-			display: flex;
-			align-items: center;
-			gap: 0.9rem;
-		}
+                .cv-section-nav__label {
+                        position: sticky;
+                        left: 0;
+                        z-index: 1;
+                        padding-left: 0;
+                        padding-right: 0.4rem;
+                        background: color-mix(in srgb, var(--color-surface-soft) 26%, var(--color-page));
+                }
 
-		.cv-section-nav a::before {
-			display: none;
-		}
+                .cv-section-nav__links {
+                        gap: 0.85rem;
+                }
 
-		.cv-section-nav a::after {
-			left: 0;
-			width: 100%;
-		}
+                .cv-role__details-grid {
+                        grid-template-columns: 1fr;
+                }
+        }
 
-		.cv-section-nav__actions {
-			display: none;
-		}
-
-		.cv-section {
-			scroll-margin-top: 5rem;
-		}
-	}
-
-	@media (max-width: 640px) {
-		:global(.cv-page .page-container) {
-			width: calc(100% - 2rem);
+        @media (max-width: 640px) {
+		.cv-hero {
+			min-height: calc(100svh - 7.5rem);
+			min-height: calc(100dvh - 7.5rem);
+			align-items: start;
+			padding-block: clamp(2rem, 8vw, 3rem);
 		}
 
 		.cv-hero__content,
@@ -1557,13 +2652,25 @@ const profileJsonLd = {
 			max-width: calc(100vw - 2rem);
 		}
 
+		.cv-hero__content > * {
+			min-width: 0;
+		}
+
 		.cv-hero h1 {
-			font-size: clamp(2.35rem, 12vw, 3rem);
+			max-width: 8ch;
+			font-size: clamp(3rem, 16vw, 3.6rem);
+			overflow-wrap: break-word;
 		}
 
 		.cv-hero__subtitle {
-			max-width: 31ch;
-			font-size: 1rem;
+			width: 100%;
+			max-width: min(18rem, 100%);
+			min-width: 0;
+			font-size: 1.12rem;
+			line-height: 1.28;
+			white-space: normal;
+			overflow-wrap: anywhere;
+			word-break: break-word;
 		}
 
 		.cv-hero__subtitle,
@@ -1575,64 +2682,95 @@ const profileJsonLd = {
 		.cv-hero__summary,
 		.cv-hero__extended {
 			max-width: 34ch;
+			font-size: 1rem;
+			line-height: 1.56;
 		}
 
-		.cv-proof-grid {
-			grid-template-columns: 1fr;
+		.cv-role-strip .cv-chip-list {
+			display: grid;
+			gap: 0.42rem;
 		}
 
-		.cv-section {
-			scroll-margin-top: 5rem;
+		.cv-role-strip .cv-chip-list li {
+			max-width: 100%;
+			overflow-wrap: anywhere;
 		}
 
-		.cv-role {
-			grid-template-columns: 1.75rem minmax(0, 1fr);
-			gap: 0.75rem;
+                .cv-proof-grid {
+                        grid-template-columns: 1fr;
+                }
+
+                .cv-expertise-card__capabilities {
+                        grid-template-columns: 1fr;
+                }
+
+                .cv-role {
+                        grid-template-columns: 1fr;
+                        gap: 0.65rem;
 		}
 
-		.cv-role__marker {
-			width: 1.75rem;
-			height: 1.75rem;
-			font-size: 0.66rem;
+		.cv-role::before {
+			display: none;
 		}
 
-		.cv-timeline::before {
-			left: 0.85rem;
-		}
+                .cv-role__milestone {
+                        position: static;
+                        grid-template-columns: 0.75rem minmax(0, 1fr);
+                        gap: 0.65rem;
+                }
 
-		.cv-case-card dl div {
+                .cv-role__marker {
+                        width: 0.7rem;
+                        height: 0.7rem;
+                }
+
+		.representative-system-card__meta div {
 			grid-template-columns: 1fr;
 			gap: 0.2rem;
+		}
+
+		.cv-expertise-card__icon-button,
+		.cv-role__icon-button {
+			width: 2.5rem;
+			height: 2.5rem;
 		}
 	}
 
 	@media (prefers-reduced-motion: reduce) {
 		.cv-page *,
-		.cv-page *::before,
-		.cv-page *::after {
-			animation-duration: 0.001ms !important;
-			animation-iteration-count: 1 !important;
-			scroll-behavior: auto !important;
-			transition-duration: 0.001ms !important;
-		}
-	}
+                .cv-page *::before,
+                .cv-page *::after {
+                        animation-duration: 0.001ms !important;
+                        animation-iteration-count: 1 !important;
+                        scroll-behavior: auto !important;
+                        transition-duration: 0.001ms !important;
+                }
+
+                .cv-scroll-jump {
+                        transition: none;
+                }
+        }
 
 	@media print {
 		:global(.site-header),
-		:global(.site-footer),
-		:global(.skip-link),
-		.cv-scroll-progress,
-		.cv-section-nav,
-		.cv-actions,
-		.cv-final__actions {
-			display: none !important;
-		}
+                :global(.site-footer),
+                :global(.skip-link),
+                .cv-scroll-jump,
+                .cv-section-nav-shell,
+                .cv-section-nav,
+                .cv-expertise-card__icon-button,
+                .cv-expertise-card__toggle,
+                .cv-role__icon-button,
+                .cv-role__toggle,
+                .cv-actions,
+                .cv-final__actions {
+                        display: none !important;
+                }
 
 		.cv-hero,
 		.cv-section {
 			background: transparent;
 			padding-block: 1rem;
-			border-bottom-color: var(--color-border);
 		}
 
 		.cv-card,

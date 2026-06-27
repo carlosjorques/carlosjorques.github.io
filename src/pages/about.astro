@@ -1,205 +1,51 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import aboutMarkdown from '../content/profile/about.md?raw';
+import { parseAboutContent } from '../lib/profileMarkdown';
 
 const baseUrl = import.meta.env.BASE_URL;
 const normalizedBase = baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`;
 const withBase = (href: string) => (href === '/' ? normalizedBase : `${normalizedBase}${href.replace(/^\//, '')}`);
 
-type TextPart = {
-	text: string;
-	strong?: boolean;
+const aboutContent = parseAboutContent(aboutMarkdown);
+const exploreHrefByTitle: Record<string, string> = {
+	CV: '/cv',
+	'Selected work': '/work',
+	Writing: '/writing',
+	Contact: '/contact',
 };
-
-const professionalFoundation = [
-	{
-		context: 'EXPERIENCE',
-		anchor: '10+ years of embedded controls',
-		description: [
-			{ text: 'Production software development across heavy-duty transport, automotive, autonomous machines, research, and Tier 1 supplier environments.' },
-		] satisfies TextPart[],
-	},
-	{
-		context: 'LEADERSHIP',
-		anchor: 'Teams, Architecture, and Technical Direction',
-		description: [
-			{ text: 'Leading cross-functional teams in real-time control software, from control design and software implementation to integration, calibration, and release.' },
-		] satisfies TextPart[],
-	},
-	{
-		context: 'PROOF',
-		anchor: 'Patents, publications, and PhD research',
-		description: [
-			{ text: 'Patents and scientific publications in control systems, with research translated into production-oriented software and engineering decisions.' },
-		] satisfies TextPart[],
-	},
-	{
-		context: 'SYSTEMS',
-		anchor: 'Safety-related production environments',
-		description: [
-			{ text: 'Automotive software development experience with ISO 26262, AUTOSAR-oriented architectures, MIL/SIL/HIL testing, diagnostics, field data, and release processes.' },
-		] satisfies TextPart[],
-	},
-];
-
-const capabilities = [
-	{
-		domain: 'Controls Architecture',
-		challenge: 'Define behavior before implementation',
-		description: [
-			{
-				text: 'Model-based control architecture for feedback control, predictive strategies, optimal actuation, state estimation, and virtual sensing, applied to torque control, thermal management, and BMS systems.',
-			},
-		] satisfies TextPart[],
-	},
-	{
-		domain: 'Real-Time Embedded Software',
-		challenge: 'Translate control logic into production code',
-		description: [
-			{
-				text: 'Development and integration of real-time embedded application software using MATLAB/Simulink, C/C++, AUTOSAR workflows, automated CI/CD pipelines, and standard versioning practices.',
-			},
-		] satisfies TextPart[],
-	},
-	{
-		domain: 'Diagnostics & Fault Isolation',
-		challenge: 'Make physical system health observable',
-		description: [
-			{
-				text: 'Online diagnostics for fault detection, isolation, and automated degradation strategies that improve safety, system availability, and controlled behavior under component failures.',
-			},
-		] satisfies TextPart[],
-	},
-	{
-		domain: 'Validation, MIL/SIL/HIL, and Field Evidence',
-		challenge: 'Connect functional requirements with empirical data',
-		description: [
-			{
-				text: 'Verification of embedded control software against specifications through MIL/SIL/HIL environments, lab testing, wind-tunnel testing, vehicle logs, and field data analysis.',
-			},
-		] satisfies TextPart[],
-	},
-	{
-		domain: 'System Integration',
-		challenge: 'Keep software aligned with the physical machine',
-		description: [
-			{
-				text: 'Integration of software layers with high-voltage batteries, chargers, actuators, and sensors over CAN networks, ensuring calibrated behavior under real operating loads.',
-			},
-		] satisfies TextPart[],
-	},
-	{
-		domain: 'Technical Leadership',
-		challenge: 'Turn technical ambiguity into shared direction',
-		description: [
-			{
-				text: 'Technical review, mentoring, and team direction across the software development lifecycle to maintain system coherence, support decision-making, and reach release milestones.',
-			},
-		] satisfies TextPart[],
-	},
-];
-
-const appliedExpertise = [
-	{
-		domain: 'Heavy-Duty Transport & Electrification',
-		context: 'Scania trucks and powertrain control systems',
-		focus: [
-			{
-				text: 'Real-time control software for internal combustion and electric heavy-duty truck platforms, including thermal management, high-voltage battery systems, and charger coordination.',
-			},
-		] satisfies TextPart[],
-	},
-	{
-		domain: 'EV Thermal Management',
-		context: 'Predictive climate and component protection',
-		focus: [
-			{
-				text: 'Control architectures, model design, diagnostics, and calibration strategies for thermal systems where performance affects efficiency, charging speed, component protection, and battery lifespan.',
-			},
-		] satisfies TextPart[],
-	},
-	{
-		domain: 'Autonomous Mobility Systems',
-		context: 'Volvo CE TA15 autonomous hauler',
-		focus: [
-			{
-				text: 'Torque allocation strategies and dual e-axle speed control logic for propulsion, safety monitoring, and vehicle-level behavior in autonomous electric machines.',
-			},
-		] satisfies TextPart[],
-	},
-	{
-		domain: 'Safety-Related Diagnostics',
-		context: 'Fault isolation and system availability',
-		focus: [
-			{
-				text: 'Real-time monitoring software to detect faults, isolate component failures, and trigger degradation modes so vehicles can remain controlled under fault conditions.',
-			},
-		] satisfies TextPart[],
-	},
-];
-
-const evidenceLinks = [
-	{
-		title: 'Writing',
-		description:
-			'Practical and reflective articles combining engineering judgment, technical lessons learned, and analysis of current industry and research trends in automatic control.',
-		href: withBase('/writing'),
-		linkText: 'Read my articles',
-	},
-	{
-		title: 'Work',
-		description:
-			'A selection of my projects, engineering contributions, publications, patents, and research context.',
-		href: withBase('/work'),
-		linkText: 'View selected work, patents, and publications',
-	},
-];
+const evidenceLinks = aboutContent.exploreMore.items.map((item) => ({
+	...item,
+	href: withBase(exploreHrefByTitle[item.title] ?? '/work'),
+}));
 ---
 
 <Layout
 	title="About Carlos Jorques | Embedded Controls Architect"
-	description="About Carlos Jorques, an embedded controls architect and technical leader developing control algorithms and real-time embedded software for reliable physical systems."
+	description="About Carlos Jorques, an embedded controls architect and technical leader developing control algorithms and real-time embedded software for reliable real-world systems."
 >
 	<section class="about-hero">
 		<div class="page-container about-hero__inner">
-			<h1>Hi, I’m Carlos.</h1>
+			<h1 class="hero-title">{aboutContent.hero.title}</h1>
 			<div class="about-hero__content">
-				<p class="about-hero__lead">
-					I lead technical teams designing <strong>real-time control</strong> and
-					<strong>embedded software</strong> for physical machines, from
-					<strong>electrified vehicles</strong> to <strong>autonomous machines</strong>.
-				</p>
+				<p class="about-hero__descriptor">{aboutContent.hero.descriptor}</p>
 
-				<p class="about-hero__body">
-					Physical systems shape how people move, build, transport, and use energy. For me,
-					improving their <strong>control software</strong> means helping machines consume less energy,
-					respond safely to faults, reduce downtime, and make advanced technologies more useful
-					in everyday life.
-				</p>
-
-				<p class="about-hero__body">
-					My work centers on <strong>electric trucks</strong>, <strong>autonomous haulers</strong>,
-					and <strong>power electronics</strong>. I design control architectures, models, and
-					diagnostic strategies for systems such as thermal management, battery management
-					systems, and torque control.
-				</p>
-
-				<p class="about-hero__body">
-					Based in <strong>Spain</strong>, I work with international, multidisciplinary teams. I bridge
-					the gap between advanced research and production reality, turning complex control
-					algorithms into clean, maintainable software that runs reliably under real-world
-					constraints.
-				</p>
+				{aboutContent.hero.paragraphs.map((paragraph) => (
+					<p class="about-hero__body body-text">
+						{paragraph.map((part) => part.strong ? <strong>{part.text}</strong> : part.text)}
+					</p>
+				))}
 
 				<div class="button-row" aria-label="About page primary navigation links">
-					<a class="button primary" href={withBase('/cv')}>View online CV</a>
-					<a class="button" href={withBase('/work')}>Explore selected work</a>
-					<a class="button" href={withBase('/writing')}>Read my articles</a>
+					<a class="button primary" href={withBase('/work')}>View selected work</a>
+					<a class="button" href={withBase('/cv')}>View CV</a>
+					<a class="button" href={withBase('/writing')}>Read articles</a>
 				</div>
 			</div>
 			<figure class="about-hero__portrait">
 				<img
 					src={withBase('/images/carlos-jorques-intro.webp')}
-					alt="Portrait of Carlos Jorques"
+					alt="Carlos Jorques, embedded control systems engineer."
 					width="768"
 					height="1024"
 					loading="eager"
@@ -210,213 +56,88 @@ const evidenceLinks = [
 		</div>
 	</section>
 
-	<section class="section about-proof" aria-labelledby="professional-foundation-title">
-		<div class="page-container">
-			<div class="section-intro section-intro--compact">
-				<h2 id="professional-foundation-title">Professional Foundation</h2>
-				<p>
-					Over the past decade, I have contributed to <strong>production and research work</strong>
-					across automotive OEM and Tier 1 environments, including Scania, Volvo CE, and Mahle.
-				</p>
-				<p>
-					I specialize in model-based control design and vertical system integration. My
-					background in Electrical Engineering includes doctoral research in control algorithms,
-					and my professional experience combines technical leadership, production delivery,
-					and system-level validation.
-				</p>
+	<section class="section about-split about-band about-band--white" aria-labelledby="why-control-systems-title">
+		<div class="page-container about-split__grid about-split__grid--with-visual">
+			<div class="about-split__main">
+				<h2 id="why-control-systems-title">{aboutContent.whyPhysicalSystems.title}</h2>
+				<div class="about-copy">
+					{aboutContent.whyPhysicalSystems.paragraphs.map((paragraph) => (
+						<p>{paragraph.map((part) => part.strong ? <strong>{part.text}</strong> : part.text)}</p>
+					))}
+				</div>
 			</div>
-			<div class="proof-grid">
-				{professionalFoundation.map((item) => (
-					<article class="proof-item">
-						<h3>{item.context}</h3>
-						<p class="proof-item__anchor">{item.anchor}</p>
-						<span>
-							{item.description.map((part) =>
-								part.strong ? <strong>{part.text}</strong> : part.text
-							)}
-						</span>
-					</article>
-				))}
-			</div>
+			<figure class="governor-visual">
+				<div class="governor-visual__crop">
+					<img
+						src={withBase('/images/steam-engine-governor-patent-lines.png')}
+						alt="Patent drawing of a steam engine governor with rotating balls, levers, and valve linkage."
+						width="700"
+						height="1050"
+						loading="lazy"
+						decoding="async"
+					/>
+				</div>
+				<figcaption>
+					A mechanical speed governor: a classic feedback control example from the long history of making powerful machines stable and useful.
+				</figcaption>
+			</figure>
 		</div>
 	</section>
 
 	<section class="section about-split about-band about-band--white" aria-labelledby="how-i-got-here-title">
 		<div class="page-container about-split__grid">
 			<div class="about-split__main">
-				<h2 id="how-i-got-here-title">How I Got Here</h2>
+				<h2 id="how-i-got-here-title">{aboutContent.howIGotHere.title}</h2>
 				<div class="about-copy">
-					<p>
-						My curiosity for electronics led me to build my first <strong>obstacle-avoiding robot kit</strong>.
-					</p>
-					<p>
-						The real turning point happened at <strong>Campus Party in Valencia</strong>, where I watched a
-						line-tracking robot competition. Some robots were incredibly fast and stable, while
-						mine oscillated from side to side. I wanted to understand why.
-					</p>
-					<p>
-						During my <strong>Electrical Engineering</strong> studies, I found one answer in a
-						<strong>PI controller</strong>.
-						That was my first clear step into control engineering. It gave me a language for
-						many things I had wondered about, from balancing a Segway to how climate control
-						regulates a room.
-					</p>
-					<p>
-						I started my <strong>Industrial Engineering</strong> studies in Valencia and later continued in
-						Sweden through a double-degree program in <strong>Electrical Engineering</strong>, including
-						advanced control studies at <strong>Lund University</strong>. There, I deepened my focus on
-						automatic control, dynamic systems, and model-based engineering. That path
-						eventually led me to pursue a <strong>PhD</strong> and apply those ideas to industrial control
-						problems.
-					</p>
-					<p>
-						Today, I develop control software for vehicles and intelligent machines, providing
-						technical guidance across architecture, validation, and delivery so the systems we
-						build can operate reliably in the real world.
-					</p>
+					{aboutContent.howIGotHere.paragraphs.map((paragraph) => (
+						<p>{paragraph.map((part) => part.strong ? <strong>{part.text}</strong> : part.text)}</p>
+					))}
 				</div>
+				<p class="milestone-closing">{aboutContent.howIGotHere.closing}</p>
 			</div>
-			<p class="section-quote">
-				<span class="section-quote__mark" aria-hidden="true">"</span>
-				<em class="section-quote__text">
-					As a child, I used to take toys apart to see what was inside because I wanted
-					to become an inventor
-				</em>
-			</p>
+			<ol class="milestone-list" aria-label="Career path milestones">
+				{aboutContent.howIGotHere.milestones.map((milestone) => (
+					<li class="milestone-item">
+						<h3>{milestone.title}</h3>
+						<p>{milestone.description}</p>
+					</li>
+				))}
+			</ol>
 		</div>
 	</section>
 
 	<section class="section about-split about-split--reverse about-band about-band--warm" aria-labelledby="how-i-work-title">
 		<div class="page-container about-split__grid">
 			<div class="about-split__main">
-				<h2 id="how-i-work-title">How I Work</h2>
-				<div class="about-copy">
-					<p>
-						The real engineering challenge is turning control ideas into <strong>real-time software</strong>
-						that can be integrated, calibrated, and maintained across a
-						<strong>long field lifecycle</strong>.
-						I value <strong>simple, robust solutions</strong> over unnecessary complexity, because advanced
-						algorithms only matter when they respect <strong>hardware constraints,
-						safety-related requirements, and validation evidence</strong>, and the realities of
-						production delivery.
-					</p>
-					<p>
-						When solving technical problems, I actively question underlying assumptions, verify
-						them with <strong>empirical data</strong>, and separate <strong>root cause, control strategy,
-						diagnostics, and degradation logic</strong> before jumping into code.
-					</p>
-					<p>
-						As a leader, my role is to bring <strong>structural clarity</strong>, remove friction, and provide
-						the team with the practical context and tools they need to execute with autonomy
-						and accountability. I guide deliveries by making technical trade-offs visible,
-						managing risk together, and turning different engineering perspectives into sound
-						technical decisions.
-					</p>
+				<h2 id="how-i-work-title">{aboutContent.howIWork.title}</h2>
+				<div class="about-copy about-copy--compact">
+					{aboutContent.howIWork.paragraphs.map((paragraph) => (
+						<p>{paragraph.map((part) => part.strong ? <strong>{part.text}</strong> : part.text)}</p>
+					))}
+				</div>
+				<div class="principle-grid">
+					{aboutContent.howIWork.principles.map((principle) => (
+						<article class="principle-item">
+							<h3>{principle.title}</h3>
+							<p>{principle.description}</p>
+						</article>
+					))}
 				</div>
 			</div>
-			<p class="section-quote">
-				<span class="section-quote__mark" aria-hidden="true">"</span>
-				<em class="section-quote__text">
-					An elegant algorithm is only the beginning.
-				</em>
-			</p>
-		</div>
-	</section>
-
-	<section class="section" aria-labelledby="technical-areas-title">
-		<div class="page-container">
-			<div class="section-intro">
-				<h2 id="technical-areas-title">Technical Areas &amp; Capabilities</h2>
-				<p>
-					The core engineering areas where my work connects control design, real-time
-					software, diagnostics, system validation, and technical team direction.
-				</p>
-			</div>
-			<div class="capability-grid">
-				{capabilities.map((item) => (
-					<article class="capability-item">
-						<h3>{item.domain}</h3>
-						<p class="capability-item__area">{item.challenge}</p>
-						<p>
-							{item.description.map((part) =>
-								part.strong ? <strong>{part.text}</strong> : part.text
-							)}
-						</p>
-					</article>
-				))}
-			</div>
-		</div>
-	</section>
-
-	<section class="section" aria-labelledby="applied-domains-title">
-		<div class="page-container applied-domains__inner">
-			<div class="section-intro">
-				<h2 id="applied-domains-title">Applied Domains</h2>
-				<p>
-					Product and engineering environments where my control and systems experience applies.
-				</p>
-			</div>
-			<div class="applied-domains__body">
-				<figure class="applied-domain-visual">
-					<img
-						src={withBase('/images/volvo-ta15-autonomous-hauler.webp')}
-						alt="Volvo CE autonomous hauler operating in an industrial environment"
-						width="1050"
-						height="1200"
-						loading="lazy"
-						decoding="async"
-					/>
-					<figcaption>
-						<span>
-							A real-world machine is where control logic, embedded software, diagnostics,
-							and validation must come together to work reliably under real operating
-							conditions.
-						</span>
-					</figcaption>
-				</figure>
-
-				<div class="applied-domains__content">
-					<div class="challenge-grid">
-						{appliedExpertise.map((item) => (
-							<article class="challenge-item">
-								<h3>{item.domain}</h3>
-								{item.context && <p class="challenge-item__context">{item.context}</p>}
-								<p>
-									{item.focus.map((part) =>
-										part.strong ? <strong>{part.text}</strong> : part.text
-									)}
-								</p>
-							</article>
-						))}
-					</div>
-					<div class="section-footer-cta">
-						<p>Want more details of my professional path?</p>
-						<a class="text-link" href={withBase('/cv')}>View the online CV →</a>
-					</div>
-				</div>
-			</div>
+			<blockquote class="section-quote">
+				<p>{aboutContent.howIWork.quote}</p>
+			</blockquote>
 		</div>
 	</section>
 
 	<section class="section about-split about-split--reverse about-band about-band--white" aria-labelledby="beyond-engineering-title">
 		<div class="page-container about-split__grid">
 			<div class="about-split__main">
-				<h2 id="beyond-engineering-title">Beyond Engineering</h2>
-				<div class="about-copy">
-					<p>
-						Outside work, I like activities where I can keep building, learning, and improving
-						things.
-					</p>
-					<p>
-						Basketball has been part of my life since childhood, and I still love playing the
-						game today. I also enjoy creative, hands-on hobbies like 3D printing, painting,
-						lamp design, Arduino-based projects, and home automation, where I keep
-						experimenting.
-					</p>
-					<p>
-						But most importantly, I enjoy spending time with my family: my wife, our kid, and
-						our dog. We are dog people, by the way.
-					</p>
+				<h2 id="beyond-engineering-title">{aboutContent.beyondEngineering.title}</h2>
+				<div class="about-copy about-copy--callout">
+					{aboutContent.beyondEngineering.paragraphs.map((paragraph) => (
+						<p>{paragraph.map((part) => part.strong ? <strong>{part.text}</strong> : part.text)}</p>
+					))}
 				</div>
 			</div>
 		</div>
@@ -425,14 +146,14 @@ const evidenceLinks = [
 	<section class="section" aria-labelledby="explore-work-title">
 		<div class="page-container">
 			<div class="section-intro">
-				<h2 id="explore-work-title">Explore More of My Work</h2>
+				<h2 id="explore-work-title">{aboutContent.exploreMore.title}</h2>
 			</div>
 			<div class="evidence-grid">
 				{evidenceLinks.map((item) => (
 					<article class="evidence-item">
 						<h3>{item.title}</h3>
 						<p>{item.description}</p>
-						<a href={item.href}>{item.linkText}</a>
+						<a href={item.href} aria-label={`${item.linkText}: ${item.title}`}>{item.linkText}</a>
 					</article>
 				))}
 			</div>
@@ -442,28 +163,21 @@ const evidenceLinks = [
 	<section class="section about-final" aria-labelledby="connect-title">
 		<div class="page-container about-final__inner">
 			<div>
-				<h2 id="connect-title">Let’s Connect</h2>
-				<p>
-					For roles, collaborations, or technical conversations around
-					<strong>embedded controls, diagnostics, safety-related development, and reliable physical systems</strong>, I’m
-					open to hearing from you.
-				</p>
-				<p>
-					I am based in Spain and especially interested in remote or hybrid opportunities
-					with international teams.
-				</p>
+				<h2 id="connect-title">{aboutContent.connect.title}</h2>
+				{aboutContent.connect.paragraphs.map((paragraph) => (
+					<p>{paragraph.map((part) => part.strong ? <strong>{part.text}</strong> : part.text)}</p>
+				))}
 			</div>
 			<div class="about-final__actions">
-				<a class="button primary" href={withBase('/cv')}>View online CV</a>
-				<a class="button" href="https://www.linkedin.com/in/carlosjorques/" target="_blank" rel="noopener noreferrer">View LinkedIn Profile</a>
+				<a class="button primary" href={withBase('/contact')}>Contact me</a>
+				<a class="button" href="https://www.linkedin.com/in/carlosjorques/" target="_blank" rel="noopener noreferrer">View LinkedIn profile</a>
+				<a class="button" href={withBase('/cv')}>View CV</a>
 			</div>
 		</div>
 	</section>
 </Layout>
 
 <style>
-	@import url("https://fonts.googleapis.com/css2?family=Stack+Sans+Text:wght@200..700&display=swap");
-
 	.about-hero {
 		padding-block: clamp(4rem, 8vw, 7rem) clamp(3rem, 6vw, 5rem);
 		border-bottom: 1px solid var(--color-border-soft);
@@ -489,7 +203,7 @@ const evidenceLinks = [
 
 	.about-hero__inner {
 		display: grid;
-		row-gap: 1rem;
+		row-gap: clamp(1.5rem, 3vw, 2.15rem);
 		column-gap: clamp(2rem, 5vw, 4rem);
 		align-items: start;
 		max-width: 1120px;
@@ -497,28 +211,50 @@ const evidenceLinks = [
 
 	.about-hero__content {
 		display: grid;
-		gap: 1rem;
 		max-width: 700px;
 	}
 
 	.about-hero h1 {
 		max-width: 700px;
-		font-size: clamp(2.35rem, 5.2vw, 4.35rem);
-		line-height: 1.02;
+		font-family: var(--font-display);
+		font-size: var(--type-hero-name-size);
+		line-height: var(--type-hero-name-line);
+		letter-spacing: var(--type-hero-name-tracking);
+		font-weight: var(--type-hero-name-weight);
 	}
 
 	.about-hero__lead {
 		max-width: 700px;
 		color: var(--color-text);
-		font-size: clamp(1.15rem, 2vw, 1.45rem);
-		line-height: 1.55;
+		font-size: var(--type-hero-summary-size);
+		line-height: var(--type-hero-summary-line);
+		letter-spacing: var(--type-hero-summary-tracking);
+		font-weight: var(--type-hero-summary-weight);
+	}
+
+	.about-hero__descriptor {
+		max-width: 680px;
+		margin: 0 0 var(--spacing-05);
+		color: var(--color-text);
+		font-family: var(--font-body);
+		font-size: var(--type-hero-role-size);
+		line-height: var(--type-hero-role-line);
+		letter-spacing: var(--type-hero-role-tracking);
+		font-weight: var(--type-hero-role-weight);
 	}
 
 	.about-hero__body {
 		max-width: 680px;
 		color: var(--color-body-text);
-		font-size: 1.05rem;
-		line-height: 1.7;
+		font-family: var(--font-body);
+		font-size: var(--type-body-size);
+		line-height: var(--type-body-line);
+		letter-spacing: var(--type-body-tracking);
+		margin: 0;
+	}
+
+	.about-hero__body + .about-hero__body {
+		margin-top: 0.55rem;
 	}
 
 	.about-hero strong,
@@ -533,9 +269,16 @@ const evidenceLinks = [
 
 	.about-hero .button-row {
 		margin-top: var(--spacing-06);
+		margin-bottom: clamp(1.8rem, 4vw, 2.75rem);
 		display: flex;
 		flex-wrap: wrap;
-		gap: 1rem;
+		gap: 0.75rem;
+		align-items: center;
+	}
+
+	.about-hero .button {
+		min-height: 38px;
+		padding: 0.45rem 0.9rem;
 	}
 
 	.about-hero .button:not(.primary):hover,
@@ -546,6 +289,8 @@ const evidenceLinks = [
 	.about-hero__portrait {
 		margin: var(--spacing-05) 0 0;
 		width: min(100%, 380px);
+		overflow: hidden;
+		border-radius: var(--radius);
 		justify-self: start;
 	}
 
@@ -554,6 +299,7 @@ const evidenceLinks = [
 		width: 100%;
 		aspect-ratio: 3 / 4;
 		height: auto;
+		border-radius: inherit;
 		object-fit: cover;
 		object-position: center;
 		transition: transform var(--motion-duration-moderate-02) var(--motion-standard-productive);
@@ -579,6 +325,7 @@ const evidenceLinks = [
 		gap: 0.45rem;
 		padding: 1.2rem;
 		border: 1px solid var(--color-card-border);
+		border-radius: var(--radius);
 		background: var(--color-card-bg);
 		transition:
 			background-color var(--motion-duration-fast-02) var(--motion-standard-productive),
@@ -593,30 +340,32 @@ const evidenceLinks = [
 	}
 
 	.proof-item h3 {
-		color: var(--color-accent);
+		color: var(--color-text);
 		font-family: var(--font-mono);
-		font-size: 0.72rem;
-		font-weight: 600;
-		line-height: 1.35;
-		letter-spacing: 0.06em;
+		font-size: var(--type-eyebrow-size);
+		font-weight: var(--type-eyebrow-weight);
+		line-height: var(--type-eyebrow-line);
+		letter-spacing: var(--type-eyebrow-tracking);
 		text-transform: uppercase;
 	}
 
 	.proof-item__anchor {
 		color: var(--color-text);
 		font-family: var(--font-display);
-		font-size: 1.2rem;
-		font-weight: 600;
-		letter-spacing: 0;
-		line-height: 1.35;
+		font-size: var(--type-card-title-size);
+		font-weight: var(--type-card-title-weight);
+		letter-spacing: var(--type-card-title-tracking);
+		line-height: var(--type-card-title-line);
 		text-transform: none;
 	}
 
 	.proof-item span {
 		max-width: 100%;
 		color: var(--color-body-text);
-		font-size: 0.95rem;
-		line-height: 1.5;
+		font-family: var(--font-body);
+		font-size: var(--type-card-body-size);
+		line-height: var(--type-card-body-line);
+		letter-spacing: var(--type-card-body-tracking);
 	}
 
 	.about-split__grid {
@@ -632,53 +381,181 @@ const evidenceLinks = [
 		max-width: 760px;
 	}
 
-	.section-quote {
+	.governor-visual {
 		display: grid;
-		grid-template-columns: auto minmax(0, 1fr);
-		gap: clamp(0.85rem, 2vw, 1.2rem);
-		align-items: start;
+		gap: 0.65rem;
 		margin: 0;
-		max-width: 760px;
+		max-width: 340px;
+		justify-self: start;
+		pointer-events: none;
+	}
+
+	.governor-visual__crop {
+		overflow: hidden;
 		background: transparent;
-		color: var(--color-quote-text);
-		padding: clamp(1rem, 2.4vw, 1.5rem);
-		font-size: clamp(1.45rem, 3vw, 2.35rem);
-		font-weight: 400;
-		line-height: 1.18;
+		aspect-ratio: 4 / 5;
 	}
 
-	.section-quote__mark {
-		margin-top: -0.18em;
-		color: var(--color-quote-text);
-		font-family: "Stack Sans Text", sans-serif;
-		font-optical-sizing: auto;
-		font-style: normal;
-		font-size: clamp(3rem, 6vw, 5.1rem);
-		font-weight: 400;
-		line-height: 1.0;
-	}
-
-	.section-quote__text {
-		font-style: italic;
-		font-family: var(--font-mono);
-		color: var(--color-quote-text);
+	.governor-visual figcaption {
+		max-width: 34ch;
+		color: var(--color-muted);
+		font-family: var(--font-body);
+		font-size: var(--type-meta-size);
+		line-height: 1.45;
 		letter-spacing: 0;
-		font-size: clamp(1.25rem, 2.4vw, 1.5rem);
+	}
+
+        .governor-visual img {
+                display: block;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                object-position: 50% 45%;
+                opacity: 0.78;
+        }
+
+        :global(:root[data-theme="dark"]) .governor-visual img {
+                filter: invert(1) brightness(1.22) contrast(1.08);
+                opacity: 0.92;
+        }
+
+        .section-quote {
+                position: relative;
+                margin: 0;
+		box-sizing: border-box;
+		width: min(100%, 34rem);
+		max-width: 34rem;
+		padding: clamp(0.5rem, 1.4vw, 0.75rem) 0 clamp(0.5rem, 1.4vw, 0.75rem) clamp(2.85rem, 4.5vw, 3.65rem);
+		color: var(--color-quote-text);
+	}
+
+	.section-quote::before {
+		content: "“";
+		position: absolute;
+		left: 0;
+		top: -0.28rem;
+		color: currentColor;
+		font-family: var(--font-display);
+		font-size: clamp(4.25rem, 7vw, 6.5rem);
+		font-style: normal;
+		font-weight: 600;
+		line-height: 0.82;
+		opacity: 0.9;
+	}
+
+	.section-quote p {
+		position: relative;
+		margin: 0;
+		color: currentColor;
+		font-family: var(--font-display);
+		font-size: clamp(1.35rem, 2vw, 1.8rem);
+		font-style: italic;
+		font-weight: 500;
+		letter-spacing: 0;
+		line-height: 1.34;
+	}
+
+	.milestone-list {
+		display: grid;
+		gap: 0;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+		counter-reset: milestones;
+	}
+
+	.milestone-item {
+		position: relative;
+		display: grid;
+		gap: 0.4rem;
+		margin: 0;
+		padding: 0 0 1.25rem 2.4rem;
+		border-left: 1px solid var(--color-border);
+		counter-increment: milestones;
+	}
+
+	.milestone-item:last-child {
+		padding-bottom: 0;
+	}
+
+	.milestone-item::before {
+		content: counter(milestones, decimal-leading-zero);
+		position: absolute;
+		left: 0;
+		top: 0;
+		transform: translateX(-50%);
+		display: inline-flex;
+		width: 2rem;
+		height: 2rem;
+		align-items: center;
+		justify-content: center;
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-pill);
+		background: var(--color-page);
+		color: var(--color-accent-text);
+		font-family: var(--font-mono);
+		font-size: var(--type-meta-size);
+		font-weight: 700;
+		letter-spacing: 0.02em;
+	}
+
+	.milestone-item h3,
+	.principle-item h3 {
+		color: var(--color-text);
+		font-size: clamp(1.1rem, 1.4vw, 1.35rem);
+		line-height: 1.12;
+		letter-spacing: -0.035em;
+	}
+
+	.milestone-item p,
+	.milestone-closing,
+	.principle-item p {
+		color: var(--color-body-text);
+		font-size: var(--type-card-body-size);
+		line-height: var(--type-card-body-line);
+	}
+
+	.milestone-closing {
+		max-width: 620px;
+		margin: 0;
+		padding: 0 0 0 clamp(1rem, 2vw, 1.4rem);
+		border-left: 3px solid var(--color-accent-text);
+		color: var(--color-text);
+		font-weight: 500;
+	}
+
+	.principle-grid {
+		display: grid;
+		gap: 0.9rem;
+	}
+
+	.principle-item {
+		display: grid;
+		gap: 0.45rem;
+		padding-block: 0 0.95rem;
+		border-bottom: 1px solid var(--color-border-soft);
+	}
+
+	.principle-item:last-child {
+		padding-bottom: 0;
+		border-bottom: 0;
 	}
 
 	.about-split h2,
 	.section-intro h2,
 	.about-final h2 {
 		max-width: 760px;
-		font-size: clamp(1.7rem, 3.5vw, 2.65rem);
-		line-height: 1.08;
+		font-size: var(--type-section-title-size);
+		line-height: var(--type-section-title-line);
+		letter-spacing: var(--type-section-title-tracking);
+		font-weight: var(--type-section-title-weight);
 	}
 
 	.about-final p {
 		max-width: 700px;
 		color: var(--color-body-text);
-		font-size: 0.95rem;
-		line-height: 1.6;
+		font-size: var(--type-body-size);
+		line-height: var(--type-body-line);
 	}
 
 	.about-copy {
@@ -686,8 +563,14 @@ const evidenceLinks = [
 		gap: 1.2rem;
 		max-width: 760px;
 		color: var(--color-body-text);
-		font-size: 0.95rem;
-		line-height: 1.6;
+		font-size: var(--type-body-size);
+		line-height: var(--type-body-line);
+	}
+
+	.about-copy--callout {
+		max-width: 680px;
+		padding-inline-start: clamp(1rem, 2vw, 1.4rem);
+		border-left: 3px solid var(--color-accent-text);
 	}
 
 	.section-footer-cta {
@@ -696,30 +579,30 @@ const evidenceLinks = [
 		gap: 0.25rem;
 		margin-top: var(--spacing-05);
 		padding: 1rem;
-		background: transparent;
-		border-left: 3px solid var(--color-accent);
+		background: linear-gradient(90deg, var(--color-accent-text) 0 3px, transparent 3px);
+		background-repeat: no-repeat;
 		transition:
-			border-left-width var(--motion-duration-fast-02) var(--motion-standard-productive),
 			transform var(--motion-duration-fast-02) var(--motion-standard-productive);
 	}
 
 	.section-footer-cta:hover,
 	.section-footer-cta:focus-within {
-		border-left-width: 6px;
 		transform: translateX(2px);
 	}
 
 	.section-footer-cta p {
 		color: var(--color-text);
-		font-size: 0.9rem;
+		font-size: var(--type-body-size);
 	}
 
 	.capability-item h3,
 	.challenge-item h3,
 	.evidence-item h3 {
 		color: var(--color-text);
-		font-size: 1.15rem;
-		line-height: 1.35;
+		font-size: var(--type-card-title-size);
+		line-height: var(--type-card-title-line);
+		letter-spacing: var(--type-card-title-tracking);
+		font-weight: var(--type-card-title-weight);
 	}
 
 	.capability-item p,
@@ -727,27 +610,27 @@ const evidenceLinks = [
 	.evidence-item p,
 	.section-intro p {
 		color: var(--color-body-text);
-		font-size: 0.95rem;
-		line-height: 1.6;
+		font-size: var(--type-card-body-size);
+		line-height: var(--type-card-body-line);
 	}
 
 	.capability-item__area {
 		color: var(--color-card-subtext) !important;
-		font-family: var(--font-sans);
-		font-size: 0.85rem !important;
+		font-family: var(--font-body);
+		font-size: var(--type-meta-size) !important;
 		font-weight: 500;
-		letter-spacing: 0.04em;
-		line-height: 1.35 !important;
+		letter-spacing: var(--type-meta-tracking);
+		line-height: var(--type-meta-line) !important;
 		margin-bottom: var(--spacing-01);
 	}
 
 	.challenge-item__context {
 		color: var(--color-card-subtext) !important;
-		font-family: var(--font-sans);
-		font-size: 0.85rem !important;
+		font-family: var(--font-body);
+		font-size: var(--type-meta-size) !important;
 		font-style: italic;
 		font-weight: 500;
-		line-height: 1.35 !important;
+		line-height: var(--type-meta-line) !important;
 	}
 
 	.section-intro {
@@ -797,13 +680,13 @@ const evidenceLinks = [
 		max-width: 520px;
 		background: transparent;
 		color: var(--color-body-text);
-		font-size: 0.9rem;
+		font-size: var(--type-body-size);
 		line-height: 1.5;
 	}
 
 	.applied-domain-visual figcaption small {
 		color: var(--color-body-text);
-		font-size: 0.78rem;
+		font-size: var(--type-meta-size);
 		line-height: 1.45;
 	}
 
@@ -823,6 +706,7 @@ const evidenceLinks = [
 		gap: 0.35rem;
 		padding: 1.5rem;
 		border: 1px solid var(--color-card-border);
+		border-radius: var(--radius);
 		background: var(--color-card-bg);
 		transition:
 			background-color var(--motion-duration-fast-02) var(--motion-standard-productive),
@@ -917,7 +801,7 @@ const evidenceLinks = [
 		}
 
 		.about-hero h1 {
-			grid-column: 1 / -1;
+			grid-column: 1;
 		}
 
 		.about-hero__content {
@@ -928,19 +812,29 @@ const evidenceLinks = [
 
 		.about-hero .button-row {
 			flex-wrap: nowrap;
-			margin-top: auto;
 		}
 
 		.about-hero__portrait {
 			grid-column: 2;
-			grid-row: 2;
+			grid-row: 1 / 3;
 			margin: 0;
+			align-self: center;
 			justify-self: end;
 		}
 
 		.about-split__grid {
 			grid-template-columns: minmax(0, 6fr) minmax(0, 4fr);
 			gap: clamp(2rem, 4vw, 3rem);
+		}
+
+		.governor-visual {
+			width: min(100%, 340px);
+			justify-self: end;
+			align-self: start;
+		}
+
+		.governor-visual__crop {
+			height: auto;
 		}
 
 		.about-split--reverse .about-split__grid {
@@ -954,6 +848,10 @@ const evidenceLinks = [
 		.about-split--reverse .section-quote {
 			grid-column: 1;
 			grid-row: 1;
+		}
+
+		.milestone-list {
+			padding-top: 0.25rem;
 		}
 
 		.capability-grid {
@@ -981,6 +879,48 @@ const evidenceLinks = [
 	@media (max-width: 640px) {
 		.about-hero {
 			padding-block: 3.5rem 2.75rem;
+		}
+
+		.about-hero__inner {
+			row-gap: 1.35rem;
+		}
+
+		.about-hero__body + .about-hero__body {
+			margin-top: 0.55rem;
+		}
+
+		.about-hero .button-row {
+			margin-top: var(--spacing-06);
+			margin-bottom: 2rem;
+		}
+
+		.section-quote {
+			width: calc(100vw - 2rem);
+			max-width: 100%;
+			padding-left: 2.45rem;
+		}
+
+		.section-quote::before {
+			top: -0.2rem;
+			font-size: clamp(3.5rem, 16vw, 4.5rem);
+		}
+
+		.governor-visual {
+			max-width: 100%;
+			width: min(72vw, 260px);
+			margin-top: 0.35rem;
+		}
+
+		.governor-visual img {
+			width: 100%;
+		}
+
+		.governor-visual figcaption {
+			max-width: 100%;
+		}
+
+		.milestone-item {
+			padding-left: 2rem;
 		}
 	}
 </style>
