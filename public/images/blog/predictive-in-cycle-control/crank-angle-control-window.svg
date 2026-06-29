@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 520" role="img" aria-labelledby="title desc">
+  <title id="title">Crank-angle control window</title>
+  <desc id="desc">Timeline showing pilot injection, pilot observation, prediction window, main correction, and main combustion response.</desc>
+  <rect width="1200" height="520" fill="#f7f3eb"/>
+  <line x1="100" y1="270" x2="1100" y2="270" stroke="#2b2723" stroke-width="4" stroke-linecap="round"/>
+  <g stroke="#c66b45" stroke-width="8" stroke-linecap="round">
+    <line x1="205" y1="270" x2="205" y2="180"/>
+    <line x1="755" y1="270" x2="755" y2="145"/>
+  </g>
+  <path d="M250 270c32-92 122-92 154 0" fill="none" stroke="#8a5c42" stroke-width="6" stroke-linecap="round"/>
+  <path d="M810 270c45-135 165-135 210 0" fill="none" stroke="#8a5c42" stroke-width="6" stroke-linecap="round"/>
+  <rect x="420" y="150" width="285" height="76" rx="10" fill="#fffaf2" stroke="#d8c9b9" stroke-width="3"/>
+  <path d="M450 188h220" stroke="#f0b36a" stroke-width="5" stroke-linecap="round"/>
+  <path d="M670 188l-18-13v26z" fill="#f0b36a"/>
+  <g font-family="Inter, Arial, sans-serif" fill="#26211d">
+    <text x="165" y="335" font-size="22" font-weight="700">Pilot injection</text>
+    <text x="251" y="130" font-size="22" font-weight="700">Pilot combustion observed</text>
+    <text x="450" y="195" font-size="22" font-weight="700">Prediction window</text>
+    <text x="707" y="120" font-size="22" font-weight="700">Main correction</text>
+    <text x="835" y="335" font-size="22" font-weight="700">Main combustion response</text>
+  </g>
+  <g font-family="JetBrains Mono, Consolas, monospace" fill="#6b5a4d" font-size="18">
+    <text x="100" y="410">crank angle</text>
+    <text x="420" y="252">act before authority closes</text>
+  </g>
+</svg>

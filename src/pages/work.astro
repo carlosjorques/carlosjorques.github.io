@@ -28,6 +28,8 @@ const projectNotes = [
 		labels: ['BMS', 'Thermal control', 'Charging behavior', 'Diagnostics', 'Calibration', 'Vehicle validation'],
 		ctaLabel: 'Read project note on Electric Truck Thermal Management and BMS Systems',
 		href: '#electric-truck-thermal-management',
+		proofHref: '/cv/#experience',
+		proofLabel: 'CV experience',
 	},
 	{
 		id: 'autonomous-hauler-propulsion-control',
@@ -40,6 +42,8 @@ const projectNotes = [
 		labels: ['Traction control', 'Torque allocation', 'Redundant actuators', 'Diagnostic monitoring', 'SIL/HIL', 'Vehicle validation'],
 		ctaLabel: 'Read project note on Autonomous Electric Hauler Propulsion Control',
 		href: '#autonomous-hauler-propulsion-control',
+		proofHref: '/cv/#representative-systems',
+		proofLabel: 'CV systems',
 	},
 	{
 		id: 'ebike-motor-control-power-electronics',
@@ -52,6 +56,8 @@ const projectNotes = [
 		labels: ['PMSM thermal modeling', 'AUTOSAR-oriented architecture', 'DC/DC interfaces', 'Power electronics', 'Bench validation'],
 		ctaLabel: 'Read project note on E-Bike Motor Control and Power Electronics Software',
 		href: '#ebike-motor-control-power-electronics',
+		proofHref: '/cv/#experience',
+		proofLabel: 'CV experience',
 	},
 	{
 		id: 'heavy-duty-engine-diagnostics-control-research',
@@ -64,6 +70,8 @@ const projectNotes = [
 		labels: ['Diagnostics', 'Closed-loop control', 'Virtual sensing', 'Stochastic detection', 'Patents', 'Publications', 'Test-bench validation'],
 		ctaLabel: 'Read project note on Heavy-Duty Engine Diagnostics and Control Research',
 		href: '#heavy-duty-engine-diagnostics-control-research',
+		proofHref: '/cv/#research',
+		proofLabel: 'CV research record',
 	},
 ];
 
@@ -81,6 +89,8 @@ const researchNotes = [
 		],
 		ctaLabel: 'Read research note on Virtual Sensing for In-Cycle Combustion Diagnostics',
 		href: '#virtual-sensing-in-cycle-combustion-diagnostics',
+		proofHref: '/cv/#research',
+		proofLabel: 'CV research record',
 	},
 	{
 		id: 'stochastic-fault-detection-diagnostic-decision-logic',
@@ -95,6 +105,8 @@ const researchNotes = [
 		],
 		ctaLabel: 'Read research note on Stochastic Fault Detection and Diagnostic Decision Logic',
 		href: '#stochastic-fault-detection-diagnostic-decision-logic',
+		proofHref: '/cv/#research',
+		proofLabel: 'CV research record',
 	},
 	{
 		id: 'predictive-in-cycle-combustion-control',
@@ -109,6 +121,8 @@ const researchNotes = [
 		],
 		ctaLabel: 'Read research note on Predictive In-Cycle Combustion Control',
 		href: '#predictive-in-cycle-combustion-control',
+		proofHref: '/cv/#research',
+		proofLabel: 'CV research record',
 	},
 	{
 		id: 'stochastic-set-point-optimization-efficiency',
@@ -123,6 +137,8 @@ const researchNotes = [
 		],
 		ctaLabel: 'Read research note on Stochastic Set-Point Optimization for Efficiency',
 		href: '#stochastic-set-point-optimization-efficiency',
+		proofHref: '/cv/#research',
+		proofLabel: 'CV research record',
 	},
 	{
 		id: 'real-time-combustion-control-implementation',
@@ -137,6 +153,8 @@ const researchNotes = [
 		],
 		ctaLabel: 'Read research note on Real-Time Combustion Control Implementation',
 		href: '#real-time-combustion-control-implementation',
+		proofHref: '/cv/#research',
+		proofLabel: 'CV research record',
 	},
 ];
 
@@ -175,7 +193,7 @@ const technicalAreaGroups = [
 		</div>
 	</section>
 
-	<section class="section work-section work-section--selected" aria-labelledby="project-contexts-title">
+	<section class="section work-section work-section--selected" id="selected-projects" aria-labelledby="project-contexts-title">
 		<div class="page-container">
 			<div class="work-section__intro">
 				<h2 id="project-contexts-title">Selected Projects</h2>
@@ -204,9 +222,31 @@ const technicalAreaGroups = [
 							<ul class="work-label-list" aria-label={`${item.title} technical labels`}>
 								{item.labels.map((label) => <li>{label}</li>)}
 							</ul>
-							<a class="work-note-link" href={item.href} aria-label={item.ctaLabel}>
+							<a
+								class="work-note-link"
+								href={item.href}
+								aria-label={item.ctaLabel}
+								data-analytics-event="work_anchor_click"
+								data-cta-id={`work-note-${item.id}`}
+								data-cta-placement="work-project-card"
+								data-cta-intent="read-work-note"
+								data-source-section="selected-projects"
+							>
 								Read note <span aria-hidden="true">-&gt;</span>
 							</a>
+							<p class="work-related-proof">
+								<span>Related proof</span>
+								<a
+									href={withBase(item.proofHref)}
+									data-analytics-event="related_proof_click"
+									data-cta-id={`work-proof-${item.id}`}
+									data-cta-placement="work-project-card"
+									data-cta-intent="formal-proof"
+									data-source-section={item.id}
+								>
+									{item.proofLabel}
+								</a>
+							</p>
 						</div>
 					</article>
 				))}
@@ -214,13 +254,20 @@ const technicalAreaGroups = [
 		</div>
 	</section>
 
-	<section class="section work-section" aria-labelledby="selected-research-title">
+	<section class="section work-section" id="selected-research" aria-labelledby="selected-research-title">
 		<div class="page-container">
 			<div class="work-section__intro">
 				<h2 id="selected-research-title">Selected Research</h2>
 				<p>
 					Research-connected notes from Lund University / Scania on diagnostics, control algorithms, virtual sensing,
-					experimental validation, and real-time implementation. The <a href={withBase('/cv/')}>CV</a> contains the
+					experimental validation, and real-time implementation. The <a
+						href={withBase('/cv/#research')}
+						data-analytics-event="related_proof_click"
+						data-cta-id="work-research-intro-cv"
+						data-cta-placement="work-research-intro"
+						data-cta-intent="formal-proof"
+						data-source-section="selected-research"
+					>CV research record</a> contains the
 					formal publication and patent record.
 				</p>
 			</div>
@@ -246,9 +293,31 @@ const technicalAreaGroups = [
 									</ul>
 								</div>
 							</div>
-							<a class="work-note-link research-note-link" href={item.href} aria-label={item.ctaLabel}>
+							<a
+								class="work-note-link research-note-link"
+								href={item.href}
+								aria-label={item.ctaLabel}
+								data-analytics-event="work_anchor_click"
+								data-cta-id={`work-research-note-${item.id}`}
+								data-cta-placement="work-research-card"
+								data-cta-intent="read-research-note"
+								data-source-section="selected-research"
+							>
 								Read research note <span aria-hidden="true">→</span>
 							</a>
+							<p class="work-related-proof">
+								<span>Related proof</span>
+								<a
+									href={withBase(item.proofHref)}
+									data-analytics-event="related_proof_click"
+									data-cta-id={`work-research-proof-${item.id}`}
+									data-cta-placement="work-research-card"
+									data-cta-intent="formal-proof"
+									data-source-section={item.id}
+								>
+									{item.proofLabel}
+								</a>
+							</p>
 						</div>
 					</article>
 				))}
@@ -256,7 +325,7 @@ const technicalAreaGroups = [
 		</div>
 	</section>
 
-	<section class="section work-section work-section--threads" aria-labelledby="technical-areas-title">
+	<section class="section work-section work-section--threads" id="technical-areas" aria-labelledby="technical-areas-title">
 		<div class="page-container work-thread-summary">
 			<div class="work-section__intro">
 				<h2 id="technical-areas-title">Explore Technical Areas</h2>
@@ -273,7 +342,15 @@ const technicalAreaGroups = [
 						<ul class="work-thread-list" aria-label={`${group.title} tags`}>
 							{group.items.map((item) => (
 								<li>
-									<a href={withBase(`/writing?tag=${toTagSlug(item)}`)} aria-label={`Browse posts tagged ${item}`}>
+									<a
+										href={withBase(`/writing?tag=${toTagSlug(item)}`)}
+										aria-label={`Browse posts tagged ${item}`}
+										data-analytics-event="writing_article_click"
+										data-cta-id={`work-topic-${toTagSlug(item)}`}
+										data-cta-placement="work-technical-areas"
+										data-cta-intent="authority"
+										data-source-section="technical-areas"
+									>
 										{item}
 									</a>
 								</li>
@@ -288,16 +365,46 @@ const technicalAreaGroups = [
 	<section class="section work-section work-final" aria-labelledby="work-final-title">
 		<div class="page-container work-final__inner">
 			<div class="work-final__copy">
-				<h2 id="work-final-title">Continue exploring</h2>
+				<h2 id="work-final-title">Continue from the evidence</h2>
 				<p>
-					For the full formal record, see the CV. For deeper technical notes, browse writing. For collaboration or
-					hiring conversations, get in touch.
+					For role conversations, technical discussions, or a formal record of the experience behind this work,
+					use one of these direct paths.
 				</p>
 			</div>
 			<div class="work-final__actions" aria-label="Continue exploring links">
-				<a class="button primary" href={withBase('/contact/')}>Contact me</a>
-				<a class="button" href={withBase('/cv/')}>View CV</a>
-				<a class="button" href={withBase('/writing/')}>Browse writing</a>
+				<a
+					class="button primary"
+					href={withBase('/contact/')}
+					data-analytics-event="cta_click"
+					data-cta-id="work-discuss-role"
+					data-cta-placement="work-final"
+					data-cta-intent="role-discussion"
+					data-source-section="work-final"
+				>
+					Discuss a Role
+				</a>
+				<a
+					class="button"
+					href={withBase('/contact/')}
+					data-analytics-event="cta_click"
+					data-cta-id="work-start-technical-discussion"
+					data-cta-placement="work-final"
+					data-cta-intent="technical-discussion"
+					data-source-section="work-final"
+				>
+					Start a Technical Discussion
+				</a>
+				<a
+					class="button"
+					href={withBase('/cv/')}
+					data-analytics-event="cta_click"
+					data-cta-id="work-view-cv"
+					data-cta-placement="work-final"
+					data-cta-intent="formal-proof"
+					data-source-section="work-final"
+				>
+					View CV
+				</a>
 			</div>
 		</div>
 	</section>
@@ -609,6 +716,41 @@ const technicalAreaGroups = [
 	.research-note-link {
 		margin-top: auto;
 		padding-top: 0.38rem;
+	}
+
+	.work-related-proof {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		flex-wrap: wrap;
+		margin: 0;
+		padding-top: 0.1rem;
+		color: var(--color-muted);
+		font-family: var(--font-mono);
+		font-size: var(--type-meta-size);
+		line-height: var(--type-meta-line);
+		letter-spacing: var(--type-meta-tracking);
+		text-transform: uppercase;
+	}
+
+	.work-related-proof a {
+		color: var(--color-link);
+		text-decoration: none;
+		border-bottom: 1px solid transparent;
+		transition:
+			border-color var(--motion-duration-fast-02) var(--motion-standard-productive),
+			color var(--motion-duration-fast-02) var(--motion-standard-productive);
+	}
+
+	.work-related-proof a:hover,
+	.work-related-proof a:focus-visible {
+		color: var(--color-link-hover);
+		border-bottom-color: var(--color-link-hover);
+	}
+
+	.work-related-proof a:focus-visible {
+		outline: 2px solid var(--color-focus);
+		outline-offset: 4px;
 	}
 
 	.work-section--threads {

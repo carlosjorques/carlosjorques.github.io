@@ -27,8 +27,28 @@ const withBase = (href: string) =>
 		<p>{body}</p>
 	</div>
 	<div class="button-row">
-		<a class="button primary" href={`${normalizedBase}contact/`}>Contact me</a>
-		<a class="button" href={withBase(secondaryHref)}>{secondaryLabel}</a>
+		<a
+			class="button primary"
+			href={`${normalizedBase}contact/`}
+			data-analytics-event="cta_click"
+			data-cta-id="contact-cta-primary"
+			data-cta-placement="contact-cta"
+			data-cta-intent="contact"
+			data-source-section="contact-cta"
+		>
+			Contact me
+		</a>
+		<a
+			class="button"
+			href={withBase(secondaryHref)}
+			data-analytics-event={secondaryHref.startsWith('writing') ? 'writing_article_click' : 'cta_click'}
+			data-cta-id="contact-cta-secondary"
+			data-cta-placement="contact-cta"
+			data-cta-intent={secondaryHref.startsWith('writing') ? 'authority' : 'proof'}
+			data-source-section="contact-cta"
+		>
+			{secondaryLabel}
+		</a>
 	</div>
 </section>
 

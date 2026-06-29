@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 520" role="img" aria-labelledby="title desc">
+  <title id="title">Monte Carlo optimization workflow</title>
+  <desc id="desc">Five-step workflow from candidate set-points to Monte Carlo simulations, efficiency distribution, constraint probability, and selected set-point.</desc>
+  <rect width="1200" height="520" fill="#f7f5ef"/>
+  <g font-family="Arial, sans-serif">
+    <text x="72" y="72" fill="#171815" font-size="30" font-weight="700">Stochastic optimization workflow</text>
+    <text x="72" y="108" fill="#62675c" font-size="18">Candidate targets are tested as distributions, not single nominal cycles.</text>
+    <g transform="translate(72 182)">
+      <rect width="170" height="156" rx="10" fill="#ffffff" stroke="#d8d4ca"/>
+      <text x="22" y="44" fill="#5f7f00" font-size="16" font-weight="700">01</text>
+      <text x="22" y="84" fill="#171815" font-size="19" font-weight="700">Set-points</text>
+      <text x="22" y="114" fill="#62675c" font-size="14">Candidate phasing</text>
+      <text x="22" y="134" fill="#62675c" font-size="14">and injection targets</text>
+    </g>
+    <g transform="translate(292 182)">
+      <rect width="170" height="156" rx="10" fill="#ffffff" stroke="#d8d4ca"/>
+      <text x="22" y="44" fill="#5f7f00" font-size="16" font-weight="700">02</text>
+      <text x="22" y="84" fill="#171815" font-size="19" font-weight="700">Monte Carlo</text>
+      <text x="22" y="114" fill="#62675c" font-size="14">Generate stochastic</text>
+      <text x="22" y="134" fill="#62675c" font-size="14">cycle outcomes</text>
+    </g>
+    <g transform="translate(512 182)">
+      <rect width="170" height="156" rx="10" fill="#ffffff" stroke="#d8d4ca"/>
+      <text x="22" y="44" fill="#5f7f00" font-size="16" font-weight="700">03</text>
+      <text x="22" y="84" fill="#171815" font-size="19" font-weight="700">Efficiency</text>
+      <text x="22" y="114" fill="#62675c" font-size="14">Estimate expected</text>
+      <text x="22" y="134" fill="#62675c" font-size="14">indicated efficiency</text>
+    </g>
+    <g transform="translate(732 182)">
+      <rect width="170" height="156" rx="10" fill="#ffffff" stroke="#d8d4ca"/>
+      <text x="22" y="44" fill="#5f7f00" font-size="16" font-weight="700">04</text>
+      <text x="22" y="84" fill="#171815" font-size="19" font-weight="700">Risk</text>
+      <text x="22" y="114" fill="#62675c" font-size="14">Estimate constraint</text>
+      <text x="22" y="134" fill="#62675c" font-size="14">and misfire probability</text>
+    </g>
+    <g transform="translate(952 182)">
+      <rect width="170" height="156" rx="10" fill="#171815" stroke="#171815"/>
+      <text x="22" y="44" fill="#bfff03" font-size="16" font-weight="700">05</text>
+      <text x="22" y="84" fill="#ffffff" font-size="19" font-weight="700">Select</text>
+      <text x="22" y="114" fill="#d5d8cf" font-size="14">Highest-efficiency</text>
+      <text x="22" y="134" fill="#d5d8cf" font-size="14">feasible target</text>
+    </g>
+    <g stroke="#9a9f92" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M250 260h34"/><path d="M278 254l8 6-8 6"/>
+      <path d="M470 260h34"/><path d="M498 254l8 6-8 6"/>
+      <path d="M690 260h34"/><path d="M718 254l8 6-8 6"/>
+      <path d="M910 260h34"/><path d="M938 254l8 6-8 6"/>
+    </g>
+  </g>
+</svg>

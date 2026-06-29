@@ -24,9 +24,36 @@ const heroVideoUrl = `${normalizedBase}videos/333466_1_5.mp4`;
 				</p>
 
 				<div class="hero-links" aria-label="Primary contact links">
-					<a href={withBase('/work')}>Work</a>
-					<a href={withBase('/about')}>About</a>
-					<a href={withBase('/contact')}>Contact</a>
+					<a
+						href={withBase('/work')}
+						data-analytics-event="cta_click"
+						data-cta-id="hero-work"
+						data-cta-placement="home-hero"
+						data-cta-intent="proof"
+						data-source-section="hero"
+					>
+						Work
+					</a>
+					<a
+						href={withBase('/about')}
+						data-analytics-event="cta_click"
+						data-cta-id="hero-about"
+						data-cta-placement="home-hero"
+						data-cta-intent="narrative"
+						data-source-section="hero"
+					>
+						About
+					</a>
+					<a
+						href={withBase('/contact')}
+						data-analytics-event="cta_click"
+						data-cta-id="hero-contact"
+						data-cta-placement="home-hero"
+						data-cta-intent="contact"
+						data-source-section="hero"
+					>
+						Contact
+					</a>
 				</div>
 			</div>
 
@@ -308,10 +335,31 @@ const heroVideoUrl = `${normalizedBase}videos/333466_1_5.mp4`;
 
 		.hero-name {
 			font-size: var(--type-hero-name-size);
+			width: auto;
+			max-width: 7.8ch;
+			margin-inline: auto;
+		}
+
+		.hero-kicker {
+			max-width: 24ch;
+			margin-inline: auto;
+			overflow-wrap: anywhere;
 		}
 
 		.hero-statement {
 			font-size: var(--type-hero-role-size);
+			max-width: 15ch;
+		}
+
+		.hero-statement span,
+		.hero-substatement {
+			max-width: 100%;
+			overflow-wrap: anywhere;
+		}
+
+		.hero-substatement {
+			width: min(100%, 32ch);
+			margin-inline: auto;
 		}
 
 		.hero-links {

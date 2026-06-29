@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 520" role="img" aria-labelledby="title desc">
+  <title id="title">Variation reduction placeholder</title>
+  <desc id="desc">Before and after illustration of lower cyclic combustion variation.</desc>
+  <rect width="1200" height="520" fill="#f7f2ec"/>
+  <g font-family="Inter, Arial, sans-serif">
+    <text x="110" y="88" fill="#161616" font-size="28" font-weight="700">Open-loop variation</text>
+    <text x="690" y="88" fill="#161616" font-size="28" font-weight="700">In-cycle closed loop</text>
+  </g>
+  <g fill="none" stroke-width="4" stroke-linecap="round">
+    <path d="M105 255c42-90 84 88 126 0s84-92 126 0 84 96 126 0 84-91 126 0" stroke="#9a4d4d" opacity=".9"/>
+    <path d="M690 255c42-31 84 29 126 0s84-32 126 0 84 31 126 0" stroke="#9a4d4d" opacity=".9"/>
+  </g>
+  <g stroke="#161616" stroke-opacity=".18" stroke-width="2">
+    <path d="M95 255h520M680 255h420"/>
+    <path d="M95 150v210M680 150v210"/>
+  </g>
+  <g fill="#666" font-family="JetBrains Mono, Consolas, monospace" font-size="18">
+    <text x="110" y="410">larger cyclic dispersion</text>
+    <text x="690" y="410">reduced cyclic dispersion</text>
+    <text x="110" y="448">Placeholder graphic - replace with final result plot or custom illustration.</text>
+  </g>
+</svg>

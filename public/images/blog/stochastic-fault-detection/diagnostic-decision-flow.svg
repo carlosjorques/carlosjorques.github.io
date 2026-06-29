@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 520" role="img" aria-labelledby="title desc">
+  <title id="title">Diagnostic decision flow placeholder</title>
+  <desc id="desc">Block diagram from pressure signal to diagnostic indicators, probability or threshold, decision, and control compensation.</desc>
+  <rect width="1200" height="520" fill="#f7f2ec"/>
+  <g fill="none" stroke="#161616" stroke-opacity=".12" stroke-width="2">
+    <path d="M70 130h1060M70 260h1060M70 390h1060"/>
+  </g>
+  <g font-family="Inter, Arial, sans-serif" text-anchor="middle">
+    <g fill="#faf8f7" stroke="#161616" stroke-opacity=".26" stroke-width="2">
+      <rect x="62" y="186" width="178" height="126" rx="18"/>
+      <rect x="288" y="186" width="178" height="126" rx="18"/>
+      <rect x="514" y="186" width="178" height="126" rx="18"/>
+      <rect x="740" y="186" width="178" height="126" rx="18"/>
+      <rect x="966" y="186" width="172" height="126" rx="18"/>
+    </g>
+    <g fill="#161616" font-size="21" font-weight="700">
+      <text x="151" y="236">Pressure</text><text x="151" y="264">signal</text>
+      <text x="377" y="226">Diagnostic</text><text x="377" y="254">indicators</text>
+      <text x="603" y="226">Probability or</text><text x="603" y="254">threshold</text>
+      <text x="829" y="226">Misfire</text><text x="829" y="254">decision</text>
+      <text x="1052" y="226">Control</text><text x="1052" y="254">compensation</text>
+    </g>
+    <g stroke="#9a4d4d" stroke-width="4" stroke-linecap="round" fill="none">
+      <path d="M245 249h36"/><path d="M471 249h36"/><path d="M697 249h36"/><path d="M923 249h36"/>
+      <path d="M273 237l14 12-14 12M499 237l14 12-14 12M725 237l14 12-14 12M951 237l14 12-14 12"/>
+    </g>
+  </g>
+  <text x="70" y="438" fill="#666" font-family="JetBrains Mono, Consolas, monospace" font-size="18">Placeholder decision-flow graphic - replace with final thesis-derived or custom diagram.</text>
+</svg>

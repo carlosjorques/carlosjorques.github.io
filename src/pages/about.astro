@@ -174,14 +174,14 @@ const aboutContent = {
 				linkText: 'View CV',
 			},
 			{
-				title: 'Writing',
-				description: 'Articles on embedded controls, diagnostics, validation, and technical leadership.',
-				linkText: 'Read articles',
-			},
-			{
 				title: 'Contact',
 				description: 'Start a conversation about roles, collaboration, or technical topics.',
 				linkText: 'Contact me',
+			},
+			{
+				title: 'Writing',
+				description: 'Articles on embedded controls, diagnostics, validation, and technical leadership.',
+				linkText: 'Read articles',
 			},
 		],
 	},
@@ -233,9 +233,39 @@ const evidenceLinks = aboutContent.exploreMore.items.map((item) => ({
 				))}
 
 				<div class="button-row" aria-label="About page primary navigation links">
-					<a class="button primary" href={withBase('/work')}>View selected work</a>
-					<a class="button" href={withBase('/cv')}>View CV</a>
-					<a class="button" href={withBase('/writing')}>Read articles</a>
+					<a
+						class="button primary"
+						href={withBase('/work')}
+						data-analytics-event="cta_click"
+						data-cta-id="about-hero-work"
+						data-cta-placement="about-hero"
+						data-cta-intent="proof"
+						data-source-section="about-hero"
+					>
+						View selected work
+					</a>
+					<a
+						class="button"
+						href={withBase('/cv')}
+						data-analytics-event="cta_click"
+						data-cta-id="about-hero-cv"
+						data-cta-placement="about-hero"
+						data-cta-intent="formal-proof"
+						data-source-section="about-hero"
+					>
+						View CV
+					</a>
+					<a
+						class="button"
+						href={withBase('/writing')}
+						data-analytics-event="cta_click"
+						data-cta-id="about-hero-writing"
+						data-cta-placement="about-hero"
+						data-cta-intent="authority"
+						data-source-section="about-hero"
+					>
+						Read articles
+					</a>
 				</div>
 			</div>
 			<figure class="about-hero__portrait">
@@ -349,7 +379,17 @@ const evidenceLinks = aboutContent.exploreMore.items.map((item) => ({
 					<article class="evidence-item">
 						<h3>{item.title}</h3>
 						<p>{item.description}</p>
-						<a href={item.href} aria-label={`${item.linkText}: ${item.title}`}>{item.linkText}</a>
+						<a
+							href={item.href}
+							aria-label={`${item.linkText}: ${item.title}`}
+							data-analytics-event="cta_click"
+							data-cta-id={`about-next-${item.title.toLowerCase().replaceAll(' ', '-')}`}
+							data-cta-placement="about-next-steps"
+							data-cta-intent={item.title === 'Contact' ? 'contact' : item.title === 'CV' ? 'formal-proof' : item.title === 'Writing' ? 'authority' : 'proof'}
+							data-source-section="where-to-go-next"
+						>
+							{item.linkText}
+						</a>
 					</article>
 				))}
 			</div>
@@ -365,9 +405,41 @@ const evidenceLinks = aboutContent.exploreMore.items.map((item) => ({
 				))}
 			</div>
 			<div class="about-final__actions">
-				<a class="button primary" href={withBase('/contact')}>Contact me</a>
-				<a class="button" href="https://www.linkedin.com/in/carlosjorques/" target="_blank" rel="noopener noreferrer">View LinkedIn profile</a>
-				<a class="button" href={withBase('/cv')}>View CV</a>
+				<a
+					class="button primary"
+					href={withBase('/contact')}
+					data-analytics-event="cta_click"
+					data-cta-id="about-final-contact"
+					data-cta-placement="about-final"
+					data-cta-intent="contact"
+					data-source-section="about-final"
+				>
+					Contact me
+				</a>
+				<a
+					class="button"
+					href="https://www.linkedin.com/in/carlosjorques/"
+					target="_blank"
+					rel="noopener noreferrer"
+					data-analytics-event="linkedin_outbound_click"
+					data-cta-id="about-final-linkedin"
+					data-cta-placement="about-final"
+					data-cta-intent="professional-profile"
+					data-source-section="about-final"
+				>
+					View LinkedIn profile
+				</a>
+				<a
+					class="button"
+					href={withBase('/cv')}
+					data-analytics-event="cta_click"
+					data-cta-id="about-final-cv"
+					data-cta-placement="about-final"
+					data-cta-intent="formal-proof"
+					data-source-section="about-final"
+				>
+					View CV
+				</a>
 			</div>
 		</div>
 	</section>

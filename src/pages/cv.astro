@@ -107,6 +107,7 @@ type LearningRecognition = {
 
 const cvProfile = {
 	"links": {
+		"email": "mailto:carlosjorques@gmail.com",
 		"pdf": "/cv/Carlos_Jorques_CV.pdf",
 		"contact": "/contact",
 		"work": "/work",
@@ -121,27 +122,27 @@ const cvProfile = {
 	},
 	"actions": [
 		{
+			"label": "Email Carlos",
+			"href": "mailto:carlosjorques@gmail.com",
+			"primary": true,
+			"analytics": "contact_email_click",
+			"ctaId": "cv-email-carlos",
+			"intent": "contact"
+		},
+		{
 			"label": "Download PDF CV",
 			"href": "/cv/Carlos_Jorques_CV.pdf",
-			"primary": true,
 			"download": true,
-			"analytics": "cv_pdf_download"
+			"analytics": "cv_pdf_download",
+			"ctaId": "cv-download-pdf",
+			"intent": "formal-proof"
 		},
 		{
-			"label": "Contact Carlos",
-			"href": "/contact",
-			"analytics": "cv_contact_click"
-		},
-		{
-			"label": "LinkedIn",
-			"href": "https://www.linkedin.com/in/carlosjorques/",
-			"external": true,
-			"analytics": "cv_linkedin_click"
-		},
-		{
-			"label": "Selected Work",
+			"label": "See Work",
 			"href": "/work",
-			"analytics": "cv_selected_work_click"
+			"analytics": "cta_click",
+			"ctaId": "cv-see-work",
+			"intent": "proof"
 		}
 	],
 	"sectionNav": [
@@ -1156,7 +1157,11 @@ const profileJsonLd = {
 								target={action.external ? '_blank' : undefined}
 								rel={action.external ? 'noopener noreferrer' : undefined}
 								download={action.download ? true : undefined}
-								data-analytics={action.analytics}
+								data-analytics-event={action.analytics}
+								data-cta-id={action.ctaId}
+								data-cta-placement="cv-hero"
+								data-cta-intent={action.intent}
+								data-source-section="cv-hero"
 							>
 								{action.label}
 							</a>
@@ -1194,7 +1199,18 @@ const profileJsonLd = {
                                                 <ul class="cv-section-nav__links">
                                                         {cvProfile.sectionNav.map((item) => (
                                                                 <li>
-                                                                        <a class="cv-section-nav__link" href={item.href} data-cv-section-link data-analytics="cv_section_nav_click">{item.label}</a>
+                                                                        <a
+										class="cv-section-nav__link"
+										href={item.href}
+										data-cv-section-link
+										data-analytics-event="cta_click"
+										data-cta-id={`cv-section-${item.label.toLowerCase().replaceAll(' ', '-')}`}
+										data-cta-placement="cv-section-nav"
+										data-cta-intent="section-navigation"
+										data-source-section="cv-section-nav"
+									>
+										{item.label}
+									</a>
                                                                 </li>
                                                         ))}
                                                 </ul>
@@ -1486,7 +1502,17 @@ const profileJsonLd = {
 									<dd>{item.proof}</dd>
 								</div>
 							</dl>
-							<a class="cv-expertise-card__toggle representative-system-card__link" href={withBase(item.href)}>View work context →</a>
+							<a
+								class="cv-expertise-card__toggle representative-system-card__link"
+								href={withBase(item.href)}
+								data-analytics-event="related_proof_click"
+								data-cta-id={`cv-work-context-${expertiseCardId(item.title)}`}
+								data-cta-placement="cv-representative-systems"
+								data-cta-intent="proof"
+								data-source-section="representative-systems"
+							>
+								View work context →
+							</a>
 						</article>
 						);
 					})}
@@ -1699,7 +1725,11 @@ const profileJsonLd = {
 							target={action.external ? '_blank' : undefined}
 							rel={action.external ? 'noopener noreferrer' : undefined}
 							download={action.download ? true : undefined}
-							data-analytics={action.analytics}
+							data-analytics-event={action.analytics}
+							data-cta-id={action.ctaId}
+							data-cta-placement="cv-final"
+							data-cta-intent={action.intent}
+							data-source-section="cv-final"
 						>
 							{action.label}
 						</a>

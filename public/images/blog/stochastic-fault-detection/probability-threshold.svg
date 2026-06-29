@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 520" role="img" aria-labelledby="title desc">
+  <title id="title">Probability threshold placeholder</title>
+  <desc id="desc">Overlapping probability distributions for normal pilot combustion and pilot misfire with an adaptive diagnostic threshold.</desc>
+  <rect width="1200" height="520" fill="#f7f2ec"/>
+  <g fill="none" stroke="#161616" stroke-opacity=".15" stroke-width="2">
+    <path d="M110 410h980"/>
+    <path d="M110 100v310"/>
+    <path d="M280 100v310M450 100v310M620 100v310M790 100v310M960 100v310"/>
+  </g>
+  <path d="M150 410c81-2 128-18 171-80 47-68 93-178 155-178 64 0 110 113 158 184 40 59 85 73 163 74" fill="none" stroke="#9a4d4d" stroke-width="7" stroke-linecap="round"/>
+  <path d="M410 410c82-2 130-20 174-87 50-77 101-198 166-198 67 0 115 121 168 200 45 68 92 83 173 85" fill="none" stroke="#161616" stroke-opacity=".62" stroke-width="7" stroke-linecap="round"/>
+  <path d="M642 92v338" stroke="#d06b6f" stroke-width="5" stroke-dasharray="12 13"/>
+  <g font-family="Inter, Arial, sans-serif" font-size="23" fill="#161616">
+    <text x="284" y="112">normal pilot combustion</text>
+    <text x="742" y="112">pilot misfire</text>
+    <text x="668" y="462">adaptive decision boundary</text>
+  </g>
+  <text x="110" y="472" fill="#666" font-family="JetBrains Mono, Consolas, monospace" font-size="18">Placeholder probability graphic - replace with calibrated distributions if reuse is permitted.</text>
+</svg>

@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 620" role="img" aria-labelledby="title desc">
+  <title id="title">Combustion outcome distribution</title>
+  <desc id="desc">Distribution plot showing cycle-to-cycle combustion outcomes around a selected set-point and a constraint boundary.</desc>
+  <rect width="1200" height="620" fill="#f7f5ef"/>
+  <g transform="translate(110 85)" font-family="Arial, sans-serif">
+    <text x="0" y="0" fill="#171815" font-size="30" font-weight="700">Combustion outcomes are distributed</text>
+    <text x="0" y="36" fill="#62675c" font-size="18">The set-point is one target; the engine produces a spread of cycle outcomes around it.</text>
+    <g transform="translate(0 84)">
+      <rect width="970" height="390" fill="#ffffff" stroke="#d8d4ca"/>
+      <line x1="770" y1="44" x2="770" y2="346" stroke="#5f7f00" stroke-width="3" stroke-dasharray="8 8"/>
+      <path d="M88 334C136 333 172 325 210 300C258 269 284 197 328 154C373 109 424 92 480 133C534 172 568 270 625 310C673 344 735 338 872 334" fill="#bfff03" opacity="0.32" stroke="#5f7f00" stroke-width="4"/>
+      <path d="M150 334C202 331 238 306 280 260C327 210 354 153 404 120C461 82 529 108 574 166C620 226 650 303 704 326C750 346 802 338 880 334" fill="none" stroke="#171815" stroke-width="4"/>
+      <circle cx="500" cy="124" r="11" fill="#bfff03" stroke="#171815" stroke-width="4"/>
+      <text x="526" y="121" fill="#171815" font-size="17" font-weight="700">selected set-point</text>
+      <text x="790" y="72" fill="#5f7f00" font-size="16" font-weight="700">constraint boundary</text>
+      <text x="360" y="374" fill="#171815" font-size="17" font-weight="700">Combustion phasing / pressure-rise outcome</text>
+      <g transform="translate(-58 252) rotate(-90)">
+        <text fill="#171815" font-size="17" font-weight="700">Probability density</text>
+      </g>
+    </g>
+  </g>
+</svg>

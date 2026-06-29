@@ -40,17 +40,17 @@ const topics = Array.from(new Set(articles.flatMap((article) => article.tags))).
 ---
 
 <Layout
-	title="Latest Articles | Carlos Jorques"
+	title="Writing | Carlos Jorques"
 	description="Writing by Carlos Jorques on embedded controls, diagnostics, validation, physical systems, software architecture, and technical leadership."
 >
 	<div class="writing-page">
 		<section class="writing-hero" aria-labelledby="writing-title">
 			<div class="page-container writing-hero__inner">
 				<div class="writing-hero__copy">
-					<h1 id="writing-title" class="hero-title">Latest Articles</h1>
+					<h1 id="writing-title" class="hero-title">Writing</h1>
 					<p class="writing-hero__lead">
-						Notes on embedded control systems, diagnostics, validation, technical leadership, and the work of
-						turning physical-system intent into reliable software.
+						Published and planned notes on embedded control systems, diagnostics, validation, technical leadership,
+						and the work of turning physical-system intent into reliable software.
 					</p>
 				</div>
 
@@ -85,7 +85,16 @@ const topics = Array.from(new Set(articles.flatMap((article) => article.tags))).
 					{
 						articles.map((article) => (
 							<article class="article-card" data-article-card data-tags={article.tags.map(toTagSlug).join(' ')}>
-								<a class="article-card__link" href={article.href} aria-labelledby={`${article.slug}-title`}>
+								<a
+									class="article-card__link"
+									href={article.href}
+									aria-labelledby={`${article.slug}-title`}
+									data-analytics-event="writing_article_click"
+									data-cta-id={`writing-card-${article.slug}`}
+									data-cta-placement="writing-index"
+									data-cta-intent={article.isDraft ? 'planned-authority' : 'authority'}
+									data-source-section="writing-list"
+								>
 									<div class="article-card__content">
 										<header class="article-card__header">
 											<h3 id={`${article.slug}-title`}>{article.title}</h3>

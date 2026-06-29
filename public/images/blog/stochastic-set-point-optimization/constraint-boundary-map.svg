@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 640" role="img" aria-labelledby="title desc">
+  <title id="title">Constraint boundary map</title>
+  <desc id="desc">Two-dimensional map of feasible combustion set-point region bounded by pressure-rise, peak-pressure, exhaust-temperature, and misfire-risk constraints.</desc>
+  <rect width="1200" height="640" fill="#f7f5ef"/>
+  <g transform="translate(112 82)" font-family="Arial, sans-serif">
+    <text x="0" y="0" fill="#171815" font-size="30" font-weight="700">Feasible set-point region</text>
+    <text x="0" y="36" fill="#62675c" font-size="18">Efficiency is optimized inside boundaries set by operational constraints.</text>
+    <g transform="translate(0 82)">
+      <rect width="970" height="410" fill="#ffffff" stroke="#d8d4ca"/>
+      <path d="M166 316C144 230 206 132 323 102C438 72 573 94 693 128C818 164 869 244 819 314C772 382 628 388 486 374C341 360 194 354 166 316Z" fill="#bfff03" opacity="0.22" stroke="#5f7f00" stroke-width="5"/>
+      <path d="M135 76C286 138 401 158 575 152C742 147 852 174 910 230" fill="none" stroke="#171815" stroke-width="3" stroke-dasharray="9 9"/>
+      <path d="M87 330C220 288 356 280 512 304C688 330 797 316 905 258" fill="none" stroke="#171815" stroke-width="3" stroke-dasharray="9 9"/>
+      <path d="M276 374C318 264 330 176 308 78" fill="none" stroke="#171815" stroke-width="3" stroke-dasharray="9 9"/>
+      <path d="M732 378C674 282 660 183 702 78" fill="none" stroke="#171815" stroke-width="3" stroke-dasharray="9 9"/>
+      <circle cx="546" cy="214" r="13" fill="#bfff03" stroke="#171815" stroke-width="4"/>
+      <text x="572" y="208" fill="#171815" font-size="17" font-weight="700">optimized target</text>
+      <text x="690" y="67" fill="#62675c" font-size="15">peak pressure</text>
+      <text x="778" y="346" fill="#62675c" font-size="15">pressure-rise rate</text>
+      <text x="228" y="67" fill="#62675c" font-size="15">misfire risk</text>
+      <text x="98" y="370" fill="#62675c" font-size="15">exhaust temperature</text>
+      <text x="380" y="374" fill="#171815" font-size="17" font-weight="700">Combustion phasing target</text>
+      <g transform="translate(-58 278) rotate(-90)">
+        <text fill="#171815" font-size="17" font-weight="700">Pilot/main control target</text>
+      </g>
+    </g>
+  </g>
+</svg>
