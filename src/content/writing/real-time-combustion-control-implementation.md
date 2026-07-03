@@ -15,11 +15,9 @@ tags:
 featured: true
 draft: false
 heroImage:
-  src: /images/blog/real-time-combustion-control/hero-fpga-combustion-control.svg
-  alt: Engine cylinder and FPGA visualization representing real-time combustion control implementation
+  src: /images/blog/real-time-combustion-control/thesis-fpga-diagram.svg
+  alt: Thesis diagram of the FPGA data acquisition and combustion-control architecture
 ---
-
-<!-- TODO: Replace hero placeholder with custom FPGA/control-pipeline illustration or thesis-derived figure if reuse is permitted. -->
 
 <section class="article-callout" aria-labelledby="key-ideas-title">
 	<h2 id="key-ideas-title">Key ideas</h2>
@@ -54,8 +52,7 @@ The implementation problem can be understood as a deterministic pipeline. Each s
 </ol>
 
 <figure class="article-figure">
-	<!-- TODO: Replace placeholder image with custom FPGA/control-pipeline illustration or thesis-derived figure if reuse is permitted. -->
-	<img src="/images/blog/real-time-combustion-control/fpga-control-pipeline.svg" alt="FPGA control pipeline for real-time in-cycle combustion control" loading="lazy" />
+	<img src="/images/blog/real-time-combustion-control/thesis-fpga-diagram.svg" alt="FPGA data acquisition and control architecture used in the combustion-control experiments" loading="lazy" />
 	<figcaption>The control pipeline turns pressure measurements into a same-cycle injection decision only when every stage fits inside the available crank-angle window.</figcaption>
 </figure>
 
@@ -84,8 +81,7 @@ Every part of the algorithm consumes time and hardware resources. Signal filteri
 The thesis treated this as a hardware-constrained control-design problem.
 
 <figure class="article-figure">
-	<!-- TODO: Replace placeholder image with custom crank-angle timing diagram or approved thesis-derived figure if reuse is permitted. -->
-	<img src="/images/blog/real-time-combustion-control/crank-angle-deadline.svg" alt="Crank-angle timing diagram showing real-time control deadline before main injection" loading="lazy" />
+	<img src="/images/blog/real-time-combustion-control/thesis-state-machine-signals.svg" alt="Modular in-cycle closed-loop combustion control signals and finite-state-machine states over crank angle" loading="lazy" />
 	<figcaption>In-cycle control has to form a useful state estimate after pilot-combustion evidence appears and before the remaining injection command deadline.</figcaption>
 </figure>
 
@@ -219,8 +215,7 @@ This was important because in-cycle control is conditional. The system must know
 The modular architecture improved scalability and calibration. It allowed individual functions to be developed and tested separately, then integrated into a coordinated control system.
 
 <figure class="article-figure">
-	<!-- TODO: Replace placeholder image with custom modular architecture illustration or thesis-derived figure if reuse is permitted. -->
-	<img src="/images/blog/real-time-combustion-control/modular-controller-architecture.svg" alt="Modular combustion-control architecture coordinated by a finite-state machine" loading="lazy" />
+	<img src="/images/blog/real-time-combustion-control/thesis-closed-loop-diagram.svg" alt="Modular closed-loop feedback structure supervised by actuator, sensor, and controller finite-state machines" loading="lazy" />
 	<figcaption>The finite-state machine coordinates measurement processing, virtual sensing, diagnostics, prediction, adaptation, control selection, and actuator output.</figcaption>
 </figure>
 
@@ -242,8 +237,7 @@ This includes questions such as:
 By quantifying these constraints, the thesis connected control design with embedded implementation. The result was not only a controller that worked experimentally, but a clearer understanding of what limits real-time deployment.
 
 <figure class="article-figure">
-	<!-- TODO: Replace placeholder image with custom hardware-resource budget illustration or thesis-derived figure if reuse is permitted. -->
-	<img src="/images/blog/real-time-combustion-control/hardware-resource-budget.svg" alt="Hardware resource budget illustration for FPGA combustion-control implementation" loading="lazy" />
+	<img src="/images/blog/real-time-combustion-control/thesis-hardware-requirements.svg" alt="FPGA hardware resource requirements for in-cycle closed-loop combustion control modules" loading="lazy" />
 	<figcaption>Resource budgeting turns implementation feasibility into an engineering constraint: timing, memory, multipliers, data-path width, and scheduling all shape the algorithm.</figcaption>
 </figure>
 
@@ -312,8 +306,7 @@ The thesis addressed this gap by designing observers, virtual sensors, predictiv
 The result was a combustion-control framework that could run on FPGA hardware, process pressure measurements at the required time scale, and issue control actions within the same engine cycle.
 
 <figure class="article-figure">
-	<!-- TODO: Replace placeholder image with custom offline-versus-real-time illustration or thesis-derived figure if reuse is permitted. -->
-	<img src="/images/blog/real-time-combustion-control/offline-vs-realtime.svg" alt="Comparison between offline combustion analysis and real-time embedded control execution" loading="lazy" />
+	<img src="/images/blog/real-time-combustion-control/thesis-propagation-delay.svg" alt="Propagation delay of combustion-control modules implemented on Xilinx Virtex-5 FPGA hardware" loading="lazy" />
 	<figcaption>Offline analysis can wait for complete data. In-cycle implementation has to decide with partial information, deterministic timing, and finite hardware resources.</figcaption>
 </figure>
 
@@ -334,6 +327,15 @@ In-cycle control cannot wait for complete post-cycle analysis. It requires obser
 That is the contribution of this part of the thesis: it showed how combustion observers, virtual sensors, diagnostic methods, predictive controllers, and adaptation logic can be implemented as a real-time hardware-constrained control system.
 
 In practical terms, the work moves combustion-control research from algorithms that work offline toward controllers that can intervene during the combustion cycle itself. Related articles cover [stochastic set-point optimization for efficiency](/writing/stochastic-set-point-optimization-efficiency/) and the wider [combustion control research](/research/) context.
+
+## Source articles
+
+This article is based on my PhD thesis and the following thesis papers:
+
+- Carlos Jorques Moreno, Ola Stenlaas, and Per Tunestal, "Modular Design and Integration of In-Cycle Closed-Loop Combustion Controllers for a Wide-Range of Operating Conditions," accepted for publication in *2021 American Control Conference (ACC)*, New Orleans, LA, USA, 2021.
+- Carlos Jorques Moreno, Ola Stenlaas, and Per Tunestal, "Quantification of FPGA Requirements for Closed-Loop Combustion Control Implementation," submitted to *ICE2021, International Conference on Engines and Vehicles*, Capri, Italy, 2021.
+- Carlos Jorques Moreno, Ola Stenlaas, and Per Tunestal, "Predictive In-Cycle Closed-Loop Combustion Control with Pilot-Main Injections," *IFAC-PapersOnLine*, 53(2):14000-14007, 2020.
+- Carlos Jorques Moreno, Ola Stenlaas, and Per Tunestal, *Design and Optimization of In-Cycle Closed-Loop Combustion Control with Multiple Injections*, PhD thesis, Lund University, 2021.
 
 <section class="article-cta" aria-labelledby="article-next-title">
 	<h2 id="article-next-title">Need help turning control algorithms into real-time embedded systems?</h2>

@@ -14,8 +14,8 @@ tags:
 featured: true
 draft: false
 heroImage:
-  src: /images/blog/virtual-sensing/hero-combustion-diagnostics.svg
-  alt: Stylized combustion chamber with pressure signal overlay representing virtual sensing for combustion diagnostics
+  src: /images/blog/virtual-sensing/thesis-pilot-mass-estimation.svg
+  alt: Thesis plot comparing actual injected pilot mass with in-cycle pilot mass estimation
 ---
 
 <section class="article-callout" aria-labelledby="key-ideas-title">
@@ -50,9 +50,8 @@ That is the role of the virtual sensor.
 A virtual sensor is not a replacement for physics. It is a structured way of combining measured signals, combustion models, uncertainty descriptions, and real-time computation to estimate a quantity that cannot be directly measured with sufficient timing or reliability.
 
 <figure class="article-figure">
-	<!-- TODO: Replace placeholder image with a thesis-derived figure or custom illustration. -->
-	<img src="/images/blog/virtual-sensing/in-cycle-control-architecture.svg" alt="Block diagram of in-cycle combustion control using virtual sensing" loading="lazy" />
-	<figcaption>Cylinder pressure is converted into a combustion-state estimate quickly enough to influence the remaining injection strategy in the same engine cycle.</figcaption>
+	<img src="/images/blog/predictive-in-cycle-control/thesis-cl-structure.svg" alt="Closed-loop architecture for in-cycle combustion control with in-cycle blocks highlighted" loading="lazy" />
+	<figcaption>Thesis architecture for in-cycle combustion control. The observer converts pressure feedback into control-relevant estimates before the remaining injection command is finalized.</figcaption>
 </figure>
 
 ## The in-cycle control architecture
@@ -123,8 +122,7 @@ The thesis showed that the most significant information for inferring pilot mass
 This is the key diagnostic insight: the controller does not need to wait for a complete post-cycle analysis. It can extract enough information during the cycle to support actuation.
 
 <figure class="article-figure">
-	<!-- TODO: Replace placeholder image with a thesis-derived heat-release trace or custom technical illustration. -->
-	<img src="/images/blog/virtual-sensing/heat-release-control-window.svg" alt="Annotated heat release trace showing the control window between pilot combustion and main injection" loading="lazy" />
+	<img src="/images/blog/virtual-sensing/thesis-pilot-heat-release.svg" alt="Pilot heat release trace used to analyze early combustion information" loading="lazy" />
 	<figcaption>The useful control window is narrow: the estimate has to form after early pilot-combustion evidence appears and before the next relevant injection command.</figcaption>
 </figure>
 
@@ -151,9 +149,8 @@ The thesis also investigated pilot misfire compensation. When pilot misfire was 
 This demonstrates the practical value of virtual sensing. The diagnostic estimate becomes actionable: detect the combustion fault early, then alter the remaining injection strategy before the cycle is complete.
 
 <figure class="article-figure">
-	<!-- TODO: Replace placeholder image with a thesis-derived result plot or custom before/after illustration. -->
-	<img src="/images/blog/virtual-sensing/variation-reduction.svg" alt="Before and after illustration of reduced cyclic combustion variation with in-cycle control" loading="lazy" />
-	<figcaption>Reducing cyclic variation makes the combustion process more predictable, which creates room to optimize the operating point under real constraints.</figcaption>
+	<img src="/images/blog/virtual-sensing/thesis-pilot-mass-sweep.svg" alt="Pilot mass estimation accuracy across pilot injection durations" loading="lazy" />
+	<figcaption>The thesis validated pilot-mass estimation over repeated cycles and injection-duration sweeps, showing where pressure-based observability is strong enough for in-cycle use.</figcaption>
 </figure>
 
 ## Efficiency optimization
@@ -193,6 +190,15 @@ In pilot-main diesel combustion, the pilot event shapes the main event. If the p
 That is the contribution of this part of the thesis: it showed how model-based virtual sensors, built from in-cylinder pressure measurements and real-time combustion models, can provide early diagnostic feedback for in-cycle closed-loop combustion control.
 
 In practical terms, the work moves combustion control from post-cycle correction toward real-time intervention. It gives the engine a way to see inside the cylinder, interpret what is happening, and respond before the cycle is over.
+
+## Source articles
+
+This article is based on my PhD thesis and the following thesis papers:
+
+- Carlos Jorques Moreno, Ola Stenlaas, and Per Tunestal, "Cylinder Pressure-Based Virtual Sensor for In-Cycle Pilot Mass Estimation," *SAE International Journal of Engines*, 11(6):1167-1182, 2018.
+- Ian West, Carlos Jorques Moreno, Ola Stenlaas, Oskar Jonsson, and Frank Haslestad, "Internal Combustion Engine Cylinder Volume Trace Deviation," *SAE International Journal of Engines*, 11(2):195-214, 2018.
+- Carlos Jorques Moreno, Ola Stenlaas, and Per Tunestal, "Bayesian Method for Fuel Mass Estimation of Short Pilot Injections based on its Misfire Probability," *2020 American Control Conference (ACC)*, Denver, CO, USA, 2020, pp. 1507-1513.
+- Carlos Jorques Moreno, Ola Stenlaas, and Per Tunestal, *Design and Optimization of In-Cycle Closed-Loop Combustion Control with Multiple Injections*, PhD thesis, Lund University, 2021.
 
 <section class="article-cta" aria-labelledby="article-next-title">
 	<h2 id="article-next-title">Continue from here</h2>

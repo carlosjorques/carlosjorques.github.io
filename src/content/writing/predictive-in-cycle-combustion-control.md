@@ -15,11 +15,9 @@ tags:
 featured: true
 draft: false
 heroImage:
-  src: /images/blog/predictive-in-cycle-control/hero-predictive-combustion-control.svg
-  alt: Combustion chamber visualization with pressure trace and predictive in-cycle control overlay
+  src: /images/blog/predictive-in-cycle-control/thesis-general-controller.svg
+  alt: Thesis diagram of the predictive in-cycle combustion controller architecture
 ---
-
-<!-- TODO: Replace hero placeholder with a custom predictive-control illustration or thesis-derived figure if reuse is permitted. -->
 
 <section class="article-callout" aria-labelledby="key-ideas-title">
 	<h2 id="key-ideas-title">Key ideas</h2>
@@ -53,8 +51,7 @@ The control system had to behave not only as a feedback controller, but as a rea
 </ol>
 
 <figure class="article-figure">
-	<!-- TODO: Replace placeholder image with a thesis-derived architecture diagram or custom predictive-control illustration. -->
-	<img src="/images/blog/predictive-in-cycle-control/control-architecture.svg" alt="Block diagram of predictive in-cycle combustion control architecture" loading="lazy" />
+	<img src="/images/blog/predictive-in-cycle-control/thesis-cl-structure.svg" alt="Closed-loop architecture for in-cycle combustion control with in-cycle blocks highlighted" loading="lazy" />
 	<figcaption>Pressure feedback becomes useful for same-cycle actuation only when measurement, estimation, prediction, and injection correction fit inside the available combustion window.</figcaption>
 </figure>
 
@@ -81,9 +78,8 @@ The challenge is that the available time is short. The controller must estimate 
 The thesis treated this as an in-cycle feedback-control problem. The key controlled variables included combustion phasing, start of combustion, burnt pilot mass, and indicated mean effective pressure. The main control input was the injected fuel amount, commanded through a common-rail solenoid injector.
 
 <figure class="article-figure">
-	<!-- TODO: Replace placeholder image with a custom crank-angle timeline or an approved thesis-derived timing figure. -->
-	<img src="/images/blog/predictive-in-cycle-control/crank-angle-control-window.svg" alt="Crank-angle timeline showing the available control window between pilot and main combustion" loading="lazy" />
-	<figcaption>The useful control window sits between early pilot-combustion evidence and the point where the remaining injection command can no longer be changed.</figcaption>
+	<img src="/images/blog/predictive-in-cycle-control/thesis-general-controller.svg" alt="Predictive in-cycle controller diagram with measured states, predicted output, reference error, feed-forward, and PI correction" loading="lazy" />
+	<figcaption>The controller predicts the controlled combustion output from measured or estimated states, then updates the injection command before the remaining control authority is lost.</figcaption>
 </figure>
 
 ## From virtual sensing to predictive control
@@ -119,8 +115,7 @@ The research also showed that adaptation must be designed carefully. If too many
 This approach improved robustness while keeping the implementation feasible for real-time control.
 
 <figure class="article-figure">
-	<!-- TODO: Replace placeholder image with a custom model-adaptation illustration or approved research figure. -->
-	<img src="/images/blog/predictive-in-cycle-control/model-adaptation-loop.svg" alt="Online model adaptation loop for predictive combustion control" loading="lazy" />
+	<img src="/images/blog/predictive-in-cycle-control/thesis-model-adaptation.svg" alt="Model adaptation structure for in-cycle predictive combustion models" loading="lazy" />
 	<figcaption>Online adaptation updates prediction behavior during operation, but the adaptation structure has to remain simple enough to calibrate and stable enough for control.</figcaption>
 </figure>
 
@@ -182,9 +177,8 @@ These results show the value of acting within the cycle. The controller did not 
 </section>
 
 <figure class="article-figure">
-	<!-- TODO: Replace placeholder image with a thesis-derived result plot or custom before-and-after dispersion illustration. -->
-	<img src="/images/blog/predictive-in-cycle-control/variation-reduction.svg" alt="Before and after illustration of reduced combustion variation using predictive in-cycle control" loading="lazy" />
-	<figcaption>Reducing cyclic dispersion gives the controller more room to operate near efficient combustion phasing while respecting pressure, noise, and hardware constraints.</figcaption>
+	<img src="/images/blog/predictive-in-cycle-control/thesis-in-cycle-results.svg" alt="Experimental comparison of in-cycle closed-loop and open-loop combustion control results" loading="lazy" />
+	<figcaption>The thesis compared open-loop and in-cycle closed-loop operation over repeated cycles, showing how feedback reduces dispersion in combustion and load metrics.</figcaption>
 </figure>
 
 ## Robustness under model uncertainty and fuel changes
@@ -222,8 +216,7 @@ This required careful design choices: simplified combustion models, reusable com
 The result was a practical control architecture rather than only a simulation concept. The controller was designed with real-time execution in mind from the beginning.
 
 <figure class="article-figure">
-	<!-- TODO: Replace placeholder image with a custom FPGA implementation diagram or approved implementation figure. -->
-	<img src="/images/blog/predictive-in-cycle-control/fpga-control-pipeline.svg" alt="FPGA control pipeline for crank-angle-resolved combustion control" loading="lazy" />
+	<img src="/images/blog/predictive-in-cycle-control/thesis-fpga-diagram.svg" alt="FPGA data acquisition and control architecture used for combustion-control experiments" loading="lazy" />
 	<figcaption>FPGA implementation made deterministic crank-angle-resolved execution feasible, while forcing the models and estimators to remain computationally compact.</figcaption>
 </figure>
 
@@ -303,6 +296,15 @@ In pilot-main diesel combustion, the pilot event contains early information abou
 That is the contribution of this part of the thesis: it showed how predictive models, virtual sensing, online adaptation, and real-time FPGA implementation can work together to make same-cycle combustion regulation possible.
 
 In practical terms, the work moves combustion control from delayed correction toward real-time intervention. The engine does not only learn from the previous cycle. It observes the current one, predicts where it is going, and changes course while there is still time.
+
+## Source articles
+
+This article is based on my PhD thesis and the following thesis papers:
+
+- Carlos Jorques Moreno, Ola Stenlaas, and Per Tunestal, "Predictive In-Cycle Closed-Loop Combustion Control with Pilot-Main Injections," *IFAC-PapersOnLine*, 53(2):14000-14007, 2020.
+- Carlos Jorques Moreno, Ola Stenlaas, and Per Tunestal, "Multi-Cylinder Adaptation of In-Cycle Predictive Combustion Models," *SAE Technical Paper* 2020-01-2087, 2020.
+- Carlos Jorques Moreno, Ola Stenlaas, and Per Tunestal, "In-Cycle Closed-Loop Combustion Control for Pilot Misfire Compensation," *SAE International Journal of Advances and Current Practices in Mobility*, 3(1):299-311, 2021.
+- Carlos Jorques Moreno, Ola Stenlaas, and Per Tunestal, *Design and Optimization of In-Cycle Closed-Loop Combustion Control with Multiple Injections*, PhD thesis, Lund University, 2021.
 
 <section class="article-cta" aria-labelledby="article-next-title">
 	<h2 id="article-next-title">Need help designing real-time combustion control or model-based diagnostics?</h2>

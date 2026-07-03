@@ -15,11 +15,9 @@ tags:
 featured: true
 draft: false
 heroImage:
-  src: /images/blog/stochastic-fault-detection/hero-diagnostic-logic.svg
-  alt: Combustion diagnostic visualization with pressure trace and probabilistic fault boundary
+  src: /images/blog/stochastic-fault-detection/thesis-detection-performance.svg
+  alt: Thesis plot summarizing pilot misfire detection performance under changing conditions
 ---
-
-<!-- TODO: Replace placeholder hero image with a custom diagnostic decision illustration or thesis-derived figure if reuse is permitted. -->
 
 <section class="article-callout" aria-labelledby="key-ideas-title">
 	<h2 id="key-ideas-title">Key ideas</h2>
@@ -94,9 +92,8 @@ The diagnostic challenge was to turn these indicators into a reliable decision b
 </section>
 
 <figure class="article-figure">
-	<!-- TODO: Replace placeholder image with a custom diagnostic decision flow or thesis-derived figure if reuse is permitted. -->
-	<img src="/images/blog/stochastic-fault-detection/diagnostic-decision-flow.svg" alt="Flow diagram of stochastic combustion fault detection and diagnostic decision logic" loading="lazy" />
-	<figcaption>Pressure-derived indicators have to be converted into a diagnostic decision early enough to support compensation in the same cycle.</figcaption>
+	<img src="/images/blog/stochastic-fault-detection/thesis-misfire-estimation-algorithm.svg" alt="Algorithm diagram for estimating pilot mass from pilot misfire probability" loading="lazy" />
+	<figcaption>The thesis used diagnostic decisions as inputs to estimation and control logic, not only as post-cycle fault labels.</figcaption>
 </figure>
 
 ## From thresholds to probability
@@ -116,9 +113,8 @@ The stochastic method used probability models for the relevant pressure-derived 
 This allowed the diagnostic threshold to vary with operating conditions instead of remaining fixed.
 
 <figure class="article-figure">
-	<!-- TODO: Replace placeholder image with custom probability distributions or a thesis-derived diagnostic boundary figure if reuse is permitted. -->
-	<img src="/images/blog/stochastic-fault-detection/probability-threshold.svg" alt="Probability distributions for normal combustion and misfire with adaptive diagnostic threshold" loading="lazy" />
-	<figcaption>When normal combustion and misfire distributions overlap, the diagnostic boundary becomes a probabilistic decision rather than a fixed signal value.</figcaption>
+	<img src="/images/blog/stochastic-fault-detection/thesis-binary-symmetric-channel.svg" alt="Binary symmetric channel model for pilot misfire detector accuracy" loading="lazy" />
+	<figcaption>When diagnosis is uncertain, detector accuracy becomes part of the estimation problem. The thesis modeled misfire detection as a probabilistic channel.</figcaption>
 </figure>
 
 ## Adaptive thresholds
@@ -148,9 +144,8 @@ This is especially relevant for combustion systems because the quality of each s
 In the thesis, sensor fusion of adapted stochastic models provided an additional improvement in detection performance. However, the work also showed an important engineering trade-off: sensor fusion adds complexity, and its benefits must justify the additional calibration and implementation effort.
 
 <figure class="article-figure">
-	<!-- TODO: Replace placeholder image with a custom sensor-fusion illustration or thesis-derived diagnostic architecture if reuse is permitted. -->
-	<img src="/images/blog/stochastic-fault-detection/sensor-fusion.svg" alt="Sensor fusion diagram combining pressure-derived combustion indicators for misfire diagnosis" loading="lazy" />
-	<figcaption>Fusion logic can reduce reliance on a single indicator when signal quality shifts with operating condition.</figcaption>
+	<img src="/images/blog/stochastic-fault-detection/thesis-detection-performance.svg" alt="Pilot misfire detection performance for different detection methods" loading="lazy" />
+	<figcaption>Comparing detector families made the implementation trade-off explicit: higher diagnostic performance has to justify extra calibration and computational complexity.</figcaption>
 </figure>
 
 ## Robustness under changing operating conditions
@@ -166,8 +161,7 @@ Early pilot injection reduced observability because the pilot combustion efficie
 These results are important because they define the physical limit of diagnosis. Even a very good classifier cannot reliably detect a fault if the available measurement does not contain enough information to distinguish the cases.
 
 <figure class="article-figure">
-	<!-- TODO: Replace placeholder image with an operating-condition robustness map or thesis-derived performance summary if reuse is permitted. -->
-	<img src="/images/blog/stochastic-fault-detection/robustness-map.svg" alt="Operating-condition robustness map for combustion fault detection performance" loading="lazy" />
+	<img src="/images/blog/stochastic-fault-detection/thesis-pilot-misfire-probability.svg" alt="Pilot misfire probability as a function of pilot injection conditions" loading="lazy" />
 	<figcaption>Robustness changes with timing, pressure, speed, EGR, fuel, and the physical observability of pilot combustion.</figcaption>
 </figure>
 
@@ -293,6 +287,15 @@ A combustion fault is not always obvious from a single signal. The engine may be
 The contribution of this part of the thesis was to show how diagnostic logic can move beyond fixed thresholds. By combining stochastic detection, adaptive thresholds, pressure-derived indicators, and sensor fusion, the controller can diagnose abnormal combustion behavior more robustly and early enough to support corrective action.
 
 In practical terms, this work helps turn combustion diagnostics from passive fault recognition into active decision support for real-time control.
+
+## Source articles
+
+This article is based on my PhD thesis and the following thesis papers:
+
+- Carlos Jorques Moreno, Ola Stenlaas, and Per Tunestal, "Cylinder Pressure Based Method for In-Cycle Pilot Misfire Detection," *SAE International Journal of Advances and Current Practices in Mobility*, 2(2):488-502, 2020.
+- Carlos Jorques Moreno, Ola Stenlaas, and Per Tunestal, "Bayesian Method for Fuel Mass Estimation of Short Pilot Injections based on its Misfire Probability," *2020 American Control Conference (ACC)*, Denver, CO, USA, 2020, pp. 1507-1513.
+- Carlos Jorques Moreno, Ola Stenlaas, and Per Tunestal, "In-Cycle Closed-Loop Combustion Control for Pilot Misfire Compensation," *SAE International Journal of Advances and Current Practices in Mobility*, 3(1):299-311, 2021.
+- Carlos Jorques Moreno, Ola Stenlaas, and Per Tunestal, *Design and Optimization of In-Cycle Closed-Loop Combustion Control with Multiple Injections*, PhD thesis, Lund University, 2021.
 
 <section class="article-cta" aria-labelledby="combustion-diagnostics-cta-title">
 	<h2 id="combustion-diagnostics-cta-title">Need help turning diagnostic logic into a real-time control system?</h2>

@@ -15,11 +15,9 @@ tags:
 featured: true
 draft: false
 heroImage:
-  src: /images/blog/stochastic-set-point-optimization/hero-efficiency-optimization.svg
-  alt: Combustion efficiency optimization visualization with stochastic distributions and set-point surface
+  src: /images/blog/stochastic-set-point-optimization/thesis-optimal-setpoint.svg
+  alt: Thesis plot of indicated efficiency and CA50 set-point references under operating constraints
 ---
-
-<!-- TODO: Replace placeholder hero image with a custom stochastic optimization illustration or thesis-derived figure if reuse is permitted. -->
 
 <section class="article-callout" aria-labelledby="key-ideas-title">
 	<h2 id="key-ideas-title">Key ideas</h2>
@@ -53,8 +51,7 @@ The optimization process connected candidate combustion-control targets, stochas
 </ol>
 
 <figure class="article-figure">
-	<!-- TODO: Replace placeholder image with a custom Monte Carlo optimization workflow diagram or thesis-derived figure if reuse is permitted. -->
-	<img src="/images/blog/stochastic-set-point-optimization/monte-carlo-workflow.svg" alt="Workflow diagram for stochastic set-point optimization using Monte Carlo simulation" loading="lazy" />
+	<img src="/images/blog/stochastic-set-point-optimization/thesis-controller-comparison.svg" alt="Simulation comparison of open-loop control, main SOC control, and CA50 closed-loop control" loading="lazy" />
 	<figcaption>Monte Carlo simulation turns cycle-to-cycle combustion variability into distributions that can be used for calibration decisions.</figcaption>
 </figure>
 
@@ -89,8 +86,7 @@ This is the link between control and optimization:
 In this sense, the efficiency benefit does not come only from changing the target. It comes from changing the uncertainty around the target. That connection builds on the same control architecture discussed in [predictive in-cycle combustion control](/writing/predictive-in-cycle-combustion-control/) and the estimator layer described in [virtual sensing for in-cycle combustion diagnostics](/writing/virtual-sensing-in-cycle-combustion-diagnostics/).
 
 <figure class="article-figure">
-	<!-- TODO: Replace placeholder image with a custom before/after set-point illustration or thesis-derived figure if reuse is permitted. -->
-	<img src="/images/blog/stochastic-set-point-optimization/set-point-shift.svg" alt="Comparison of conservative open-loop set-point and optimized stochastic set-point" loading="lazy" />
+	<img src="/images/blog/stochastic-set-point-optimization/thesis-optimal-reference.svg" alt="Maximum indicated efficiency results for exhaust temperature, maximum pressure, and pressure-rise constraints" loading="lazy" />
 	<figcaption>Reducing dispersion can make a more efficient set-point feasible without increasing the accepted probability of constraint violation.</figcaption>
 </figure>
 
@@ -107,8 +103,7 @@ That distinction is essential. A set-point with slightly higher average efficien
 Monte Carlo simulation therefore acted as a bridge between combustion variability and calibration decisions.
 
 <figure class="article-figure">
-	<!-- TODO: Replace placeholder image with a custom combustion-outcome distribution plot or thesis-derived figure if reuse is permitted. -->
-	<img src="/images/blog/stochastic-set-point-optimization/combustion-outcome-distribution.svg" alt="Distribution of combustion outcomes around an optimized set-point" loading="lazy" />
+	<img src="/images/blog/stochastic-set-point-optimization/thesis-optimal-loads-comparison.svg" alt="Indicated efficiency increase from in-cycle closed-loop operation across load and constraint cases" loading="lazy" />
 	<figcaption>The useful calibration question is not only where the mean lands, but how much of the distribution approaches operational limits.</figcaption>
 </figure>
 
@@ -125,8 +120,7 @@ A deterministic optimizer might check whether the predicted mean value of each c
 This is especially relevant for pressure-rise rate. A set-point that advances combustion may increase efficiency, but it can also increase the probability of high pressure-rise events. The optimization must therefore evaluate the trade-off between efficiency gain and pressure-rise risk.
 
 <figure class="article-figure">
-	<!-- TODO: Replace placeholder image with a custom efficiency-risk trade-off plot or thesis-derived figure if reuse is permitted. -->
-	<img src="/images/blog/stochastic-set-point-optimization/efficiency-risk-tradeoff.svg" alt="Trade-off plot between indicated efficiency and pressure-rise constraint violation probability" loading="lazy" />
+	<img src="/images/blog/stochastic-set-point-optimization/thesis-optimal-pilot-setpoint.svg" alt="Maximum indicated efficiency and pilot injection set-point under pressure-rise-rate constraints" loading="lazy" />
 	<figcaption>The best usable set-point can sit below the highest theoretical efficiency if the risk of pressure-rise violation becomes unacceptable.</figcaption>
 </figure>
 
@@ -206,8 +200,7 @@ This is useful because engine calibration is fundamentally a constrained optimiz
 The thesis showed that including stochastic variation changes the answer. Once cycle-to-cycle dispersion and misfire probability are considered, the optimum set-point can shift away from the nominal deterministic optimum.
 
 <figure class="article-figure">
-	<!-- TODO: Replace placeholder image with a custom constraint-boundary map or thesis-derived figure if reuse is permitted. -->
-	<img src="/images/blog/stochastic-set-point-optimization/constraint-boundary-map.svg" alt="Feasible combustion set-point region bounded by efficiency and operating constraints" loading="lazy" />
+	<img src="/images/blog/stochastic-set-point-optimization/thesis-optimal-setpoint.svg" alt="Indicated efficiency and CA50 set-point references for open-loop and closed-loop operation under four constraints" loading="lazy" />
 	<figcaption>Constraint-aware optimization treats pressure-rise, peak pressure, exhaust temperature, and misfire probability as boundaries on usable efficiency.</figcaption>
 </figure>
 
@@ -304,6 +297,15 @@ A deterministic optimum can be misleading if it ignores cycle-to-cycle variation
 That is the contribution of this part of the thesis: it showed how stochastic combustion models, Monte Carlo simulation, constraint handling, and in-cycle control performance can be combined to optimize combustion-control set-points.
 
 In practical terms, the work moves calibration from nominal set-point selection toward uncertainty-aware optimization. The engine is not calibrated only for the average cycle. It is calibrated for the distribution of cycles it will actually experience.
+
+## Source articles
+
+This article is based on my PhD thesis and the following thesis papers:
+
+- Carlos Jorques Moreno, Ola Stenlaas, and Per Tunestal, "Stochastic Set-Point Optimization for In-Cycle Closed-Loop Combustion Control Operation," *SAE Technical Paper* 2021-01-0531, 2021.
+- Carlos Jorques Moreno, Ola Stenlaas, and Per Tunestal, "Indicated Efficiency Optimization by In-Cycle Closed-Loop Combustion Control of Diesel Engines," submitted to *Control Engineering Practice*, 2021.
+- Carlos Jorques Moreno, Ola Stenlaas, and Per Tunestal, "In-Cycle Closed-Loop Combustion Control with Pilot-Main Injections for Maximum Indicated Efficiency," *IFAC-PapersOnLine*, 51(31):92-98, 2018.
+- Carlos Jorques Moreno, Ola Stenlaas, and Per Tunestal, *Design and Optimization of In-Cycle Closed-Loop Combustion Control with Multiple Injections*, PhD thesis, Lund University, 2021.
 
 <section class="article-cta" aria-labelledby="optimization-cta-title">
 	<h2 id="optimization-cta-title">Need help optimizing control set-points under uncertainty?</h2>
