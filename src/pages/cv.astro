@@ -1,6 +1,1048 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { cvProfile } from '../data/cvMarkdown';
+
+type CvAction = {
+	label: string;
+	href: string;
+	primary?: boolean;
+	external?: boolean;
+	download?: boolean;
+	analytics: string;
+};
+
+type SectionNavItem = {
+	label: string;
+	href: string;
+};
+
+type ProofTile = {
+	value: string;
+	label: string;
+};
+
+type ImpactHighlight = {
+	category: string;
+	title: string;
+	body: string;
+};
+
+type ExpertiseGroup = {
+	eyebrow?: string;
+	title: string;
+	summary?: string;
+	compactSummary?: string;
+	detailSummary?: string;
+	items: string[];
+	chips?: string[];
+	evidence?: string[];
+	representativeWork?: string[];
+	methods?: string[];
+};
+
+type ExperienceItem = {
+	title: string;
+	organization?: string;
+	location?: string;
+	dates: string;
+	summary: string;
+	highlights: string[];
+	details?: string[];
+	detailGroups?: {
+		title: 'Technical details' | 'Validation scope' | 'Additional responsibilities';
+		items: string[];
+	}[];
+	tags: string[];
+};
+
+type CompactExperienceItem = {
+	title: string;
+	organization: string;
+	dates: string;
+	summary: string;
+	bullets: string[];
+};
+
+type CaseStudy = {
+	eyebrow: string;
+	title: string;
+	statement: string;
+	role: string;
+	focus: string;
+	proof: string;
+	href: string;
+};
+
+type ResearchMetric = {
+	value: string;
+	label: string;
+	description?: string;
+};
+
+type ResearchOutcome = {
+	value: string;
+	label: string;
+};
+
+type EducationItem = {
+	degree: string;
+	year: string;
+	institution?: string;
+	focus?: string;
+	dissertation?: string;
+	description: string;
+	links?: { label: string; href: string }[];
+};
+
+type ToolGroup = {
+	title: string;
+	primaryTools?: string;
+	methods?: string;
+	languages?: { language: string; level: string }[];
+};
+
+type LearningRecognition = {
+	recognition: string[];
+	recentLearning: string[];
+};
+
+const cvProfile = {
+	"links": {
+		"email": "mailto:carlosjorques@gmail.com",
+		"pdf": "/cv/Carlos_Jorques_CV.pdf",
+		"contact": "/contact",
+		"work": "/work",
+		"linkedin": "https://www.linkedin.com/in/carlosjorques/"
+	},
+	"hero": {
+		"eyebrow": "Online CV",
+		"title": "Carlos Jorques",
+		"subtitle": "Senior Embedded Controls Engineer | Technical Lead | Electric & Autonomous Vehicle Systems",
+		"summary": "I am a senior embedded controls engineer with 10+ years of experience developing real time control software for automotive and heavy duty physical systems. My work focuses on EV thermal management, battery systems, autonomous propulsion control, diagnostics, functional safety, validation, and production software delivery.",
+		"secondarySummary": "I translate automatic control concepts into robust embedded software that can be tested, calibrated, validated, and trusted in real machines. My experience spans control architecture, model based implementation, generated C/C++ workflows, MIL/SIL/HIL validation, and technical leadership across international automotive teams."
+	},
+	"actions": [
+		{
+			"label": "Email Carlos",
+			"href": "mailto:carlosjorques@gmail.com",
+			"primary": true,
+			"analytics": "contact_email_click",
+			"ctaId": "cv-email-carlos",
+			"intent": "contact"
+		},
+		{
+			"label": "Download PDF CV",
+			"href": "/cv/Carlos_Jorques_CV.pdf",
+			"download": true,
+			"analytics": "cv_pdf_download",
+			"ctaId": "cv-download-pdf",
+			"intent": "formal-proof"
+		},
+		{
+			"label": "See Work",
+			"href": "/work",
+			"analytics": "cta_click",
+			"ctaId": "cv-see-work",
+			"intent": "proof"
+		}
+	],
+	"sectionNav": [
+		{
+			"label": "Expertise",
+			"href": "#expertise"
+		},
+		{
+			"label": "Impact",
+			"href": "#impact"
+		},
+		{
+			"label": "Experience",
+			"href": "#experience"
+		},
+		{
+			"label": "Systems",
+			"href": "#representative-systems"
+		},
+		{
+			"label": "Research",
+			"href": "#research"
+		},
+		{
+			"label": "Education",
+			"href": "#education"
+		},
+		{
+			"label": "Tools",
+			"href": "#tools"
+		},
+		{
+			"label": "Contact",
+			"href": "#contact"
+		}
+	],
+	"proofTiles": [
+		{
+			"value": "10+ years",
+			"label": "Automotive embedded controls"
+		},
+		{
+			"value": "Current focus",
+			"label": "EV thermal management, BMS, diagnostics"
+		},
+		{
+			"value": "Leadership",
+			"label": "Technical lead for embedded software engineers"
+		},
+		{
+			"value": "Systems",
+			"label": "Electric trucks, autonomous haulers, powertrain controls"
+		},
+		{
+			"value": "Evidence",
+			"label": "PhD, 5 patents, 15+ publications"
+		},
+		{
+			"value": "Location",
+			"label": "Valencia, Spain / open to selected opportunities"
+		}
+	],
+	"relevantFor": [
+		"Senior Electronics Engineer",
+		"Embedded Controls Architect",
+		"Technical Lead",
+		"Control Systems Engineer",
+		"BMS / Thermal Management Engineer",
+		"Functional Safety Engineer",
+		"Autonomous Machine Controls",
+		"Powertrain Software Engineer",
+		"Model-Based Development Lead"
+	],
+	"executiveSummary": [],
+	"expertise": [
+		{
+			"eyebrow": "Control architecture",
+			"title": "Embedded Controls Architecture",
+			"summary": "Technical definition of embedded control functions for vehicle, powertrain, and physical systems.",
+			"compactSummary": "Technical definition of embedded control functions for vehicle, powertrain, and physical systems.",
+			"detailSummary": "I define the boundaries between control intent, software architecture, diagnostics, calibration hooks, and integration interfaces so algorithms can survive real ECU timing, signal quality, physical constraints, and validation requirements.",
+			"items": [
+				"Control function decomposition",
+				"Software, sensor, actuator, and plant model interfaces",
+				"Vehicle and powertrain behavior definition",
+				"Diagnostics, fallback, and degradation concepts",
+				"Real time robustness and integration tradeoffs"
+			],
+			"representativeWork": [
+				"Electric truck thermal management and battery system controller architecture.",
+				"Autonomous electric hauler propulsion control, speed control, and torque allocation.",
+				"Heavy duty engine diagnostics and closed loop combustion control.",
+				"Architecture for production oriented generated code and C/C++ integration workflows."
+			],
+			"methods": [
+				"Requirements driven functional design and software architecture.",
+				"Control design for systems with physical constraints, timing constraints, diagnostics, and validation requirements.",
+				"Integration aware architecture supporting calibration, testing, fault handling, and release maturity.",
+				"Experience across production and research environments."
+			]
+		},
+		{
+			"eyebrow": "Vehicle systems",
+			"title": "Electric and Autonomous Vehicle Systems",
+			"summary": "Embedded control software for electric, autonomous, and heavy-duty vehicle platforms.",
+			"compactSummary": "Embedded control software for electric, autonomous, and heavy-duty vehicle platforms.",
+			"detailSummary": "The common thread is coordinating energy, actuation, sensing, and protection logic so vehicle behavior remains predictable across charging, propulsion, thermal limits, and degraded operating conditions.",
+			"items": [
+				"EV thermal management",
+				"Battery and BMS control",
+				"Charger coordination",
+				"Autonomous propulsion control",
+				"Heavy-duty vehicle systems"
+			],
+			"representativeWork": [
+				"Electric truck thermal management for batteries, auxiliaries, power electronics, and charging.",
+				"Battery management and SOC/SOH/SOP-related thermal control strategies.",
+				"Autonomous electric hauler traction and speed-control software.",
+				"E-bike motor control, wireless charging, and DC/DC converter software."
+			],
+			"methods": [
+				"System-level thinking across batteries, chargers, actuators, sensors, and vehicle behavior.",
+				"Validation in simulation, bench, test-track, vehicle, and field-data contexts where applicable.",
+				"Control strategies designed for efficiency, component protection, controlled degradation, and reliable operation.",
+				"Experience across heavy-duty transport, autonomous machines, e-mobility, and power electronics."
+			]
+		},
+		{
+			"eyebrow": "Automatic control",
+			"title": "Control Systems and Estimation",
+			"summary": "Real time control, virtual sensing, observer design, calibration, model adaptation, and system identification for physical systems.",
+			"compactSummary": "Real time control, virtual sensing, observer design, calibration, model adaptation, and system identification for physical systems.",
+			"detailSummary": "Control systems and estimation connect physical behavior, models, measurements, and software implementation. My work has included feedback control, virtual sensing, observer design, calibration, model adaptation, stochastic detection, and system identification for heavy duty physical systems.",
+			"items": [
+				"Feedback control",
+				"Virtual sensing",
+				"Observer design",
+				"Calibration and model adaptation",
+				"System identification"
+			],
+			"representativeWork": [
+				"Real time control for physical systems.",
+				"Virtual sensing and observer based estimation.",
+				"Calibration and model adaptation.",
+				"System identification and signal analysis."
+			],
+			"methods": [
+				"Feedback control, virtual sensing, and observer design.",
+				"Calibration, model adaptation, and system identification.",
+				"Stochastic detection and diagnostic reasoning.",
+				"Model based implementation for embedded software."
+			]
+		},
+		{
+			"eyebrow": "Software delivery",
+			"title": "Embedded Software and Validation",
+			"summary": "Production delivery of embedded control software from implementation to validated release.",
+			"compactSummary": "Production delivery of embedded control software from implementation to validated release.",
+			"detailSummary": "I turn control concepts and software architecture into testable embedded software, integrating generated code, C/C++ implementation, calibration workflows, validation evidence, and release oriented delivery practices.",
+			"items": [
+				"Model based implementation",
+				"Generated C/C++ integration",
+				"MIL/SIL/HIL validation",
+				"CI/CD and software integration",
+				"Calibration, debugging, and release support"
+			],
+			"representativeWork": [
+				"Model based software for electric truck thermal management and battery system functionality.",
+				"Propulsion control validation for autonomous electric haulers in manual and autonomous modes.",
+				"Application layer software for e-bike motor control, wireless charging, and DC/DC converter interfaces.",
+				"Heavy duty engine diagnostic software using model based methods and generated C code workflows."
+			],
+			"methods": [
+				"Full lifecycle involvement from requirements and concept design to validation and production oriented delivery.",
+				"Testing across MIL, SIL, HIL, test bench, wind tunnel, test track, on road, and field data environments where applicable.",
+				"Use of Git, GitLab, Jenkins, Jira, CI/CD, debugging, ECU flashing, and traceable development workflows.",
+				"Focus on maintainable software boundaries, testability, calibration maturity, and integration quality."
+			]
+		},
+		{
+			"eyebrow": "Safety & diagnostics",
+			"title": "Diagnostics, Safety, and Robustness",
+			"summary": "Diagnostic and safety-aware control software for reliable physical systems.",
+			"compactSummary": "Diagnostic and safety-aware control software for reliable physical systems.",
+			"detailSummary": "My diagnostic work starts by separating physical cause, signal symptom, control response, and degraded behavior, then using evidence to decide what the system can still do safely and reliably.",
+			"items": [
+				"Diagnostic strategy design",
+				"Fault detection and isolation",
+				"ISO 26262-aligned development",
+				"A-SPICE traceability",
+				"Fallback and degradation logic"
+			],
+			"representativeWork": [
+				"Diagnostics and fallback strategies for EV thermal systems and battery-related functions.",
+				"Safety-related monitoring for autonomous propulsion and speed-control functionality.",
+				"Heavy-duty engine, fuel-system, oil-system, and cooling-system diagnostics.",
+				"Real-time model-based diagnostics and virtual sensing from industrial PhD research."
+			],
+			"methods": [
+				"Separate root cause, control strategy, diagnostic logic, degradation behavior, and implementation before coding.",
+				"Use empirical data, simulation, HIL, bench, vehicle, and field evidence to support diagnostic and robustness decisions.",
+				"Develop monitoring and degradation logic so systems can remain controlled under component or signal faults.",
+				"Apply functional safety and traceability-aware practices in production-oriented automotive environments."
+			]
+		},
+		{
+			"eyebrow": "Technical direction",
+			"title": "Technical Leadership",
+			"summary": "Technical direction for embedded software teams in automotive development environments.",
+			"compactSummary": "Technical direction for embedded software teams in automotive development environments.",
+			"detailSummary": "I help teams make ambiguous engineering work visible: what is known, what is assumed, what must be validated, and which technical choices affect delivery, quality, and long-term maintainability.",
+			"items": [
+				"Embedded software mentoring",
+				"Technical delivery coordination",
+				"Architecture reviews",
+				"Cross-functional alignment",
+				"Agile development support"
+			],
+			"representativeWork": [
+				"Technical leadership of a team of 3 embedded software engineers.",
+				"Planning, mentoring, delivery coordination, and technical-quality support in embedded automotive assignments.",
+				"Cross-functional coordination across system engineering, software, validation, suppliers, and stakeholders.",
+				"Support for Agile, Scrum, Kanban, SAFe, and CI/CD delivery environments."
+			],
+			"methods": [
+				"Provide structural clarity in technically ambiguous situations.",
+				"Make technical trade-offs, risks, assumptions, and validation needs visible.",
+				"Support team autonomy and accountability while maintaining architectural coherence.",
+				"Translate different engineering perspectives into practical technical decisions and release-oriented plans."
+			]
+		}
+	],
+	"impactIntro": "Selected outcomes showing how embedded control software, electrification, diagnostics, autonomous systems, and applied control research translated into system value.",
+	"impactHighlights": [
+		{
+			"category": "Leadership",
+			"title": "Embedded software delivery",
+			"body": "Led and mentored a team of 3 embedded software engineers, supporting architecture clarity, delivery coordination, and model based automotive control software development."
+		},
+		{
+			"category": "Electrification",
+			"title": "Electric truck control software",
+			"body": "Delivered control software for thermal coordination, battery systems, charger interfaces, diagnostics, and validation evidence."
+		},
+		{
+			"category": "Autonomous systems",
+			"title": "Vehicle level motion control",
+			"body": "Designed and integrated traction and speed-control software for autonomous electric haulers."
+		},
+		{
+			"category": "Diagnostics",
+			"title": "Fault tolerant control concepts",
+			"body": "Developed control architecture and diagnostics for dual-motor torque allocation and redundant actuator concepts."
+		},
+		{
+			"category": "Power electronics",
+			"title": "Electrified system control",
+			"body": "Created model-based thermal and control software for e-bike motor control, wireless charging, and DC/DC converter applications."
+		},
+		{
+			"category": "Research",
+			"title": "Validated control research",
+			"body": "Published results showing 25 to 75 percent reduction in controlled parameter dispersion, 60 percent reduction in pilot fuel mass estimation error, and up to 96 percent real-time pilot misfire detection."
+		}
+	],
+	"experience": [
+		{
+			"title": "Senior Developer Engineer",
+			"organization": "Traton / Scania Assignment",
+			"dates": "July 2025-Present",
+			"summary": "Embedded software for electric truck thermal management, battery systems, charger coordination, diagnostics, and real-time controller architecture.",
+			"highlights": [
+				"Develop and validate thermal management software for batteries, auxiliaries, power electronics, and charging systems.",
+				"Support predictive thermal control, diagnostics, functional safety analysis, and CI/CD integration."
+			],
+			"detailGroups": [
+				{
+					"title": "Technical details",
+					"items": [
+						"Model calibration and validation across MIL, SIL, HIL, test bench, wind tunnel, test track, and vehicle environments.",
+						"Battery management and SOC/SOH/SOP-related thermal control strategies.",
+						"Functional safety analysis, diagnostics, fallback strategies, and ISO 26262 / A-SPICE-aligned workflows.",
+						"GitLab CI/CD pipelines and SAFe Agile practices to improve integration quality and reduce development cycle time."
+					]
+				},
+				{
+					"title": "Additional responsibilities",
+					"items": [
+						"Cross-functional coordination across Traton and Scania R&D.",
+						"Supplier coordination and traceable engineering practices.",
+						"Controller architecture using model-based development.",
+						"Calibration maturity tracking across simulation, bench, and vehicle environments."
+					]
+				}
+			],
+			"tags": [
+				"MATLAB/Simulink",
+				"C",
+				"GitLab",
+				"ISO 26262",
+				"A-SPICE",
+				"BMS",
+				"diagnostics",
+				"EV thermal management"
+			]
+		},
+		{
+			"title": "Senior Software Developer / Technical Leader",
+			"organization": "Alten Delivery Center",
+			"location": "Valencia, Spain",
+			"dates": "2023-Present",
+			"summary": "Provided technical direction across architecture, planning, software quality, mentoring, and cross functional delivery alignment.",
+			"highlights": [
+				"Provide technical leadership to a team of 3 engineers in embedded software development.",
+				"Coordinate planning, technical quality, mentoring, and client assignment delivery."
+			],
+			"detailGroups": [
+				{
+					"title": "Additional responsibilities",
+					"items": [
+						"System requirements and architecture design for embedded automotive software assignments.",
+						"Controller implementation, validation, debugging, and issue tracking.",
+						"Knowledge sharing across Agile and CI/CD workflows.",
+						"Alten Key People program for mentoring and project management."
+					]
+				}
+			],
+			"tags": [
+				"MATLAB/Simulink",
+				"C/C++",
+				"ISO 26262",
+				"Agile",
+				"CI/CD",
+				"SIL/HIL",
+				"technical leadership"
+			]
+		},
+		{
+			"title": "Senior Developer Engineer",
+			"organization": "Volvo CE Assignment",
+			"dates": "April 2022-December 2024",
+			"summary": "Propulsion control software for autonomous electric haulers, including traction control, speed control, torque allocation, diagnostics, and functional safety.",
+			"highlights": [
+				"Developed and integrated traction and speed control functionality for autonomous electric haulers.",
+				"Designed propulsion torque control architecture for dual electric motors and redundant actuator concepts."
+			],
+			"detailGroups": [
+				{
+					"title": "Validation scope",
+					"items": [
+						"Unit tests, integration tests, SIL/HIL, and vehicle evaluations in manual and autonomous modes.",
+						"Safety-related speed control and monitoring software.",
+						"Debugging, tuning, issue tracking, and system-level evaluations.",
+						"Mentoring and support for junior developers."
+					]
+				}
+			],
+			"tags": [
+				"MATLAB/Simulink",
+				"ISO 26262",
+				"SIL",
+				"HIL",
+				"diagnostics",
+				"data analysis",
+				"autonomous vehicle control",
+				"propulsion control"
+			]
+		},
+		{
+			"title": "Development Software Engineer",
+			"organization": "Mahle Electronics",
+			"location": "Valencia, Spain",
+			"dates": "2022-2023",
+			"summary": "Electric mobility software for e-bike motor control, power electronics interfaces, thermal modeling, and AUTOSAR-oriented software architecture.",
+			"highlights": [
+				"Led software development for an e-bike motor control project.",
+				"Implemented application-layer software for wireless battery charging and DC/DC converter functionality."
+			],
+			"detailGroups": [
+				{
+					"title": "Technical details",
+					"items": [
+						"Developed and calibrated a virtual PMSM motor temperature model with approximately 98% accuracy.",
+						"Optimized PMSM electric motor controller behavior.",
+						"Developed model-based software strategy for an adaptive platform using AUTOSAR-oriented methods.",
+						"Acted as Scrum Master and contributed to Automotive SPICE methodology implementation."
+					]
+				}
+			],
+			"tags": [
+				"MATLAB/Simulink",
+				"C",
+				"C++",
+				"Classic AUTOSAR",
+				"CANalyzer",
+				"Agile",
+				"PMSM",
+				"model-based development"
+			]
+		},
+		{
+			"title": "Senior Development Engineer",
+			"organization": "Scania",
+			"location": "Sodertalje, Sweden",
+			"dates": "2021-2022",
+			"summary": "Developed embedded control software for electric powertrain thermal management and battery management functions in heavy-duty vehicle applications.",
+			"highlights": [
+				"Designed control architecture for thermal management in electric powertrains.",
+				"Developed estimation methods for state of charge, state of power, and state of health in mild-hybrid vehicle batteries."
+			],
+			"detailGroups": [
+				{
+					"title": "Technical details",
+					"items": [
+						"Passive and active cooling control integration across cabin climate, fans, heat pumps, batteries, and electric motors.",
+						"Control and diagnosis concepts for electric truck thermal management and BMS functionality.",
+						"Supplier contact, calibration maturity tracking, debugging, issue tracking, ECU flashing, and patent applications.",
+						"Implementation and testing of control software for electric vehicles."
+					]
+				},
+				{
+					"title": "Validation scope",
+					"items": [
+						"MIL validation for model behavior and software logic.",
+						"SIL and HIL validation for generated software and integration behavior.",
+						"Bench, wind tunnel, test track, and on-road validation.",
+						"Data analysis and calibration maturity tracking."
+					]
+				}
+			],
+			"tags": [
+				"MATLAB/Simulink",
+				"C",
+				"C++",
+				"Jenkins",
+				"Git",
+				"ISO 26262",
+				"BMS",
+				"thermal management"
+			]
+		},
+		{
+			"title": "Industrial PhD Student",
+			"organization": "Scania and Lund University",
+			"location": "Sodertalje, Sweden",
+			"dates": "2016-2021",
+			"summary": "Conducted industrial PhD research on real-time diagnostics and in-cycle closed-loop combustion control for heavy-duty diesel engines operating with biofuels.",
+			"highlights": [
+				"Developed real-time model-based diagnostics and control algorithms for heavy-duty engine combustion systems.",
+				"Designed and implemented in-cycle closed-loop combustion control concepts using FPGA and LabVIEW."
+			],
+			"detailGroups": [
+				{
+					"title": "Technical details",
+					"items": [
+						"Virtual sensors, stochastic detection methods, predictive models, and online adaptation strategies.",
+						"Experiments, data analysis, calibration, and validation on test benches and prototype systems.",
+						"Peer-reviewed publications, patent applications, conference representation, and thesis mentoring.",
+						"Research on heavy-duty diesel engines operating with biofuels."
+					]
+				}
+			],
+			"tags": [
+				"MATLAB/Simulink",
+				"LabVIEW",
+				"FPGA",
+				"signal processing",
+				"stochastic modeling",
+				"model calibration",
+				"experimental validation"
+			]
+		},
+		{
+			"title": "Development Engineer",
+			"organization": "Scania",
+			"location": "Sodertalje, Sweden",
+			"dates": "2014-2016",
+			"summary": "Developed embedded control and diagnostic software for heavy-duty engine systems, oil systems, cooling systems, and safety-related functionality.",
+			"highlights": [
+				"Developed software for engine diagnostics, calibration, and safety functionality using model-based methods and C-code generation.",
+				"Implemented control and diagnostic functions for oil level, oil pressure, warning handling, and driver display information."
+			],
+			"detailGroups": [
+				{
+					"title": "Technical details",
+					"items": [
+						"Concepts for controllable cooling systems, controllable oil pumps, and oil degradation models.",
+						"Validation using MIL, SIL, HIL, test bench, wind tunnel, test track, and on-road testing.",
+						"ECU flashing, issue tracking, supplier contact, patent applications, and thesis mentoring.",
+						"Generated C-code workflows for model-based embedded software."
+					]
+				}
+			],
+			"tags": [
+				"MATLAB/Simulink",
+				"C",
+				"C++",
+				"Jenkins",
+				"Perforce",
+				"Vision",
+				"Jira",
+				"diagnostics",
+				"functional safety"
+			]
+		}
+	],
+	"earlierExperience": [
+		{
+			"title": "Master Thesis Student",
+			"organization": "Scania",
+			"dates": "2014",
+			"summary": "Master thesis on automatic control for a low-pressure fuel system in heavy-duty vehicles.",
+			"bullets": [
+				"Built and evaluated a test-rig control strategy using MATLAB/Simulink.",
+				"Contributed to real-time control algorithm and patent-related work."
+			]
+		},
+		{
+			"title": "Hardware Engineer",
+			"organization": "Arduino Verkstad",
+			"dates": "2014",
+			"summary": "Short-term hardware engineering work focused on educational electronics platforms and embedded prototyping.",
+			"bullets": [
+				"Designed and produced PCB circuits for TinkerKit-based educational projects.",
+				"Created documentation for Arduino courses and maker education materials."
+			]
+		},
+		{
+			"title": "Software Researcher",
+			"organization": "Sony Mobile Communications",
+			"dates": "May 2013-August 2013",
+			"summary": "Engineering internship in mobile R&D focused on predictive algorithms for reduced touchscreen latency.",
+			"bullets": [
+				"Researched predictive screen interaction models for improved responsiveness.",
+				"Implemented selected algorithms at Android kernel level for real-time evaluation."
+			]
+		}
+	],
+	"caseStudies": [
+		{
+			"eyebrow": "EV systems",
+			"title": "Electric Truck Thermal Management and Battery Systems",
+			"statement": "Embedded control software for battery, auxiliary, power electronics, and charging thermal coordination in heavy-duty electric vehicles.",
+			"role": "Senior developer engineer",
+			"focus": "BMS / thermal control / diagnostics",
+			"proof": "MIL/SIL/HIL / vehicle testing / ISO 26262 context",
+			"href": "/work#electric-truck-thermal-management"
+		},
+		{
+			"eyebrow": "Autonomous machines",
+			"title": "Autonomous Electric Hauler Propulsion Control",
+			"statement": "Propulsion and speed-control software for autonomous electric haulers operating in demanding off-road environments.",
+			"role": "Senior developer engineer / technical lead",
+			"focus": "Traction control / torque allocation / diagnostics",
+			"proof": "Dual motors / redundant actuators / SIL/HIL / vehicle testing",
+			"href": "/work#autonomous-hauler-propulsion-control"
+		},
+		{
+			"eyebrow": "Power electronics",
+			"title": "E-Bike Motor Control and Power Electronics Software",
+			"statement": "Embedded software for e-bike motor control, wireless charging, DC/DC conversion, and PMSM thermal modeling.",
+			"role": "Software lead / Scrum Master",
+			"focus": "PMSM / AUTOSAR / power electronics",
+			"proof": "98% thermal model accuracy / bench validation / Agile delivery",
+			"href": "/work#ebike-motor-control-power-electronics"
+		},
+		{
+			"eyebrow": "Real-time control research",
+			"title": "Heavy-Duty Engine Diagnostics and Control Research",
+			"statement": "Real-time control and diagnostic algorithms for heavy-duty combustion systems with experimental validation.",
+			"role": "Industrial PhD researcher",
+			"focus": "Closed-loop control / virtual sensing / stochastic detection",
+			"proof": "Patents / publications / test-bench validation",
+			"href": "/work#heavy-duty-engine-diagnostics-control-research"
+		}
+	],
+	"research": {
+		"intro": "Research evidence behind my work in real-time control, virtual sensing, diagnostics, stochastic modeling, and hardware-constrained implementation for heavy-duty physical systems.",
+		"themes": [
+			"Closed-loop combustion control",
+			"Virtual sensing and diagnostics",
+			"Stochastic detection and estimation",
+			"Predictive control and model adaptation",
+			"Real-time hardware implementation",
+			"Experimental validation"
+		],
+		"outcomes": [
+			{
+				"value": "25 to 75%",
+				"label": "Reduced controlled parameter dispersion"
+			},
+			{
+				"value": "60%",
+				"label": "Reduced pilot fuel mass estimation error"
+			},
+			{
+				"value": "Up to 96%",
+				"label": "Real time pilot misfire detection"
+			},
+			{
+				"value": "Up to +1.8%",
+				"label": "Indicated efficiency improvement in stochastic set-point optimization"
+			}
+		],
+		"evidence": [
+			{
+				"value": "5",
+				"label": "Patent records",
+				"description": "Control, diagnostics, and combustion related inventions"
+			},
+				{
+					"value": "15+",
+					"label": "Scientific publications",
+					"description": "Real-time control, diagnostics, estimation, and validation"
+			},
+			{
+				"value": "PhD",
+				"label": "Industrial research",
+				"description": "Scania and Lund University"
+				}
+			],
+			"relevance": "Research translated combustion sensing, stochastic diagnostics, and predictive control into experimentally validated methods for robust, efficient real-time heavy-duty engine control, supporting lower-emission transport, biofuel flexibility, and embedded deployment under industrial hardware constraints.",
+			"publications": [
+				{
+					"title": "Investigation of Small Pilot Combustion in a Heavy-Duty Diesel Engine",
+					"type": "Journal article",
+					"venue": "SAE International Journal of Engines",
+					"year": "2017",
+					"authors": "Carlos Jorques Moreno, Ola Stenlaas, Per Tunestal",
+					"doi": "10.4271/2017-01-0718",
+					"href": "https://doi.org/10.4271/2017-01-0718"
+				},
+				{
+					"title": "Influence of Small Pilot on Main Injection in a Heavy-Duty Diesel Engine",
+					"type": "SAE technical paper",
+					"venue": "SAE Technical Paper Series",
+					"year": "2017",
+					"authors": "Carlos Jorques Moreno, Ola Stenlaas, Per Tunestal",
+					"doi": "10.4271/2017-01-0708",
+					"href": "https://doi.org/10.4271/2017-01-0708"
+				},
+				{
+					"title": "Cylinder Pressure-Based Virtual Sensor for In-Cycle Pilot Mass Estimation",
+					"type": "Journal article",
+					"venue": "SAE International Journal of Engines",
+					"year": "2018",
+					"authors": "Carlos Jorques Moreno, Ola Stenlaas, Per Tunestal",
+					"doi": "10.4271/2018-01-1163",
+					"href": "https://doi.org/10.4271/2018-01-1163"
+				},
+				{
+					"title": "In-Cycle Closed-Loop Combustion Controllability with Pilot-Main Injections",
+					"type": "Conference paper",
+					"venue": "THIESEL 2018 Conference on Thermo- and Fluid Dynamic Processes in Direct Injection Engines",
+					"year": "2018",
+					"authors": "Carlos Jorques Moreno, Ola Stenlaas, Per Tunestal"
+				},
+				{
+					"title": "Predictive In-Cycle Closed-Loop Combustion Control with Pilot-Main Injections",
+					"type": "Paper",
+					"venue": "IFAC-PapersOnLine",
+					"year": "2020",
+					"authors": "Carlos Jorques Moreno, Ola Stenlaas, Per Tunestal",
+					"doi": "10.1016/j.ifacol.2020.12.920",
+					"href": "https://doi.org/10.1016/j.ifacol.2020.12.920"
+				},
+				{
+					"title": "In-Cycle Closed-Loop Combustion Control with Pilot-Main Injections for Maximum Indicated Efficiency",
+					"type": "Conference paper",
+					"venue": "IFAC PapersOnLine",
+					"year": "2018",
+					"authors": "Carlos Jorques Moreno, Ola Stenlaas, Per Tunestal",
+					"doi": "10.1016/j.ifacol.2018.10.018",
+					"href": "https://doi.org/10.1016/j.ifacol.2018.10.018"
+				},
+				{
+					"title": "Internal Combustion Engine Cylinder Volume Trace Deviation",
+					"type": "Article",
+					"venue": "SAE International Journal of Engines",
+					"year": "2018",
+					"authors": "Ivan Anagrius West, Carlos Jorques Moreno, Ola Stenlaas, Fredrik Haslestad, Ola Jonsson",
+					"doi": "10.4271/03-11-02-0013",
+					"href": "https://doi.org/10.4271/03-11-02-0013"
+				},
+				{
+					"title": "Cylinder Pressure Based Method for In-Cycle Pilot Misfire Detection",
+					"type": "Journal article",
+					"venue": "SAE International Journal of Advances and Current Practices in Mobility",
+					"year": "2019",
+					"authors": "Carlos Jorques Moreno, Ola Stenlaas, Per Tunestal",
+					"doi": "10.4271/2019-24-0017",
+					"href": "https://doi.org/10.4271/2019-24-0017"
+				},
+				{
+					"title": "Bayesian Method for Fuel Mass Estimation of Short Pilot Injections based on its Misfire Probability",
+					"type": "Conference paper",
+					"venue": "2020 American Control Conference (ACC)",
+					"year": "2020",
+					"authors": "Carlos Jorques Moreno, Ola Stenlaas, Per Tunestal",
+					"doi": "10.23919/acc45564.2020.9147866",
+					"href": "https://doi.org/10.23919/acc45564.2020.9147866"
+				},
+				{
+					"title": "Multi-Cylinder Adaptation of In-Cycle Predictive Combustion Models",
+					"type": "SAE technical paper",
+					"venue": "SAE Technical Paper Series",
+					"year": "2020",
+					"authors": "Carlos Jorques Moreno, Ola Stenlaas, Per Tunestal",
+					"doi": "10.4271/2020-01-2087",
+					"href": "https://doi.org/10.4271/2020-01-2087"
+				},
+				{
+					"title": "In-Cycle Closed-Loop Combustion Control for Pilot Misfire Compensation",
+					"type": "Journal article",
+					"venue": "SAE International Journal of Advances and Current Practices in Mobility",
+					"year": "2020",
+					"authors": "Carlos Jorques Moreno, Ola Stenlaas, Per Tunestal",
+					"doi": "10.4271/2020-01-2086",
+					"href": "https://doi.org/10.4271/2020-01-2086"
+				},
+				{
+					"title": "Stochastic Set-Point Optimization for In-Cycle Closed-Loop Combustion Control Operation",
+					"type": "Journal article",
+					"venue": "SAE Technical Paper Series",
+					"year": "2021",
+					"authors": "Carlos Jorques Moreno, Ola Stenlaas, Per Tunestal",
+					"doi": "10.4271/2021-01-0531",
+					"href": "https://doi.org/10.4271/2021-01-0531"
+				},
+				{
+					"title": "Modular Design and Integration of In-Cycle Closed-Loop Combustion Controllers for a Wide-Range of Operating Conditions",
+					"type": "Conference paper",
+					"venue": "2021 American Control Conference (ACC)",
+					"year": "2021",
+					"authors": "Carlos Jorques Moreno, Ola Stenlaas, Per Tunestal",
+					"doi": "10.23919/acc50511.2021.9482854",
+					"href": "https://doi.org/10.23919/acc50511.2021.9482854"
+				},
+				{
+					"title": "FPGA Implementation of In-Cycle Closed-Loop Combustion Control Methods",
+					"type": "Conference paper",
+					"venue": "SAE Technical Paper Series",
+					"year": "2021",
+					"authors": "Carlos Jorques Moreno, Ola Stenlaas, Per Tunestal",
+					"doi": "10.4271/2021-24-0024",
+					"href": "https://doi.org/10.4271/2021-24-0024"
+				},
+				{
+					"title": "Indicated efficiency optimization by in-cycle closed-loop combustion control of diesel engines",
+					"type": "Article",
+					"venue": "Control Engineering Practice",
+					"year": "2022",
+					"authors": "C. Jorques Moreno, O. Stenlaas, P. Tunestal",
+					"doi": "10.1016/j.conengprac.2022.105097",
+					"href": "https://doi.org/10.1016/j.conengprac.2022.105097"
+				}
+			],
+			"patents": [
+				{
+					"title": "Method and system for determining in-cycle a pilot injection fuel mass in a combustion chamber of an engine",
+					"issuer": "WO2019045623A1",
+					"year": "2019-03-07",
+					"href": "https://patents.google.com/patent/WO2019045623A1/en",
+					"description": "Method to determine in-cycle pilot injection fuel mass from pressure information and possible vaporization or combustion timing."
+				},
+				{
+					"title": "Method and system for fuel pump regulation",
+					"issuer": "WO2016043652A1",
+					"year": "2016-03-24",
+					"href": "https://patents.google.com/patent/WO2016043652A1/en",
+					"description": "Method for fuel-pump control in a fuel system, including system, vehicle, computer program, and computer-program product applications."
+				},
+				{
+					"title": "System and method for improving heat release evaluation at a reciprocating internal combustion engine",
+					"issuer": "WO2017217912A1",
+					"year": "2017-12-21",
+					"href": "https://patents.google.com/patent/WO2017217912A1/en",
+					"description": "Method for improving heat-release evaluation using a model for cylinder-volume deviations and dynamic engine parameters."
+				},
+				{
+					"title": "Method and system for diagnosing a fuel system II",
+					"issuer": "WO2017003366A1",
+					"year": "2017-01-05",
+					"href": "https://patents.google.com/patent/WO2017003366A1/en",
+					"description": "Method for diagnosing a vehicle fuel system using filtered pressure-sensor signals and fuel-flow error determination."
+				},
+				{
+					"title": "Method and system for diagnosing a fuel system",
+					"issuer": "WO2017003365A1",
+					"year": "2017-01-05",
+					"href": "https://patents.google.com/patent/WO2017003365A1/en",
+					"description": "Method for diagnosing fuel-flow errors in vehicles with combustion engines and multiple fuel pumps using pump power consumption."
+				}
+			],
+			"workHref": "/work"
+		},
+	"education": [
+		{
+			"degree": "PhD, Mechanical Engineering",
+			"year": "2021",
+			"institution": "Lund University",
+			"dissertation": "Design and Optimization of In Cycle Closed Loop Combustion Control with Multiple Injection",
+			"description": "Industrial PhD with Scania focused on real-time control, diagnostics, virtual sensing, stochastic detection, FPGA-based implementation, and experimental validation for heavy-duty diesel engines.",
+			"links": [
+				{
+					"label": "Thesis publication",
+					"href": "https://portal.research.lu.se/portal/files/96902493/PhD_Thesis_Open.pdf"
+				},
+				{
+					"label": "Thesis presentation",
+					"href": "https://www.youtube.com/watch?v=vTkDS-V9lFw"
+				},
+				{
+					"label": "Research context",
+					"href": "/work"
+				}
+			]
+		},
+		{
+			"degree": "MSc, Electrical Engineering",
+			"year": "2014",
+			"institution": "Lund University",
+			"focus": "Automatic control and automation.",
+			"description": "Specialized in control systems, embedded software, mechatronics, signal processing, optimal control, power electronics, and robotics. Master thesis at Scania on a multi-pump fuel control system with real-time control algorithms and patent work."
+		},
+		{
+			"degree": "MSc, Industrial Engineering",
+			"year": "2014",
+			"institution": "Polytechnic University of Valencia",
+			"focus": "Electronics and automation.",
+			"description": "Multidisciplinary engineering program covering mechanical, electrical, electronic, control, automation, and energy systems. Graduated with honors and received academic scholarships and recognition."
+		}
+	],
+	"educationIntro": "Academic foundation in automatic control, dynamic systems, embedded software, and industrial research for heavy-duty physical systems.",
+	"toolsIntro": "A snapshot of the tools, methods, standards, languages, and learning habits that support my work across embedded control software, validation, diagnostics, and production delivery.",
+	"tools": [
+		{
+			"title": "Control and Modeling",
+			"primaryTools": "MATLAB · Simulink · Stateflow · Embedded Coder · LabVIEW",
+			"methods": "Model-based development, system identification, calibration, observer design, virtual sensing, model adaptation, signal processing, Kalman filtering, stochastic modeling, optimization, model predictive control."
+		},
+		{
+			"title": "Embedded Software",
+			"primaryTools": "C · C++ · Python · CAPL · LabVIEW FPGA · ECU flashing",
+			"methods": "Real-time embedded implementation, generated code integration, diagnostics implementation, scripting, automation, AUTOSAR-oriented workflows, hardware-constrained algorithms."
+		},
+		{
+			"title": "Validation and Testing",
+			"primaryTools": "MIL · SIL · HIL · CANalyzer · CANoe · Google Test",
+			"methods": "Test bench validation, vehicle validation, wind tunnel, test track, on road testing, regression testing, fault injection, calibration support, ECU debugging."
+		},
+		{
+			"title": "Delivery and Collaboration",
+			"primaryTools": "Git · GitLab · Jenkins · Jira · CI/CD · SAFe",
+			"methods": "Code review, issue tracking, requirements alignment, architecture coordination, release workflows, agile delivery, continuous integration, mentoring, cross functional coordination."
+		},
+		{
+			"title": "Standards and Automotive Context",
+			"primaryTools": "ISO 26262 · A-SPICE · AUTOSAR · CAN/J1939 · Functional Safety",
+			"methods": "Functional safety awareness, FuSa analysis, process alignment, automotive communication, traceability, production-oriented documentation."
+		},
+		{
+			"title": "Languages",
+			"languages": [
+				{
+					"language": "Spanish",
+					"level": "native"
+				},
+				{
+					"language": "Catalan",
+					"level": "native"
+				},
+				{
+					"language": "English",
+					"level": "full professional"
+				},
+				{
+					"language": "Swedish",
+					"level": "full professional"
+				}
+			]
+		}
+	],
+	"learningRecognition": {
+		"recognition": [
+			"Outstanding Oral Presentation Award, SAE, 2017",
+			"Scania Innovation Challenge, Scania, 2019",
+			"Best Academic Record for First Year, Polytechnic University of Valencia, 2009",
+			"Double Degree Scholarship, COIICV, 2013"
+		],
+		"recentLearning": [
+			"LangChain and LLMs with Python, Alten, 2025",
+			"Project Management: Product Owner and Kanban, Cualtis, 2024",
+			"Power Electronic Converters, 2022",
+			"Introduction to Electromobility, Swedish Electromobility Centre, 2020",
+			"GT Power, Gamma Technologies, 2015"
+		]
+	},
+	"finalContact": "For roles or technical conversations involving embedded controls, electric vehicles, battery and thermal management, diagnostics, functional safety, autonomous machines, or reliable physical systems, contact me directly or download the PDF resume. I am based in Spain and open to selected remote or hybrid opportunities with international teams."
+} as const;
 
 const baseUrl = import.meta.env.BASE_URL;
 const withBase = (href: string) => {
@@ -115,7 +1157,11 @@ const profileJsonLd = {
 								target={action.external ? '_blank' : undefined}
 								rel={action.external ? 'noopener noreferrer' : undefined}
 								download={action.download ? true : undefined}
-								data-analytics={action.analytics}
+								data-analytics-event={action.analytics}
+								data-cta-id={action.ctaId}
+								data-cta-placement="cv-hero"
+								data-cta-intent={action.intent}
+								data-source-section="cv-hero"
 							>
 								{action.label}
 							</a>
@@ -153,7 +1199,18 @@ const profileJsonLd = {
                                                 <ul class="cv-section-nav__links">
                                                         {cvProfile.sectionNav.map((item) => (
                                                                 <li>
-                                                                        <a class="cv-section-nav__link" href={item.href} data-cv-section-link data-analytics="cv_section_nav_click">{item.label}</a>
+                                                                        <a
+										class="cv-section-nav__link"
+										href={item.href}
+										data-cv-section-link
+										data-analytics-event="cta_click"
+										data-cta-id={`cv-section-${item.label.toLowerCase().replaceAll(' ', '-')}`}
+										data-cta-placement="cv-section-nav"
+										data-cta-intent="section-navigation"
+										data-source-section="cv-section-nav"
+									>
+										{item.label}
+									</a>
                                                                 </li>
                                                         ))}
                                                 </ul>
@@ -445,7 +1502,17 @@ const profileJsonLd = {
 									<dd>{item.proof}</dd>
 								</div>
 							</dl>
-							<a class="cv-expertise-card__toggle representative-system-card__link" href={withBase(item.href)}>View work context →</a>
+							<a
+								class="cv-expertise-card__toggle representative-system-card__link"
+								href={withBase(item.href)}
+								data-analytics-event="related_proof_click"
+								data-cta-id={`cv-work-context-${expertiseCardId(item.title)}`}
+								data-cta-placement="cv-representative-systems"
+								data-cta-intent="proof"
+								data-source-section="representative-systems"
+							>
+								View work context →
+							</a>
 						</article>
 						);
 					})}
@@ -495,12 +1562,65 @@ const profileJsonLd = {
                                                         </li>
                                                 ))}
                                         </ul>
-                                        <div class="cv-research-relevance">
-                                                <h3>Engineering relevance</h3>
-                                                <p>{cvProfile.research.relevance}</p>
-                                        </div>
-                                        <a class="cv-research-link" href={withBase(cvProfile.research.workHref)}>View research context on the Work page</a>
-                                </article>
+					<div class="cv-research-relevance">
+						<h3>Engineering relevance</h3>
+						<p>{cvProfile.research.relevance}</p>
+					</div>
+					<div class="cv-research-records" aria-label="Formal publication and patent records">
+						<details class="cv-disclosure cv-disclosure--inline cv-research-record">
+							<summary>Publication record ({cvProfile.research.publications.length})</summary>
+							<ol class="cv-research-record-list cv-disclosure__content">
+								{cvProfile.research.publications.map((publication) => (
+									<li>
+										<div class="cv-publication-citation">
+											<h4>{publication.title}</h4>
+											{publication.authors && <p class="cv-publication-citation__authors">{publication.authors}</p>}
+											<p class="cv-publication-citation__source">
+												{publication.venue && <em>{publication.venue}</em>}
+												{publication.venue && publication.year && <span>, </span>}
+												{publication.year && <span>{publication.year}</span>}
+											</p>
+											{(publication.doi || publication.href) && (
+												<p class="cv-publication-citation__link">
+													{publication.doi ? (
+														<a href={publication.href ?? `https://doi.org/${publication.doi}`} target="_blank" rel="noopener noreferrer">
+															doi:{publication.doi}
+														</a>
+													) : (
+														<a href={publication.href} target="_blank" rel="noopener noreferrer">View record</a>
+													)}
+												</p>
+											)}
+										</div>
+									</li>
+								))}
+							</ol>
+						</details>
+						<details class="cv-disclosure cv-disclosure--inline cv-research-record">
+							<summary>Patent record ({cvProfile.research.patents.length})</summary>
+							<ol class="cv-research-record-list cv-disclosure__content">
+								{cvProfile.research.patents.map((patent) => (
+									<li>
+										<div class="cv-publication-citation cv-patent-citation">
+											<h4>{patent.title}</h4>
+											<p class="cv-publication-citation__source">
+												<em>
+													{patent.href ? (
+														<a href={patent.href} target="_blank" rel="noopener noreferrer">{patent.issuer}</a>
+													) : (
+														patent.issuer
+													)}
+												</em>
+												{patent.year && <span>, {patent.year}</span>}
+											</p>
+											<p>{patent.description}</p>
+										</div>
+									</li>
+								))}
+							</ol>
+						</details>
+					</div>
+				</article>
                         </div>
                 </section>
 
@@ -597,7 +1717,7 @@ const profileJsonLd = {
 					<h2 id="contact-title">Let's Connect</h2>
 					<p>{cvProfile.finalContact}</p>
 				</div>
-				<div class="button-row cv-final__actions" aria-label="Bottom CV actions">
+				<div class="cv-final__actions" aria-label="Bottom CV actions">
 					{cvProfile.actions.map((action) => (
 						<a
 							class={action.primary ? 'button primary' : 'button'}
@@ -605,7 +1725,11 @@ const profileJsonLd = {
 							target={action.external ? '_blank' : undefined}
 							rel={action.external ? 'noopener noreferrer' : undefined}
 							download={action.download ? true : undefined}
-							data-analytics={action.analytics}
+							data-analytics-event={action.analytics}
+							data-cta-id={action.ctaId}
+							data-cta-placement="cv-final"
+							data-cta-intent={action.intent}
+							data-source-section="cv-final"
 						>
 							{action.label}
 						</a>
@@ -2354,6 +3478,7 @@ const profileJsonLd = {
 
         .cv-research-stats span,
         .cv-research-outcome-grid span {
+                display: block;
                 color: var(--color-text);
                 font-family: var(--font-body);
                 font-size: var(--type-card-body-size);
@@ -2386,8 +3511,11 @@ const profileJsonLd = {
         }
 
         .cv-research-outcome-grid li {
-                display: grid;
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
                 gap: 0.25rem;
+                text-align: left;
                 margin: 0;
                 border-bottom: 1px solid var(--color-border-soft);
                 padding: 0.75rem 0;
@@ -2403,11 +3531,17 @@ const profileJsonLd = {
         }
 
         .cv-research-outcome-grid strong {
+                display: block;
+                width: 100%;
                 color: var(--color-text);
                 font-family: var(--font-display);
-                font-size: var(--type-card-title-size);
+                font-size: clamp(1.12rem, 1.55vw, 1.35rem);
                 line-height: var(--type-card-title-line);
                 letter-spacing: var(--type-card-title-tracking);
+        }
+
+        .cv-research-outcome-grid span {
+                width: 100%;
         }
 
         .cv-research-relevance {
@@ -2431,9 +3565,148 @@ const profileJsonLd = {
                 line-height: var(--type-card-body-line);
         }
 
-	.cv-research-link {
-		width: fit-content;
-		color: var(--color-text);
+        .cv-research-records {
+                display: grid;
+                gap: 0.75rem;
+        }
+
+        .cv-research-record > summary {
+                font-family: var(--font-mono);
+                font-size: var(--type-meta-size);
+                font-weight: 700;
+                letter-spacing: var(--type-meta-tracking);
+                line-height: var(--type-meta-line);
+                text-transform: uppercase;
+        }
+
+        .cv-research-record-list {
+                display: grid;
+                gap: 0;
+                margin: 0;
+                padding-left: 1.2rem;
+        }
+
+        .cv-research-record-list > li {
+                margin: 0;
+                border-bottom: 1px solid var(--color-border-soft);
+                padding: 0.95rem 0;
+        }
+
+        .cv-research-record-list > li:first-child {
+                padding-top: 0;
+        }
+
+        .cv-research-record-list > li:last-child {
+                border-bottom: 0;
+                padding-bottom: 0;
+        }
+
+        .cv-research-record-list__body {
+                display: grid;
+                gap: 0.55rem;
+        }
+
+        .cv-research-record-list h4,
+        .cv-publication-citation h4 {
+                margin: 0;
+                color: var(--color-text);
+                font-family: var(--font-display);
+                font-size: clamp(1rem, 1.1vw, 1.12rem);
+                font-weight: var(--type-card-title-weight);
+                line-height: 1.16;
+                letter-spacing: -0.025em;
+        }
+
+        .cv-publication-citation {
+                display: grid;
+                gap: 0.32rem;
+                max-width: 78ch;
+        }
+
+        .cv-publication-citation p {
+                margin: 0;
+                color: var(--color-muted);
+                font-size: var(--type-card-body-size);
+                line-height: var(--type-card-body-line);
+        }
+
+        .cv-publication-citation__authors {
+                color: var(--color-body-text);
+        }
+
+        .cv-publication-citation__source em {
+                color: var(--color-text);
+                font-style: italic;
+        }
+
+        .cv-publication-citation__source a {
+                color: inherit;
+                font-weight: 700;
+                text-decoration: underline;
+                text-decoration-thickness: 1px;
+                text-underline-offset: 0.18em;
+        }
+
+        .cv-publication-citation__link a {
+                color: var(--color-text);
+                font-weight: 700;
+                text-decoration: underline;
+                text-decoration-thickness: 1px;
+                text-underline-offset: 0.18em;
+        }
+
+        .cv-publication-citation__source a:focus-visible,
+        .cv-publication-citation__link a:focus-visible {
+                outline: 2px solid var(--color-accent-text);
+                outline-offset: 3px;
+        }
+
+        .cv-research-meta {
+                display: grid;
+                gap: 0.35rem;
+                margin: 0;
+        }
+
+        .cv-research-meta div {
+                display: grid;
+                grid-template-columns: minmax(5.75rem, auto) minmax(0, 1fr);
+                gap: 0.75rem;
+                align-items: start;
+        }
+
+        .cv-research-meta dt {
+                color: var(--color-soft);
+                font-family: var(--font-mono);
+                font-size: var(--type-meta-size);
+                font-weight: 700;
+                line-height: var(--type-meta-line);
+                letter-spacing: var(--type-meta-tracking);
+                text-transform: uppercase;
+        }
+
+        .cv-research-meta dd {
+                margin: 0;
+                color: var(--color-muted);
+                font-size: var(--type-card-body-size);
+                line-height: var(--type-card-body-line);
+        }
+
+        .cv-research-meta a {
+                color: var(--color-text);
+                font-weight: 700;
+                text-decoration: underline;
+                text-decoration-thickness: 1px;
+                text-underline-offset: 0.18em;
+        }
+
+        .cv-research-meta a:focus-visible {
+                outline: 2px solid var(--color-accent-text);
+                outline-offset: 3px;
+        }
+
+        .cv-research-link {
+                width: fit-content;
+                color: var(--color-text);
 		font-weight: 700;
 		text-decoration: underline;
                 text-decoration-thickness: 1px;
@@ -2518,7 +3791,13 @@ const profileJsonLd = {
 	}
 
 	.cv-final__actions {
+		display: grid;
+		gap: 0.9rem;
 		align-items: start;
+	}
+
+	.cv-final__actions > .button {
+		width: 100%;
 	}
 
         @media (min-width: 700px) {
@@ -2536,14 +3815,14 @@ const profileJsonLd = {
                 }
 
                 .cv-research-outcome-grid {
-                        grid-template-columns: repeat(3, minmax(0, 1fr));
-                        gap: 1.2rem;
+                        grid-template-columns: repeat(4, minmax(0, 1fr));
+                        gap: 0.9rem;
                 }
 
                 .cv-research-outcome-grid li {
                         border-right: 1px solid var(--color-border-soft);
                         border-bottom: 0;
-                        padding: 0 1.2rem 0 0;
+                        padding: 0 0.9rem 0 0;
                 }
 
                 .cv-research-outcome-grid li:last-child {
@@ -2596,8 +3875,7 @@ const profileJsonLd = {
                 }
 
 		.cv-final__actions {
-			max-width: 22rem;
-			justify-content: flex-end;
+			min-width: 230px;
 		}
 	}
 

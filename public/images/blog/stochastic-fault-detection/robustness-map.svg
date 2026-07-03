@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 520" role="img" aria-labelledby="title desc">
+  <title id="title">Operating-condition robustness map placeholder</title>
+  <desc id="desc">Matrix indicating how diagnostic robustness changes with pilot timing, rail pressure, engine speed, EGR, and fuel mismatch.</desc>
+  <rect width="1200" height="520" fill="#f7f2ec"/>
+  <g transform="translate(250 92)" font-family="Inter, Arial, sans-serif">
+    <g fill="#161616" font-size="20" font-weight="700">
+      <text x="0" y="-28">Operating condition</text>
+      <text x="290" y="-28">Detection robustness</text>
+    </g>
+    <g stroke="#f7f2ec" stroke-width="6">
+      <rect x="0" y="0" width="130" height="76" fill="#cfddd3"/>
+      <rect x="130" y="0" width="130" height="76" fill="#e6d7c4"/>
+      <rect x="260" y="0" width="130" height="76" fill="#d8b4a9"/>
+      <rect x="390" y="0" width="130" height="76" fill="#cfddd3"/>
+      <rect x="520" y="0" width="130" height="76" fill="#e6d7c4"/>
+      <rect x="0" y="76" width="130" height="76" fill="#e6d7c4"/>
+      <rect x="130" y="76" width="130" height="76" fill="#d8b4a9"/>
+      <rect x="260" y="76" width="130" height="76" fill="#d8b4a9"/>
+      <rect x="390" y="76" width="130" height="76" fill="#e6d7c4"/>
+      <rect x="520" y="76" width="130" height="76" fill="#cfddd3"/>
+      <rect x="0" y="152" width="130" height="76" fill="#cfddd3"/>
+      <rect x="130" y="152" width="130" height="76" fill="#cfddd3"/>
+      <rect x="260" y="152" width="130" height="76" fill="#e6d7c4"/>
+      <rect x="390" y="152" width="130" height="76" fill="#d8b4a9"/>
+      <rect x="520" y="152" width="130" height="76" fill="#e6d7c4"/>
+    </g>
+    <g fill="#161616" font-size="18" font-weight="700" text-anchor="middle">
+      <text x="65" y="44">timing</text>
+      <text x="195" y="44">rail</text>
+      <text x="325" y="44">speed</text>
+      <text x="455" y="44">EGR</text>
+      <text x="585" y="44">fuel</text>
+      <text x="65" y="120">early</text>
+      <text x="195" y="120">low SNR</text>
+      <text x="325" y="120">noise</text>
+      <text x="455" y="120">drift</text>
+      <text x="585" y="120">match</text>
+      <text x="65" y="196">high</text>
+      <text x="195" y="196">high</text>
+      <text x="325" y="196">medium</text>
+      <text x="455" y="196">lower</text>
+      <text x="585" y="196">medium</text>
+    </g>
+  </g>
+  <g font-family="JetBrains Mono, Consolas, monospace" font-size="18" fill="#666">
+    <text x="250" y="396">Placeholder robustness map - replace with final operating-condition summary if reuse is permitted.</text>
+    <text x="250" y="428">Green, tan, and clay cells indicate relative robustness bands, not calibrated thresholds.</text>
+  </g>
+</svg>

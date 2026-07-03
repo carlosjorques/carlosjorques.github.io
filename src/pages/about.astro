@@ -1,16 +1,214 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import aboutMarkdown from '../content/profile/about.md?raw';
-import { parseAboutContent } from '../lib/profileMarkdown';
 
 const baseUrl = import.meta.env.BASE_URL;
 const normalizedBase = baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`;
 const withBase = (href: string) => (href === '/' ? normalizedBase : `${normalizedBase}${href.replace(/^\//, '')}`);
 
-const aboutContent = parseAboutContent(aboutMarkdown);
+type TextPart = {
+	text: string;
+	strong?: boolean;
+};
+
+const aboutContent = {
+	hero: {
+		title: 'Hi, I’m Carlos.',
+		descriptor: 'Technical Leader and Senior Control Systems Engineer specializing in software-defined physical systems.',
+		paragraphs: [
+			[
+				{
+					text:
+						'I have always been curious about how things work. Growing up, I had the most fun taking toys apart to see what was inside. Even now, I would rather figure out how to assemble IKEA furniture myself than read the manual.',
+				},
+			],
+			[
+				{
+					text:
+						'That curiosity led me into robotics and electronics, then into Electrical Engineering, and eventually to a PhD in Mechanical Engineering focused on automatic control.',
+				},
+			],
+			[
+				{
+					text:
+						'For the past 12 years, I have developed embedded control software, primarily for the automotive industry, helping physical machines sense, decide, act, and operate reliably under real-world conditions. Some of that work is now running on roads and worksites around the world in Scania trucks, Volvo autonomous haulers, and MAHLE components.',
+				},
+			],
+			[
+				{
+					text:
+						'I am based in Spain and work with international, multidisciplinary teams leading the design of control solutions for real-time embedded software. My work connects control and diagnostics algorithms, software architecture, validation, and technical leadership, helping engineering teams turn advanced, highly interconnected hardware into safe, reliable, and efficient machines.',
+				},
+			],
+		] satisfies TextPart[][],
+	},
+	whyPhysicalSystems: {
+		title: 'Why Control Systems Matter',
+		paragraphs: [
+			[
+				{
+					text:
+						'Control systems are the invisible layer that helps machines behave safely and predictably despite uncertainty, disturbances, and changing operating conditions.',
+				},
+			],
+			[
+				{
+					text:
+						'Long before microcontrollers and sensors, mechanical engineers used feedback to keep powerful hardware under control. The classic centrifugal governor is a good example: a mechanical feedback system that automatically regulated steam engine speed and helped keep the machine stable.',
+				},
+			],
+			[
+				{
+					text:
+						'Today, the same principle is implemented through embedded real-time software. It helps manage battery charging, keep drones balanced in wind, support precision robotics, stabilize electric grids, and coordinate complex machines that must react continuously to the physical world.',
+				},
+			],
+			[
+				{
+					text:
+						'This is where my expertise sits: defining how advanced software-defined physical systems should behave, then designing the real-time control software needed to make that behavior reliable on real hardware.',
+				},
+			],
+		] satisfies TextPart[][],
+	},
+	howIGotHere: {
+		title: 'From Robotics to Production Systems',
+		paragraphs: [
+			[
+				{
+					text:
+						'My path into control systems began with curiosity about physical mechanisms. Over time, that curiosity evolved into a broader focus: how control engineering can improve system performance, reduce development cost, manage technical risk, and make advanced products viable in production.',
+				},
+			],
+		] satisfies TextPart[][],
+		milestones: [
+			{
+				title: 'Electronics at eight',
+				description:
+					'I started taking electronics lessons early, learning to see circuits, motors, and components as building blocks I could take apart, understand, and reuse.',
+			},
+			{
+				title: 'Campus Party Valencia',
+				description:
+					'After building a basic obstacle-avoiding robot kit, I watched a line-tracking competition at Campus Party in Valencia. Some robots were fast and stable. Mine oscillated wildly from side to side. That moment sparked my interest in the boundary between physical behavior, sensing, timing, and control logic.',
+			},
+			{
+				title: 'Theoretical framework',
+				description:
+					'A double degree in Electrical Engineering in Sweden and later PhD research gave me the analytical foundation for my career: feedback loops, system dynamics, modeling, diagnostics, and automatic control theory.',
+			},
+			{
+				title: 'Production value',
+				description:
+					'Moving into industrial embedded control changed the measure of success. An elegant algorithm is not enough unless it can work on real hardware, scale across product constraints, and create value in production. Today, I balance engineering depth with project and business realities: designing robust control systems that improve reliability, reduce unnecessary hardware burden, shorten development loops, and support safe, efficient products.',
+			},
+		],
+		closing:
+			'This trajectory defines my role today. I connect control theory and real-time embedded software with technical leadership, risk management, validation evidence, and delivery constraints so complex physical systems create clear, repeatable value in the real world.',
+	},
+	howIWork: {
+		title: 'How I Approach Complex Systems',
+                quote: 'An elegant algorithm is only the beginning. Real value appears when it works reliably inside the full system.',
+		paragraphs: [
+			[
+				{
+					text:
+                                                'I approach complex engineering by building a shared view of what the product needs to do, what the physics allows, what the software can guarantee, and where the main technical and project risks sit.',
+				},
+			],
+		] satisfies TextPart[][],
+		principles: [
+			{
+                                title: 'Build the System View',
+                                description:
+                                        'I connect control objectives, software architecture, hardware constraints, diagnostics, validation needs, and product goals into one clear technical picture. This helps cross-functional teams avoid silos and stay aligned around the same outcome.',
+                        },
+                        {
+                                title: 'Separate the Problem from the Implementation',
+                                description:
+                                        'Before designing a solution, I work to understand whether an issue comes from system dynamics, sensing limitations, control logic, software architecture, calibration, diagnostics, or integration. Pinpointing the right layer prevents fragile local fixes that hide the real problem and create long-term maintenance cost.',
+                        },
+                        {
+                                title: 'Make Trade-offs Visible',
+                                description:
+                                        'Control systems are built under tight boundaries: cost, timing, safety standards, hardware capability, legacy interfaces, supplier dependencies, and release deadlines. I help teams compare options clearly so technical decisions are explicit, risk-aware, and commercially defensible.',
+                        },
+                        {
+                                title: 'Lead from Decision to Delivery',
+                                description:
+                                        'Technical leadership means helping teams move from uncertainty to reliable execution. I focus on aligning interfaces, clarifying responsibilities, mentoring engineers, and keeping design choices anchored to validation evidence and real production behavior.',
+                        },
+		],
+	},
+	beyondEngineering: {
+		title: 'Beyond Engineering',
+		paragraphs: [
+			[
+				{
+					text:
+						'Outside of work, I stay connected to the same hands-on curiosity that drew me to engineering in the first place, just on a different scale.',
+				},
+			],
+			[
+				{
+					text:
+						'I spend time on personal projects that mix design and functionality, like 3D printing, lamp design, painting, and home automation prototyping. I have also played basketball since childhood, and I still enjoy the dynamic of competing and mentoring younger players on the court.',
+				},
+			],
+			[
+				{
+					text:
+						'Most importantly, I balance all of this with my favorite and most grounding focus: my wife, our child, and our dog.',
+				},
+			],
+		] satisfies TextPart[][],
+	},
+	exploreMore: {
+		title: 'Where to Go Next',
+		items: [
+			{
+				title: 'Selected Work',
+				description: 'Projects, domains, patents, publications, and applied engineering context.',
+				linkText: 'View selected work',
+			},
+			{
+				title: 'CV',
+				description: 'Roles, education, research, publications, and technical leadership experience.',
+				linkText: 'View CV',
+			},
+			{
+				title: 'Contact',
+				description: 'Start a conversation about roles, collaboration, or technical topics.',
+				linkText: 'Contact me',
+			},
+			{
+				title: 'Writing',
+				description: 'Articles on embedded controls, diagnostics, validation, and technical leadership.',
+				linkText: 'Read articles',
+			},
+		],
+	},
+	connect: {
+		title: 'Let’s Connect',
+		paragraphs: [
+			[
+				{
+					text:
+						'For roles, collaborations, or technical conversations about embedded controls, diagnostics, and reliable real-world systems, I’m open to hearing from you.',
+				},
+			],
+			[
+				{
+					text:
+						'I am based in Spain and especially interested in remote or hybrid opportunities with international teams.',
+				},
+			],
+		] satisfies TextPart[][],
+	},
+};
+
 const exploreHrefByTitle: Record<string, string> = {
 	CV: '/cv',
-	'Selected work': '/work',
+	'Selected Work': '/work',
 	Writing: '/writing',
 	Contact: '/contact',
 };
@@ -21,8 +219,8 @@ const evidenceLinks = aboutContent.exploreMore.items.map((item) => ({
 ---
 
 <Layout
-	title="About Carlos Jorques | Embedded Controls Architect"
-	description="About Carlos Jorques, an embedded controls architect and technical leader developing control algorithms and real-time embedded software for reliable real-world systems."
+	title="About Carlos Jorques | Embedded Control Architect"
+	description="About Carlos Jorques, an embedded control architect and technical leader for software-defined physical systems, real-time control software, diagnostics, validation, and production embedded systems."
 >
 	<section class="about-hero">
 		<div class="page-container about-hero__inner">
@@ -37,9 +235,39 @@ const evidenceLinks = aboutContent.exploreMore.items.map((item) => ({
 				))}
 
 				<div class="button-row" aria-label="About page primary navigation links">
-					<a class="button primary" href={withBase('/work')}>View selected work</a>
-					<a class="button" href={withBase('/cv')}>View CV</a>
-					<a class="button" href={withBase('/writing')}>Read articles</a>
+					<a
+						class="button primary"
+						href={withBase('/work')}
+						data-analytics-event="cta_click"
+						data-cta-id="about-hero-work"
+						data-cta-placement="about-hero"
+						data-cta-intent="proof"
+						data-source-section="about-hero"
+					>
+						View selected work
+					</a>
+					<a
+						class="button"
+						href={withBase('/cv')}
+						data-analytics-event="cta_click"
+						data-cta-id="about-hero-cv"
+						data-cta-placement="about-hero"
+						data-cta-intent="formal-proof"
+						data-source-section="about-hero"
+					>
+						View CV
+					</a>
+					<a
+						class="button"
+						href={withBase('/writing')}
+						data-analytics-event="cta_click"
+						data-cta-id="about-hero-writing"
+						data-cta-placement="about-hero"
+						data-cta-intent="authority"
+						data-source-section="about-hero"
+					>
+						Read articles
+					</a>
 				</div>
 			</div>
 			<figure class="about-hero__portrait">
@@ -78,7 +306,7 @@ const evidenceLinks = aboutContent.exploreMore.items.map((item) => ({
 					/>
 				</div>
 				<figcaption>
-					A mechanical speed governor: a classic feedback control example from the long history of making powerful machines stable and useful.
+					A mechanical speed governor: an early feedback-control mechanism for making powerful machines stable and useful.
 				</figcaption>
 			</figure>
 		</div>
@@ -153,7 +381,17 @@ const evidenceLinks = aboutContent.exploreMore.items.map((item) => ({
 					<article class="evidence-item">
 						<h3>{item.title}</h3>
 						<p>{item.description}</p>
-						<a href={item.href} aria-label={`${item.linkText}: ${item.title}`}>{item.linkText}</a>
+						<a
+							href={item.href}
+							aria-label={`${item.linkText}: ${item.title}`}
+							data-analytics-event="cta_click"
+							data-cta-id={`about-next-${item.title.toLowerCase().replaceAll(' ', '-')}`}
+							data-cta-placement="about-next-steps"
+							data-cta-intent={item.title === 'Contact' ? 'contact' : item.title === 'CV' ? 'formal-proof' : item.title === 'Writing' ? 'authority' : 'proof'}
+							data-source-section="where-to-go-next"
+						>
+							{item.linkText}
+						</a>
 					</article>
 				))}
 			</div>
@@ -169,9 +407,41 @@ const evidenceLinks = aboutContent.exploreMore.items.map((item) => ({
 				))}
 			</div>
 			<div class="about-final__actions">
-				<a class="button primary" href={withBase('/contact')}>Contact me</a>
-				<a class="button" href="https://www.linkedin.com/in/carlosjorques/" target="_blank" rel="noopener noreferrer">View LinkedIn profile</a>
-				<a class="button" href={withBase('/cv')}>View CV</a>
+				<a
+					class="button primary"
+					href={withBase('/contact')}
+					data-analytics-event="cta_click"
+					data-cta-id="about-final-contact"
+					data-cta-placement="about-final"
+					data-cta-intent="contact"
+					data-source-section="about-final"
+				>
+					Contact me
+				</a>
+				<a
+					class="button"
+					href="https://www.linkedin.com/in/carlosjorques/"
+					target="_blank"
+					rel="noopener noreferrer"
+					data-analytics-event="linkedin_outbound_click"
+					data-cta-id="about-final-linkedin"
+					data-cta-placement="about-final"
+					data-cta-intent="professional-profile"
+					data-source-section="about-final"
+				>
+					View LinkedIn profile
+				</a>
+				<a
+					class="button"
+					href={withBase('/cv')}
+					data-analytics-event="cta_click"
+					data-cta-id="about-final-cv"
+					data-cta-placement="about-final"
+					data-cta-intent="formal-proof"
+					data-source-section="about-final"
+				>
+					View CV
+				</a>
 			</div>
 		</div>
 	</section>
@@ -385,7 +655,7 @@ const evidenceLinks = aboutContent.exploreMore.items.map((item) => ({
 		display: grid;
 		gap: 0.65rem;
 		margin: 0;
-		max-width: 340px;
+		max-width: 460px;
 		justify-self: start;
 		pointer-events: none;
 	}
@@ -828,7 +1098,7 @@ const evidenceLinks = aboutContent.exploreMore.items.map((item) => ({
 		}
 
 		.governor-visual {
-			width: min(100%, 340px);
+			width: min(100%, 460px);
 			justify-self: end;
 			align-self: start;
 		}
@@ -907,8 +1177,8 @@ const evidenceLinks = aboutContent.exploreMore.items.map((item) => ({
 
 		.governor-visual {
 			max-width: 100%;
-			width: min(72vw, 260px);
-			margin-top: 0.35rem;
+			width: min(84vw, 340px);
+			margin-top: 1.25rem;
 		}
 
 		.governor-visual img {

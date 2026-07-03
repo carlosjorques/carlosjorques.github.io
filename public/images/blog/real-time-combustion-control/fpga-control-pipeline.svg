@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 520" role="img" aria-labelledby="title desc">
+  <title id="title">FPGA control pipeline</title>
+  <desc id="desc">Block diagram from pressure acquisition to injection command for real-time in-cycle combustion control.</desc>
+  <rect width="1200" height="520" fill="#f7f2ec"/>
+  <g fill="none" stroke="#161616" stroke-opacity=".12" stroke-width="2">
+    <path d="M70 130h1060M70 260h1060M70 390h1060"/>
+  </g>
+  <g font-family="Inter, Arial, sans-serif" text-anchor="middle">
+    <g fill="#faf8f7" stroke="#161616" stroke-opacity=".26" stroke-width="2">
+      <rect x="42" y="178" width="164" height="132" rx="14"/>
+      <rect x="232" y="178" width="164" height="132" rx="14"/>
+      <rect x="422" y="178" width="164" height="132" rx="14"/>
+      <rect x="612" y="178" width="164" height="132" rx="14"/>
+      <rect x="802" y="178" width="164" height="132" rx="14"/>
+      <rect x="992" y="178" width="164" height="132" rx="14"/>
+    </g>
+    <g fill="#161616" font-size="20" font-weight="700">
+      <text x="124" y="226">Acquire</text><text x="124" y="254">pressure</text>
+      <text x="314" y="226">Sync crank</text><text x="314" y="254">angle</text>
+      <text x="504" y="226">Estimate</text><text x="504" y="254">states</text>
+      <text x="694" y="226">Diagnose</text><text x="694" y="254">predict</text>
+      <text x="884" y="226">Compute</text><text x="884" y="254">correction</text>
+      <text x="1074" y="226">Issue</text><text x="1074" y="254">command</text>
+    </g>
+    <g stroke="#9a4d4d" stroke-width="4" stroke-linecap="round" fill="none">
+      <path d="M210 244h16M400 244h16M590 244h16M780 244h16M970 244h16"/>
+      <path d="M218 234l12 10-12 10M408 234l12 10-12 10M598 234l12 10-12 10M788 234l12 10-12 10M978 234l12 10-12 10"/>
+    </g>
+  </g>
+  <text x="70" y="438" fill="#666" font-family="JetBrains Mono, Consolas, monospace" font-size="18">Placeholder pipeline graphic - replace with final custom or thesis-derived figure.</text>
+</svg>

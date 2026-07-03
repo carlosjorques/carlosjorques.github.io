@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 520" role="img" aria-labelledby="title desc">
+  <title id="title">Sensor fusion placeholder</title>
+  <desc id="desc">Heat release rate, accumulated heat release, and pressure rise feeding into fused diagnostic probability.</desc>
+  <rect width="1200" height="520" fill="#f7f2ec"/>
+  <g font-family="Inter, Arial, sans-serif" text-anchor="middle">
+    <g fill="#faf8f7" stroke="#161616" stroke-opacity=".26" stroke-width="2">
+      <rect x="92" y="92" width="250" height="86" rx="16"/>
+      <rect x="92" y="217" width="250" height="86" rx="16"/>
+      <rect x="92" y="342" width="250" height="86" rx="16"/>
+      <rect x="500" y="190" width="214" height="140" rx="24"/>
+      <rect x="865" y="200" width="234" height="120" rx="20"/>
+    </g>
+    <g fill="#161616" font-size="22" font-weight="700">
+      <text x="217" y="128">Heat release</text><text x="217" y="154">rate</text>
+      <text x="217" y="253">Accumulated</text><text x="217" y="279">heat release</text>
+      <text x="217" y="378">Pressure rise</text><text x="217" y="404">over motoring</text>
+      <text x="607" y="246">Weighted</text><text x="607" y="274">fusion logic</text>
+      <text x="982" y="245">Misfire</text><text x="982" y="273">probability</text>
+    </g>
+    <g stroke="#9a4d4d" stroke-width="4" stroke-linecap="round" fill="none">
+      <path d="M350 135c76 0 96 100 142 103"/>
+      <path d="M350 260h142"/>
+      <path d="M350 385c76 0 96-100 142-103"/>
+      <path d="M721 260h136"/>
+      <path d="M480 226l16 12-16 12M480 248l16 12-16 12M480 270l16 12-16 12M845 248l16 12-16 12"/>
+    </g>
+  </g>
+  <text x="92" y="470" fill="#666" font-family="JetBrains Mono, Consolas, monospace" font-size="18">Placeholder sensor-fusion graphic - replace with final diagnostic architecture if reuse is permitted.</text>
+</svg>

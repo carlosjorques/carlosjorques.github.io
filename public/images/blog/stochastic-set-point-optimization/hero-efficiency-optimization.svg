@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 700" role="img" aria-labelledby="title desc">
+  <title id="title">Combustion efficiency optimization visualization</title>
+  <desc id="desc">Abstract plot combining stochastic distributions, constraint bands, and an optimized combustion set-point.</desc>
+  <rect width="1600" height="700" fill="#10110f"/>
+  <g opacity="0.18">
+    <path d="M0 590C230 490 360 640 560 520C770 394 860 224 1100 278C1310 326 1390 210 1600 150" fill="none" stroke="#bfff03" stroke-width="3"/>
+    <path d="M0 520C230 420 360 570 560 450C770 324 860 154 1100 208C1310 256 1390 140 1600 80" fill="none" stroke="#f5f1e9" stroke-width="2"/>
+  </g>
+  <g transform="translate(145 115)">
+    <rect width="1310" height="470" rx="10" fill="#151713" stroke="#383d31"/>
+    <path d="M80 384C158 315 217 266 302 278C392 290 433 345 512 330C594 314 647 202 745 190C840 178 904 248 989 218C1088 183 1138 108 1230 92" fill="none" stroke="#bfff03" stroke-width="7" stroke-linecap="round"/>
+    <path d="M80 392C178 322 251 344 324 315C407 282 451 206 531 222C618 240 640 320 722 307C807 294 842 206 936 206C1020 206 1089 254 1230 204" fill="none" stroke="#e8e5dc" stroke-width="3" stroke-linecap="round" opacity="0.62"/>
+    <path d="M80 338C198 260 276 272 354 236C449 192 500 116 596 144C682 169 710 244 798 229C890 213 914 124 1010 116C1098 109 1168 146 1230 118" fill="none" stroke="#6f7660" stroke-width="3" stroke-linecap="round"/>
+    <rect x="850" y="66" width="290" height="338" rx="8" fill="#bfff03" opacity="0.08" stroke="#bfff03" stroke-dasharray="10 10"/>
+    <line x1="954" y1="64" x2="954" y2="406" stroke="#bfff03" stroke-width="3"/>
+    <circle cx="954" cy="178" r="13" fill="#bfff03"/>
+    <text x="80" y="70" fill="#f5f1e9" font-family="Arial, sans-serif" font-size="34" font-weight="700">Stochastic set-point search</text>
+    <text x="80" y="112" fill="#a8ada0" font-family="Arial, sans-serif" font-size="20">Expected efficiency, pressure-rise risk, and pilot misfire probability evaluated together</text>
+    <text x="986" y="178" fill="#f5f1e9" font-family="Arial, sans-serif" font-size="22" font-weight="700">selected feasible target</text>
+    <text x="872" y="388" fill="#bfff03" font-family="Arial, sans-serif" font-size="18" font-weight="700">constraint-aware region</text>
+  </g>
+</svg>

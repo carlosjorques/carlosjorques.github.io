@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 700" role="img" aria-labelledby="title desc">
+  <title id="title">Predictive in-cycle combustion control visualization</title>
+  <desc id="desc">Combustion chamber, pressure trace, injection pulses, and predictive control overlay.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#171512"/>
+      <stop offset="1" stop-color="#2c241d"/>
+    </linearGradient>
+    <linearGradient id="signal" x1="0" x2="1">
+      <stop offset="0" stop-color="#c86b42"/>
+      <stop offset="1" stop-color="#f0b36a"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="700" fill="url(#bg)"/>
+  <g opacity="0.18" stroke="#f3e8d6" stroke-width="1">
+    <path d="M120 120H1480M120 220H1480M120 320H1480M120 420H1480M120 520H1480"/>
+    <path d="M220 80V620M420 80V620M620 80V620M820 80V620M1020 80V620M1220 80V620M1420 80V620"/>
+  </g>
+  <g transform="translate(230 135)">
+    <path d="M230 28h300l78 122v245c0 76-61 137-137 137H289c-76 0-137-61-137-137V150z" fill="#241d18" stroke="#d8b08c" stroke-width="5"/>
+    <path d="M245 165h270v216c0 55-45 100-100 100h-70c-55 0-100-45-100-100z" fill="#101010" stroke="#806a57" stroke-width="3"/>
+    <path d="M320 314c44-72 120-72 164 0 28 46 13 107-35 136-41 25-96 17-128-20-29-34-30-78-1-116z" fill="#f0b36a" opacity="0.78"/>
+    <path d="M350 344c24-38 66-38 90 0 17 27 8 63-20 80-24 15-56 10-75-12-16-19-17-43 5-68z" fill="#fff1cf" opacity="0.9"/>
+    <path d="M380 28v128" stroke="#f0b36a" stroke-width="10" stroke-linecap="round"/>
+    <path d="M345 108h70" stroke="#f0b36a" stroke-width="8" stroke-linecap="round"/>
+  </g>
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M760 438c68-132 141-188 215-166 79 23 70 166 158 188 85 21 145-94 246-88" stroke="#efe6d8" stroke-width="6" opacity="0.82"/>
+    <path d="M760 438c68-132 141-188 215-166 79 23 70 166 158 188 85 21 145-94 246-88" stroke="url(#signal)" stroke-width="3"/>
+    <path d="M842 474v-66M914 474v-112M1134 474v-168M1204 474v-94" stroke="#c86b42" stroke-width="10"/>
+    <path d="M1035 218l80 40 92-74 118 54" stroke="#f0b36a" stroke-width="5"/>
+    <path d="M1018 218h34M1098 258h34M1190 184h34M1308 238h34" stroke="#f0b36a" stroke-width="8"/>
+  </g>
+  <g font-family="JetBrains Mono, Consolas, monospace" fill="#efe6d8">
+    <text x="760" y="190" font-size="34" font-weight="700">Pressure feedback</text>
+    <text x="760" y="535" font-size="24" fill="#d7c7b5">Pilot observation -> prediction -> main injection correction</text>
+    <text x="842" y="506" font-size="18" fill="#f0b36a">pilot</text>
+    <text x="1134" y="506" font-size="18" fill="#f0b36a">main correction</text>
+  </g>
+</svg>

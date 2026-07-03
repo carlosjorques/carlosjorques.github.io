@@ -9,184 +9,203 @@ const withBase = (href: string) => {
 
 	return href === '/' ? baseUrl : `${baseUrl}${href.replace(/^\//, '')}`;
 };
-const proofItems = [
-	'Embedded control software',
-	'Model-based implementation',
-	'Diagnostics and degradation',
-	'MIL / SIL / HIL / vehicle validation',
-	'Research, patents, publications',
-];
 
-const projectContexts = [
+const toTagSlug = (value: string) =>
+	value
+		.toLowerCase()
+		.replaceAll('/', '-')
+		.replace(/[^a-z0-9]+/g, '-')
+		.replace(/^-|-$/g, '');
+const projectNotes = [
 	{
 		id: 'electric-truck-thermal-management',
 		title: 'Electric Truck Thermal Management and BMS Systems',
+		institution: 'Scania',
 		image: '/images/work/electric-truck-thermal-bms.webp',
-		imageAlt: 'Scania electric truck connected to a charger in snowy test conditions',
-		value:
-			'Production-oriented embedded control for heavy-duty EV battery, charging, auxiliary, and thermal coordination.',
-		contribution:
-			'Translated system requirements into real-time control behavior across architecture, diagnostics, calibration, and validation.',
-		focus: 'BMS · thermal control · charging behavior · component protection · diagnostics',
-		evidence: 'Simulation, lab, charger, and vehicle validation in safety-related production environments.',
-		cta: 'Explore EV thermal-management work',
+		imageAlt: 'Electric truck connected to a charger in snowy test conditions',
+		overview:
+			'Embedded control software for coordinating battery, charging, auxiliary, and thermal behavior in heavy-duty electric vehicles.',
+		labels: ['BMS', 'Thermal control', 'Charging behavior', 'Diagnostics', 'Calibration', 'Vehicle validation'],
+		ctaLabel: 'Read project note on Electric Truck Thermal Management and BMS Systems',
+		href: '#electric-truck-thermal-management',
+		proofHref: '/cv/#experience',
+		proofLabel: 'CV experience',
 	},
 	{
 		id: 'autonomous-hauler-propulsion-control',
 		title: 'Autonomous Electric Hauler Propulsion Control',
+		institution: 'Volvo Construction Equipment',
 		image: '/images/work/autonomous-hauler-propulsion.webp',
-		imageAlt: 'Volvo autonomous electric haulers operating in a quarry environment',
-		value:
+		imageAlt: 'Autonomous electric haulers operating in a quarry',
+		overview:
 			'Propulsion-control software for autonomous electric machines operating in demanding off-road environments.',
-		contribution:
-			'Helped translate high-level motion intent into controlled traction, speed, and torque behavior.',
-		focus:
-			'Traction control · torque allocation · redundant actuators · diagnostic monitoring · vehicle modes',
-		evidence: 'SIL, HIL, and vehicle validation across autonomous machine operating conditions.',
-		cta: 'View autonomous propulsion-control work',
+		labels: ['Traction control', 'Torque allocation', 'Redundant actuators', 'Diagnostic monitoring', 'SIL/HIL', 'Vehicle validation'],
+		ctaLabel: 'Read project note on Autonomous Electric Hauler Propulsion Control',
+		href: '#autonomous-hauler-propulsion-control',
+		proofHref: '/cv/#representative-systems',
+		proofLabel: 'CV systems',
 	},
 	{
 		id: 'ebike-motor-control-power-electronics',
 		title: 'E-Bike Motor Control and Power Electronics Software',
+		institution: 'MAHLE',
 		image: '/images/work/ebike-motor-control.webp',
-		imageAlt: 'Muddy e-bike motor and crank area after off-road use',
-		value:
-			'Application-layer embedded software connecting motor control, thermal modeling, wireless charging, and converter functionality.',
-		contribution:
-			'Led software work that turned power-electronics concepts into maintainable, testable embedded software.',
-		focus:
-			'PMSM thermal modeling · AUTOSAR-oriented architecture · DC/DC interfaces · bench validation',
-		evidence:
-			'Bench testing, model validation, software architecture, and Agile delivery in an electrified mobility context.',
-		cta: 'See power-electronics software work',
+		imageAlt: 'E-bike motor and crank area after off-road use',
+		overview:
+			'Application-layer embedded software connecting motor-control behavior, thermal modeling, wireless charging, and converter functionality.',
+		labels: ['PMSM thermal modeling', 'AUTOSAR-oriented architecture', 'DC/DC interfaces', 'Power electronics', 'Bench validation'],
+		ctaLabel: 'Read project note on E-Bike Motor Control and Power Electronics Software',
+		href: '#ebike-motor-control-power-electronics',
+		proofHref: '/cv/#experience',
+		proofLabel: 'CV experience',
 	},
 	{
 		id: 'heavy-duty-engine-diagnostics-control-research',
 		title: 'Heavy-Duty Engine Diagnostics and Control Research',
+		institution: 'Lund University / Scania',
 		image: '/images/work/heavy-duty-engine-diagnostics.webp',
-		imageAlt: 'Heavy-duty engine test bench with sensors, pipes, and measurement cables',
-		value: 'Real-time diagnostic and combustion-control prototypes for heavy-duty engine systems.',
-		contribution:
-			'Developed and validated control-research concepts using virtual sensing, stochastic detection, predictive models, and real-time implementation.',
-		focus:
-			'Diagnostics · closed-loop control · virtual sensors · experimental validation · hardware-constrained implementation',
-		evidence: 'Industrial PhD research, patents, publications, and engine test-bench validation.',
-		cta: 'Explore diagnostics and control research',
+		imageAlt: 'Heavy-duty engine test bench with sensors and measurement cables',
+		overview:
+			'Real-time diagnostic and combustion-control prototypes for heavy-duty engine systems with experimental validation.',
+		labels: ['Diagnostics', 'Closed-loop control', 'Virtual sensing', 'Stochastic detection', 'Patents', 'Publications', 'Test-bench validation'],
+		ctaLabel: 'Read project note on Heavy-Duty Engine Diagnostics and Control Research',
+		href: '#heavy-duty-engine-diagnostics-control-research',
+		proofHref: '/cv/#research',
+		proofLabel: 'CV research record',
 	},
 ];
 
-const transferableDomains = [
+const researchNotes = [
 	{
-		title: 'Electrified Physical Systems',
-		body: 'Battery systems, charging coordination, auxiliaries, thermal protection, and energy-aware control.',
-		appliesTo:
-			'Applies to heavy-duty EVs, off-highway machines, marine electrification, industrial equipment, and stationary energy systems.',
+		id: 'virtual-sensing-in-cycle-combustion-diagnostics',
+		title: 'Virtual Sensing for In-Cycle Combustion Diagnostics',
+		institution: 'Lund University / Scania',
+		overview:
+			'Research on estimating combustion states that are difficult to measure directly during engine operation.',
+		technicalArea: ['Virtual sensing', 'In-cycle estimation', 'Combustion diagnostics', 'Heavy-duty engines'],
+		outcomes: [
+			'Developed model-based estimators for combustion states not directly available to production control logic.',
+			'Validated virtual-sensing behavior using heavy-duty engine test-bench data.',
+		],
+		ctaLabel: 'Read research note on Virtual Sensing for In-Cycle Combustion Diagnostics',
+		href: '#virtual-sensing-in-cycle-combustion-diagnostics',
+		proofHref: '/cv/#research',
+		proofLabel: 'CV research record',
 	},
 	{
-		title: 'Autonomous and Robotic Machines',
-		body:
-			'Control software that translates motion intent into predictable actuator, torque, speed, and traction behavior.',
-		appliesTo:
-			'Applies to autonomous construction equipment, robotics, warehouse automation, mining systems, and agricultural machines.',
+		id: 'stochastic-fault-detection-diagnostic-decision-logic',
+		title: 'Stochastic Fault Detection and Diagnostic Decision Logic',
+		institution: 'Lund University / Scania',
+		overview:
+			'Research on detecting abnormal combustion-system behavior using probability, sensor data, and diagnostic thresholds.',
+		technicalArea: ['Stochastic detection', 'Misfire diagnosis', 'Adaptive thresholds', 'Sensor fusion', 'Diagnostic logic'],
+		outcomes: [
+			'Developed diagnostic decision methods for combustion fault detection.',
+			'Evaluated diagnostic robustness under changing operating conditions.',
+		],
+		ctaLabel: 'Read research note on Stochastic Fault Detection and Diagnostic Decision Logic',
+		href: '#stochastic-fault-detection-diagnostic-decision-logic',
+		proofHref: '/cv/#research',
+		proofLabel: 'CV research record',
 	},
 	{
-		title: 'Safety-Related Diagnostics and Degradation',
-		body:
-			'Fault detection, isolation, monitoring, and controlled behavior when systems cannot operate nominally.',
-		appliesTo:
-			'Applies to vehicles, industrial automation, energy systems, and safety-related embedded platforms.',
+		id: 'predictive-in-cycle-combustion-control',
+		title: 'Predictive In-Cycle Combustion Control',
+		institution: 'Lund University / Scania',
+		overview:
+			'Research on predictive closed-loop controllers that adjust fuel injection within the same combustion cycle.',
+		technicalArea: ['Closed-loop control', 'Predictive control', 'Combustion control', 'Model adaptation', 'FPGA implementation'],
+		outcomes: [
+			'Developed predictive controllers for cycle-resolved combustion regulation.',
+			'Validated control robustness under model uncertainty and changing fuel conditions.',
+		],
+		ctaLabel: 'Read research note on Predictive In-Cycle Combustion Control',
+		href: '#predictive-in-cycle-combustion-control',
+		proofHref: '/cv/#research',
+		proofLabel: 'CV research record',
 	},
 	{
-		title: 'Thermal and Energy Management',
-		body:
-			'Control strategies for systems where temperature, efficiency, performance, and component protection are coupled.',
-		appliesTo:
-			'Applies to EVs, battery packs, power electronics, data-center cooling, industrial thermal systems, and energy storage.',
+		id: 'stochastic-set-point-optimization-efficiency',
+		title: 'Stochastic Set-Point Optimization for Efficiency',
+		institution: 'Lund University / Scania',
+		overview:
+			'Research on using stochastic combustion models and Monte Carlo simulation to optimize combustion-control set-points.',
+		technicalArea: ['Efficiency optimization', 'Stochastic modeling', 'Monte Carlo simulation', 'Set-point optimization', 'Constraint handling'],
+		outcomes: [
+			'Developed set-point optimization methods for combustion efficiency.',
+			'Evaluated trade-offs between efficiency, pressure-rise constraints, and misfire risk.',
+		],
+		ctaLabel: 'Read research note on Stochastic Set-Point Optimization for Efficiency',
+		href: '#stochastic-set-point-optimization-efficiency',
+		proofHref: '/cv/#research',
+		proofLabel: 'CV research record',
 	},
 	{
-		title: 'Power Electronics and Embedded Control',
-		body:
-			'Software interfaces and control behavior around motors, converters, charging systems, and electrified actuators.',
-		appliesTo:
-			'Applies to e-mobility, robotics, industrial drives, electrified tools, and energy conversion systems.',
+		id: 'real-time-combustion-control-implementation',
+		title: 'Real-Time Combustion Control Implementation',
+		institution: 'Lund University / Scania',
+		overview:
+			'Research on implementing combustion observers, virtual sensors, and control algorithms under real-time hardware constraints.',
+		technicalArea: ['Real-time implementation', 'FPGA', 'Hardware-constrained systems', 'Signal processing', 'Embedded control'],
+		outcomes: [
+			'Implemented in-cycle combustion-control methods for real-time execution on FPGA hardware.',
+			'Quantified timing, resource, and implementation constraints for embedded control deployment.',
+		],
+		ctaLabel: 'Read research note on Real-Time Combustion Control Implementation',
+		href: '#real-time-combustion-control-implementation',
+		proofHref: '/cv/#research',
+		proofLabel: 'CV research record',
 	},
 ];
 
-const evidenceItems = [
+const technicalAreaGroups = [
 	{
-		title: 'MIL',
-		body: 'Control logic and model behavior validated before software integration.',
+		title: 'Control and Modeling',
+		items: ['Real-time control', 'Model-based implementation', 'Calibration', 'Research prototypes'],
 	},
 	{
-		title: 'SIL / HIL',
-		body:
-			'Generated software and integration behavior tested against simulated and hardware-in-the-loop environments.',
+		title: 'Embedded Systems',
+		items: ['Embedded software', 'Power electronics', 'Hardware-constrained systems'],
 	},
 	{
-		title: 'Bench and Lab',
-		body:
-			'Component, actuator, power-electronics, and diagnostic behavior evaluated in controlled test setups.',
+		title: 'Diagnostics and Validation',
+		items: ['Diagnostics', 'Fault handling', 'MIL/SIL/HIL', 'Bench validation', 'Vehicle validation'],
 	},
 	{
-		title: 'Vehicle and Field Data',
-		body:
-			'Calibration and validation supported by simulation, test-track, vehicle, and real-world operating data.',
-	},
-	{
-		title: 'Fault Evaluation',
-		body: 'Diagnostic logic and degradation strategies evaluated under abnormal and faulted conditions.',
-	},
-	{
-		title: 'Release-Oriented Validation',
-		body: 'Evidence developed in production and safety-related engineering environments.',
+		title: 'Physical-System Context',
+		items: ['Thermal systems', 'Energy management', 'Virtual sensing'],
 	},
 ];
 ---
 
 <BaseLayout
-	title="Work"
-	description="Selected project contexts, transferable engineering domains, and evidence behind Carlos Jorques's embedded control software work."
+        title="Work"
+        description="Selected projects and research notes on embedded control software for complex physical systems by Carlos Jorques."
 >
-	<section class="work-hero" aria-labelledby="work-title">
-		<div class="page-container work-hero__inner">
-			<div class="work-hero__copy">
-				<h1 id="work-title">Work</h1>
+        <section class="work-hero" aria-labelledby="work-title">
+                <div class="page-container work-hero__inner">
+                        <div class="work-hero__copy">
+				<h1 id="work-title" class="hero-title">Work</h1>
 				<p class="work-hero__lead">
-					Selected engineering work in embedded control software for electrified, autonomous, and safety-related physical systems.
-				</p>
-				<p>
-					I have contributed to systems where software must coordinate physical behavior, timing, diagnostics,
-					validation, and real-world constraints. This page highlights representative project contexts and the
-					domains where that experience transfers.
-				</p>
-				<p class="work-hero__note">
-					For full chronology, roles, and formal records, see the <a href={withBase('/cv/')}>CV</a>.
+					Selected project and research notes on embedded control software, diagnostics, and validation.
 				</p>
 			</div>
 		</div>
 	</section>
 
-	<section class="work-proof" aria-label="Embedded controls proof points">
-		<div class="page-container">
-			<ul class="work-proof__list">
-				{proofItems.map((item) => <li>{item}</li>)}
-			</ul>
-		</div>
-	</section>
-
-	<section class="section work-section work-section--selected" aria-labelledby="project-contexts-title">
+	<section class="section work-section work-section--selected" id="selected-projects" aria-labelledby="project-contexts-title">
 		<div class="page-container">
 			<div class="work-section__intro">
-				<h2 id="project-contexts-title">Selected Project Contexts</h2>
+				<h2 id="project-contexts-title">Selected Projects</h2>
 				<p>
-					Representative systems where embedded control software, diagnostics, validation, and physical system
-					behavior had to come together.
+					Selected project contexts that point to deeper notes on system behavior, embedded control software,
+					diagnostics, validation, and production constraints.
 				</p>
 			</div>
-			<div class="work-list">
-				{projectContexts.map((item, index) => (
-					<article class="work-case" id={item.id} aria-labelledby={`${item.id}-title`}>
-						<figure class="work-case__media">
+			<div class="work-index-grid">
+				{projectNotes.map((item, index) => (
+					<article class="work-index-card work-index-card--project" id={item.id} aria-labelledby={`${item.id}-title`}>
+						<figure class="work-index-card__media">
 							<img
 								src={withBase(item.image)}
 								alt={item.imageAlt}
@@ -194,32 +213,40 @@ const evidenceItems = [
 								decoding="async"
 							/>
 						</figure>
-						<div class="work-case__body">
-							<header class="work-case__header">
+						<div class="work-index-card__body">
+							<header class="work-index-card__header">
 								<h3 id={`${item.id}-title`}>{item.title}</h3>
-								<p class="work-case__value">{item.value}</p>
+								<p class="work-index-card__institution">{item.institution}</p>
 							</header>
-							<dl class="work-case__details">
-								<div>
-									<dt>Contribution</dt>
-									<dd>{item.contribution}</dd>
-								</div>
-								<div>
-									<dt>Focus</dt>
-									<dd>{item.focus}</dd>
-								</div>
-								<div>
-									<dt>Evidence</dt>
-									<dd>{item.evidence}</dd>
-								</div>
-							</dl>
+							<p class="work-index-card__overview">{item.overview}</p>
+							<ul class="work-label-list" aria-label={`${item.title} technical labels`}>
+								{item.labels.map((label) => <li>{label}</li>)}
+							</ul>
 							<a
-								class="work-case__link"
-								href={`#${item.id}`}
-								aria-label={`${item.cta} on this Work page`}
+								class="work-note-link"
+								href={item.href}
+								aria-label={item.ctaLabel}
+								data-analytics-event="work_anchor_click"
+								data-cta-id={`work-note-${item.id}`}
+								data-cta-placement="work-project-card"
+								data-cta-intent="read-work-note"
+								data-source-section="selected-projects"
 							>
-								{item.cta} <span aria-hidden="true">-&gt;</span>
+								Read note <span aria-hidden="true">-&gt;</span>
 							</a>
+							<p class="work-related-proof">
+								<span>Related proof</span>
+								<a
+									href={withBase(item.proofHref)}
+									data-analytics-event="related_proof_click"
+									data-cta-id={`work-proof-${item.id}`}
+									data-cta-placement="work-project-card"
+									data-cta-intent="formal-proof"
+									data-source-section={item.id}
+								>
+									{item.proofLabel}
+								</a>
+							</p>
 						</div>
 					</article>
 				))}
@@ -227,133 +254,233 @@ const evidenceItems = [
 		</div>
 	</section>
 
-	<section class="section work-section" aria-labelledby="transferable-domains-title">
+	<section class="section work-section" id="selected-research" aria-labelledby="selected-research-title">
 		<div class="page-container">
 			<div class="work-section__intro">
-				<h2 id="transferable-domains-title">Transferable Engineering Domains</h2>
+				<h2 id="selected-research-title">Selected Research</h2>
 				<p>
-					The project contexts above sit mainly in mobility and heavy-duty systems, but the underlying engineering
-					problems transfer to other software-controlled physical systems.
+					Research-connected notes from Lund University / Scania on diagnostics, control algorithms, virtual sensing,
+					experimental validation, and real-time implementation. The <a
+						href={withBase('/cv/#research')}
+						data-analytics-event="related_proof_click"
+						data-cta-id="work-research-intro-cv"
+						data-cta-placement="work-research-intro"
+						data-cta-intent="formal-proof"
+						data-source-section="selected-research"
+					>CV research record</a> contains the
+					formal publication and patent record.
 				</p>
 			</div>
-			<div class="work-grid work-grid--domains">
-				{transferableDomains.map((item) => (
-					<article class="work-card">
-						<h3>{item.title}</h3>
-						<p>{item.body}</p>
-						<p class="work-card__applies">{item.appliesTo}</p>
+			<div class="work-index-grid work-index-grid--research">
+				{researchNotes.map((item) => (
+					<article class="work-index-card work-index-card--research" id={item.id} aria-labelledby={`${item.id}-title`}>
+						<div class="work-index-card__body">
+							<header class="work-index-card__header">
+								<h3 id={`${item.id}-title`}>{item.title}</h3>
+							</header>
+							<p class="work-index-card__overview">{item.overview}</p>
+							<div class="research-detail-grid">
+								<div class="research-detail-group">
+									<p class="research-detail-group__label">Technical area</p>
+									<ul class="work-label-list" aria-label={`${item.title} technical areas`}>
+										{item.technicalArea.map((label) => <li>{label}</li>)}
+									</ul>
+								</div>
+								<div class="research-detail-group">
+									<p class="research-detail-group__label">Research outcomes</p>
+									<ul class="research-outcome-list" aria-label={`${item.title} research outcomes`}>
+										{item.outcomes.map((outcome) => <li>{outcome}</li>)}
+									</ul>
+								</div>
+							</div>
+							<a
+								class="work-note-link research-note-link"
+								href={item.href}
+								aria-label={item.ctaLabel}
+								data-analytics-event="work_anchor_click"
+								data-cta-id={`work-research-note-${item.id}`}
+								data-cta-placement="work-research-card"
+								data-cta-intent="read-research-note"
+								data-source-section="selected-research"
+							>
+								Read research note <span aria-hidden="true">→</span>
+							</a>
+							<p class="work-related-proof">
+								<span>Related proof</span>
+								<a
+									href={withBase(item.proofHref)}
+									data-analytics-event="related_proof_click"
+									data-cta-id={`work-research-proof-${item.id}`}
+									data-cta-placement="work-research-card"
+									data-cta-intent="formal-proof"
+									data-source-section={item.id}
+								>
+									{item.proofLabel}
+								</a>
+							</p>
+						</div>
 					</article>
 				))}
 			</div>
 		</div>
 	</section>
 
-	<section class="section work-section work-section--evidence" aria-labelledby="evidence-title">
-		<div class="page-container">
+	<section class="section work-section work-section--threads" id="technical-areas" aria-labelledby="technical-areas-title">
+		<div class="page-container work-thread-summary">
 			<div class="work-section__intro">
-				<h2 id="evidence-title">Evidence Behind the Work</h2>
+				<h2 id="technical-areas-title">Explore Technical Areas</h2>
+				<p>
+					The projects and research notes differ in system context, but they share a common engineering base: software
+					that controls physical behavior, handles diagnostics and constraints, and is validated across models, lab
+					environments, and real systems.
+				</p>
 			</div>
-			<div class="work-evidence-grid">
-				{evidenceItems.map((item) => (
-					<article class="work-evidence-card">
-						<h3>{item.title}</h3>
-						<p>{item.body}</p>
-					</article>
+			<ul class="work-thread-group-list" aria-label="Technical area groups">
+				{technicalAreaGroups.map((group) => (
+					<li class="work-thread-group">
+						<p class="work-thread-group__title">{group.title}</p>
+						<ul class="work-thread-list" aria-label={`${group.title} tags`}>
+							{group.items.map((item) => (
+								<li>
+									<a
+										href={withBase(`/writing?tag=${toTagSlug(item)}`)}
+										aria-label={`Browse posts tagged ${item}`}
+										data-analytics-event="writing_article_click"
+										data-cta-id={`work-topic-${toTagSlug(item)}`}
+										data-cta-placement="work-technical-areas"
+										data-cta-intent="authority"
+										data-source-section="technical-areas"
+									>
+										{item}
+									</a>
+								</li>
+							))}
+						</ul>
+					</li>
 				))}
-			</div>
-		</div>
-	</section>
-
-	<section class="section work-section" aria-labelledby="research-context-title">
-		<div class="page-container work-support">
-			<div class="work-section__intro">
-				<h2 id="research-context-title">Research, Patents & Publications</h2>
-			</div>
-			<div class="work-support__body">
-				<p>
-					My research background supports the applied engineering work shown above. It developed depth in control
-					algorithms, diagnostics, virtual sensing, experimental validation, and real-time implementation under
-					hardware constraints.
-				</p>
-				<p>
-					Selected patents and publications provide external evidence of work in heavy-duty control systems,
-					diagnostics, and combustion-control research.
-				</p>
-				<a class="work-text-link" href={withBase('/cv/#research')}>View publications and patents on CV <span aria-hidden="true">-&gt;</span></a>
-			</div>
+			</ul>
 		</div>
 	</section>
 
 	<section class="section work-section work-final" aria-labelledby="work-final-title">
 		<div class="page-container work-final__inner">
-			<h2 id="work-final-title">Interested in the full background, roles, and formal records?</h2>
-			<div class="button-row work-final__actions">
-				<a class="button primary" href={withBase('/cv/')}>View CV <span aria-hidden="true">-&gt;</span></a>
-				<a class="button" href={withBase('/contact/')}>Contact me <span aria-hidden="true">-&gt;</span></a>
+			<div class="work-final__copy">
+				<h2 id="work-final-title">Continue from the evidence</h2>
+				<p>
+					For role conversations, technical discussions, or a formal record of the experience behind this work,
+					use one of these direct paths.
+				</p>
+			</div>
+			<div class="work-final__actions" aria-label="Continue exploring links">
+				<a
+					class="button primary"
+					href={withBase('/contact/')}
+					data-analytics-event="cta_click"
+					data-cta-id="work-discuss-role"
+					data-cta-placement="work-final"
+					data-cta-intent="role-discussion"
+					data-source-section="work-final"
+				>
+					Discuss a Role
+				</a>
+				<a
+					class="button"
+					href={withBase('/contact/')}
+					data-analytics-event="cta_click"
+					data-cta-id="work-start-technical-discussion"
+					data-cta-placement="work-final"
+					data-cta-intent="technical-discussion"
+					data-source-section="work-final"
+				>
+					Start a Technical Discussion
+				</a>
+				<a
+					class="button"
+					href={withBase('/cv/')}
+					data-analytics-event="cta_click"
+					data-cta-id="work-view-cv"
+					data-cta-placement="work-final"
+					data-cta-intent="formal-proof"
+					data-source-section="work-final"
+				>
+					View CV
+				</a>
 			</div>
 		</div>
 	</section>
 </BaseLayout>
 
 <style>
-	.work-hero {
-		padding-block: clamp(4rem, 8vw, 7rem) clamp(2.5rem, 5vw, 4rem);
-		border-bottom: 1px solid var(--color-border-soft);
-		background: transparent;
+        .work-hero {
+                padding-block: clamp(3rem, 5vw, 4.6rem) clamp(1.55rem, 3vw, 2.25rem);
+                border-bottom: 1px solid var(--color-border-soft);
+                background: transparent;
+        }
+
+	.work-hero .page-container,
+	.work-section .page-container {
+		width: min(calc(100% - 32px), 1120px);
+		max-width: 100%;
+	}
+
+	.work-hero,
+	.work-section {
+		overflow-x: clip;
 	}
 
 	.work-hero__inner,
 	.work-hero__copy,
 	.work-section__intro,
-	.work-case__body,
-	.work-case__header,
-	.work-support__body,
+	.work-index-card__body,
+	.work-index-card__header,
+	.research-detail-grid,
+	.research-detail-group,
+	.work-thread-summary,
 	.work-final__inner {
 		display: grid;
 	}
 
-	.work-hero__copy {
-		gap: 0.9rem;
-		max-width: 800px;
+	.work-hero__inner {
+		gap: 1rem;
 	}
 
-	.work-hero h1 {
-		max-width: 12ch;
-		font-family: var(--font-display);
-		font-size: var(--type-hero-name-size);
-		font-weight: var(--type-hero-name-weight);
-		line-height: var(--type-hero-name-line);
-		letter-spacing: var(--type-hero-name-tracking);
+	.work-hero__copy {
+		gap: clamp(0.72rem, 1.4vw, 1rem);
+		max-width: 820px;
+		margin-inline: auto;
 	}
+
+        .work-hero .hero-title {
+                overflow-wrap: anywhere;
+        }
 
 	.work-hero p,
 	.work-section__intro p,
-	.work-card p,
-	.work-evidence-card p,
-	.work-support__body p,
-	.work-case dd {
+	.work-index-card__overview {
 		color: var(--color-body-text);
 		font-size: var(--type-reading-size);
 		line-height: var(--type-reading-line);
+		overflow-wrap: anywhere;
 	}
 
 	.work-hero__lead {
-		max-width: 760px;
-		color: var(--color-text);
-		font-size: var(--type-hero-summary-size);
-		font-weight: var(--type-hero-summary-weight);
-		line-height: var(--type-hero-summary-line);
-		letter-spacing: var(--type-hero-summary-tracking);
+		max-width: 680px;
+		color: var(--color-body-text);
+		font-size: clamp(1.05rem, 1.25vw, 1.18rem);
+		font-weight: 400;
+		line-height: 1.55;
+		letter-spacing: var(--type-body-tracking);
 	}
 
 	.work-hero__note {
+		margin-top: 0.25rem;
 		color: var(--color-muted);
 		font-size: var(--type-card-body-size);
 	}
 
 	.work-hero__note a,
-	.work-text-link,
-	.work-case__link {
+	.work-section__intro a,
+	.work-note-link {
 		color: var(--color-text);
 		font-weight: 700;
 		text-decoration: underline;
@@ -366,131 +493,102 @@ const evidenceItems = [
 
 	.work-hero__note a:hover,
 	.work-hero__note a:focus-visible,
-	.work-text-link:hover,
-	.work-text-link:focus-visible,
-	.work-case__link:hover,
-	.work-case__link:focus-visible {
+	.work-section__intro a:hover,
+	.work-section__intro a:focus-visible,
+	.work-note-link:hover,
+	.work-note-link:focus-visible {
 		color: var(--color-link-hover);
 	}
 
-	.work-proof {
-		border-bottom: 1px solid var(--color-border-soft);
-		padding-block: clamp(1.1rem, 3vw, 1.5rem);
+	.work-section {
+		padding-block: clamp(3rem, 6vw, 5rem);
 	}
 
-	.work-proof__list {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 0.55rem;
-		margin: 0;
+        .work-section--selected {
+                padding-block-start: clamp(1.75rem, 3.4vw, 2.8rem);
+        }
+
+        .work-section__intro {
+                gap: clamp(0.5rem, 1.1vw, 0.75rem);
+                max-width: 700px;
+                margin-bottom: clamp(1.15rem, 2.2vw, 1.8rem);
+        }
+
+        .work-section h2 {
+                max-width: 14ch;
+                font-size: clamp(2.25rem, 4.4vw, 3.7rem);
+                line-height: 1;
+                letter-spacing: -0.055em;
+                overflow-wrap: anywhere;
+        }
+
+	.work-index-grid {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: clamp(0.85rem, 1.8vw, 1rem);
+	}
+
+	.work-index-grid--research {
+		gap: clamp(0.8rem, 1.6vw, 0.95rem);
+		align-items: stretch;
+		grid-auto-rows: 1fr;
+	}
+
+	.work-index-card {
+		display: grid;
+		width: 100%;
+		max-width: 100%;
+		min-width: 0;
+		overflow: hidden;
+		border: 1px solid var(--color-card-border);
+		border-radius: var(--radius);
+		background: transparent;
+		padding: clamp(0.95rem, 1.7vw, 1.2rem);
+	}
+
+	.work-index-card--project {
 		padding: 0;
-		list-style: none;
 	}
 
-	.work-proof__list li {
-		margin: 0;
-		border: 1px solid var(--color-border-soft);
-		border-radius: var(--radius-pill);
-		background: color-mix(in srgb, var(--color-card-bg) 54%, transparent);
-		padding: 0.35rem 0.65rem;
-		color: var(--color-muted);
-		font-family: var(--font-mono);
-		font-size: var(--type-chip-size);
-		font-weight: var(--type-chip-weight);
-		line-height: var(--type-chip-line);
-		letter-spacing: var(--type-chip-tracking);
+	.work-index-card--research {
+		display: flex;
+		height: 100%;
+		background: transparent;
+		padding: clamp(0.9rem, 1.45vw, 1.05rem);
 	}
 
-	.work-section__intro {
-		gap: 0.75rem;
-		max-width: 800px;
-		margin-bottom: clamp(1.5rem, 4vw, 2.5rem);
-	}
-
-	.work-section h2 {
-		max-width: 14ch;
-		font-size: var(--type-section-title-size);
-		line-height: var(--type-section-title-line);
-		letter-spacing: var(--type-section-title-tracking);
-	}
-
-	.work-list,
-	.work-grid {
-		display: grid;
-		gap: clamp(1rem, 3vw, 1.5rem);
-	}
-
-	.work-case {
-		display: grid;
-		gap: clamp(1rem, 3vw, 1.5rem);
-		border-top: 1px solid var(--color-border-soft);
-		padding-top: clamp(1.25rem, 3vw, 1.75rem);
-	}
-
-	.work-case:first-child {
-		border-top: 0;
-		padding-top: 0;
-	}
-
-	.work-case__media {
+	.work-index-card__media {
 		overflow: hidden;
 		margin: 0;
-		aspect-ratio: 16 / 11;
-		border-radius: calc(var(--radius) * 0.8);
+		aspect-ratio: 3 / 2;
 		background: var(--color-surface-soft);
 	}
 
-	.work-case__media img {
+	.work-index-card__media img {
 		width: 100%;
 		height: 100%;
 		object-fit: cover;
 	}
 
-	.work-case__body {
-		gap: 1rem;
+	.work-index-card__body {
+		gap: 0.76rem;
 		align-content: start;
+		width: 100%;
+		height: 100%;
+		min-width: 0;
 	}
 
-	.work-case__header {
-		gap: 0.55rem;
+	.work-index-card--project .work-index-card__body {
+		padding: clamp(0.85rem, 1.55vw, 1.1rem);
 	}
 
-	.work-card h3,
-	.work-case h3,
-	.work-evidence-card h3 {
-		color: var(--color-text);
-		font-size: var(--type-card-title-size);
-		line-height: var(--type-card-title-line);
-		letter-spacing: var(--type-card-title-tracking);
+	.work-index-card__header {
+		gap: 0.34rem;
 	}
 
-	.work-case__value {
-		color: var(--color-muted);
-		font-size: var(--type-card-body-size);
-		font-weight: 500;
-		line-height: var(--type-card-body-line);
-	}
-
-	.work-case__details {
-		display: grid;
-		gap: 0;
+	.research-detail-group__label {
 		margin: 0;
-	}
-
-	.work-case__details div {
-		display: grid;
-		gap: 0.25rem;
-		border-top: 1px solid var(--color-border-soft);
-		padding-block: 0.72rem;
-	}
-
-	.work-case__details div:last-child {
-		border-bottom: 1px solid var(--color-border-soft);
-	}
-
-	.work-case dt,
-	.work-card__applies {
-		color: var(--color-soft);
+		color: var(--color-accent-text);
 		font-family: var(--font-mono);
 		font-size: var(--type-meta-size);
 		font-weight: 700;
@@ -499,122 +597,316 @@ const evidenceItems = [
 		text-transform: uppercase;
 	}
 
-	.work-case dd {
+	.work-index-card h3 {
+		max-width: 26ch;
+		color: var(--color-text);
+		font-size: clamp(1.12rem, 1.45vw, 1.42rem);
+		line-height: 1.08;
+		letter-spacing: -0.035em;
+		overflow-wrap: anywhere;
+	}
+
+	.work-index-card__institution {
 		margin: 0;
-	}
-
-	.work-case__link,
-	.work-text-link {
-		width: fit-content;
-	}
-
-	.work-grid {
-		grid-template-columns: 1fr;
-	}
-
-	.work-card,
-	.work-evidence-card {
-		display: grid;
-		gap: 0.65rem;
-		border: 1px solid var(--color-card-border);
-		border-radius: var(--radius);
-		background: var(--color-card-bg);
-		padding: clamp(1.1rem, 3vw, 1.5rem);
-	}
-
-	.work-card__applies {
-		margin-top: 0.35rem;
 		color: var(--color-muted);
-		text-transform: none;
+		font-family: var(--font-mono);
+		font-size: var(--type-meta-size);
+		line-height: var(--type-meta-line);
+		letter-spacing: var(--type-meta-tracking);
 	}
 
-	.work-section--evidence {
-		border-block: 1px solid var(--color-border-soft);
-		background: color-mix(in srgb, var(--color-card-bg) 36%, transparent);
+	.work-index-card__overview {
+		font-size: clamp(0.92rem, 1vw, 1rem);
+		line-height: 1.5;
+		overflow-wrap: anywhere;
 	}
 
-	.work-evidence-grid {
+	.work-index-card--research h3 {
+		font-size: clamp(1.04rem, 1.25vw, 1.22rem);
+		line-height: 1.13;
+		letter-spacing: -0.026em;
+	}
+
+	.work-index-card--research .work-index-card__body {
+		display: flex;
+		flex-direction: column;
+		gap: 0.62rem;
+	}
+
+	.work-index-card--research .work-index-card__overview {
+		font-size: clamp(0.88rem, 0.95vw, 0.95rem);
+		line-height: 1.47;
+	}
+
+	.work-label-list,
+	.work-thread-list {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.34rem;
+		min-width: 0;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.work-label-list li,
+	.work-thread-list li {
+		margin: 0;
+		border: 1px solid var(--color-border-soft);
+		border-radius: calc(var(--radius) * 0.45);
+		background: color-mix(in srgb, var(--color-surface-soft) 34%, transparent);
+		padding: 0.19rem 0.38rem;
+		color: var(--color-tag-text);
+		font-family: var(--font-mono);
+		font-size: clamp(0.64rem, 0.72vw, 0.72rem);
+		font-weight: var(--type-chip-weight);
+		line-height: 1.25;
+		letter-spacing: 0;
+		overflow-wrap: anywhere;
+		word-break: break-word;
+	}
+
+	.research-detail-grid {
+		gap: clamp(0.9rem, 1.8vw, 1.15rem);
+		border-top: 1px solid var(--color-border-soft);
+		padding-top: 0.72rem;
+	}
+
+	.research-detail-group {
+		gap: 0.32rem;
+	}
+
+	.research-outcome-list {
 		display: grid;
-		grid-template-columns: 1fr;
+		gap: 0.42rem;
+		margin: 0;
+		padding-left: 1rem;
+		color: var(--color-body-text);
+		font-size: clamp(0.82rem, 0.9vw, 0.9rem);
+		line-height: 1.42;
+		letter-spacing: -0.003em;
+	}
+
+	.research-outcome-list li {
+		margin: 0;
+		padding-left: 0.08rem;
+	}
+
+	.research-outcome-list li::marker {
+		color: var(--color-accent-text);
+	}
+
+	.work-index-card--research .work-label-list {
+		gap: 0.24rem 0.28rem;
+	}
+
+	.work-index-card--research .work-label-list li {
+		background: color-mix(in srgb, var(--color-surface-soft) 24%, transparent);
+		padding: 0.14rem 0.32rem;
+		color: var(--color-muted);
+		font-size: clamp(0.62rem, 0.68vw, 0.68rem);
+	}
+
+	.work-note-link {
+		width: fit-content;
+		font-size: var(--type-card-body-size);
+		line-height: var(--type-card-body-line);
+	}
+
+	.research-note-link {
+		margin-top: auto;
+		padding-top: 0.38rem;
+	}
+
+	.work-related-proof {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		flex-wrap: wrap;
+		margin: 0;
+		padding-top: 0.1rem;
+		color: var(--color-muted);
+		font-family: var(--font-mono);
+		font-size: var(--type-meta-size);
+		line-height: var(--type-meta-line);
+		letter-spacing: var(--type-meta-tracking);
+		text-transform: uppercase;
+	}
+
+	.work-related-proof a {
+		color: var(--color-link);
+		text-decoration: none;
+		border-bottom: 1px solid transparent;
+		transition:
+			border-color var(--motion-duration-fast-02) var(--motion-standard-productive),
+			color var(--motion-duration-fast-02) var(--motion-standard-productive);
+	}
+
+	.work-related-proof a:hover,
+	.work-related-proof a:focus-visible {
+		color: var(--color-link-hover);
+		border-bottom-color: var(--color-link-hover);
+	}
+
+	.work-related-proof a:focus-visible {
+		outline: 2px solid var(--color-focus);
+		outline-offset: 4px;
+	}
+
+	.work-section--threads {
+		border-block: 1px solid var(--color-border-soft);
+		background: color-mix(in srgb, var(--color-card-bg) 34%, transparent);
+	}
+
+        .work-thread-summary {
+                gap: clamp(1.25rem, 4vw, 2.25rem);
+                align-items: start;
+	}
+
+	.work-thread-group-list {
+		display: grid;
 		gap: 0;
+		margin: 0;
+		padding: 0;
+		list-style: none;
 		border-top: 1px solid var(--color-border-soft);
 	}
 
-	.work-evidence-card {
-		border-width: 0 0 1px;
-		border-radius: 0;
-		background: transparent;
-		padding-inline: 0;
-	}
-
-	.work-support {
+	.work-thread-group {
 		display: grid;
-		gap: clamp(1.25rem, 4vw, 2.25rem);
-		align-items: start;
+		gap: 0.65rem;
+		margin: 0;
+		border-bottom: 1px solid var(--color-border-soft);
+		padding-block: 0.85rem;
 	}
 
-	.work-support__body {
-		gap: 0.9rem;
-		max-width: 760px;
+	.work-thread-group__title {
+		margin: 0;
+		color: var(--color-text);
+		font-family: var(--font-mono);
+		font-size: var(--type-meta-size);
+		font-weight: 700;
+		line-height: var(--type-meta-line);
+		letter-spacing: var(--type-meta-tracking);
+		text-transform: uppercase;
+	}
+
+	.work-thread-list li {
+		color: var(--color-muted);
+		background: transparent;
+	}
+
+	.work-thread-list a {
+		display: block;
+		color: inherit;
+		text-decoration: none;
+		border-radius: calc(var(--radius) * 0.35);
+		outline-offset: 3px;
+	}
+
+	.work-thread-list a:hover,
+	.work-thread-list a:focus-visible {
+		color: var(--color-text);
 	}
 
 	.work-final {
 		border-top: 1px solid var(--color-border-soft);
+		padding-block: clamp(2.6rem, 5vw, 4rem) clamp(3.2rem, 6vw, 4.8rem);
 	}
 
 	.work-final__inner {
-		gap: 1.25rem;
+		gap: clamp(1.1rem, 3vw, 1.8rem);
 		align-items: start;
+	}
+
+	.work-final__copy {
+		display: grid;
+		gap: 0.65rem;
+		max-width: 680px;
 	}
 
 	.work-final h2 {
-		max-width: 16ch;
-		font-size: clamp(1.65rem, 3.6vw, 3.5rem);
-		line-height: 1.05;
-		letter-spacing: -0.055em;
+		max-width: none;
+		font-size: clamp(1.65rem, 2.5vw, 2.35rem);
+		line-height: 1.08;
+		letter-spacing: -0.035em;
+	}
+
+	.work-final p {
+		max-width: 64ch;
+		color: var(--color-body-text);
+		font-size: var(--type-reading-size);
+		line-height: var(--type-reading-line);
 	}
 
 	.work-final__actions {
+		display: grid;
+		gap: 0.9rem;
 		align-items: start;
 	}
 
-	@media (min-width: 700px) {
-		.work-grid {
-			grid-template-columns: repeat(2, minmax(0, 1fr));
-		}
-
-		.work-evidence-grid {
-			grid-template-columns: repeat(2, minmax(0, 1fr));
-			gap: 0 clamp(1.25rem, 3vw, 2rem);
-		}
+	.work-final__actions > .button {
+		width: 100%;
 	}
 
-	@media (min-width: 760px) {
-		.work-case {
-			grid-template-columns: minmax(10rem, 0.44fr) minmax(0, 1fr);
-			gap: clamp(1.25rem, 3vw, 2rem);
-		}
-
-		.work-case__details div {
-			grid-template-columns: minmax(7.5rem, 0.28fr) minmax(0, 1fr);
-			gap: 1rem;
+	@media (min-width: 700px) {
+		.work-index-grid {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
 		}
 	}
 
 	@media (min-width: 980px) {
-		.work-support,
+                .work-thread-summary {
+                        grid-template-columns: minmax(0, 0.8fr) minmax(0, 1fr);
+                }
+
 		.work-final__inner {
-			grid-template-columns: minmax(0, 0.8fr) minmax(0, 1fr);
+			grid-template-columns: minmax(0, 1fr) auto;
+		}
+
+		.work-thread-group {
+			grid-template-columns: minmax(9.5rem, 0.32fr) minmax(0, 1fr);
+			align-items: start;
+			gap: 1rem;
 		}
 
 		.work-final__actions {
-			justify-content: flex-end;
+			min-width: 230px;
 		}
 	}
 
 	@media (max-width: 640px) {
-		.work-hero h1 {
-			font-size: clamp(3rem, 16vw, 4.6rem);
+		.work-hero .page-container,
+		.work-section .page-container {
+			width: min(calc(100% - 48px), 1120px);
+		}
+
+                .work-hero__copy,
+                .work-section__intro,
+		.work-index-card__body {
+			overflow-wrap: anywhere;
+		}
+
+		.work-index-card h3 {
+			max-width: 21ch;
+			font-size: clamp(1.04rem, 4.8vw, 1.22rem);
+			word-break: break-word;
+		}
+
+		.work-label-list,
+		.work-thread-list {
+			gap: 0.3rem;
+		}
+
+		.work-label-list li,
+		.work-thread-list li {
+			max-width: 100%;
+			padding: 0.18rem 0.34rem;
+			font-size: 0.64rem;
+		}
+
+		.work-index-card__media {
+			aspect-ratio: 3 / 2;
 		}
 	}
 </style>

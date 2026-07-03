@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 520" role="img" aria-labelledby="title desc">
+  <title id="title">In-cycle control architecture placeholder</title>
+  <desc id="desc">Block diagram from cylinder pressure measurement to injection command.</desc>
+  <rect width="1200" height="520" fill="#f7f2ec"/>
+  <g fill="none" stroke="#161616" stroke-opacity=".12" stroke-width="2">
+    <path d="M70 120h1060M70 260h1060M70 400h1060"/>
+  </g>
+  <g font-family="Inter, Arial, sans-serif" text-anchor="middle">
+    <g fill="#faf8f7" stroke="#161616" stroke-opacity=".26" stroke-width="2">
+      <rect x="70" y="190" width="180" height="115" rx="18"/>
+      <rect x="300" y="190" width="180" height="115" rx="18"/>
+      <rect x="530" y="190" width="180" height="115" rx="18"/>
+      <rect x="760" y="190" width="180" height="115" rx="18"/>
+      <rect x="990" y="190" width="140" height="115" rx="18"/>
+    </g>
+    <g fill="#161616" font-size="22" font-weight="700">
+      <text x="160" y="238">Cylinder</text><text x="160" y="266">pressure</text>
+      <text x="390" y="238">Virtual</text><text x="390" y="266">sensor</text>
+      <text x="620" y="238">Combustion</text><text x="620" y="266">state</text>
+      <text x="850" y="238">In-cycle</text><text x="850" y="266">controller</text>
+      <text x="1060" y="238">Injection</text><text x="1060" y="266">command</text>
+    </g>
+    <g stroke="#9a4d4d" stroke-width="4" stroke-linecap="round" fill="none">
+      <path d="M255 248h38"/><path d="M485 248h38"/><path d="M715 248h38"/><path d="M945 248h38"/>
+      <path d="M285 236l14 12-14 12M515 236l14 12-14 12M745 236l14 12-14 12M975 236l14 12-14 12"/>
+    </g>
+  </g>
+  <text x="70" y="438" fill="#666" font-family="JetBrains Mono, Consolas, monospace" font-size="18">Placeholder architecture graphic - replace with final thesis-derived or custom diagram.</text>
+</svg>

@@ -1,6 +1,5 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { cvProfile } from '../data/cvMarkdown';
 
 const baseUrl = import.meta.env.BASE_URL;
 const normalizedBase = baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`;
@@ -11,11 +10,13 @@ const withBase = (href: string) =>
 
 const contactEmail = 'carlosjorques@gmail.com';
 const emailHref = `mailto:${contactEmail}`;
+const cvPdfHref = '/cv/Carlos_Jorques_CV.pdf';
+const linkedinHref = 'https://www.linkedin.com/in/carlosjorques/';
 const links = {
 	cv: withBase('/cv'),
-	pdfCv: withBase(cvProfile.links.pdf),
-	work: withBase(cvProfile.links.work),
-	linkedin: cvProfile.links.linkedin,
+	pdfCv: withBase(cvPdfHref),
+	work: withBase('/work'),
+	linkedin: linkedinHref,
 	privacy: withBase('/privacy'),
 };
 
@@ -25,10 +26,16 @@ const secondaryLinks = [
 		href: links.linkedin,
 		external: true,
 		ariaLabel: 'Open Carlos Jorques on LinkedIn in a new tab',
+		analyticsEvent: 'linkedin_outbound_click',
+		ctaId: 'contact-linkedin',
+		intent: 'professional-profile',
 	},
 	{
-		label: 'Download CV',
+		label: 'Download PDF CV',
 		href: links.pdfCv,
+		analyticsEvent: 'cv_pdf_download',
+		ctaId: 'contact-download-cv',
+		intent: 'formal-proof',
 	},
 ];
 ---
@@ -44,10 +51,8 @@ const secondaryLinks = [
 			<p class="contact-hero__lead">
 				If you are working on embedded controls, electrification, autonomy, diagnostics, validation, or safety-critical software, I would be glad to hear from you.
 			</p>
-			<p class="contact-hero__lead contact-hero__lead--secondary">
-				Email is the best way to reach me. You can also send a short message below with the context needed to start the conversation.
-			</p>
-			<p class="contact-hero__context">Based in Spain · working with international teams</p>
+			<p class="contact-hero__context">Open to technical discussions, architecture conversations, and role opportunities.</p>
+			<p class="contact-hero__context">Based in Spain · Working remotely with international teams</p>
 		</div>
 	</section>
 
@@ -61,12 +66,27 @@ const secondaryLinks = [
 						For roles, collaborations, technical conversations, or focused questions about embedded control software for physical systems.
 					</p>
 					<div class="button-row direct-contact-card__actions">
-						<a class="button primary" href={emailHref}>Email Carlos</a>
+						<a
+							class="button primary"
+							href={emailHref}
+							data-analytics-event="contact_email_click"
+							data-cta-id="contact-email-primary"
+							data-cta-placement="contact-direct-card"
+							data-cta-intent="contact"
+							data-source-section="direct-email"
+						>
+							Email Carlos
+						</a>
 						<button
 							class="button"
 							type="button"
 							data-copy-email
 							data-email={contactEmail}
+							data-analytics-event="contact_copy_email"
+							data-cta-id="contact-copy-email"
+							data-cta-placement="contact-direct-card"
+							data-cta-intent="contact"
+							data-source-section="direct-email"
 							aria-describedby="copy-email-status"
 						>
 							Copy email
@@ -77,12 +97,29 @@ const secondaryLinks = [
 
 				<nav class="secondary-contact-links" aria-label="Secondary contact links">
 					{secondaryLinks.map((link) => (
-						<a href={link.href} target={link.external ? '_blank' : undefined} rel={link.external ? 'noopener noreferrer' : undefined} aria-label={link.ariaLabel}>
+						<a
+							href={link.href}
+							target={link.external ? '_blank' : undefined}
+							rel={link.external ? 'noopener noreferrer' : undefined}
+							aria-label={link.ariaLabel}
+							data-analytics-event={link.analyticsEvent}
+							data-cta-id={link.ctaId}
+							data-cta-placement="contact-secondary-links"
+							data-cta-intent={link.intent}
+							data-source-section="contact-secondary"
+						>
 							<span>{link.label}</span>
 							<strong>{link.external ? 'Professional profile' : 'PDF resume'}</strong>
 						</a>
 					))}
-					<a href={links.cv}>
+					<a
+						href={links.cv}
+						data-analytics-event="cta_click"
+						data-cta-id="contact-online-cv"
+						data-cta-placement="contact-secondary-links"
+						data-cta-intent="formal-proof"
+						data-source-section="contact-secondary"
+					>
 						<span>Online CV</span>
 						<strong>Structured experience overview</strong>
 					</a>
@@ -97,6 +134,11 @@ const secondaryLinks = [
 				aria-labelledby="message-title"
 				aria-describedby="form-status privacy-note"
 				data-contact-form
+				data-analytics-event="contact_form_submit"
+				data-cta-id="contact-mailto-form"
+				data-cta-placement="contact-form"
+				data-cta-intent="contact"
+				data-source-section="contact-form"
 			>
 				<div class="contact-form__header">
 					<h2 id="message-title">Send a message</h2>
@@ -183,8 +225,9 @@ const secondaryLinks = [
 	.contact-hero__context {
 		max-width: 620px;
 		color: var(--color-body-text);
-		font-size: var(--type-body-size);
-		line-height: var(--type-body-line);
+		font-size: var(--type-hero-summary-size);
+		letter-spacing: var(--type-hero-summary-tracking);
+		line-height: var(--type-hero-summary-line);
 	}
 
 	.contact-content {
@@ -471,6 +514,16 @@ const secondaryLinks = [
 		if (formStatus) {
 			formStatus.textContent = 'Opening your email client with the message details.';
 		}
+
+		(window as any).trackPortfolioEvent?.(contactForm.dataset.analyticsEvent, {
+			cta_id: contactForm.dataset.ctaId,
+			cta_text: 'Send message',
+			placement: contactForm.dataset.ctaPlacement,
+			page_type: document.body?.dataset.pageType ?? 'contact',
+			destination: contactForm.getAttribute('action') ?? undefined,
+			intent: contactForm.dataset.ctaIntent,
+			source_section: contactForm.dataset.sourceSection,
+		});
 
 		const subject = encodeURIComponent('Portfolio contact');
 		window.location.href = `mailto:${copyButton?.dataset.email ?? ''}?subject=${subject}&body=${encodeMailBody(contactForm)}`;

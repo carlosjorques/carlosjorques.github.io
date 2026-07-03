@@ -1,88 +1,11 @@
 ---
-import { getCollection, render } from 'astro:content';
-import Layout from '../../layouts/Layout.astro';
-import ContactCTA from '../../components/ContactCTA.astro';
-
-export async function getStaticPaths() {
-	const entries = await getCollection('cases');
-	return entries.map((entry) => ({
-		params: { slug: entry.id.replace(/\.md$/, '') },
-		props: { entry },
-	}));
+export function getStaticPaths() {
+	return [
+		{ params: { slug: 'control-algorithms-and-diagnostics' } },
+		{ params: { slug: 'cross-functional-technical-delivery' } },
+		{ params: { slug: 'embedded-control-system-architecture' } },
+	];
 }
 
-const { entry } = Astro.props;
-const { Content } = await render(entry);
+return Astro.redirect(`${import.meta.env.BASE_URL}work/`, 301);
 ---
-
-<Layout title={entry.data.title} description={entry.data.summary}>
-	<section class="section case-hero">
-		<div class="narrow">
-			<p class="eyebrow">{entry.data.domain}</p>
-			<h1>{entry.data.title}</h1>
-			<p class="lead">{entry.data.summary}</p>
-			<div class="case-meta">
-				<div>
-					<span>Role</span>
-					<strong>{entry.data.role}</strong>
-				</div>
-				<div>
-					<span>Standards / environment</span>
-					<ul class="tag-list">
-						{entry.data.standards.map((item) => <li class="tag">{item}</li>)}
-					</ul>
-				</div>
-			</div>
-		</div>
-	</section>
-
-	<section class="section">
-		<div class="narrow prose">
-			<Content />
-		</div>
-	</section>
-
-	<section class="section">
-		<div class="container">
-			<ContactCTA />
-		</div>
-	</section>
-</Layout>
-
-<style>
-	.case-hero h1 {
-		margin: 0.45rem 0 0.75rem;
-		font-size: 1.75rem;
-	}
-
-	.case-meta {
-		display: grid;
-		gap: 1rem;
-		margin-top: 1.25rem;
-		border: 1px solid var(--color-card-border);
-		border-radius: var(--radius);
-		background: var(--color-card-bg);
-		padding: 1rem;
-		transition:
-			background-color var(--motion-duration-fast-02) var(--motion-standard-productive),
-			border-color var(--motion-duration-fast-02) var(--motion-standard-productive);
-	}
-
-	.case-meta:hover,
-	.case-meta:focus-within {
-		border-color: var(--color-card-border-hover);
-		background: var(--color-card-bg-hover);
-	}
-
-	.case-meta span,
-	.case-meta strong {
-		display: block;
-	}
-
-	.case-meta span {
-		margin-bottom: 0.35rem;
-		color: var(--color-subtle);
-		font-family: var(--font-mono);
-		font-size: 0.75rem;
-	}
-</style>

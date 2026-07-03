@@ -20,8 +20,16 @@ const writing = defineCollection({
 	loader: glob({ pattern: '**/*.md', base: './src/content/writing' }),
 	schema: z.object({
 		title: z.string(),
+		subtitle: z.string().optional(),
 		description: z.string(),
 		publishDate: z.date(),
+		readingTime: z.string().optional(),
+		heroImage: z
+			.object({
+				src: z.string(),
+				alt: z.string(),
+			})
+			.optional(),
 		category: z.enum([
 			'Embedded Control Architecture',
 			'Sensing & Signal Processing',

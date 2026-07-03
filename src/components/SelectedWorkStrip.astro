@@ -8,16 +8,19 @@ const selectedWork = [
 		title: 'Embedded controls for electrified and heavy-duty systems',
 		linkText: 'View selected work',
 		href: withBase('/work'),
+		ctaId: 'selected-work-electrified-heavy-duty',
 	},
 	{
 		title: 'Autonomous and intelligent machines',
 		linkText: 'Explore applied domains',
 		href: withBase('/work'),
+		ctaId: 'selected-work-autonomous-machines',
 	},
 	{
 		title: 'Research, patents, and publications',
 		linkText: 'View publications and patents',
 		href: withBase('/work'),
+		ctaId: 'selected-work-research-publications',
 	},
 ];
 ---
@@ -37,7 +40,16 @@ const selectedWork = [
 				<article class="selected-work__item">
 					<span class="selected-work__index">{String(index + 1).padStart(2, '0')}</span>
 					<h3>{item.title}</h3>
-					<a href={item.href}>{item.linkText}</a>
+					<a
+						href={item.href}
+						data-analytics-event="cta_click"
+						data-cta-id={item.ctaId}
+						data-cta-placement="home-selected-work"
+						data-cta-intent="proof"
+						data-source-section="selected-work"
+					>
+						{item.linkText}
+					</a>
 				</article>
 			))}
 		</div>

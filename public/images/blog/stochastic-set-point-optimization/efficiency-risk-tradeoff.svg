@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 640" role="img" aria-labelledby="title desc">
+  <title id="title">Efficiency and constraint-risk trade-off</title>
+  <desc id="desc">Plot showing expected indicated efficiency against pressure-rise violation probability with feasible and infeasible regions.</desc>
+  <rect width="1200" height="640" fill="#f7f5ef"/>
+  <g transform="translate(115 80)" font-family="Arial, sans-serif">
+    <text x="0" y="0" fill="#171815" font-size="30" font-weight="700">Efficiency versus constraint risk</text>
+    <text x="0" y="36" fill="#62675c" font-size="18">The optimizer searches for the highest usable efficiency below the accepted risk boundary.</text>
+    <g transform="translate(0 82)">
+      <rect width="960" height="410" fill="#ffffff" stroke="#d8d4ca"/>
+      <rect x="675" y="0" width="285" height="410" fill="#bfff03" opacity="0.12"/>
+      <line x1="675" y1="0" x2="675" y2="410" stroke="#5f7f00" stroke-width="3" stroke-dasharray="9 9"/>
+      <path d="M58 336C172 292 282 252 392 218C518 179 612 142 720 116C805 95 878 86 920 82" fill="none" stroke="#171815" stroke-width="5" stroke-linecap="round"/>
+      <path d="M58 358C170 332 281 309 390 278C500 246 606 205 718 170C815 140 882 128 920 126" fill="none" stroke="#5f7f00" stroke-width="4" stroke-linecap="round"/>
+      <circle cx="622" cy="171" r="12" fill="#bfff03" stroke="#171815" stroke-width="4"/>
+      <circle cx="798" cy="98" r="10" fill="#ffffff" stroke="#171815" stroke-width="4"/>
+      <text x="640" y="160" fill="#171815" font-size="17" font-weight="700">usable optimum</text>
+      <text x="812" y="90" fill="#62675c" font-size="16">higher mean, too risky</text>
+      <text x="708" y="390" fill="#5f7f00" font-size="16" font-weight="700">constraint risk exceeds limit</text>
+      <text x="310" y="465" fill="#171815" font-size="17" font-weight="700">Probability of pressure-rise violation</text>
+      <g transform="translate(-62 278) rotate(-90)">
+        <text fill="#171815" font-size="17" font-weight="700">Expected indicated efficiency</text>
+      </g>
+      <g stroke="#9a9f92" stroke-width="2">
+        <line x1="0" y1="410" x2="960" y2="410"/>
+        <line x1="0" y1="0" x2="0" y2="410"/>
+      </g>
+    </g>
+  </g>
+</svg>

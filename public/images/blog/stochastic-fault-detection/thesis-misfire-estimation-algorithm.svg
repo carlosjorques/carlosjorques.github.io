@@ -1,0 +1,1111 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="960"
+   height="641"
+   overflow="hidden"
+   version="1.1"
+   id="svg241"
+   sodipodi:docname="Mass_misfire_estimation_algorithm.svg"
+   inkscape:version="0.92.2 (5c3e80d, 2017-08-06)"
+   style="overflow:hidden">
+  <metadata
+     id="metadata245">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     id="namedview243"
+     showgrid="false"
+     inkscape:zoom="1.9585062"
+     inkscape:cx="660.95154"
+     inkscape:cy="327.37377"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg241" />
+  <defs
+     id="defs5">
+    <marker
+       inkscape:isstock="true"
+       style="overflow:visible"
+       id="marker4567"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="TriangleOutL">
+      <path
+         transform="scale(0.8)"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         id="path4565"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:stockid="TriangleOutL"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="TriangleOutL"
+       style="overflow:visible"
+       inkscape:isstock="true"
+       inkscape:collect="always">
+      <path
+         id="path1864"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
+         transform="scale(0.8)"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow2Lend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow2Lend"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         id="path1743"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1"
+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
+         transform="matrix(-1.1,0,0,-1.1,-1.1,0)"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <clipPath
+       id="clip0">
+      <path
+         d="M 36,-115 H 761 V 849 H 36 Z"
+         id="path2"
+         inkscape:connector-curvature="0"
+         style="clip-rule:evenodd;fill-rule:evenodd" />
+    </clipPath>
+    <pattern
+       y="0"
+       x="0"
+       height="6"
+       width="6"
+       patternUnits="userSpaceOnUse"
+       id="EMFhbasepattern" />
+    <marker
+       inkscape:stockid="TriangleOutL"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="TriangleOutL-4"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         inkscape:connector-curvature="0"
+         id="path1864-2"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
+         transform="scale(0.8)" />
+    </marker>
+    <marker
+       inkscape:stockid="TriangleOutL"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="TriangleOutL-46"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         inkscape:connector-curvature="0"
+         id="path1864-1"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
+         transform="scale(0.8)" />
+    </marker>
+    <marker
+       inkscape:stockid="TriangleOutL"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="TriangleOutL-8"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         inkscape:connector-curvature="0"
+         id="path1864-29"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
+         transform="scale(0.8)" />
+    </marker>
+    <marker
+       inkscape:stockid="TriangleOutL"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="TriangleOutL-8-4"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         inkscape:connector-curvature="0"
+         id="path1864-29-0"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
+         transform="scale(0.8)" />
+    </marker>
+    <marker
+       inkscape:stockid="TriangleOutL"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="TriangleOutL-46-7"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         inkscape:connector-curvature="0"
+         id="path1864-1-0"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
+         transform="scale(0.8)" />
+    </marker>
+    <marker
+       inkscape:isstock="true"
+       style="overflow:visible"
+       id="marker4567-4"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="TriangleOutL">
+      <path
+         inkscape:connector-curvature="0"
+         transform="scale(0.8)"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         id="path4565-8" />
+    </marker>
+    <marker
+       inkscape:isstock="true"
+       style="overflow:visible"
+       id="marker4567-6"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="TriangleOutL">
+      <path
+         transform="scale(0.8)"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         id="path4565-5"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:isstock="true"
+       style="overflow:visible"
+       id="marker4567-6-8"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="TriangleOutL">
+      <path
+         transform="scale(0.8)"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         id="path4565-5-8"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:isstock="true"
+       style="overflow:visible"
+       id="marker4567-6-8-2"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="TriangleOutL">
+      <path
+         transform="scale(0.8)"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         id="path4565-5-8-1"
+         inkscape:connector-curvature="0" />
+    </marker>
+  </defs>
+  <rect
+     style="overflow:hidden;fill:#ffffff;stroke:#000000;stroke-width:0.99999994;stroke-miterlimit:8"
+     id="rect41-7-6-0"
+     stroke-miterlimit="8"
+     height="46"
+     width="165.89424"
+     y="420.4473"
+     x="343.15356" />
+  <rect
+     style="overflow:hidden;fill:#ffffff;stroke:#000000;stroke-width:0.99999994;stroke-miterlimit:8"
+     id="rect41-7-6"
+     stroke-miterlimit="8"
+     height="46"
+     width="165.89424"
+     y="278.31577"
+     x="343.15356" />
+  <rect
+     style="fill:#ffffff;stroke:#000000;stroke-miterlimit:8"
+     id="rect7"
+     stroke-miterlimit="8"
+     height="64"
+     width="185"
+     y="170.31586"
+     x="89.611649" />
+  <rect
+     style="fill:#ffffff;stroke:#000000;stroke-miterlimit:8"
+     id="rect27"
+     stroke-miterlimit="8"
+     height="46"
+     width="151"
+     y="427.3158"
+     x="106.61165" />
+  <rect
+     style="fill:#ffffff;stroke:#000000;stroke-miterlimit:8"
+     id="rect35"
+     stroke-miterlimit="8"
+     height="45"
+     width="151"
+     y="524.3158"
+     x="106.61165" />
+  <rect
+     style="fill:#ffffff;stroke:#000000;stroke-miterlimit:8"
+     id="rect47"
+     stroke-miterlimit="8"
+     height="37.000099"
+     width="151"
+     y="82.315697"
+     x="106.61165" />
+  <path
+     inkscape:connector-curvature="0"
+     id="path65"
+     d="m 539.67216,443.91102 h -24.233 v -1 h 24.233 z m -22.9,3.5 -8,-4 8,-4 z" />
+  <text
+     style="font-weight:400;font-size:16px;font-family:'Cambria Math', 'Cambria Math_MSFontService', sans-serif"
+     id="text77"
+     font-size="16"
+     font-weight="400"
+     x="132.67465"
+     y="23.815796">
+    <tspan
+       style="-inkscape-font-specification:Cambria;font-family:Cambria;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal"
+       id="tspan1076">𝑡</tspan>
+    <tspan
+       style="font-size:12px;-inkscape-font-specification:Cambria;font-family:Cambria;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal"
+       id="tspan67"
+       y="26.815796"
+       x="138.77464"
+       font-size="12">𝑖𝑛𝑗</tspan>
+  </text>
+  <path
+     inkscape:connector-curvature="0"
+     id="path79"
+     d="m 181.20265,119.31495 -0.0786,43.98159 1,0.002 0.0786,-43.98161 z m -3.5762,42.64209 3.9857,8.0071 4.01429,-7.9928 z" />
+  <path
+     inkscape:connector-curvature="0"
+     id="path81"
+     d="m 182.11165,234.31479 0.079,38.21802 -1,0.002 -0.079,-38.21802 z m 3.576,37.05363 -3.985,6.95766 -4.015,-6.94463 z"
+     style="stroke-width:1" />
+  <path
+     inkscape:connector-curvature="0"
+     id="path87"
+     d="m 182.11165,473.31579 v 43.982 h -1 v -43.982 z m 3.5,42.648 -4,8 -4,-8 z" />
+  <text
+     style="font-weight:400;font-size:16px;font-family:'Cambria Math', 'Cambria Math_MSFontService', sans-serif"
+     id="text93"
+     font-size="16"
+     font-weight="400"
+     x="19.514248"
+     y="206.8158">
+    <tspan
+       style="-inkscape-font-specification:Cambria;font-family:Cambria;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal"
+       id="tspan1068">𝑝</tspan>
+    <tspan
+       style="font-size:12px;-inkscape-font-specification:Cambria;font-family:Cambria;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal"
+       id="tspan91"
+       y="209.8158"
+       x="28.007576"
+       font-size="12">𝑑</tspan>
+  </text>
+  <path
+     inkscape:connector-curvature="0"
+     id="path95"
+     d="m 46.611749,201.81589 h 36.2079 v 1 h -36.2079 z m 34.8739,-3.5 8,4.0001 -8,3.9999 z" />
+  <path
+     inkscape:connector-curvature="0"
+     id="path101"
+     d="m 212.11165,36.31569 v 38.6877 h -1 v -38.6877 z m 3.5,37.3544 -4,8 -4,-8 z" />
+  <path
+     inkscape:connector-curvature="0"
+     id="path103"
+     d="m 145.11165,37.31569 v 38.6877 h -1 v -38.6877 z m 3.5,37.3544 -4,8 -4,-8 z" />
+  <g
+     id="g1534"
+     transform="translate(31.2338,-475.81576)" />
+  <g
+     transform="translate(221.2694,-232.83666)"
+     id="g1269">
+    <text
+       y="751.3252"
+       x="214.44655"
+       font-weight="400"
+       font-size="19"
+       id="text157-8"
+       style="font-weight:400;font-size:19px;font-family:'Cambria Math', 'Cambria Math_MSFontService', sans-serif">
+      <tspan
+         style="-inkscape-font-specification:Cambria;font-family:Cambria;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal"
+         id="tspan1080">𝑟</tspan>
+    </text>
+    <path
+       d="m 220.33192,737.94732 1.99462,2.9223 -0.6494,0.52884 -1.9668,-2.25444 h -0.10205 l -1.9668,2.25444 -0.63087,-0.52884 2.07814,-2.9223 z"
+       id="path159-6"
+       inkscape:connector-curvature="0" />
+    <text
+       y="755.3252"
+       x="220.18056"
+       font-weight="400"
+       font-size="14"
+       id="text171-0"
+       style="font-weight:400;font-size:14px;font-family:'Cambria Math', 'Cambria Math_MSFontService', sans-serif">
+      <tspan
+         style="-inkscape-font-specification:Cambria;font-family:Cambria;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal"
+         id="tspan1082">𝑚</tspan>
+    </text>
+  </g>
+  <g
+     id="g5319"
+     transform="translate(-12.964165,9.84739)">
+    <text
+       y="229.89397"
+       x="444.85001"
+       font-weight="400"
+       font-size="14"
+       id="text189"
+       style="font-weight:400;font-size:14px;font-family:'Cambria Math', 'Cambria Math_MSFontService', sans-serif">
+      <tspan
+         font-size="19"
+         x="454.7233"
+         y="225.89397"
+         id="tspan179"
+         style="font-size:19px;-inkscape-font-specification:Cambria;font-family:Cambria;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal">𝑃</tspan>
+    </text>
+    <path
+       d="m 569.06103,208.26128 c 1.93,0.507 3.417,1.822 4.462,3.943 1.046,2.122 1.568,4.633 1.568,7.533 0,2.901 -0.522,5.412 -1.568,7.534 -1.045,2.121 -2.532,3.435 -4.462,3.942 l -0.232,-0.76 c 1.497,-0.563 2.63,-1.789 3.4,-3.679 0.77,-1.889 1.155,-4.232 1.155,-7.027 0,-2.802 -0.385,-5.149 -1.155,-7.042 -0.77,-1.892 -1.903,-3.12 -3.4,-3.683 z m -93.235,0 0.232,0.761 c -1.497,0.563 -2.63,1.791 -3.4,3.683 -0.77,1.893 -1.155,4.24 -1.155,7.042 0,2.795 0.385,5.138 1.155,7.027 0.77,1.89 1.903,3.116 3.4,3.679 l -0.232,0.76 c -1.93,-0.507 -3.417,-1.821 -4.462,-3.942 -1.045,-2.122 -1.568,-4.633 -1.568,-7.534 0,-2.9 0.523,-5.411 1.568,-7.533 1.045,-2.121 2.532,-3.436 4.462,-3.943 z"
+       id="path191"
+       inkscape:connector-curvature="0"
+       style="fill-rule:evenodd" />
+    <text
+       y="224.67229"
+       x="476.51303"
+       font-weight="400"
+       font-size="19"
+       id="text201"
+       style="font-weight:400;font-size:19px;font-family:'Cambria Math', 'Cambria Math_MSFontService', sans-serif">
+      <tspan
+         style="-inkscape-font-specification:Cambria;font-family:Cambria;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal"
+         id="tspan1197">𝑚</tspan>
+      <tspan
+         font-size="14"
+         x="492.17972"
+         y="228.67229"
+         id="tspan193"
+         style="font-size:14px;-inkscape-font-specification:Cambria;font-family:Cambria;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal">𝑝𝑖𝑙𝑜𝑡</tspan>
+      <tspan
+         x="525.48633"
+         y="224.67229"
+         id="tspan195"
+         style="-inkscape-font-specification:Cambria;font-family:Cambria;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal">|𝑚</tspan>
+      <tspan
+         font-size="14"
+         x="546.98633"
+         y="228.67229"
+         id="tspan199"
+         style="font-size:14px;-inkscape-font-specification:Cambria;font-family:Cambria;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal">𝑖𝑛𝑗</tspan>
+    </text>
+    <path
+       d="m 531.32603,213.07628 h 5.773 2.4 3.374 2.4 3.373 2.4 3.373 2.4 3.374 2.4 5.773 v 0.984 h -5.773 -2.4 -3.374 -2.4 -3.373 -2.4 -3.373 -2.4 -3.374 -2.4 -5.773 z"
+       id="path203"
+       inkscape:connector-curvature="0"
+       style="fill-rule:evenodd" />
+  </g>
+  <text
+     style="font-weight:400;font-size:14px;font-family:'Cambria Math', 'Cambria Math_MSFontService', sans-serif"
+     id="text189-8"
+     font-size="14"
+     font-weight="400"
+     x="531.97675"
+     y="449.72595">
+    <tspan
+       style="font-size:19px"
+       id="tspan179-9"
+       y="445.72595"
+       x="541.85004"
+       font-size="19">
+      <tspan
+         style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Cambria;-inkscape-font-specification:'Cambria Italic'"
+         id="tspan1150">p</tspan>
+      <tspan
+         id="tspan2321"
+         style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Cambria Math', 'Cambria Math_MSFontService', sans-serif;-inkscape-font-specification:'Cambria Math, Cambria Math_MSFontService, sans-serif Italic';baseline-shift:sub;font-size:65%">SOI</tspan>
+    </tspan>
+  </text>
+  <g
+     id="g1154"
+     transform="translate(126.22388,-889.88299)" />
+  <rect
+     style="fill:#ffffff;stroke:#000000;stroke-width:1;stroke-miterlimit:8"
+     id="rect225"
+     stroke-miterlimit="8"
+     height="46"
+     width="151"
+     y="278.31577"
+     x="106.61165" />
+  <path
+     inkscape:connector-curvature="0"
+     id="path229"
+     d="m 75.611649,300.81579 h 24.708001 v 1 H 75.611649 Z m 23.374001,-3.5 8,4 -8,4 z" />
+  <text
+     style="font-weight:400;font-size:16px;font-family:'Cambria Math', 'Cambria Math_MSFontService', sans-serif"
+     id="text233"
+     font-size="16"
+     font-weight="400"
+     x="11.182648"
+     y="304.8158">
+    <tspan
+       style="-inkscape-font-specification:Cambria;font-family:Cambria;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal"
+       id="tspan1066">𝛿</tspan>
+    <tspan
+       style="font-size:12px;-inkscape-font-specification:Cambria;font-family:Cambria;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal"
+       id="tspan231"
+       y="307.8158"
+       x="19.382648"
+       font-size="12">𝑚𝑖𝑠𝑓𝑖𝑟𝑒</tspan>
+  </text>
+  <path
+     style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:1;stroke-miterlimit:8"
+     inkscape:connector-curvature="0"
+     id="path235"
+     stroke-miterlimit="8"
+     d="m 142.56049,375.81581 39.05116,-18.44139 39.05115,18.44139 -39.05115,18.44139 z" />
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;line-height:1.25;font-family:SansSerif;-inkscape-font-specification:SansSerif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+     x="128.93782"
+     y="105.59439"
+     id="text930"><tspan
+       sodipodi:role="line"
+       id="tspan928"
+       x="128.93782"
+       y="105.59439"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:13.33333302px;font-family:sans-serif;-inkscape-font-specification:sans-serif">Prior estimation</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;line-height:15px;font-family:SansSerif;-inkscape-font-specification:SansSerif;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none"
+     x="181.67545"
+     y="191.17886"
+     id="text930-7"><tspan
+       sodipodi:role="line"
+       id="tspan928-0"
+       x="184.0192"
+       y="191.17886"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:13.33333302px;line-height:15px;font-family:sans-serif;-inkscape-font-specification:sans-serif;text-align:center;text-anchor:middle">Select N for minimum </tspan><tspan
+       sodipodi:role="line"
+       x="184.0192"
+       y="207.31261"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:13.33333302px;line-height:15px;font-family:sans-serif;-inkscape-font-specification:sans-serif;text-align:center;text-anchor:middle"
+       id="tspan972">resolution at the </tspan><tspan
+       sodipodi:role="line"
+       x="184.0192"
+       y="223.44633"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:13.33333302px;line-height:15px;font-family:sans-serif;-inkscape-font-specification:sans-serif;text-align:center;text-anchor:middle"
+       id="tspan974">confidence level <tspan
+   style="-inkscape-font-specification:Cambria;font-family:Cambria;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal"
+   id="tspan1152">α</tspan></tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;line-height:1.25;font-family:SansSerif;-inkscape-font-specification:SansSerif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+     x="134.81999"
+     y="296.71423"
+     id="text930-9"><tspan
+       sodipodi:role="line"
+       id="tspan928-2"
+       x="134.81999"
+       y="296.71423"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:13.33333302px;font-family:sans-serif;-inkscape-font-specification:sans-serif">Detect misfire</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;line-height:12px;font-family:SansSerif;-inkscape-font-specification:SansSerif;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none"
+     x="182.33952"
+     y="448.71313"
+     id="text930-2"><tspan
+       sodipodi:role="line"
+       x="182.33952"
+       y="448.71313"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:13.33333302px;line-height:12px;font-family:sans-serif;-inkscape-font-specification:sans-serif;text-align:center;text-anchor:middle"
+       id="tspan1057">Compute the detected</tspan><tspan
+       sodipodi:role="line"
+       x="182.33952"
+       y="461.84686"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:13.33333302px;line-height:12px;font-family:sans-serif;-inkscape-font-specification:sans-serif;text-align:center;text-anchor:middle"
+       id="tspan1061"> misfire ratio</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;line-height:12px;font-family:SansSerif;-inkscape-font-specification:SansSerif;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none"
+     x="181.78613"
+     y="544.00543"
+     id="text930-2-5"><tspan
+       sodipodi:role="line"
+       x="181.78613"
+       y="544.00543"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:13.33333302px;line-height:12px;font-family:sans-serif;-inkscape-font-specification:sans-serif;text-align:center;text-anchor:middle"
+       id="tspan1028-6">Estimate the misfire</tspan><tspan
+       sodipodi:role="line"
+       x="181.78613"
+       y="557.13916"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:13.33333302px;line-height:12px;font-family:sans-serif;-inkscape-font-specification:sans-serif;text-align:center;text-anchor:middle"
+       id="tspan1053">ratio, Eq.(6.72)</tspan></text>
+  <g
+     id="g1351"
+     transform="translate(320.48793,-143.02356)">
+    <text
+       y="448.84653"
+       x="585.44635"
+       font-weight="400"
+       font-size="19"
+       id="text219-0"
+       style="font-weight:400;font-size:19px;font-family:'Cambria Math', 'Cambria Math_MSFontService', sans-serif">
+      <tspan
+         style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Cambria;-inkscape-font-specification:'Cambria Italic'"
+         id="tspan1201">m</tspan>
+      <tspan
+         id="tspan1205"
+         style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:64.99999762%;font-family:Cambria;-inkscape-font-specification:'Cambria Italic';baseline-shift:sub">pilot</tspan>
+    </text>
+    <path
+       style="stroke-width:1"
+       d="m 594.44416,434.78925 3.75574,2.9223 -1.22279,0.52884 -3.70334,-2.25444 h -0.19215 l -3.70335,2.25444 -1.18786,-0.52884 3.91297,-2.9223 z"
+       id="path159-8"
+       inkscape:connector-curvature="0" />
+  </g>
+  <text
+     y="391.77548"
+     x="245.85455"
+     font-weight="400"
+     font-size="19"
+     id="text219-0-3"
+     style="font-weight:400;font-size:19px;font-family:'Cambria Math', 'Cambria Math_MSFontService', sans-serif">
+    <tspan
+       style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:Cambria;-inkscape-font-specification:'Cambria Italic'"
+       id="tspan1374">i=i+1</tspan>
+  </text>
+  <g
+     id="g1407"
+     transform="translate(-2.8883514,3.81579)">
+    <path
+       d="m 134.689,137.20279 h 4.68702 1.94819 2.73803 1.94818 2.73803 1.949 2.73803 1.94818 2.73802 1.9482 4.68702 v 0.89722 h -4.68702 -1.9482 -2.73802 -1.94818 -2.73803 -1.949 -2.73803 -1.94818 -2.73803 -1.94819 -4.68702 z"
+       id="path151"
+       inkscape:connector-curvature="0"
+       style="fill-rule:evenodd;stroke-width:0.91235793" />
+    <g
+       id="g1351-9"
+       transform="translate(-450.67103,-300.43435)">
+      <text
+         style="font-weight:400;font-size:19px;font-family:'Cambria Math', 'Cambria Math_MSFontService', sans-serif"
+         id="text219-0-7"
+         font-size="19"
+         font-weight="400"
+         x="585.44635"
+         y="448.84653">
+        <tspan
+           style="-inkscape-font-specification:'Cambria Italic';font-family:Cambria;font-weight:normal;font-style:italic;font-stretch:normal;font-variant:normal"
+           id="tspan1074">m</tspan>
+        <tspan
+           style="font-size:65%;baseline-shift:sub;-inkscape-font-specification:'Cambria Italic';font-family:Cambria;font-weight:normal;font-style:italic;font-stretch:normal;font-variant:normal"
+           id="tspan1072">inj</tspan>
+      </text>
+    </g>
+  </g>
+  <text
+     y="316.22855"
+     x="159.3252"
+     font-weight="400"
+     font-size="19"
+     id="text219-0-3-9"
+     style="font-weight:400;font-size:16px;font-family:'Cambria Math', 'Cambria Math_MSFontService', sans-serif">
+    <tspan
+       style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:13.33333302px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Italic'"
+       id="tspan1374-1">n=n+1</tspan>
+  </text>
+  <g
+     id="g1480"
+     transform="translate(6.498791,0.20536)">
+    <g
+       transform="translate(-41.881096,-3.6104393)"
+       id="g1208">
+      <text
+         style="font-weight:400;font-size:19px;font-family:'Cambria Math', 'Cambria Math_MSFontService', sans-serif"
+         id="text123"
+         font-size="19"
+         font-weight="400"
+         x="154.961"
+         y="501">
+        <tspan
+           style="-inkscape-font-specification:Cambria;font-family:Cambria;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal"
+           id="tspan1062">𝑟</tspan>
+      </text>
+      <text
+         style="font-weight:400;font-size:14px;font-family:'Cambria Math', 'Cambria Math_MSFontService', sans-serif"
+         id="text129"
+         font-size="14"
+         font-weight="400"
+         x="161.741"
+         y="505">
+        <tspan
+           style="-inkscape-font-specification:Cambria;font-family:Cambria;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal"
+           id="tspan1064">𝑑</tspan>
+      </text>
+      <text
+         id="text1447"
+         y="503.4812"
+         x="174.38005"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:24px;line-height:1.25;font-family:SansSerif;-inkscape-font-specification:SansSerif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+         xml:space="preserve"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:'Cambria Math', 'Cambria Math_MSFontService', sans-serif;-inkscape-font-specification:'Cambria Math, Cambria Math_MSFontService, sans-serif'"
+           y="503.4812"
+           x="174.38005"
+           id="tspan1445"
+           sodipodi:role="line">=</tspan></text>
+    </g>
+    <text
+       style="font-weight:400;font-size:19px;font-family:'Cambria Math', 'Cambria Math_MSFontService', sans-serif"
+       id="text219-0-3-9-3"
+       font-size="19"
+       font-weight="400"
+       x="149.26247"
+       y="490.82953">
+      <tspan
+         id="tspan1374-1-5"
+         style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Cambria;-inkscape-font-specification:'Cambria Italic'">n</tspan>
+    </text>
+    <path
+       inkscape:connector-curvature="0"
+       id="path1449"
+       d="m 147.05085,494.50953 h 15.57309"
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <text
+       style="font-weight:400;font-size:19px;font-family:'Cambria Math', 'Cambria Math_MSFontService', sans-serif"
+       id="text219-0-3-9-3-9"
+       font-size="19"
+       font-weight="400"
+       x="146.34868"
+       y="509.4855">
+      <tspan
+         id="tspan1374-1-5-7"
+         style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Cambria;-inkscape-font-specification:'Cambria Italic'">N</tspan>
+    </text>
+  </g>
+  <rect
+     style="fill:#ffffff;stroke:#000000;stroke-miterlimit:8"
+     id="rect59"
+     stroke-miterlimit="8"
+     height="44"
+     width="151"
+     y="279.3158"
+     x="693.57391" />
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:24px;line-height:12px;font-family:SansSerif;-inkscape-font-specification:SansSerif;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none"
+     x="426.34482"
+     y="439.39572"
+     id="text930-2-5-3"><tspan
+       sodipodi:role="line"
+       x="426.34482"
+       y="439.39572"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:13.33333302px;line-height:12px;font-family:sans-serif;-inkscape-font-specification:sans-serif;text-align:center;text-anchor:middle"
+       id="tspan1053-1">Misfire ratio</tspan><tspan
+       sodipodi:role="line"
+       x="426.34482"
+       y="455.01187"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:13.33333302px;line-height:12px;font-family:sans-serif;-inkscape-font-specification:sans-serif;text-align:center;text-anchor:middle"
+       id="tspan1086">distribution, Eq.(6.73)</tspan></text>
+  <rect
+     style="fill:#ffffff;stroke:#000000;stroke-width:0.99999994;stroke-miterlimit:8"
+     id="rect41-7"
+     stroke-miterlimit="8"
+     height="46"
+     width="165.89424"
+     y="136.1843"
+     x="342.6514" />
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:24px;line-height:12px;font-family:SansSerif;-inkscape-font-specification:SansSerif;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none"
+     x="425.84268"
+     y="155.10019"
+     id="text930-2-5-3-6-3"><tspan
+       sodipodi:role="line"
+       x="425.84268"
+       y="155.10019"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:13.33333302px;line-height:12px;font-family:sans-serif;-inkscape-font-specification:sans-serif;text-align:center;text-anchor:middle"
+       id="tspan1053-1-6-4">Pilot mass</tspan><tspan
+       sodipodi:role="line"
+       x="425.84268"
+       y="170.71632"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:13.33333302px;line-height:12px;font-family:sans-serif;-inkscape-font-specification:sans-serif;text-align:center;text-anchor:middle"
+       id="tspan1086-5-4">distribution, Eq.(5.13)</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:24px;line-height:12px;font-family:SansSerif;-inkscape-font-specification:SansSerif;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none"
+     x="425.84268"
+     y="297.23166"
+     id="text930-2-5-3-6"><tspan
+       sodipodi:role="line"
+       x="425.84268"
+       y="297.23166"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:13.33333302px;line-height:12px;font-family:sans-serif;-inkscape-font-specification:sans-serif;text-align:center;text-anchor:middle"
+       id="tspan1053-1-6">Likelihood</tspan><tspan
+       sodipodi:role="line"
+       x="425.84268"
+       y="312.84781"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:13.33333302px;line-height:12px;font-family:sans-serif;-inkscape-font-specification:sans-serif;text-align:center;text-anchor:middle"
+       id="tspan1086-5">distribution, Eq.(6.68)</tspan></text>
+  <g
+     id="g1626"
+     transform="translate(-2.722794,41.27418)">
+    <text
+       style="font-weight:400;font-size:19px;font-family:'Cambria Math', 'Cambria Math_MSFontService', sans-serif"
+       id="text205"
+       font-size="19"
+       font-weight="400"
+       x="392.08701"
+       y="813"
+       transform="translate(126.22388,-566.88299)">
+      <tspan
+         id="tspan1574"
+         style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Cambria;-inkscape-font-specification:'Cambria Italic'">L</tspan>
+    </text>
+    <path
+       sodipodi:nodetypes="ccccccccsccccsccccsccccsccc"
+       style="fill-rule:evenodd"
+       inkscape:connector-curvature="0"
+       id="path207"
+       d="m 463.691,796.561 h 1.429 v 22.952 h -1.429 z m -51.951,0 0.232,0.761 c -1.497,0.562 -2.63,1.79 -3.4,3.683 -0.77,1.892 -1.155,4.239 -1.155,7.041 0,2.796 0.385,5.138 1.155,7.028 0.77,1.889 1.903,3.115 3.4,3.678 l -0.232,0.761 c -1.93,-0.507 -3.417,-1.821 -4.462,-3.943 -1.046,-2.121 -1.568,-4.632 -1.568,-7.533 0,-2.901 0.522,-5.412 1.568,-7.533 1.045,-2.122 2.532,-3.436 4.462,-3.943 z m 124.4979,0 c 1.93,0.507 3.417,1.821 4.462,3.943 1.046,2.121 1.568,4.632 1.568,7.533 0,2.901 -0.522,5.412 -1.568,7.533 -1.045,2.122 -2.532,3.436 -4.462,3.943 l -0.232,-0.761 c 1.497,-0.563 2.63,-1.789 3.4,-3.678 0.77,-1.89 1.155,-4.232 1.155,-7.028 0,-2.802 -0.385,-5.149 -1.155,-7.041 -0.77,-1.893 -1.903,-3.121 -3.4,-3.683 z"
+       transform="translate(126.22388,-566.88299)" />
+    <text
+       style="font-weight:400;font-size:19px;font-family:'Cambria Math', 'Cambria Math_MSFontService', sans-serif"
+       id="text219"
+       font-size="19"
+       font-weight="400"
+       x="412.427"
+       y="813"
+       transform="translate(126.22388,-566.88299)">
+      <tspan
+         style="-inkscape-font-specification:Cambria;font-family:Cambria;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal"
+         id="tspan1091">𝑚</tspan>
+      <tspan
+         style="font-size:14px;-inkscape-font-specification:Cambria;font-family:Cambria;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal"
+         id="tspan209"
+         y="817"
+         x="428.09369"
+         font-size="14">𝑝𝑖𝑙𝑜𝑡</tspan>
+      <tspan
+         id="tspan211"
+         y="813"
+         x="467.30701"
+         style="-inkscape-font-specification:Cambria;font-family:Cambria;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal">𝑛,𝑁,</tspan>
+    </text>
+  </g>
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:24px;line-height:12px;font-family:SansSerif;-inkscape-font-specification:SansSerif;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none"
+     x="769.23016"
+     y="297.61169"
+     id="text930-2-6"><tspan
+       sodipodi:role="line"
+       x="769.23016"
+       y="297.61169"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;line-height:12px;font-family:Calibri;-inkscape-font-specification:Calibri;text-align:center;text-anchor:middle"
+       id="tspan1057-6">Pilot mass</tspan><tspan
+       sodipodi:role="line"
+       x="769.23016"
+       y="313.0589"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;line-height:12px;font-family:Calibri;-inkscape-font-specification:Calibri;text-align:center;text-anchor:middle"
+       id="tspan1061-0">estimation, Eq.(6.69)</tspan></text>
+  <path
+     style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#TriangleOutL)"
+     d="M 509.0623,301.3158 H 687.40651"
+     id="path1720"
+     inkscape:connector-curvature="0" />
+  <path
+     style="fill:none;stroke:#000000;stroke-width:0.99999994px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#TriangleOutL-4)"
+     d="m 844.57354,301.86589 h 49.24891"
+     id="path1720-9"
+     inkscape:connector-curvature="0" />
+  <path
+     style="fill:none;stroke:#000000;stroke-width:0.99999994px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#TriangleOutL-8)"
+     d="m 426.10067,419.88675 v -90.7156"
+     id="path1720-6"
+     inkscape:connector-curvature="0" />
+  <path
+     style="fill:none;stroke:#000000;stroke-width:0.99999994px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#TriangleOutL-8-4)"
+     d="m 426.10067,181.47342 v 91.05544"
+     id="path1720-6-7"
+     inkscape:connector-curvature="0" />
+  <path
+     style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#marker4567)"
+     d="m 257.51419,101.16745 h 169.00636 v 29.71411"
+     id="path4557"
+     inkscape:connector-curvature="0" />
+  <path
+     style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#marker4567-4)"
+     d="M 257.09431,548.64491 H 426.10067 V 472.53768"
+     id="path4557-3"
+     inkscape:connector-curvature="0" />
+  <g
+     id="g5442"
+     transform="translate(-101.11505,-12.46372)"
+     style="">
+    <text
+       style="font-weight:400;font-size:19px;font-family:'Cambria Math', 'Cambria Math_MSFontService', sans-serif"
+       id="text153"
+       font-size="19"
+       font-weight="400"
+       x="511.64038"
+       y="541.68768"
+       transform="translate(31.2338,-152.81576)">
+      <tspan
+         style="-inkscape-font-specification:Cambria;font-family:Cambria;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal"
+         id="tspan1084">𝑃</tspan>
+    </text>
+    <g
+       transform="translate(59.395227,-132.5973)"
+       id="g5420"
+       style="">
+      <text
+         y="519.664"
+         x="505.26315"
+         font-weight="400"
+         font-size="19"
+         id="text157"
+         style="font-weight:400;font-size:19px;font-family:'Cambria Math', 'Cambria Math_MSFontService', sans-serif">
+        <tspan
+           style="-inkscape-font-specification:Cambria;font-family:Cambria;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal"
+           id="tspan1087">𝑟</tspan>
+      </text>
+      <path
+         d="m 511.14851,506.28608 1.99463,2.9223 -0.64941,0.52884 -1.9668,-2.25444 h -0.10205 l -1.9668,2.25444 -0.63086,-0.52884 2.07813,-2.9223 z"
+         id="path159"
+         inkscape:connector-curvature="0"
+         style="" />
+      <text
+         y="523.664"
+         x="510.99713"
+         font-weight="400"
+         font-size="14"
+         id="text171"
+         style="font-weight:400;font-size:14px;font-family:'Cambria Math', 'Cambria Math_MSFontService', sans-serif">
+        <tspan
+           style="-inkscape-font-specification:Cambria;font-family:Cambria;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal"
+           id="tspan1089">𝑚</tspan>
+      </text>
+    </g>
+    <path
+       sodipodi:nodetypes="ccccccccsccccsccccsccccsccc"
+       style="fill-rule:evenodd"
+       inkscape:connector-curvature="0"
+       id="path207-2"
+       d="m 587.52994,372.47422 h 1.429 v 22.952 h -1.429 z m -23.951,0 0.232,0.761 c -1.497,0.562 -2.63,1.79 -3.4,3.683 -0.77,1.892 -1.155,4.239 -1.155,7.041 0,2.796 0.385,5.138 1.155,7.028 0.77,1.889 1.903,3.115 3.4,3.678 l -0.232,0.761 c -1.93,-0.507 -3.417,-1.821 -4.462,-3.943 -1.046,-2.121 -1.568,-4.632 -1.568,-7.533 0,-2.901 0.522,-5.412 1.568,-7.533 1.045,-2.122 2.532,-3.436 4.462,-3.943 z m 102.455,0 c 1.93,0.507 3.417,1.821 4.462,3.943 1.046,2.121 1.568,4.632 1.568,7.533 0,2.901 -0.522,5.412 -1.568,7.533 -1.045,2.122 -2.532,3.436 -4.462,3.943 l -0.232,-0.761 c 1.497,-0.563 2.63,-1.789 3.4,-3.678 0.77,-1.89 1.155,-4.232 1.155,-7.028 0,-2.802 -0.385,-5.149 -1.155,-7.041 -0.77,-1.893 -1.903,-3.121 -3.4,-3.683 z" />
+    <text
+       style="font-weight:400;font-size:19px;font-family:'Cambria Math', 'Cambria Math_MSFontService', sans-serif"
+       id="text219-4"
+       font-size="19"
+       font-weight="400"
+       x="536.26593"
+       y="388.91321">
+      <tspan
+         id="tspan211-7"
+         y="388.91321"
+         x="591.14594"
+         style="-inkscape-font-specification:Cambria;font-family:Cambria;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal">𝑛,𝑁,𝑚<tspan
+   style="font-size:64.99999762%;baseline-shift:sub;-inkscape-font-specification:Cambria;font-family:Cambria;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal"
+   id="tspan1035">𝑝𝑖𝑙𝑜𝑡</tspan>
+</tspan>
+    </text>
+    <g
+       id="g1407-0-0"
+       transform="translate(494.64603,240.04908)"
+       style="" />
+  </g>
+  <path
+     style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:1.00000002, 1.00000002;stroke-dashoffset:0;stroke-opacity:1"
+     d="M 319.75849,24.453389 V 629.99935"
+     id="path5564"
+     inkscape:connector-curvature="0" />
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:24px;line-height:1.25;font-family:SansSerif;-inkscape-font-specification:SansSerif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+     x="432.15488"
+     y="620.83386"
+     id="text5568"><tspan
+       sodipodi:role="line"
+       id="tspan5566"
+       x="432.15488"
+       y="620.83386"
+       style="font-size:21.33333397px">Probabilities</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:24px;line-height:1.25;font-family:SansSerif;-inkscape-font-specification:SansSerif;letter-spacing:0px;word-spacing:0px;overflow:hidden;fill:#000000;fill-opacity:1;stroke:none"
+     x="127.71582"
+     y="620.5578"
+     id="text5568-8"><tspan
+       sodipodi:role="line"
+       id="tspan5566-3"
+       x="127.71582"
+       y="620.5578"
+       style="font-size:21.33333397px">Indicators</tspan></text>
+  <path
+     style="overflow:hidden;fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:1.00000002, 1.00000002;stroke-dashoffset:0;stroke-opacity:1"
+     d="M 675.87423,24.453389 V 629.99935"
+     id="path5564-9"
+     inkscape:connector-curvature="0" />
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:24px;line-height:1.25;font-family:SansSerif;-inkscape-font-specification:SansSerif;letter-spacing:0px;word-spacing:0px;overflow:hidden;fill:#000000;fill-opacity:1;stroke:none"
+     x="752.3291"
+     y="616.26477"
+     id="text5568-0"><tspan
+       sodipodi:role="line"
+       id="tspan5566-4"
+       x="752.3291"
+       y="616.26477"
+       style="font-size:21.33333397px">Estimation</tspan></text>
+  <path
+     style="overflow:hidden;fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#marker4567-6)"
+     d="m 220.6628,375.81581 66.87545,-0.006 v -75.1155 h -24.21281"
+     id="path4557-5"
+     inkscape:connector-curvature="0"
+     sodipodi:nodetypes="cccc" />
+  <text
+     y="380.69537"
+     x="169.07909"
+     font-weight="400"
+     font-size="19"
+     id="text219-0-3-13"
+     style="font-weight:400;font-size:16px;font-family:'Cambria Math', 'Cambria Math_MSFontService', sans-serif;overflow:hidden">
+    <tspan
+       style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:13.33333302px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Italic'"
+       id="tspan1374-5">i≥N</tspan>
+  </text>
+  <text
+     y="371.5199"
+     x="220.98985"
+     font-weight="400"
+     font-size="19"
+     id="text219-0-3-3"
+     style="font-weight:400;font-size:19px;font-family:'Cambria Math', 'Cambria Math_MSFontService', sans-serif;overflow:hidden">
+    <tspan
+       style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:13.33333302px;font-family:Cambria;-inkscape-font-specification:'Cambria Italic'"
+       id="tspan1374-0">no</tspan>
+  </text>
+  <text
+     y="405.13422"
+     x="184.21025"
+     font-weight="400"
+     font-size="19"
+     id="text219-0-3-3-8"
+     style="font-weight:400;font-size:19px;font-family:'Cambria Math', 'Cambria Math_MSFontService', sans-serif;overflow:hidden">
+    <tspan
+       style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:13.33333302px;font-family:Cambria;-inkscape-font-specification:'Cambria Italic'"
+       id="tspan1374-0-6">yes</tspan>
+  </text>
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:21.33333397px;line-height:14px;font-family:Dialog;-inkscape-font-specification:'Dialog, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none"
+     x="190.99223"
+     y="251.79463"
+     id="text2043"><tspan
+       sodipodi:role="line"
+       id="tspan2041"
+       x="190.99223"
+       y="251.79463"
+       style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;line-height:14px;font-family:Cambria;-inkscape-font-specification:'Cambria Italic'">i=0</tspan><tspan
+       sodipodi:role="line"
+       x="190.99223"
+       y="267.47903"
+       id="tspan2045"
+       style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;line-height:14px;font-family:Cambria;-inkscape-font-specification:'Cambria Italic'">n=0</tspan></text>
+  <path
+     style="overflow:hidden;fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#marker4567-6-8)"
+     d="m 181.66292,324.0208 v 27.70159"
+     id="path4557-5-9"
+     inkscape:connector-curvature="0"
+     sodipodi:nodetypes="cc" />
+  <path
+     style="overflow:hidden;fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#marker4567-6-8-2)"
+     d="m 181.61165,394.2572 v 27.70159"
+     id="path4557-5-9-0"
+     inkscape:connector-curvature="0"
+     sodipodi:nodetypes="cc" />
+  <text
+     style="font-weight:400;font-size:16px;font-family:'Cambria Math', 'Cambria Math_MSFontService', sans-serif;overflow:hidden"
+     id="text93-3"
+     font-size="16"
+     font-weight="400"
+     x="198.90405"
+     y="24.047241">
+    <tspan
+       style="-inkscape-font-specification:Cambria;font-family:Cambria;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal"
+       id="tspan1078">𝑝</tspan>
+    <tspan
+       style="font-size:12px;-inkscape-font-specification:Cambria;font-family:Cambria;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal"
+       id="tspan91-9"
+       y="27.047239"
+       x="207.39737"
+       font-size="12">rail</tspan>
+  </text>
+  <g
+     style="overflow:hidden"
+     id="g1407-3"
+     transform="translate(490.81626,137.52949)">
+    <path
+       d="m 134.689,137.20279 h 4.68702 1.94819 2.73803 1.94818 2.73803 1.949 2.73803 1.94818 2.73802 1.9482 4.68702 v 0.89722 h -4.68702 -1.9482 -2.73802 -1.94818 -2.73803 -1.949 -2.73803 -1.94818 -2.73803 -1.94819 -4.68702 z"
+       id="path151-8"
+       inkscape:connector-curvature="0"
+       style="fill-rule:evenodd;stroke-width:0.91235793" />
+    <g
+       id="g1351-9-3"
+       transform="translate(-450.67103,-300.43435)">
+      <text
+         style="font-weight:400;font-size:19px;font-family:'Cambria Math', 'Cambria Math_MSFontService', sans-serif"
+         id="text219-0-7-0"
+         font-size="19"
+         font-weight="400"
+         x="585.44635"
+         y="448.84653">
+        <tspan
+           style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Cambria;-inkscape-font-specification:'Cambria Italic'"
+           id="tspan1074-0">m</tspan>
+        <tspan
+           style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:64.99999762%;font-family:Cambria;-inkscape-font-specification:'Cambria Italic';baseline-shift:sub"
+           id="tspan1072-4">inj</tspan>
+      </text>
+    </g>
+  </g>
+</svg>

@@ -1,36 +1,462 @@
 ---
 import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
-import SectionHeading from '../../components/SectionHeading.astro';
-import PostCard from '../../components/PostCard.astro';
-import ContactCTA from '../../components/ContactCTA.astro';
 
+const baseUrl = import.meta.env.BASE_URL;
+const normalizedBase = baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`;
 const toSlug = (id: string) => id.replace(/\.md$/, '');
-const posts = (await getCollection('writing')).sort(
+const toTagSlug = (value: string) =>
+	value
+		.toLowerCase()
+		.replaceAll('/', '-')
+		.replace(/[^a-z0-9]+/g, '-')
+		.replace(/^-|-$/g, '');
+
+const formatDate = (date: Date) =>
+	date.toLocaleDateString('en', {
+		year: 'numeric',
+		month: 'short',
+		day: 'numeric',
+	});
+
+const entries = (await getCollection('writing')).sort(
 	(a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf(),
+);
+
+const articles = entries.map((entry) => ({
+	title: entry.data.title,
+	excerpt: entry.data.description,
+	date: formatDate(entry.data.publishDate),
+	dateTime: entry.data.publishDate.toISOString(),
+	tags: entry.data.tags,
+	slug: toSlug(entry.id),
+	href: `${normalizedBase}writing/${toSlug(entry.id)}/`,
+	isDraft: entry.data.draft,
+}));
+
+const topics = Array.from(new Set(articles.flatMap((article) => article.tags))).sort((a, b) =>
+	a.localeCompare(b),
 );
 ---
 
 <Layout
-	title="Writing"
-	description="Writing by Carlos Jorques on embedded control architecture, sensing, diagnostics, safety-critical automotive development, and technical leadership."
+	title="Writing | Carlos Jorques"
+	description="Writing by Carlos Jorques on embedded controls, diagnostics, validation, physical systems, software architecture, and technical leadership."
 >
-	<section class="section">
-		<div class="container">
-			<SectionHeading
-				eyebrow="Writing"
-				title="Planned articles on embedded control architecture and delivery"
-				description="These writing placeholders define the first editorial direction: how physical system intent becomes production embedded software, diagnostics, and reliable machine behavior."
-			/>
-			<div class="grid three">
-				{posts.map((entry) => <PostCard slug={toSlug(entry.id)} data={entry.data} />)}
-			</div>
-		</div>
-	</section>
+	<div class="writing-page">
+		<section class="writing-hero" aria-labelledby="writing-title">
+			<div class="page-container writing-hero__inner">
+				<div class="writing-hero__copy">
+					<h1 id="writing-title" class="hero-title">Writing</h1>
+					<p class="writing-hero__lead">
+						Published and planned notes on embedded control systems, diagnostics, validation, technical leadership,
+						and the work of turning physical-system intent into reliable software.
+					</p>
+				</div>
 
-	<section class="section">
-		<div class="container">
-			<ContactCTA />
-		</div>
-	</section>
+				<div class="writing-filter-strip" aria-labelledby="writing-filter-title">
+					<h2 id="writing-filter-title">Browse by topic</h2>
+					<div class="filter-chips" role="group" aria-label="Filter articles by topic">
+						<button class="filter-chip is-active" type="button" data-filter="all" aria-pressed="true">
+							All
+						</button>
+						{
+							topics.map((topic) => (
+								<button
+									class="filter-chip"
+									type="button"
+									data-filter={toTagSlug(topic)}
+									aria-pressed="false"
+								>
+									{topic}
+								</button>
+							))
+						}
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="writing-list-section" aria-labelledby="writing-list-title">
+			<div class="page-container writing-container">
+				<h2 id="writing-list-title" class="visually-hidden">Article list</h2>
+
+				<div class="article-list" data-article-list>
+					{
+						articles.map((article) => (
+							<article class="article-card" data-article-card data-tags={article.tags.map(toTagSlug).join(' ')}>
+								<a
+									class="article-card__link"
+									href={article.href}
+									aria-labelledby={`${article.slug}-title`}
+									data-analytics-event="writing_article_click"
+									data-cta-id={`writing-card-${article.slug}`}
+									data-cta-placement="writing-index"
+									data-cta-intent={article.isDraft ? 'planned-authority' : 'authority'}
+									data-source-section="writing-list"
+								>
+									<div class="article-card__content">
+										<header class="article-card__header">
+											<h3 id={`${article.slug}-title`}>{article.title}</h3>
+											<p class="article-card__meta">
+												<time datetime={article.dateTime}>{article.date}</time>
+												{article.isDraft && <span>Planned article</span>}
+											</p>
+										</header>
+										<p class="article-card__excerpt">{article.excerpt}</p>
+										<ul class="article-card__tags" aria-label={`${article.title} topics`}>
+											{article.tags.map((tag) => (
+												<li>{tag}</li>
+											))}
+										</ul>
+									</div>
+								</a>
+							</article>
+						))
+					}
+				</div>
+
+				<div class="empty-state" data-empty-state hidden>
+					<p>No articles found for this topic yet.</p>
+					<button class="filter-reset" type="button" data-filter-reset>Return to All</button>
+				</div>
+			</div>
+		</section>
+	</div>
 </Layout>
+
+<style>
+	.writing-page {
+		background: var(--color-page);
+		overflow-x: clip;
+	}
+
+	.writing-container {
+		width: min(calc(100% - 32px), 880px);
+		max-width: 100%;
+	}
+
+	.writing-hero {
+		overflow-x: clip;
+		border-bottom: 1px solid var(--color-border-soft);
+		background: transparent;
+		padding-block: clamp(3rem, 5vw, 4.6rem) clamp(1.55rem, 3vw, 2.25rem);
+	}
+
+	.writing-hero .page-container,
+	.writing-list-section .page-container {
+		width: min(calc(100% - 32px), 1120px);
+		max-width: 100%;
+	}
+
+	.writing-hero__inner,
+	.writing-hero__copy,
+	.writing-filter-strip {
+		display: grid;
+	}
+
+	.writing-hero__inner {
+		gap: clamp(1.25rem, 3vw, 1.85rem);
+	}
+
+	.writing-hero__copy {
+		gap: clamp(0.72rem, 1.4vw, 1rem);
+		width: 100%;
+		max-width: 820px;
+		margin-inline: auto;
+	}
+
+	.writing-hero .hero-title {
+		max-width: none;
+		overflow-wrap: anywhere;
+	}
+
+	.writing-hero__lead {
+		max-width: 680px;
+		color: var(--color-body-text);
+		font-size: clamp(1.05rem, 1.25vw, 1.18rem);
+		font-weight: 400;
+		letter-spacing: var(--type-body-tracking);
+		line-height: 1.55;
+		overflow-wrap: anywhere;
+	}
+
+	.writing-filter-strip {
+		gap: 0.85rem;
+		max-width: 820px;
+		margin-inline: auto;
+	}
+
+	.writing-filter-strip h2 {
+		color: var(--color-text);
+		font-size: clamp(1rem, 1.3vw, 1.12rem);
+		font-weight: 650;
+		letter-spacing: -0.015em;
+		line-height: 1.25;
+	}
+
+	.filter-chips {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5rem;
+		min-width: 0;
+	}
+
+	.filter-chip,
+	.filter-reset {
+		border: 1px solid var(--color-border);
+		border-radius: calc(var(--radius) * 0.55);
+		background: var(--color-page);
+		color: var(--color-muted);
+		cursor: pointer;
+		font: inherit;
+		font-family: var(--font-mono);
+		font-size: var(--type-chip-size);
+		font-weight: 650;
+		letter-spacing: 0;
+		line-height: var(--type-chip-line);
+		max-width: 100%;
+		padding: 0.45rem 0.68rem;
+		text-align: left;
+		white-space: normal;
+		overflow-wrap: anywhere;
+		transition:
+			background-color var(--motion-duration-fast-02) var(--motion-standard-productive),
+			border-color var(--motion-duration-fast-02) var(--motion-standard-productive),
+			color var(--motion-duration-fast-02) var(--motion-standard-productive);
+	}
+
+	.filter-chip:hover,
+	.filter-chip:focus-visible,
+	.filter-reset:hover,
+	.filter-reset:focus-visible {
+		border-color: var(--color-card-border-hover);
+		background: var(--color-card-bg-hover);
+		color: var(--color-text);
+	}
+
+	.filter-chip:focus-visible,
+	.filter-reset:focus-visible {
+		outline: 2px solid var(--color-focus);
+		outline-offset: 3px;
+	}
+
+	.filter-chip.is-active {
+		border-color: var(--color-text);
+		background: var(--color-text);
+		color: var(--color-page);
+		font-weight: 750;
+		box-shadow: inset 0 0 0 1px var(--color-text);
+	}
+
+	.writing-list-section {
+		padding-block: clamp(1.6rem, 4vw, 2.5rem) clamp(3.6rem, 7vw, 5.2rem);
+	}
+
+	.article-list {
+		display: grid;
+		gap: 0.85rem;
+		max-width: 820px;
+		margin-inline: auto;
+	}
+
+	.article-card {
+		margin: 0;
+	}
+
+	.article-card[hidden] {
+		display: none;
+	}
+
+	.article-card__link {
+		display: block;
+		border: 1px solid var(--color-border-soft);
+		border-radius: var(--radius);
+		background: var(--color-card-bg);
+		color: inherit;
+		text-decoration: none;
+		transition:
+			background-color var(--motion-duration-fast-02) var(--motion-standard-productive),
+			border-color var(--motion-duration-fast-02) var(--motion-standard-productive),
+			transform var(--motion-duration-fast-02) var(--motion-standard-productive);
+	}
+
+	.article-card__link:hover,
+	.article-card__link:focus-visible {
+		border-color: var(--color-card-border-hover);
+		background: var(--color-card-bg-hover);
+		transform: translateY(-1px);
+	}
+
+	.article-card__link:focus-visible {
+		outline: 2px solid var(--color-focus);
+		outline-offset: 4px;
+	}
+
+	.article-card__content {
+		display: grid;
+		gap: 0.85rem;
+		padding: clamp(1rem, 2.5vw, 1.35rem);
+	}
+
+	.article-card__header {
+		display: grid;
+		gap: 0.45rem;
+	}
+
+	.article-card h3 {
+		max-width: 34ch;
+		color: var(--color-text);
+		font-size: clamp(1.18rem, 2vw, 1.55rem);
+		font-weight: 650;
+		letter-spacing: -0.035em;
+		line-height: 1.12;
+		overflow-wrap: anywhere;
+	}
+
+	.article-card__meta {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.35rem 0.6rem;
+		align-items: center;
+		color: var(--color-muted);
+		font-family: var(--font-mono);
+		font-size: var(--type-meta-size);
+		font-weight: var(--type-meta-weight);
+		letter-spacing: var(--type-meta-tracking);
+		line-height: var(--type-meta-line);
+		text-transform: uppercase;
+	}
+
+	.article-card__meta span::before {
+		content: '/';
+		margin-right: 0.6rem;
+		color: var(--color-border);
+	}
+
+	.article-card__excerpt {
+		max-width: 68ch;
+		color: var(--color-body-text);
+		font-size: var(--type-reading-size);
+		line-height: var(--type-reading-line);
+		overflow-wrap: anywhere;
+	}
+
+	.article-card__tags {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.35rem;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.article-card__tags li {
+		margin: 0;
+		border: 1px solid var(--color-border-soft);
+		border-radius: calc(var(--radius) * 0.45);
+		background: color-mix(in srgb, var(--color-surface-soft) 34%, transparent);
+		color: var(--color-tag-text);
+		font-family: var(--font-mono);
+		font-size: var(--type-chip-size);
+		font-weight: var(--type-chip-weight);
+		letter-spacing: 0;
+		line-height: var(--type-chip-line);
+		padding: 0.2rem 0.42rem;
+		overflow-wrap: anywhere;
+	}
+
+	.empty-state {
+		margin-top: 1rem;
+		margin-inline: auto;
+		max-width: 820px;
+		border: 1px solid var(--color-border-soft);
+		border-radius: var(--radius);
+		background: var(--color-card-bg);
+		padding: clamp(1.1rem, 3vw, 1.5rem);
+	}
+
+	.empty-state[hidden] {
+		display: none;
+	}
+
+	.empty-state p {
+		margin: 0 0 0.8rem;
+		color: var(--color-body-text);
+		font-size: var(--type-reading-size);
+		line-height: var(--type-reading-line);
+	}
+
+	.visually-hidden {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		margin: -1px;
+		overflow: hidden;
+		clip: rect(0 0 0 0);
+		white-space: nowrap;
+		border: 0;
+		padding: 0;
+	}
+
+	@media (max-width: 640px) {
+		.writing-hero .page-container,
+		.writing-list-section .page-container {
+			width: min(calc(100% - 48px), 1120px);
+		}
+
+		.writing-hero__copy,
+		.writing-filter-strip,
+		.article-card__content {
+			overflow-wrap: anywhere;
+		}
+
+		.article-card__meta span::before {
+			margin-right: 0.45rem;
+		}
+	}
+</style>
+
+<script>
+	const filterButtons = Array.from(document.querySelectorAll<HTMLButtonElement>('[data-filter]'));
+	const articleCards = Array.from(document.querySelectorAll<HTMLElement>('[data-article-card]'));
+	const emptyState = document.querySelector<HTMLElement>('[data-empty-state]');
+	const resetButton = document.querySelector<HTMLButtonElement>('[data-filter-reset]');
+
+	const setFilter = (filter: string) => {
+		let visibleCount = 0;
+
+		articleCards.forEach((card) => {
+			const tags = card.dataset.tags?.split(' ') ?? [];
+			const isVisible = filter === 'all' || tags.includes(filter);
+			card.hidden = !isVisible;
+
+			if (isVisible) {
+				visibleCount += 1;
+			}
+		});
+
+		filterButtons.forEach((button) => {
+			const isActive = button.dataset.filter === filter;
+			button.classList.toggle('is-active', isActive);
+			button.setAttribute('aria-pressed', String(isActive));
+		});
+
+		if (emptyState) {
+			emptyState.hidden = visibleCount > 0;
+		}
+	};
+
+	filterButtons.forEach((button) => {
+		button.addEventListener('click', () => {
+			setFilter(button.dataset.filter ?? 'all');
+		});
+	});
+
+	resetButton?.addEventListener('click', () => {
+		setFilter('all');
+		filterButtons.find((button) => button.dataset.filter === 'all')?.focus();
+	});
+
+	setFilter('all');
+</script>

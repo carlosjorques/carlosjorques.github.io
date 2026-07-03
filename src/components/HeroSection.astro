@@ -12,27 +12,55 @@ const heroVideoUrl = `${normalizedBase}videos/333466_1_5.mp4`;
 	<div class="page-container">
 		<div class="hero">
 			<div class="hero__copy">
-				<p class="hero-kicker section-eyebrow">Embedded Control Systems Architect · Technical Leader</p>
+				<p class="hero-kicker section-eyebrow">Embedded Control Architect · Technical Leader</p>
 
 				<h1 class="hero-name hero-title">Carlos Jorques</h1>
 				<p class="hero-statement hero-role">
-					Control Intelligence for Complex Physical Systems.
+					<span>Control software for</span>
+					<span>software-defined physical systems.</span>
 				</p>
 				<p class="hero-substatement hero-summary">
-					With 10+ years of experience in the automotive industry, I lead the design of embedded control software that helps machines sense, decide, act, and operate reliably under real-world constraints.
+					With 10+ years in automotive and production embedded systems, I lead embedded control software development that helps teams close the gap between control design and real-world behavior, making complex systems predictable, maintainable, and trusted beyond simulation.
 				</p>
 
 				<div class="hero-links" aria-label="Primary contact links">
-					<a href={withBase('/contact')}>Contact</a>
-					<a href={withBase('/work')}>Work</a>
-					<a href={withBase('/about')}>About</a>
+					<a
+						href={withBase('/work')}
+						data-analytics-event="cta_click"
+						data-cta-id="hero-work"
+						data-cta-placement="home-hero"
+						data-cta-intent="proof"
+						data-source-section="hero"
+					>
+						Work
+					</a>
+					<a
+						href={withBase('/about')}
+						data-analytics-event="cta_click"
+						data-cta-id="hero-about"
+						data-cta-placement="home-hero"
+						data-cta-intent="narrative"
+						data-source-section="hero"
+					>
+						About
+					</a>
+					<a
+						href={withBase('/contact')}
+						data-analytics-event="cta_click"
+						data-cta-id="hero-contact"
+						data-cta-placement="home-hero"
+						data-cta-intent="contact"
+						data-source-section="hero"
+					>
+						Contact
+					</a>
 				</div>
 			</div>
 
 			<aside class="home-proof" aria-label="Professional proof points">
 				<div class="home-proof__grid">
 					<div class="home-proof__item">
-						<span class="home-proof__value">10+ years</span>
+						<span class="home-proof__value">10+ Years</span>
 						<span class="home-proof__label">Embedded controls in production environments</span>
 					</div>
 
@@ -42,12 +70,12 @@ const heroVideoUrl = `${normalizedBase}videos/333466_1_5.mp4`;
 					</div>
 
 					<div class="home-proof__item">
-						<span class="home-proof__value">Standard Compliance</span>
+						<span class="home-proof__value">Standards &amp; Quality</span>
 						<span class="home-proof__label">ISO 26262, A-SPICE, AUTOSAR-oriented development</span>
 					</div>
 
 					<div class="home-proof__item">
-						<span class="home-proof__value">PhD-trained</span>
+						<span class="home-proof__value">PhD-Trained</span>
 						<span class="home-proof__label">Control systems, diagnostics, modeling, and optimization</span>
 					</div>
 				</div>
@@ -153,13 +181,17 @@ const heroVideoUrl = `${normalizedBase}videos/333466_1_5.mp4`;
 	}
 
 	.hero-statement {
-		max-width: 620px;
+		max-width: 760px;
 		margin: var(--spacing-07) auto 0;
 		font-size: var(--type-hero-role-size);
 		line-height: var(--type-hero-role-line);
 		letter-spacing: var(--type-hero-role-tracking);
 		font-weight: var(--type-hero-role-weight);
 		color: var(--color-hero-text);
+	}
+
+	.hero-statement span {
+		display: block;
 	}
 
 	@supports ((-webkit-background-clip: text) or (background-clip: text)) {
@@ -226,7 +258,7 @@ const heroVideoUrl = `${normalizedBase}videos/333466_1_5.mp4`;
 
 	.home-proof {
 		margin-top: clamp(3rem, 5vw, 6rem);
-		padding-top: clamp(1rem, 2vw, 1.25rem);
+		padding-top: clamp(0.85rem, 1.6vw, 1.1rem);
 		border-top: 1px solid var(--color-border);
 	}
 
@@ -237,7 +269,7 @@ const heroVideoUrl = `${normalizedBase}videos/333466_1_5.mp4`;
 	}
 
 	.home-proof__item {
-		min-height: 58px;
+		min-height: 52px;
 		padding: 0.15rem 1.1rem 0.15rem 0;
 		transition:
 			background-color var(--motion-duration-fast-02) var(--motion-standard-productive),
@@ -255,7 +287,7 @@ const heroVideoUrl = `${normalizedBase}videos/333466_1_5.mp4`;
 
 	.home-proof__value {
 		display: block;
-		margin-bottom: var(--spacing-02);
+		margin-bottom: 0.35rem;
 		font-family: var(--font-mono);
 		font-size: var(--type-meta-size);
 		font-weight: 600;
@@ -268,9 +300,9 @@ const heroVideoUrl = `${normalizedBase}videos/333466_1_5.mp4`;
 		display: block;
 		max-width: 230px;
 		font-family: var(--font-body);
-		font-size: var(--type-card-body-size);
-		line-height: var(--type-card-body-line);
-		letter-spacing: var(--type-card-body-tracking);
+		font-size: var(--type-meta-size);
+		line-height: 1.45;
+		letter-spacing: 0;
 		color: var(--color-hero-proof-label);
 	}
 
@@ -303,10 +335,31 @@ const heroVideoUrl = `${normalizedBase}videos/333466_1_5.mp4`;
 
 		.hero-name {
 			font-size: var(--type-hero-name-size);
+			width: auto;
+			max-width: 7.8ch;
+			margin-inline: auto;
+		}
+
+		.hero-kicker {
+			max-width: 24ch;
+			margin-inline: auto;
+			overflow-wrap: anywhere;
 		}
 
 		.hero-statement {
 			font-size: var(--type-hero-role-size);
+			max-width: 15ch;
+		}
+
+		.hero-statement span,
+		.hero-substatement {
+			max-width: 100%;
+			overflow-wrap: anywhere;
+		}
+
+		.hero-substatement {
+			width: min(100%, 32ch);
+			margin-inline: auto;
 		}
 
 		.hero-links {

@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 520" role="img" aria-labelledby="title desc">
+  <title id="title">Real-time combustion control implementation</title>
+  <desc id="desc">Technical placeholder combining an engine cylinder, pressure trace, FPGA chip, and real-time control pipeline.</desc>
+  <rect width="1200" height="520" fill="#171512"/>
+  <g opacity="0.2" stroke="#efe6d8" stroke-width="2">
+    <path d="M70 100h1060M70 180h1060M70 260h1060M70 340h1060M70 420h1060"/>
+    <path d="M160 70v380M320 70v380M480 70v380M640 70v380M800 70v380M960 70v380"/>
+  </g>
+  <g transform="translate(110 92)">
+    <path d="M104 46h216l42 74v150l-42 74H104l-42-74V120z" fill="#241d18" stroke="#d8b08c" stroke-width="4"/>
+    <path d="M110 122h204v142H110z" fill="none" stroke="#efe6d8" stroke-opacity=".38" stroke-width="3"/>
+    <path d="M152 262c18-78 42-116 72-116s54 38 72 116" fill="none" stroke="#f0b36a" stroke-width="6" stroke-linecap="round"/>
+    <path d="M128 304h170" stroke="#efe6d8" stroke-opacity=".55" stroke-width="4" stroke-linecap="round"/>
+    <text x="63" y="372" fill="#d7c7b5" font-family="JetBrains Mono, Consolas, monospace" font-size="20">combustion chamber</text>
+  </g>
+  <g transform="translate(462 118)">
+    <rect x="0" y="0" width="276" height="276" rx="16" fill="#211b16" stroke="#d8b08c" stroke-width="4"/>
+    <rect x="62" y="62" width="152" height="152" rx="10" fill="#171512" stroke="#efe6d8" stroke-opacity=".38" stroke-width="3"/>
+    <g stroke="#f0b36a" stroke-width="5" stroke-linecap="round">
+      <path d="M-34 42H0M-34 86H0M-34 130H0M-34 174H0M-34 218H0M276 42h34M276 86h34M276 130h34M276 174h34M276 218h34"/>
+      <path d="M42-34v34M86-34v34M130-34v34M174-34v34M218-34v34M42 276v34M86 276v34M130 276v34M174 276v34M218 276v34"/>
+    </g>
+    <text x="138" y="150" text-anchor="middle" fill="#efe6d8" font-family="Inter, Arial, sans-serif" font-size="34" font-weight="700">FPGA</text>
+    <text x="138" y="356" text-anchor="middle" fill="#d7c7b5" font-family="JetBrains Mono, Consolas, monospace" font-size="20">deterministic execution</text>
+  </g>
+  <g transform="translate(800 130)" fill="none">
+    <path d="M0 180c45-126 88-144 132-56s88 82 132-12 88-70 132 38" stroke="#efe6d8" stroke-width="5" stroke-linecap="round"/>
+    <path d="M0 220h398" stroke="#efe6d8" stroke-opacity=".34" stroke-width="3"/>
+    <path d="M78 82v176M300 82v176" stroke="#f0b36a" stroke-width="4" stroke-dasharray="8 9"/>
+    <text x="80" y="60" text-anchor="middle" fill="#f0b36a" font-family="JetBrains Mono, Consolas, monospace" font-size="18">observe</text>
+    <text x="300" y="60" text-anchor="middle" fill="#f0b36a" font-family="JetBrains Mono, Consolas, monospace" font-size="18">deadline</text>
+    <text x="198" y="318" text-anchor="middle" fill="#d7c7b5" font-family="JetBrains Mono, Consolas, monospace" font-size="20">pressure trace / crank angle</text>
+  </g>
+</svg>

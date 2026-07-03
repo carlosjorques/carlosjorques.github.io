@@ -19,11 +19,23 @@ const isActive = (href: string) => {
 	<div class="page-container site-header__inner">
 		<a class="site-header__brand" href={withBase('/')}>Carlos Jorques</a>
 
-		<nav class="site-header__nav" aria-label="Primary navigation">
+		<nav class="site-header__nav" aria-label="Primary">
+			<a href={withBase('/work')} aria-current={isActive('/work') ? 'page' : undefined}>Work</a>
+			<a href={withBase('/cv')} aria-current={isActive('/cv') ? 'page' : undefined}>CV</a>
 			<a href={withBase('/writing')} aria-current={isActive('/writing') ? 'page' : undefined}>Writing</a>
 			<a href={withBase('/about')} aria-current={isActive('/about') ? 'page' : undefined}>About</a>
-			<a href={withBase('/work')} aria-current={isActive('/work') ? 'page' : undefined}>Work</a>
-			<a href={withBase('/contact')} aria-current={isActive('/contact') ? 'page' : undefined}>Contact</a>
+			<a
+				class="site-header__contact"
+				href={withBase('/contact')}
+				aria-current={isActive('/contact') ? 'page' : undefined}
+				data-analytics-event="cta_click"
+				data-cta-id="header-contact"
+				data-cta-placement="header"
+				data-cta-intent="contact"
+				data-source-section="primary-nav"
+			>
+				Contact
+			</a>
 		</nav>
 
 		<button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch to dark color theme">
@@ -105,6 +117,22 @@ const isActive = (href: string) => {
 	.site-header__nav a[aria-current="page"]:focus-visible {
 		color: var(--color-header-active);
 		border-bottom-color: var(--color-header-link);
+	}
+
+	.site-header__nav .site-header__contact {
+		border: 1px solid var(--color-button-primary-bg);
+		border-radius: var(--radius-pill);
+		background: var(--color-button-primary-bg);
+		color: var(--color-button-primary-text);
+		padding: 0.55rem 0.9rem;
+	}
+
+	.site-header__nav .site-header__contact:hover,
+	.site-header__nav .site-header__contact:focus-visible,
+	.site-header__nav .site-header__contact[aria-current="page"] {
+		border-color: var(--color-button-primary-state-bg);
+		background: var(--color-button-primary-state-bg);
+		color: var(--color-button-primary-state-text);
 	}
 
 	.site-header__nav a:hover,

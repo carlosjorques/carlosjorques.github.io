@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 560" role="img" aria-labelledby="title desc">
+  <title id="title">Open-loop and optimized set-point shift</title>
+  <desc id="desc">Comparison of conservative open-loop set-point and optimized closed-loop stochastic set-point closer to the efficiency optimum.</desc>
+  <rect width="1200" height="560" fill="#f7f5ef"/>
+  <g transform="translate(96 82)" font-family="Arial, sans-serif">
+    <text x="0" y="0" fill="#171815" font-size="30" font-weight="700">From conservative target to usable efficiency</text>
+    <text x="0" y="36" fill="#62675c" font-size="18">Lower dispersion can reduce the safety margin needed around constraints.</text>
+    <g transform="translate(0 88)">
+      <rect width="1008" height="320" fill="#ffffff" stroke="#d8d4ca"/>
+      <path d="M80 256C210 184 320 124 442 98C563 73 650 104 724 160C802 220 868 244 936 252" fill="none" stroke="#171815" stroke-width="5" stroke-linecap="round"/>
+      <rect x="748" y="44" width="188" height="240" rx="8" fill="#bfff03" opacity="0.12" stroke="#5f7f00" stroke-dasharray="8 8"/>
+      <line x1="738" y1="42" x2="738" y2="286" stroke="#5f7f00" stroke-width="3"/>
+      <circle cx="360" cy="118" r="13" fill="#ffffff" stroke="#171815" stroke-width="5"/>
+      <circle cx="612" cy="119" r="13" fill="#bfff03" stroke="#171815" stroke-width="5"/>
+      <path d="M384 118H586" stroke="#5f7f00" stroke-width="4" marker-end="url(#arrow)"/>
+      <text x="246" y="158" fill="#62675c" font-size="16" font-weight="700">conservative open-loop</text>
+      <text x="574" y="158" fill="#171815" font-size="16" font-weight="700">optimized stochastic target</text>
+      <text x="760" y="78" fill="#5f7f00" font-size="16" font-weight="700">constraint boundary</text>
+      <text x="388" y="302" fill="#171815" font-size="17" font-weight="700">Combustion phasing set-point</text>
+      <defs>
+        <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+          <path d="M0 0l10 5-10 5z" fill="#5f7f00"/>
+        </marker>
+      </defs>
+    </g>
+  </g>
+</svg>

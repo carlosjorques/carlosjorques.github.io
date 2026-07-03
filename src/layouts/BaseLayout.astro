@@ -9,8 +9,8 @@ interface Props {
 }
 
 const {
-	title = 'Carlos Jorques — Embedded Controls Architect',
-	description = 'Carlos Jorques is an embedded controls architect and technical leader working across control engineering, real-time software, and safety-critical embedded systems.',
+	title = 'Carlos Jorques · Embedded Control Architect',
+	description = 'Embedded control architect and technical leader for software-defined physical systems, real-time control software, electrification, diagnostics, validation, and production embedded systems.',
 } = Astro.props;
 
 const siteTitle = title.includes('Carlos Jorques') ? title : `${title} | Carlos Jorques`;
@@ -21,6 +21,10 @@ const pathname = Astro.url.pathname.startsWith(basePath)
 	? Astro.url.pathname
 	: `${basePath}${Astro.url.pathname}`;
 const canonical = new URL(pathname, Astro.site ?? Astro.url.origin);
+const pageType = (() => {
+	const firstSegment = Astro.url.pathname.replace(basePath, '').split('/').filter(Boolean)[0];
+	return firstSegment || 'home';
+})();
 ---
 
 <!doctype html>
@@ -57,7 +61,7 @@ const canonical = new URL(pathname, Astro.site ?? Astro.url.origin);
 		<meta property="og:type" content="website" />
 		<meta property="og:url" content={canonical} />
 	</head>
-	<body>
+	<body data-page-type={pageType}>
 		<a class="skip-link" href="#main-content">Skip to content</a>
 		<div class="site-shell">
 			<SiteHeader />
@@ -68,5 +72,53 @@ const canonical = new URL(pathname, Astro.site ?? Astro.url.origin);
 				<SiteFooter />
 			</div>
 		</div>
+		<script is:inline>
+			(() => {
+				const trackedSelector = '[data-analytics-event]';
+
+				const clean = (value) => {
+					if (typeof value !== 'string') return undefined;
+					const trimmed = value.trim();
+					return trimmed ? trimmed : undefined;
+				};
+
+				const getLinkText = (element) =>
+					clean(element.dataset.ctaText) ?? clean(element.textContent?.replace(/\s+/g, ' '));
+
+				const buildPayload = (element, extras = {}) => ({
+					cta_id: clean(element.dataset.ctaId),
+					cta_text: getLinkText(element),
+					placement: clean(element.dataset.ctaPlacement),
+					page_type: clean(document.body?.dataset.pageType) ?? 'unknown',
+					destination: clean(element.dataset.destination) ?? clean(element.getAttribute('href')),
+					intent: clean(element.dataset.ctaIntent),
+					source_section: clean(element.dataset.sourceSection),
+					...extras,
+				});
+
+				const track = (eventName, payload = {}) => {
+					const event = clean(eventName);
+					if (!event) return;
+
+					const detail = { event, ...payload };
+					window.dataLayer = window.dataLayer || [];
+					window.dataLayer.push(detail);
+
+					if (typeof window.gtag === 'function') {
+						window.gtag('event', event, payload);
+					}
+
+					window.dispatchEvent(new CustomEvent('portfolio:analytics', { detail }));
+				};
+
+				window.trackPortfolioEvent = track;
+
+				document.addEventListener('click', (event) => {
+					const target = event.target instanceof Element ? event.target.closest(trackedSelector) : null;
+					if (!target) return;
+					track(target.dataset.analyticsEvent, buildPayload(target));
+				});
+			})();
+		</script>
 	</body>
 </html>

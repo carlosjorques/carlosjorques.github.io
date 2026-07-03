@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 520" role="img" aria-labelledby="title desc">
+  <title id="title">FPGA control pipeline</title>
+  <desc id="desc">Deterministic real-time execution pipeline from pressure acquisition to control output.</desc>
+  <rect width="1200" height="520" fill="#171512"/>
+  <g opacity="0.2" stroke="#efe6d8">
+    <path d="M100 120H1100M100 200H1100M100 280H1100M100 360H1100"/>
+    <path d="M160 80V440M320 80V440M480 80V440M640 80V440M800 80V440M960 80V440"/>
+  </g>
+  <g fill="#241d18" stroke="#d8b08c" stroke-width="3">
+    <rect x="90" y="180" width="180" height="120" rx="8"/>
+    <rect x="300" y="180" width="180" height="120" rx="8"/>
+    <rect x="510" y="180" width="180" height="120" rx="8"/>
+    <rect x="720" y="180" width="180" height="120" rx="8"/>
+    <rect x="930" y="180" width="180" height="120" rx="8"/>
+  </g>
+  <g font-family="Inter, Arial, sans-serif" fill="#efe6d8" font-size="22">
+    <text x="125" y="230" font-weight="700">Pressure</text>
+    <text x="115" y="260">acquisition</text>
+    <text x="334" y="230" font-weight="700">Signal</text>
+    <text x="322" y="260">processing</text>
+    <text x="548" y="230" font-weight="700">State</text>
+    <text x="535" y="260">estimation</text>
+    <text x="760" y="230" font-weight="700">Prediction</text>
+    <text x="756" y="260">and control</text>
+    <text x="962" y="230" font-weight="700">Injection</text>
+    <text x="981" y="260">output</text>
+  </g>
+  <g stroke="#f0b36a" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M270 240h28M480 240h28M690 240h28M900 240h28"/>
+    <path d="M289 230l11 10-11 10M499 230l11 10-11 10M709 230l11 10-11 10M919 230l11 10-11 10"/>
+  </g>
+  <g font-family="JetBrains Mono, Consolas, monospace" fill="#d7c7b5" font-size="19">
+    <text x="93" y="370">fixed-point blocks</text>
+    <text x="421" y="370">parallel computation</text>
+    <text x="761" y="370">deterministic timing</text>
+  </g>
+</svg>

@@ -4,12 +4,35 @@ interface Props {
 	title: string;
 	description: string;
 	href: string;
+	analyticsEvent?: string;
+	ctaId?: string;
+	placement?: string;
+	intent?: string;
+	sourceSection?: string;
 }
 
-const { number, title, description, href } = Astro.props;
+const {
+	number,
+	title,
+	description,
+	href,
+	analyticsEvent = 'writing_article_click',
+	ctaId,
+	placement = 'article-row',
+	intent = 'authority',
+	sourceSection = 'writing',
+} = Astro.props;
 ---
 
-<a href={href} class="article-link">
+<a
+	href={href}
+	class="article-link"
+	data-analytics-event={analyticsEvent}
+	data-cta-id={ctaId}
+	data-cta-placement={placement}
+	data-cta-intent={intent}
+	data-source-section={sourceSection}
+>
 	<span class="article-link__number">{number}</span>
 	<span>
 		<h3 class="article-link__title">{title}</h3>

@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 520" role="img" aria-labelledby="title desc">
+  <title id="title">Online model adaptation loop</title>
+  <desc id="desc">Prediction error feeds online adaptation, which updates predictive model behavior.</desc>
+  <rect width="1200" height="520" fill="#f7f3eb"/>
+  <g fill="#fffaf2" stroke="#d8c9b9" stroke-width="3">
+    <rect x="100" y="185" width="210" height="120" rx="10"/>
+    <rect x="495" y="185" width="210" height="120" rx="10"/>
+    <rect x="890" y="185" width="210" height="120" rx="10"/>
+    <rect x="495" y="365" width="210" height="90" rx="10"/>
+  </g>
+  <g font-family="Inter, Arial, sans-serif" fill="#26211d" font-size="24">
+    <text x="146" y="235" font-weight="700">Measured</text>
+    <text x="151" y="267">combustion</text>
+    <text x="543" y="235" font-weight="700">Prediction</text>
+    <text x="572" y="267">error</text>
+    <text x="929" y="235" font-weight="700">Predictive</text>
+    <text x="957" y="267">model</text>
+    <text x="535" y="418" font-weight="700">Adaptation</text>
+  </g>
+  <g stroke="#8a5c42" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M310 245h180M705 245h180"/>
+    <path d="M480 233l15 12-15 12M875 233l15 12-15 12"/>
+    <path d="M995 305v95H710"/>
+    <path d="M720 388l-15 12 15 12"/>
+    <path d="M495 410H205V310"/>
+    <path d="M193 320l12-15 12 15"/>
+  </g>
+  <g font-family="JetBrains Mono, Consolas, monospace" fill="#6b5a4d" font-size="18">
+    <text x="385" y="151">model mismatch appears as prediction error</text>
+    <text x="737" y="432">updated parameters</text>
+  </g>
+</svg>
