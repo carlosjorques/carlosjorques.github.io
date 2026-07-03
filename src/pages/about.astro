@@ -13,24 +13,30 @@ type TextPart = {
 const aboutContent = {
 	hero: {
 		title: 'Hi, I’m Carlos.',
-		descriptor: 'Embedded control architect and technical leader focused on software-defined physical systems.',
+		descriptor: 'Technical Leader and Senior Control Systems Engineer specializing in software-defined physical systems.',
 		paragraphs: [
 			[
 				{
 					text:
-						'I am an embedded control architect and technical leader focused on software-defined physical systems: vehicles, machines, energy systems, and other products that must sense, decide, act, and behave reliably beyond simulation. I lead the development of real-time embedded control software for electrified, automated, and safety-critical systems operating under real-world constraints.',
+						'I have always been curious about how things work. Growing up, I had the most fun taking toys apart to see what was inside. Even now, I would rather figure out how to assemble IKEA furniture myself than read the manual.',
 				},
 			],
 			[
 				{
 					text:
-						'Most of my professional work has centered on electric trucks, autonomous machinery, power electronics, automotive software, and production embedded systems. Across those domains, the goal is the same: turn control theory, embedded software, diagnostics, calibration, validation, and production data into trustworthy system behavior.',
+						'That curiosity led me into robotics and electronics, then into Electrical Engineering, and eventually to a PhD in Mechanical Engineering focused on automatic control.',
 				},
 			],
 			[
 				{
 					text:
-						'I am based in Spain and work with international, multidisciplinary teams across engineering, software, hardware, and product domains.',
+						'For the past 12 years, I have developed embedded control software, primarily for the automotive industry, helping physical machines sense, decide, act, and operate reliably under real-world conditions. Some of that work is now running on roads and worksites around the world in Scania trucks, Volvo autonomous haulers, and MAHLE components.',
+				},
+			],
+			[
+				{
+					text:
+						'I am based in Spain and work with international, multidisciplinary teams leading the design of control solutions for real-time embedded software. My work connects control and diagnostics algorithms, software architecture, validation, and technical leadership, helping engineering teams turn advanced, highly interconnected hardware into safe, reliable, and efficient machines.',
 				},
 			],
 		] satisfies TextPart[][],
@@ -41,100 +47,96 @@ const aboutContent = {
 			[
 				{
 					text:
-						'Long before control systems became software, engineers were already building feedback into real-world machines. A steam engine governor is one of my favorite examples: rotating balls, levers, linkages, and valves working together to regulate speed. It is a classic control example because it shows something fundamental: feedback made powerful machines more stable, usable, and productive.',
+						'Control systems are the invisible layer that helps machines behave safely and predictably despite uncertainty, disturbances, and changing operating conditions.',
 				},
 			],
 			[
 				{
 					text:
-						'Embedded software changed the scale of what feedback could become. Functions that once depended on mechanical linkages could be implemented as real-time logic connected to sensors, actuators, communication networks, and data. As microprocessors, power electronics, sensing, and storage evolved, control software made it possible to coordinate more complex behavior, calibrate from real operation, diagnose faults, and improve systems across their lifecycle.',
+						'Long before microcontrollers and sensors, mechanical engineers used feedback to keep powerful hardware under control. The classic centrifugal governor is a good example: a mechanical feedback system that automatically regulated steam engine speed and helped keep the machine stable.',
 				},
 			],
 			[
 				{
 					text:
-						'That is why control systems matter. They are often invisible, but they shape how physical products behave: vehicles manage energy, robots move and recover, batteries operate safely, buildings reduce consumption, factories coordinate demand, and power systems absorb more renewable energy.',
+						'Today, the same principle is implemented through embedded real-time software. It helps manage battery charging, keep drones balanced in wind, support precision robotics, stabilize electric grids, and coordinate complex machines that must react continuously to the physical world.',
 				},
 			],
 			[
 				{
 					text:
-						'My work sits inside that evolution. I focus on the layer where feedback control, predictive control, diagnostics, calibration, embedded software, and production data turn advanced ideas into reliable behavior on real hardware.',
+						'This is where my expertise sits: defining how advanced software-defined physical systems should behave, then designing the real-time control software needed to make that behavior reliable on real hardware.',
 				},
 			],
 		] satisfies TextPart[][],
 	},
 	howIGotHere: {
-		title: 'From Curiosity to Production Control Systems',
+		title: 'From Robotics to Production Systems',
 		paragraphs: [
 			[
 				{
 					text:
-						'As a child, I wanted to become an inventor, even though I often felt that everything worth inventing had already been created. My toys became my main source of inspiration. I did not just play with them. I took them apart to see what was inside, fascinated by how something like a remote controlled car was actually able to move, steer, and respond. Once I understood the mechanics, I would harvest the motors, wires, and circuit boards, trying to reuse them in my own electronic projects.',
+						'My path into control systems began with curiosity about physical mechanisms. Over time, that curiosity evolved into a broader focus: how control engineering can improve system performance, reduce development cost, manage technical risk, and make advanced products viable in production.',
 				},
 			],
 		] satisfies TextPart[][],
 		milestones: [
 			{
-				title: 'Taking things apart',
-				description: 'Opening toys, looking inside, and trying to understand the behavior behind the mechanism.',
+				title: 'Electronics at eight',
+				description:
+					'I started taking electronics lessons early, learning to see circuits, motors, and components as building blocks I could take apart, understand, and reuse.',
 			},
 			{
-				title: 'Small robots',
+				title: 'Campus Party Valencia',
 				description:
-					'After building a basic obstacle-avoiding robot kit, I watched a line-tracking robot competition at Campus Party in Valencia. Some robots were fast and stable. Mine oscillated from side to side. I wanted to understand why.',
+					'After building a basic obstacle-avoiding robot kit, I watched a line-tracking competition at Campus Party in Valencia. Some robots were fast and stable. Mine oscillated wildly from side to side. That moment sparked my interest in the boundary between physical behavior, sensing, timing, and control logic.',
 			},
 			{
-				title: 'Valencia to Lund',
+				title: 'Theoretical framework',
 				description:
-					'Industrial Engineering in Valencia led to a double degree in Electrical Engineering in Sweden, where I deepened my focus on automatic control, dynamic systems, and model-based engineering.',
+					'A double degree in Electrical Engineering in Sweden and later PhD research gave me the analytical foundation for my career: feedback loops, system dynamics, modeling, diagnostics, and automatic control theory.',
 			},
 			{
-				title: 'Control theory',
+				title: 'Production value',
 				description:
-					'At university, feedback control changed from equations on a whiteboard into an explanation for real behavior: why a robot follows a line, a balancing system recovers, or a climate system stabilizes a room despite disturbances.',
-			},
-			{
-				title: 'Production systems',
-				description:
-					'An industrial PhD and production embedded control work connected theory with heavy vehicles, advanced functions, and the constraints of systems that must work reliably in operation.',
+					'Moving into industrial embedded control changed the measure of success. An elegant algorithm is not enough unless it can work on real hardware, scale across product constraints, and create value in production. Today, I balance engineering depth with project and business realities: designing robust control systems that improve reliability, reduce unnecessary hardware burden, shorten development loops, and support safe, efficient products.',
 			},
 		],
 		closing:
-			'Over time, that childhood drive to build and understand evolved into a persistent engineering question: how do you make a physical system behave reliably when the environment around it is constantly changing?',
+			'This trajectory defines my role today. I connect control theory and real-time embedded software with technical leadership, risk management, validation evidence, and delivery constraints so complex physical systems create clear, repeatable value in the real world.',
 	},
 	howIWork: {
 		title: 'How I Approach Complex Systems',
-		quote: 'An elegant algorithm is only the beginning. Production readiness is where engineering earns trust.',
+                quote: 'An elegant algorithm is only the beginning. Real value appears when it works reliably inside the full system.',
 		paragraphs: [
 			[
 				{
 					text:
-						'Complex engineering problems are rarely solved by one discipline in isolation. I help teams build a shared understanding of the system, the constraints, the risks, and the decisions needed to move from uncertainty to reliable product behavior.',
+                                                'I approach complex engineering by building a shared view of what the product needs to do, what the physics allows, what the software can guarantee, and where the main technical and project risks sit.',
 				},
 			],
 		] satisfies TextPart[][],
 		principles: [
 			{
-				title: 'Build a shared system view',
-				description:
-					'I connect control objectives, software architecture, hardware constraints, safety requirements, calibration needs, validation evidence, production data, and product expectations into one coherent picture.',
-			},
-			{
-				title: 'Isolate root causes before implementing solutions',
-				description:
-					'System dynamics, control strategies, diagnostics, and degradation logic exist at distinct layers of an architecture. I enforce a disciplined approach that separates the underlying problem from the implementation detail. This prevents premature, localized fixes and yields clean, modular solutions that are inherently easier to test, explain, maintain, and trust.',
-			},
-			{
-				title: 'Make trade-offs explicit',
-				description:
-					'Technical decisions are made under constraints: time, resources, hardware limits, safety requirements, dependencies, legacy systems, and unexpected contingencies. I value making those trade-offs visible so teams can compare options, understand risk, and commit with clarity.',
-			},
-			{
-				title: 'Support teams from decision to delivery',
-				description:
-					'Good technical leadership is not about controlling every detail. It is about giving engineers context, helping them anticipate problems, aligning interfaces and responsibilities, and supporting decisions until they become reliable production behavior.',
-			},
+                                title: 'Build the System View',
+                                description:
+                                        'I connect control objectives, software architecture, hardware constraints, diagnostics, validation needs, and product goals into one clear technical picture. This helps cross-functional teams avoid silos and stay aligned around the same outcome.',
+                        },
+                        {
+                                title: 'Separate the Problem from the Implementation',
+                                description:
+                                        'Before designing a solution, I work to understand whether an issue comes from system dynamics, sensing limitations, control logic, software architecture, calibration, diagnostics, or integration. Pinpointing the right layer prevents fragile local fixes that hide the real problem and create long-term maintenance cost.',
+                        },
+                        {
+                                title: 'Make Trade-offs Visible',
+                                description:
+                                        'Control systems are built under tight boundaries: cost, timing, safety standards, hardware capability, legacy interfaces, supplier dependencies, and release deadlines. I help teams compare options clearly so technical decisions are explicit, risk-aware, and commercially defensible.',
+                        },
+                        {
+                                title: 'Lead from Decision to Delivery',
+                                description:
+                                        'Technical leadership means helping teams move from uncertainty to reliable execution. I focus on aligning interfaces, clarifying responsibilities, mentoring engineers, and keeping design choices anchored to validation evidence and real production behavior.',
+                        },
 		],
 	},
 	beyondEngineering: {
