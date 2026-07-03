@@ -475,6 +475,24 @@ const metadata = [entry.data.category, entry.data.readingTime].filter(Boolean);
 		padding: 0.85rem 1rem 1rem;
 	}
 
+	.writing-post__body :global(.image-placeholder__frame) {
+		display: grid;
+		place-items: center;
+		min-height: clamp(13rem, 32vw, 20rem);
+		padding: clamp(1.1rem, 3vw, 1.6rem);
+		background:
+			linear-gradient(135deg, color-mix(in srgb, var(--color-surface-soft) 78%, transparent), transparent),
+			var(--color-card-bg);
+		color: var(--color-muted);
+		font-family: var(--font-mono);
+		font-size: var(--type-chip-size);
+		font-weight: var(--type-chip-weight);
+		letter-spacing: 0;
+		line-height: var(--type-chip-line);
+		text-align: center;
+		text-transform: uppercase;
+	}
+
 	.writing-post__body :global(.article-cta) {
 		display: grid;
 		gap: 0.8rem;
