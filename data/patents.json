@@ -1,0 +1,71 @@
+[
+  {
+    "id": "method-and-system-for-determining-in-cycle-a-pilot-injection-fuel-mass-in-a-combustion-chamber-of-an-engine",
+    "title": "Method and system for determining in-cycle a pilot injection fuel mass in a combustion chamber of an engine",
+    "year": 2019,
+    "type": "patent",
+    "summary": "Developed a method to determine in-cycle pilot injection fuel mass based on pressure, possible start of vaporization, and possible start of combustion. This method is applicable to controlling injection to a combustion chamber, a second combustion chamber, a system for determining fuel mass, a vehicle, a computer program product, and a computer-readable storage medium.",
+    "link": null,
+    "related_capabilities": [
+      "electric-autonomous-vehicle-systems",
+      "embedded-controls-architecture",
+      "embedded-software-validation"
+    ],
+    "related_projects": []
+  },
+  {
+    "id": "method-and-system-for-fuel-pump-regulation",
+    "title": "Method and system for fuel pump regulation",
+    "year": 2015,
+    "type": "patent",
+    "summary": "Invented a method for fuel pump control in a fuel system, also applicable to a system, vehicle, computer program, and computer program product.",
+    "link": null,
+    "related_capabilities": [
+      "embedded-controls-architecture",
+      "embedded-software-validation",
+      "electric-autonomous-vehicle-systems"
+    ],
+    "related_projects": []
+  },
+  {
+    "id": "system-and-method-for-improving-heat-release-evaluation-at-a-reciprocating-internal-combustion-engine",
+    "title": "System and method for improving heat release evaluation at a reciprocating internal combustion engine",
+    "year": 2015,
+    "type": "patent",
+    "summary": "Created a method for improving heat release evaluation in a reciprocating combustion engine by providing a model for volume deviations based on dynamic parameters, determining these parameters, and using an adaptation model to improve engine control and/or diagnostics.",
+    "link": null,
+    "related_capabilities": [
+      "embedded-controls-architecture",
+      "embedded-software-validation",
+      "diagnostics-safety-robustness",
+      "electric-autonomous-vehicle-systems"
+    ],
+    "related_projects": []
+  },
+  {
+    "id": "method-and-system-for-diagnosing-a-fuel-system-ii",
+    "title": "Method and system for diagnosing a fuel system II",
+    "year": 2015,
+    "type": "patent",
+    "summary": "Developed a method for diagnosing a fuel system in a vehicle by filtering pressure sensor signals and determining fuel flow errors. This method is applicable to vehicles with combustion engines and multiple fuel pumps.",
+    "link": null,
+    "related_capabilities": [
+      "electric-autonomous-vehicle-systems",
+      "embedded-software-validation"
+    ],
+    "related_projects": []
+  },
+  {
+    "id": "method-and-system-for-diagnosing-a-fuel-system",
+    "title": "Method and system for diagnosing a fuel system",
+    "year": 2015,
+    "type": "patent",
+    "summary": "Invented a method for diagnosing a fuel system in a vehicle by determining the presence of fuel flow errors based on the power consumption of fuel pumps. This method is applicable to vehicles with combustion engines and multiple fuel pumps.",
+    "link": null,
+    "related_capabilities": [
+      "embedded-software-validation",
+      "electric-autonomous-vehicle-systems"
+    ],
+    "related_projects": []
+  }
+]

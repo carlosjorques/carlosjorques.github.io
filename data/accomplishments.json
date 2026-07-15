@@ -1,0 +1,300 @@
+[
+  {
+    "id": "award-outstanding-oral-presentation-award",
+    "title": "Outstanding Oral Presentation Award",
+    "category": "Award",
+    "year": 2017,
+    "issuer": "SAE",
+    "summary": "Received an award for an outstanding oral presentation.",
+    "impact_metrics": [],
+    "related_capabilities": [
+      "embedded-software-validation"
+    ]
+  },
+  {
+    "id": "award-scholarship-for-double-degree-students",
+    "title": "Scholarship for double degree students",
+    "category": "Award",
+    "year": 2013,
+    "issuer": "COIICV",
+    "summary": "Awarded a scholarship for pursuing a double degree.",
+    "impact_metrics": [],
+    "related_capabilities": [
+      "embedded-software-validation"
+    ]
+  },
+  {
+    "id": "award-double-degree-internship",
+    "title": "Double Degree internship",
+    "category": "Award",
+    "year": 2012,
+    "issuer": "TIME Association",
+    "summary": "Completed an internship as part of a double degree program.",
+    "impact_metrics": [],
+    "related_capabilities": [
+      "embedded-software-validation"
+    ]
+  },
+  {
+    "id": "award-first-year-s-best-academic-record",
+    "title": "First Year's Best Academic Record",
+    "category": "Award",
+    "year": 2009,
+    "issuer": "Polytechnical University of Valencia",
+    "summary": "Achieved the best academic record in the first year.",
+    "impact_metrics": [],
+    "related_capabilities": [
+      "embedded-software-validation",
+      "electric-autonomous-vehicle-systems"
+    ]
+  },
+  {
+    "id": "publication-modular-design-and-integration-of-in-cycle-closed-loop-combustion-controllers-for-a-wide-range-of-operating-conditions",
+    "title": "Modular Design and Integration of In-Cycle Closed-Loop Combustion Controllers for a Wide-Range of Operating Conditions",
+    "category": "Publication",
+    "year": 2021,
+    "issuer": "2021 American Control Conference (ACC)",
+    "summary": "Investigated the modular design and integration of in-cycle closed-loop combustion controllers for seamless operation across various conditions. Tested on a Scania D13 engine, confirming improved controllability and reduced steady-state RMSE of controlled parameters with smoother transitions.",
+    "impact_metrics": [
+      "Improved controllability",
+      "Reduced steady-state RMSE of controlled parameters",
+      "Smoother transition between set-points"
+    ],
+    "related_capabilities": [
+      "embedded-controls-architecture",
+      "embedded-software-validation"
+    ]
+  },
+  {
+    "id": "publication-stochastic-set-point-optimization-for-in-cycle-closed-loop-combustion-control-operation",
+    "title": "Stochastic Set-Point Optimization for In-Cycle Closed-Loop Combustion Control Operation",
+    "category": "Publication",
+    "year": 2021,
+    "issuer": "SAE Technical Paper",
+    "summary": "Developed a novel approach for constrained indicated efficiency optimization of set-point references for in-cycle closed-loop combustion regulators. By including the effect of controlled variables on combustion dispersion and solving the stochastic optimization problem, indicated efficiency can be increased by up to +1.8%unit at low loads and +0.6%unit at medium loads compared to open-loop operation. The greatest advantage was achieved by regulating CA50 under demanding maximum pressure rise rate constraints. Considering pilot misfire risk, indicated efficiency can be increased additionally by +0.3%unit.",
+    "impact_metrics": [
+      "Increased indicated efficiency by up to +1.8%unit at low loads",
+      "Increased indicated efficiency by up to +0.6%unit at medium loads",
+      "Increased indicated efficiency by an additional +0.3%unit by considering pilot misfire risk"
+    ],
+    "related_capabilities": [
+      "embedded-software-validation",
+      "embedded-controls-architecture",
+      "control-systems-estimation",
+      "electric-autonomous-vehicle-systems"
+    ]
+  },
+  {
+    "id": "publication-in-cycle-closed-loop-combustion-control-for-pilot-misfire-compensation",
+    "title": "In-Cycle Closed-Loop Combustion Control for Pilot Misfire Compensation",
+    "category": "Publication",
+    "year": 2020,
+    "issuer": "SAE Technical Paper 2020-01-2086",
+    "summary": "Investigated how in-cycle closed-loop combustion control techniques can reduce the effects of pilot misfire events by detecting and counteracting them in-cycle. Explored two injection strategies: control of the main injection and an additional second pilot injection.",
+    "impact_metrics": [],
+    "related_capabilities": [
+      "embedded-controls-architecture",
+      "embedded-software-validation",
+      "electric-autonomous-vehicle-systems"
+    ]
+  },
+  {
+    "id": "publication-multi-cylinder-adaptation-of-in-cycle-predictive-combustion-models",
+    "title": "Multi-Cylinder Adaptation of In-Cycle Predictive Combustion Models",
+    "category": "Publication",
+    "year": 2020,
+    "issuer": "SAE Technical Paper 2020-01-2087",
+    "summary": "Studied the adaptation of predictive combustion models for in-cycle closed-loop combustion control of multi-cylinder engines, enabling closer operation to the optimal point despite variations and disturbances.",
+    "impact_metrics": [],
+    "related_capabilities": [
+      "embedded-controls-architecture",
+      "control-systems-estimation",
+      "embedded-software-validation"
+    ]
+  },
+  {
+    "id": "publication-predictive-in-cycle-closed-loop-combustion-control-with-pilot-main-injections",
+    "title": "Predictive In-Cycle Closed-Loop Combustion Control with Pilot-Main Injections",
+    "category": "Publication",
+    "year": 2020,
+    "issuer": "IFAC-PapersOnLine Volume 53, Issue 2",
+    "summary": "Utilized predictive in-cycle closed-loop combustion control to reduce stochastic cyclic variations in diesel combustion. Implemented on a Scania D13 engine, the approach reduced error dispersion (measured by 95% confidence interval) by 25% to 75% for all controlled parameters. On-line adaptation made controllers robust against model uncertainties and fuel types.",
+    "impact_metrics": [
+      "Reduced error dispersion by 25% to 75% for all controlled parameters",
+      "Controllers are robust against model uncertainties and fuel types"
+    ],
+    "related_capabilities": [
+      "embedded-controls-architecture",
+      "control-systems-estimation",
+      "embedded-software-validation"
+    ]
+  },
+  {
+    "id": "publication-bayesian-method-for-fuel-mass-estimation-of-short-pilot-injections-based-on-its-misfire-probability",
+    "title": "Bayesian Method for Fuel Mass Estimation of Short Pilot Injections based on its Misfire Probability",
+    "category": "Publication",
+    "year": 2020,
+    "issuer": "2020 American Control Conference (ACC)",
+    "summary": "Proposed and analyzed a Bayesian method for fuel mass estimation of short pilot diesel injections, particularly in regions with low signal-to-noise ratio. Experimental results on a Scania D13 Diesel engine confirmed a 60% reduction in estimation error (from 0.66mg to 0.27mg standard deviation) in the transition region from full misfire to full combustion.",
+    "impact_metrics": [
+      "60% reduction in estimation error (from 0.66mg to 0.27mg standard deviation)"
+    ],
+    "related_capabilities": [
+      "embedded-controls-architecture",
+      "control-systems-estimation",
+      "embedded-software-validation",
+      "electric-autonomous-vehicle-systems"
+    ]
+  },
+  {
+    "id": "publication-cylinder-pressure-based-method-for-in-cycle-pilot-misfire-detection",
+    "title": "Cylinder Pressure Based Method for In-Cycle Pilot Misfire Detection",
+    "category": "Publication",
+    "year": 2019,
+    "issuer": "SAE Int. J. Adv. & Curr. Prac. in Mobility",
+    "summary": "Developed and evaluated in-cycle algorithms for pilot misfire detection based on in-cylinder pressure measurements. Compared different approaches including constant threshold, direct misfire probability, posterior misfire probability, adaptive threshold update, adaptation of predictive stochastic models, and sensor fusion for increased detection performance.",
+    "impact_metrics": [],
+    "related_capabilities": [
+      "control-systems-estimation",
+      "embedded-software-validation",
+      "electric-autonomous-vehicle-systems"
+    ]
+  },
+  {
+    "id": "publication-in-cycle-closed-loop-combustion-control-for-maximum-indicated-efficiency",
+    "title": "In-Cycle Closed-Loop Combustion Control for Maximum Indicated Efficiency",
+    "category": "Publication",
+    "year": 2018,
+    "issuer": "IFAC E-CoSM 2018",
+    "summary": "Proposed an in-cycle closed-loop combustion controller using a pilot-main injection scheme. Implemented on a Scania D13 Diesel engine, the controller adjusted main SOI and duration to achieve Maximum Reachable Indicated Efficiency (MRE). Results showed improved indicated efficiency, though linear controller application was limited by non-linear system behavior dependent on fuel type.",
+    "impact_metrics": [
+      "Improved indicated efficiency"
+    ],
+    "related_capabilities": [
+      "embedded-controls-architecture",
+      "embedded-software-validation",
+      "electric-autonomous-vehicle-systems"
+    ]
+  },
+  {
+    "id": "publication-in-cycle-closed-loop-combustion-controllability-with-pilot-main-injections",
+    "title": "In-Cycle Closed-Loop Combustion Controllability with Pilot-Main Injections",
+    "category": "Publication",
+    "year": 2018,
+    "issuer": "THIESEL 2018 Conference on Thermo- and Fluid Dynamic Processes in Direct Injection Engines",
+    "summary": "Investigated the in-cycle closed-loop combustion controllability achieved by a pilot-main fuel injection scheme, studied through the maximum reachable indicated thermal efficiency (MRE).",
+    "impact_metrics": [],
+    "related_capabilities": [
+      "electric-autonomous-vehicle-systems",
+      "embedded-controls-architecture",
+      "embedded-software-validation"
+    ]
+  },
+  {
+    "id": "publication-internal-combustion-engine-cylinder-volume-trace-deviation",
+    "title": "Internal Combustion Engine Cylinder Volume Trace Deviation",
+    "category": "Publication",
+    "year": 2018,
+    "issuer": "SAE Int. J. Engines 11(2)",
+    "summary": "Investigated the validity of the nominal cylinder volume assumption in heavy-duty engines, considering production variations, static distortion, and dynamic deformation. Developed a virtual sensor (VS) that reduced cylinder volume error from static distortion and dynamic deformation to below 0.4%.",
+    "impact_metrics": [
+      "Reduced cylinder volume error to below 0.4%"
+    ],
+    "related_capabilities": [
+      "embedded-software-validation",
+      "electric-autonomous-vehicle-systems"
+    ]
+  },
+  {
+    "id": "publication-cylinder-pressure-based-virtual-sensor-for-in-cycle-pilot-mass-estimation",
+    "title": "Cylinder Pressure Based Virtual Sensor for In-Cycle Pilot Mass Estimation",
+    "category": "Publication",
+    "year": 2018,
+    "issuer": "SAE Int. J. Engines 11(6)",
+    "summary": "Proposed a virtual sensor for in-cycle pilot mass estimation, providing early estimation even with incomplete combustion. The accuracy of pilot mass estimation was improved from an induced initial bias error of ±3 mg/st to a final error of ±0.1 mg/st, with a precision of ±0.45 mg/st. The method is robust against changing operating conditions and most input measurement errors and parameter bias.",
+    "impact_metrics": [
+      "Improved pilot mass estimation accuracy from ±3 mg/st to ±0.1 mg/st",
+      "Achieved a precision of ±0.45 mg/st",
+      "Robust against changing operating conditions and most input measurement errors and parameter bias"
+    ],
+    "related_capabilities": [
+      "control-systems-estimation",
+      "embedded-software-validation",
+      "electric-autonomous-vehicle-systems"
+    ]
+  },
+  {
+    "id": "publication-influence-of-small-pilot-on-main-injection-in-a-heavy-duty-diesel-engine",
+    "title": "Influence of small Pilot on Main Injection in a Heavy Duty Diesel Engine",
+    "category": "Publication",
+    "year": 2017,
+    "issuer": "SAE Technical Paper 2017-01-0708",
+    "summary": "Investigated factors influencing the effect of pilot-injection on main-injection combustion in a heavy-duty diesel engine using heat release analysis. Identified four interaction modes between pilot and main injection based on the phase of pilot combustion at the start of main injection.",
+    "impact_metrics": [],
+    "related_capabilities": [
+      "embedded-software-validation"
+    ]
+  },
+  {
+    "id": "publication-fpga-implementation-of-in-cycle-closed-loop-combustion-control-methods",
+    "title": "FPGA Implementation of In-Cycle Closed-Loop Combustion Control Methods",
+    "category": "Publication",
+    "year": 2021,
+    "issuer": "SAE Technical Paper 2021-24-0024",
+    "summary": "Investigated FPGA resources for implementing in-cycle closed-loop combustion control algorithms, comparing different methods for cylinder volume computation, heat capacity ratio, and virtual sensors for misfire detection and fuel mass estimation. Quantified hardware requirements to guide FPGA selection and evaluate system cost versus efficiency gains.",
+    "impact_metrics": [],
+    "related_capabilities": [
+      "embedded-controls-architecture",
+      "control-systems-estimation",
+      "embedded-software-validation",
+      "electric-autonomous-vehicle-systems"
+    ]
+  },
+  {
+    "id": "publication-indicated-efficiency-optimization-by-in-cycle-closed-loop-combustion-control-of-diesel-engines",
+    "title": "Indicated efficiency optimization by in-cycle closed-loop combustion control of diesel engines",
+    "category": "Publication",
+    "year": 2022,
+    "issuer": "Control Engineering Practice, Volume 122",
+    "summary": "Revised the design process for closed-loop combustion control based on in-cycle feedback, including methods for observers, detectors, and virtual sensors. The in-cycle controller increased indicated efficiency by +0.42%unit compared to open-loop operation. Indirect optimization reduced cyclic dispersion of pilot SOC (down to ±0.4CAD), pilot burnt mass (down to ±0.6 mg), main SOC (down to ±0.3CAD), and IMEP (down to ±0.2 bar). Pilot misfire detection compensated CA50 shift from +2.6CAD to +0.5CAD. Set-point optimization increased indicated efficiency by +0.6%unit under hardware and emission constraints.",
+    "impact_metrics": [
+      "Increased indicated efficiency by +0.42%unit",
+      "Reduced cyclic dispersion of pilot SOC to ±0.4CAD",
+      "Reduced cyclic dispersion of pilot burnt mass to ±0.6 mg",
+      "Reduced cyclic dispersion of main SOC to ±0.3CAD",
+      "Reduced cyclic dispersion of IMEP to ±0.2 bar",
+      "Compensated CA50 shift from +2.6CAD to +0.5CAD",
+      "Increased indicated efficiency by +0.6%unit under constraints"
+    ],
+    "related_capabilities": [
+      "embedded-controls-architecture",
+      "control-systems-estimation",
+      "embedded-software-validation",
+      "electric-autonomous-vehicle-systems"
+    ]
+  },
+  {
+    "id": "publication-investigation-of-small-pilot-combustion-in-a-heavy-duty-diesel-engine",
+    "title": "Investigation of small Pilot Combustion in a Heavy Duty Diesel Engine",
+    "category": "Publication",
+    "year": 2017,
+    "issuer": "SAE International Journal of Engines Vol. 10, No. 3",
+    "summary": "Investigated factors influencing pilot-injection combustion in a heavy-duty diesel engine using heat release analysis. Found that cycle-to-cycle and cylinder-to-cylinder variations influence pilot autoignition and heat release. Rail pressure and injected pilot mass affect variance depending on chamber conditions. Combustion modes were found to be a function of injected mass and rail pressure.",
+    "impact_metrics": [],
+    "related_capabilities": [
+      "embedded-software-validation"
+    ]
+  },
+  {
+    "id": "award-ayudas-para-programas-de-intercambio-academico-internacional",
+    "title": "Ayudas para Programas de Intercambio Academico Internacional",
+    "category": "Award",
+    "year": null,
+    "issuer": "LinkedIn profile",
+    "summary": "LinkedIn-listed international academic exchange award.",
+    "impact_metrics": [],
+    "related_capabilities": [
+      "embedded-software-validation"
+    ]
+  }
+]

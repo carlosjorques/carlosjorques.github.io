@@ -34,6 +34,7 @@ const writing = defineCollection({
 			'Embedded Control Architecture',
 			'Sensing & Signal Processing',
 			'Control Algorithms & Diagnostics',
+			'Embedded Control',
 			'Safety-Critical Automotive Development',
 			'Technical Leadership',
 			'Physical Systems Engineering',

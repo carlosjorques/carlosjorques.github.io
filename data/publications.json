@@ -1,0 +1,251 @@
+[
+  {
+    "id": "investigation-of-small-pilot-combustion-in-a-heavy-duty-diesel-engine",
+    "title": "Investigation of Small Pilot Combustion in a Heavy-Duty Diesel Engine",
+    "year": 2017,
+    "type": "Journal Article",
+    "authors": "Carlos Jorques Moreno, Ola Stenlaas, Per Tunestal",
+    "source": "SAE International Journal of Engines",
+    "link": "doi:10.4271/2017-01-0718",
+    "related_capabilities": [
+      "embedded-controls-architecture",
+      "embedded-software-validation",
+      "control-systems-estimation"
+    ],
+    "related_projects": []
+  },
+  {
+    "id": "influence-of-small-pilot-on-main-injection-in-a-heavy-duty-diesel-engine",
+    "title": "Influence of Small Pilot on Main Injection in a Heavy-Duty Diesel Engine",
+    "year": 2017,
+    "type": "SAE Technical Paper",
+    "authors": "Carlos Jorques Moreno, Ola Stenlaas, Per Tunestal",
+    "source": "SAE International",
+    "link": "doi:10.4271/2017-01-0708",
+    "related_capabilities": [
+      "electric-autonomous-vehicle-systems",
+      "embedded-controls-architecture",
+      "control-systems-estimation",
+      "embedded-software-validation"
+    ],
+    "related_projects": []
+  },
+  {
+    "id": "cylinder-pressure-based-virtual-sensor-for-in-cycle-pilot-mass-estimation",
+    "title": "Cylinder Pressure-Based Virtual Sensor for In-Cycle Pilot Mass Estimation",
+    "year": 2018,
+    "type": "Journal Article",
+    "authors": "Carlos Jorques Moreno, Ola Stenlaas, Per Tunestål",
+    "source": "SAE International Journal of Engines",
+    "link": "doi:10.4271/2018-01-1163",
+    "related_capabilities": [
+      "control-systems-estimation",
+      "embedded-software-validation",
+      "embedded-controls-architecture",
+      "diagnostics-safety-robustness",
+      "electric-autonomous-vehicle-systems"
+    ],
+    "related_projects": []
+  },
+  {
+    "id": "in-cycle-closed-loop-combustion-controllability-with-pilot-main-injections",
+    "title": "In-Cycle Closed-Loop Combustion Controllability with Pilot-Main Injections",
+    "year": 2018,
+    "type": "Conference Paper",
+    "authors": "Jorques Moreno, Carlos, Stenlåås, Ola, Tunestål, Per",
+    "source": "THIESEL 2018 Conference on Thermo- and Fluid Dynamic Processes in Direct Injection Engines",
+    "link": null,
+    "related_capabilities": [
+      "embedded-controls-architecture",
+      "embedded-software-validation",
+      "electric-autonomous-vehicle-systems"
+    ],
+    "related_projects": []
+  },
+  {
+    "id": "predictive-in-cycle-closed-loop-combustion-control-with-pilot-main-injections",
+    "title": "Predictive In-Cycle Closed-Loop Combustion Control with Pilot-Main Injections",
+    "year": null,
+    "type": "paper",
+    "authors": "Jorques Moreno, Carlos, Stenl ˚ a ˚ as, Ola, Tunest ˚ al, Per",
+    "source": "Scania CV AB, S¨ odert¨ alje, Sweden",
+    "link": null,
+    "related_capabilities": [
+      "control-systems-estimation",
+      "embedded-software-validation",
+      "embedded-controls-architecture",
+      "diagnostics-safety-robustness",
+      "electric-autonomous-vehicle-systems"
+    ],
+    "related_projects": [
+      "electric-truck-thermal-management"
+    ]
+  },
+  {
+    "id": "in-cycle-closed-loop-combustion-control-with-pilot-main-injections-for-maximum-indicated-efficiency",
+    "title": "In-Cycle Closed-Loop Combustion Control with Pilot-Main Injections for Maximum Indicated Efficiency",
+    "year": 2018,
+    "type": "Conference Paper",
+    "authors": "Jorques Moreno, Carlos Stenlåås, Ola T unestål, Per",
+    "source": "IFAC PapersOnLine",
+    "link": null,
+    "related_capabilities": [
+      "embedded-software-validation",
+      "control-systems-estimation",
+      "electric-autonomous-vehicle-systems",
+      "embedded-controls-architecture"
+    ],
+    "related_projects": []
+  },
+  {
+    "id": "internal-combustion-engine-cylinder-volume-trace-deviation",
+    "title": "Internal Combustion Engine Cylinder Volume Trace Deviation",
+    "year": 2018,
+    "type": "Article",
+    "authors": "Ivan Anagrius West, Carlos Jorques Moreno, Ola Stenlåås, Fredrik Haslestad, Ola Jönsson",
+    "source": "SAE Int. J. Engines",
+    "link": "doi:10.4271/03-11-02-0013",
+    "related_capabilities": [
+      "control-systems-estimation",
+      "embedded-software-validation",
+      "embedded-controls-architecture",
+      "electric-autonomous-vehicle-systems"
+    ],
+    "related_projects": []
+  },
+  {
+    "id": "cylinder-pressure-based-method-for-in-cycle-pilot-misfire-detection",
+    "title": "Cylinder Pressure Based Method for In-Cycle Pilot Misfire Detection",
+    "year": 2020,
+    "type": "Journal Article",
+    "authors": "Carlos Jorques Moreno, Ola Stenlåås, Per Tunestål",
+    "source": "SAE International Journal of Advances and Current Practices in Mobility",
+    "link": "doi:10.4271/2019-24-0017",
+    "related_capabilities": [
+      "control-systems-estimation",
+      "embedded-controls-architecture",
+      "embedded-software-validation",
+      "diagnostics-safety-robustness",
+      "electric-autonomous-vehicle-systems"
+    ],
+    "related_projects": []
+  },
+  {
+    "id": "bayesian-method-for-fuel-mass-estimation-of-short-pilot-injections-based-on-its-misfire-probability",
+    "title": "Bayesian Method for Fuel Mass Estimation of Short Pilot Injections based on its Misﬁre Probability",
+    "year": 2020,
+    "type": "conference paper",
+    "authors": "Carlos Jorques Moreno, Ola Stenlaas, Per Tunestal",
+    "source": "American Control Conference",
+    "link": "https://ieeexplore.ieee.org/document/9147707",
+    "related_capabilities": [
+      "embedded-software-validation",
+      "embedded-controls-architecture",
+      "control-systems-estimation",
+      "diagnostics-safety-robustness",
+      "electric-autonomous-vehicle-systems"
+    ],
+    "related_projects": []
+  },
+  {
+    "id": "multi-cylinder-adaptation-of-in-cycle-predictive-combustion-models",
+    "title": "Multi-Cylinder Adaptation of In-Cycle Predictive Combustion Models",
+    "year": 2020,
+    "type": "SAE Technical Paper",
+    "authors": "Carlos Jorques Moreno, Ola Stenlaas, Per Tunestal",
+    "source": "SAE International",
+    "link": "https://doi.org/10.4271/2020-01-2087",
+    "related_capabilities": [
+      "embedded-software-validation",
+      "control-systems-estimation",
+      "embedded-controls-architecture",
+      "diagnostics-safety-robustness",
+      "electric-autonomous-vehicle-systems"
+    ],
+    "related_projects": []
+  },
+  {
+    "id": "in-cycle-closed-loop-combustion-control-for-pilot-misfire-compensation",
+    "title": "In-Cycle Closed-Loop Combustion Control for Pilot Misfire Compensation",
+    "year": 2021,
+    "type": "Journal Article",
+    "authors": "Carlos Jorques Moreno, Ola Stenlaas, Per Tunestal",
+    "source": "SAE International Journal of Advances and Current Practice in Mobility",
+    "link": "https://doi.org/10.4271/2020-01-2086",
+    "related_capabilities": [
+      "embedded-controls-architecture",
+      "embedded-software-validation",
+      "control-systems-estimation",
+      "electric-autonomous-vehicle-systems",
+      "diagnostics-safety-robustness"
+    ],
+    "related_projects": []
+  },
+  {
+    "id": "stochastic-set-point-optimization-for-in-cycle-closed-loop-combustion-control-operation",
+    "title": "Stochastic Set-Point Optimization for In-Cycle Closed-Loop Combustion Control Operation",
+    "year": 2021,
+    "type": "Journal Article",
+    "authors": "Carlos Jorques Moreno, Ola Stenlåås, Per Tunestål",
+    "source": "Scania CV AB, Lund University",
+    "link": null,
+    "related_capabilities": [
+      "embedded-software-validation",
+      "control-systems-estimation",
+      "embedded-controls-architecture",
+      "electric-autonomous-vehicle-systems"
+    ],
+    "related_projects": [
+      "electric-truck-thermal-management"
+    ]
+  },
+  {
+    "id": "modular-design-and-integration-of-in-cycle-closed-loop-combustion-controllers-for-a-wide-range-of-operating-conditions",
+    "title": "Modular Design and Integration of In-Cycle Closed-Loop Combustion Controllers for a Wide-Range of Operating Conditions",
+    "year": 2023,
+    "type": "conference paper",
+    "authors": "Carlos Jorques Moreno, Ola Stenlaas, Per Tunestal",
+    "source": "IEEE",
+    "link": null,
+    "related_capabilities": [
+      "embedded-software-validation",
+      "control-systems-estimation",
+      "embedded-controls-architecture",
+      "electric-autonomous-vehicle-systems"
+    ],
+    "related_projects": []
+  },
+  {
+    "id": "quantification-of-fpga-requirements-for-closed-loop-combustion-control-implementation",
+    "title": "Quantification of FPGA Requirements for Closed-Loop Combustion Control Implementation",
+    "year": 2021,
+    "type": "Conference Paper",
+    "authors": "Carlos Jorques Moreno, Ola Stenlåås, Per Tunestål",
+    "source": "21ICE",
+    "link": null,
+    "related_capabilities": [
+      "control-systems-estimation",
+      "embedded-software-validation",
+      "embedded-controls-architecture",
+      "electric-autonomous-vehicle-systems"
+    ],
+    "related_projects": []
+  },
+  {
+    "id": "efficiency-optimization-by-in-cycle-closed-loop-combustion-control",
+    "title": "Eﬃciency Optimization by In-Cycle Closed-Loop Combustion Control",
+    "year": null,
+    "type": "Article",
+    "authors": "Jorques Moreno, Prof. Stenlåås, Prof. Tunestål",
+    "source": null,
+    "link": null,
+    "related_capabilities": [
+      "control-systems-estimation",
+      "embedded-controls-architecture",
+      "diagnostics-safety-robustness",
+      "embedded-software-validation",
+      "electric-autonomous-vehicle-systems"
+    ],
+    "related_projects": []
+  }
+]

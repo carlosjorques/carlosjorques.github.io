@@ -1,0 +1,142 @@
+{
+  "source": "C:/Users/CJOQBW/Downloads/Profile.pdf",
+  "export_type": "LinkedIn profile PDF",
+  "contact": {
+    "name": "Carlos Jorques",
+    "email": "carlosjorques@gmail.com",
+    "linkedin": "https://www.linkedin.com/in/carlosjorques",
+    "location": "Valencia, Valencian Community, Spain"
+  },
+  "headline": "Senior Control Systems Engineer | Embedded Software Developer | Technical Leader | MATLAB/Simulink & C | Powertrain & EV Systems",
+  "top_skills": [
+    "Embedded Systems",
+    "Model-Based Design (MBD)",
+    "MATLAB"
+  ],
+  "technical_tools": [
+    "MATLAB",
+    "Simulink",
+    "Stateflow",
+    "Embedded Coder",
+    "C",
+    "C++",
+    "Git",
+    "Jira",
+    "Jenkins",
+    "CAN",
+    "Vector tools",
+    "AUTOSAR",
+    "ISO 26262"
+  ],
+  "languages": [
+    {
+      "language": "Catalan",
+      "proficiency": "Native or Bilingual"
+    },
+    {
+      "language": "English",
+      "proficiency": "Full Professional"
+    },
+    {
+      "language": "Spanish",
+      "proficiency": "Native or Bilingual"
+    },
+    {
+      "language": "Swedish",
+      "proficiency": "Full Professional"
+    }
+  ],
+  "certifications": [
+    {
+      "title": "Scrum Product Owner & Kanban",
+      "summary": "LinkedIn-listed certification related to agile product ownership and Kanban delivery practices."
+    },
+    {
+      "title": "Control of Mobile Robots",
+      "summary": "LinkedIn-listed certification related to mobile robotics and control."
+    },
+    {
+      "title": "Granted Patent 2019",
+      "summary": "LinkedIn-listed certification/accomplishment connected to granted patent work."
+    }
+  ],
+  "honors_awards": [
+    {
+      "title": "Award for Best Transcript of Records of First Academic Year",
+      "summary": "LinkedIn-listed academic award."
+    },
+    {
+      "title": "Ayudas para Programas de Intercambio Academico Internacional",
+      "summary": "LinkedIn-listed international academic exchange award."
+    },
+    {
+      "title": "SAE Engineering Meetings Board Outstanding Oral Presentation Award",
+      "summary": "LinkedIn-listed SAE presentation award."
+    }
+  ],
+  "experience_overrides": [
+    {
+      "match_company": "Traton",
+      "company": "TRATON GROUP",
+      "role": "Senior Development Engineer - Consultant",
+      "location": "Sodertalje, Stockholm County, Sweden",
+      "start_date": "July 2025",
+      "end_date": "Present"
+    },
+    {
+      "match_company": "Alten Delivery Center",
+      "company": "ALTEN Delivery Centre Spain",
+      "role": "Technical Leader | Senior Software Developer",
+      "location": "Valencia, Valencian Community, Spain",
+      "start_date": "April 2023",
+      "end_date": "Present"
+    },
+    {
+      "match_company": "Volvo CE",
+      "company": "Volvo Construction Equipment",
+      "role": "Senior Development Engineer - Consultant",
+      "location": "Gothenburg, Vastra Gotaland County, Sweden",
+      "start_date": "April 2023",
+      "end_date": "December 2024"
+    },
+    {
+      "match_company": "Mahle Electronics",
+      "company": "MAHLE",
+      "role": "Senior Embedded Software Developer | Wireless Charging & e-Mobility",
+      "location": "Valencia, Valencian Community, Spain",
+      "start_date": "January 2022",
+      "end_date": "March 2023"
+    },
+    {
+      "match_company": "Scania, Lund University",
+      "match_role": "Industrial PhD Student",
+      "role": "PhD Researcher | Real-Time Diesel Combustion Control",
+      "location": "Sodertalje, Stockholm County, Sweden",
+      "start_date": "January 2016",
+      "end_date": "May 2021"
+    },
+    {
+      "match_company": "Scania, Lund University",
+      "match_role": "Research Intern",
+      "role": "Research Intern - Combustion Control & Real-Time Diagnostics",
+      "location": "Sodertalje, Sweden",
+      "start_date": "April 2018",
+      "end_date": "September 2018"
+    },
+    {
+      "match_company": "Arduino Verkstad",
+      "company": "Arduino",
+      "role": "Hardware Designer - Educational Prototyping & PCB Development",
+      "location": "Malmo, Skane County, Sweden",
+      "start_date": "October 2013",
+      "end_date": "January 2014"
+    },
+    {
+      "match_company": "Sony Mobile Communications",
+      "role": "Software Engineering Intern - Human-Machine Interaction (HMI)",
+      "location": "Lund, Skane County, Sweden",
+      "start_date": "June 2013",
+      "end_date": "August 2013"
+    }
+  ]
+}

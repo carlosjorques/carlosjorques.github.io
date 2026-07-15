@@ -1,0 +1,77 @@
+{
+  "source": "C:/Users/CJOQBW/Downloads/Profile.pdf",
+  "export_type": "LinkedIn profile PDF",
+  "contact": {
+    "name": "Carlos Jorques",
+    "email": "carlosjorques@gmail.com",
+    "linkedin": "https://www.linkedin.com/in/carlosjorques",
+    "location": "Valencia, Valencian Community, Spain"
+  },
+  "headline": "Senior Control Systems Engineer | Embedded Software Developer | Technical Leader | MATLAB/Simulink & C | Powertrain & EV Systems",
+  "top_skills": [
+    "Embedded Systems",
+    "Model-Based Design (MBD)",
+    "MATLAB"
+  ],
+  "technical_tools": [
+    "MATLAB",
+    "Simulink",
+    "Stateflow",
+    "Embedded Coder",
+    "C",
+    "C++",
+    "Git",
+    "Jira",
+    "Jenkins",
+    "CAN",
+    "Vector tools",
+    "AUTOSAR",
+    "ISO 26262"
+  ],
+  "languages": [
+    {
+      "language": "Catalan",
+      "proficiency": "Native or Bilingual"
+    },
+    {
+      "language": "English",
+      "proficiency": "Full Professional"
+    },
+    {
+      "language": "Spanish",
+      "proficiency": "Native or Bilingual"
+    },
+    {
+      "language": "Swedish",
+      "proficiency": "Full Professional"
+    }
+  ],
+  "certifications": [
+    {
+      "title": "Scrum Product Owner & Kanban",
+      "summary": "LinkedIn-listed certification related to agile product ownership and Kanban delivery practices."
+    },
+    {
+      "title": "Control of Mobile Robots",
+      "summary": "LinkedIn-listed certification related to mobile robotics and control."
+    },
+    {
+      "title": "Granted Patent 2019",
+      "summary": "LinkedIn-listed certification/accomplishment connected to granted patent work."
+    }
+  ],
+  "honors_awards": [
+    {
+      "title": "Award for Best Transcript of Records of First Academic Year",
+      "summary": "LinkedIn-listed academic award."
+    },
+    {
+      "title": "Ayudas para Programas de Intercambio Academico Internacional",
+      "summary": "LinkedIn-listed international academic exchange award."
+    },
+    {
+      "title": "SAE Engineering Meetings Board Outstanding Oral Presentation Award",
+      "summary": "LinkedIn-listed SAE presentation award."
+    }
+  ]
+}
