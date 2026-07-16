@@ -3,6 +3,7 @@ const baseUrl = import.meta.env.BASE_URL;
 const normalizedBase = baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`;
 const withBase = (href: string) => (href === '/' ? normalizedBase : `${normalizedBase}${href.replace(/^\//, '')}`);
 const heroVideoUrl = `${normalizedBase}videos/333466_1_5.mp4`;
+const portraitUrl = withBase('/images/carlos-jorques-intro.webp');
 ---
 
 <section class="hero-area">
@@ -12,19 +13,35 @@ const heroVideoUrl = `${normalizedBase}videos/333466_1_5.mp4`;
 	<div class="page-container">
 		<div class="hero">
 			<div class="hero__copy">
-				<p class="hero-kicker section-eyebrow">Embedded Control Architect · Technical Leader</p>
+				<p class="hero-kicker section-eyebrow">Hi, I'm</p>
 
 				<h1 class="hero-name hero-title">Carlos Jorques</h1>
-				<p class="hero-statement hero-role">
-					<span>Control software for</span>
-					<span>software-defined physical systems.</span>
+				<h2 class="hero-statement hero-role">
+					Technical Leader driving embedded control software innovation for intelligent machines.
+				</h2>
+				<p class="hero-value">
+					The gap between a prototype and a trustworthy machine is reliable software. I help teams build software that makes machines genuinely intelligent, safe, and robust by design, so better products ship faster.
 				</p>
 				<p class="hero-substatement hero-summary">
-					With 10+ years in automotive and production embedded systems, I lead embedded control software development that helps teams close the gap between control design and real-world behavior, making complex systems predictable, maintainable, and trusted beyond simulation.
+					For the past 12 years, I've built production embedded control software for electric trucks, autonomous machinery, and power electronics at Scania, Volvo CE, and MAHLE, working across international, multidisciplinary teams. That software now runs on roads and worksites around the world.
 				</p>
 
-				<div class="hero-links" aria-label="Primary contact links">
+				<div class="hero-links button-row" aria-label="Primary contact links">
 					<a
+						class="button primary"
+						href="https://www.linkedin.com/in/carlosjorques/"
+						target="_blank"
+						rel="noopener noreferrer"
+						data-analytics-event="linkedin_outbound_click"
+						data-cta-id="hero-linkedin"
+						data-cta-placement="home-hero"
+						data-cta-intent="professional-profile"
+						data-source-section="hero"
+					>
+						Connect on LinkedIn
+					</a>
+					<a
+						class="button"
 						href={withBase('/work')}
 						data-analytics-event="cta_click"
 						data-cta-id="hero-work"
@@ -32,19 +49,10 @@ const heroVideoUrl = `${normalizedBase}videos/333466_1_5.mp4`;
 						data-cta-intent="proof"
 						data-source-section="hero"
 					>
-						Work
+						View Work
 					</a>
 					<a
-						href={withBase('/about')}
-						data-analytics-event="cta_click"
-						data-cta-id="hero-about"
-						data-cta-placement="home-hero"
-						data-cta-intent="narrative"
-						data-source-section="hero"
-					>
-						About
-					</a>
-					<a
+						class="button"
 						href={withBase('/contact')}
 						data-analytics-event="cta_click"
 						data-cta-id="hero-contact"
@@ -52,10 +60,22 @@ const heroVideoUrl = `${normalizedBase}videos/333466_1_5.mp4`;
 						data-cta-intent="contact"
 						data-source-section="hero"
 					>
-						Contact
+						Get in Touch
 					</a>
 				</div>
 			</div>
+
+			<figure class="hero__portrait">
+				<img
+					src={portraitUrl}
+					alt="Carlos Jorques, embedded control systems engineer."
+					width="768"
+					height="1024"
+					loading="eager"
+					decoding="async"
+					fetchpriority="high"
+				/>
+			</figure>
 
 			<aside class="home-proof" aria-label="Professional proof points">
 				<div class="home-proof__grid">
@@ -122,19 +142,24 @@ const heroVideoUrl = `${normalizedBase}videos/333466_1_5.mp4`;
 	.hero {
 		position: relative;
 		z-index: 1;
+		display: grid;
+		grid-template-columns: minmax(0, 1fr);
+		gap: clamp(2.5rem, 5vw, 4.5rem);
+		align-items: center;
 	}
 
 	.hero__copy {
-		max-width: 940px;
-		margin-inline: auto;
-		text-align: center;
+		max-width: 760px;
+		text-align: left;
 	}
 
 	.hero-kicker,
 	.hero-name,
 	.hero-statement,
+	.hero-value,
 	.hero-substatement,
 	.hero-links,
+	.hero__portrait,
 	.home-proof {
 		animation: carbon-enter-up var(--motion-duration-slow-01) var(--motion-entrance-expressive) both;
 	}
@@ -151,12 +176,20 @@ const heroVideoUrl = `${normalizedBase}videos/333466_1_5.mp4`;
 		animation-delay: 140ms;
 	}
 
-	.hero-links {
+	.hero-value {
 		animation-delay: 190ms;
 	}
 
-	.home-proof {
+	.hero-links {
 		animation-delay: 240ms;
+	}
+
+	.hero__portrait {
+		animation-delay: 290ms;
+	}
+
+	.home-proof {
+		animation-delay: 340ms;
 	}
 
 	.hero-kicker {
@@ -171,8 +204,6 @@ const heroVideoUrl = `${normalizedBase}videos/333466_1_5.mp4`;
 
 	.hero-name {
 		margin: 0;
-		margin-inline: auto;
-		width: fit-content;
 		font-size: var(--type-hero-name-size);
 		line-height: var(--type-hero-name-line);
 		letter-spacing: var(--type-hero-name-tracking);
@@ -182,16 +213,12 @@ const heroVideoUrl = `${normalizedBase}videos/333466_1_5.mp4`;
 
 	.hero-statement {
 		max-width: 760px;
-		margin: var(--spacing-07) auto 0;
+		margin: var(--spacing-06) 0 0;
 		font-size: var(--type-hero-role-size);
 		line-height: var(--type-hero-role-line);
 		letter-spacing: var(--type-hero-role-tracking);
 		font-weight: var(--type-hero-role-weight);
 		color: var(--color-hero-text);
-	}
-
-	.hero-statement span {
-		display: block;
 	}
 
 	@supports ((-webkit-background-clip: text) or (background-clip: text)) {
@@ -204,9 +231,19 @@ const heroVideoUrl = `${normalizedBase}videos/333466_1_5.mp4`;
 		}
 	}
 
+	.hero-value {
+		max-width: 690px;
+		margin: var(--spacing-06) 0 0;
+		color: var(--color-hero-text);
+		font-size: var(--type-body-large-size);
+		line-height: var(--type-body-large-line);
+		letter-spacing: var(--type-body-large-tracking);
+		font-weight: 500;
+	}
+
 	.hero-substatement {
 		max-width: 680px;
-		margin: var(--spacing-07) auto 0;
+		margin: var(--spacing-05) 0 0;
 		font-size: var(--type-hero-summary-size);
 		line-height: var(--type-hero-summary-line);
 		letter-spacing: var(--type-hero-summary-tracking);
@@ -215,48 +252,33 @@ const heroVideoUrl = `${normalizedBase}videos/333466_1_5.mp4`;
 	}
 
 	.hero-links {
-		margin-top: var(--spacing-09);
+		margin-top: var(--spacing-07);
 		display: flex;
-		justify-content: center;
-		gap: 1.25rem;
+		justify-content: flex-start;
+		gap: 0.75rem;
 		flex-wrap: wrap;
-		font-family: var(--font-mono);
-		font-size: var(--type-nav-size);
-		font-weight: var(--type-nav-weight);
-		letter-spacing: var(--type-nav-tracking);
-		text-transform: uppercase;
 	}
 
-	.hero-links a {
-		color: var(--color-hero-link);
-		text-decoration: none;
-		border-bottom: 1px solid var(--color-hero-link-hover);
-		padding-bottom: 0.15rem;
-		transition:
-			background-color var(--motion-duration-fast-02) var(--motion-standard-productive),
-			color var(--motion-duration-fast-02) var(--motion-standard-productive),
-			border-color var(--motion-duration-fast-02) var(--motion-standard-productive),
-			transform var(--motion-duration-fast-02) var(--motion-standard-productive);
+	.hero__portrait {
+		margin: 0;
+		width: min(100%, 360px);
+		aspect-ratio: 1;
+		justify-self: center;
+		overflow: hidden;
+		border: 1px solid var(--color-border-soft);
+		border-radius: var(--radius-pill);
+		background: var(--color-card-bg);
 	}
 
-	.hero-links a:hover,
-	.hero-links a:focus-visible {
-		color: var(--color-hero-link-hover);
-		border-bottom-color: var(--color-hero-link-hover);
-		transform: translateY(-1px);
-	}
-
-	.hero-links a:active {
-		transform: translateY(0);
-		transition-duration: var(--motion-duration-fast-01);
-	}
-
-	.hero-links a:focus-visible {
-		outline: 2px solid var(--color-focus);
-		outline-offset: 4px;
+	.hero__portrait img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		object-position: 50% 30%;
 	}
 
 	.home-proof {
+		grid-column: 1 / -1;
 		margin-top: clamp(3rem, 5vw, 6rem);
 		padding-top: clamp(0.85rem, 1.6vw, 1.1rem);
 		border-top: 1px solid var(--color-border);
@@ -306,6 +328,16 @@ const heroVideoUrl = `${normalizedBase}videos/333466_1_5.mp4`;
 		color: var(--color-hero-proof-label);
 	}
 
+	@media (min-width: 900px) {
+		.hero {
+			grid-template-columns: minmax(0, 1fr) minmax(280px, 360px);
+		}
+
+		.hero__portrait {
+			justify-self: end;
+		}
+	}
+
 	@media (max-width: 900px) {
 		.hero-area::after {
 			opacity: 1;
@@ -336,34 +368,35 @@ const heroVideoUrl = `${normalizedBase}videos/333466_1_5.mp4`;
 		.hero-name {
 			font-size: var(--type-hero-name-size);
 			width: auto;
-			max-width: 7.8ch;
-			margin-inline: auto;
+			max-width: 100%;
 		}
 
 		.hero-kicker {
-			max-width: 24ch;
-			margin-inline: auto;
 			overflow-wrap: anywhere;
 		}
 
 		.hero-statement {
 			font-size: var(--type-hero-role-size);
-			max-width: 15ch;
+			max-width: 100%;
 		}
 
-		.hero-statement span,
+		.hero-value,
 		.hero-substatement {
 			max-width: 100%;
 			overflow-wrap: anywhere;
 		}
 
 		.hero-substatement {
-			width: min(100%, 32ch);
-			margin-inline: auto;
+			width: 100%;
+		}
+
+		.hero__portrait {
+			width: min(100%, 280px);
+			justify-self: start;
 		}
 
 		.hero-links {
-			gap: 1rem;
+			gap: 0.75rem;
 		}
 
 		.home-proof {

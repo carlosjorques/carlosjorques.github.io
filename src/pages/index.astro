@@ -11,63 +11,7 @@ import HomeMoreAbout from '../components/HomeMoreAbout.astro';
 	description="Embedded control architect and technical leader helping teams close the gap between control design and real-world behavior in production embedded systems."
 >
 	<HeroSection />
-	<section class="home-priority-paths" aria-label="Priority paths">
-		<div class="page-container home-priority-paths__inner">
-			<a
-				class="button primary"
-				href={`${import.meta.env.BASE_URL}work/`}
-				data-analytics-event="cta_click"
-				data-cta-id="home-view-work"
-				data-cta-placement="home-priority-paths"
-				data-cta-intent="proof"
-				data-source-section="home-priority-paths"
-			>
-				View Work
-			</a>
-			<a
-				class="button"
-				href={`${import.meta.env.BASE_URL}cv/`}
-				data-analytics-event="cta_click"
-				data-cta-id="home-view-cv"
-				data-cta-placement="home-priority-paths"
-				data-cta-intent="formal-proof"
-				data-source-section="home-priority-paths"
-			>
-				View CV
-			</a>
-			<a
-				class="button"
-				href={`${import.meta.env.BASE_URL}contact/`}
-				data-analytics-event="cta_click"
-				data-cta-id="home-start-technical-discussion"
-				data-cta-placement="home-priority-paths"
-				data-cta-intent="technical-discussion"
-				data-source-section="home-priority-paths"
-			>
-				Start a Technical Discussion
-			</a>
-		</div>
-	</section>
 	<SelectedWorkStrip />
 	<LatestWriting />
 	<HomeMoreAbout />
 </BaseLayout>
-
-<style>
-	.home-priority-paths {
-		border-bottom: 1px solid var(--color-border-soft);
-		background: var(--color-section-bg);
-		padding-block: clamp(var(--spacing-05), 2vw, var(--spacing-06));
-	}
-
-	.home-priority-paths__inner {
-		display: flex;
-		align-items: center;
-		gap: 0.75rem;
-		flex-wrap: wrap;
-	}
-
-	.home-priority-paths .button {
-		min-height: 44px;
-	}
-</style>
