@@ -10,27 +10,6 @@ const toSlug = (id: string) => id.replace(/\.md$/, '');
 const heroVideoUrl = `${normalizedBase}videos/333466_1_5.mp4`;
 const portraitUrl = withBase('/images/carlos-jorques-intro.webp');
 
-const selectedWork = [
-	{
-		title: 'Embedded controls for electrified and heavy-duty systems',
-		linkText: 'View selected work',
-		href: withBase('/work'),
-		ctaId: 'selected-work-electrified-heavy-duty',
-	},
-	{
-		title: 'Autonomous and intelligent machines',
-		linkText: 'Explore applied domains',
-		href: withBase('/work'),
-		ctaId: 'selected-work-autonomous-machines',
-	},
-	{
-		title: 'Research, patents, and publications',
-		linkText: 'View publications and patents',
-		href: withBase('/work'),
-		ctaId: 'selected-work-research-publications',
-	},
-];
-
 const articles = (await getCollection('writing'))
 	.filter((entry) => !entry.data.draft)
 	.sort((a, b) => b.data.publishDate.getTime() - a.data.publishDate.getTime())
@@ -149,22 +128,27 @@ const articles = (await getCollection('writing'))
 			</div>
 
 			<div class="selected-work__list">
-				{selectedWork.map((item, index) => (
-					<article class="selected-work__item">
-						<span class="selected-work__index">{String(index + 1).padStart(2, '0')}</span>
-						<h3>{item.title}</h3>
-						<a
-							href={item.href}
-							data-analytics-event="cta_click"
-							data-cta-id={item.ctaId}
-							data-cta-placement="home-selected-work"
-							data-cta-intent="proof"
-							data-source-section="selected-work"
-						>
-							{item.linkText}
-						</a>
-					</article>
-				))}
+				<article class="selected-work__item">
+					<span class="selected-work__index">01</span>
+					<h3>Embedded controls for electrified and heavy-duty systems</h3>
+					<a href={withBase('/work')} data-analytics-event="cta_click" data-cta-id="selected-work-electrified-heavy-duty" data-cta-placement="home-selected-work" data-cta-intent="proof" data-source-section="selected-work">
+						View selected work
+					</a>
+				</article>
+				<article class="selected-work__item">
+					<span class="selected-work__index">02</span>
+					<h3>Autonomous and intelligent machines</h3>
+					<a href={withBase('/work')} data-analytics-event="cta_click" data-cta-id="selected-work-autonomous-machines" data-cta-placement="home-selected-work" data-cta-intent="proof" data-source-section="selected-work">
+						Explore applied domains
+					</a>
+				</article>
+				<article class="selected-work__item">
+					<span class="selected-work__index">03</span>
+					<h3>Research, patents, and publications</h3>
+					<a href={withBase('/work')} data-analytics-event="cta_click" data-cta-id="selected-work-research-publications" data-cta-placement="home-selected-work" data-cta-intent="proof" data-source-section="selected-work">
+						View publications and patents
+					</a>
+				</article>
 			</div>
 		</div>
 	</section>

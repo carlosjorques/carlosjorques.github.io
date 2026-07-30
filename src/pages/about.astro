@@ -3,7 +3,12 @@ import Layout from '../layouts/Layout.astro';
 
 const baseUrl = import.meta.env.BASE_URL;
 const normalizedBase = baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`;
-const withBase = (href: string) => (href === '/' ? normalizedBase : `${normalizedBase}${href.replace(/^\//, '')}`);
+const withBase = (href: string) =>
+	href === '/'
+		? normalizedBase
+		: href.startsWith('http') || href.startsWith('mailto:') || href.startsWith('#')
+			? href
+			: `${normalizedBase}${href.replace(/^\//, '')}`;
 const linkedinHref = 'https://www.linkedin.com/in/carlosjorques/';
 ---
 
@@ -21,67 +26,78 @@ const linkedinHref = 'https://www.linkedin.com/in/carlosjorques/';
 				<blockquote class="about-pullquote">
 					<p>What makes a machine truly intelligent?</p>
 				</blockquote>
-				<p>I've been fascinated by that question for as long as I can remember. To answer it, I studied Electrical Engineering and later pursued a PhD in automatic control, drawn by the challenge of making machines sense, decide, and act reliably in the real world.
-				</p>
-				<p>For the past 12 years, I've developed production embedded control software for electric trucks, autonomous vehicles, and power electronics at Scania, Volvo CE, and Mahle Electronics, working across international, multidisciplinary teams. That software now runs on roads and worksites around the world.</p>
-				<p>That's where I've built my technical depth and experience. But what defines me as an engineer goes beyond the technologies I've worked with or the projects listed on my CV. It's how I approach complex problems, how I work with teams, and the kinds of challenges I choose to take on. Here's a closer look.</p>
+				<p>I have been fascinated by that question for as long as I can remember. It led me to study Electrical Engineering and later pursue a doctorate in automatic control, drawn by the challenge of making machines sense, decide, and act reliably in the real world.</p>
+				<p>For the past twelve years, I have worked on production embedded control software for electric trucks, autonomous machines, power electronics, and other complex vehicle systems. My work has taken me across Scania, Volvo Construction Equipment, and MAHLE Electronics, alongside international teams spanning software, electronics, control, mechanical engineering, testing, and calibration.</p>
+				<p>The software is only part of the story. What defines my work more clearly is how I approach complex systems, how I help teams make difficult technical decisions, and how I turn uncertain problems into something people can understand and solve together.</p>
+				<p>Where you go next depends on what brought you here.</p>
 			</div>
 		</div>
 	</section>
 
-	<div class="page-container">
-		<blockquote class="about-pullquote">
-			<p>The hardest engineering problems rarely begin with software. They begin with understanding the system.</p>
-		</blockquote>
-	</div>
+	<section class="about-routes" aria-label="Visitor routes">
+		<div class="page-container about-routes__inner">
+			<article class="about-route-card">
+				<h2>Hiring or evaluating fit?</h2>
+				<div class="button-row about-route-card__actions">
+					<a class="button" href={withBase('/cv')}>View CV</a>
+					<a class="button" href="#where-i-add-value">See where I add the most value</a>
+					<a class="button" href={withBase('/contact')}>Get in touch</a>
+				</div>
+			</article>
+
+			<article class="about-route-card">
+				<h2>Interested in how I work?</h2>
+				<div class="button-row about-route-card__actions">
+					<a class="button" href="#approach">Read my approach</a>
+					<a class="button" href="#collaboration">Read about collaboration</a>
+				</div>
+			</article>
+
+			<article class="about-route-card">
+				<h2>Curious about how it began?</h2>
+				<div class="button-row about-route-card__actions">
+					<a class="button" href="#origin">Read my story</a>
+				</div>
+			</article>
+		</div>
+	</section>
 
 	<section class="about-signal-path" aria-label="About Carlos signal path">
 		<div class="page-container">
 			<div class="signal-path-list">
-				<article class="signal-path-item">
+				<article class="signal-path-item" id="approach">
 					<div class="signal-path-item__node" aria-hidden="true"></div>
 					<div class="signal-path-item__content">
-						<p class="signal-path-item__label">01 - How did I get here?</p>
-						<h2>My curiosity sparked an interest in automatic control. Twelve years of engineering taught me what's worth solving.</h2>
-						<button class="signal-path-item__toggle" type="button" aria-expanded="false" aria-controls="origin-detail" data-signal-toggle>
-							Read more
-						</button>
-						<div class="signal-path-item__extra" id="origin-detail" data-signal-extra>
-							<div class="signal-path-item__extra-inner">
-								<p>I started taking electronics lessons at eight, but the moment that truly hooked me came years later at Campus Party Valencia. I watched my line-tracking robot oscillate wildly next to competitors running smooth and fast. That gap between physical behavior and control logic is what pulled me into automatic control for good. A double degree in Electrical Engineering in Sweden and an Industrial PhD in automatic control provided the theoretical foundation. Twelve years in the automotive industry taught me the harder part: making that theory survive contact with real hardware and harsh production constraints. Looking back, the PhD wasn't about staying in academia, it was about learning to explore complex questions methodically and discovering what genuinely improves a system. Today, that mindset lets me balance deep engineering curiosity with the practical judgment required to deliver value.</p>
-							</div>
-						</div>
-					</div>
-				</article>
-
-				<article class="signal-path-item">
-					<div class="signal-path-item__node" aria-hidden="true"></div>
-					<div class="signal-path-item__content">
-						<p class="signal-path-item__label">02 - What kind of engineer am I?</p>
-						<h2>Understanding what should be built is as important to me as building it.</h2>
+						<p class="signal-path-item__label">01 - Approach</p>
+						<h2>Understanding what should be built matters as much as building it</h2>
+						<p class="signal-path-item__secondary">I enjoy shaping technical direction early, identifying the decisions that matter, and making the reasoning behind them clear to the team.</p>
 						<button class="signal-path-item__toggle" type="button" aria-expanded="false" aria-controls="approach-detail" data-signal-toggle>
 							Read more
 						</button>
 						<div class="signal-path-item__extra" id="approach-detail" data-signal-extra>
 							<div class="signal-path-item__extra-inner">
-								<p>I enjoy being at the beginning of a product's technical definition, when the architecture is still taking shape, the difficult decisions haven't been made yet, and every choice influences what comes next. Understanding a system deeply enough to decide what should be built is just as rewarding to me as building it. Curiosity has always driven me, but experience has refined how I direct it. Early in my career I wanted to solve every interesting problem. Today, I focus on identifying which problems create real product value. Often, the highest-leverage engineering choice isn't a new feature, it's radically simplifying the underlying system architecture.</p>
+								<p>I do some of my best work while a product or system is still taking shape, before its most important technical decisions have become difficult to change. Understanding what should exist, how the system should behave, and where its boundaries should be is just as satisfying to me as implementing it.</p>
+								<p>Experience has changed how I direct my curiosity. Earlier in my career, I wanted to explore every interesting problem. Today, I first ask which problem will make the greatest difference. Sometimes that means developing a new control strategy. Sometimes it means improving diagnostics, interfaces, or validation. Quite often, it means simplifying the architecture beneath everything else.</p>
+								<p>I also try to make tradeoffs visible. Technical decisions are stronger when the team understands the evidence, assumptions, constraints, and alternatives behind them. Clear reasoning helps decisions survive changing teams, new requirements, and the pressure of delivery.</p>
 							</div>
 						</div>
 					</div>
 				</article>
 
-				<article class="signal-path-item">
+				<article class="signal-path-item" id="collaboration">
 					<div class="signal-path-item__node" aria-hidden="true"></div>
 					<div class="signal-path-item__content">
-						<p class="signal-path-item__label">03 - How do I work?</p>
-						<h2>I make engineering trade-offs explicit and help multidisciplinary teams align around technical decisions.</h2>
-						<button class="signal-path-item__toggle" type="button" aria-expanded="false" aria-controls="method-detail" data-signal-toggle>
+						<p class="signal-path-item__label">02 - Collaboration</p>
+						<h2>Creating clarity so multidisciplinary teams can move forward together</h2>
+						<p class="signal-path-item__secondary">I help engineers from different disciplines build a shared understanding of the system before they try to solve it.</p>
+						<button class="signal-path-item__toggle" type="button" aria-expanded="false" aria-controls="collaboration-detail" data-signal-toggle>
 							Read more
 						</button>
-						<div class="signal-path-item__extra" id="method-detail" data-signal-extra>
+						<div class="signal-path-item__extra" id="collaboration-detail" data-signal-extra>
 							<div class="signal-path-item__extra-inner">
-								<p>Complex systems rarely fail because of one bad component. They fail at the boundaries, between software and hardware, between teams, between what physics allows and what a spec assumes. Before proposing a fix, I build a shared technical picture with the team and work out whether an issue is really a sensing problem, a control logic problem, or an integration problem, since fixing the wrong layer creates fragile patches that cost more later. Control systems are also built under real constraints: cost, timing, safety standards, supplier dependencies. Making those trade-offs visible is often more valuable than any single algorithm.</p>
-								<p>I also believe engineering teams do their best work when they're close to the outcomes their decisions produce. Part of technical leadership is protecting that closeness, cutting through unclear ownership, approval layers, or organizational friction that puts distance between a decision and the person who has to live with it. I see enabling the team as part of solving the technical problem.</p>
+								<p>Complex systems rarely fail because one component is entirely wrong. Problems often appear at the boundaries between software and hardware, between teams, or between what the physical system can do and what the specification assumed it would do.</p>
+								<p>Before moving toward a solution, I like to make the behaviour of the whole system visible. When software, electronics, controls, mechanical engineering, testing, and calibration are working from the same picture, discussions become more concrete and much less focused on defending individual subsystems.</p>
+								<p>I see technical leadership as creating the conditions for good engineering. That includes clarifying ownership, resolving assumptions, connecting decisions to evidence, and helping the people closest to the system contribute effectively. My role is not to have every answer. It is to help the team ask the right questions and reach decisions that hold together.</p>
 							</div>
 						</div>
 					</div>
@@ -91,46 +107,56 @@ const linkedinHref = 'https://www.linkedin.com/in/carlosjorques/';
 					<p>An elegant algorithm is only the beginning. The real engineering challenge is making it work reliably.</p>
 				</blockquote>
 
-				<article class="signal-path-item">
+				<article class="signal-path-item" id="origin">
 					<div class="signal-path-item__node" aria-hidden="true"></div>
 					<div class="signal-path-item__content">
-						<p class="signal-path-item__label">04 - What's it like to work with me?</p>
-						<h2>I help teams make progress through clarity, structure, and shared direction.</h2>
-						<button class="signal-path-item__toggle" type="button" aria-expanded="false" aria-controls="collaboration-detail" data-signal-toggle>
+						<p class="signal-path-item__label">03 - Origin</p>
+						<h2>From a wobbling robot to a career in control</h2>
+						<p class="signal-path-item__secondary">A small robot first drew me toward automatic control. Years of engineering taught me which problems are truly worth solving.</p>
+						<button class="signal-path-item__toggle" type="button" aria-expanded="false" aria-controls="origin-detail" data-signal-toggle>
 							Read more
 						</button>
-						<div class="signal-path-item__extra" id="collaboration-detail" data-signal-extra>
+						<div class="signal-path-item__extra" id="origin-detail" data-signal-extra>
 							<div class="signal-path-item__extra-inner">
-								<p>I enjoy working across multidisciplinary teams, software, electronics, mechanics, systems engineering, where the interesting problems usually live at the seams. Colleagues would probably describe me as structured, approachable, and someone who brings clarity to ambiguous problems rather than adding process on top of them. I care less about being right first and more about the team ending up aligned.</p>
-								<p>I naturally gravitate toward defining direction rather than simply executing it. I enjoy helping teams establish the architecture, the roadmap, and the engineering principles that let a product evolve over time. Once that foundation is in place, I take just as much satisfaction in seeing others build on it.</p>
+								<p>I started experimenting with electronics when I was eight, but the moment that set my direction came years later at Campus Party Valencia. I watched a line following robot I had built wobble and overshoot around the track while other robots moved smoothly through the same turns.</p>
+								<p>The hardware was capable of more. The difference was in the way the system was being controlled. That gap between what the physics allowed and what my logic produced pulled me toward automatic control.</p>
+								<p>Studying Electrical Engineering gave me the theoretical foundation to understand those systems properly. My industrial doctorate allowed me to investigate difficult control problems with scientific depth, question assumptions, and learn how to separate genuine improvement from apparent complexity.</p>
+								<p>Working in the automotive industry taught me the other half of the discipline. A sound idea must still survive limited computing resources, noisy signals, hardware variation, calibration, diagnostics, safety requirements, organisational constraints, and deadlines.</p>
+								<p>That combination of curiosity and production experience now shapes how I work. I enjoy exploring difficult problems, but I also know that engineering creates value only when a solution can be understood, maintained, validated, and delivered.</p>
 							</div>
 						</div>
 					</div>
 				</article>
 
-				<article class="signal-path-item">
+				<article class="signal-path-item" id="beyond-engineering">
 					<div class="signal-path-item__node" aria-hidden="true"></div>
 					<div class="signal-path-item__content">
-						<p class="signal-path-item__label">05 - What do I do outside engineering?</p>
-						<h2>Outside work, I'm still curious and active. I enjoy hands-on projects, basketball, and spending time with my family.</h2>
-						<button class="signal-path-item__toggle" type="button" aria-expanded="false" aria-controls="outside-work-detail" data-signal-toggle>
+						<p class="signal-path-item__label">04 - Beyond engineering</p>
+						<h2>Still building things, just with different constraints</h2>
+						<p class="signal-path-item__secondary">Curiosity continues outside work.</p>
+						<button class="signal-path-item__toggle" type="button" aria-expanded="false" aria-controls="beyond-engineering-detail" data-signal-toggle>
 							Read more
 						</button>
-						<div class="signal-path-item__extra" id="outside-work-detail" data-signal-extra>
+						<div class="signal-path-item__extra" id="beyond-engineering-detail" data-signal-extra>
 							<div class="signal-path-item__extra-inner">
-								<p>3D printing, lamp design, painting, and home automation projects fill most of my free time, the same hands-on curiosity that got me into engineering, just without a deadline. I've played basketball since childhood and still enjoy competing and mentoring younger players on the court. And above all of it: my wife, our child, and our dog, who keep the rest in perspective.</p>
+								<p>I spend much of my free time on 3D printing, lamp design, painting, electronics, and home automation. These projects give me room to experiment, learn unfamiliar skills, and build things simply because I find them interesting.</p>
+								<p>Basketball has also been part of my life since childhood. I still enjoy competing, helping younger players develop, and being part of a team working toward a shared goal.</p>
+								<p>Most importantly, time with my partner, our child, and our dog keeps work in perspective and reminds me to protect space for the people and experiences that matter beyond engineering.</p>
 							</div>
 						</div>
 					</div>
 				</article>
 
-				<article class="signal-path-item">
+				<article class="signal-path-item" id="where-i-add-value">
 					<div class="signal-path-item__node" aria-hidden="true"></div>
 					<div class="signal-path-item__content">
-						<p class="signal-path-item__label">06 - What's next?</p>
-						<h2>I'm most motivated where products are still being shaped and technical decisions have lasting impact.</h2>
+						<p class="signal-path-item__label">05 - Where I add the most value</p>
+						<h2>Where I add the most value</h2>
 						<div class="signal-path-item__body">
-							<p>I'm looking for roles where I can help shape a product from its early stages, combining hands-on engineering with technical leadership, defining systems, making foundational decisions, and turning ambitious ideas into reliable products. That's usually easier where the distance between a technical decision and its business impact is short: smaller, focused teams where I can own outcomes end to end. Ideally in electrified, autonomous, or safety-critical systems.</p>
+							<p>I am most motivated by products whose behaviour is still being defined and where early technical decisions will have consequences for years.</p>
+							<p>That is where I contribute most effectively: combining hands on engineering with technical direction, helping teams understand the system, define its architecture, make difficult tradeoffs, and turn ambitious ideas into dependable products.</p>
+							<p>I am particularly drawn to electrified systems, autonomous machines, robotics, industrial automation, power electronics, energy systems, and other products where software interacts closely with physical behaviour.</p>
+							<p>I work best in focused, multidisciplinary teams where engineers can see the connection between their decisions and the real system. I value environments that combine technical ambition with practical responsibility, open discussion, and a willingness to test assumptions against evidence.</p>
 						</div>
 					</div>
 				</article>
@@ -138,22 +164,23 @@ const linkedinHref = 'https://www.linkedin.com/in/carlosjorques/';
 		</div>
 	</section>
 
-	<section class="about-closing" aria-labelledby="about-closing-title">
+	<section class="about-closing" id="final-cta" aria-labelledby="about-closing-title">
 		<div class="page-container about-closing__inner">
-			<h2 id="about-closing-title">If you're building the next generation of intelligent machines and need someone to help define how they should behave in the real world, I'd be glad to connect.</h2>
+			<div class="about-closing__copy">
+				<h2 id="about-closing-title">Let us build something that matters</h2>
+				<p>Are you developing a product whose behaviour depends on embedded control software? Are you looking for someone who enjoys shaping the system as much as implementing it?</p>
+			</div>
 			<div class="button-row about-closing__actions" aria-label="About closing links">
 				<a
 					class="button primary"
-					href={linkedinHref}
-					target="_blank"
-					rel="noopener noreferrer"
-					data-analytics-event="linkedin_outbound_click"
-					data-cta-id="about-closing-linkedin"
+					href={withBase('/contact')}
+					data-analytics-event="cta_click"
+					data-cta-id="about-closing-contact"
 					data-cta-placement="about-closing"
-					data-cta-intent="professional-profile"
+					data-cta-intent="contact"
 					data-source-section="about-closing"
 				>
-					Connect on LinkedIn
+					Get in touch
 				</a>
 				<a
 					class="button"
@@ -164,18 +191,31 @@ const linkedinHref = 'https://www.linkedin.com/in/carlosjorques/';
 					data-cta-intent="formal-proof"
 					data-source-section="about-closing"
 				>
-					View CV
+					View my CV
 				</a>
 				<a
 					class="button"
-					href={withBase('/contact')}
+					href={withBase('/work')}
 					data-analytics-event="cta_click"
-					data-cta-id="about-closing-contact"
+					data-cta-id="about-closing-work"
 					data-cta-placement="about-closing"
-					data-cta-intent="contact"
+					data-cta-intent="proof"
 					data-source-section="about-closing"
 				>
-					Get in Touch
+					Explore selected projects
+				</a>
+				<a
+					class="button"
+					href={linkedinHref}
+					target="_blank"
+					rel="noopener noreferrer"
+					data-analytics-event="linkedin_outbound_click"
+					data-cta-id="about-closing-linkedin"
+					data-cta-placement="about-closing"
+					data-cta-intent="professional-profile"
+					data-source-section="about-closing"
+				>
+					Connect on LinkedIn
 				</a>
 			</div>
 		</div>
@@ -207,6 +247,7 @@ const linkedinHref = 'https://www.linkedin.com/in/carlosjorques/';
 	}
 
 	.about-intro .page-container,
+	.about-routes .page-container,
 	.about-signal-path .page-container,
 	.about-closing .page-container,
 	.page-container:has(> .about-pullquote) {
@@ -280,8 +321,44 @@ const linkedinHref = 'https://www.linkedin.com/in/carlosjorques/';
 		max-width: 760px;
 	}
 
+	.about-routes {
+		padding-block: clamp(2rem, 4vw, 3rem);
+		border-bottom: 1px solid var(--color-border-soft);
+	}
+
+	.about-routes__inner {
+		display: grid;
+		gap: 1rem;
+	}
+
+	.about-route-card {
+		display: grid;
+		gap: 0.9rem;
+		max-width: 900px;
+		border: 1px solid var(--color-card-border);
+		border-radius: var(--radius);
+		background: var(--color-card-bg);
+		padding: clamp(1rem, 2.5vw, 1.4rem);
+	}
+
+	.about-route-card h2 {
+		font-size: clamp(1.35rem, 2.5vw, 2rem);
+		line-height: 1.08;
+		letter-spacing: -0.04em;
+	}
+
+	.about-route-card__actions {
+		align-items: center;
+	}
+
 	.about-signal-path {
 		padding-block: clamp(3rem, 6vw, 5rem);
+	}
+
+	.about-routes[id],
+	.signal-path-item[id],
+	.about-closing[id] {
+		scroll-margin-top: clamp(5rem, 12vw, 8rem);
 	}
 
 	.signal-path-list {
@@ -400,7 +477,8 @@ const linkedinHref = 'https://www.linkedin.com/in/carlosjorques/';
 	}
 
 	.signal-path-item__extra p,
-	.signal-path-item__body p {
+	.signal-path-item__body p,
+	.about-closing__copy p {
 		max-width: var(--measure-reading);
 		color: var(--color-body-text);
 		font-size: var(--type-body-size);
@@ -408,9 +486,13 @@ const linkedinHref = 'https://www.linkedin.com/in/carlosjorques/';
 		overflow-wrap: break-word;
 	}
 
-	.signal-path-item__body {
+	.signal-path-item__body,
+	.about-closing__copy {
 		display: grid;
 		gap: 1rem;
+	}
+
+	.signal-path-item__body {
 		margin-top: 0.2rem;
 	}
 
@@ -454,6 +536,7 @@ const linkedinHref = 'https://www.linkedin.com/in/carlosjorques/';
 		}
 
 		.about-intro .page-container,
+		.about-routes .page-container,
 		.about-signal-path .page-container,
 		.about-closing .page-container,
 		.page-container:has(> .about-pullquote) {
@@ -496,6 +579,10 @@ const linkedinHref = 'https://www.linkedin.com/in/carlosjorques/';
 			overflow-wrap: anywhere;
 		}
 
+		.about-route-card {
+			max-width: 100%;
+		}
+
 		.signal-path-list {
 			gap: 2.4rem;
 			padding-left: 2.25rem;
@@ -521,7 +608,8 @@ const linkedinHref = 'https://www.linkedin.com/in/carlosjorques/';
 
 		.signal-path-item__secondary,
 		.signal-path-item__extra p,
-		.signal-path-item__body p {
+		.signal-path-item__body p,
+		.about-closing__copy p {
 			max-width: min(calc(100vw - 84px), 280px);
 			overflow-wrap: anywhere;
 		}

@@ -12,32 +12,6 @@ const contactEmail = 'carlosjorques@gmail.com';
 const emailHref = `mailto:${contactEmail}`;
 const cvPdfHref = '/cv/Carlos_Jorques_CV.pdf';
 const linkedinHref = 'https://www.linkedin.com/in/carlosjorques/';
-const links = {
-	cv: withBase('/cv'),
-	pdfCv: withBase(cvPdfHref),
-	work: withBase('/work'),
-	linkedin: linkedinHref,
-	privacy: withBase('/privacy'),
-};
-
-const secondaryLinks = [
-	{
-		label: 'LinkedIn',
-		href: links.linkedin,
-		external: true,
-		ariaLabel: 'Open Carlos Jorques on LinkedIn in a new tab',
-		analyticsEvent: 'linkedin_outbound_click',
-		ctaId: 'contact-linkedin',
-		intent: 'professional-profile',
-	},
-	{
-		label: 'Download PDF CV',
-		href: links.pdfCv,
-		analyticsEvent: 'cv_pdf_download',
-		ctaId: 'contact-download-cv',
-		intent: 'formal-proof',
-	},
-];
 ---
 
 <Layout
@@ -100,24 +74,33 @@ const secondaryLinks = [
 				</article>
 
 				<nav class="secondary-contact-links" aria-label="Secondary contact links">
-					{secondaryLinks.map((link) => (
-						<a
-							href={link.href}
-							target={link.external ? '_blank' : undefined}
-							rel={link.external ? 'noopener noreferrer' : undefined}
-							aria-label={link.ariaLabel}
-							data-analytics-event={link.analyticsEvent}
-							data-cta-id={link.ctaId}
-							data-cta-placement="contact-secondary-links"
-							data-cta-intent={link.intent}
-							data-source-section="contact-secondary"
-						>
-							<span>{link.label}</span>
-							<strong>{link.external ? 'Professional profile' : 'PDF resume'}</strong>
-						</a>
-					))}
 					<a
-						href={links.cv}
+						href={linkedinHref}
+						target="_blank"
+						rel="noopener noreferrer"
+						aria-label="Open Carlos Jorques on LinkedIn in a new tab"
+						data-analytics-event="linkedin_outbound_click"
+						data-cta-id="contact-linkedin"
+						data-cta-placement="contact-secondary-links"
+						data-cta-intent="professional-profile"
+						data-source-section="contact-secondary"
+					>
+						<span>LinkedIn</span>
+						<strong>Professional profile</strong>
+					</a>
+					<a
+						href={withBase(cvPdfHref)}
+						data-analytics-event="cv_pdf_download"
+						data-cta-id="contact-download-cv"
+						data-cta-placement="contact-secondary-links"
+						data-cta-intent="formal-proof"
+						data-source-section="contact-secondary"
+					>
+						<span>Download PDF CV</span>
+						<strong>PDF resume</strong>
+					</a>
+					<a
+						href={withBase('/cv')}
 						data-analytics-event="cta_click"
 						data-cta-id="contact-online-cv"
 						data-cta-placement="contact-secondary-links"
@@ -187,7 +170,7 @@ const secondaryLinks = [
 				</div>
 
 				<p class="contact-note" id="privacy-note">
-					I&apos;ll use your details only to reply to your message. <a href={links.privacy}>Read the privacy notice.</a>
+					I&apos;ll use your details only to reply to your message. <a href={withBase('/privacy')}>Read the privacy notice.</a>
 				</p>
 				<button class="button primary" type="submit" aria-describedby="privacy-note form-status">Send message</button>
 			</form>

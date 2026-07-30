@@ -9,173 +9,6 @@ const withBase = (href: string) => {
 
 	return href === '/' ? baseUrl : `${baseUrl}${href.replace(/^\//, '')}`;
 };
-
-const toTagSlug = (value: string) =>
-	value
-		.toLowerCase()
-		.replaceAll('/', '-')
-		.replace(/[^a-z0-9]+/g, '-')
-		.replace(/^-|-$/g, '');
-const projectNotes = [
-	{
-		id: 'electric-truck-thermal-management',
-		title: 'Electric Truck Thermal Management and BMS Systems',
-		institution: 'Scania',
-		image: '/images/work/electric-truck-thermal-bms.webp',
-		imageAlt: 'Electric truck connected to a charger in snowy test conditions',
-		overview:
-			'Embedded control software for coordinating battery, charging, auxiliary, and thermal behavior in heavy-duty electric vehicles.',
-		labels: ['BMS', 'Thermal control', 'Charging behavior', 'Diagnostics', 'Calibration', 'Vehicle validation'],
-		ctaLabel: 'Read project note on Electric Truck Thermal Management and BMS Systems',
-		href: '#electric-truck-thermal-management',
-		proofHref: '/cv/#experience',
-		proofLabel: 'CV experience',
-	},
-	{
-		id: 'autonomous-hauler-propulsion-control',
-		title: 'Autonomous Electric Hauler Propulsion Control',
-		institution: 'Volvo Construction Equipment',
-		image: '/images/work/autonomous-hauler-propulsion.webp',
-		imageAlt: 'Autonomous electric haulers operating in a quarry',
-		overview:
-			'Propulsion-control software for autonomous electric machines operating in demanding off-road environments.',
-		labels: ['Traction control', 'Torque allocation', 'Redundant actuators', 'Diagnostic monitoring', 'SIL/HIL', 'Vehicle validation'],
-		ctaLabel: 'Read project note on Autonomous Electric Hauler Propulsion Control',
-		href: '#autonomous-hauler-propulsion-control',
-		proofHref: '/cv/#representative-systems',
-		proofLabel: 'CV systems',
-	},
-	{
-		id: 'ebike-motor-control-power-electronics',
-		title: 'E-Bike Motor Control and Power Electronics Software',
-		institution: 'MAHLE',
-		image: '/images/work/ebike-motor-control.webp',
-		imageAlt: 'E-bike motor and crank area after off-road use',
-		overview:
-			'Application-layer embedded software connecting motor-control behavior, thermal modeling, wireless charging, and converter functionality.',
-		labels: ['PMSM thermal modeling', 'AUTOSAR-oriented architecture', 'DC/DC interfaces', 'Power electronics', 'Bench validation'],
-		ctaLabel: 'Read project note on E-Bike Motor Control and Power Electronics Software',
-		href: '#ebike-motor-control-power-electronics',
-		proofHref: '/cv/#experience',
-		proofLabel: 'CV experience',
-	},
-	{
-		id: 'heavy-duty-engine-diagnostics-control-research',
-		title: 'Heavy-Duty Engine Diagnostics and Control Research',
-		institution: 'Lund University / Scania',
-		image: '/images/work/heavy-duty-engine-diagnostics.webp',
-		imageAlt: 'Heavy-duty engine test bench with sensors and measurement cables',
-		overview:
-			'Real-time diagnostic and combustion-control prototypes for heavy-duty engine systems with experimental validation.',
-		labels: ['Diagnostics', 'Closed-loop control', 'Virtual sensing', 'Stochastic detection', 'Patents', 'Publications', 'Test-bench validation'],
-		ctaLabel: 'Read project note on Heavy-Duty Engine Diagnostics and Control Research',
-		href: '#heavy-duty-engine-diagnostics-control-research',
-		proofHref: '/cv/#research',
-		proofLabel: 'CV research record',
-	},
-];
-
-const researchNotes = [
-	{
-		id: 'virtual-sensing-in-cycle-combustion-diagnostics',
-		title: 'Virtual Sensing for In-Cycle Combustion Diagnostics',
-		institution: 'Lund University / Scania',
-		overview:
-			'Research on estimating combustion states that are difficult to measure directly during engine operation.',
-		technicalArea: ['Virtual sensing', 'In-cycle estimation', 'Combustion diagnostics', 'Heavy-duty engines'],
-		outcomes: [
-			'Developed model-based estimators for combustion states not directly available to production control logic.',
-			'Validated virtual-sensing behavior using heavy-duty engine test-bench data.',
-		],
-		ctaLabel: 'Read research note on Virtual Sensing for In-Cycle Combustion Diagnostics',
-		href: '#virtual-sensing-in-cycle-combustion-diagnostics',
-		proofHref: '/cv/#research',
-		proofLabel: 'CV research record',
-	},
-	{
-		id: 'stochastic-fault-detection-diagnostic-decision-logic',
-		title: 'Stochastic Fault Detection and Diagnostic Decision Logic',
-		institution: 'Lund University / Scania',
-		overview:
-			'Research on detecting abnormal combustion-system behavior using probability, sensor data, and diagnostic thresholds.',
-		technicalArea: ['Stochastic detection', 'Misfire diagnosis', 'Adaptive thresholds', 'Sensor fusion', 'Diagnostic logic'],
-		outcomes: [
-			'Developed diagnostic decision methods for combustion fault detection.',
-			'Evaluated diagnostic robustness under changing operating conditions.',
-		],
-		ctaLabel: 'Read research note on Stochastic Fault Detection and Diagnostic Decision Logic',
-		href: '#stochastic-fault-detection-diagnostic-decision-logic',
-		proofHref: '/cv/#research',
-		proofLabel: 'CV research record',
-	},
-	{
-		id: 'predictive-in-cycle-combustion-control',
-		title: 'Predictive In-Cycle Combustion Control',
-		institution: 'Lund University / Scania',
-		overview:
-			'Research on predictive closed-loop controllers that adjust fuel injection within the same combustion cycle.',
-		technicalArea: ['Closed-loop control', 'Predictive control', 'Combustion control', 'Model adaptation', 'FPGA implementation'],
-		outcomes: [
-			'Developed predictive controllers for cycle-resolved combustion regulation.',
-			'Validated control robustness under model uncertainty and changing fuel conditions.',
-		],
-		ctaLabel: 'Read research note on Predictive In-Cycle Combustion Control',
-		href: '#predictive-in-cycle-combustion-control',
-		proofHref: '/cv/#research',
-		proofLabel: 'CV research record',
-	},
-	{
-		id: 'stochastic-set-point-optimization-efficiency',
-		title: 'Stochastic Set-Point Optimization for Efficiency',
-		institution: 'Lund University / Scania',
-		overview:
-			'Research on using stochastic combustion models and Monte Carlo simulation to optimize combustion-control set-points.',
-		technicalArea: ['Efficiency optimization', 'Stochastic modeling', 'Monte Carlo simulation', 'Set-point optimization', 'Constraint handling'],
-		outcomes: [
-			'Developed set-point optimization methods for combustion efficiency.',
-			'Evaluated trade-offs between efficiency, pressure-rise constraints, and misfire risk.',
-		],
-		ctaLabel: 'Read research note on Stochastic Set-Point Optimization for Efficiency',
-		href: '#stochastic-set-point-optimization-efficiency',
-		proofHref: '/cv/#research',
-		proofLabel: 'CV research record',
-	},
-	{
-		id: 'real-time-combustion-control-implementation',
-		title: 'Real-Time Combustion Control Implementation',
-		institution: 'Lund University / Scania',
-		overview:
-			'Research on implementing combustion observers, virtual sensors, and control algorithms under real-time hardware constraints.',
-		technicalArea: ['Real-time implementation', 'FPGA', 'Hardware-constrained systems', 'Signal processing', 'Embedded control'],
-		outcomes: [
-			'Implemented in-cycle combustion-control methods for real-time execution on FPGA hardware.',
-			'Quantified timing, resource, and implementation constraints for embedded control deployment.',
-		],
-		ctaLabel: 'Read research note on Real-Time Combustion Control Implementation',
-		href: '#real-time-combustion-control-implementation',
-		proofHref: '/cv/#research',
-		proofLabel: 'CV research record',
-	},
-];
-
-const technicalAreaGroups = [
-	{
-		title: 'Control and Modeling',
-		items: ['Real-time control', 'Model-based implementation', 'Calibration', 'Research prototypes'],
-	},
-	{
-		title: 'Embedded Systems',
-		items: ['Embedded software', 'Power electronics', 'Hardware-constrained systems'],
-	},
-	{
-		title: 'Diagnostics and Validation',
-		items: ['Diagnostics', 'Fault handling', 'MIL/SIL/HIL', 'Bench validation', 'Vehicle validation'],
-	},
-	{
-		title: 'Physical-System Context',
-		items: ['Thermal systems', 'Energy management', 'Virtual sensing'],
-	},
-];
 ---
 
 <BaseLayout
@@ -206,53 +39,209 @@ const technicalAreaGroups = [
 				</p>
 			</div>
 			<div class="work-index-grid">
-				{projectNotes.map((item, index) => (
-					<article class="work-index-card work-index-card--project" id={item.id} aria-labelledby={`${item.id}-title`}>
-						<figure class="work-index-card__media">
-							<img
-								src={withBase(item.image)}
-								alt={item.imageAlt}
-								loading={index === 0 ? 'eager' : 'lazy'}
-								decoding="async"
-							/>
-						</figure>
-						<div class="work-index-card__body">
-							<header class="work-index-card__header">
-								<h3 id={`${item.id}-title`}>{item.title}</h3>
-								<p class="work-index-card__institution">{item.institution}</p>
-							</header>
-							<p class="work-index-card__overview">{item.overview}</p>
-							<ul class="work-label-list" aria-label={`${item.title} technical labels`}>
-								{item.labels.map((label) => <li>{label}</li>)}
-							</ul>
+				<article class="work-index-card work-index-card--project" id="electric-truck-thermal-management" aria-labelledby="electric-truck-thermal-management-title">
+					<figure class="work-index-card__media">
+						<img
+							src={withBase('/images/work/electric-truck-thermal-bms.webp')}
+							alt="Electric truck connected to a charger in snowy test conditions"
+							loading="eager"
+							decoding="async"
+						/>
+					</figure>
+					<div class="work-index-card__body">
+						<header class="work-index-card__header">
+							<h3 id="electric-truck-thermal-management-title">Electric Truck Thermal Management and BMS Systems</h3>
+							<p class="work-index-card__institution">Scania</p>
+						</header>
+						<p class="work-index-card__overview">Embedded control software for coordinating battery, charging, auxiliary, and thermal behavior in heavy-duty electric vehicles.</p>
+						<ul class="work-label-list" aria-label="Electric Truck Thermal Management and BMS Systems technical labels">
+							<li>BMS</li>
+							<li>Thermal control</li>
+							<li>Charging behavior</li>
+							<li>Diagnostics</li>
+							<li>Calibration</li>
+							<li>Vehicle validation</li>
+						</ul>
+						<a
+							class="work-note-link"
+							href="#electric-truck-thermal-management"
+							aria-label="Read project note on Electric Truck Thermal Management and BMS Systems"
+							data-analytics-event="work_anchor_click"
+							data-cta-id="work-note-electric-truck-thermal-management"
+							data-cta-placement="work-project-card"
+							data-cta-intent="read-work-note"
+							data-source-section="selected-projects"
+						>
+							Read note <span aria-hidden="true">-&gt;</span>
+						</a>
+						<p class="work-related-proof">
+							<span>Related proof</span>
 							<a
-								class="work-note-link"
-								href={item.href}
-								aria-label={item.ctaLabel}
-								data-analytics-event="work_anchor_click"
-								data-cta-id={`work-note-${item.id}`}
+								href={withBase('/cv/#experience')}
+								data-analytics-event="related_proof_click"
+								data-cta-id="work-proof-electric-truck-thermal-management"
 								data-cta-placement="work-project-card"
-								data-cta-intent="read-work-note"
-								data-source-section="selected-projects"
+								data-cta-intent="formal-proof"
+								data-source-section="electric-truck-thermal-management"
 							>
-								Read note <span aria-hidden="true">-&gt;</span>
+								CV experience
 							</a>
-							<p class="work-related-proof">
-								<span>Related proof</span>
-								<a
-									href={withBase(item.proofHref)}
-									data-analytics-event="related_proof_click"
-									data-cta-id={`work-proof-${item.id}`}
-									data-cta-placement="work-project-card"
-									data-cta-intent="formal-proof"
-									data-source-section={item.id}
-								>
-									{item.proofLabel}
-								</a>
-							</p>
-						</div>
-					</article>
-				))}
+						</p>
+					</div>
+				</article>
+
+				<article class="work-index-card work-index-card--project" id="autonomous-hauler-propulsion-control" aria-labelledby="autonomous-hauler-propulsion-control-title">
+					<figure class="work-index-card__media">
+						<img
+							src={withBase('/images/work/autonomous-hauler-propulsion.webp')}
+							alt="Autonomous electric haulers operating in a quarry"
+							loading="lazy"
+							decoding="async"
+						/>
+					</figure>
+					<div class="work-index-card__body">
+						<header class="work-index-card__header">
+							<h3 id="autonomous-hauler-propulsion-control-title">Autonomous Electric Hauler Propulsion Control</h3>
+							<p class="work-index-card__institution">Volvo Construction Equipment</p>
+						</header>
+						<p class="work-index-card__overview">Propulsion-control software for autonomous electric machines operating in demanding off-road environments.</p>
+						<ul class="work-label-list" aria-label="Autonomous Electric Hauler Propulsion Control technical labels">
+							<li>Traction control</li>
+							<li>Torque allocation</li>
+							<li>Redundant actuators</li>
+							<li>Diagnostic monitoring</li>
+							<li>SIL/HIL</li>
+							<li>Vehicle validation</li>
+						</ul>
+						<a
+							class="work-note-link"
+							href="#autonomous-hauler-propulsion-control"
+							aria-label="Read project note on Autonomous Electric Hauler Propulsion Control"
+							data-analytics-event="work_anchor_click"
+							data-cta-id="work-note-autonomous-hauler-propulsion-control"
+							data-cta-placement="work-project-card"
+							data-cta-intent="read-work-note"
+							data-source-section="selected-projects"
+						>
+							Read note <span aria-hidden="true">-&gt;</span>
+						</a>
+						<p class="work-related-proof">
+							<span>Related proof</span>
+							<a
+								href={withBase('/cv/#representative-systems')}
+								data-analytics-event="related_proof_click"
+								data-cta-id="work-proof-autonomous-hauler-propulsion-control"
+								data-cta-placement="work-project-card"
+								data-cta-intent="formal-proof"
+								data-source-section="autonomous-hauler-propulsion-control"
+							>
+								CV systems
+							</a>
+						</p>
+					</div>
+				</article>
+
+				<article class="work-index-card work-index-card--project" id="ebike-motor-control-power-electronics" aria-labelledby="ebike-motor-control-power-electronics-title">
+					<figure class="work-index-card__media">
+						<img
+							src={withBase('/images/work/ebike-motor-control.webp')}
+							alt="E-bike motor and crank area after off-road use"
+							loading="lazy"
+							decoding="async"
+						/>
+					</figure>
+					<div class="work-index-card__body">
+						<header class="work-index-card__header">
+							<h3 id="ebike-motor-control-power-electronics-title">E-Bike Motor Control and Power Electronics Software</h3>
+							<p class="work-index-card__institution">MAHLE</p>
+						</header>
+						<p class="work-index-card__overview">Application-layer embedded software connecting motor-control behavior, thermal modeling, wireless charging, and converter functionality.</p>
+						<ul class="work-label-list" aria-label="E-Bike Motor Control and Power Electronics Software technical labels">
+							<li>PMSM thermal modeling</li>
+							<li>AUTOSAR-oriented architecture</li>
+							<li>DC/DC interfaces</li>
+							<li>Power electronics</li>
+							<li>Bench validation</li>
+						</ul>
+						<a
+							class="work-note-link"
+							href="#ebike-motor-control-power-electronics"
+							aria-label="Read project note on E-Bike Motor Control and Power Electronics Software"
+							data-analytics-event="work_anchor_click"
+							data-cta-id="work-note-ebike-motor-control-power-electronics"
+							data-cta-placement="work-project-card"
+							data-cta-intent="read-work-note"
+							data-source-section="selected-projects"
+						>
+							Read note <span aria-hidden="true">-&gt;</span>
+						</a>
+						<p class="work-related-proof">
+							<span>Related proof</span>
+							<a
+								href={withBase('/cv/#experience')}
+								data-analytics-event="related_proof_click"
+								data-cta-id="work-proof-ebike-motor-control-power-electronics"
+								data-cta-placement="work-project-card"
+								data-cta-intent="formal-proof"
+								data-source-section="ebike-motor-control-power-electronics"
+							>
+								CV experience
+							</a>
+						</p>
+					</div>
+				</article>
+
+				<article class="work-index-card work-index-card--project" id="heavy-duty-engine-diagnostics-control-research" aria-labelledby="heavy-duty-engine-diagnostics-control-research-title">
+					<figure class="work-index-card__media">
+						<img
+							src={withBase('/images/work/heavy-duty-engine-diagnostics.webp')}
+							alt="Heavy-duty engine test bench with sensors and measurement cables"
+							loading="lazy"
+							decoding="async"
+						/>
+					</figure>
+					<div class="work-index-card__body">
+						<header class="work-index-card__header">
+							<h3 id="heavy-duty-engine-diagnostics-control-research-title">Heavy-Duty Engine Diagnostics and Control Research</h3>
+							<p class="work-index-card__institution">Lund University / Scania</p>
+						</header>
+						<p class="work-index-card__overview">Real-time diagnostic and combustion-control prototypes for heavy-duty engine systems with experimental validation.</p>
+						<ul class="work-label-list" aria-label="Heavy-Duty Engine Diagnostics and Control Research technical labels">
+							<li>Diagnostics</li>
+							<li>Closed-loop control</li>
+							<li>Virtual sensing</li>
+							<li>Stochastic detection</li>
+							<li>Patents</li>
+							<li>Publications</li>
+							<li>Test-bench validation</li>
+						</ul>
+						<a
+							class="work-note-link"
+							href="#heavy-duty-engine-diagnostics-control-research"
+							aria-label="Read project note on Heavy-Duty Engine Diagnostics and Control Research"
+							data-analytics-event="work_anchor_click"
+							data-cta-id="work-note-heavy-duty-engine-diagnostics-control-research"
+							data-cta-placement="work-project-card"
+							data-cta-intent="read-work-note"
+							data-source-section="selected-projects"
+						>
+							Read note <span aria-hidden="true">-&gt;</span>
+						</a>
+						<p class="work-related-proof">
+							<span>Related proof</span>
+							<a
+								href={withBase('/cv/#research')}
+								data-analytics-event="related_proof_click"
+								data-cta-id="work-proof-heavy-duty-engine-diagnostics-control-research"
+								data-cta-placement="work-project-card"
+								data-cta-intent="formal-proof"
+								data-source-section="heavy-duty-engine-diagnostics-control-research"
+							>
+								CV research record
+							</a>
+						</p>
+					</div>
+				</article>
 			</div>
 		</div>
 	</section>
@@ -275,55 +264,179 @@ const technicalAreaGroups = [
 				</p>
 			</div>
 			<div class="work-index-grid work-index-grid--research">
-				{researchNotes.map((item) => (
-					<article class="work-index-card work-index-card--research" id={item.id} aria-labelledby={`${item.id}-title`}>
-						<div class="work-index-card__body">
-							<header class="work-index-card__header">
-								<h3 id={`${item.id}-title`}>{item.title}</h3>
-							</header>
-							<p class="work-index-card__overview">{item.overview}</p>
-							<div class="research-detail-grid">
-								<div class="research-detail-group">
-									<p class="research-detail-group__label">Technical area</p>
-									<ul class="work-label-list" aria-label={`${item.title} technical areas`}>
-										{item.technicalArea.map((label) => <li>{label}</li>)}
-									</ul>
-								</div>
-								<div class="research-detail-group">
-									<p class="research-detail-group__label">Research outcomes</p>
-									<ul class="research-outcome-list" aria-label={`${item.title} research outcomes`}>
-										{item.outcomes.map((outcome) => <li>{outcome}</li>)}
-									</ul>
-								</div>
+				<article class="work-index-card work-index-card--research" id="virtual-sensing-in-cycle-combustion-diagnostics" aria-labelledby="virtual-sensing-in-cycle-combustion-diagnostics-title">
+					<div class="work-index-card__body">
+						<header class="work-index-card__header">
+							<h3 id="virtual-sensing-in-cycle-combustion-diagnostics-title">Virtual Sensing for In-Cycle Combustion Diagnostics</h3>
+						</header>
+						<p class="work-index-card__overview">Research on estimating combustion states that are difficult to measure directly during engine operation.</p>
+						<div class="research-detail-grid">
+							<div class="research-detail-group">
+								<p class="research-detail-group__label">Technical area</p>
+								<ul class="work-label-list" aria-label="Virtual Sensing for In-Cycle Combustion Diagnostics technical areas">
+									<li>Virtual sensing</li>
+									<li>In-cycle estimation</li>
+									<li>Combustion diagnostics</li>
+									<li>Heavy-duty engines</li>
+								</ul>
 							</div>
-							<a
-								class="work-note-link research-note-link"
-								href={item.href}
-								aria-label={item.ctaLabel}
-								data-analytics-event="work_anchor_click"
-								data-cta-id={`work-research-note-${item.id}`}
-								data-cta-placement="work-research-card"
-								data-cta-intent="read-research-note"
-								data-source-section="selected-research"
-							>
-								Read research note <span aria-hidden="true">→</span>
-							</a>
-							<p class="work-related-proof">
-								<span>Related proof</span>
-								<a
-									href={withBase(item.proofHref)}
-									data-analytics-event="related_proof_click"
-									data-cta-id={`work-research-proof-${item.id}`}
-									data-cta-placement="work-research-card"
-									data-cta-intent="formal-proof"
-									data-source-section={item.id}
-								>
-									{item.proofLabel}
-								</a>
-							</p>
+							<div class="research-detail-group">
+								<p class="research-detail-group__label">Research outcomes</p>
+								<ul class="research-outcome-list" aria-label="Virtual Sensing for In-Cycle Combustion Diagnostics research outcomes">
+									<li>Developed model-based estimators for combustion states not directly available to production control logic.</li>
+									<li>Validated virtual-sensing behavior using heavy-duty engine test-bench data.</li>
+								</ul>
+							</div>
 						</div>
-					</article>
-				))}
+						<a class="work-note-link research-note-link" href="#virtual-sensing-in-cycle-combustion-diagnostics" aria-label="Read research note on Virtual Sensing for In-Cycle Combustion Diagnostics" data-analytics-event="work_anchor_click" data-cta-id="work-research-note-virtual-sensing-in-cycle-combustion-diagnostics" data-cta-placement="work-research-card" data-cta-intent="read-research-note" data-source-section="selected-research">
+							Read research note <span aria-hidden="true">-&gt;</span>
+						</a>
+						<p class="work-related-proof">
+							<span>Related proof</span>
+							<a href={withBase('/cv/#research')} data-analytics-event="related_proof_click" data-cta-id="work-research-proof-virtual-sensing-in-cycle-combustion-diagnostics" data-cta-placement="work-research-card" data-cta-intent="formal-proof" data-source-section="virtual-sensing-in-cycle-combustion-diagnostics">CV research record</a>
+						</p>
+					</div>
+				</article>
+
+				<article class="work-index-card work-index-card--research" id="stochastic-fault-detection-diagnostic-decision-logic" aria-labelledby="stochastic-fault-detection-diagnostic-decision-logic-title">
+					<div class="work-index-card__body">
+						<header class="work-index-card__header">
+							<h3 id="stochastic-fault-detection-diagnostic-decision-logic-title">Stochastic Fault Detection and Diagnostic Decision Logic</h3>
+						</header>
+						<p class="work-index-card__overview">Research on detecting abnormal combustion-system behavior using probability, sensor data, and diagnostic thresholds.</p>
+						<div class="research-detail-grid">
+							<div class="research-detail-group">
+								<p class="research-detail-group__label">Technical area</p>
+								<ul class="work-label-list" aria-label="Stochastic Fault Detection and Diagnostic Decision Logic technical areas">
+									<li>Stochastic detection</li>
+									<li>Misfire diagnosis</li>
+									<li>Adaptive thresholds</li>
+									<li>Sensor fusion</li>
+									<li>Diagnostic logic</li>
+								</ul>
+							</div>
+							<div class="research-detail-group">
+								<p class="research-detail-group__label">Research outcomes</p>
+								<ul class="research-outcome-list" aria-label="Stochastic Fault Detection and Diagnostic Decision Logic research outcomes">
+									<li>Developed diagnostic decision methods for combustion fault detection.</li>
+									<li>Evaluated diagnostic robustness under changing operating conditions.</li>
+								</ul>
+							</div>
+						</div>
+						<a class="work-note-link research-note-link" href="#stochastic-fault-detection-diagnostic-decision-logic" aria-label="Read research note on Stochastic Fault Detection and Diagnostic Decision Logic" data-analytics-event="work_anchor_click" data-cta-id="work-research-note-stochastic-fault-detection-diagnostic-decision-logic" data-cta-placement="work-research-card" data-cta-intent="read-research-note" data-source-section="selected-research">
+							Read research note <span aria-hidden="true">-&gt;</span>
+						</a>
+						<p class="work-related-proof">
+							<span>Related proof</span>
+							<a href={withBase('/cv/#research')} data-analytics-event="related_proof_click" data-cta-id="work-research-proof-stochastic-fault-detection-diagnostic-decision-logic" data-cta-placement="work-research-card" data-cta-intent="formal-proof" data-source-section="stochastic-fault-detection-diagnostic-decision-logic">CV research record</a>
+						</p>
+					</div>
+				</article>
+
+				<article class="work-index-card work-index-card--research" id="predictive-in-cycle-combustion-control" aria-labelledby="predictive-in-cycle-combustion-control-title">
+					<div class="work-index-card__body">
+						<header class="work-index-card__header">
+							<h3 id="predictive-in-cycle-combustion-control-title">Predictive In-Cycle Combustion Control</h3>
+						</header>
+						<p class="work-index-card__overview">Research on predictive closed-loop controllers that adjust fuel injection within the same combustion cycle.</p>
+						<div class="research-detail-grid">
+							<div class="research-detail-group">
+								<p class="research-detail-group__label">Technical area</p>
+								<ul class="work-label-list" aria-label="Predictive In-Cycle Combustion Control technical areas">
+									<li>Closed-loop control</li>
+									<li>Predictive control</li>
+									<li>Combustion control</li>
+									<li>Model adaptation</li>
+									<li>FPGA implementation</li>
+								</ul>
+							</div>
+							<div class="research-detail-group">
+								<p class="research-detail-group__label">Research outcomes</p>
+								<ul class="research-outcome-list" aria-label="Predictive In-Cycle Combustion Control research outcomes">
+									<li>Developed predictive controllers for cycle-resolved combustion regulation.</li>
+									<li>Validated control robustness under model uncertainty and changing fuel conditions.</li>
+								</ul>
+							</div>
+						</div>
+						<a class="work-note-link research-note-link" href="#predictive-in-cycle-combustion-control" aria-label="Read research note on Predictive In-Cycle Combustion Control" data-analytics-event="work_anchor_click" data-cta-id="work-research-note-predictive-in-cycle-combustion-control" data-cta-placement="work-research-card" data-cta-intent="read-research-note" data-source-section="selected-research">
+							Read research note <span aria-hidden="true">-&gt;</span>
+						</a>
+						<p class="work-related-proof">
+							<span>Related proof</span>
+							<a href={withBase('/cv/#research')} data-analytics-event="related_proof_click" data-cta-id="work-research-proof-predictive-in-cycle-combustion-control" data-cta-placement="work-research-card" data-cta-intent="formal-proof" data-source-section="predictive-in-cycle-combustion-control">CV research record</a>
+						</p>
+					</div>
+				</article>
+
+				<article class="work-index-card work-index-card--research" id="stochastic-set-point-optimization-efficiency" aria-labelledby="stochastic-set-point-optimization-efficiency-title">
+					<div class="work-index-card__body">
+						<header class="work-index-card__header">
+							<h3 id="stochastic-set-point-optimization-efficiency-title">Stochastic Set-Point Optimization for Efficiency</h3>
+						</header>
+						<p class="work-index-card__overview">Research on using stochastic combustion models and Monte Carlo simulation to optimize combustion-control set-points.</p>
+						<div class="research-detail-grid">
+							<div class="research-detail-group">
+								<p class="research-detail-group__label">Technical area</p>
+								<ul class="work-label-list" aria-label="Stochastic Set-Point Optimization for Efficiency technical areas">
+									<li>Efficiency optimization</li>
+									<li>Stochastic modeling</li>
+									<li>Monte Carlo simulation</li>
+									<li>Set-point optimization</li>
+									<li>Constraint handling</li>
+								</ul>
+							</div>
+							<div class="research-detail-group">
+								<p class="research-detail-group__label">Research outcomes</p>
+								<ul class="research-outcome-list" aria-label="Stochastic Set-Point Optimization for Efficiency research outcomes">
+									<li>Developed set-point optimization methods for combustion efficiency.</li>
+									<li>Evaluated trade-offs between efficiency, pressure-rise constraints, and misfire risk.</li>
+								</ul>
+							</div>
+						</div>
+						<a class="work-note-link research-note-link" href="#stochastic-set-point-optimization-efficiency" aria-label="Read research note on Stochastic Set-Point Optimization for Efficiency" data-analytics-event="work_anchor_click" data-cta-id="work-research-note-stochastic-set-point-optimization-efficiency" data-cta-placement="work-research-card" data-cta-intent="read-research-note" data-source-section="selected-research">
+							Read research note <span aria-hidden="true">-&gt;</span>
+						</a>
+						<p class="work-related-proof">
+							<span>Related proof</span>
+							<a href={withBase('/cv/#research')} data-analytics-event="related_proof_click" data-cta-id="work-research-proof-stochastic-set-point-optimization-efficiency" data-cta-placement="work-research-card" data-cta-intent="formal-proof" data-source-section="stochastic-set-point-optimization-efficiency">CV research record</a>
+						</p>
+					</div>
+				</article>
+
+				<article class="work-index-card work-index-card--research" id="real-time-combustion-control-implementation" aria-labelledby="real-time-combustion-control-implementation-title">
+					<div class="work-index-card__body">
+						<header class="work-index-card__header">
+							<h3 id="real-time-combustion-control-implementation-title">Real-Time Combustion Control Implementation</h3>
+						</header>
+						<p class="work-index-card__overview">Research on implementing combustion observers, virtual sensors, and control algorithms under real-time hardware constraints.</p>
+						<div class="research-detail-grid">
+							<div class="research-detail-group">
+								<p class="research-detail-group__label">Technical area</p>
+								<ul class="work-label-list" aria-label="Real-Time Combustion Control Implementation technical areas">
+									<li>Real-time implementation</li>
+									<li>FPGA</li>
+									<li>Hardware-constrained systems</li>
+									<li>Signal processing</li>
+									<li>Embedded control</li>
+								</ul>
+							</div>
+							<div class="research-detail-group">
+								<p class="research-detail-group__label">Research outcomes</p>
+								<ul class="research-outcome-list" aria-label="Real-Time Combustion Control Implementation research outcomes">
+									<li>Implemented in-cycle combustion-control methods for real-time execution on FPGA hardware.</li>
+									<li>Quantified timing, resource, and implementation constraints for embedded control deployment.</li>
+								</ul>
+							</div>
+						</div>
+						<a class="work-note-link research-note-link" href="#real-time-combustion-control-implementation" aria-label="Read research note on Real-Time Combustion Control Implementation" data-analytics-event="work_anchor_click" data-cta-id="work-research-note-real-time-combustion-control-implementation" data-cta-placement="work-research-card" data-cta-intent="read-research-note" data-source-section="selected-research">
+							Read research note <span aria-hidden="true">-&gt;</span>
+						</a>
+						<p class="work-related-proof">
+							<span>Related proof</span>
+							<a href={withBase('/cv/#research')} data-analytics-event="related_proof_click" data-cta-id="work-research-proof-real-time-combustion-control-implementation" data-cta-placement="work-research-card" data-cta-intent="formal-proof" data-source-section="real-time-combustion-control-implementation">CV research record</a>
+						</p>
+					</div>
+				</article>
 			</div>
 		</div>
 	</section>
@@ -339,28 +452,41 @@ const technicalAreaGroups = [
 				</p>
 			</div>
 			<ul class="work-thread-group-list" aria-label="Technical area groups">
-				{technicalAreaGroups.map((group) => (
-					<li class="work-thread-group">
-						<p class="work-thread-group__title">{group.title}</p>
-						<ul class="work-thread-list" aria-label={`${group.title} tags`}>
-							{group.items.map((item) => (
-								<li>
-									<a
-										href={withBase(`/writing?tag=${toTagSlug(item)}`)}
-										aria-label={`Browse posts tagged ${item}`}
-										data-analytics-event="writing_article_click"
-										data-cta-id={`work-topic-${toTagSlug(item)}`}
-										data-cta-placement="work-technical-areas"
-										data-cta-intent="authority"
-										data-source-section="technical-areas"
-									>
-										{item}
-									</a>
-								</li>
-							))}
-						</ul>
-					</li>
-				))}
+				<li class="work-thread-group">
+					<p class="work-thread-group__title">Control and Modeling</p>
+					<ul class="work-thread-list" aria-label="Control and Modeling tags">
+						<li><a href={withBase('/writing?tag=real-time-control')} aria-label="Browse posts tagged Real-time control" data-analytics-event="writing_article_click" data-cta-id="work-topic-real-time-control" data-cta-placement="work-technical-areas" data-cta-intent="authority" data-source-section="technical-areas">Real-time control</a></li>
+						<li><a href={withBase('/writing?tag=model-based-implementation')} aria-label="Browse posts tagged Model-based implementation" data-analytics-event="writing_article_click" data-cta-id="work-topic-model-based-implementation" data-cta-placement="work-technical-areas" data-cta-intent="authority" data-source-section="technical-areas">Model-based implementation</a></li>
+						<li><a href={withBase('/writing?tag=calibration')} aria-label="Browse posts tagged Calibration" data-analytics-event="writing_article_click" data-cta-id="work-topic-calibration" data-cta-placement="work-technical-areas" data-cta-intent="authority" data-source-section="technical-areas">Calibration</a></li>
+						<li><a href={withBase('/writing?tag=research-prototypes')} aria-label="Browse posts tagged Research prototypes" data-analytics-event="writing_article_click" data-cta-id="work-topic-research-prototypes" data-cta-placement="work-technical-areas" data-cta-intent="authority" data-source-section="technical-areas">Research prototypes</a></li>
+					</ul>
+				</li>
+				<li class="work-thread-group">
+					<p class="work-thread-group__title">Embedded Systems</p>
+					<ul class="work-thread-list" aria-label="Embedded Systems tags">
+						<li><a href={withBase('/writing?tag=embedded-software')} aria-label="Browse posts tagged Embedded software" data-analytics-event="writing_article_click" data-cta-id="work-topic-embedded-software" data-cta-placement="work-technical-areas" data-cta-intent="authority" data-source-section="technical-areas">Embedded software</a></li>
+						<li><a href={withBase('/writing?tag=power-electronics')} aria-label="Browse posts tagged Power electronics" data-analytics-event="writing_article_click" data-cta-id="work-topic-power-electronics" data-cta-placement="work-technical-areas" data-cta-intent="authority" data-source-section="technical-areas">Power electronics</a></li>
+						<li><a href={withBase('/writing?tag=hardware-constrained-systems')} aria-label="Browse posts tagged Hardware-constrained systems" data-analytics-event="writing_article_click" data-cta-id="work-topic-hardware-constrained-systems" data-cta-placement="work-technical-areas" data-cta-intent="authority" data-source-section="technical-areas">Hardware-constrained systems</a></li>
+					</ul>
+				</li>
+				<li class="work-thread-group">
+					<p class="work-thread-group__title">Diagnostics and Validation</p>
+					<ul class="work-thread-list" aria-label="Diagnostics and Validation tags">
+						<li><a href={withBase('/writing?tag=diagnostics')} aria-label="Browse posts tagged Diagnostics" data-analytics-event="writing_article_click" data-cta-id="work-topic-diagnostics" data-cta-placement="work-technical-areas" data-cta-intent="authority" data-source-section="technical-areas">Diagnostics</a></li>
+						<li><a href={withBase('/writing?tag=fault-handling')} aria-label="Browse posts tagged Fault handling" data-analytics-event="writing_article_click" data-cta-id="work-topic-fault-handling" data-cta-placement="work-technical-areas" data-cta-intent="authority" data-source-section="technical-areas">Fault handling</a></li>
+						<li><a href={withBase('/writing?tag=mil-sil-hil')} aria-label="Browse posts tagged MIL/SIL/HIL" data-analytics-event="writing_article_click" data-cta-id="work-topic-mil-sil-hil" data-cta-placement="work-technical-areas" data-cta-intent="authority" data-source-section="technical-areas">MIL/SIL/HIL</a></li>
+						<li><a href={withBase('/writing?tag=bench-validation')} aria-label="Browse posts tagged Bench validation" data-analytics-event="writing_article_click" data-cta-id="work-topic-bench-validation" data-cta-placement="work-technical-areas" data-cta-intent="authority" data-source-section="technical-areas">Bench validation</a></li>
+						<li><a href={withBase('/writing?tag=vehicle-validation')} aria-label="Browse posts tagged Vehicle validation" data-analytics-event="writing_article_click" data-cta-id="work-topic-vehicle-validation" data-cta-placement="work-technical-areas" data-cta-intent="authority" data-source-section="technical-areas">Vehicle validation</a></li>
+					</ul>
+				</li>
+				<li class="work-thread-group">
+					<p class="work-thread-group__title">Physical-System Context</p>
+					<ul class="work-thread-list" aria-label="Physical-System Context tags">
+						<li><a href={withBase('/writing?tag=thermal-systems')} aria-label="Browse posts tagged Thermal systems" data-analytics-event="writing_article_click" data-cta-id="work-topic-thermal-systems" data-cta-placement="work-technical-areas" data-cta-intent="authority" data-source-section="technical-areas">Thermal systems</a></li>
+						<li><a href={withBase('/writing?tag=energy-management')} aria-label="Browse posts tagged Energy management" data-analytics-event="writing_article_click" data-cta-id="work-topic-energy-management" data-cta-placement="work-technical-areas" data-cta-intent="authority" data-source-section="technical-areas">Energy management</a></li>
+						<li><a href={withBase('/writing?tag=virtual-sensing')} aria-label="Browse posts tagged Virtual sensing" data-analytics-event="writing_article_click" data-cta-id="work-topic-virtual-sensing" data-cta-placement="work-technical-areas" data-cta-intent="authority" data-source-section="technical-areas">Virtual sensing</a></li>
+					</ul>
+				</li>
 			</ul>
 		</div>
 	</section>
