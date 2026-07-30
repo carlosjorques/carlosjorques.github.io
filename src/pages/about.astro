@@ -1,6 +1,5 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import SignalPathItem from '../components/SignalPathItem.astro';
 
 const baseUrl = import.meta.env.BASE_URL;
 const normalizedBase = baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`;
@@ -14,12 +13,14 @@ const linkedinHref = 'https://www.linkedin.com/in/carlosjorques/';
 >
 	<section class="about-intro" aria-labelledby="about-title">
 		<div class="page-container about-intro__inner">
-			<p class="section-eyebrow">A closer look</p>
-			<h1 id="about-title" class="hero-title">About me</h1>
-			<div class="about-intro__copy">				
-			<blockquote class="about-pullquote">
-				<p>What makes a machine truly intelligent?</p>
-			</blockquote>
+			<div class="about-intro__label">
+				<p class="section-eyebrow">A closer look</p>
+				<h1 id="about-title" class="hero-title">About me</h1>
+			</div>
+			<div class="about-intro__copy">
+				<blockquote class="about-pullquote">
+					<p>What makes a machine truly intelligent?</p>
+				</blockquote>
 				<p>I've been fascinated by that question for as long as I can remember. To answer it, I studied Electrical Engineering and later pursued a PhD in automatic control, drawn by the challenge of making machines sense, decide, and act reliably in the real world.
 				</p>
 				<p>For the past 12 years, I've developed production embedded control software for electric trucks, autonomous vehicles, and power electronics at Scania, Volvo CE, and Mahle Electronics, working across international, multidisciplinary teams. That software now runs on roads and worksites around the world.</p>
@@ -37,65 +38,102 @@ const linkedinHref = 'https://www.linkedin.com/in/carlosjorques/';
 	<section class="about-signal-path" aria-label="About Carlos signal path">
 		<div class="page-container">
 			<div class="signal-path-list">
-				<SignalPathItem
-					number="01"
-					label="How did I get here?"
-					statement="My curiosity sparked an interest in automatic control. Twelve years of engineering taught me what's worth solving."
-					expandedId="origin-detail"
-				>
-					<p>I started taking electronics lessons at eight, but the moment that truly hooked me came years later at Campus Party Valencia. I watched my line-tracking robot oscillate wildly next to competitors running smooth and fast. That gap between physical behavior and control logic is what pulled me into automatic control for good. A double degree in Electrical Engineering in Sweden and an Industrial PhD in automatic control provided the theoretical foundation. Twelve years in the automotive industry taught me the harder part: making that theory survive contact with real hardware and harsh production constraints. Looking back, the PhD wasn't about staying in academia, it was about learning to explore complex questions methodically and discovering what genuinely improves a system. Today, that mindset lets me balance deep engineering curiosity with the practical judgment required to deliver value.</p>
-				</SignalPathItem>
+				<article class="signal-path-item">
+					<div class="signal-path-item__node" aria-hidden="true"></div>
+					<div class="signal-path-item__content">
+						<p class="signal-path-item__label">01 - How did I get here?</p>
+						<h2>My curiosity sparked an interest in automatic control. Twelve years of engineering taught me what's worth solving.</h2>
+						<button class="signal-path-item__toggle" type="button" aria-expanded="false" aria-controls="origin-detail" data-signal-toggle>
+							Read more
+						</button>
+						<div class="signal-path-item__extra" id="origin-detail" data-signal-extra>
+							<div class="signal-path-item__extra-inner">
+								<p>I started taking electronics lessons at eight, but the moment that truly hooked me came years later at Campus Party Valencia. I watched my line-tracking robot oscillate wildly next to competitors running smooth and fast. That gap between physical behavior and control logic is what pulled me into automatic control for good. A double degree in Electrical Engineering in Sweden and an Industrial PhD in automatic control provided the theoretical foundation. Twelve years in the automotive industry taught me the harder part: making that theory survive contact with real hardware and harsh production constraints. Looking back, the PhD wasn't about staying in academia, it was about learning to explore complex questions methodically and discovering what genuinely improves a system. Today, that mindset lets me balance deep engineering curiosity with the practical judgment required to deliver value.</p>
+							</div>
+						</div>
+					</div>
+				</article>
 
-				<SignalPathItem
-					number="02"
-					label="What kind of engineer am I?"
-					statement="Understanding what should be built is as important to me as building it."
-					expandedId="approach-detail"
-				>
-					<p>I enjoy being at the beginning of a product's technical definition, when the architecture is still taking shape, the difficult decisions haven't been made yet, and every choice influences what comes next. Understanding a system deeply enough to decide what should be built is just as rewarding to me as building it. Curiosity has always driven me, but experience has refined how I direct it. Early in my career I wanted to solve every interesting problem. Today, I focus on identifying which problems create real product value. Often, the highest-leverage engineering choice isn't a new feature, it's radically simplifying the underlying system architecture.</p>
-				</SignalPathItem>
+				<article class="signal-path-item">
+					<div class="signal-path-item__node" aria-hidden="true"></div>
+					<div class="signal-path-item__content">
+						<p class="signal-path-item__label">02 - What kind of engineer am I?</p>
+						<h2>Understanding what should be built is as important to me as building it.</h2>
+						<button class="signal-path-item__toggle" type="button" aria-expanded="false" aria-controls="approach-detail" data-signal-toggle>
+							Read more
+						</button>
+						<div class="signal-path-item__extra" id="approach-detail" data-signal-extra>
+							<div class="signal-path-item__extra-inner">
+								<p>I enjoy being at the beginning of a product's technical definition, when the architecture is still taking shape, the difficult decisions haven't been made yet, and every choice influences what comes next. Understanding a system deeply enough to decide what should be built is just as rewarding to me as building it. Curiosity has always driven me, but experience has refined how I direct it. Early in my career I wanted to solve every interesting problem. Today, I focus on identifying which problems create real product value. Often, the highest-leverage engineering choice isn't a new feature, it's radically simplifying the underlying system architecture.</p>
+							</div>
+						</div>
+					</div>
+				</article>
 
-				<SignalPathItem
-					number="03"
-					label="How do I work?"
-					statement="I make engineering trade-offs explicit and help multidisciplinary teams align around technical decisions."
-					expandedId="method-detail"
-				>
-					<p>Complex systems rarely fail because of one bad component. They fail at the boundaries, between software and hardware, between teams, between what physics allows and what a spec assumes. Before proposing a fix, I build a shared technical picture with the team and work out whether an issue is really a sensing problem, a control logic problem, or an integration problem, since fixing the wrong layer creates fragile patches that cost more later. Control systems are also built under real constraints: cost, timing, safety standards, supplier dependencies. Making those trade-offs visible is often more valuable than any single algorithm.</p>
-					<p>I also believe engineering teams do their best work when they're close to the outcomes their decisions produce. Part of technical leadership is protecting that closeness, cutting through unclear ownership, approval layers, or organizational friction that puts distance between a decision and the person who has to live with it. I see enabling the team as part of solving the technical problem.</p>
-				</SignalPathItem>
+				<article class="signal-path-item">
+					<div class="signal-path-item__node" aria-hidden="true"></div>
+					<div class="signal-path-item__content">
+						<p class="signal-path-item__label">03 - How do I work?</p>
+						<h2>I make engineering trade-offs explicit and help multidisciplinary teams align around technical decisions.</h2>
+						<button class="signal-path-item__toggle" type="button" aria-expanded="false" aria-controls="method-detail" data-signal-toggle>
+							Read more
+						</button>
+						<div class="signal-path-item__extra" id="method-detail" data-signal-extra>
+							<div class="signal-path-item__extra-inner">
+								<p>Complex systems rarely fail because of one bad component. They fail at the boundaries, between software and hardware, between teams, between what physics allows and what a spec assumes. Before proposing a fix, I build a shared technical picture with the team and work out whether an issue is really a sensing problem, a control logic problem, or an integration problem, since fixing the wrong layer creates fragile patches that cost more later. Control systems are also built under real constraints: cost, timing, safety standards, supplier dependencies. Making those trade-offs visible is often more valuable than any single algorithm.</p>
+								<p>I also believe engineering teams do their best work when they're close to the outcomes their decisions produce. Part of technical leadership is protecting that closeness, cutting through unclear ownership, approval layers, or organizational friction that puts distance between a decision and the person who has to live with it. I see enabling the team as part of solving the technical problem.</p>
+							</div>
+						</div>
+					</div>
+				</article>
 
 				<blockquote class="about-pullquote about-pullquote--inline">
 					<p>An elegant algorithm is only the beginning. The real engineering challenge is making it work reliably.</p>
 				</blockquote>
 
-				<SignalPathItem
-					number="04"
-					label="What's it like to work with me?"
-					statement="I help teams make progress through clarity, structure, and shared direction."
-					expandedId="collaboration-detail"
-				>
-					<p>I enjoy working across multidisciplinary teams, software, electronics, mechanics, systems engineering, where the interesting problems usually live at the seams. Colleagues would probably describe me as structured, approachable, and someone who brings clarity to ambiguous problems rather than adding process on top of them. I care less about being right first and more about the team ending up aligned.</p>
-					<p>I naturally gravitate toward defining direction rather than simply executing it. I enjoy helping teams establish the architecture, the roadmap, and the engineering principles that let a product evolve over time. Once that foundation is in place, I take just as much satisfaction in seeing others build on it.</p>
-				</SignalPathItem>
+				<article class="signal-path-item">
+					<div class="signal-path-item__node" aria-hidden="true"></div>
+					<div class="signal-path-item__content">
+						<p class="signal-path-item__label">04 - What's it like to work with me?</p>
+						<h2>I help teams make progress through clarity, structure, and shared direction.</h2>
+						<button class="signal-path-item__toggle" type="button" aria-expanded="false" aria-controls="collaboration-detail" data-signal-toggle>
+							Read more
+						</button>
+						<div class="signal-path-item__extra" id="collaboration-detail" data-signal-extra>
+							<div class="signal-path-item__extra-inner">
+								<p>I enjoy working across multidisciplinary teams, software, electronics, mechanics, systems engineering, where the interesting problems usually live at the seams. Colleagues would probably describe me as structured, approachable, and someone who brings clarity to ambiguous problems rather than adding process on top of them. I care less about being right first and more about the team ending up aligned.</p>
+								<p>I naturally gravitate toward defining direction rather than simply executing it. I enjoy helping teams establish the architecture, the roadmap, and the engineering principles that let a product evolve over time. Once that foundation is in place, I take just as much satisfaction in seeing others build on it.</p>
+							</div>
+						</div>
+					</div>
+				</article>
 
-				<SignalPathItem
-					number="05"
-					label="What do I do outside engineering?"
-					statement="Outside work, I'm still curious and active. I enjoy hands-on projects, basketball, and spending time with my family."
-					expandedId="outside-work-detail"
-				>
-					<p>3D printing, lamp design, painting, and home automation projects fill most of my free time, the same hands-on curiosity that got me into engineering, just without a deadline. I've played basketball since childhood and still enjoy competing and mentoring younger players on the court. And above all of it: my wife, our child, and our dog, who keep the rest in perspective.</p>
-				</SignalPathItem>
+				<article class="signal-path-item">
+					<div class="signal-path-item__node" aria-hidden="true"></div>
+					<div class="signal-path-item__content">
+						<p class="signal-path-item__label">05 - What do I do outside engineering?</p>
+						<h2>Outside work, I'm still curious and active. I enjoy hands-on projects, basketball, and spending time with my family.</h2>
+						<button class="signal-path-item__toggle" type="button" aria-expanded="false" aria-controls="outside-work-detail" data-signal-toggle>
+							Read more
+						</button>
+						<div class="signal-path-item__extra" id="outside-work-detail" data-signal-extra>
+							<div class="signal-path-item__extra-inner">
+								<p>3D printing, lamp design, painting, and home automation projects fill most of my free time, the same hands-on curiosity that got me into engineering, just without a deadline. I've played basketball since childhood and still enjoy competing and mentoring younger players on the court. And above all of it: my wife, our child, and our dog, who keep the rest in perspective.</p>
+							</div>
+						</div>
+					</div>
+				</article>
 
-				<SignalPathItem
-					number="06"
-					label="What's next?"
-					statement="I'm most motivated where products are still being shaped and technical decisions have lasting impact."
-					hasToggle={false}
-				>
-					<p>I'm looking for roles where I can help shape a product from its early stages, combining hands-on engineering with technical leadership, defining systems, making foundational decisions, and turning ambitious ideas into reliable products. That's usually easier where the distance between a technical decision and its business impact is short: smaller, focused teams where I can own outcomes end to end. Ideally in electrified, autonomous, or safety-critical systems.</p>
-				</SignalPathItem>
+				<article class="signal-path-item">
+					<div class="signal-path-item__node" aria-hidden="true"></div>
+					<div class="signal-path-item__content">
+						<p class="signal-path-item__label">06 - What's next?</p>
+						<h2>I'm most motivated where products are still being shaped and technical decisions have lasting impact.</h2>
+						<div class="signal-path-item__body">
+							<p>I'm looking for roles where I can help shape a product from its early stages, combining hands-on engineering with technical leadership, defining systems, making foundational decisions, and turning ambitious ideas into reliable products. That's usually easier where the distance between a technical decision and its business impact is short: smaller, focused teams where I can own outcomes end to end. Ideally in electrified, autonomous, or safety-critical systems.</p>
+						</div>
+					</div>
+				</article>
 			</div>
 		</div>
 	</section>
@@ -163,7 +201,9 @@ const linkedinHref = 'https://www.linkedin.com/in/carlosjorques/';
 
 <style>
 	.about-intro {
-		padding-block: clamp(4rem, 8vw, 7rem) clamp(2.5rem, 5vw, 4rem);
+		padding-block: clamp(3rem, 5vw, 4.6rem) clamp(1.55rem, 3vw, 2.25rem);
+		border-bottom: 1px solid var(--color-border-soft);
+		background: transparent;
 	}
 
 	.about-intro .page-container,
@@ -174,20 +214,37 @@ const linkedinHref = 'https://www.linkedin.com/in/carlosjorques/';
 	}
 
 	.about-intro__inner {
-		max-width: 900px;
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+		gap: clamp(1.4rem, 5vw, 4.2rem);
+		align-items: end;
 		min-width: 0;
 	}
 
-	.about-intro h1 {
-		max-width: 9ch;
+	.about-intro__label {
+		display: grid;
+		gap: 0.85rem;
+		min-width: 0;
+	}
+
+	.about-intro__label .section-eyebrow {
+		margin: 0;
+	}
+
+	.about-intro .hero-title {
+		max-width: none;
+		font-size: clamp(4.2rem, 8vw, 7rem);
+		overflow-wrap: normal;
+		word-break: normal;
 	}
 
 	.about-intro__copy {
 		display: grid;
 		gap: 1rem;
-		max-width: var(--measure-reading);
+		max-width: 660px;
 		min-width: 0;
-		margin-top: var(--spacing-07);
+		border-left: 1px solid var(--color-border-soft);
+		padding-left: clamp(1rem, 3vw, 2rem);
 	}
 
 	.about-intro__copy p {
@@ -246,13 +303,13 @@ const linkedinHref = 'https://www.linkedin.com/in/carlosjorques/';
 		background: var(--color-border);
 	}
 
-	:global(.signal-path-item) {
+	.signal-path-item {
 		position: relative;
 		display: grid;
 		min-width: 0;
 	}
 
-	:global(.signal-path-item__node) {
+	.signal-path-item__node {
 		position: absolute;
 		left: calc(-1 * clamp(2.6rem, 5vw, 4.5rem) + clamp(0.58rem, 1.2vw, 0.78rem));
 		top: 0.45rem;
@@ -264,14 +321,14 @@ const linkedinHref = 'https://www.linkedin.com/in/carlosjorques/';
 		box-shadow: 0 0 0 0.4rem var(--color-page);
 	}
 
-	:global(.signal-path-item__content) {
+	.signal-path-item__content {
 		display: grid;
 		gap: 0.75rem;
 		max-width: 760px;
 		min-width: 0;
 	}
 
-	:global(.signal-path-item__label) {
+	.signal-path-item__label {
 		color: var(--color-accent-text);
 		font-family: var(--font-mono);
 		font-size: var(--type-meta-size);
@@ -281,7 +338,7 @@ const linkedinHref = 'https://www.linkedin.com/in/carlosjorques/';
 		text-transform: uppercase;
 	}
 
-	:global(.signal-path-item h2) {
+	.signal-path-item h2 {
 		max-width: 760px;
 		font-family: var(--font-display);
 		font-size: clamp(0.8rem, 3.4vw, 1.4rem);
@@ -291,7 +348,7 @@ const linkedinHref = 'https://www.linkedin.com/in/carlosjorques/';
 		overflow-wrap: break-word;
 	}
 
-	:global(.signal-path-item__secondary) {
+	.signal-path-item__secondary {
 		max-width: 560px;
 		color: var(--color-muted);
 		font-size: var(--type-body-size);
@@ -300,7 +357,7 @@ const linkedinHref = 'https://www.linkedin.com/in/carlosjorques/';
 		overflow-wrap: break-word;
 	}
 
-	:global(.signal-path-item__toggle) {
+	.signal-path-item__toggle {
 		width: fit-content;
 		border: 0;
 		background: transparent;
@@ -319,31 +376,31 @@ const linkedinHref = 'https://www.linkedin.com/in/carlosjorques/';
 			transform var(--motion-duration-fast-02) var(--motion-standard-productive);
 	}
 
-	:global(.signal-path-item__toggle:hover),
-	:global(.signal-path-item__toggle:focus-visible) {
+	.signal-path-item__toggle:hover,
+	.signal-path-item__toggle:focus-visible {
 		color: var(--color-link-hover);
 		transform: translateX(4px);
 	}
 
-	:global(.signal-path-item__extra) {
+	.signal-path-item__extra {
 		display: grid;
 		grid-template-rows: 0fr;
 		overflow: hidden;
 		transition: grid-template-rows var(--motion-duration-moderate-02) var(--motion-standard-productive);
 	}
 
-	:global(.signal-path-item__extra[data-expanded]) {
+	.signal-path-item__extra[data-expanded] {
 		grid-template-rows: 1fr;
 	}
 
-	:global(.signal-path-item__extra-inner) {
+	.signal-path-item__extra-inner {
 		display: grid;
 		min-height: 0;
 		gap: 1rem;
 	}
 
-	:global(.signal-path-item__extra p),
-	:global(.signal-path-item__body p) {
+	.signal-path-item__extra p,
+	.signal-path-item__body p {
 		max-width: var(--measure-reading);
 		color: var(--color-body-text);
 		font-size: var(--type-body-size);
@@ -351,7 +408,7 @@ const linkedinHref = 'https://www.linkedin.com/in/carlosjorques/';
 		overflow-wrap: break-word;
 	}
 
-	:global(.signal-path-item__body) {
+	.signal-path-item__body {
 		display: grid;
 		gap: 1rem;
 		margin-top: 0.2rem;
@@ -407,6 +464,25 @@ const linkedinHref = 'https://www.linkedin.com/in/carlosjorques/';
 			overflow: hidden;
 		}
 
+		.about-intro__inner {
+			grid-template-columns: 1fr;
+			align-items: start;
+			gap: 1.1rem;
+		}
+
+		.about-intro__copy {
+			border-left: 0;
+			border-top: 1px solid var(--color-border-soft);
+			padding-top: 1rem;
+			padding-left: 0;
+			max-width: 100%;
+		}
+
+		.about-intro .hero-title {
+			font-size: clamp(3.2rem, 15vw, 4.4rem);
+		}
+
+		.about-intro__label,
 		.about-intro__copy,
 		.about-intro__copy p,
 		.about-pullquote,
@@ -431,11 +507,11 @@ const linkedinHref = 'https://www.linkedin.com/in/carlosjorques/';
 			left: 0.58rem;
 		}
 
-		:global(.signal-path-item__node) {
+		.signal-path-item__node {
 			left: calc(-2.25rem + 0.58rem);
 		}
 
-		:global(.signal-path-item h2) {
+		.signal-path-item h2 {
 			width: 100%;
 			max-width: min(calc(100vw - 84px), 280px);
 			font-size: clamp(1.65rem, 8vw, 2.15rem);
@@ -443,9 +519,9 @@ const linkedinHref = 'https://www.linkedin.com/in/carlosjorques/';
 			overflow-wrap: anywhere;
 		}
 
-		:global(.signal-path-item__secondary),
-		:global(.signal-path-item__extra p),
-		:global(.signal-path-item__body p) {
+		.signal-path-item__secondary,
+		.signal-path-item__extra p,
+		.signal-path-item__body p {
 			max-width: min(calc(100vw - 84px), 280px);
 			overflow-wrap: anywhere;
 		}
@@ -461,8 +537,8 @@ const linkedinHref = 'https://www.linkedin.com/in/carlosjorques/';
 	}
 
 	@media (prefers-reduced-motion: reduce) {
-		:global(.signal-path-item__extra),
-		:global(.signal-path-item__toggle) {
+		.signal-path-item__extra,
+		.signal-path-item__toggle {
 			transition: none;
 		}
 	}

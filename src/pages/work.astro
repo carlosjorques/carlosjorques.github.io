@@ -182,11 +182,14 @@ const technicalAreaGroups = [
         title="Work"
         description="Selected projects and research notes on embedded control software for complex physical systems by Carlos Jorques."
 >
-        <section class="work-hero" aria-labelledby="work-title">
-                <div class="page-container work-hero__inner">
-                        <div class="work-hero__copy">
+	<section class="work-hero" aria-labelledby="work-title">
+		<div class="page-container work-hero__inner">
+			<div class="work-hero__label">
+				<p class="section-eyebrow">Work</p>
 				<h1 id="work-title" class="hero-title">Work</h1>
-				<p class="work-hero__lead">
+			</div>
+			<div class="work-hero__mission">
+				<p>
 					Selected project and research notes on embedded control software, diagnostics, and validation.
 				</p>
 			</div>
@@ -411,11 +414,11 @@ const technicalAreaGroups = [
 </BaseLayout>
 
 <style>
-        .work-hero {
-                padding-block: clamp(3rem, 5vw, 4.6rem) clamp(1.55rem, 3vw, 2.25rem);
-                border-bottom: 1px solid var(--color-border-soft);
-                background: transparent;
-        }
+	.work-hero {
+		padding-block: clamp(3rem, 5vw, 4.6rem) clamp(1.55rem, 3vw, 2.25rem);
+		border-bottom: 1px solid var(--color-border-soft);
+		background: transparent;
+	}
 
 	.work-hero .page-container,
 	.work-section .page-container {
@@ -429,7 +432,8 @@ const technicalAreaGroups = [
 	}
 
 	.work-hero__inner,
-	.work-hero__copy,
+	.work-hero__label,
+	.work-hero__mission,
 	.work-section__intro,
 	.work-index-card__body,
 	.work-index-card__header,
@@ -441,41 +445,52 @@ const technicalAreaGroups = [
 	}
 
 	.work-hero__inner {
-		gap: 1rem;
+		grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+		gap: clamp(1.4rem, 5vw, 4.2rem);
+		align-items: end;
 	}
 
-	.work-hero__copy {
-		gap: clamp(0.72rem, 1.4vw, 1rem);
-		max-width: 820px;
-		margin-inline: auto;
+	.work-hero__label {
+		gap: 0.85rem;
+		min-width: 0;
 	}
 
-        .work-hero .hero-title {
-                overflow-wrap: anywhere;
-        }
+	.work-hero__label .section-eyebrow {
+		margin: 0;
+	}
 
-	.work-hero p,
+	.work-hero__mission {
+		min-width: 0;
+		border-left: 1px solid var(--color-border-soft);
+		padding-left: clamp(1rem, 3vw, 2rem);
+	}
+
+	.work-hero .hero-title {
+		max-width: none;
+		font-size: clamp(4.2rem, 8vw, 7rem);
+		overflow-wrap: normal;
+		word-break: normal;
+	}
+
+	.work-hero__mission p,
 	.work-section__intro p,
 	.work-index-card__overview {
 		color: var(--color-body-text);
-		font-size: var(--type-reading-size);
-		line-height: var(--type-reading-line);
 		overflow-wrap: anywhere;
 	}
 
-	.work-hero__lead {
-		max-width: 680px;
-		color: var(--color-body-text);
-		font-size: clamp(1.05rem, 1.25vw, 1.18rem);
+	.work-hero__mission p {
+		max-width: 660px;
+		margin: 0;
+		font-size: clamp(1.1rem, 1.45vw, 1.32rem);
 		font-weight: 400;
-		line-height: 1.55;
-		letter-spacing: var(--type-body-tracking);
+		line-height: 1.5;
 	}
 
-	.work-hero__note {
-		margin-top: 0.25rem;
-		color: var(--color-muted);
-		font-size: var(--type-card-body-size);
+	.work-section__intro p,
+	.work-index-card__overview {
+		font-size: var(--type-reading-size);
+		line-height: var(--type-reading-line);
 	}
 
 	.work-hero__note a,
@@ -881,8 +896,27 @@ const technicalAreaGroups = [
 			width: min(calc(100% - 48px), 1120px);
 		}
 
-                .work-hero__copy,
-                .work-section__intro,
+		.work-hero__inner {
+			grid-template-columns: 1fr;
+			align-items: start;
+			gap: 1.1rem;
+		}
+
+		.work-hero__mission {
+			border-left: 0;
+			border-top: 1px solid var(--color-border-soft);
+			padding-top: 1rem;
+			padding-left: 0;
+			max-width: 100%;
+		}
+
+		.work-hero .hero-title {
+			font-size: clamp(3.2rem, 15vw, 4.4rem);
+		}
+
+		.work-hero__label,
+		.work-hero__mission,
+		.work-section__intro,
 		.work-index-card__body {
 			overflow-wrap: anywhere;
 		}

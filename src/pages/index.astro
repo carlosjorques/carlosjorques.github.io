@@ -1,17 +1,748 @@
 ---
+import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import HeroSection from '../components/HeroSection.astro';
-import SelectedWorkStrip from '../components/SelectedWorkStrip.astro';
-import LatestWriting from '../components/LatestWriting.astro';
-import HomeMoreAbout from '../components/HomeMoreAbout.astro';
+
+const baseUrl = import.meta.env.BASE_URL;
+const normalizedBase = baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`;
+const withBase = (href: string) => (href === '/' ? normalizedBase : `${normalizedBase}${href.replace(/^\//, '')}`);
+const toSlug = (id: string) => id.replace(/\.md$/, '');
+
+const heroVideoUrl = `${normalizedBase}videos/333466_1_5.mp4`;
+const portraitUrl = withBase('/images/carlos-jorques-intro.webp');
+
+const selectedWork = [
+	{
+		title: 'Embedded controls for electrified and heavy-duty systems',
+		linkText: 'View selected work',
+		href: withBase('/work'),
+		ctaId: 'selected-work-electrified-heavy-duty',
+	},
+	{
+		title: 'Autonomous and intelligent machines',
+		linkText: 'Explore applied domains',
+		href: withBase('/work'),
+		ctaId: 'selected-work-autonomous-machines',
+	},
+	{
+		title: 'Research, patents, and publications',
+		linkText: 'View publications and patents',
+		href: withBase('/work'),
+		ctaId: 'selected-work-research-publications',
+	},
+];
+
+const articles = (await getCollection('writing'))
+	.filter((entry) => !entry.data.draft)
+	.sort((a, b) => b.data.publishDate.getTime() - a.data.publishDate.getTime())
+	.slice(0, 3)
+	.map((entry, index) => ({
+		number: String(index + 1).padStart(2, '0'),
+		title: entry.data.title,
+		description: entry.data.description,
+		href: withBase(`/writing/${toSlug(entry.id)}/`),
+		ctaId: `home-writing-${toSlug(entry.id)}`,
+	}));
 ---
 
 <BaseLayout
 	title="Carlos Jorques · Embedded Control Architect"
 	description="Embedded control architect and technical leader helping teams close the gap between control design and real-world behavior in production embedded systems."
 >
-	<HeroSection />
-	<SelectedWorkStrip />
-	<LatestWriting />
-	<HomeMoreAbout />
+	<section class="hero-area">
+		<video class="hero-video" autoplay muted loop playsinline preload="metadata" aria-hidden="true">
+			<source src={heroVideoUrl} type="video/mp4" />
+		</video>
+		<div class="page-container">
+			<div class="hero">
+				<div class="hero__copy">
+					<p class="hero-kicker section-eyebrow">Hi, I'm</p>
+					<h1 class="hero-name hero-title">Carlos Jorques</h1>
+					<h2 class="hero-statement">Technical Leader in Embedded Control Software for Intelligent Systems.</h2>
+					<p class="hero-value">
+						The gap between a prototype and a trustworthy machine is reliable software.
+						I help teams define and build the embedded control software that enables intelligent systems to behave safely and reliably in the real world.
+					</p>
+
+					<div class="hero-links button-row" aria-label="Primary contact links">
+						<a
+							class="button primary"
+							href="https://www.linkedin.com/in/carlosjorques/"
+							target="_blank"
+							rel="noopener noreferrer"
+							data-analytics-event="linkedin_outbound_click"
+							data-cta-id="hero-linkedin"
+							data-cta-placement="home-hero"
+							data-cta-intent="professional-profile"
+							data-source-section="hero"
+						>
+							Connect on LinkedIn
+						</a>
+						<a
+							class="button"
+							href={withBase('/work')}
+							data-analytics-event="cta_click"
+							data-cta-id="hero-work"
+							data-cta-placement="home-hero"
+							data-cta-intent="proof"
+							data-source-section="hero"
+						>
+							View Work
+						</a>
+						<a
+							class="button"
+							href={withBase('/contact')}
+							data-analytics-event="cta_click"
+							data-cta-id="hero-contact"
+							data-cta-placement="home-hero"
+							data-cta-intent="contact"
+							data-source-section="hero"
+						>
+							Get in Touch
+						</a>
+					</div>
+				</div>
+
+				<figure class="hero__portrait">
+					<img
+						src={portraitUrl}
+						alt="Carlos Jorques, embedded control systems engineer."
+						width="768"
+						height="1024"
+						loading="eager"
+						decoding="async"
+						fetchpriority="high"
+					/>
+				</figure>
+
+				<aside class="home-proof" aria-label="Professional proof points">
+					<div class="home-proof__grid">
+						<div class="home-proof__item">
+							<span class="home-proof__value">12+ Years</span>
+							<span class="home-proof__label">Electric vehicles, autonomous systems and power electronics</span>
+						</div>
+						<div class="home-proof__item">
+							<span class="home-proof__value">OEM / Tier 1</span>
+							<span class="home-proof__label">Scania, Volvo CE, MAHLE and TRATON</span>
+						</div>
+						<div class="home-proof__item">
+							<span class="home-proof__value">Safety-Critical Development</span>
+							<span class="home-proof__label">ISO 26262, ASPICE, AUTOSAR and MISRA C</span>
+						</div>
+						<div class="home-proof__item">
+							<span class="home-proof__value">PhD in Automatic Control</span>
+							<span class="home-proof__label">Control systems, modeling and optimization</span>
+						</div>
+					</div>
+				</aside>
+			</div>
+		</div>
+	</section>
+
+	<section class="selected-work" aria-labelledby="selected-work-title">
+		<div class="page-container">
+			<div class="selected-work__header">
+				<h2 id="selected-work-title">Selected work</h2>
+				<p>
+					A compact path into the engineering evidence behind the profile: applied systems,
+					product contexts, publications, and patents.
+				</p>
+			</div>
+
+			<div class="selected-work__list">
+				{selectedWork.map((item, index) => (
+					<article class="selected-work__item">
+						<span class="selected-work__index">{String(index + 1).padStart(2, '0')}</span>
+						<h3>{item.title}</h3>
+						<a
+							href={item.href}
+							data-analytics-event="cta_click"
+							data-cta-id={item.ctaId}
+							data-cta-placement="home-selected-work"
+							data-cta-intent="proof"
+							data-source-section="selected-work"
+						>
+							{item.linkText}
+						</a>
+					</article>
+				))}
+			</div>
+		</div>
+	</section>
+
+	<section class="latest" aria-labelledby="writing-title">
+		<div class="page-container">
+			<div class="latest__header">
+				<h2 id="writing-title">Technical insights</h2>
+				<p class="latest__intro">
+					Published notes on control systems, electrification, diagnostics, and real-time embedded software:
+					technical challenges, production constraints, and reliable machine behavior.
+				</p>
+			</div>
+
+			{articles.map((article) => (
+				<a
+					href={article.href}
+					class="article-link"
+					data-analytics-event="writing_article_click"
+					data-cta-id={article.ctaId}
+					data-cta-placement="home-writing"
+					data-cta-intent="authority"
+					data-source-section="latest-writing"
+				>
+					<span class="article-link__number">{article.number}</span>
+					<span>
+						<h3 class="article-link__title">{article.title}</h3>
+						<p class="article-link__description">{article.description}</p>
+					</span>
+					<span class="article-link__arrow" aria-hidden="true">-&gt;</span>
+				</a>
+			))}
+
+			<div class="latest__footer">
+				<a
+					href={withBase('/writing')}
+					data-analytics-event="cta_click"
+					data-cta-id="home-view-all-writing"
+					data-cta-placement="home-writing"
+					data-cta-intent="authority"
+					data-source-section="latest-writing"
+				>
+					View all writing
+				</a>
+			</div>
+		</div>
+	</section>
+
+	<section class="home-more" aria-label="More about Carlos">
+		<div class="page-container home-more__inner">
+			<a href={withBase('/about')}>More about Carlos</a>
+		</div>
+	</section>
 </BaseLayout>
+
+<style>
+	.hero-area {
+		--hero-video-opacity: 0.1;
+
+		position: relative;
+		overflow: hidden;
+		background: var(--hero-gradient);
+		color: var(--color-hero-text);
+		padding-block: clamp(4.5rem, 8vw, 7.5rem) clamp(3rem, 5vw, 4.5rem);
+	}
+
+	.hero-video {
+		position: absolute;
+		inset: 0;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		opacity: var(--hero-video-opacity);
+		pointer-events: none;
+	}
+
+	.hero-area .page-container {
+		position: relative;
+		z-index: 2;
+	}
+
+	.hero-area::after {
+		content: "";
+		position: absolute;
+		inset: 0;
+		z-index: 1;
+		background: var(--hero-video-overlay);
+		pointer-events: none;
+	}
+
+	.hero {
+		position: relative;
+		z-index: 1;
+		display: grid;
+		grid-template-columns: minmax(0, 1fr);
+		gap: clamp(2.5rem, 5vw, 4.5rem);
+		align-items: center;
+	}
+
+	.hero__copy {
+		max-width: 760px;
+		text-align: left;
+	}
+
+	.hero-kicker,
+	.hero-name,
+	.hero-statement,
+	.hero-value,
+	.hero-links,
+	.hero__portrait,
+	.home-proof {
+		animation: carbon-enter-up var(--motion-duration-slow-01) var(--motion-entrance-expressive) both;
+	}
+
+	.hero-name {
+		animation-delay: 40ms;
+	}
+
+	.hero-statement {
+		animation-delay: 90ms;
+	}
+
+	.hero-value {
+		animation-delay: 190ms;
+	}
+
+	.hero-links {
+		animation-delay: 240ms;
+	}
+
+	.hero__portrait {
+		animation-delay: 290ms;
+	}
+
+	.home-proof {
+		animation-delay: 340ms;
+	}
+
+	.hero-kicker {
+		margin: 0 0 var(--spacing-05);
+		font-family: var(--font-mono);
+		font-size: var(--type-eyebrow-size);
+		font-weight: var(--type-eyebrow-weight);
+		letter-spacing: var(--type-eyebrow-tracking);
+		text-transform: uppercase;
+		color: var(--color-hero-kicker);
+	}
+
+	.hero-name {
+		margin: 0;
+		font-size: var(--type-hero-name-size);
+		line-height: var(--type-hero-name-line);
+		letter-spacing: var(--type-hero-name-tracking);
+		font-weight: var(--type-hero-name-weight);
+		color: var(--color-hero-text);
+	}
+
+	.hero-statement {
+		max-width: 760px;
+		margin: var(--spacing-06) 0 0;
+		font-size: var(--type-hero-role-size);
+		line-height: var(--type-hero-role-line);
+		letter-spacing: var(--type-hero-role-tracking);
+		font-weight: var(--type-hero-role-weight);
+		color: var(--color-hero-text);
+	}
+
+	@supports ((-webkit-background-clip: text) or (background-clip: text)) {
+		.hero-statement {
+			background: var(--slogan-gradient);
+			-webkit-background-clip: text;
+			background-clip: text;
+			color: transparent;
+			-webkit-text-fill-color: transparent;
+		}
+	}
+
+	.hero-value {
+		max-width: 690px;
+		margin: var(--spacing-06) 0 0;
+		color: var(--color-hero-text);
+		font-size: var(--type-body-large-size);
+		line-height: var(--type-body-large-line);
+		letter-spacing: var(--type-body-large-tracking);
+		font-weight: 500;
+	}
+
+	.hero-links {
+		margin-top: var(--spacing-07);
+		display: flex;
+		justify-content: flex-start;
+		gap: 0.75rem;
+		flex-wrap: wrap;
+	}
+
+	.hero__portrait {
+		margin: 0;
+		width: min(100%, 360px);
+		aspect-ratio: 1;
+		justify-self: center;
+		overflow: hidden;
+		border: 1px solid var(--color-border-soft);
+		border-radius: var(--radius-pill);
+		background: var(--color-card-bg);
+	}
+
+	.hero__portrait img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		object-position: 50% 30%;
+	}
+
+	.home-proof {
+		grid-column: 1 / -1;
+		margin-top: clamp(3rem, 5vw, 6rem);
+		padding-top: clamp(0.85rem, 1.6vw, 1.1rem);
+		border-top: 1px solid var(--color-border);
+	}
+
+	.home-proof__grid {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		gap: 0;
+	}
+
+	.home-proof__item {
+		min-height: 52px;
+		padding: 0.15rem 1.1rem 0.15rem 0;
+		transition:
+			background-color var(--motion-duration-fast-02) var(--motion-standard-productive),
+			transform var(--motion-duration-fast-02) var(--motion-standard-productive);
+	}
+
+	.home-proof__item:hover {
+		transform: translateY(-1px);
+	}
+
+	.home-proof__item + .home-proof__item {
+		padding-left: 1.1rem;
+		border-left: 1px solid var(--color-border-soft);
+	}
+
+	.home-proof__value {
+		display: block;
+		margin-bottom: 0.35rem;
+		font-family: var(--font-mono);
+		font-size: var(--type-meta-size);
+		font-weight: 600;
+		letter-spacing: var(--type-meta-tracking);
+		text-transform: uppercase;
+		color: var(--color-hero-proof-value);
+	}
+
+	.home-proof__label {
+		display: block;
+		max-width: 230px;
+		font-family: var(--font-body);
+		font-size: var(--type-meta-size);
+		line-height: 1.45;
+		letter-spacing: 0;
+		color: var(--color-hero-proof-label);
+	}
+
+	.selected-work,
+	.latest,
+	.home-more {
+		background: var(--color-section-bg);
+	}
+
+	.selected-work {
+		padding-block: clamp(var(--spacing-09), 6vw, var(--spacing-10));
+	}
+
+	.selected-work__header,
+	.latest__header {
+		display: grid;
+		gap: var(--spacing-03);
+		max-width: var(--measure-reading);
+		margin-bottom: clamp(var(--spacing-06), 3vw, var(--spacing-07));
+		padding-right: clamp(0rem, 6vw, var(--spacing-10));
+	}
+
+	.latest__header {
+		gap: 0.65rem;
+		max-width: 760px;
+		margin-bottom: clamp(var(--spacing-07), 4vw, var(--spacing-09));
+	}
+
+	.selected-work__header h2,
+	.latest__header h2 {
+		margin: 0;
+		font-size: var(--type-section-title-size);
+		line-height: var(--type-section-title-line);
+		letter-spacing: var(--type-section-title-tracking);
+		font-weight: var(--type-section-title-weight);
+		max-width: 13ch;
+	}
+
+	.selected-work__header p,
+	.latest__intro {
+		margin: 0;
+		max-width: var(--measure-compact);
+		color: var(--color-body-text);
+		font-size: var(--type-section-intro-size);
+		line-height: var(--type-section-intro-line);
+		letter-spacing: var(--type-section-intro-tracking);
+	}
+
+	.latest__intro {
+		max-width: 720px;
+	}
+
+	.selected-work__list {
+		display: grid;
+		border-top: 1px solid var(--color-border);
+	}
+
+	.selected-work__item {
+		display: grid;
+		grid-template-columns: auto minmax(0, 1fr) auto;
+		gap: clamp(var(--spacing-05), 2vw, var(--spacing-06));
+		align-items: center;
+		padding: var(--spacing-05) 0;
+		border-bottom: 1px solid var(--color-border);
+		transition:
+			background-color var(--motion-duration-fast-02) var(--motion-standard-productive),
+			padding-inline var(--motion-duration-fast-02) var(--motion-standard-productive);
+	}
+
+	.selected-work__item:hover {
+		background: color-mix(in srgb, var(--color-surface-soft) 88%, var(--color-page));
+		padding-inline: var(--spacing-05);
+	}
+
+	.selected-work__index,
+	.article-link__number {
+		color: var(--color-muted);
+		font-family: var(--font-mono);
+		font-size: var(--type-chip-size);
+		font-weight: var(--type-chip-weight);
+		letter-spacing: var(--type-chip-tracking);
+		line-height: var(--type-chip-line);
+	}
+
+	.selected-work__item h3 {
+		margin: 0;
+		font-size: var(--type-card-title-size);
+		line-height: var(--type-card-title-line);
+		font-weight: var(--type-card-title-weight);
+	}
+
+	.selected-work__item a,
+	.latest__footer a,
+	.home-more a {
+		color: var(--color-link);
+		font-family: var(--font-mono);
+		font-size: var(--type-chip-size);
+		font-weight: var(--type-chip-weight);
+		letter-spacing: var(--type-chip-tracking);
+		line-height: var(--type-chip-line);
+		text-transform: uppercase;
+		text-decoration: none;
+		border-bottom: 1px solid transparent;
+		white-space: nowrap;
+		width: fit-content;
+		transition:
+			border-color var(--motion-duration-fast-02) var(--motion-standard-productive),
+			color var(--motion-duration-fast-02) var(--motion-standard-productive),
+			transform var(--motion-duration-fast-02) var(--motion-standard-productive);
+	}
+
+	.selected-work__item a:hover,
+	.selected-work__item a:focus-visible,
+	.latest__footer a:hover,
+	.latest__footer a:focus-visible,
+	.home-more a:hover,
+	.home-more a:focus-visible {
+		color: var(--color-link-hover);
+		border-bottom-color: var(--color-link-hover);
+		transform: translateX(4px);
+	}
+
+	.selected-work__item a:focus-visible,
+	.latest__footer a:focus-visible,
+	.home-more a:focus-visible {
+		outline: 2px solid var(--color-focus);
+		outline-offset: 4px;
+	}
+
+	.latest {
+		border-top: 1px solid var(--color-border-soft);
+		padding-block: clamp(3rem, 6vw, 5rem);
+	}
+
+	.article-link {
+		display: grid;
+		grid-template-columns: 48px minmax(0, 1fr) auto;
+		gap: var(--spacing-07);
+		align-items: center;
+		color: inherit;
+		text-decoration: none;
+		border-top: 1px solid var(--color-border);
+		padding: var(--spacing-05);
+		margin-inline: calc(var(--spacing-05) * -1);
+		transition:
+			border-color var(--motion-duration-fast-02) var(--motion-standard-productive),
+			background-color var(--motion-duration-fast-02) var(--motion-standard-productive),
+			transform var(--motion-duration-fast-02) var(--motion-standard-productive);
+	}
+
+	.article-link:last-of-type {
+		border-bottom: 1px solid var(--color-border);
+	}
+
+	.article-link__title {
+		margin: 0 0 var(--spacing-02);
+		max-width: 34ch;
+		color: var(--color-text);
+		font-size: 1.125rem;
+		font-weight: 600;
+		text-decoration: underline;
+		text-decoration-color: transparent;
+		text-underline-offset: 0.22em;
+		text-decoration-thickness: 1px;
+		transition: text-decoration-color var(--motion-duration-fast-02) var(--motion-standard-productive);
+	}
+
+	.article-link__description {
+		margin: 0;
+		max-width: var(--measure-compact);
+		padding-right: var(--spacing-06);
+		color: var(--color-body-text);
+		font-size: 0.875rem;
+		line-height: 1.5;
+	}
+
+	.article-link__arrow {
+		display: inline-block;
+		color: var(--color-muted);
+		transition: transform var(--motion-duration-moderate-01) var(--motion-standard-productive);
+	}
+
+	.article-link:hover,
+	.article-link:focus-visible {
+		border-color: var(--color-border-strong);
+		background: color-mix(in srgb, var(--color-surface-soft) 88%, var(--color-page));
+		transform: translateX(4px);
+	}
+
+	.article-link:hover .article-link__title,
+	.article-link:focus-visible .article-link__title {
+		text-decoration-color: var(--color-border-strong);
+	}
+
+	.article-link:hover .article-link__arrow,
+	.article-link:focus-visible .article-link__arrow {
+		transform: translateX(3px);
+	}
+
+	.article-link:focus-visible {
+		outline: 2px solid var(--color-focus);
+		outline-offset: 4px;
+	}
+
+	.latest__footer {
+		margin-top: clamp(var(--spacing-06), 3vw, var(--spacing-07));
+	}
+
+	.home-more {
+		padding-block: 0 clamp(3rem, 6vw, 4.5rem);
+	}
+
+	.home-more__inner {
+		border-top: 1px solid var(--color-border-soft);
+		padding-top: 1.25rem;
+	}
+
+	@media (min-width: 900px) {
+		.hero {
+			grid-template-columns: minmax(0, 1fr) minmax(280px, 360px);
+		}
+
+		.hero__portrait {
+			justify-self: end;
+		}
+	}
+
+	@media (max-width: 900px) {
+		.hero-area::after {
+			opacity: 1;
+		}
+
+		.home-proof__grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
+
+		.home-proof__item:nth-child(3) {
+			padding-left: 0;
+			border-left: 0;
+		}
+
+		.home-proof__item:nth-child(3),
+		.home-proof__item:nth-child(4) {
+			margin-top: var(--spacing-03);
+			padding-top: var(--spacing-03);
+			border-top: 1px solid var(--color-border-soft);
+		}
+	}
+
+	@media (max-width: 760px) {
+		.selected-work__item {
+			grid-template-columns: auto minmax(0, 1fr);
+			align-items: start;
+		}
+
+		.selected-work__item a {
+			grid-column: 2;
+		}
+	}
+
+	@media (max-width: 640px) {
+		.hero-area {
+			padding-block: 3.5rem 2.5rem;
+		}
+
+		.hero-name,
+		.hero-statement,
+		.hero-value,
+		.hero-kicker {
+			max-width: 100%;
+			overflow-wrap: anywhere;
+		}
+
+		.hero__portrait {
+			width: min(100%, 280px);
+			justify-self: start;
+		}
+
+		.home-proof {
+			margin-top: var(--spacing-07);
+		}
+
+		.home-proof__grid {
+			grid-template-columns: 1fr;
+		}
+
+		.home-proof__item {
+			min-height: auto;
+			padding: 0.75rem 0;
+		}
+
+		.home-proof__item:first-child {
+			padding-top: 0;
+		}
+
+		.home-proof__item:last-child {
+			padding-bottom: 0;
+		}
+
+		.home-proof__item + .home-proof__item,
+		.home-proof__item:nth-child(3),
+		.home-proof__item:nth-child(4) {
+			margin-top: 0;
+			padding-left: 0;
+			border-left: 0;
+			border-top: 1px solid var(--color-border-soft);
+		}
+
+		.article-link {
+			grid-template-columns: 36px minmax(0, 1fr) auto;
+			gap: var(--spacing-05);
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.hero-video {
+			display: none;
+		}
+	}
+</style>

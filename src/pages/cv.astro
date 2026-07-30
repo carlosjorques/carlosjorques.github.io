@@ -1142,8 +1142,11 @@ const profileJsonLd = {
 
 		<section class="cv-hero" aria-labelledby="cv-title">
 			<div class="page-container cv-hero__inner">
-				<div class="cv-hero__content">
+				<div class="cv-hero__label">
+					<p class="section-eyebrow">{cvProfile.hero.eyebrow}</p>
 					<h1 id="cv-title" class="cv-hero__name hero-title">{cvProfile.hero.title}</h1>
+				</div>
+				<div class="cv-hero__content">
 					<p class="cv-hero__subtitle hero-role cv-hero__role">{cvProfile.hero.subtitle}</p>
 					<p class="cv-hero__summary hero-summary">{cvProfile.hero.summary}</p>
 					<p class="cv-hero__extended">{cvProfile.hero.secondarySummary}</p>
@@ -2052,32 +2055,43 @@ const profileJsonLd = {
 
         .cv-hero {
                 display: grid;
-                min-height: calc(100svh - var(--cv-hero-header-offset));
-                min-height: calc(100dvh - var(--cv-hero-header-offset));
-                align-items: center;
+                align-items: start;
                 border-bottom: 1px solid var(--color-border-soft);
                 background: transparent;
-                padding-block: clamp(2.25rem, 4.5vw, 4rem);
+                padding-block: clamp(3rem, 5vw, 4.6rem) clamp(1.55rem, 3vw, 2.25rem);
 	}
 
 	.cv-hero__inner {
 		display: grid;
-		gap: clamp(1.5rem, 2.5vw, 2.25rem);
-		align-items: center;
+		grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+		gap: clamp(1.4rem, 5vw, 4.2rem);
+		align-items: end;
+	}
+
+	.cv-hero__label {
+		display: grid;
+		gap: 0.85rem;
+		min-width: 0;
+	}
+
+	.cv-hero__label .section-eyebrow {
+		margin: 0;
 	}
 
 	.cv-hero__content {
 		display: grid;
-		gap: clamp(0.95rem, 1.6vw, 1.35rem);
+		gap: 0.75rem;
 		min-width: 0;
-		max-width: 74ch;
+		max-width: 660px;
+		border-left: 1px solid var(--color-border-soft);
+		padding-left: clamp(1rem, 3vw, 2rem);
 	}
 
 	.cv-hero h1 {
-		margin-bottom: clamp(0.15rem, 0.7vw, 0.45rem);
-		font-size: clamp(4.5rem, 8vw, 7.8rem);
-		line-height: 0.92;
-		letter-spacing: -0.07em;
+		max-width: none;
+		font-size: clamp(4.2rem, 8vw, 7rem);
+		overflow-wrap: normal;
+		word-break: normal;
 	}
 
 	.cv-hero__subtitle {
@@ -2113,8 +2127,10 @@ const profileJsonLd = {
 
 	.cv-hero__evidence {
 		display: grid;
+		grid-column: 1 / -1;
 		gap: clamp(0.9rem, 1.8vw, 1.25rem);
 		min-width: 0;
+		margin-top: clamp(1rem, 2vw, 1.5rem);
 	}
 
 	.cv-proof-grid {
@@ -3861,7 +3877,7 @@ const profileJsonLd = {
 
 	@media (min-width: 980px) {
 		.cv-hero__inner {
-			grid-template-columns: minmax(0, 1fr) minmax(18rem, 22rem);
+			grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
 		}
 
                 .cv-card-grid--three,
@@ -3917,13 +3933,26 @@ const profileJsonLd = {
 
         @media (max-width: 640px) {
 		.cv-hero {
-			min-height: calc(100svh - 7.5rem);
-			min-height: calc(100dvh - 7.5rem);
 			align-items: start;
-			padding-block: clamp(2rem, 8vw, 3rem);
+			padding-block: 3.5rem 2.75rem;
+		}
+
+		.cv-hero__inner {
+			grid-template-columns: 1fr;
+			align-items: start;
+			gap: 1.1rem;
+		}
+
+		.cv-hero__content {
+			border-left: 0;
+			border-top: 1px solid var(--color-border-soft);
+			padding-top: 1rem;
+			padding-left: 0;
+			max-width: 100%;
 		}
 
 		.cv-hero__content,
+		.cv-hero__label,
 		.cv-hero__evidence,
 		.cv-actions {
 			width: calc(100vw - 2rem);
@@ -3935,9 +3964,9 @@ const profileJsonLd = {
 		}
 
 		.cv-hero h1 {
-			max-width: 8ch;
-			font-size: clamp(3rem, 16vw, 3.6rem);
-			overflow-wrap: break-word;
+			max-width: none;
+			font-size: clamp(3.2rem, 15vw, 4.4rem);
+			overflow-wrap: anywhere;
 		}
 
 		.cv-hero__subtitle {
