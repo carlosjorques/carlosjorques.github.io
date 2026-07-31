@@ -18,18 +18,24 @@ const linkedinHref = 'https://www.linkedin.com/in/carlosjorques/';
 >
 	<section class="about-intro" aria-labelledby="about-title">
 		<div class="page-container about-intro__inner">
-			<div class="about-intro__label">
-				<p class="section-eyebrow">A closer look</p>
-				<h1 id="about-title" class="hero-title">About me</h1>
+			<div class="about-intro__content">
+				<div class="about-intro__label">
+					<p class="section-eyebrow">A closer look</p>
+					<h1 id="about-title" class="hero-title">About me</h1>
+				</div>
+				<div class="about-intro__copy">
+					<blockquote class="about-pullquote">
+						<p>What makes a machine truly intelligent?</p>
+					</blockquote>
+					<p>I have been fascinated by that question for as long as I can remember. It led me to study Electrical Engineering and later pursue a doctorate in automatic control, drawn by the challenge of making machines sense, decide, and act reliably in the real world.</p>
+					<p>For the past twelve years, I have worked on production embedded control software for electric trucks, autonomous machines, power electronics, and other complex vehicle systems. My work has taken me across Scania, Volvo Construction Equipment, and MAHLE Electronics, alongside international teams spanning software, electronics, control, mechanical engineering, testing, and calibration.</p>
+					<p>The software is only part of the story. What defines my work more clearly is how I approach complex systems, how I help teams make difficult technical decisions, and how I turn uncertain problems into something people can understand and solve together.</p>
+					<p>Where you go next depends on what brought you here.</p>
+				</div>
 			</div>
-			<div class="about-intro__copy">
-				<blockquote class="about-pullquote">
-					<p>What makes a machine truly intelligent?</p>
-				</blockquote>
-				<p>I have been fascinated by that question for as long as I can remember. It led me to study Electrical Engineering and later pursue a doctorate in automatic control, drawn by the challenge of making machines sense, decide, and act reliably in the real world.</p>
-				<p>For the past twelve years, I have worked on production embedded control software for electric trucks, autonomous machines, power electronics, and other complex vehicle systems. My work has taken me across Scania, Volvo Construction Equipment, and MAHLE Electronics, alongside international teams spanning software, electronics, control, mechanical engineering, testing, and calibration.</p>
-				<p>The software is only part of the story. What defines my work more clearly is how I approach complex systems, how I help teams make difficult technical decisions, and how I turn uncertain problems into something people can understand and solve together.</p>
-				<p>Where you go next depends on what brought you here.</p>
+			<!-- Placeholder for a portrait or environmental photo of Carlos; replace with the final image later. -->
+			<div class="about-portrait" data-expected-alt="Carlos Jorques" aria-hidden="true">
+				<div class="about-portrait__placeholder"></div>
 			</div>
 		</div>
 	</section>
@@ -66,7 +72,6 @@ const linkedinHref = 'https://www.linkedin.com/in/carlosjorques/';
 		<div class="page-container">
 			<div class="signal-path-list">
 				<article class="signal-path-item" id="approach">
-					<div class="signal-path-item__node" aria-hidden="true"></div>
 					<div class="signal-path-item__content">
 						<p class="signal-path-item__label">01 - Approach</p>
 						<h2>Understanding what should be built matters as much as building it</h2>
@@ -85,7 +90,6 @@ const linkedinHref = 'https://www.linkedin.com/in/carlosjorques/';
 				</article>
 
 				<article class="signal-path-item" id="collaboration">
-					<div class="signal-path-item__node" aria-hidden="true"></div>
 					<div class="signal-path-item__content">
 						<p class="signal-path-item__label">02 - Collaboration</p>
 						<h2>Creating clarity so multidisciplinary teams can move forward together</h2>
@@ -98,17 +102,15 @@ const linkedinHref = 'https://www.linkedin.com/in/carlosjorques/';
 								<p>Complex systems rarely fail because one component is entirely wrong. Problems often appear at the boundaries between software and hardware, between teams, or between what the physical system can do and what the specification assumed it would do.</p>
 								<p>Before moving toward a solution, I like to make the behaviour of the whole system visible. When software, electronics, controls, mechanical engineering, testing, and calibration are working from the same picture, discussions become more concrete and much less focused on defending individual subsystems.</p>
 								<p>I see technical leadership as creating the conditions for good engineering. That includes clarifying ownership, resolving assumptions, connecting decisions to evidence, and helping the people closest to the system contribute effectively. My role is not to have every answer. It is to help the team ask the right questions and reach decisions that hold together.</p>
+								<blockquote class="signal-path-item__quote">
+									<p>An elegant algorithm is only the beginning. The real engineering challenge is making it work reliably.</p>
+								</blockquote>
 							</div>
 						</div>
 					</div>
 				</article>
 
-				<blockquote class="about-pullquote about-pullquote--inline">
-					<p>An elegant algorithm is only the beginning. The real engineering challenge is making it work reliably.</p>
-				</blockquote>
-
 				<article class="signal-path-item" id="origin">
-					<div class="signal-path-item__node" aria-hidden="true"></div>
 					<div class="signal-path-item__content">
 						<p class="signal-path-item__label">03 - Origin</p>
 						<h2>From a wobbling robot to a career in control</h2>
@@ -129,7 +131,6 @@ const linkedinHref = 'https://www.linkedin.com/in/carlosjorques/';
 				</article>
 
 				<article class="signal-path-item" id="beyond-engineering">
-					<div class="signal-path-item__node" aria-hidden="true"></div>
 					<div class="signal-path-item__content">
 						<p class="signal-path-item__label">04 - Beyond engineering</p>
 						<h2>Still building things, just with different constraints</h2>
@@ -148,7 +149,6 @@ const linkedinHref = 'https://www.linkedin.com/in/carlosjorques/';
 				</article>
 
 				<article class="signal-path-item" id="where-i-add-value">
-					<div class="signal-path-item__node" aria-hidden="true"></div>
 					<div class="signal-path-item__content">
 						<p class="signal-path-item__label">05 - Where I add the most value</p>
 						<h2>Where I add the most value</h2>
@@ -242,23 +242,27 @@ const linkedinHref = 'https://www.linkedin.com/in/carlosjorques/';
 <style>
 	.about-intro {
 		padding-block: clamp(3rem, 5vw, 4.6rem) clamp(1.55rem, 3vw, 2.25rem);
-		border-bottom: 1px solid var(--color-border-soft);
 		background: transparent;
 	}
 
 	.about-intro .page-container,
 	.about-routes .page-container,
 	.about-signal-path .page-container,
-	.about-closing .page-container,
-	.page-container:has(> .about-pullquote) {
+	.about-closing .page-container {
 		width: min(calc(100% - 32px), var(--content-width));
 	}
 
 	.about-intro__inner {
 		display: grid;
-		grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
-		gap: clamp(1.4rem, 5vw, 4.2rem);
-		align-items: end;
+		grid-template-columns: minmax(0, 3fr) minmax(16rem, 2fr);
+		gap: clamp(2rem, 6vw, 5.5rem);
+		align-items: start;
+		min-width: 0;
+	}
+
+	.about-intro__content {
+		display: grid;
+		gap: clamp(1.5rem, 3vw, 2.25rem);
 		min-width: 0;
 	}
 
@@ -282,10 +286,8 @@ const linkedinHref = 'https://www.linkedin.com/in/carlosjorques/';
 	.about-intro__copy {
 		display: grid;
 		gap: 1rem;
-		max-width: 660px;
+		max-width: var(--measure-reading);
 		min-width: 0;
-		border-left: 1px solid var(--color-border-soft);
-		padding-left: clamp(1rem, 3vw, 2rem);
 	}
 
 	.about-intro__copy p {
@@ -294,6 +296,25 @@ const linkedinHref = 'https://www.linkedin.com/in/carlosjorques/';
 		line-height: var(--type-body-large-line);
 		letter-spacing: var(--type-body-large-tracking);
 		overflow-wrap: break-word;
+	}
+
+	.about-portrait,
+	.about-portrait__placeholder {
+		width: 100%;
+		aspect-ratio: 4 / 5;
+	}
+
+	.about-portrait {
+		overflow: hidden;
+		border: 1px solid var(--color-card-border);
+		border-radius: var(--radius);
+		background: var(--color-card-bg);
+	}
+
+	.about-portrait__placeholder {
+		background:
+			linear-gradient(145deg, transparent 0 62%, var(--color-border-soft) 62% 62.4%, transparent 62.4%),
+			var(--color-card-bg);
 	}
 
 	.about-pullquote {
@@ -316,39 +337,49 @@ const linkedinHref = 'https://www.linkedin.com/in/carlosjorques/';
 		overflow-wrap: break-word;
 	}
 
-	.about-pullquote--inline {
-		margin: clamp(1rem, 3vw, 1.8rem) 0 clamp(1.75rem, 4vw, 3rem) clamp(2.6rem, 5vw, 4.5rem);
-		max-width: 760px;
-	}
-
 	.about-routes {
-		padding-block: clamp(2rem, 4vw, 3rem);
+		padding-block: clamp(1rem, 2vw, 1.5rem);
+		border-top: 1px solid var(--color-border-soft);
 		border-bottom: 1px solid var(--color-border-soft);
 	}
 
 	.about-routes__inner {
-		display: grid;
-		gap: 1rem;
+		display: flex;
+		flex-wrap: wrap;
+		gap: clamp(1rem, 3vw, 2rem);
+		align-items: flex-start;
 	}
 
 	.about-route-card {
 		display: grid;
-		gap: 0.9rem;
-		max-width: 900px;
-		border: 1px solid var(--color-card-border);
-		border-radius: var(--radius);
-		background: var(--color-card-bg);
-		padding: clamp(1rem, 2.5vw, 1.4rem);
+		flex: 1 1 17rem;
+		gap: 0.45rem;
+		align-content: start;
+		min-width: 0;
 	}
 
 	.about-route-card h2 {
-		font-size: clamp(1.35rem, 2.5vw, 2rem);
-		line-height: 1.08;
-		letter-spacing: -0.04em;
+		width: 100%;
+		max-width: none;
+		color: var(--color-muted);
+		font-family: var(--font-mono);
+		font-size: var(--type-meta-size);
+		font-weight: 700;
+		line-height: var(--type-meta-line);
+		letter-spacing: var(--type-meta-tracking);
+		text-transform: uppercase;
+		overflow-wrap: normal;
 	}
 
 	.about-route-card__actions {
+		gap: 0.45rem;
 		align-items: center;
+	}
+
+	.about-route-card__actions .button {
+		min-height: auto;
+		padding: 0.4rem 0.7rem;
+		font-size: var(--type-meta-size);
 	}
 
 	.about-signal-path {
@@ -362,46 +393,25 @@ const linkedinHref = 'https://www.linkedin.com/in/carlosjorques/';
 	}
 
 	.signal-path-list {
-		position: relative;
 		display: grid;
-		gap: clamp(2.2rem, 5vw, 4rem);
-		max-width: 900px;
+		grid-template-columns: minmax(0, 1fr);
+		gap: clamp(1.5rem, 3vw, 2.5rem);
+		align-items: start;
 		min-width: 0;
-		padding-left: clamp(2.6rem, 5vw, 4.5rem);
-	}
-
-	.signal-path-list::before {
-		content: "";
-		position: absolute;
-		left: clamp(0.58rem, 1.2vw, 0.78rem);
-		top: 0.35rem;
-		bottom: 0.35rem;
-		width: 1px;
-		background: var(--color-border);
 	}
 
 	.signal-path-item {
-		position: relative;
 		display: grid;
 		min-width: 0;
-	}
-
-	.signal-path-item__node {
-		position: absolute;
-		left: calc(-1 * clamp(2.6rem, 5vw, 4.5rem) + clamp(0.58rem, 1.2vw, 0.78rem));
-		top: 0.45rem;
-		width: 0.68rem;
-		height: 0.68rem;
-		transform: translateX(-50%);
-		border-radius: var(--radius-pill);
-		background: var(--color-accent-text);
-		box-shadow: 0 0 0 0.4rem var(--color-page);
+		align-content: start;
+		border: 1px solid var(--color-card-border);
+		border-radius: var(--radius);
+		padding: clamp(1.25rem, 2.5vw, 2rem);
 	}
 
 	.signal-path-item__content {
 		display: grid;
 		gap: 0.75rem;
-		max-width: 760px;
 		min-width: 0;
 	}
 
@@ -476,6 +486,21 @@ const linkedinHref = 'https://www.linkedin.com/in/carlosjorques/';
 		gap: 1rem;
 	}
 
+	.signal-path-item__quote {
+		margin: 0.25rem 0 0;
+		border-left: 2px solid var(--color-accent-text);
+		padding-left: 1rem;
+	}
+
+	.signal-path-item__quote p {
+		color: var(--color-quote-text);
+		font-family: var(--font-display);
+		font-size: clamp(1.05rem, 1.6vw, 1.25rem);
+		font-style: italic;
+		font-weight: 500;
+		line-height: 1.35;
+	}
+
 	.signal-path-item__extra p,
 	.signal-path-item__body p,
 	.about-closing__copy p {
@@ -494,6 +519,11 @@ const linkedinHref = 'https://www.linkedin.com/in/carlosjorques/';
 
 	.signal-path-item__body {
 		margin-top: 0.2rem;
+	}
+
+	.signal-path-item#where-i-add-value {
+		background: var(--color-card-bg);
+		padding: clamp(1.5rem, 3vw, 2.5rem);
 	}
 
 	.about-closing {
@@ -530,6 +560,26 @@ const linkedinHref = 'https://www.linkedin.com/in/carlosjorques/';
 		}
 	}
 
+	@media (min-width: 1024px) {
+		.signal-path-list {
+			grid-template-columns: repeat(12, minmax(0, 1fr));
+		}
+
+		.signal-path-item#approach,
+		.signal-path-item#origin {
+			grid-column: span 7;
+		}
+
+		.signal-path-item#collaboration,
+		.signal-path-item#beyond-engineering {
+			grid-column: span 5;
+		}
+
+		.signal-path-item#where-i-add-value {
+			grid-column: span 12;
+		}
+	}
+
 	@media (max-width: 640px) {
 		.about-intro {
 			padding-block: 3.5rem 2.5rem;
@@ -538,8 +588,7 @@ const linkedinHref = 'https://www.linkedin.com/in/carlosjorques/';
 		.about-intro .page-container,
 		.about-routes .page-container,
 		.about-signal-path .page-container,
-		.about-closing .page-container,
-		.page-container:has(> .about-pullquote) {
+		.about-closing .page-container {
 			width: min(calc(100vw - 32px), 340px);
 			max-width: min(calc(100vw - 32px), 340px);
 			margin-left: 16px;
@@ -550,14 +599,10 @@ const linkedinHref = 'https://www.linkedin.com/in/carlosjorques/';
 		.about-intro__inner {
 			grid-template-columns: 1fr;
 			align-items: start;
-			gap: 1.1rem;
+			gap: 2rem;
 		}
 
 		.about-intro__copy {
-			border-left: 0;
-			border-top: 1px solid var(--color-border-soft);
-			padding-top: 1rem;
-			padding-left: 0;
 			max-width: 100%;
 		}
 
@@ -565,11 +610,13 @@ const linkedinHref = 'https://www.linkedin.com/in/carlosjorques/';
 			font-size: clamp(3.2rem, 15vw, 4.4rem);
 		}
 
+		.about-intro__content,
 		.about-intro__label,
 		.about-intro__copy,
 		.about-intro__copy p,
 		.about-pullquote,
-		.about-pullquote p {
+		.about-pullquote p,
+		.about-portrait {
 			width: 100%;
 			max-width: min(calc(100vw - 32px), 340px);
 		}
@@ -580,27 +627,29 @@ const linkedinHref = 'https://www.linkedin.com/in/carlosjorques/';
 		}
 
 		.about-route-card {
+			display: grid;
+			flex-basis: 100%;
+			gap: 0.45rem;
 			max-width: 100%;
 		}
 
+		.about-route-card__actions {
+			width: 100%;
+		}
+
+		.about-route-card__actions .button {
+			width: auto;
+		}
+
 		.signal-path-list {
-			gap: 2.4rem;
-			padding-left: 2.25rem;
+			gap: 1.25rem;
 			width: 100%;
 			max-width: min(calc(100vw - 32px), 340px);
 		}
 
-		.signal-path-list::before {
-			left: 0.58rem;
-		}
-
-		.signal-path-item__node {
-			left: calc(-2.25rem + 0.58rem);
-		}
-
 		.signal-path-item h2 {
 			width: 100%;
-			max-width: min(calc(100vw - 84px), 280px);
+			max-width: 100%;
 			font-size: clamp(1.65rem, 8vw, 2.15rem);
 			line-height: 1.08;
 			overflow-wrap: anywhere;
@@ -610,7 +659,7 @@ const linkedinHref = 'https://www.linkedin.com/in/carlosjorques/';
 		.signal-path-item__extra p,
 		.signal-path-item__body p,
 		.about-closing__copy p {
-			max-width: min(calc(100vw - 84px), 280px);
+			max-width: 100%;
 			overflow-wrap: anywhere;
 		}
 
@@ -619,9 +668,6 @@ const linkedinHref = 'https://www.linkedin.com/in/carlosjorques/';
 			line-height: 1.2;
 		}
 
-		.about-pullquote--inline {
-			margin-left: 2.25rem;
-		}
 	}
 
 	@media (prefers-reduced-motion: reduce) {
