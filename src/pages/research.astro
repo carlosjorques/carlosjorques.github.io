@@ -93,7 +93,7 @@ const supportingItems = researchItems.filter((item) => !item.data.featured);
 
 	.research-hero .page-container,
 	.section .container {
-		width: min(calc(100% - 32px), 1120px);
+		width: min(calc(100% - 5rem), var(--content-width));
 		max-width: 100%;
 	}
 
@@ -186,7 +186,7 @@ const supportingItems = researchItems.filter((item) => !item.data.featured);
 	@media (max-width: 640px) {
 		.research-hero .page-container,
 		.section .container {
-			width: min(calc(100% - 48px), 1120px);
+			width: min(calc(100% - 2rem), var(--content-width));
 		}
 
 		.research-hero__inner {

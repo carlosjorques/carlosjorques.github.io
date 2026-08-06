@@ -81,7 +81,7 @@ const withBase = (href: string) => (href === '/' ? normalizedBase : `${normalize
 
 	.privacy-hero .page-container,
 	.privacy-content .page-container {
-		width: min(calc(100% - 32px), 1120px);
+		width: min(calc(100% - 5rem), var(--content-width));
 		max-width: 100%;
 	}
 
@@ -177,7 +177,7 @@ const withBase = (href: string) => (href === '/' ? normalizedBase : `${normalize
 
 		.privacy-hero .page-container,
 		.privacy-content .page-container {
-			width: min(calc(100% - 48px), 1120px);
+			width: min(calc(100% - 2rem), var(--content-width));
 		}
 
 		.privacy-hero__inner {

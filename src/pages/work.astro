@@ -548,7 +548,7 @@ const withBase = (href: string) => {
 
 	.work-hero .page-container,
 	.work-section .page-container {
-		width: min(calc(100% - 32px), 1120px);
+		width: min(calc(100% - 5rem), var(--content-width));
 		max-width: 100%;
 	}
 
@@ -1019,7 +1019,7 @@ const withBase = (href: string) => {
 	@media (max-width: 640px) {
 		.work-hero .page-container,
 		.work-section .page-container {
-			width: min(calc(100% - 48px), 1120px);
+			width: min(calc(100% - 2rem), var(--content-width));
 		}
 
 		.work-hero__inner {

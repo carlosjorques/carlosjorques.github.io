@@ -187,7 +187,7 @@ const linkedinHref = 'https://www.linkedin.com/in/carlosjorques/';
 
 	.contact-hero .page-container,
 	.contact-content .page-container {
-		width: min(calc(100% - 32px), 1120px);
+		width: min(calc(100% - 5rem), var(--content-width));
 		max-width: 100%;
 	}
 
@@ -221,7 +221,7 @@ const linkedinHref = 'https://www.linkedin.com/in/carlosjorques/';
 
 	.contact-hero .hero-title {
 		max-width: none;
-		font-size: clamp(4.2rem, 8vw, 7rem);
+		font-size: clamp(4.2rem, 9vw, 8rem);
 		overflow-wrap: normal;
 		word-break: normal;
 	}
@@ -255,10 +255,11 @@ const linkedinHref = 'https://www.linkedin.com/in/carlosjorques/';
 	.contact-form {
 		display: grid;
 		gap: var(--spacing-05);
-		border: 1px solid var(--color-card-border);
-		border-radius: var(--radius);
-		background: var(--color-card-bg);
-		padding: clamp(1.15rem, 3vw, 1.6rem);
+		border: 0;
+		border-top: 1px solid var(--color-border);
+		border-radius: 0;
+		background: transparent;
+		padding: clamp(1.4rem, 3vw, 2rem) 0 0;
 		transition:
 			background-color var(--motion-duration-fast-02) var(--motion-standard-productive),
 			border-color var(--motion-duration-fast-02) var(--motion-standard-productive);
@@ -267,8 +268,8 @@ const linkedinHref = 'https://www.linkedin.com/in/carlosjorques/';
 	.direct-contact-card:hover,
 	.direct-contact-card:focus-within,
 	.contact-form:focus-within {
-		border-color: var(--color-card-border-hover);
-		background: var(--color-card-bg-hover);
+		border-color: var(--color-border-strong);
+		background: transparent;
 	}
 
 	.contact-card__label {
@@ -324,10 +325,11 @@ const linkedinHref = 'https://www.linkedin.com/in/carlosjorques/';
 	.secondary-contact-links a {
 		display: grid;
 		gap: 0.25rem;
-		border: 1px solid var(--color-card-border);
-		border-radius: var(--radius);
-		background: var(--color-card-bg);
-		padding: 1rem;
+		border: 0;
+		border-bottom: 1px solid var(--color-border);
+		border-radius: 0;
+		background: transparent;
+		padding: 1rem 0;
 		color: var(--color-text);
 		text-decoration: none;
 		transition:
@@ -338,9 +340,9 @@ const linkedinHref = 'https://www.linkedin.com/in/carlosjorques/';
 
 	.secondary-contact-links a:hover,
 	.secondary-contact-links a:focus-visible {
-		border-color: var(--color-card-border-hover);
-		background: var(--color-card-bg-hover);
-		transform: translateY(-1px);
+		border-color: var(--color-accent-text);
+		background: transparent;
+		transform: translateX(4px);
 	}
 
 	.secondary-contact-links span,
@@ -375,10 +377,11 @@ const linkedinHref = 'https://www.linkedin.com/in/carlosjorques/';
 	.form-field input[type="email"],
 	.form-field textarea {
 		width: 100%;
-		border: 1px solid var(--color-border);
-		border-radius: calc(var(--radius) * 0.75);
-		background: var(--color-page);
-		padding: 0.78rem 0.85rem;
+		border: 0;
+		border-bottom: 1px solid var(--color-border);
+		border-radius: 0;
+		background: transparent;
+		padding: 0.78rem 0;
 		color: var(--color-text);
 		font: inherit;
 	}
@@ -470,7 +473,7 @@ const linkedinHref = 'https://www.linkedin.com/in/carlosjorques/';
 
 		.contact-hero .page-container,
 		.contact-content .page-container {
-			width: min(calc(100% - 48px), 1120px);
+			width: min(calc(100% - 2rem), var(--content-width));
 		}
 
 		.contact-hero__inner {

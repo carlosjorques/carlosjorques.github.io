@@ -206,13 +206,13 @@ const articles = (await getCollection('writing'))
 
 <style>
 	.hero-area {
-		--hero-video-opacity: 0.1;
+		--hero-video-opacity: 0;
 
 		position: relative;
 		overflow: hidden;
 		background: var(--hero-gradient);
 		color: var(--color-hero-text);
-		padding-block: clamp(4.5rem, 8vw, 7.5rem) clamp(3rem, 5vw, 4.5rem);
+		padding-block: clamp(4.5rem, 8vw, 7rem) clamp(4rem, 6vw, 6rem);
 	}
 
 	.hero-video {
@@ -244,7 +244,7 @@ const articles = (await getCollection('writing'))
 		z-index: 1;
 		display: grid;
 		grid-template-columns: minmax(0, 1fr);
-		gap: clamp(2.5rem, 5vw, 4.5rem);
+		gap: clamp(2.5rem, 6vw, 5rem);
 		align-items: center;
 	}
 
@@ -346,13 +346,13 @@ const articles = (await getCollection('writing'))
 
 	.hero__portrait {
 		margin: 0;
-		width: min(100%, 360px);
-		aspect-ratio: 1;
+		width: 100%;
+		aspect-ratio: 4 / 3;
 		justify-self: center;
 		overflow: hidden;
 		border: 1px solid var(--color-border-soft);
-		border-radius: var(--radius-pill);
-		background: var(--color-card-bg);
+		border-radius: var(--radius);
+		background: var(--color-surface-soft);
 	}
 
 	.hero__portrait img {
@@ -364,7 +364,7 @@ const articles = (await getCollection('writing'))
 
 	.home-proof {
 		grid-column: 1 / -1;
-		margin-top: clamp(3rem, 5vw, 6rem);
+		margin-top: clamp(4rem, 6vw, 6rem);
 		padding-top: clamp(0.85rem, 1.6vw, 1.1rem);
 		border-top: 1px solid var(--color-border);
 	}
@@ -420,7 +420,7 @@ const articles = (await getCollection('writing'))
 	}
 
 	.selected-work {
-		padding-block: clamp(var(--spacing-09), 6vw, var(--spacing-10));
+		padding-block: clamp(5rem, 8vw, 7rem);
 	}
 
 	.selected-work__header,
@@ -541,7 +541,7 @@ const articles = (await getCollection('writing'))
 
 	.latest {
 		border-top: 1px solid var(--color-border-soft);
-		padding-block: clamp(3rem, 6vw, 5rem);
+		padding-block: clamp(5rem, 8vw, 7rem);
 	}
 
 	.article-link {
@@ -629,7 +629,7 @@ const articles = (await getCollection('writing'))
 
 	@media (min-width: 900px) {
 		.hero {
-			grid-template-columns: minmax(0, 1fr) minmax(280px, 360px);
+			grid-template-columns: minmax(0, 0.78fr) minmax(420px, 1.22fr);
 		}
 
 		.hero__portrait {
@@ -684,7 +684,7 @@ const articles = (await getCollection('writing'))
 		}
 
 		.hero__portrait {
-			width: min(100%, 280px);
+			width: 100%;
 			justify-self: start;
 		}
 

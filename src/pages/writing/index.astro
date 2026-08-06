@@ -141,7 +141,7 @@ const topics = Array.from(new Set(articles.flatMap((article) => article.tags))).
 	}
 
 	.writing-container {
-		width: min(calc(100% - 32px), 1120px);
+		width: min(calc(100% - 5rem), var(--content-width));
 		max-width: 100%;
 	}
 
@@ -154,7 +154,7 @@ const topics = Array.from(new Set(articles.flatMap((article) => article.tags))).
 
 	.writing-hero .page-container,
 	.writing-list-section .page-container {
-		width: min(calc(100% - 32px), 1120px);
+		width: min(calc(100% - 5rem), var(--content-width));
 		max-width: 100%;
 	}
 
@@ -483,7 +483,7 @@ const topics = Array.from(new Set(articles.flatMap((article) => article.tags))).
 	@media (max-width: 640px) {
 		.writing-hero .page-container,
 		.writing-list-section .page-container {
-			width: min(calc(100% - 48px), 1120px);
+			width: min(calc(100% - 2rem), var(--content-width));
 		}
 
 		.writing-hero__inner {
