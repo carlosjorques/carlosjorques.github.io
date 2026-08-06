@@ -15,14 +15,19 @@ const isActive = (href: string) => href === '/' ? currentPath === '/' : currentP
 			<a href={withBase('/work')} aria-current={isActive('/work') ? 'page' : undefined}>Work</a>
 			<a href={withBase('/about')} aria-current={isActive('/about') ? 'page' : undefined}>About</a>
 			<a href={withBase('/cv')} aria-current={isActive('/cv') ? 'page' : undefined}>CV</a>
-			<details class="site-header__more">
-				<summary>Other <span aria-hidden="true">⌄</span></summary>
-				<div class="site-header__more-panel">
+			<div class="site-header__more">
+				<button class="site-header__more-trigger" type="button" aria-haspopup="true" aria-controls="site-header-more-menu">
+					<span>more</span>
+					<svg class="site-header__more-arrow" viewBox="0 0 16 16" aria-hidden="true">
+						<path d="m4 6 4 4 4-4"></path>
+					</svg>
+				</button>
+				<div class="site-header__more-panel" id="site-header-more-menu">
 					<a href={withBase('/writing')} aria-current={isActive('/writing') ? 'page' : undefined}>Writing</a>
 					<a href={withBase('/research')} aria-current={isActive('/research') ? 'page' : undefined}>Research</a>
 					<a href={withBase('/contact')} aria-current={isActive('/contact') ? 'page' : undefined}>Contact</a>
 				</div>
-			</details>
+			</div>
 		</nav>
 
 		<button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch to dark color theme">
@@ -46,13 +51,15 @@ const isActive = (href: string) => href === '/' ? currentPath === '/' : currentP
 	.site-header__brand { min-height:44px; display:inline-flex; align-items:center; color:var(--color-header-text); font-size:1.3rem; font-weight:800; letter-spacing:-.04em; text-decoration:none; }
 	.site-header__actions,.site-header__nav { display:flex; align-items:center; gap:.85rem; }
 	.site-header__nav { gap:2rem; }
-	.site-header__nav a,.site-header__more summary { min-height:44px; display:inline-flex; align-items:center; gap:.35rem; color:var(--color-header-link); font-size:.95rem; font-weight:600; letter-spacing:-.02em; text-decoration:none; cursor:pointer; list-style:none; transition:opacity 120ms ease; }
-	.site-header__nav a:hover,.site-header__nav a:focus-visible,.site-header__more summary:hover { opacity:.68; }
+	.site-header__nav a,.site-header__more-trigger { min-height:44px; display:inline-flex; align-items:center; gap:.35rem; color:var(--color-header-link); font-size:.95rem; font-weight:600; letter-spacing:-.02em; text-decoration:none; cursor:pointer; list-style:none; transition:opacity 120ms ease; }
+	.site-header__nav a:hover,.site-header__nav a:focus-visible,.site-header__more-trigger:hover { opacity:.68; }
 	.site-header__nav a[aria-current='page'] { text-decoration:underline; text-underline-offset:.3em; }
 	.site-header__more { position:relative; padding-bottom:.45rem; margin-bottom:-.45rem; }
-	.site-header__more summary::-webkit-details-marker { display:none; }
+	.site-header__more-trigger { border:0; background:transparent; padding:0; font-family:var(--font-body); }
+	.site-header__more-arrow { width:.9rem; height:.9rem; fill:none; stroke:currentColor; stroke-width:1.6; stroke-linecap:round; stroke-linejoin:round; transition:transform 140ms ease; }
+	.site-header__more:hover .site-header__more-arrow,.site-header__more:focus-within .site-header__more-arrow { transform:rotate(180deg); }
 	.site-header__more-panel { position:absolute; top:calc(100% - .1rem); right:0; z-index:20; min-width:15rem; padding:.55rem; display:none; gap:.15rem; background:var(--color-card-bg); border:1px solid var(--color-border); border-radius:.9rem; box-shadow:0 18px 36px rgba(23,23,23,.08); }
-	.site-header__more:hover .site-header__more-panel,.site-header__more:focus-within .site-header__more-panel,.site-header__more[open] .site-header__more-panel { display:grid; }
+	.site-header__more:hover .site-header__more-panel,.site-header__more:focus-within .site-header__more-panel { display:grid; }
 	.site-header__more-panel a { min-height:40px; padding:.4rem .6rem; border-radius:.65rem; }
 	.site-header__more-panel a:hover { background:var(--color-surface-soft); opacity:1; }
 	.theme-toggle { width:44px; height:44px; display:grid; place-items:center; position:relative; border:1px solid var(--color-border); border-radius:50%; color:var(--color-header-text); cursor:pointer; background:transparent; }

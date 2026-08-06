@@ -13,8 +13,13 @@ const articles = (await getCollection('writing'))
 	.filter((entry) => !entry.data.draft)
 	.sort((a, b) => b.data.publishDate.getTime() - a.data.publishDate.getTime())
 	.slice(0, 3)
-	.map((entry, index) => ({
-		number: String(index + 1).padStart(2, '0'),
+	.map((entry) => ({
+		publishDateIso: entry.data.publishDate.toISOString().slice(0, 10),
+		publishDate: new Intl.DateTimeFormat('en-GB', {
+			day: '2-digit',
+			month: 'short',
+			year: 'numeric',
+		}).format(entry.data.publishDate),
 		title: entry.data.title,
 		description: entry.data.description,
 		href: withBase(`/writing/${toSlug(entry.id)}/`),
@@ -30,9 +35,8 @@ const articles = (await getCollection('writing'))
 		<div class="page-container">
 			<div class="hero">
 				<div class="hero__copy">
-					<p class="hero-kicker section-eyebrow">Hi, I'm</p>
-					<h1 class="hero-name hero-title">Carlos Jorques</h1>
-					<h2 class="hero-statement">Technical Leader in Embedded Control Software for Intelligent Systems.</h2>
+					<h1 class="hero-statement">Technical Leader in Embedded Control Software for Intelligent Systems.</h1>
+					<p class="hero-intro">Hi, I am Carlos Jorques.</p>
 					<p class="hero-value">
 						The gap between a prototype and a trustworthy machine is reliable software.
 						I help teams define and build the embedded control software that enables intelligent systems to behave safely and reliably in the real world.
@@ -169,7 +173,7 @@ const articles = (await getCollection('writing'))
 					data-cta-intent="authority"
 					data-source-section="latest-writing"
 				>
-					<span class="article-link__number">{article.number}</span>
+					<time class="article-link__date" datetime={article.publishDateIso}>{article.publishDate}</time>
 					<span>
 						<h3 class="article-link__title">{article.title}</h3>
 						<p class="article-link__description">{article.description}</p>
@@ -689,4 +693,105 @@ const articles = (await getCollection('writing'))
 		}
 	}
 
+	/* Compact Maria-style hero refinements from the visual review. */
+	.hero-area {
+		padding-block: clamp(3.25rem, 5vw, 4rem) clamp(2.5rem, 4vw, 3.25rem);
+	}
+
+	.hero {
+		gap: clamp(2rem, 4vw, 3rem);
+		align-items: start;
+	}
+
+	.hero__copy {
+		max-width: 52rem;
+	}
+
+	.hero-intro {
+		margin: var(--spacing-06) 0 0;
+		color: var(--color-hero-text);
+		font-size: 1.2rem;
+		font-weight: 600;
+		line-height: 1.55;
+		letter-spacing: -.02em;
+		animation: carbon-enter-up var(--motion-duration-slow-01) var(--motion-entrance-expressive) 90ms both;
+	}
+
+	.hero-statement {
+		max-width: 17ch;
+		margin: 0;
+		font-size: clamp(2.65rem, 4.3vw, 4.6rem);
+		line-height: 1.03;
+	}
+
+	.hero-value {
+		margin-top: var(--spacing-04);
+	}
+
+	.hero-links {
+		margin-top: var(--spacing-06);
+		flex-wrap: nowrap;
+	}
+
+	.hero-links .button {
+		width: auto;
+		white-space: nowrap;
+	}
+
+	.hero__portrait {
+		width: min(100%, 20rem);
+		aspect-ratio: 4 / 5;
+		justify-self: end;
+	}
+
+	.home-proof {
+		margin-top: clamp(2rem, 3vw, 2.5rem);
+	}
+
+	.article-link {
+		grid-template-columns: 96px minmax(0, 1fr) auto;
+	}
+
+	.article-link__date {
+		color: var(--color-muted);
+		font-family: var(--font-mono);
+		font-size: var(--type-chip-size);
+		font-weight: var(--type-chip-weight);
+		letter-spacing: var(--type-chip-tracking);
+		line-height: 1.35;
+		text-transform: uppercase;
+	}
+
+	@media (min-width: 900px) {
+		.hero {
+			grid-template-columns: minmax(0, 1.35fr) minmax(15rem, 20rem);
+		}
+	}
+
+	@media (max-width: 640px) {
+		.hero-statement,
+		.hero-intro,
+		.hero-value,
+		.hero-links {
+			max-width: 100%;
+			overflow-wrap: anywhere;
+		}
+
+		.hero__portrait {
+			width: min(100%, 16rem);
+			justify-self: start;
+		}
+
+		.hero-links {
+			flex-wrap: wrap;
+		}
+
+		.hero-links .button {
+			width: 100%;
+		}
+
+		.article-link {
+			grid-template-columns: 82px minmax(0, 1fr) auto;
+		}
+	}
 </style>
