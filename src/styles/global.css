@@ -1,13 +1,13 @@
 :root {
-	--font-display: "Atkinson Hyperlegible", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-	--font-body: "Atkinson Hyperlegible", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+	--font-display: "Manrope", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+	--font-body: "Manrope", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 	--font-sans: var(--font-body);
-	--font-mono: "Atkinson Hyperlegible", system-ui, sans-serif;
+	--font-mono: "SFMono-Regular", "SF Mono", "Roboto Mono", "IBM Plex Mono", Consolas, monospace;
 
-	--type-hero-name-size: clamp(3.25rem, 8vw, 7rem);
-	--type-hero-name-line: 0.9;
-	--type-hero-name-tracking: -0.055em;
-	--type-hero-name-weight: 700;
+	--type-hero-name-size: clamp(3rem, 4.8vw, 5rem);
+	--type-hero-name-line: 1.02;
+	--type-hero-name-tracking: -0.05em;
+	--type-hero-name-weight: 800;
 
 	--type-hero-role-size: clamp(1.25rem, 2vw, 1.85rem);
 	--type-hero-role-line: 1.18;
@@ -19,20 +19,20 @@
 	--type-hero-summary-tracking: -0.01em;
 	--type-hero-summary-weight: 400;
 
-	--type-section-title-size: clamp(2.5rem, 6.2vw, 5.25rem);
-	--type-section-title-line: 0.93;
-	--type-section-title-tracking: -0.045em;
-	--type-section-title-weight: 700;
+	--type-section-title-size: clamp(2.6rem, 4.6vw, 4.4rem);
+	--type-section-title-line: 1.03;
+	--type-section-title-tracking: -0.05em;
+	--type-section-title-weight: 800;
 
 	--type-section-intro-size: clamp(1.02rem, 1.35vw, 1.25rem);
 	--type-section-intro-line: 1.5;
 	--type-section-intro-tracking: -0.02em;
 	--type-section-intro-weight: 400;
 
-	--type-eyebrow-size: 0.72rem;
-	--type-eyebrow-line: 1;
-	--type-eyebrow-tracking: 0.12em;
-	--type-eyebrow-weight: 700;
+	--type-eyebrow-size: 0.82rem;
+	--type-eyebrow-line: 1.4;
+	--type-eyebrow-tracking: 0.08em;
+	--type-eyebrow-weight: 600;
 
 	--type-body-size: 1rem;
 	--type-body-line: 1.62;
@@ -96,30 +96,30 @@
 	   Main colors are defined by role first, then assigned below.
 	   ========================================================== */
 
-	--ux-canvas: #f4f0e8;
-	--ux-canvas-raised: #f4f0e8;
-	--ux-surface-muted: #e8e0d3;
-	--ux-surface-support: #ded4c5;
+	--ux-canvas: #ffffff;
+	--ux-canvas-raised: #ffffff;
+	--ux-surface-muted: #f7f7f7;
+	--ux-surface-support: #efefef;
 
-	--ux-content: #20211e;
-	--ux-content-body: #292a27;
-	--ux-content-muted: #68685f;
-	--ux-content-soft: #89877e;
-	--ux-content-secondary: #51534d;
+	--ux-content: #171717;
+	--ux-content-body: #171717;
+	--ux-content-muted: #676767;
+	--ux-content-soft: #858585;
+	--ux-content-secondary: #4f4f4f;
 	--ux-content-inverse: #f5f5f5;
 
 	--ux-border-source: var(--ux-content);
 
 	/* Shared sunset/clay connector between light and dark themes. */
-	--ux-sunset-connector: #74415f;
+	--ux-sunset-connector: #5869d8;
 
 	/* Action colors are sunset-clay but tuned for serious UI contrast. */
 	--ux-action: var(--ux-sunset-connector);
-	--ux-action-hover: #315544;
+	--ux-action-hover: #171717;
 
 	/* Use the darker signal for text on light backgrounds. */
-	--ux-signal: #74415f;
-	--ux-signal-wash: #e8e0d3;
+	--ux-signal: #5869d8;
+	--ux-signal-wash: #f7f7f7;
 	--ux-focus: var(--ux-signal);
 
 	/* Mediterranean center-glow: same canvas, warm accent in the middle. */
@@ -197,14 +197,14 @@
 	--color-tag-text: var(--ux-content);
 	--color-quote-text: var(--color-accent-text);
 
-	--color-footer-bg: #292a27;
-	--color-footer-text: rgba(255, 255, 255, 0.68);
-	--color-footer-link: #ffffff;
-	--color-footer-link-hover: #ffffff;
-	--color-footer-border: rgba(255, 255, 255, 0.16);
+	--color-footer-bg: #ffffff;
+	--color-footer-text: #676767;
+	--color-footer-link: #171717;
+	--color-footer-link-hover: #171717;
+	--color-footer-border: #d9d9d9;
 
 	/* Layout */
-	--content-width: 1344px;
+	--content-width: 1248px;
 	--content-narrow: 760px;
 	--measure-reading: 760px;
 	--measure-compact: 620px;
@@ -229,37 +229,37 @@
 	--motion-standard-productive: cubic-bezier(0.22, 1, 0.36, 1);
 	--motion-entrance-expressive: cubic-bezier(0.16, 1, 0.3, 1);
 
-	--radius: 24px;
+	--radius: 1.5rem;
 	--radius-pill: 999px;
 
 	color-scheme: light;
 }
 
 :root[data-theme="dark"] {
-	--ux-canvas: #111820;
-	--ux-canvas-raised: #0b1118;
-	--ux-surface-muted: #16222b;
-	--ux-surface-depth: #0b1118;
-	--ux-surface-support: #1b2a35;
+	--ux-canvas: #0d1014;
+	--ux-canvas-raised: #0d1014;
+	--ux-surface-muted: #171b22;
+	--ux-surface-depth: #0d1014;
+	--ux-surface-support: #151a21;
 
-	--ux-content: #f1ede6;
-	--ux-content-body: #d7d0c8;
-	--ux-content-muted: #afa6a0;
-	--ux-content-soft: #9d9690;
-	--ux-content-subtle: #817b76;
-	--ux-content-secondary: #d7d0c8;
+	--ux-content: #f5f7fb;
+	--ux-content-body: #f5f7fb;
+	--ux-content-muted: #a3acb9;
+	--ux-content-soft: #8e98a6;
+	--ux-content-subtle: #75808e;
+	--ux-content-secondary: #dce2ea;
 	--ux-content-inverse: #0b1118;
 
 	/* Cool border source keeps the Nordic feel without turning borders blue-heavy. */
-	--ux-border-source: #c7d3d5;
+	--ux-border-source: #d9e1ec;
 
 	/* Same connector hue as light theme. */
-	--ux-sunset-connector: #d06b6f;
+	--ux-sunset-connector: #9dacff;
 
 	--ux-action: var(--ux-sunset-connector);
-	--ux-action-hover: #e08a84;
-	--ux-signal: #e08a84;
-	--ux-signal-wash: #2b2024;
+	--ux-action-hover: #c2ccff;
+	--ux-signal: #9dacff;
+	--ux-signal-wash: #171b22;
 	--ux-focus: var(--ux-signal);
 	--ux-card-subtext: #d7d0c8;
 
@@ -747,6 +747,11 @@ li::marker {
 	margin-inline: auto;
 }
 
+html.menu-open,
+html.menu-open body {
+	overflow: hidden;
+}
+
 .container,
 .narrow {
 	width: min(100% - 48px, var(--content-width));
@@ -810,8 +815,8 @@ li::marker {
         align-items: center;
         justify-content: center;
         gap: 0.5rem;
-        border: 1px solid var(--color-border);
-        border-radius: var(--radius-pill);
+	border: 1px solid #d0d0d0;
+	border-radius: var(--radius-pill);
 		background: transparent;
 		padding: 0.65rem 1.25rem;
 	color: var(--color-button-secondary-text);

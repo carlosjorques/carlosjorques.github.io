@@ -50,9 +50,8 @@ const linkedinHref = 'https://www.linkedin.com/in/carlosjorques/';
 
 <style>
 	.site-footer {
-		border-top: 1px solid var(--color-footer-border);
 		background: var(--color-footer-bg);
-		padding-block: 2rem;
+		padding-block: 0 3rem;
 		color: var(--color-footer-text);
 	}
 
@@ -65,6 +64,8 @@ const linkedinHref = 'https://www.linkedin.com/in/carlosjorques/';
 		font-family: var(--font-body);
 		font-size: var(--type-body-size);
 		line-height: var(--type-body-line);
+		padding-top: 3rem;
+		border-top: 1px solid var(--color-footer-border);
 	}
 
 	.site-footer__inner > span {
@@ -75,11 +76,11 @@ const linkedinHref = 'https://www.linkedin.com/in/carlosjorques/';
 		display: flex;
 		gap: 1.25rem;
 		flex-wrap: wrap;
-		font-family: var(--font-mono);
-		font-size: var(--type-nav-size);
-		font-weight: var(--type-nav-weight);
-		letter-spacing: var(--type-nav-tracking);
-		text-transform: uppercase;
+		font-family: var(--font-body);
+		font-size: .95rem;
+		font-weight: 600;
+		letter-spacing: -.02em;
+		text-transform: none;
 	}
 
 	.site-footer__links a {

@@ -7,7 +7,6 @@ const normalizedBase = baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`;
 const withBase = (href: string) => (href === '/' ? normalizedBase : `${normalizedBase}${href.replace(/^\//, '')}`);
 const toSlug = (id: string) => id.replace(/\.md$/, '');
 
-const heroVideoUrl = `${normalizedBase}videos/333466_1_5.mp4`;
 const portraitUrl = withBase('/images/carlos-jorques-intro.webp');
 
 const articles = (await getCollection('writing'))
@@ -28,9 +27,6 @@ const articles = (await getCollection('writing'))
 	description="Embedded control architect and technical leader helping teams close the gap between control design and real-world behavior in production embedded systems."
 >
 	<section class="hero-area">
-		<video class="hero-video" autoplay muted loop playsinline preload="metadata" aria-hidden="true">
-			<source src={heroVideoUrl} type="video/mp4" />
-		</video>
 		<div class="page-container">
 			<div class="hero">
 				<div class="hero__copy">
@@ -206,37 +202,16 @@ const articles = (await getCollection('writing'))
 
 <style>
 	.hero-area {
-		--hero-video-opacity: 0;
-
 		position: relative;
 		overflow: hidden;
-		background: var(--hero-gradient);
+		background: var(--color-page);
 		color: var(--color-hero-text);
 		padding-block: clamp(4.5rem, 8vw, 7rem) clamp(4rem, 6vw, 6rem);
-	}
-
-	.hero-video {
-		position: absolute;
-		inset: 0;
-		width: 100%;
-		height: 100%;
-		object-fit: cover;
-		opacity: var(--hero-video-opacity);
-		pointer-events: none;
 	}
 
 	.hero-area .page-container {
 		position: relative;
 		z-index: 2;
-	}
-
-	.hero-area::after {
-		content: "";
-		position: absolute;
-		inset: 0;
-		z-index: 1;
-		background: var(--hero-video-overlay);
-		pointer-events: none;
 	}
 
 	.hero {
@@ -309,21 +284,11 @@ const articles = (await getCollection('writing'))
 	.hero-statement {
 		max-width: 760px;
 		margin: var(--spacing-06) 0 0;
-		font-size: var(--type-hero-role-size);
-		line-height: var(--type-hero-role-line);
-		letter-spacing: var(--type-hero-role-tracking);
-		font-weight: var(--type-hero-role-weight);
+		font-size: clamp(2rem, 3.4vw, 3.5rem);
+		line-height: 1.08;
+		letter-spacing: -.05em;
+		font-weight: 800;
 		color: var(--color-hero-text);
-	}
-
-	@supports ((-webkit-background-clip: text) or (background-clip: text)) {
-		.hero-statement {
-			background: var(--slogan-gradient);
-			-webkit-background-clip: text;
-			background-clip: text;
-			color: transparent;
-			-webkit-text-fill-color: transparent;
-		}
 	}
 
 	.hero-value {
@@ -724,9 +689,4 @@ const articles = (await getCollection('writing'))
 		}
 	}
 
-	@media (prefers-reduced-motion: reduce) {
-		.hero-video {
-			display: none;
-		}
-	}
 </style>

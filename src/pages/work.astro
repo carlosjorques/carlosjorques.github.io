@@ -1070,3 +1070,51 @@ const withBase = (href: string) => {
 		}
 	}
 </style>
+
+<style>
+	/* Maria theme adaptation: image-led project rows and quiet editorial evidence. */
+	.work-hero .page-container,
+	.work-section .page-container { width:min(calc(100% - 3rem),78rem); }
+	.work-hero { padding:4.5rem 0 3rem; border:0; }
+	.work-hero__inner { display:block; }
+	.work-hero__label { display:grid; gap:1rem; }
+	.work-hero .section-eyebrow { margin:0; color:var(--color-muted); }
+	.work-hero .hero-title { max-width:none; font-size:clamp(2.6rem,4.6vw,4.4rem); line-height:1.03; letter-spacing:-.05em; font-weight:800; }
+	.work-hero__mission { max-width:42rem; margin-top:1.35rem; padding:0; border:0; }
+	.work-hero__mission p { font-size:1.05rem; line-height:1.75; color:var(--color-muted); }
+	.work-section { padding-block:3rem 5rem; }
+	.work-section__intro { max-width:52rem; margin-bottom:3rem; }
+	.work-section__intro h2 { max-width:none; font-size:clamp(1.7rem,3vw,2.4rem); line-height:1.08; letter-spacing:-.04em; }
+	.work-section__intro p { margin-top:1rem; font-size:1.05rem; line-height:1.75; color:var(--color-muted); }
+	.work-index-grid { display:grid; grid-template-columns:1fr; gap:1.5rem; }
+	.work-index-card--project { display:grid; grid-template-columns:minmax(0,.9fr) minmax(22rem,1.1fr); gap:2rem; align-items:start; padding:1.5rem; background:var(--color-card-bg); border:1px solid var(--color-border); border-radius:1.5rem; box-shadow:none; }
+	.work-index-card--project .work-index-card__body { grid-column:1; grid-row:1; padding:0; align-content:start; }
+	.work-index-card--project .work-index-card__media { grid-column:2; grid-row:1; width:100%; height:auto; aspect-ratio:auto; border-radius:1rem; overflow:hidden; align-self:start; }
+	.work-index-card--project .work-index-card__media img { width:100%; height:auto; object-fit:initial; border-radius:1rem; box-shadow:0 18px 40px rgba(23,23,23,.08); }
+	.work-index-card__header h3 { font-size:clamp(1.6rem,2.1vw,2.2rem); line-height:1.08; letter-spacing:-.05em; font-weight:800; }
+	.work-index-card__institution,.work-index-card__header .section-eyebrow { font-family:var(--font-mono); font-size:.82rem; font-weight:600; letter-spacing:.08em; line-height:1.4; text-transform:uppercase; color:var(--color-muted); }
+	.work-index-card__overview { font-size:1.05rem; line-height:1.75; color:var(--color-muted); }
+	.work-note-link { display:inline-flex; width:fit-content; min-height:48px; align-items:center; gap:.6rem; padding:.85rem 1.1rem; border:1px solid #d0d0d0; border-radius:999px; font-size:1rem; font-weight:700; text-decoration:none; }
+	.work-label-list li,.work-thread-list li { border:0; border-radius:0; background:transparent; padding:0; color:var(--color-muted); }
+	.work-label-list li:not(:last-child)::after { content:' ·'; }
+	.work-index-grid--research { display:grid; grid-template-columns:1fr; gap:0; border-top:1px solid var(--color-border); }
+	.work-index-card--research { border:0; border-bottom:1px solid var(--color-border); border-radius:0; background:transparent; padding:2rem 0; }
+	.work-index-card--research .work-index-card__body { padding:0; max-width:52rem; }
+	.work-index-card--research:hover { transform:none; background:transparent; }
+	.work-section--threads { background:transparent; border-top:1px solid var(--color-border); }
+	.work-thread-summary { display:grid; grid-template-columns:16rem minmax(0,1fr); gap:2rem; }
+	.work-thread-group { padding:1rem 0; border-bottom:1px solid var(--color-border); }
+	.work-final { border-top:1px solid var(--color-border); }
+	@media(max-width:860px){
+		.work-index-card--project { grid-template-columns:1fr; gap:1.25rem; }
+		.work-index-card--project .work-index-card__body,.work-index-card--project .work-index-card__media { grid-column:1; }
+		.work-index-card--project .work-index-card__body { grid-row:1; }
+		.work-index-card--project .work-index-card__media { grid-row:2; }
+	}
+	@media(max-width:720px){
+		.work-hero .page-container,.work-section .page-container { width:min(calc(100% - 1.5rem),78rem); }
+		.work-hero { padding:4rem 0 2rem; }
+		.work-index-card--project { padding:1.2rem; }
+		.work-thread-summary { grid-template-columns:1fr; }
+	}
+</style>

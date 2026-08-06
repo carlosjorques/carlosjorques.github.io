@@ -501,6 +501,25 @@ const linkedinHref = 'https://www.linkedin.com/in/carlosjorques/';
 	}
 </style>
 
+<style>
+	.contact-hero .page-container,
+	.contact-content .page-container { width:min(calc(100% - 3rem),78rem); }
+	.contact-hero { padding:6rem 0 4rem; border:0; }
+	.contact-hero__inner { display:block; }
+	.contact-hero__label { gap:1rem; }
+	.contact-hero .section-eyebrow { color:var(--color-muted); }
+	.contact-hero .hero-title { max-width:none; font-size:clamp(3rem,4.8vw,5rem); line-height:1.02; letter-spacing:-.05em; font-weight:800; }
+	.contact-hero__mission { max-width:52rem; margin-top:1.5rem; padding:0; border:0; }
+	.contact-hero__mission p { font-size:1.08rem; line-height:1.7; color:var(--color-text); }
+	.contact-content { padding-block:0 5rem; }
+	.contact-content__grid { padding-top:2.5rem; border-top:1px solid var(--color-border); }
+	.direct-contact-card,.contact-form { padding-top:0; border-top:0; }
+	.direct-contact-card h2,.contact-form h2 { font-size:clamp(1.7rem,3vw,2.4rem); line-height:1.08; letter-spacing:-.04em; font-weight:800; }
+	.contact-card__label,.secondary-contact-links span,.form-field label,.form-fieldset legend { color:var(--color-muted); font-size:.82rem; font-weight:600; letter-spacing:.08em; }
+	.form-field input[type='text'],.form-field input[type='email'],.form-field textarea { border:1px solid var(--color-border); border-radius:.9rem; background:var(--color-card-bg); padding:.85rem 1rem; }
+	@media(max-width:720px){.contact-hero .page-container,.contact-content .page-container{width:min(calc(100% - 1.5rem),78rem)}.contact-hero{padding:4rem 0 3rem}}
+</style>
+
 <script>
 	const encodeMailBody = (form: HTMLFormElement) => {
 		const data = new FormData(form);
