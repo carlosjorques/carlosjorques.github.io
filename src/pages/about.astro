@@ -7,61 +7,76 @@ const linkedinHref = 'https://www.linkedin.com/in/carlosjorques/';
 const portraitUrl = withBase('/images/carlos-jorques-intro.webp');
 ---
 
-<Layout title="About Carlos Jorques | Embedded Control Architect" description="About Carlos Jorques, an embedded control architect and technical leader for intelligent machines, embedded control software, automatic control, and production embedded systems.">
+<Layout title="About Carlos Jorques | Embedded Controls Technical Lead" description="About Carlos Jorques, an Embedded Controls Technical Lead for intelligent machines, production embedded control software, multidisciplinary engineering, and system integration.">
 	<div class="about-page">
 		<section class="about-hero" aria-labelledby="about-title">
-			<p class="about-eyebrow">A closer look</p>
+			<p class="about-eyebrow">About me</p>
 			<div class="about-hero__layout">
 				<div class="about-hero__copy">
-					<h1 id="about-title">About me</h1>
-					<blockquote><p>What makes a machine truly intelligent?</p></blockquote>
+					<h1 id="about-title">I lead embedded controls teams that shape how complex machines sense, decide, and act reliably.</h1>
+					<blockquote><p>I’m Carlos, an Embedded Controls Technical Lead who combines hands-on development with technical direction across control strategy, software architecture, and system integration.</p></blockquote>
+					<nav class="about-hero__actions" aria-label="About quick links">
+						<a href={withBase('/cv')}>View CV</a>
+						<a href={withBase('/work')}>Selected work</a>
+						<a href={withBase('/contact')}>Get in touch</a>
+					</nav>
 					<div class="about-story">
-						<p>I have been fascinated by that question for as long as I can remember. It led me to study Electrical Engineering and later pursue a doctorate in automatic control, drawn by the challenge of making machines sense, decide, and act reliably in the real world.</p>
-						<p>For the past twelve years, I have worked on production embedded control software for electric trucks, autonomous machines, power electronics, and other complex vehicle systems. My work has taken me across Scania, Volvo Construction Equipment, and MAHLE Electronics, alongside international teams spanning software, electronics, control, mechanical engineering, testing, and calibration.</p>
-						<p>The software is only part of the story. What defines my work more clearly is how I approach complex systems, how I help teams make difficult technical decisions, and how I turn uncertain problems into something people can understand and solve together.</p>
-						<p>Where you go next depends on what brought you here.</p>
+					<p>For the past 12+ years, I have developed production embedded control software for electric trucks, autonomous machines, power electronics, and other complex vehicle systems. At Scania, Volvo CE, and MAHLE Electronics, I have worked with international teams across software, electronics, controls, diagnostics, testing, and calibration. Software from that work now runs in production vehicles and machines around the world.</p>
 					</div>
 				</div>
 				<img class="about-portrait" src={portraitUrl} alt="Carlos Jorques" width="768" height="1024" loading="eager" decoding="async" />
 			</div>
 		</section>
 
-		<section class="editorial-section" aria-label="Visitor routes">
+		<section class="editorial-section visitor-routes" aria-label="Visitor routes">
 			<div class="section-rail" aria-hidden="true"></div>
 			<div class="story-block route-list">
-				<div><strong>Hiring or evaluating fit?</strong><p><a href={withBase('/cv')}>View CV</a> · <a href="#where-i-add-value">See where I add the most value</a> · <a href={withBase('/contact')}>Get in touch</a></p></div>
-				<div><strong>Interested in how I work?</strong><p><a href="#approach">Read my approach</a> · <a href="#collaboration">Read about collaboration</a></p></div>
-				<div><strong>Curious about how it began?</strong><p><a href="#origin">Read my story</a></p></div>
+				<div><strong>Hiring or evaluating fit?</strong><p><a href={withBase('/cv')}>View CV</a> · <a href={withBase('/contact')}>Get in touch</a></p></div>
+				<div><strong>Interested in how I work?</strong><p><a href={withBase('/work')}>Selected work</a> · <a href="#approach">Approach</a> · <a href="#collaboration">Collaboration</a></p></div>
+				<div><strong>Curious about how it began?</strong><p><a href="#origin">My story</a></p></div>
+			</div>
+		</section>
+
+		<section class="editorial-section" id="role" aria-labelledby="role-title">
+			<div class="section-rail"><p>What I Lead</p></div>
+			<div class="story-block">
+				<h2 id="role-title">Turning system goals into software that teams can deliver</h2>
+				<p class="intro">I lead embedded controls work from system definition through implementation and production delivery, while remaining close to the engineering.</p>
+				<details class="story-disclosure">
+					<summary><span class="story-disclosure__closed">See the scope of my work</span><span class="story-disclosure__open">Read less</span><span class="story-disclosure__arrow" aria-hidden="true">↓</span></summary>
+					<div class="story-disclosure__content">
+						<p>I translate product goals into control strategies, software responsibilities, interfaces, development priorities, and validation evidence. My work includes shaping software architecture, developing control functions, resolving integration issues, and connecting testing and calibration results back to design decisions.</p>
+						<p>I am particularly drawn to electrified systems, autonomous machines, robotics, industrial automation, power electronics, and energy systems—anywhere software must interact reliably with physical behaviour.</p>
+					</div>
+				</details>
 			</div>
 		</section>
 
 		<section class="editorial-section" id="approach" aria-labelledby="approach-title">
-			<div class="section-rail"><p>01 - Approach</p></div>
+			<div class="section-rail"><p>Engineering Approach</p></div>
 			<div class="story-block">
 				<h2 id="approach-title">Understanding what should be built matters as much as building it</h2>
-				<p class="intro">I enjoy shaping technical direction early, identifying the decisions that matter, and making the reasoning behind them clear to the team.</p>
+				<p class="intro">I make the intended behaviour, physical constraints, interfaces, and uncertainties visible before implementation makes important decisions expensive to change.</p>
 				<details class="story-disclosure">
-					<summary><span class="story-disclosure__closed">Read more</span><span class="story-disclosure__open">Read less</span><span class="story-disclosure__arrow" aria-hidden="true">↓</span></summary>
+					<summary><span class="story-disclosure__closed">How I make technical decisions</span><span class="story-disclosure__open">Read less</span><span class="story-disclosure__arrow" aria-hidden="true">↓</span></summary>
 					<div class="story-disclosure__content">
-						<p>I do some of my best work while a product or system is still taking shape, before its most important technical decisions have become difficult to change. Understanding what should exist, how the system should behave, and where its boundaries should be is just as satisfying to me as implementing it.</p>
-						<p>Experience has changed how I direct my curiosity. Earlier in my career, I wanted to explore every interesting problem. Today, I first ask which problem will make the greatest difference. Sometimes that means developing a new control strategy. Sometimes it means improving diagnostics, interfaces, or validation. Quite often, it means simplifying the architecture beneath everything else.</p>
-						<p>I also try to make tradeoffs visible. Technical decisions are stronger when the team understands the evidence, assumptions, constraints, and alternatives behind them. Clear reasoning helps decisions survive changing teams, new requirements, and the pressure of delivery.</p>
+						<p>The right answer is not always a more advanced algorithm. It may be a clearer interface, a simpler architecture, stronger diagnostics, a better test strategy, or a more accurate understanding of the physical system.</p>
+						<p>I favour solutions that are technically sound and practical to deliver. I also make trade-offs explicit, so the team understands the evidence, assumptions, constraints, and alternatives behind each important decision.</p>
 					</div>
 				</details>
 			</div>
 		</section>
 
 		<section class="editorial-section" id="collaboration" aria-labelledby="collaboration-title">
-			<div class="section-rail"><p>02 - Collaboration</p></div>
+			<div class="section-rail"><p>Technical Leadership</p></div>
 			<div class="story-block">
-				<h2 id="collaboration-title">Creating clarity so multidisciplinary teams can move forward together</h2>
-				<p class="intro">I help engineers from different disciplines build a shared understanding of the system before they try to solve it.</p>
+				<h2 id="collaboration-title">Creating the clarity teams need to move forward</h2>
+				<p class="intro">I establish technical direction, clarify responsibilities, and help engineers across disciplines reach decisions they can understand, support, and deliver together.</p>
 				<details class="story-disclosure">
-					<summary><span class="story-disclosure__closed">Read more</span><span class="story-disclosure__open">Read less</span><span class="story-disclosure__arrow" aria-hidden="true">↓</span></summary>
+					<summary><span class="story-disclosure__closed">How I lead multidisciplinary teams</span><span class="story-disclosure__open">Read less</span><span class="story-disclosure__arrow" aria-hidden="true">↓</span></summary>
 					<div class="story-disclosure__content">
-						<p>Complex systems rarely fail because one component is entirely wrong. Problems often appear at the boundaries between software and hardware, between teams, or between what the physical system can do and what the specification assumed it would do.</p>
-						<p>Before moving toward a solution, I like to make the behaviour of the whole system visible. When software, electronics, controls, mechanical engineering, testing, and calibration are working from the same picture, discussions become more concrete and much less focused on defending individual subsystems.</p>
-						<p>I see technical leadership as creating the conditions for good engineering. That includes clarifying ownership, resolving assumptions, connecting decisions to evidence, and helping the people closest to the system contribute effectively. My role is not to have every answer. It is to help the team ask the right questions and reach decisions that hold together.</p>
+						<p>Complex system problems often emerge at the boundaries—between software and hardware, between disciplines, or between expected and actual behaviour. I help teams build a shared understanding of the complete system before committing to a solution.</p>
+						<p>My role is not to have every answer. It is to keep implementation connected to system intent, help the team ask the right questions, and create the conditions for good engineering.</p>
 						<blockquote><p>An elegant algorithm is only the beginning. The real engineering challenge is making it work reliably.</p></blockquote>
 					</div>
 				</details>
@@ -69,17 +84,15 @@ const portraitUrl = withBase('/images/carlos-jorques-intro.webp');
 		</section>
 
 		<section class="editorial-section" id="origin" aria-labelledby="origin-title">
-			<div class="section-rail"><p>03 - Origin</p></div>
+			<div class="section-rail"><p>My Story</p></div>
 			<div class="story-block">
-				<h2 id="origin-title">From a wobbling robot to a career in control</h2>
-				<p class="intro">A small robot first drew me toward automatic control. Years of engineering taught me which problems are truly worth solving.</p>
+				<h2 id="origin-title">From robotics to production embedded controls</h2>
+				<p class="intro">What makes a machine truly intelligent? I have been fascinated by that question for as long as I can remember.</p>
 				<details class="story-disclosure">
-					<summary><span class="story-disclosure__closed">Read more</span><span class="story-disclosure__open">Read less</span><span class="story-disclosure__arrow" aria-hidden="true">↓</span></summary>
+					<summary><span class="story-disclosure__closed">Read the story behind my work</span><span class="story-disclosure__open">Read less</span><span class="story-disclosure__arrow" aria-hidden="true">↓</span></summary>
 					<div class="story-disclosure__content">
-						<p>I started experimenting with electronics when I was eight, but the moment that set my direction came years later at Campus Party Valencia. I watched a line following robot I had built wobble and overshoot around the track while other robots moved smoothly through the same turns.</p>
-						<p>The hardware was capable of more. The difference was in the way the system was being controlled. That gap between what the physics allowed and what my logic produced pulled me toward automatic control.</p>
-						<p>Studying Electrical Engineering gave me the theoretical foundation to understand those systems properly. My industrial doctorate allowed me to investigate difficult control problems with scientific depth, question assumptions, and learn how to separate genuine improvement from apparent complexity.</p>
-						<p>Working in the automotive industry taught me the other half of the discipline. A sound idea must still survive limited computing resources, noisy signals, hardware variation, calibration, diagnostics, safety requirements, organisational constraints, and deadlines.</p>
+						<p>I started experimenting with electronics at eight, but the moment that set my direction came later, at Campus Party Valencia. I watched a line-following robot I had built wobble and overshoot, while other robots moved smoothly through the same turns. The hardware was capable of more — the difference was in how the system was controlled.</p>
+						<p>That gap has shaped how I think about intelligent machines ever since: not sophisticated logic, but the ability to sense what's happening, judge what matters under uncertainty, and act on it reliably. That question took me through Electrical Engineering and an industrial doctorate in automatic control, and later into the automotive industry, where I learned that a sound idea also has to survive noisy signals, limited resources, and deadlines.</p>
 						<p>That combination of curiosity and production experience now shapes how I work. I enjoy exploring difficult problems, but I also know that engineering creates value only when a solution can be understood, maintained, validated, and delivered.</p>
 					</div>
 				</details>
@@ -87,29 +100,26 @@ const portraitUrl = withBase('/images/carlos-jorques-intro.webp');
 		</section>
 
 		<section class="editorial-section" id="beyond-engineering" aria-labelledby="beyond-title">
-			<div class="section-rail"><p>04 - Beyond engineering</p></div>
+			<div class="section-rail"><p>Beyond Engineering</p></div>
 			<div class="story-block">
-				<h2 id="beyond-title">Still building things, just with different constraints</h2>
-				<p class="intro">Curiosity continues outside work.</p>
+				<h2 id="beyond-title">More than what I build</h2>
+				<p class="intro">Outside work, I keep learning through basketball, making things, and time with the people who keep work in perspective.</p>
 				<details class="story-disclosure">
-					<summary><span class="story-disclosure__closed">Read more</span><span class="story-disclosure__open">Read less</span><span class="story-disclosure__arrow" aria-hidden="true">↓</span></summary>
+					<summary><span class="story-disclosure__closed">A little more beyond work</span><span class="story-disclosure__open">Read less</span><span class="story-disclosure__arrow" aria-hidden="true">↓</span></summary>
 					<div class="story-disclosure__content">
-						<p>I spend much of my free time on 3D printing, lamp design, painting, electronics, and home automation. These projects give me room to experiment, learn unfamiliar skills, and build things simply because I find them interesting.</p>
-						<p>Basketball has also been part of my life since childhood. I still enjoy competing, helping younger players develop, and being part of a team working toward a shared goal.</p>
-						<p>Most importantly, time with my partner, our child, and our dog keeps work in perspective and reminds me to protect space for the people and experiences that matter beyond engineering.</p>
+						<p>Basketball has been part of my life since childhood, and it still is. I enjoy competing, staying sharp, and helping younger players develop. Being part of a team working toward a shared goal outside of engineering keeps that instinct alive in a different way.</p>
+						<p>I'm naturally curious, and I like trying things I haven't done before, whether that means picking up a new skill, testing an idea, or occasionally building something — through 3D printing, lamp design, painting, electronics, or home automation. These projects are less about the outcome and more about the habit of staying curious.</p>
+						<p>Most importantly, time with my partner, our child, our dog, and friends keeps work in perspective and reminds me to protect space for the people and experiences that matter beyond engineering.</p>
 					</div>
 				</details>
 			</div>
 		</section>
 
-		<section class="editorial-section" id="where-i-add-value" aria-labelledby="value-title">
-			<div class="section-rail"><p>What's next?</p></div>
-			<div class="story-block"><h2 id="value-title">Where I add the most value</h2><p>I am most motivated by products whose behaviour is still being defined and where early technical decisions will have consequences for years.</p><p>That is where I contribute most effectively: combining hands on engineering with technical direction, helping teams understand the system, define its architecture, make difficult tradeoffs, and turn ambitious ideas into dependable products.</p><p>I am particularly drawn to electrified systems, autonomous machines, robotics, industrial automation, power electronics, energy systems, and other products where software interacts closely with physical behaviour.</p><p>I work best in focused, multidisciplinary teams where engineers can see the connection between their decisions and the real system. I value environments that combine technical ambition with practical responsibility, open discussion, and a willingness to test assumptions against evidence.</p></div>
-		</section>
 
 		<section class="editorial-section about-closing" aria-labelledby="closing-title">
 			<div class="section-rail" aria-hidden="true"></div>
-			<div class="story-block"><h2 id="closing-title">Let us build something that matters</h2><p>Are you developing a product whose behaviour depends on embedded control software? Are you looking for someone who enjoys shaping the system as much as implementing it?</p><div class="button-row"><a class="button primary" href={withBase('/contact')}>Get in touch</a><a class="button" href={withBase('/cv')}>View my CV</a><a class="button" href={withBase('/work')}>Explore selected projects</a><a class="button" href={linkedinHref} target="_blank" rel="noopener noreferrer">Connect on LinkedIn</a></div></div>
+			<div class="story-block"><h2 id="closing-title">Looking for an Embedded Controls Technical Lead?</h2>
+			<p>If you are developing a product whose behaviour depends on embedded controls—and need someone who can shape technical direction while remaining close to the engineering—I would be glad to hear from you.</p><div class="button-row"><a class="button primary" href={withBase('/contact')}>Get in touch</a><a class="button" href={withBase('/cv')}>View my CV</a><a class="button" href={withBase('/work')}>Explore selected projects</a><a class="button" href={linkedinHref} target="_blank" rel="noopener noreferrer">Connect on LinkedIn</a></div></div>
 		</section>
 	</div>
 </Layout>
@@ -117,26 +127,27 @@ const portraitUrl = withBase('/images/carlos-jorques-intro.webp');
 <style>
 	.about-page { width:min(calc(100% - 3rem),78rem); margin:0 auto; padding:0 0 5rem; }
 	.about-eyebrow,.section-rail { font-family:var(--font-mono); font-size:.82rem; font-weight:600; letter-spacing:.08em; line-height:1.4; text-transform:uppercase; color:var(--color-muted); }
-	.about-hero { padding:6rem 0 4rem; }
+	.about-hero { padding:6rem 0 0; }
 	.about-eyebrow { margin:0; }
 	.about-hero__layout { display:grid; grid-template-columns:minmax(0,1.35fr) minmax(15rem,20rem); gap:2.5rem; align-items:start; margin-top:1rem; }
-	.about-hero h1 { max-width:none; font-size:clamp(3rem,4.8vw,5rem); font-weight:800; letter-spacing:-.05em; line-height:1.02; }
+	.about-hero h1 { max-width:none; font-size:clamp(2.6rem,3.8vw,3.5rem); font-weight:800; letter-spacing:-.05em; line-height:1.02; }
 	.about-hero blockquote { margin:1.5rem 0 0; }
 	.about-hero blockquote p { font-size:clamp(1.35rem,2vw,1.8rem); font-weight:600; letter-spacing:-.03em; line-height:1.35; }
+	.about-hero__actions { display:none; }
 	.about-story { display:grid; gap:1rem; margin-top:1.5rem; max-width:52rem; }
 	.about-story p,.story-block p { margin:0; font-size:1.08rem; line-height:1.7; color:var(--color-text); }
 	.about-portrait { width:min(100%,20rem); height:auto; border-radius:1.5rem; box-shadow:0 18px 40px rgba(23,23,23,.08); }
 	.editorial-section { display:grid; grid-template-columns:16rem minmax(0,1fr); gap:2rem; padding:2.5rem 0; border-top:1px solid var(--color-border); scroll-margin-top:2rem; }
 	.section-rail h2,.section-rail p { margin:0; max-width:none; color:inherit; font:inherit; letter-spacing:inherit; text-transform:inherit; }
 	.story-block { display:grid; gap:1rem; max-width:52rem; }
-	.story-block h2 { max-width:34ch; font-size:clamp(1.6rem,2.1vw,2.2rem); line-height:1.08; letter-spacing:-.05em; font-weight:800; }
+	.story-block h2 { max-width:34ch; font-size:1.35rem; line-height:1.08; letter-spacing:-.05em; font-weight:800; }
 	.story-block .intro { color:var(--color-muted); }
 	.story-block blockquote { margin:.5rem 0 0; padding-left:1rem; border-left:2px solid var(--color-border-strong); }
 	.story-block a { color:var(--color-link); text-underline-offset:.2em; }
-	.story-disclosure { margin-top:.15rem; }
-	.story-disclosure summary { width:fit-content; min-height:44px; display:inline-flex; align-items:center; gap:.55rem; border:1px solid var(--color-border); border-radius:999px; padding:.65rem 1rem; color:var(--color-text); cursor:pointer; font-family:var(--font-body); font-size:.95rem; font-weight:700; list-style:none; transition:background-color 120ms ease,border-color 120ms ease; }
+	.story-disclosure { margin-top:0; }
+	.story-disclosure summary { width:fit-content; display:inline-flex; align-items:center; gap:.4rem; padding:0; border:0; color:var(--color-link); cursor:pointer; font-family:var(--font-body); font-size:.875rem; font-weight:400; line-height:1.7; list-style:none; text-decoration:underline; text-underline-offset:.2em; }
 	.story-disclosure summary::-webkit-details-marker { display:none; }
-	.story-disclosure summary:hover,.story-disclosure summary:focus-visible { border-color:var(--color-border-strong); background:var(--color-surface-soft); }
+	.story-disclosure summary:hover { color:var(--color-text); }
 	.story-disclosure__open { display:none; }
 	.story-disclosure__arrow { transition:transform 140ms ease; }
 	.story-disclosure[open] .story-disclosure__closed { display:none; }
@@ -144,9 +155,14 @@ const portraitUrl = withBase('/images/carlos-jorques-intro.webp');
 	.story-disclosure[open] .story-disclosure__arrow { transform:rotate(180deg); }
 	.story-disclosure__content { display:grid; gap:1rem; margin-top:1rem; }
 	.about-closing .button.primary,.about-closing .button.primary:hover,.about-closing .button.primary:focus-visible { color:#fff; }
-	.route-list > div { padding-bottom:1rem; border-bottom:1px solid var(--color-border-soft); }
+	.route-list { grid-column:1 / -1; max-width:none; }
+	.route-list__intro { margin-bottom:.25rem; }
+	.visitor-routes { padding-top:0; padding-bottom:2.5rem; border-top:0; }
+	.route-list > div { display:flex; align-items:baseline; gap:.45rem; padding-bottom:0; border-bottom:0; }
 	.route-list strong { font-size:1.08rem; }
-	.route-list p { margin-top:.35rem; color:var(--color-muted); }
+	.route-list > div p { color:var(--color-muted); }
+	.about-closing .story-block { grid-column:1 / -1; }
+	#approach { margin-top:2.5rem; }
 	@media(max-width:1100px){.about-hero__layout{grid-template-columns:1fr}.about-portrait{width:min(100%,16rem)}}
-	@media(max-width:720px){.about-page{width:min(calc(100% - 1.5rem),78rem)}.about-hero{padding:4rem 0 3rem}.editorial-section{grid-template-columns:1fr}.about-story p,.story-block p{font-size:1.05rem}.button{width:100%}}
+	@media(max-width:720px){.about-page{width:min(calc(100% - 1.5rem),78rem)}.about-hero{padding:3rem 0 0}.about-hero h1{font-size:clamp(2.15rem,10vw,2.45rem);line-height:1.04}.about-hero__actions{display:flex;flex-wrap:wrap;gap:.45rem 1rem;margin-top:1rem}.about-hero__actions a{color:var(--color-link);font-size:.92rem;font-weight:600;text-underline-offset:.2em}.editorial-section{grid-template-columns:1fr}.about-story p,.story-block p{font-size:1.05rem}.route-list > div{display:block}.route-list > div p{margin-top:.2rem}.button{width:100%}}
 </style>
