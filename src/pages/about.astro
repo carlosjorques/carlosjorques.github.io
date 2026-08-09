@@ -14,7 +14,7 @@ const portraitUrl = withBase('/images/carlos-jorques-intro.webp');
 			<div class="about-hero__layout">
 				<div class="about-hero__copy">
 					<h1 id="about-title">I lead embedded controls teams that shape how complex machines sense, decide, and act reliably.</h1>
-					<blockquote><p>I’m Carlos, an Embedded Controls Technical Lead who combines hands-on development with technical direction across control strategy, software architecture, and system integration.</p></blockquote>
+					<p class="about-hero__lead">I’m Carlos, an <strong>Embedded Controls Technical Lead</strong> who combines hands-on development with technical direction across control strategy, software architecture, and system integration.</p>
 					<nav class="about-hero__actions" aria-label="About quick links">
 						<a href={withBase('/cv')}>View CV</a>
 						<a href={withBase('/work')}>Selected work</a>
@@ -131,8 +131,8 @@ const portraitUrl = withBase('/images/carlos-jorques-intro.webp');
 	.about-eyebrow { margin:0; }
 	.about-hero__layout { display:grid; grid-template-columns:minmax(0,1.35fr) minmax(15rem,20rem); gap:2.5rem; align-items:start; margin-top:1rem; }
 	.about-hero h1 { max-width:none; font-size:clamp(2.6rem,3.8vw,3.5rem); font-weight:800; letter-spacing:-.05em; line-height:1.02; }
-	.about-hero blockquote { margin:1.5rem 0 0; }
-	.about-hero blockquote p { font-size:clamp(1.35rem,2vw,1.8rem); font-weight:600; letter-spacing:-.03em; line-height:1.35; }
+	.about-hero__lead { max-width:52rem; margin:1.5rem 0 0; font-size:1.08rem; line-height:1.7; color:var(--color-text); }
+	.about-hero__lead strong { font-weight:700; }
 	.about-hero__actions { display:none; }
 	.about-story { display:grid; gap:1rem; margin-top:1.5rem; max-width:52rem; }
 	.about-story p,.story-block p { margin:0; font-size:1.08rem; line-height:1.7; color:var(--color-text); }
@@ -164,5 +164,5 @@ const portraitUrl = withBase('/images/carlos-jorques-intro.webp');
 	.about-closing .story-block { grid-column:1 / -1; }
 	#approach { margin-top:2.5rem; }
 	@media(max-width:1100px){.about-hero__layout{grid-template-columns:1fr}.about-portrait{width:min(100%,16rem)}}
-	@media(max-width:720px){.about-page{width:min(calc(100% - 1.5rem),78rem)}.about-hero{padding:3rem 0 0}.about-hero h1{font-size:clamp(2.15rem,10vw,2.45rem);line-height:1.04}.about-hero__actions{display:flex;flex-wrap:wrap;gap:.45rem 1rem;margin-top:1rem}.about-hero__actions a{color:var(--color-link);font-size:.92rem;font-weight:600;text-underline-offset:.2em}.editorial-section{grid-template-columns:1fr}.about-story p,.story-block p{font-size:1.05rem}.route-list > div{display:block}.route-list > div p{margin-top:.2rem}.button{width:100%}}
+	@media(max-width:720px){.about-page{width:min(calc(100% - 1.5rem),78rem)}.about-hero{padding:3rem 0 0}.about-hero h1{font-size:clamp(2.15rem,10vw,2.45rem);line-height:1.04}.about-hero__actions{display:flex;flex-wrap:wrap;gap:.45rem 1rem;margin-top:1rem}.about-hero__actions a{color:var(--color-link);font-size:.92rem;font-weight:600;text-underline-offset:.2em}.editorial-section{grid-template-columns:1fr}.about-hero__lead,.about-story p,.story-block p{font-size:1.05rem}.route-list > div{display:block}.route-list > div p{margin-top:.2rem}.button{width:100%}}
 </style>
