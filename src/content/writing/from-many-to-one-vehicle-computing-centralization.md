@@ -3,7 +3,7 @@ title: "From Many to One: What the Centralization of Vehicle Computing Really Ch
 description: A technical article on the shift from distributed ECUs to zonal controllers and central vehicle computers, and what that changes for software speed, safety, suppliers, and control engineering.
 publishDate: 2026-07-07
 readingTime: 13 min read
-category: Embedded Control Architecture
+category: Embedded Controls Architecture
 tags:
   - Software-defined vehicles
   - Vehicle architecture
@@ -38,7 +38,7 @@ Every one of those ECUs needs power and communication. The result is a wiring ha
 
 Stellantis put a concrete number on the legacy state when presenting its STLA Brain architecture: its current electrical setup carries [119 ECUs](https://www.wardsauto.com/news/the-stellantis-software-strategy/798625/), with a 20 percent reduction at the first step and a 50 percent cut targeted in the next iteration.
 
-The distributed model had a quieter cost as well, and it is the one that matters most for this series. Each ECU typically came from a different supplier, with its own software stack and release cycle. Changing behavior that spans ten ECUs means coordinating ten organizations. The architecture that made it easy to add functions made it very hard to change them.
+The distributed model had a quieter cost as well, and it is the one that matters most for this series. Each ECU typically came from a different supplier, with its own software stack and release cycle. Changing behavior that spans ten ECUs means coordinating ten organizations. The architecture that made it easy to introduce functions made it very hard to change them.
 
 ## From distributed to domain to zonal
 

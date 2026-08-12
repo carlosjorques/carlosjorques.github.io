@@ -31,7 +31,7 @@ const writing = defineCollection({
 			})
 			.optional(),
 		category: z.enum([
-			'Embedded Control Architecture',
+			'Embedded Controls Architecture',
 			'Sensing & Signal Processing',
 			'Control Algorithms & Diagnostics',
 			'Embedded Control',

@@ -2,6 +2,7 @@
 import { getCollection, render } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 import ContactCTA from '../../components/ContactCTA.astro';
+import { IDENTITY } from '../../data/identity';
 
 export async function getStaticPaths() {
 	const entries = await getCollection('writing');
@@ -102,6 +103,8 @@ const metadata = [entry.data.category, entry.data.readingTime].filter(Boolean);
 
 		<footer class="writing-post__footer">
 			<div class="page-container writing-post__container">
+				<p class="writing-post__author">{IDENTITY.name} — {IDENTITY.title}</p>
+				<nav class="writing-post__footer-links" aria-label="Article footer links"><a href={withBase('writing/')}>More writing</a><a href={withBase('about/')}>About</a><a href={withBase('contact/')}>Working on something similar? Get in touch</a></nav>
 				<ContactCTA
 					title="Want to discuss the engineering context behind this article?"
 					body="For roles, collaborations, or technical conversations around embedded controls, diagnostics, validation, and physical-system software, use the contact page."
@@ -127,7 +130,7 @@ const metadata = [entry.data.category, entry.data.readingTime].filter(Boolean);
 
 	.writing-post .writing-post__container {
 		box-sizing: border-box;
-		width: min(calc(100% - 32px), 1120px);
+		width: min(calc(100% - 5rem), var(--content-width));
 		max-width: 100%;
 		margin-inline: auto;
 	}
@@ -600,7 +603,7 @@ const metadata = [entry.data.category, entry.data.readingTime].filter(Boolean);
 
         @media (max-width: 640px) {
                 .writing-post .writing-post__container {
-                        width: min(100% - 32px, 1120px);
+                        width: min(calc(100% - 32px), var(--content-width));
                         max-width: 100%;
                 }
 
@@ -628,7 +631,7 @@ const metadata = [entry.data.category, entry.data.readingTime].filter(Boolean);
 
         @media (max-width: 640px) {
                 .writing-post .writing-post__container {
-                        width: min(100% - 32px, 1120px);
+                        width: min(calc(100% - 32px), var(--content-width));
                         max-width: 100%;
                 }
 

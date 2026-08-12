@@ -1,6 +1,7 @@
 ---
 import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
+import { IDENTITY } from '../data/identity';
 import '../styles/global.css';
 
 interface Props {
@@ -9,8 +10,8 @@ interface Props {
 }
 
 const {
-	title = 'Carlos Jorques · Embedded Control Architect',
-	description = 'Embedded control architect and technical leader for software-defined physical systems, real-time control software, electrification, diagnostics, validation, and production embedded systems.',
+	title = `${IDENTITY.name} · ${IDENTITY.title}`,
+	description = `${IDENTITY.title}. Control intelligence for ${IDENTITY.umbrella} — embedded control software, diagnostics, validation, and production delivery.`,
 } = Astro.props;
 
 const siteTitle = title.includes('Carlos Jorques') ? title : `${title} | Carlos Jorques`;
@@ -60,6 +61,14 @@ const pageType = (() => {
 		<meta property="og:description" content={description} />
 		<meta property="og:type" content="website" />
 		<meta property="og:url" content={canonical} />
+		<script type="application/ld+json" set:html={JSON.stringify({
+			'@context': 'https://schema.org',
+			'@type': 'Person',
+			name: IDENTITY.name,
+			jobTitle: IDENTITY.title,
+			url: canonical.href,
+			sameAs: ['https://www.linkedin.com/in/carlosjorques/'],
+		})} />
 	</head>
 	<body data-page-type={pageType}>
 		<a class="skip-link" href="#main-content">Skip to content</a>

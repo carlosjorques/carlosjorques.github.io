@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
+import { TAG_GROUPS, tagGroupFor } from '../../data/tagGroups';
 
 const baseUrl = import.meta.env.BASE_URL;
 const normalizedBase = baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`;
@@ -37,6 +38,7 @@ const articles = entries.map((entry) => ({
 const topics = Array.from(new Set(articles.flatMap((article) => article.tags))).sort((a, b) =>
 	a.localeCompare(b),
 );
+const groupSlug = (group: string) => toTagSlug(group);
 ---
 
 <Layout
@@ -53,9 +55,7 @@ const topics = Array.from(new Set(articles.flatMap((article) => article.tags))).
 
 				<div class="writing-hero__mission">
 					<p>
-						Notes on embedded control systems, software-defined vehicles, diagnostics, validation, and
-						technical leadership - where physical-system intent has to become reliable behavior in real
-						machines.
+						Notes on how software makes physical systems behave reliably — control, diagnostics, validation, architecture, and the organizations that build them. Most of the evidence comes from automotive and heavy-duty machines; the principles travel.
 					</p>
 				</div>
 			</div>
@@ -66,6 +66,9 @@ const topics = Array.from(new Set(articles.flatMap((article) => article.tags))).
 				<h2 id="writing-list-title" class="visually-hidden">Article list</h2>
 
 				<div class="writing-filter-bar">
+					<div class="filter-chips filter-chips--groups" role="group" aria-label="Filter articles by topic group">
+						{Object.keys(TAG_GROUPS).map((group) => <button class="filter-chip" type="button" data-filter={groupSlug(group)} data-filter-label={group} aria-pressed="false">{group}</button>)}
+					</div>
 					<details class="writing-filter-menu" data-filter-menu>
 						<summary>
 							<span class="filter-summary__label">Browse articles by topic</span>
@@ -93,7 +96,7 @@ const topics = Array.from(new Set(articles.flatMap((article) => article.tags))).
 				<div class="article-list" data-article-list>
 					{
 						articles.map((article) => (
-							<article class="article-card" data-article-card data-tags={article.tags.map(toTagSlug).join(' ')}>
+							<article class="article-card" data-article-card data-tags={[...article.tags.map(toTagSlug), ...article.tags.map((tag) => groupSlug(tagGroupFor(tag)))].join(' ')}>
 								<a
 									class="article-card__link"
 									href={article.href}

@@ -9,7 +9,7 @@ capabilities:
   - Actuation logic
 standards:
   - ISO 26262-oriented development
-  - A-SPICE-oriented delivery
+  - ASPICE-oriented delivery
   - AUTOSAR-oriented development
 domain: Automotive embedded control
 confidentialityNote: This case is generalized for public use. It does not disclose OEMs, suppliers, products, architectures, calibration details, internal requirements, or implementation details.
@@ -35,7 +35,7 @@ The scope covered the chain from sensing and interpreted signals through embedde
 
 ## Standards / environment
 
-The work was shaped by automotive development practices, safety-related thinking, requirements discipline, A-SPICE-oriented delivery expectations, compliance/risk awareness, and AUTOSAR-oriented software integration contexts.
+The work was shaped by automotive development practices, safety-related thinking, requirements discipline, ASPICE-oriented delivery expectations, compliance/risk awareness, and AUTOSAR-oriented software integration contexts.
 
 ## Outcome
 

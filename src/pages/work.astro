@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import WorkCard from '../components/WorkCard.astro';
 
 const baseUrl = import.meta.env.BASE_URL;
 const withBase = (href: string) => {
@@ -9,6 +10,13 @@ const withBase = (href: string) => {
 
 	return href === '/' ? baseUrl : `${baseUrl}${href.replace(/^\//, '')}`;
 };
+
+const projectCards = [
+	{ id: 'electric-truck-thermal-management', title: 'Electric Truck Thermal Management and BMS Systems', institution: 'Scania', image: '/images/work/electric-truck-thermal-bms.webp', alt: 'Electric truck connected to a charger in snowy test conditions', overview: 'Embedded control software for coordinating battery, charging, auxiliary, and thermal behavior in heavy-duty electric vehicles.', context: 'Heavy-duty electrification and thermal behavior.', contribution: 'Control architecture, software integration, diagnostics, and validation.', constraints: 'Physical limits, timing, safety-related behavior, and vehicle evidence.', evidence: 'Production-oriented EV control delivery', tags: ['BMS', 'Thermal control', 'Charging behavior', 'Diagnostics', 'Calibration', 'Vehicle validation'], noteHref: '/work/embedded-control-system-architecture/', proofHref: '/cv/#experience', proofLabel: 'CV experience', loading: 'eager' as const },
+	{ id: 'autonomous-hauler-propulsion-control', title: 'Autonomous Electric Hauler Propulsion Control', institution: 'Volvo Construction Equipment', image: '/images/work/autonomous-hauler-propulsion.webp', alt: 'Autonomous electric haulers operating in a quarry', overview: 'Propulsion-control software for autonomous electric machines operating in demanding off-road environments.', context: 'Autonomous heavy-duty mobility.', contribution: 'Propulsion, torque allocation, diagnostic monitoring, and integration.', constraints: 'Redundancy, safety-related behavior, SIL/HIL, and vehicle validation.', evidence: 'Applied autonomous-machine control delivery', tags: ['Traction control', 'Torque allocation', 'Redundant actuators', 'Diagnostic monitoring', 'SIL/HIL', 'Vehicle validation'], noteHref: '/work/cross-functional-technical-delivery/', proofHref: '/cv/#representative-systems', proofLabel: 'CV systems' },
+	{ id: 'ebike-motor-control-power-electronics', title: 'E-Bike Motor Control and Power Electronics Software', institution: 'MAHLE', image: '/images/work/ebike-motor-control.webp', alt: 'E-bike motor and crank area after off-road use', overview: 'Application-layer embedded software connecting motor-control behavior, thermal modeling, wireless charging, and converter functionality.', context: 'Electrified power electronics.', contribution: 'Application software, model integration, and interfaces.', constraints: 'Thermal behavior, converter limits, AUTOSAR-oriented integration, and bench evidence.', evidence: 'Production embedded software contribution', tags: ['PMSM thermal modeling', 'AUTOSAR-oriented architecture', 'DC/DC interfaces', 'Power electronics', 'Bench validation'], noteHref: '/work/embedded-control-system-architecture/', proofHref: '/cv/#experience', proofLabel: 'CV experience' },
+	{ id: 'heavy-duty-engine-diagnostics-control-research', title: 'Heavy-Duty Engine Diagnostics and Control Research', institution: 'Lund University / Scania', image: '/images/work/heavy-duty-engine-diagnostics.webp', alt: 'Heavy-duty engine test bench with sensors and measurement cables', overview: 'Real-time diagnostic and combustion-control prototypes for heavy-duty engine systems with experimental validation.', context: 'Research translated into production-relevant control evidence.', contribution: 'Diagnostics, control algorithms, virtual sensing, and test-bench validation.', constraints: 'Real-time deadlines, uncertainty, sensor evidence, and experimental repeatability.', evidence: 'PhD, patents, and publications', tags: ['Diagnostics', 'Closed-loop control', 'Virtual sensing', 'Stochastic detection', 'Patents', 'Publications'], noteHref: '/work/control-algorithms-and-diagnostics/', proofHref: '/cv/#research', proofLabel: 'CV research record' },
+];
 ---
 
 <BaseLayout
@@ -29,6 +37,10 @@ const withBase = (href: string) => {
 		</div>
 	</section>
 
+	<section class="section work-section" id="synthesis" aria-labelledby="synthesis-title">
+		<div class="page-container work-section__intro"><h2 id="synthesis-title">What connects this work</h2><p>I shape the path from system intent to dependable production behavior: making sensing, control decisions, embedded execution, diagnostics, and validation agree with the machine and its constraints. Across architecture, implementation, validation, and delivery, I personally connect technical direction with hands-on engineering so teams can turn control strategy into software that behaves predictably in real hardware, under uncertainty, and through release.</p></div>
+	</section>
+
 	<section class="section work-section work-section--selected" id="selected-projects" aria-labelledby="project-contexts-title">
 		<div class="page-container">
 			<div class="work-section__intro">
@@ -38,7 +50,10 @@ const withBase = (href: string) => {
 					diagnostics, validation, and production constraints.
 				</p>
 			</div>
-			<div class="work-index-grid">
+			<div class="work-index-grid work-index-grid--component-cards">
+				{projectCards.map((card) => <WorkCard {...card} />)}
+			</div>
+			<div class="work-index-grid work-index-grid--legacy" aria-hidden="true">
 				<article class="work-index-card work-index-card--project" id="electric-truck-thermal-management" aria-labelledby="electric-truck-thermal-management-title">
 					<figure class="work-index-card__media">
 						<img
@@ -251,8 +266,7 @@ const withBase = (href: string) => {
 			<div class="work-section__intro">
 				<h2 id="selected-research-title">Selected Research</h2>
 				<p>
-					Research-connected notes from Lund University / Scania on diagnostics, control algorithms, virtual sensing,
-					experimental validation, and real-time implementation. The <a
+					The research record behind the diagnostics and control claims. The CV holds the formal publication and patent record. Research-connected notes from Lund University / Scania on diagnostics, control algorithms, virtual sensing, experimental validation, and real-time implementation. The <a
 						href={withBase('/cv/#research')}
 						data-analytics-event="related_proof_click"
 						data-cta-id="work-research-intro-cv"
@@ -669,6 +683,8 @@ const withBase = (href: string) => {
 		gap: clamp(0.85rem, 1.8vw, 1rem);
 	}
 
+	.work-index-grid--legacy { display: none; }
+
 	.work-index-grid--research {
 		gap: clamp(0.8rem, 1.6vw, 0.95rem);
 		align-items: stretch;
@@ -1074,7 +1090,7 @@ const withBase = (href: string) => {
 <style>
 	/* Maria theme adaptation: image-led project rows and quiet editorial evidence. */
 	.work-hero .page-container,
-	.work-section .page-container { width:min(calc(100% - 3rem),78rem); }
+	.work-section .page-container { width:min(calc(100% - 5rem),var(--content-width)); }
 	.work-hero { padding:4.5rem 0 3rem; border:0; }
 	.work-hero__inner { display:block; }
 	.work-hero__label { display:grid; gap:1rem; }
@@ -1112,7 +1128,6 @@ const withBase = (href: string) => {
 		.work-index-card--project .work-index-card__media { grid-row:2; }
 	}
 	@media(max-width:720px){
-		.work-hero .page-container,.work-section .page-container { width:min(calc(100% - 1.5rem),78rem); }
 		.work-hero { padding:4rem 0 2rem; }
 		.work-index-card--project { padding:1.2rem; }
 		.work-thread-summary { grid-template-columns:1fr; }

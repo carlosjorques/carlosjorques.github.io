@@ -1,10 +1,8 @@
 ---
-title: Thesis details to add
+title: Design and Optimization of In-Cycle Closed-Loop Combustion Control with Multiple Injection
 type: PhD thesis
-summary: Add thesis title, institution, year, abstract link, and any public repository links. Frame the thesis as modeling, analysis, and control depth that supports industrial embedded control work.
+summary: PhD thesis at Lund University on real-time modeling, estimation, diagnostics, optimization, and closed-loop combustion control with multiple injection.
 featured: true
 ---
 
-The thesis entry should connect academic depth to production embedded systems without making the site academic-first.
-
-Add the title, institution, year, abstract, and public links when approved.
+The research connects model-based control, virtual sensing, stochastic diagnostics, and real-time implementation to production-oriented physical-system behavior.

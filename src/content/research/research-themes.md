@@ -1,10 +1,8 @@
 ---
 title: Modeling, analysis, and control
 type: Research themes
-summary: Add themes such as modeling, estimation, control, physical systems, validation, and the connection between analytical depth and production system behavior.
+summary: Modeling, estimation, closed-loop control, virtual sensing, stochastic diagnostics, optimization, physical systems, and real-time validation.
 featured: true
 ---
 
-Research themes should explain the foundation behind control intelligence for physical systems.
-
-Prioritize clear industrial translation over academic detail.
+These themes form the research foundation behind control intelligence for physical systems, with emphasis on translating analytical depth into observable, testable machine behavior.

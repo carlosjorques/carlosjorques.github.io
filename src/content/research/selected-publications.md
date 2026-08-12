@@ -1,10 +1,8 @@
 ---
-title: Publication list to add
+title: Selected publications
 type: Selected publications
-summary: Add selected peer-reviewed publications with links to DOI, publisher pages, Google Scholar, ORCID, or approved PDFs.
+summary: Selected publications on combustion control, diagnostics, virtual sensing, and optimization. The CV contains the formal publication and patent record.
 featured: true
 ---
 
-Use this section for publications that support credibility in modeling, analysis, control, and physical systems engineering.
-
-Keep summaries short and focused on industrial relevance.
+Selected work includes peer-reviewed results on closed-loop combustion control, stochastic fault detection, virtual sensing, and efficiency-oriented set-point optimization.

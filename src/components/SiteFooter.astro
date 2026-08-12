@@ -1,14 +1,16 @@
 ---
+import { EMAIL_ADDRESS, IDENTITY, LINKEDIN_URL } from '../data/identity';
+
 const baseUrl = import.meta.env.BASE_URL;
 const normalizedBase = baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`;
 const withBase = (href: string) => (href === '/' ? normalizedBase : `${normalizedBase}${href.replace(/^\//, '')}`);
-const emailHref = 'mailto:carlosjorques@gmail.com';
-const linkedinHref = 'https://www.linkedin.com/in/carlosjorques/';
+const emailHref = `mailto:${EMAIL_ADDRESS}`;
+const linkedinHref = LINKEDIN_URL;
 ---
 
 <footer class="site-footer" id="site-footer-contact">
 	<div class="page-container site-footer__inner">
-		<span>Making complex systems behave reliably.</span>
+		<span>{IDENTITY.brandLine}</span>
 
 		<nav class="site-footer__links" aria-label="Footer links">
 			<a
@@ -34,14 +36,15 @@ const linkedinHref = 'https://www.linkedin.com/in/carlosjorques/';
 				LinkedIn
 			</a>
 			<a
-				href={withBase('/cv')}
+				href={withBase('/cv/Carlos_Jorques_CV.pdf')}
+				download
 				data-analytics-event="cta_click"
 				data-cta-id="footer-cv"
 				data-cta-placement="footer"
 				data-cta-intent="proof"
 				data-source-section="footer"
 			>
-				CV
+				CV (PDF)
 			</a>
 			<a href={withBase('/privacy')}>Privacy</a>
 		</nav>

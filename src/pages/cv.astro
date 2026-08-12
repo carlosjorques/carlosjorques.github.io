@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { IDENTITY } from '../data/identity';
 
 type CvAction = {
 	label: string;
@@ -116,8 +117,8 @@ const cvProfile = {
 	"hero": {
 		"eyebrow": "Online CV",
 		"title": "Carlos Jorques",
-		"subtitle": "Senior Embedded Controls Engineer | Technical Lead | Electric & Autonomous Vehicle Systems",
-		"summary": "I am a senior embedded controls engineer with 10+ years of experience developing real time control software for automotive and heavy duty physical systems. My work focuses on EV thermal management, battery systems, autonomous propulsion control, diagnostics, functional safety, validation, and production software delivery.",
+		"subtitle": "Embedded Controls Technical Lead · Control Systems Architect · Electric & Autonomous Vehicle Systems",
+		"summary": "I am an Embedded Controls Technical Lead with 12+ years of experience developing real time control software for automotive and heavy duty physical systems. My work focuses on EV thermal management, battery systems, autonomous propulsion control, diagnostics, functional safety, validation, and production software delivery.",
 		"secondarySummary": "I translate automatic control concepts into robust embedded software that can be tested, calibrated, validated, and trusted in real machines. My experience spans control architecture, model based implementation, generated C/C++ workflows, MIL/SIL/HIL validation, and technical leadership across international automotive teams."
 	},
 	"actions": [
@@ -181,7 +182,7 @@ const cvProfile = {
 	],
 	"proofTiles": [
 		{
-			"value": "10+ years",
+		"value": "12+ years",
 			"label": "Automotive embedded controls"
 		},
 		{
@@ -207,14 +208,11 @@ const cvProfile = {
 	],
 	"relevantFor": [
 		"Senior Electronics Engineer",
-		"Embedded Controls Architect",
-		"Technical Lead",
-		"Control Systems Engineer",
-		"BMS / Thermal Management Engineer",
-		"Functional Safety Engineer",
-		"Autonomous Machine Controls",
-		"Powertrain Software Engineer",
-		"Model-Based Development Lead"
+		"Embedded Controls Technical Lead",
+		"Control Systems Architect",
+		"BMS / Thermal Management Software Lead",
+		"Model-Based Development Lead",
+		"Functional Safety-Related Controls"
 	],
 	"executiveSummary": [],
 	"expertise": [
@@ -332,7 +330,7 @@ const cvProfile = {
 				"Diagnostic strategy design",
 				"Fault detection and isolation",
 				"ISO 26262-aligned development",
-				"A-SPICE traceability",
+				"ASPICE traceability",
 				"Fallback and degradation logic"
 			],
 			"representativeWork": [
@@ -424,7 +422,7 @@ const cvProfile = {
 					"items": [
 						"Model calibration and validation across MIL, SIL, HIL, test bench, wind tunnel, test track, and vehicle environments.",
 						"Battery management and SOC/SOH/SOP-related thermal control strategies.",
-						"Functional safety analysis, diagnostics, fallback strategies, and ISO 26262 / A-SPICE-aligned workflows.",
+						"Functional safety analysis, diagnostics, fallback strategies, and ISO 26262 / ASPICE-aligned workflows.",
 						"GitLab CI/CD pipelines and SAFe Agile practices to improve integration quality and reduce development cycle time."
 					]
 				},
@@ -443,7 +441,7 @@ const cvProfile = {
 				"C",
 				"GitLab",
 				"ISO 26262",
-				"A-SPICE",
+				"ASPICE",
 				"BMS",
 				"diagnostics",
 				"EV thermal management"
@@ -1001,7 +999,7 @@ const cvProfile = {
 		},
 		{
 			"title": "Standards and Automotive Context",
-			"primaryTools": "ISO 26262 · A-SPICE · AUTOSAR · CAN/J1939 · Functional Safety",
+			"primaryTools": "ISO 26262 · ASPICE · AUTOSAR · CAN/J1939 · Functional Safety",
 			"methods": "Functional safety awareness, FuSa analysis, process alignment, automotive communication, traceability, production-oriented documentation."
 		},
 		{
@@ -1117,7 +1115,7 @@ const profileJsonLd = {
 	mainEntity: {
 		'@type': 'Person',
 		name: cvProfile.hero.title,
-		jobTitle: 'Senior Electronics Engineer and Embedded Controls Architect',
+	jobTitle: IDENTITY.title,
 		description:
 			'Senior electronics and embedded controls engineer specializing in EV thermal management, BMS, autonomous propulsion control, diagnostics, functional safety, model-based development, and real-time embedded software.',
 		url: Astro.url.href,
@@ -1127,7 +1125,7 @@ const profileJsonLd = {
 ---
 
 <Layout
-	title="Senior Embedded Controls Engineer CV | Carlos Jorques"
+	title={`${IDENTITY.name} CV | ${IDENTITY.title}`}
 	description="Senior electronics and embedded controls engineer specializing in EV thermal management, BMS, autonomous propulsion control, diagnostics, functional safety, model-based development, and real-time embedded software."
 >
 	<script type="application/ld+json" set:html={JSON.stringify(profileJsonLd)} />
@@ -1170,6 +1168,7 @@ const profileJsonLd = {
 							</a>
 						))}
 					</div>
+					<p class="cv-updated">Last updated: {new Date().toISOString().slice(0, 10)}</p>
 				</div>
 
 				<aside class="cv-hero__evidence" aria-label="Recruiter snapshot">
@@ -4097,6 +4096,8 @@ const profileJsonLd = {
 			padding: 0;
 		}
 
+		details > * { color: #000; }
+
 		a[href^='http']::after {
 			content: ' (' attr(href) ')';
 			font-weight: 400;
@@ -4106,7 +4107,7 @@ const profileJsonLd = {
 
 <style>
 	/* Maria resume pattern: editorial rails, continuous text, no card wall. */
-	.cv-page { width:min(calc(100% - 3rem),78rem); margin:0 auto; padding-bottom:5rem; }
+	.cv-page { width:min(calc(100% - 5rem),var(--content-width)); margin:0 auto; padding-bottom:5rem; }
 	.cv-page .page-container { width:100%; }
 	.cv-scroll-jump,.cv-section-nav-shell { display:none; }
 	.cv-hero { padding:6rem 0 4rem; background:transparent; border:0; }
@@ -4161,7 +4162,6 @@ const profileJsonLd = {
 	.cv-final__inner h2 { font-size:clamp(1.7rem,3vw,2.4rem); }
 	.cv-final__actions { grid-column:2; display:flex; flex-wrap:wrap; }
 	@media(max-width:720px){
-		.cv-page{width:min(calc(100% - 1.5rem),78rem)}
 		.cv-hero{padding:4rem 0 3rem}
 		.cv-hero__evidence,.cv-section > .page-container,.cv-final__inner{grid-template-columns:1fr;gap:1rem}
 		.cv-hero__evidence::before,.cv-proof-grid,.cv-role-strip,.cv-section__intro h2,.cv-section__intro > p,.cv-section > .page-container > :not(.cv-section__intro),.cv-final__inner > div:first-child,.cv-final__actions{grid-column:1}
@@ -4169,4 +4169,5 @@ const profileJsonLd = {
 		.cv-section__intro > p{margin-bottom:1rem}
 		.cv-actions .button,.cv-final__actions .button{width:100%}
 	}
+	@media(max-width:640px){.cv-page{width:min(calc(100% - 32px),var(--content-width))}}
 </style>

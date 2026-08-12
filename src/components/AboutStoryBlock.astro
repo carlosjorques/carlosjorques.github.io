@@ -1,0 +1,60 @@
+---
+interface Props {
+	id: string;
+	label: string;
+	title: string;
+	intro: string;
+	disclosureLabel: string;
+	expanded: string[];
+	quote?: string;
+}
+
+const { id, label, title, intro, disclosureLabel, expanded, quote } = Astro.props;
+---
+
+<section class="editorial-section" id={id} aria-labelledby={`${id}-title`}>
+	<div class="section-rail"><p>{label}</p></div>
+	<div class="story-block">
+		<h2 id={`${id}-title`}>{title}</h2>
+		<p class="intro">{intro}</p>
+		<details class="story-disclosure">
+			<summary>
+				<span class="story-disclosure__closed">{disclosureLabel}</span>
+				<span class="story-disclosure__open">Read less</span>
+				<span class="story-disclosure__arrow" aria-hidden="true">↓</span>
+			</summary>
+			<div class="story-disclosure__content">
+				{expanded.map((paragraph) => <p>{paragraph}</p>)}
+				{quote && <blockquote><p>{quote}</p></blockquote>}
+			</div>
+		</details>
+	</div>
+</section>
+
+<style>
+	.editorial-section { display:grid; grid-template-columns:16rem minmax(0,1fr); gap:2rem; padding:1rem 0; border-top:1px solid var(--color-border); scroll-margin-top:2rem; }
+	.section-rail { font-family:var(--font-mono); font-size:.82rem; font-weight:600; letter-spacing:.08em; line-height:1.4; text-transform:uppercase; color:var(--color-muted); }
+	.section-rail p { margin:0; max-width:none; color:inherit; font:inherit; letter-spacing:inherit; text-transform:inherit; }
+	.story-block { display:grid; gap:.65rem; max-width:52rem; }
+	.story-block h2 { max-width:none; width:100%; margin:0; font-size:1.1625rem; line-height:1.16; letter-spacing:-.035em; font-weight:600; }
+	.story-block p { margin:0; font-size:1.08rem; line-height:1.7; color:var(--color-text); }
+	.story-block .intro,
+	.story-disclosure__content p { color:var(--color-muted); }
+	.story-block blockquote { margin:.5rem 0 0; padding-left:1rem; border-left:2px solid var(--color-border-strong); }
+	.story-block a { color:var(--color-link); text-underline-offset:.2em; }
+	.story-disclosure { margin-top:0; }
+	.story-disclosure summary { width:fit-content; display:inline-flex; align-items:center; gap:.4rem; padding:0; border:0; color:var(--color-link); cursor:pointer; font-family:var(--font-body); font-size:.875rem; font-weight:400; line-height:1.7; list-style:none; text-decoration:underline; text-underline-offset:.2em; }
+	.story-disclosure summary::-webkit-details-marker { display:none; }
+	.story-disclosure summary:hover { color:var(--color-text); }
+	.story-disclosure__open { display:none; }
+	.story-disclosure__arrow { transition:transform 140ms ease; }
+	.story-disclosure[open] .story-disclosure__closed { display:none; }
+	.story-disclosure[open] .story-disclosure__open { display:inline; }
+	.story-disclosure[open] .story-disclosure__arrow { transform:rotate(180deg); }
+	.story-disclosure__content { display:grid; gap:.65rem; margin-top:.65rem; }
+
+	@media(max-width:720px){
+		.editorial-section { grid-template-columns:1fr; }
+		.story-block p { font-size:1.05rem; }
+	}
+</style>
