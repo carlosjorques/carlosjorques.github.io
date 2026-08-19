@@ -1,0 +1,30 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ContactCTA from '../../components/ContactCTA.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+
+const projectOrder = [
+	'electric-truck-thermal-management',
+	'autonomous-hauler-propulsion-control',
+	'heavy-duty-engine-diagnostics-control-research',
+	'ebike-motor-control-power-electronics',
+];
+const projects = (await getCollection('projects')).sort((a, b) => projectOrder.indexOf(a.id) - projectOrder.indexOf(b.id));
+---
+
+<BaseLayout title="Work" description="Selected projects across architecture, implementation, and delivery of embedded control software shaped and led by Carlos Jorques.">
+	<section class="work-overview-hero" aria-labelledby="work-title"><div class="page-container"><p class="section-eyebrow">Work</p><h1 id="work-title" class="hero-title">Selected Projects</h1><p class="work-overview-hero__lead">Each project below shows how control strategy becomes software that runs in production — the systems I have shaped, the decisions behind them, and the outcomes they delivered.</p><p class="work-overview-hero__proof">Production embedded controls <span aria-hidden="true">·</span> Electrification <span aria-hidden="true">·</span> Autonomous machines</p></div></section>
+	<section class="section work-projects" aria-labelledby="projects-title"><div class="page-container"><h2 id="projects-title" class="sr-only">Projects</h2><div class="project-grid">{projects.map((project) => <ProjectCard {...project.data} slug={project.id} />)}</div></div></section>
+	<section class="section work-overview-cta" aria-label="Next steps"><div class="page-container"><ContactCTA title="Looking for an embedded controls technical lead?" body="I work across control architecture, real-time embedded software, diagnostics, validation, and production delivery." primaryLabel="Get in touch" secondaryHref="/cv/" secondaryLabel="View CV" /></div></section>
+</BaseLayout>
+
+<style>
+	.work-overview-hero { padding: clamp(4rem, 8vw, 7rem) 0 clamp(3rem, 6vw, 5rem); }
+	.work-overview-hero__lead { max-width: 58ch; margin-top: 1rem; color: var(--color-muted); font-size: clamp(1.05rem, 1.7vw, 1.25rem); line-height: 1.6; }
+	.work-overview-hero__proof { margin-top: 1.5rem; color: var(--color-accent-text); font-family: var(--font-mono); font-size: var(--type-meta-size); font-weight: var(--type-meta-weight); letter-spacing: var(--type-meta-tracking); text-transform: uppercase; }
+	.project-grid { display: grid; grid-template-columns: 1fr; gap: clamp(1.25rem, 3vw, 2rem); }
+	.work-overview-cta { padding-top: 0; }
+	.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+	@media (min-width: 768px) { .project-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+</style>

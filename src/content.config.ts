@@ -57,4 +57,35 @@ const research = defineCollection({
 	}),
 });
 
-export const collections = { cases, writing, research };
+const projects = defineCollection({
+	loader: glob({ pattern: '**/*.md', base: './src/content/projects' }),
+	schema: ({ image }) => z.object({
+		title: z.string(),
+		company: z.string(),
+		context: z.string(),
+		description: z.string(),
+		tags: z.array(z.string()).min(2).max(2),
+		image: image(),
+		imageAlt: z.string(),
+		objective: z.string(),
+		role: z.string().refine((value) => {
+			const wordCount = value.trim().split(/\s+/).filter(Boolean).length;
+			return wordCount >= 3 && wordCount <= 6;
+		}, 'Card role must contain 3–6 words.'),
+		roleScope: z.string(),
+		contribution: z.string(),
+		collaborators: z.string().optional(),
+		toolsAndMethods: z.array(z.string()),
+		constraints: z.string(),
+		risks: z.string().optional(),
+		process: z.string(),
+		decisions: z.string(),
+		deliverables: z.string(),
+		deliverableVisuals: z.array(image()).optional(),
+		metrics: z.array(z.object({ label: z.string(), value: z.string() })),
+		reflection: z.string().optional(),
+		relatedWritingUrl: z.string().url().optional(),
+	}),
+});
+
+export const collections = { cases, writing, research, projects };

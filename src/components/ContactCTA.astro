@@ -2,6 +2,7 @@
 interface Props {
 	title?: string;
 	body?: string;
+	primaryLabel?: string;
 	secondaryHref?: string;
 	secondaryLabel?: string;
 }
@@ -9,6 +10,7 @@ interface Props {
 const {
 	title = 'Interested in embedded control architecture, physical systems, or technical leadership?',
 	body = 'Use the contact page for role conversations, collaboration, project context, or focused technical questions.',
+	primaryLabel = 'Contact me',
 	secondaryHref = 'work/',
 	secondaryLabel = 'View work',
 } = Astro.props;
@@ -36,7 +38,7 @@ const withBase = (href: string) =>
 			data-cta-intent="contact"
 			data-source-section="contact-cta"
 		>
-			Contact me
+			{primaryLabel}
 		</a>
 		<a
 			class="button"
