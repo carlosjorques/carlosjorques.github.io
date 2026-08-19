@@ -1,8 +1,8 @@
 ---
-title: Propulsion Control for Autonomous Electric Machinery
+title: Propulsion Control Software for Autonomous Electric Haulers
 company: Volvo Construction Equipment
 context: Autonomous heavy-duty machinery
-description: Engineered real-time speed-control and torque-allocation logic for dual-motor traction in demanding off-road propulsion, leading a three-engineer team in MATLAB/Simulink unit-test development. Achieved speed-control tracking error within 5% during vehicle field testing.
+description: Delivered real-time speed-control and torque-allocation logic for dual-motor propulsion in off-road operation. Led unit-test development and validation that achieved tracking error within 5% during vehicle field testing.
 tags: [Torque allocation, SIL/HIL validation]
 image: ../../assets/projects/autonomous-hauler-propulsion.webp
 imageAlt: Autonomous electric haulers operating in a quarry

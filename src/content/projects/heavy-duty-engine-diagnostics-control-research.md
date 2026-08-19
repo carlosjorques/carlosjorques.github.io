@@ -1,8 +1,8 @@
 ---
-title: Real-Time Closed-Loop Combustion Control for Heavy-Duty Engines
+title: Real-Time Combustion Control and Virtual Sensing Methods
 company: Lund University / Scania
 context: Heavy-duty engine control industrial research
-description: Developed and experimentally validated real-time combustion-control methods for heavy-duty engines, combining virtual sensing with FPGA-based predictive control. The methods improved indicated efficiency by 1.8% on biofuel diesel engines and contributed to 15 publications and 4 patents.
+description: Developed and experimentally validated FPGA-based control and virtual-sensing methods for heavy-duty engine operation. The work improved indicated efficiency by 1.8% on biofuel diesel engines and contributed to 15 publications and 4 patents.
 tags: [Diagnostics, Virtual sensing]
 image: ../../assets/projects/heavy-duty-engine-diagnostics.webp
 imageAlt: Heavy-duty engine test bench with sensors and measurement cables

@@ -204,16 +204,21 @@ const linkedinHref = 'https://www.linkedin.com/in/carlosjorques/';
 	}
 
 	.contact-hero__label {
-		gap: 0.85rem;
+		gap: 1rem;
 		min-width: 0;
 	}
 
 	.contact-hero__label .section-eyebrow {
 		margin: 0;
+		color: var(--color-muted);
+		font-size: .82rem;
+		font-weight: 600;
+		letter-spacing: .08em;
+		line-height: 1.4;
 	}
 
 	.contact-hero__mission {
-		gap: 0.75rem;
+		gap: 1rem;
 		min-width: 0;
 		border-left: 1px solid var(--color-border-soft);
 		padding-left: clamp(1rem, 3vw, 2rem);
@@ -221,7 +226,11 @@ const linkedinHref = 'https://www.linkedin.com/in/carlosjorques/';
 
 	.contact-hero .hero-title {
 		max-width: none;
-		font-size: clamp(4.2rem, 9vw, 8rem);
+		margin: 0;
+		font-size: clamp(2.6rem, 3.8vw, 3.5rem);
+		font-weight: 800;
+		letter-spacing: -.05em;
+		line-height: 1.02;
 		overflow-wrap: normal;
 		word-break: normal;
 	}
@@ -504,11 +513,11 @@ const linkedinHref = 'https://www.linkedin.com/in/carlosjorques/';
 <style>
 	.contact-hero .page-container,
 	.contact-content .page-container { width:min(calc(100% - 5rem),var(--content-width)); }
-	.contact-hero { padding:6rem 0 4rem; border:0; }
+	.contact-hero { padding:clamp(3rem,5vw,4.6rem) 0 4rem; border:0; }
 	.contact-hero__inner { display:block; }
 	.contact-hero__label { gap:1rem; }
 	.contact-hero .section-eyebrow { color:var(--color-muted); }
-	.contact-hero .hero-title { max-width:none; font-size:clamp(3rem,4.8vw,5rem); line-height:1.02; letter-spacing:-.05em; font-weight:800; }
+	.contact-hero .hero-title { max-width:none; margin:0; font-size:clamp(2.6rem,3.8vw,3.5rem); line-height:1.02; letter-spacing:-.05em; font-weight:800; }
 	.contact-hero__mission { max-width:52rem; margin-top:1.5rem; padding:0; border:0; }
 	.contact-hero__mission p { font-size:1.08rem; line-height:1.7; color:var(--color-text); }
 	.contact-content { padding-block:0 5rem; }
@@ -517,7 +526,7 @@ const linkedinHref = 'https://www.linkedin.com/in/carlosjorques/';
 	.direct-contact-card h2,.contact-form h2 { font-size:clamp(1.7rem,3vw,2.4rem); line-height:1.08; letter-spacing:-.04em; font-weight:800; }
 	.contact-card__label,.secondary-contact-links span,.form-field label,.form-fieldset legend { color:var(--color-muted); font-size:.82rem; font-weight:600; letter-spacing:.08em; }
 	.form-field input[type='text'],.form-field input[type='email'],.form-field textarea { border:1px solid var(--color-border); border-radius:.9rem; background:var(--color-card-bg); padding:.85rem 1rem; }
-	@media(max-width:720px){.contact-hero{padding:4rem 0 3rem}}
+	@media(max-width:720px){.contact-hero{padding:3rem 0 3rem}.contact-hero .hero-title{font-size:clamp(2.15rem,10vw,2.45rem);line-height:1.04}}
 </style>
 
 <script>

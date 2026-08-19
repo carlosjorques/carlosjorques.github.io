@@ -1,8 +1,8 @@
 ---
-title: Engineering Process Leadership for E-Bike Motor Control Development
+title: E-Bike Motor-Control Software and Delivery Practices
 company: MAHLE
 context: E-bike motor control
-description: Introduced Automotive SPICE practices, unit-testing methods, and CI/CD pipelines across multiple projects involving approximately 12 engineers. Established a more consistent and traceable software-delivery process for e-bike motor-control development.
+description: Delivered application-layer motor-control software and introduced unit-testing, Automotive SPICE, and CI/CD practices across projects involving approximately 12 engineers. Established a more consistent and traceable software-delivery process.
 tags: [Automotive SPICE, CI/CD]
 image: ../../assets/projects/ebike-motor-control.webp
 imageAlt: E-bike motor and crank area after off-road use

@@ -142,7 +142,7 @@ const metadata = [entry.data.category, entry.data.readingTime].filter(Boolean);
 
 	.writing-post__hero .writing-post__container {
 		display: grid;
-		gap: clamp(0.72rem, 1.4vw, 1rem);
+		gap: 1rem;
 	}
 
         .writing-post__category {
@@ -156,13 +156,20 @@ const metadata = [entry.data.category, entry.data.readingTime].filter(Boolean);
                 line-height: var(--type-eyebrow-line);
                 text-transform: uppercase;
                 overflow-wrap: anywhere;
+			color: var(--color-muted);
+			font-size: .82rem;
+			font-weight: 600;
+			letter-spacing: .08em;
+			line-height: 1.4;
         }
 
 	.writing-post .hero-title {
 		max-width: min(100%, 20ch);
-		font-size: clamp(2.45rem, 4.8vw, 4.45rem);
-		line-height: 0.98;
-		letter-spacing: -0.055em;
+		margin: 0;
+		font-size: clamp(2.6rem, 3.8vw, 3.5rem);
+		font-weight: 800;
+		line-height: 1.02;
+		letter-spacing: -0.05em;
 		hyphens: auto;
 		overflow-wrap: normal;
 		word-break: normal;
@@ -609,9 +616,9 @@ const metadata = [entry.data.category, entry.data.readingTime].filter(Boolean);
 
 		.writing-post .hero-title {
 			max-width: 100%;
-			font-size: clamp(2rem, 8vw, 2.55rem);
-			line-height: 1;
-			letter-spacing: -0.045em;
+			font-size: clamp(2.15rem, 10vw, 2.45rem);
+			line-height: 1.04;
+			letter-spacing: -0.05em;
 			overflow-wrap: normal;
 			word-break: normal;
 		}
