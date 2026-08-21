@@ -134,7 +134,6 @@ const groupSlug = (group: string) => toTagSlug(group);
 
 	.writing-hero {
 		overflow-x: clip;
-		border-bottom: 1px solid var(--color-border-soft);
 		background: transparent;
 		padding: clamp(3rem, 5vw, 4.6rem) 0 0;
 	}
@@ -191,18 +190,17 @@ const groupSlug = (group: string) => toTagSlug(group);
 		box-sizing: border-box;
 		width: 100%;
 		max-width: 100%;
-		border-block: 1px solid var(--color-border-soft);
 		background: transparent;
 	}
 
 	.writing-filter-menu summary {
 		display: grid;
-		grid-template-columns: minmax(0, 1fr);
+		grid-template-columns: minmax(0, 1fr) auto;
 		gap: 0.75rem;
-		align-items: center;
+		align-items: start;
 		cursor: pointer;
 		list-style: none;
-		padding: clamp(0.9rem, 2.2vw, 1.15rem) clamp(1rem, 2.5vw, 1.35rem);
+		padding: clamp(0.9rem, 2.2vw, 1.15rem) 0;
 	}
 
 	.writing-filter-menu summary::-webkit-details-marker {
@@ -211,12 +209,10 @@ const groupSlug = (group: string) => toTagSlug(group);
 
 	.writing-filter-menu summary::after {
 		content: '+';
-		position: absolute;
-		top: 50%;
-		right: clamp(1rem, 2.5vw, 1.35rem);
-		transform: translateY(-50%);
 		display: inline-grid;
 		place-items: center;
+		justify-self: end;
+		align-self: start;
 		width: 1.55rem;
 		height: 1.55rem;
 		border: 1px solid var(--color-border);
@@ -250,7 +246,7 @@ const groupSlug = (group: string) => toTagSlug(group);
 		flex-wrap: wrap;
 		gap: 0.5rem;
 		min-width: 0;
-		padding: clamp(1rem, 2.5vw, 1.35rem);
+		padding: clamp(1rem, 2.5vw, 1.35rem) 0;
 	}
 
 	.filter-chip,
@@ -305,7 +301,7 @@ const groupSlug = (group: string) => toTagSlug(group);
 	}
 
 	.writing-list-section {
-		padding-block: clamp(1.25rem, 3vw, 2rem) clamp(3.6rem, 7vw, 5.2rem);
+		padding-block: clamp(3rem, 5vw, 5rem) clamp(3.6rem, 7vw, 5.2rem);
 	}
 
 	.article-list {
