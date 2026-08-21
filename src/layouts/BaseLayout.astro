@@ -1,6 +1,7 @@
 ---
 import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
+import { IDENTITY } from '../data/identity';
 import '../styles/global.css';
 
 interface Props {
@@ -9,8 +10,8 @@ interface Props {
 }
 
 const {
-	title = 'Carlos Jorques · Embedded Control Architect',
-	description = 'Embedded control architect and technical leader for software-defined physical systems, real-time control software, electrification, diagnostics, validation, and production embedded systems.',
+	title = `${IDENTITY.name} · ${IDENTITY.title}`,
+	description = `${IDENTITY.title}. Control intelligence for ${IDENTITY.umbrella} — embedded control software, diagnostics, validation, and production delivery.`,
 } = Astro.props;
 
 const siteTitle = title.includes('Carlos Jorques') ? title : `${title} | Carlos Jorques`;
@@ -35,7 +36,7 @@ const pageType = (() => {
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<link
-			href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600;8..60,700&family=Inter:wght@400;450;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+			href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap"
 			rel="stylesheet"
 		/>
 		<script is:inline>
@@ -60,6 +61,14 @@ const pageType = (() => {
 		<meta property="og:description" content={description} />
 		<meta property="og:type" content="website" />
 		<meta property="og:url" content={canonical} />
+		<script type="application/ld+json" set:html={JSON.stringify({
+			'@context': 'https://schema.org',
+			'@type': 'Person',
+			name: IDENTITY.name,
+			jobTitle: IDENTITY.title,
+			url: canonical.href,
+			sameAs: ['https://www.linkedin.com/in/carlosjorques/'],
+		})} />
 	</head>
 	<body data-page-type={pageType}>
 		<a class="skip-link" href="#main-content">Skip to content</a>

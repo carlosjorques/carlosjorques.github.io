@@ -1,0 +1,37 @@
+---
+interface Props {
+	id: string;
+	title: string;
+	institution: string;
+	image: string;
+	alt: string;
+	overview: string;
+	context: string;
+	contribution: string;
+	constraints: string;
+	evidence: string;
+	tags: string[];
+	noteHref: string;
+	proofHref: string;
+	proofLabel: string;
+	loading?: 'eager' | 'lazy';
+}
+const props = Astro.props;
+const href = (path: string) => `${import.meta.env.BASE_URL}${path.replace(/^\//, '')}`;
+---
+
+<article class="work-index-card work-index-card--project" id={props.id} aria-labelledby={`${props.id}-title`}>
+	<figure class="work-index-card__media"><img src={href(props.image)} alt={props.alt} loading={props.loading ?? 'lazy'} width="1200" height="800" decoding="async" /></figure>
+	<div class="work-index-card__body">
+		<header class="work-index-card__header"><h3 id={`${props.id}-title`}>{props.title}</h3><p class="work-index-card__institution">{props.institution}</p></header>
+		<p class="work-index-card__overview">{props.overview}</p>
+		<dl class="work-card__evidence">
+			<div><dt>Context</dt><dd>{props.context}</dd></div>
+			<div><dt>Contribution</dt><dd>{props.contribution}</dd></div>
+			<div><dt>Constraints</dt><dd>{props.constraints}</dd></div>
+			<div><dt>Evidence</dt><dd>{props.evidence} · <a href={href(props.proofHref)}>{props.proofLabel}</a></dd></div>
+		</dl>
+		<ul class="work-label-list" aria-label={`${props.title} technical labels`}>{props.tags.slice(0, 6).map((tag) => <li>{tag}</li>)}</ul>
+		<a class="work-note-link" href={href(props.noteHref)} aria-label={`Read project note on ${props.title}`}>Read note <span aria-hidden="true">-&gt;</span></a>
+	</div>
+</article>

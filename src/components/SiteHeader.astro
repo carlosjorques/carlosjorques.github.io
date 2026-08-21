@@ -1,268 +1,96 @@
 ---
 const baseUrl = import.meta.env.BASE_URL;
 const normalizedBase = baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`;
-const withBase = (href: string) => (href === '/' ? normalizedBase : `${normalizedBase}${href.replace(/^\//, '')}`);
+const withBase = (href: string) => href === '/' ? normalizedBase : `${normalizedBase}${href.replace(/^\//, '')}`;
 const basePath = baseUrl.replace(/\/$/, '');
 const currentPath = Astro.url.pathname.replace(basePath, '') || '/';
-const normalizePath = (path: string) => {
-	if (path === '/') return '/';
-	return path.endsWith('/') ? path : `${path}/`;
-};
-const isActive = (href: string) => {
-	const normalizedCurrentPath = normalizePath(currentPath);
-	const normalizedHref = normalizePath(href);
-	return href === '/' ? normalizedCurrentPath === '/' : normalizedCurrentPath.startsWith(normalizedHref);
-};
+const isActive = (href: string) => href === '/' ? currentPath === '/' : currentPath.startsWith(href);
 ---
 
-<header class="site-header">
-	<div class="page-container site-header__inner">
-		<a class="site-header__brand" href={withBase('/')}>Carlos Jorques</a>
+<header class="site-header page-container">
+	<a class="site-header__brand" href={withBase('/')} aria-label="Carlos Jorques home">Carlos Jorques</a>
 
-		<nav class="site-header__nav" aria-label="Primary">
+	<div class="site-header__actions">
+		<nav class="site-header__nav site-header__nav--desktop" aria-label="Primary navigation">
 			<a href={withBase('/work')} aria-current={isActive('/work') ? 'page' : undefined}>Work</a>
-			<a href={withBase('/cv')} aria-current={isActive('/cv') ? 'page' : undefined}>CV</a>
-			<a href={withBase('/writing')} aria-current={isActive('/writing') ? 'page' : undefined}>Writing</a>
 			<a href={withBase('/about')} aria-current={isActive('/about') ? 'page' : undefined}>About</a>
-			<a
-				class="site-header__contact"
-				href={withBase('/contact')}
-				aria-current={isActive('/contact') ? 'page' : undefined}
-				data-analytics-event="cta_click"
-				data-cta-id="header-contact"
-				data-cta-placement="header"
-				data-cta-intent="contact"
-				data-source-section="primary-nav"
-			>
-				Contact
-			</a>
+			<a href={withBase('/cv')} aria-current={isActive('/cv') ? 'page' : undefined}>CV</a>
+			<div class="site-header__more">
+				<button class="site-header__more-trigger" type="button" aria-haspopup="true" aria-controls="site-header-more-menu">
+					<span>More</span>
+					<svg class="site-header__more-arrow" viewBox="0 0 16 16" aria-hidden="true">
+						<path d="m4 6 4 4 4-4"></path>
+					</svg>
+				</button>
+				<div class="site-header__more-panel" id="site-header-more-menu">
+					<a href={withBase('/writing')} aria-current={isActive('/writing') ? 'page' : undefined}>Writing</a>
+					<a href={withBase('/research')} aria-current={isActive('/research') ? 'page' : undefined}>Research</a>
+					<a href={withBase('/contact')} aria-current={isActive('/contact') ? 'page' : undefined}>Contact</a>
+				</div>
+			</div>
 		</nav>
 
 		<button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch to dark color theme">
-			<svg class="theme-toggle__icon theme-toggle__icon--moon" viewBox="0 0 24 24" aria-hidden="true">
-				<path d="M20.8 14.6A8 8 0 0 1 9.4 3.2 9.2 9.2 0 1 0 20.8 14.6Z"></path>
-			</svg>
-			<svg class="theme-toggle__icon theme-toggle__icon--sun" viewBox="0 0 24 24" aria-hidden="true">
-				<circle cx="12" cy="12" r="4.2"></circle>
-				<path d="M12 2.5V5M12 19v2.5M21.5 12H19M5 12H2.5M18.7 5.3l-1.8 1.8M7.1 16.9l-1.8 1.8M18.7 18.7l-1.8-1.8M7.1 7.1 5.3 5.3"></path>
-			</svg>
+			<svg class="theme-toggle__icon theme-toggle__icon--sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2"></circle><path d="M12 2.5V5M12 19v2.5M21.5 12H19M5 12H2.5M18.7 5.3l-1.8 1.8M7.1 16.9l-1.8 1.8M18.7 18.7l-1.8-1.8M7.1 7.1 5.3 5.3"></path></svg>
+			<svg class="theme-toggle__icon theme-toggle__icon--moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 14.6A8 8 0 0 1 9.4 3.2 9.2 9.2 0 1 0 20.8 14.6Z"></path></svg>
 		</button>
+
+		<details class="site-header__mobile" data-mobile-menu>
+			<summary aria-label="Open navigation menu"><span></span><span></span><span></span></summary>
+			<nav class="site-header__mobile-panel" aria-label="Mobile navigation">
+				<a class="site-header__mobile-brand" href={withBase('/')}>Carlos Jorques</a>
+				<a href={withBase('/work')}>Work</a><a href={withBase('/about')}>About</a><a href={withBase('/cv')}>CV</a>
+				<a href={withBase('/writing')}>Writing</a><a href={withBase('/research')}>Research</a><a href={withBase('/contact')}>Contact</a>
+			</nav>
+		</details>
 	</div>
 </header>
 
 <style>
-	.site-header {
-		background: var(--color-header-bg);
-		border-bottom: 1px solid var(--color-header-border);
-		transition:
-			background-color var(--motion-duration-moderate-01) var(--motion-standard-productive),
-			border-color var(--motion-duration-moderate-01) var(--motion-standard-productive),
-			color var(--motion-duration-moderate-01) var(--motion-standard-productive);
-	}
-
-	.site-header__inner {
-		min-height: 68px;
-		display: grid;
-		grid-template-columns: auto minmax(0, 1fr) auto;
-		align-items: center;
-		gap: 2rem;
-	}
-
-	.site-header__brand {
-		color: var(--color-header-text);
-		text-decoration: none;
-		font-family: var(--font-display);
-		font-size: var(--type-nav-size);
-		font-weight: var(--type-nav-weight);
-		letter-spacing: var(--type-nav-tracking);
-		text-transform: uppercase;
-	}
-
-	.site-header__nav {
-		display: flex;
-		align-items: center;
-		justify-content: flex-end;
-		gap: 2.25rem;
-	}
-
-	.site-header__nav a {
-		color: var(--color-header-link);
-		text-decoration: none;
-		font-family: var(--font-mono);
-		font-size: var(--type-nav-size);
-		font-weight: var(--type-nav-weight);
-		letter-spacing: var(--type-nav-tracking);
-		border-bottom: 1px solid transparent;
-		padding-bottom: 0.15rem;
-		position: relative;
-		transition:
-			color var(--motion-duration-fast-02) var(--motion-standard-productive),
-			border-color var(--motion-duration-fast-02) var(--motion-standard-productive),
-			transform var(--motion-duration-fast-02) var(--motion-standard-productive);
-	}
-
-	.site-header__nav a:hover,
-	.site-header__nav a:focus-visible {
-		color: var(--color-header-link-hover);
-		border-bottom-color: var(--color-header-link-hover);
-	}
-
-	.site-header__nav a[aria-current="page"] {
-		color: var(--color-header-active);
-		border-bottom-color: var(--color-header-link);
-		text-decoration: none;
-	}
-
-	.site-header__nav a[aria-current="page"]:hover,
-	.site-header__nav a[aria-current="page"]:focus-visible {
-		color: var(--color-header-active);
-		border-bottom-color: var(--color-header-link);
-	}
-
-	.site-header__nav .site-header__contact {
-		border: 1px solid var(--color-button-primary-bg);
-		border-radius: var(--radius-pill);
-		background: var(--color-button-primary-bg);
-		color: var(--color-button-primary-text);
-		padding: 0.55rem 0.9rem;
-	}
-
-	.site-header__nav .site-header__contact:hover,
-	.site-header__nav .site-header__contact:focus-visible,
-	.site-header__nav .site-header__contact[aria-current="page"] {
-		border-color: var(--color-button-primary-state-bg);
-		background: var(--color-button-primary-state-bg);
-		color: var(--color-button-primary-state-text);
-	}
-
-	.site-header__nav a:hover,
-	.site-header__nav a:focus-visible {
-		transform: translateY(-1px);
-	}
-
-	.site-header__brand:focus-visible,
-	.site-header__nav a:focus-visible {
-		outline: 2px solid var(--color-focus);
-		outline-offset: 4px;
-	}
-
-	.theme-toggle {
-		--toggle-size: 24px;
-
-		display: inline-flex;
-		width: var(--toggle-size);
-		height: var(--toggle-size);
-		align-items: center;
-		justify-content: center;
-		border: 0;
-		border-radius: 99em;
-		background: transparent;
-		color: var(--color-header-link);
-		cursor: pointer;
-		position: relative;
-		margin: 0;
-		padding: 0;
-		flex: 0 0 var(--toggle-size);
-		transition:
-			color var(--motion-duration-fast-02) var(--motion-standard-productive);
-	}
-
-	.theme-toggle:hover {
-		color: var(--color-header-active);
-	}
-
-	.theme-toggle:focus-visible {
-		outline: 2px solid var(--color-focus);
-		outline-offset: 4px;
-	}
-
-	.theme-toggle__icon {
-		position: absolute;
-		width: 15px;
-		height: 15px;
-		fill: currentColor;
-		opacity: 0;
-		transform: scale(0.7) rotate(20deg);
-		transition:
-			opacity var(--motion-duration-moderate-01) var(--motion-standard-productive),
-			transform var(--motion-duration-moderate-01) var(--motion-standard-productive);
-	}
-
-	.theme-toggle__icon--sun {
-		width: 15px;
-		height: 15px;
-		fill: none;
-		stroke: currentColor;
-		stroke-linecap: round;
-		stroke-width: 2.5;
-	}
-
-	:global(:root:not([data-theme="dark"])) .theme-toggle__icon--moon,
-	:global(:root[data-theme="bright"]) .theme-toggle__icon--moon,
-	:global(:root[data-theme="dark"]) .theme-toggle__icon--sun {
-		opacity: 1;
-		transform: scale(1) rotate(0);
-	}
-
-	:global(:root[data-theme="dark"]) .theme-toggle__icon--moon {
-		opacity: 0;
-		transform: scale(0.7) rotate(-20deg);
-	}
-
-	@media (max-width: 640px) {
-		.site-header__inner {
-			min-height: auto;
-			padding-block: 1rem;
-			grid-template-columns: 1fr auto;
-			align-items: flex-start;
-			gap: 0.75rem;
-		}
-
-		.site-header__brand {
-			align-self: center;
-		}
-
-		.site-header__nav {
-			grid-column: 1 / -1;
-			gap: 1.25rem;
-			flex-wrap: wrap;
-			justify-content: flex-start;
-		}
-
-		.theme-toggle {
-			align-self: center;
-		}
+	.site-header { min-height: 72px; display:flex; align-items:center; justify-content:space-between; gap:2rem; background:var(--color-header-bg); }
+	.site-header__brand { min-height:44px; display:inline-flex; align-items:center; color:var(--color-header-text); font-size:1.3rem; font-weight:800; letter-spacing:-.04em; text-decoration:none; }
+	.site-header__actions,.site-header__nav { display:flex; align-items:center; gap:.85rem; }
+	.site-header__nav { gap:2rem; }
+	.site-header__nav a,.site-header__more-trigger { min-height:44px; display:inline-flex; align-items:center; gap:.35rem; color:var(--color-header-link); font-size:.95rem; font-weight:600; letter-spacing:-.02em; text-decoration:none; cursor:pointer; list-style:none; transition:opacity 120ms ease; }
+	.site-header__nav a:hover,.site-header__nav a:focus-visible,.site-header__more-trigger:hover { opacity:.68; }
+	.site-header__nav a[aria-current='page'] { text-decoration:underline; text-underline-offset:.3em; }
+	.site-header__more { position:relative; padding-bottom:.45rem; margin-bottom:-.45rem; }
+	.site-header__more-trigger { border:0; background:transparent; padding:0; font-family:var(--font-body); }
+	.site-header__more-arrow { width:.9rem; height:.9rem; fill:none; stroke:currentColor; stroke-width:1.6; stroke-linecap:round; stroke-linejoin:round; transition:transform 140ms ease; }
+	.site-header__more:hover .site-header__more-arrow,.site-header__more:focus-within .site-header__more-arrow { transform:rotate(180deg); }
+	.site-header__more-panel { position:absolute; top:calc(100% - .1rem); right:0; z-index:20; min-width:15rem; padding:.55rem; display:none; gap:.15rem; background:var(--color-card-bg); border:1px solid var(--color-border); border-radius:.9rem; box-shadow:0 18px 36px rgba(23,23,23,.08); }
+	.site-header__more:hover .site-header__more-panel,.site-header__more:focus-within .site-header__more-panel { display:grid; }
+	.site-header__more-panel a { min-height:40px; padding:.4rem .6rem; border-radius:.65rem; }
+	.site-header__more-panel a:hover { background:var(--color-surface-soft); opacity:1; }
+	.theme-toggle { width:44px; height:44px; display:grid; place-items:center; position:relative; border:1px solid var(--color-border); border-radius:50%; color:var(--color-header-text); cursor:pointer; background:transparent; }
+	.theme-toggle__icon { position:absolute; width:1.2rem; height:1.2rem; fill:none; stroke:currentColor; stroke-width:1.8; stroke-linecap:round; opacity:0; transform:scale(.7); transition:opacity 160ms ease,transform 160ms ease; }
+	:global(:root:not([data-theme='dark'])) .theme-toggle__icon--sun,:global(:root[data-theme='bright']) .theme-toggle__icon--sun,:global(:root[data-theme='dark']) .theme-toggle__icon--moon { opacity:1; transform:scale(1); }
+	.site-header__mobile { display:none; }
+	@media (max-width:720px) {
+		.site-header { min-height:68px; }
+		.site-header__nav--desktop { display:none; }
+		.site-header__mobile { display:block; }
+		.site-header__mobile > summary { width:44px; height:44px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:.22rem; cursor:pointer; list-style:none; position:relative; z-index:60; }
+		.site-header__mobile > summary::-webkit-details-marker { display:none; }
+		.site-header__mobile > summary span { width:1.1rem; height:2px; background:var(--color-text); transition:transform 140ms ease,opacity 140ms ease; }
+		.site-header__mobile[open] > summary span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+		.site-header__mobile[open] > summary span:nth-child(2){opacity:0}
+		.site-header__mobile[open] > summary span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+		.site-header__mobile-panel { position:fixed; inset:0; z-index:50; min-height:100dvh; padding:6rem 1.25rem 2rem; display:flex; flex-direction:column; align-items:center; background:var(--color-page); overflow-y:auto; }
+		.site-header__mobile-panel > a { width:min(100%,24rem); min-height:56px; display:flex; align-items:center; border-bottom:1px solid var(--color-border); color:var(--color-text); font-size:1.12rem; font-weight:600; text-decoration:none; }
+		.site-header__mobile-panel .site-header__mobile-brand { position:fixed; top:.75rem; left:.75rem; z-index:55; width:auto; border:0; font-size:1.3rem; font-weight:800; letter-spacing:-.04em; }
 	}
 </style>
 
 <script>
-	const toggle = document.querySelector<HTMLButtonElement>('[data-theme-toggle]');
 	const root = document.documentElement;
-
-	const applyTheme = (theme: 'bright' | 'dark') => {
+	const themeToggle = document.querySelector<HTMLButtonElement>('[data-theme-toggle]');
+	themeToggle?.addEventListener('click', () => {
+		const theme = root.dataset.theme === 'dark' ? 'bright' : 'dark';
 		root.dataset.theme = theme;
 		root.style.colorScheme = theme === 'dark' ? 'dark' : 'light';
-
-		try {
-			window.localStorage.setItem('color-theme', theme);
-		} catch {
-			// Theme persistence is optional; the control still works for this page.
-		}
-
-		if (!toggle) {
-			return;
-		}
-
-		const nextThemeLabel = theme === 'dark' ? 'light' : 'dark';
-		toggle.setAttribute('aria-label', `Switch to ${nextThemeLabel} color theme`);
-	};
-
-	if (toggle) {
-		const initialTheme = root.dataset.theme === 'dark' ? 'dark' : 'bright';
-		applyTheme(initialTheme);
-
-		toggle.addEventListener('click', () => {
-			applyTheme(root.dataset.theme === 'dark' ? 'bright' : 'dark');
-		});
-	}
+		try { localStorage.setItem('color-theme', theme); } catch {}
+	});
+	const mobileMenu = document.querySelector<HTMLDetailsElement>('[data-mobile-menu]');
+	mobileMenu?.addEventListener('toggle', () => document.documentElement.classList.toggle('menu-open', mobileMenu.open));
 </script>

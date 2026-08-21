@@ -1,21 +1,26 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { IDENTITY } from '../data/identity';
 
 const baseUrl = import.meta.env.BASE_URL;
 const normalizedBase = baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`;
 const withBase = (href: string) => (href === '/' ? normalizedBase : `${normalizedBase}${href.replace(/^\//, '')}`);
 const toSlug = (id: string) => id.replace(/\.md$/, '');
 
-const heroVideoUrl = `${normalizedBase}videos/333466_1_5.mp4`;
 const portraitUrl = withBase('/images/carlos-jorques-intro.webp');
 
 const articles = (await getCollection('writing'))
 	.filter((entry) => !entry.data.draft)
 	.sort((a, b) => b.data.publishDate.getTime() - a.data.publishDate.getTime())
 	.slice(0, 3)
-	.map((entry, index) => ({
-		number: String(index + 1).padStart(2, '0'),
+	.map((entry) => ({
+		publishDateIso: entry.data.publishDate.toISOString().slice(0, 10),
+		publishDate: new Intl.DateTimeFormat('en-GB', {
+			day: '2-digit',
+			month: 'short',
+			year: 'numeric',
+		}).format(entry.data.publishDate),
 		title: entry.data.title,
 		description: entry.data.description,
 		href: withBase(`/writing/${toSlug(entry.id)}/`),
@@ -24,48 +29,40 @@ const articles = (await getCollection('writing'))
 ---
 
 <BaseLayout
-	title="Carlos Jorques · Embedded Control Architect"
-	description="Embedded control architect and technical leader helping teams close the gap between control design and real-world behavior in production embedded systems."
+	title={`${IDENTITY.name} · ${IDENTITY.title}`}
+	description="Embedded Controls Technical Lead. Control intelligence for complex physical systems — from electrified vehicles and autonomous machines to production embedded software."
 >
 	<section class="hero-area">
-		<video class="hero-video" autoplay muted loop playsinline preload="metadata" aria-hidden="true">
-			<source src={heroVideoUrl} type="video/mp4" />
-		</video>
 		<div class="page-container">
 			<div class="hero">
 				<div class="hero__copy">
-					<p class="hero-kicker section-eyebrow">Hi, I'm</p>
-					<h1 class="hero-name hero-title">Carlos Jorques</h1>
-					<h2 class="hero-statement">Technical Leader in Embedded Control Software for Intelligent Systems.</h2>
-					<p class="hero-value">
-						The gap between a prototype and a trustworthy machine is reliable software.
-						I help teams define and build the embedded control software that enables intelligent systems to behave safely and reliably in the real world.
-					</p>
+					<h1 class="hero-statement">Control intelligence for complex physical systems.</h1>
+					<p class="hero-intro">Hi, I&apos;m Carlos Jorques, an <strong>{IDENTITY.title}</strong>.</p>
+					<p class="hero-value">I lead the design of production embedded control software that helps machines sense, decide, and act reliably under real-world constraints.</p>
+					<p class="hero-scope">From electrified vehicles and autonomous machines to the broader systems where software controls physical hardware, I connect control strategy, real-time software, diagnostics, validation, and production delivery.</p>
 
 					<div class="hero-links button-row" aria-label="Primary contact links">
 						<a
 							class="button primary"
-							href="https://www.linkedin.com/in/carlosjorques/"
-							target="_blank"
-							rel="noopener noreferrer"
-							data-analytics-event="linkedin_outbound_click"
-							data-cta-id="hero-linkedin"
+							href={withBase('/work/')}
+							data-analytics-event="cta_click"
+							data-cta-id="hero-work"
 							data-cta-placement="home-hero"
 							data-cta-intent="professional-profile"
 							data-source-section="hero"
 						>
-							Connect on LinkedIn
+							View work
 						</a>
 						<a
 							class="button"
-							href={withBase('/work')}
+							href={withBase('/writing/')}
 							data-analytics-event="cta_click"
-							data-cta-id="hero-work"
+							data-cta-id="hero-writing"
 							data-cta-placement="home-hero"
 							data-cta-intent="proof"
 							data-source-section="hero"
 						>
-							View Work
+							Explore writing
 						</a>
 						<a
 							class="button"
@@ -76,7 +73,7 @@ const articles = (await getCollection('writing'))
 							data-cta-intent="contact"
 							data-source-section="hero"
 						>
-							Get in Touch
+							Get in touch
 						</a>
 					</div>
 				</div>
@@ -84,7 +81,7 @@ const articles = (await getCollection('writing'))
 				<figure class="hero__portrait">
 					<img
 						src={portraitUrl}
-						alt="Carlos Jorques, embedded control systems engineer."
+						alt="Carlos Jorques, Embedded Controls Technical Lead."
 						width="768"
 						height="1024"
 						loading="eager"
@@ -96,7 +93,7 @@ const articles = (await getCollection('writing'))
 				<aside class="home-proof" aria-label="Professional proof points">
 					<div class="home-proof__grid">
 						<div class="home-proof__item">
-							<span class="home-proof__value">12+ Years</span>
+							<span class="home-proof__value">{IDENTITY.years} years</span>
 							<span class="home-proof__label">Electric vehicles, autonomous systems and power electronics</span>
 						</div>
 						<div class="home-proof__item">
@@ -104,7 +101,7 @@ const articles = (await getCollection('writing'))
 							<span class="home-proof__label">Scania, Volvo CE, MAHLE and TRATON</span>
 						</div>
 						<div class="home-proof__item">
-							<span class="home-proof__value">Safety-Critical Development</span>
+							<span class="home-proof__value">Safety-Related Development</span>
 							<span class="home-proof__label">ISO 26262, ASPICE, AUTOSAR and MISRA C</span>
 						</div>
 						<div class="home-proof__item">
@@ -120,35 +117,48 @@ const articles = (await getCollection('writing'))
 	<section class="selected-work" aria-labelledby="selected-work-title">
 		<div class="page-container">
 			<div class="selected-work__header">
-				<h2 id="selected-work-title">Selected work</h2>
+				<h2 id="selected-work-title">Selected Projects</h2>
 				<p>
-					A compact path into the engineering evidence behind the profile: applied systems,
-					product contexts, publications, and patents.
+					A compact path into the engineering evidence behind the profile: production systems,
+					applied control, and research translated into practice.
 				</p>
 			</div>
 
 			<div class="selected-work__list">
 				<article class="selected-work__item">
 					<span class="selected-work__index">01</span>
-					<h3>Embedded controls for electrified and heavy-duty systems</h3>
-					<a href={withBase('/work')} data-analytics-event="cta_click" data-cta-id="selected-work-electrified-heavy-duty" data-cta-placement="home-selected-work" data-cta-intent="proof" data-source-section="selected-work">
-						View selected work
+					<h3>Electric truck thermal management and BMS</h3>
+					<a href={withBase('/work/#electric-truck-thermal-management')} data-analytics-event="cta_click" data-cta-id="selected-project-electric-truck" data-cta-placement="home-selected-projects" data-cta-intent="proof" data-source-section="selected-projects">
+						Read project
 					</a>
 				</article>
 				<article class="selected-work__item">
 					<span class="selected-work__index">02</span>
-					<h3>Autonomous and intelligent machines</h3>
-					<a href={withBase('/work')} data-analytics-event="cta_click" data-cta-id="selected-work-autonomous-machines" data-cta-placement="home-selected-work" data-cta-intent="proof" data-source-section="selected-work">
-						Explore applied domains
+					<h3>Autonomous electric hauler propulsion control</h3>
+					<a href={withBase('/work/#autonomous-hauler-propulsion-control')} data-analytics-event="cta_click" data-cta-id="selected-project-autonomous-hauler" data-cta-placement="home-selected-projects" data-cta-intent="proof" data-source-section="selected-projects">
+						Read project
 					</a>
 				</article>
 				<article class="selected-work__item">
 					<span class="selected-work__index">03</span>
-					<h3>Research, patents, and publications</h3>
-					<a href={withBase('/work')} data-analytics-event="cta_click" data-cta-id="selected-work-research-publications" data-cta-placement="home-selected-work" data-cta-intent="proof" data-source-section="selected-work">
-						View publications and patents
+					<h3>Heavy-duty engine diagnostics and control research</h3>
+					<a href={withBase('/work/#heavy-duty-engine-diagnostics-control-research')} data-analytics-event="cta_click" data-cta-id="selected-project-engine-diagnostics" data-cta-placement="home-selected-projects" data-cta-intent="proof" data-source-section="selected-projects">
+						Read project
 					</a>
 				</article>
+			</div>
+
+			<div class="selected-work__footer">
+				<a
+					href={withBase('/work/')}
+					data-analytics-event="cta_click"
+					data-cta-id="selected-projects-all"
+					data-cta-placement="home-selected-projects"
+					data-cta-intent="proof"
+					data-source-section="selected-projects"
+				>
+					View all work <span aria-hidden="true">-&gt;</span>
+				</a>
 			</div>
 		</div>
 	</section>
@@ -173,7 +183,7 @@ const articles = (await getCollection('writing'))
 					data-cta-intent="authority"
 					data-source-section="latest-writing"
 				>
-					<span class="article-link__number">{article.number}</span>
+					<time class="article-link__date" datetime={article.publishDateIso}>{article.publishDate}</time>
 					<span>
 						<h3 class="article-link__title">{article.title}</h3>
 						<p class="article-link__description">{article.description}</p>
@@ -200,29 +210,18 @@ const articles = (await getCollection('writing'))
 	<section class="home-more" aria-label="More about Carlos">
 		<div class="page-container home-more__inner">
 			<a href={withBase('/about')}>More about Carlos</a>
+			<a href={withBase('/cv')}>View CV</a>
 		</div>
 	</section>
 </BaseLayout>
 
 <style>
 	.hero-area {
-		--hero-video-opacity: 0.1;
-
 		position: relative;
 		overflow: hidden;
-		background: var(--hero-gradient);
+		background: var(--color-page);
 		color: var(--color-hero-text);
-		padding-block: clamp(4.5rem, 8vw, 7.5rem) clamp(3rem, 5vw, 4.5rem);
-	}
-
-	.hero-video {
-		position: absolute;
-		inset: 0;
-		width: 100%;
-		height: 100%;
-		object-fit: cover;
-		opacity: var(--hero-video-opacity);
-		pointer-events: none;
+		padding-block: clamp(4.5rem, 8vw, 7rem) clamp(4rem, 6vw, 6rem);
 	}
 
 	.hero-area .page-container {
@@ -230,21 +229,12 @@ const articles = (await getCollection('writing'))
 		z-index: 2;
 	}
 
-	.hero-area::after {
-		content: "";
-		position: absolute;
-		inset: 0;
-		z-index: 1;
-		background: var(--hero-video-overlay);
-		pointer-events: none;
-	}
-
 	.hero {
 		position: relative;
 		z-index: 1;
 		display: grid;
 		grid-template-columns: minmax(0, 1fr);
-		gap: clamp(2.5rem, 5vw, 4.5rem);
+		gap: clamp(2.5rem, 6vw, 5rem);
 		align-items: center;
 	}
 
@@ -257,6 +247,7 @@ const articles = (await getCollection('writing'))
 	.hero-name,
 	.hero-statement,
 	.hero-value,
+	.hero-scope,
 	.hero-links,
 	.hero__portrait,
 	.home-proof {
@@ -272,6 +263,10 @@ const articles = (await getCollection('writing'))
 	}
 
 	.hero-value {
+		animation-delay: 190ms;
+	}
+
+	.hero-scope {
 		animation-delay: 190ms;
 	}
 
@@ -309,26 +304,26 @@ const articles = (await getCollection('writing'))
 	.hero-statement {
 		max-width: 760px;
 		margin: var(--spacing-06) 0 0;
-		font-size: var(--type-hero-role-size);
-		line-height: var(--type-hero-role-line);
-		letter-spacing: var(--type-hero-role-tracking);
-		font-weight: var(--type-hero-role-weight);
+		font-size: clamp(2rem, 3.4vw, 3.5rem);
+		line-height: 1.08;
+		letter-spacing: -.05em;
+		font-weight: 800;
 		color: var(--color-hero-text);
-	}
-
-	@supports ((-webkit-background-clip: text) or (background-clip: text)) {
-		.hero-statement {
-			background: var(--slogan-gradient);
-			-webkit-background-clip: text;
-			background-clip: text;
-			color: transparent;
-			-webkit-text-fill-color: transparent;
-		}
 	}
 
 	.hero-value {
 		max-width: 690px;
 		margin: var(--spacing-06) 0 0;
+		color: var(--color-hero-text);
+		font-size: var(--type-body-large-size);
+		line-height: var(--type-body-large-line);
+		letter-spacing: var(--type-body-large-tracking);
+		font-weight: 500;
+	}
+
+	.hero-scope {
+		max-width: 690px;
+		margin: var(--spacing-03) 0 0;
 		color: var(--color-hero-text);
 		font-size: var(--type-body-large-size);
 		line-height: var(--type-body-large-line);
@@ -346,13 +341,13 @@ const articles = (await getCollection('writing'))
 
 	.hero__portrait {
 		margin: 0;
-		width: min(100%, 360px);
-		aspect-ratio: 1;
+		width: 100%;
+		aspect-ratio: 4 / 3;
 		justify-self: center;
 		overflow: hidden;
 		border: 1px solid var(--color-border-soft);
-		border-radius: var(--radius-pill);
-		background: var(--color-card-bg);
+		border-radius: var(--radius);
+		background: var(--color-surface-soft);
 	}
 
 	.hero__portrait img {
@@ -364,7 +359,7 @@ const articles = (await getCollection('writing'))
 
 	.home-proof {
 		grid-column: 1 / -1;
-		margin-top: clamp(3rem, 5vw, 6rem);
+		margin-top: clamp(4rem, 6vw, 6rem);
 		padding-top: clamp(0.85rem, 1.6vw, 1.1rem);
 		border-top: 1px solid var(--color-border);
 	}
@@ -420,7 +415,7 @@ const articles = (await getCollection('writing'))
 	}
 
 	.selected-work {
-		padding-block: clamp(var(--spacing-09), 6vw, var(--spacing-10));
+		padding-block: clamp(5rem, 8vw, 7rem);
 	}
 
 	.selected-work__header,
@@ -502,6 +497,7 @@ const articles = (await getCollection('writing'))
 	}
 
 	.selected-work__item a,
+	.selected-work__footer a,
 	.latest__footer a,
 	.home-more a {
 		color: var(--color-link);
@@ -523,6 +519,8 @@ const articles = (await getCollection('writing'))
 
 	.selected-work__item a:hover,
 	.selected-work__item a:focus-visible,
+	.selected-work__footer a:hover,
+	.selected-work__footer a:focus-visible,
 	.latest__footer a:hover,
 	.latest__footer a:focus-visible,
 	.home-more a:hover,
@@ -533,6 +531,7 @@ const articles = (await getCollection('writing'))
 	}
 
 	.selected-work__item a:focus-visible,
+	.selected-work__footer a:focus-visible,
 	.latest__footer a:focus-visible,
 	.home-more a:focus-visible {
 		outline: 2px solid var(--color-focus);
@@ -541,7 +540,11 @@ const articles = (await getCollection('writing'))
 
 	.latest {
 		border-top: 1px solid var(--color-border-soft);
-		padding-block: clamp(3rem, 6vw, 5rem);
+		padding-block: clamp(5rem, 8vw, 7rem);
+	}
+
+	.selected-work__footer {
+		margin-top: clamp(var(--spacing-06), 3vw, var(--spacing-07));
 	}
 
 	.article-link {
@@ -629,7 +632,7 @@ const articles = (await getCollection('writing'))
 
 	@media (min-width: 900px) {
 		.hero {
-			grid-template-columns: minmax(0, 1fr) minmax(280px, 360px);
+			grid-template-columns: minmax(0, 0.78fr) minmax(420px, 1.22fr);
 		}
 
 		.hero__portrait {
@@ -678,13 +681,14 @@ const articles = (await getCollection('writing'))
 		.hero-name,
 		.hero-statement,
 		.hero-value,
+		.hero-scope,
 		.hero-kicker {
 			max-width: 100%;
 			overflow-wrap: anywhere;
 		}
 
 		.hero__portrait {
-			width: min(100%, 280px);
+			width: 100%;
 			justify-self: start;
 		}
 
@@ -693,7 +697,7 @@ const articles = (await getCollection('writing'))
 		}
 
 		.home-proof__grid {
-			grid-template-columns: 1fr;
+			grid-template-columns: repeat(2, minmax(0, 1fr));
 		}
 
 		.home-proof__item {
@@ -714,9 +718,10 @@ const articles = (await getCollection('writing'))
 		.home-proof__item:nth-child(4) {
 			margin-top: 0;
 			padding-left: 0;
-			border-left: 0;
+			border-left: 1px solid var(--color-border-soft);
 			border-top: 1px solid var(--color-border-soft);
 		}
+		.home-proof__item:nth-child(2) { border-left: 1px solid var(--color-border-soft); padding-left: 0.75rem; }
 
 		.article-link {
 			grid-template-columns: 36px minmax(0, 1fr) auto;
@@ -724,9 +729,106 @@ const articles = (await getCollection('writing'))
 		}
 	}
 
-	@media (prefers-reduced-motion: reduce) {
-		.hero-video {
-			display: none;
+	/* Compact Maria-style hero refinements from the visual review. */
+	.hero-area {
+		padding-block: clamp(3.25rem, 5vw, 4rem) clamp(2.5rem, 4vw, 3.25rem);
+	}
+
+	.hero {
+		gap: clamp(2rem, 4vw, 3rem);
+		align-items: start;
+	}
+
+	.hero__copy {
+		max-width: 52rem;
+	}
+
+	.hero-intro {
+		margin: var(--spacing-06) 0 0;
+		color: var(--color-hero-text);
+		font-size: 1.2rem;
+		font-weight: 600;
+		line-height: 1.55;
+		letter-spacing: -.02em;
+		animation: carbon-enter-up var(--motion-duration-slow-01) var(--motion-entrance-expressive) 90ms both;
+	}
+
+	.hero-statement {
+		max-width: 17ch;
+		margin: 0;
+		font-size: clamp(2.65rem, 4.3vw, 4.6rem);
+		line-height: 1.03;
+	}
+
+	.hero-value {
+		margin-top: var(--spacing-04);
+	}
+
+	.hero-links {
+		margin-top: var(--spacing-06);
+		flex-wrap: nowrap;
+	}
+
+	.hero-links .button {
+		width: auto;
+		white-space: nowrap;
+	}
+
+	.hero__portrait {
+		width: min(100%, 20rem);
+		aspect-ratio: 1;
+		justify-self: end;
+		border-radius: 50%;
+	}
+
+	.home-proof {
+		margin-top: clamp(2rem, 3vw, 2.5rem);
+	}
+
+	.article-link {
+		grid-template-columns: 96px minmax(0, 1fr) auto;
+	}
+
+	.article-link__date {
+		color: var(--color-muted);
+		font-family: var(--font-mono);
+		font-size: var(--type-chip-size);
+		font-weight: var(--type-chip-weight);
+		letter-spacing: var(--type-chip-tracking);
+		line-height: 1.35;
+		text-transform: uppercase;
+	}
+
+	@media (min-width: 900px) {
+		.hero {
+			grid-template-columns: minmax(0, 1.35fr) minmax(15rem, 20rem);
+		}
+	}
+
+	@media (max-width: 640px) {
+		.hero-statement,
+		.hero-intro,
+		.hero-value,
+		.hero-links {
+			max-width: 100%;
+			overflow-wrap: anywhere;
+		}
+
+		.hero__portrait {
+			width: min(100%, 16rem);
+			justify-self: start;
+		}
+
+		.hero-links {
+			flex-wrap: wrap;
+		}
+
+		.hero-links .button {
+			width: 100%;
+		}
+
+		.article-link {
+			grid-template-columns: 82px minmax(0, 1fr) auto;
 		}
 	}
 </style>

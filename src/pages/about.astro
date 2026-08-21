@@ -1,679 +1,156 @@
 ---
 import Layout from '../layouts/Layout.astro';
-
+import AboutStoryBlock from '../components/AboutStoryBlock.astro';
 const baseUrl = import.meta.env.BASE_URL;
 const normalizedBase = baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`;
-const withBase = (href: string) =>
-	href === '/'
-		? normalizedBase
-		: href.startsWith('http') || href.startsWith('mailto:') || href.startsWith('#')
-			? href
-			: `${normalizedBase}${href.replace(/^\//, '')}`;
+const withBase = (href: string) => href.startsWith('http') || href.startsWith('mailto:') || href.startsWith('#') ? href : `${normalizedBase}${href.replace(/^\//, '')}`;
 const linkedinHref = 'https://www.linkedin.com/in/carlosjorques/';
+const portraitUrl = withBase('/images/carlos-jorques-intro.webp');
 ---
 
-<Layout
-	title="About Carlos Jorques | Embedded Control Architect"
-	description="About Carlos Jorques, an embedded control architect and technical leader for intelligent machines, embedded control software, automatic control, and production embedded systems."
->
-	<section class="about-intro" aria-labelledby="about-title">
-		<div class="page-container about-intro__inner">
-			<div class="about-intro__content">
-				<div class="about-intro__label">
-					<p class="section-eyebrow">A closer look</p>
-					<h1 id="about-title" class="hero-title">About me</h1>
-				</div>
-				<div class="about-intro__copy">
-					<blockquote class="about-pullquote">
-						<p>What makes a machine truly intelligent?</p>
-					</blockquote>
-					<p>I have been fascinated by that question for as long as I can remember. It led me to study Electrical Engineering and later pursue a doctorate in automatic control, drawn by the challenge of making machines sense, decide, and act reliably in the real world.</p>
-					<p>For the past twelve years, I have worked on production embedded control software for electric trucks, autonomous machines, power electronics, and other complex vehicle systems. My work has taken me across Scania, Volvo Construction Equipment, and MAHLE Electronics, alongside international teams spanning software, electronics, control, mechanical engineering, testing, and calibration.</p>
-					<p>The software is only part of the story. What defines my work more clearly is how I approach complex systems, how I help teams make difficult technical decisions, and how I turn uncertain problems into something people can understand and solve together.</p>
-					<p>Where you go next depends on what brought you here.</p>
-				</div>
-			</div>
-			<!-- Placeholder for a portrait or environmental photo of Carlos; replace with the final image later. -->
-			<div class="about-portrait" data-expected-alt="Carlos Jorques" aria-hidden="true">
-				<div class="about-portrait__placeholder"></div>
-			</div>
-		</div>
-	</section>
-
-	<section class="about-routes" aria-label="Visitor routes">
-		<div class="page-container about-routes__inner">
-			<article class="about-route-card">
-				<h2>Hiring or evaluating fit?</h2>
-				<div class="button-row about-route-card__actions">
-					<a class="button" href={withBase('/cv')}>View CV</a>
-					<a class="button" href="#where-i-add-value">See where I add the most value</a>
-					<a class="button" href={withBase('/contact')}>Get in touch</a>
-				</div>
-			</article>
-
-			<article class="about-route-card">
-				<h2>Interested in how I work?</h2>
-				<div class="button-row about-route-card__actions">
-					<a class="button" href="#approach">Read my approach</a>
-					<a class="button" href="#collaboration">Read about collaboration</a>
-				</div>
-			</article>
-
-			<article class="about-route-card">
-				<h2>Curious about how it began?</h2>
-				<div class="button-row about-route-card__actions">
-					<a class="button" href="#origin">Read my story</a>
-				</div>
-			</article>
-		</div>
-	</section>
-
-	<section class="about-signal-path" aria-label="About Carlos signal path">
-		<div class="page-container">
-			<div class="signal-path-list">
-				<article class="signal-path-item" id="approach">
-					<div class="signal-path-item__content">
-						<p class="signal-path-item__label">01 - Approach</p>
-						<h2>Understanding what should be built matters as much as building it</h2>
-						<p class="signal-path-item__secondary">I enjoy shaping technical direction early, identifying the decisions that matter, and making the reasoning behind them clear to the team.</p>
-						<button class="signal-path-item__toggle" type="button" aria-expanded="false" aria-controls="approach-detail" data-signal-toggle>
-							Read more
-						</button>
-						<div class="signal-path-item__extra" id="approach-detail" data-signal-extra>
-							<div class="signal-path-item__extra-inner">
-								<p>I do some of my best work while a product or system is still taking shape, before its most important technical decisions have become difficult to change. Understanding what should exist, how the system should behave, and where its boundaries should be is just as satisfying to me as implementing it.</p>
-								<p>Experience has changed how I direct my curiosity. Earlier in my career, I wanted to explore every interesting problem. Today, I first ask which problem will make the greatest difference. Sometimes that means developing a new control strategy. Sometimes it means improving diagnostics, interfaces, or validation. Quite often, it means simplifying the architecture beneath everything else.</p>
-								<p>I also try to make tradeoffs visible. Technical decisions are stronger when the team understands the evidence, assumptions, constraints, and alternatives behind them. Clear reasoning helps decisions survive changing teams, new requirements, and the pressure of delivery.</p>
-							</div>
-						</div>
+<Layout title="About Carlos Jorques | Embedded Controls Technical Lead" description="About Carlos Jorques, an Embedded Controls Technical Lead for intelligent machines, production embedded control software, multidisciplinary engineering, and system integration.">
+	<div class="about-page">
+		<section class="about-hero" aria-labelledby="about-title">
+			<p class="about-eyebrow">About me</p>
+			<div class="about-hero__layout">
+				<div class="about-hero__copy">
+					<h1 id="about-title">I lead embedded controls teams that shape how complex machines sense, decide, and act reliably.</h1>
+					<p class="about-hero__lead">I’m Carlos, an <strong>Embedded Controls Technical Lead</strong> who combines hands-on development with technical direction across control strategy, software architecture, and system integration.</p>
+					<nav class="about-hero__actions" aria-label="About quick links">
+						<a href={withBase('/cv')}>View CV</a>
+						<a href={withBase('/work')}>Selected work</a>
+						<a href={withBase('/contact')}>Get in touch</a>
+					</nav>
+					<div class="about-story">
+					<p>For the past 12+ years, I have developed production embedded control software for electric trucks, autonomous machines, power electronics, and other complex vehicle systems. At Scania, Volvo CE, and MAHLE Electronics, I have worked with international teams across software, electronics, controls, diagnostics, testing, and calibration. Software from that work now runs in production vehicles and machines around the world.</p>
 					</div>
-				</article>
-
-				<article class="signal-path-item" id="collaboration">
-					<div class="signal-path-item__content">
-						<p class="signal-path-item__label">02 - Collaboration</p>
-						<h2>Creating clarity so multidisciplinary teams can move forward together</h2>
-						<p class="signal-path-item__secondary">I help engineers from different disciplines build a shared understanding of the system before they try to solve it.</p>
-						<button class="signal-path-item__toggle" type="button" aria-expanded="false" aria-controls="collaboration-detail" data-signal-toggle>
-							Read more
-						</button>
-						<div class="signal-path-item__extra" id="collaboration-detail" data-signal-extra>
-							<div class="signal-path-item__extra-inner">
-								<p>Complex systems rarely fail because one component is entirely wrong. Problems often appear at the boundaries between software and hardware, between teams, or between what the physical system can do and what the specification assumed it would do.</p>
-								<p>Before moving toward a solution, I like to make the behaviour of the whole system visible. When software, electronics, controls, mechanical engineering, testing, and calibration are working from the same picture, discussions become more concrete and much less focused on defending individual subsystems.</p>
-								<p>I see technical leadership as creating the conditions for good engineering. That includes clarifying ownership, resolving assumptions, connecting decisions to evidence, and helping the people closest to the system contribute effectively. My role is not to have every answer. It is to help the team ask the right questions and reach decisions that hold together.</p>
-								<blockquote class="signal-path-item__quote">
-									<p>An elegant algorithm is only the beginning. The real engineering challenge is making it work reliably.</p>
-								</blockquote>
-							</div>
-						</div>
-					</div>
-				</article>
-
-				<article class="signal-path-item" id="origin">
-					<div class="signal-path-item__content">
-						<p class="signal-path-item__label">03 - Origin</p>
-						<h2>From a wobbling robot to a career in control</h2>
-						<p class="signal-path-item__secondary">A small robot first drew me toward automatic control. Years of engineering taught me which problems are truly worth solving.</p>
-						<button class="signal-path-item__toggle" type="button" aria-expanded="false" aria-controls="origin-detail" data-signal-toggle>
-							Read more
-						</button>
-						<div class="signal-path-item__extra" id="origin-detail" data-signal-extra>
-							<div class="signal-path-item__extra-inner">
-								<p>I started experimenting with electronics when I was eight, but the moment that set my direction came years later at Campus Party Valencia. I watched a line following robot I had built wobble and overshoot around the track while other robots moved smoothly through the same turns.</p>
-								<p>The hardware was capable of more. The difference was in the way the system was being controlled. That gap between what the physics allowed and what my logic produced pulled me toward automatic control.</p>
-								<p>Studying Electrical Engineering gave me the theoretical foundation to understand those systems properly. My industrial doctorate allowed me to investigate difficult control problems with scientific depth, question assumptions, and learn how to separate genuine improvement from apparent complexity.</p>
-								<p>Working in the automotive industry taught me the other half of the discipline. A sound idea must still survive limited computing resources, noisy signals, hardware variation, calibration, diagnostics, safety requirements, organisational constraints, and deadlines.</p>
-								<p>That combination of curiosity and production experience now shapes how I work. I enjoy exploring difficult problems, but I also know that engineering creates value only when a solution can be understood, maintained, validated, and delivered.</p>
-							</div>
-						</div>
-					</div>
-				</article>
-
-				<article class="signal-path-item" id="beyond-engineering">
-					<div class="signal-path-item__content">
-						<p class="signal-path-item__label">04 - Beyond engineering</p>
-						<h2>Still building things, just with different constraints</h2>
-						<p class="signal-path-item__secondary">Curiosity continues outside work.</p>
-						<button class="signal-path-item__toggle" type="button" aria-expanded="false" aria-controls="beyond-engineering-detail" data-signal-toggle>
-							Read more
-						</button>
-						<div class="signal-path-item__extra" id="beyond-engineering-detail" data-signal-extra>
-							<div class="signal-path-item__extra-inner">
-								<p>I spend much of my free time on 3D printing, lamp design, painting, electronics, and home automation. These projects give me room to experiment, learn unfamiliar skills, and build things simply because I find them interesting.</p>
-								<p>Basketball has also been part of my life since childhood. I still enjoy competing, helping younger players develop, and being part of a team working toward a shared goal.</p>
-								<p>Most importantly, time with my partner, our child, and our dog keeps work in perspective and reminds me to protect space for the people and experiences that matter beyond engineering.</p>
-							</div>
-						</div>
-					</div>
-				</article>
-
-				<article class="signal-path-item" id="where-i-add-value">
-					<div class="signal-path-item__content">
-						<p class="signal-path-item__label">05 - Where I add the most value</p>
-						<h2>Where I add the most value</h2>
-						<div class="signal-path-item__body">
-							<p>I am most motivated by products whose behaviour is still being defined and where early technical decisions will have consequences for years.</p>
-							<p>That is where I contribute most effectively: combining hands on engineering with technical direction, helping teams understand the system, define its architecture, make difficult tradeoffs, and turn ambitious ideas into dependable products.</p>
-							<p>I am particularly drawn to electrified systems, autonomous machines, robotics, industrial automation, power electronics, energy systems, and other products where software interacts closely with physical behaviour.</p>
-							<p>I work best in focused, multidisciplinary teams where engineers can see the connection between their decisions and the real system. I value environments that combine technical ambition with practical responsibility, open discussion, and a willingness to test assumptions against evidence.</p>
-						</div>
-					</div>
-				</article>
+				</div>
+				<img class="about-portrait" src={portraitUrl} alt="Carlos Jorques" width="768" height="1024" loading="eager" decoding="async" />
 			</div>
-		</div>
-	</section>
+		</section>
 
-	<section class="about-closing" id="final-cta" aria-labelledby="about-closing-title">
-		<div class="page-container about-closing__inner">
-			<div class="about-closing__copy">
-				<h2 id="about-closing-title">Let us build something that matters</h2>
-				<p>Are you developing a product whose behaviour depends on embedded control software? Are you looking for someone who enjoys shaping the system as much as implementing it?</p>
+		<section class="editorial-section visitor-routes" aria-label="Visitor routes">
+			<div class="section-rail" aria-hidden="true"></div>
+			<div class="story-block route-list">
+				<div><strong>Hiring or evaluating fit?</strong><p><a href={withBase('/cv')}>View CV</a> · <a href={withBase('/contact')}>Get in touch</a></p></div>
 			</div>
-			<div class="button-row about-closing__actions" aria-label="About closing links">
-				<a
-					class="button primary"
-					href={withBase('/contact')}
-					data-analytics-event="cta_click"
-					data-cta-id="about-closing-contact"
-					data-cta-placement="about-closing"
-					data-cta-intent="contact"
-					data-source-section="about-closing"
-				>
-					Get in touch
-				</a>
-				<a
-					class="button"
-					href={withBase('/cv')}
-					data-analytics-event="cta_click"
-					data-cta-id="about-closing-cv"
-					data-cta-placement="about-closing"
-					data-cta-intent="formal-proof"
-					data-source-section="about-closing"
-				>
-					View my CV
-				</a>
-				<a
-					class="button"
-					href={withBase('/work')}
-					data-analytics-event="cta_click"
-					data-cta-id="about-closing-work"
-					data-cta-placement="about-closing"
-					data-cta-intent="proof"
-					data-source-section="about-closing"
-				>
-					Explore selected projects
-				</a>
-				<a
-					class="button"
-					href={linkedinHref}
-					target="_blank"
-					rel="noopener noreferrer"
-					data-analytics-event="linkedin_outbound_click"
-					data-cta-id="about-closing-linkedin"
-					data-cta-placement="about-closing"
-					data-cta-intent="professional-profile"
-					data-source-section="about-closing"
-				>
-					Connect on LinkedIn
-				</a>
-			</div>
-		</div>
-	</section>
+		</section>
 
-	<script>
-		const signalToggles = document.querySelectorAll<HTMLButtonElement>('[data-signal-toggle]');
+		<AboutStoryBlock
+			id="role"
+			label="What I Lead"
+			title="Turning system goals into software that teams can deliver"
+			intro="I lead embedded controls work from system definition through implementation and production delivery, while remaining close to the engineering."
+			disclosureLabel="See the scope of my work"
+			expanded={[
+				"I translate product goals into control strategies, software responsibilities, interfaces, development priorities, and validation evidence. My work includes shaping software architecture, developing control functions, resolving integration issues, and connecting testing and calibration results back to design decisions.",
+				"I am particularly drawn to electrified systems, autonomous machines, robotics, industrial automation, power electronics, and energy systems—anywhere software must interact reliably with physical behaviour."
+			]}
+		/>
 
-		signalToggles.forEach((toggle) => {
-			const contentId = toggle.getAttribute('aria-controls');
-			const content = contentId ? document.getElementById(contentId) : null;
-			if (!content) return;
+		<AboutStoryBlock
+			id="approach"
+			label="Engineering Approach"
+			title="Understanding what should be built matters as much as building it"
+			intro="I make the intended behaviour, physical constraints, interfaces, and uncertainties visible before implementation makes important decisions expensive to change."
+			disclosureLabel="How I make technical decisions"
+			expanded={[
+				"The right answer is not always a more advanced algorithm. It may be a clearer interface, a simpler architecture, stronger diagnostics, a better test strategy, or a more accurate understanding of the physical system.",
+				"I favour solutions that are technically sound and practical to deliver. I also make trade-offs explicit, so the team understands the evidence, assumptions, constraints, and alternatives behind each important decision."
+			]}
+		/>
 
-			toggle.addEventListener('click', () => {
-				const isExpanded = toggle.getAttribute('aria-expanded') === 'true';
-				toggle.setAttribute('aria-expanded', String(!isExpanded));
-				toggle.textContent = isExpanded ? 'Read more' : 'Read less';
-				content.toggleAttribute('data-expanded', !isExpanded);
-			});
-		});
-	</script>
+		<AboutStoryBlock
+			id="collaboration"
+			label="Technical Leadership"
+			title="Creating the clarity teams need to move forward"
+			intro="I establish technical direction, clarify responsibilities, and help engineers across disciplines reach decisions they can understand, support, and deliver together."
+			disclosureLabel="How I lead multidisciplinary teams"
+			expanded={[
+				"Complex system problems often emerge at the boundaries—between software and hardware, between disciplines, or between expected and actual behaviour. I help teams build a shared understanding of the complete system before committing to a solution.",
+				"My role is not to have every answer. It is to keep implementation connected to system intent, help the team ask the right questions, and create the conditions for good engineering."
+			]}
+			quote="An elegant algorithm is only the beginning. The real engineering challenge is making it work reliably."
+		/>
+
+		<AboutStoryBlock
+			id="origin"
+			label="My Story"
+			title="From robotics to production embedded controls"
+			intro="What makes a machine truly intelligent? I have been fascinated by that question for as long as I can remember."
+			disclosureLabel="Read the story behind my work"
+			expanded={[
+				"I started experimenting with electronics at eight, but the moment that set my direction came later, at Campus Party Valencia. I watched a line-following robot I had built wobble and overshoot, while other robots moved smoothly through the same turns. The hardware was capable of more — the difference was in how the system was controlled.",
+				"That gap has shaped how I think about intelligent machines ever since: not sophisticated logic, but the ability to sense what's happening, judge what matters under uncertainty, and act on it reliably. That question took me through Electrical Engineering and an industrial doctorate in automatic control, and later into the automotive industry, where I learned that a sound idea also has to survive noisy signals, limited resources, and deadlines.",
+				"That combination of curiosity and production experience now shapes how I work. I enjoy exploring difficult problems, but I also know that engineering creates value only when a solution can be understood, maintained, validated, and delivered."
+			]}
+		/>
+
+		<AboutStoryBlock
+			id="beyond-engineering"
+			label="Beyond Engineering"
+			title="More than what I build"
+			intro="Outside work, I keep learning through basketball, making things, and time with the people who keep work in perspective."
+			disclosureLabel="A little more beyond work"
+			expanded={[
+				"Basketball has been part of my life since childhood, and it still is. I enjoy competing, staying sharp, and helping younger players develop. Being part of a team working toward a shared goal outside of engineering keeps that instinct alive in a different way.",
+				"I'm naturally curious, and I like trying things I haven't done before, whether that means picking up a new skill, testing an idea, or occasionally building something — through 3D printing, lamp design, painting, electronics, or home automation. These projects are less about the outcome and more about the habit of staying curious.",
+				"Most importantly, time with my partner, our child, our dog, and friends keeps work in perspective and reminds me to protect space for the people and experiences that matter beyond engineering."
+			]}
+		/>
+
+
+		<section class="editorial-section about-closing" aria-labelledby="closing-title">
+			<div class="section-rail" aria-hidden="true"></div>
+			<div class="story-block"><h2 id="closing-title">Looking for an Embedded Controls Technical Lead?</h2>
+			<p>If you are developing a product whose behaviour depends on embedded controls—and need someone who can shape technical direction while remaining close to the engineering—I would be glad to hear from you.</p><div class="button-row"><a class="button primary" href={withBase('/contact')}>Get in touch</a><a class="button" href={withBase('/cv')}>View my CV</a><a class="button" href={withBase('/work')}>Explore selected projects</a><a class="button" href={linkedinHref} target="_blank" rel="noopener noreferrer">Connect on LinkedIn</a></div></div>
+		</section>
+	</div>
 </Layout>
 
 <style>
-	.about-intro {
-		padding-block: clamp(3rem, 5vw, 4.6rem) clamp(1.55rem, 3vw, 2.25rem);
-		background: transparent;
-	}
-
-	.about-intro .page-container,
-	.about-routes .page-container,
-	.about-signal-path .page-container,
-	.about-closing .page-container {
-		width: min(calc(100% - 32px), var(--content-width));
-	}
-
-	.about-intro__inner {
-		display: grid;
-		grid-template-columns: minmax(0, 3fr) minmax(16rem, 2fr);
-		gap: clamp(2rem, 6vw, 5.5rem);
-		align-items: start;
-		min-width: 0;
-	}
-
-	.about-intro__content {
-		display: grid;
-		gap: clamp(1.5rem, 3vw, 2.25rem);
-		min-width: 0;
-	}
-
-	.about-intro__label {
-		display: grid;
-		gap: 0.85rem;
-		min-width: 0;
-	}
-
-	.about-intro__label .section-eyebrow {
-		margin: 0;
-	}
-
-	.about-intro .hero-title {
-		max-width: none;
-		font-size: clamp(4.2rem, 8vw, 7rem);
-		overflow-wrap: normal;
-		word-break: normal;
-	}
-
-	.about-intro__copy {
-		display: grid;
-		gap: 1rem;
-		max-width: var(--measure-reading);
-		min-width: 0;
-	}
-
-	.about-intro__copy p {
-		color: var(--color-body-text);
-		font-size: var(--type-body-large-size);
-		line-height: var(--type-body-large-line);
-		letter-spacing: var(--type-body-large-tracking);
-		overflow-wrap: break-word;
-	}
-
-	.about-portrait,
-	.about-portrait__placeholder {
-		width: 100%;
-		aspect-ratio: 4 / 5;
-	}
-
-	.about-portrait {
-		overflow: hidden;
-		border: 1px solid var(--color-card-border);
-		border-radius: var(--radius);
-		background: var(--color-card-bg);
-	}
-
-	.about-portrait__placeholder {
-		background:
-			linear-gradient(145deg, transparent 0 62%, var(--color-border-soft) 62% 62.4%, transparent 62.4%),
-			var(--color-card-bg);
-	}
-
-	.about-pullquote {
-		margin: 0;
-		max-width: 860px;
-		padding-block: clamp(1.8rem, 4vw, 2.8rem);
-		border-block: 1px solid var(--color-border);
-		color: var(--color-quote-text);
-	}
-
-	.about-pullquote p {
-		max-width: 760px;
-		color: currentColor;
-		font-family: var(--font-display);
-		font-size: clamp(1.7rem, 3.2vw, 1.4rem);
-		font-style: italic;
-		font-weight: 500;
-		line-height: 1.15;
-		letter-spacing: 0;
-		overflow-wrap: break-word;
-	}
-
-	.about-routes {
-		padding-block: clamp(1rem, 2vw, 1.5rem);
-		border-top: 1px solid var(--color-border-soft);
-		border-bottom: 1px solid var(--color-border-soft);
-	}
-
-	.about-routes__inner {
-		display: flex;
-		flex-wrap: wrap;
-		gap: clamp(1rem, 3vw, 2rem);
-		align-items: flex-start;
-	}
-
-	.about-route-card {
-		display: grid;
-		flex: 1 1 17rem;
-		gap: 0.45rem;
-		align-content: start;
-		min-width: 0;
-	}
-
-	.about-route-card h2 {
-		width: 100%;
-		max-width: none;
-		color: var(--color-muted);
-		font-family: var(--font-mono);
-		font-size: var(--type-meta-size);
-		font-weight: 700;
-		line-height: var(--type-meta-line);
-		letter-spacing: var(--type-meta-tracking);
-		text-transform: uppercase;
-		overflow-wrap: normal;
-	}
-
-	.about-route-card__actions {
-		gap: 0.45rem;
-		align-items: center;
-	}
-
-	.about-route-card__actions .button {
-		min-height: auto;
-		padding: 0.4rem 0.7rem;
-		font-size: var(--type-meta-size);
-	}
-
-	.about-signal-path {
-		padding-block: clamp(3rem, 6vw, 5rem);
-	}
-
-	.about-routes[id],
-	.signal-path-item[id],
-	.about-closing[id] {
-		scroll-margin-top: clamp(5rem, 12vw, 8rem);
-	}
-
-	.signal-path-list {
-		display: grid;
-		grid-template-columns: minmax(0, 1fr);
-		gap: clamp(1.5rem, 3vw, 2.5rem);
-		align-items: start;
-		min-width: 0;
-	}
-
-	.signal-path-item {
-		display: grid;
-		min-width: 0;
-		align-content: start;
-		border: 1px solid var(--color-card-border);
-		border-radius: var(--radius);
-		padding: clamp(1.25rem, 2.5vw, 2rem);
-	}
-
-	.signal-path-item__content {
-		display: grid;
-		gap: 0.75rem;
-		min-width: 0;
-	}
-
-	.signal-path-item__label {
-		color: var(--color-accent-text);
-		font-family: var(--font-mono);
-		font-size: var(--type-meta-size);
-		font-weight: 700;
-		line-height: var(--type-meta-line);
-		letter-spacing: var(--type-meta-tracking);
-		text-transform: uppercase;
-	}
-
-	.signal-path-item h2 {
-		max-width: 760px;
-		font-family: var(--font-display);
-		font-size: clamp(0.8rem, 3.4vw, 1.4rem);
-		font-weight: 600;
-		line-height: 1.04;
-		letter-spacing: -0.055em;
-		overflow-wrap: break-word;
-	}
-
-	.signal-path-item__secondary {
-		max-width: 560px;
-		color: var(--color-muted);
-		font-size: var(--type-body-size);
-		font-style: italic;
-		line-height: var(--type-body-line);
-		overflow-wrap: break-word;
-	}
-
-	.signal-path-item__toggle {
-		width: fit-content;
-		border: 0;
-		background: transparent;
-		padding: 0;
-		color: var(--color-link);
-		cursor: pointer;
-		font-family: var(--font-body);
-		font-size: var(--type-body-size);
-		font-weight: 700;
-		line-height: 1.4;
-		text-decoration: underline;
-		text-decoration-thickness: 1px;
-		text-underline-offset: 0.22em;
-		transition:
-			color var(--motion-duration-fast-02) var(--motion-standard-productive),
-			transform var(--motion-duration-fast-02) var(--motion-standard-productive);
-	}
-
-	.signal-path-item__toggle:hover,
-	.signal-path-item__toggle:focus-visible {
-		color: var(--color-link-hover);
-		transform: translateX(4px);
-	}
-
-	.signal-path-item__extra {
-		display: grid;
-		grid-template-rows: 0fr;
-		overflow: hidden;
-		transition: grid-template-rows var(--motion-duration-moderate-02) var(--motion-standard-productive);
-	}
-
-	.signal-path-item__extra[data-expanded] {
-		grid-template-rows: 1fr;
-	}
-
-	.signal-path-item__extra-inner {
-		display: grid;
-		min-height: 0;
-		gap: 1rem;
-	}
-
-	.signal-path-item__quote {
-		margin: 0.25rem 0 0;
-		border-left: 2px solid var(--color-accent-text);
-		padding-left: 1rem;
-	}
-
-	.signal-path-item__quote p {
-		color: var(--color-quote-text);
-		font-family: var(--font-display);
-		font-size: clamp(1.05rem, 1.6vw, 1.25rem);
-		font-style: italic;
-		font-weight: 500;
-		line-height: 1.35;
-	}
-
-	.signal-path-item__extra p,
-	.signal-path-item__body p,
-	.about-closing__copy p {
-		max-width: var(--measure-reading);
-		color: var(--color-body-text);
-		font-size: var(--type-body-size);
-		line-height: var(--type-body-line);
-		overflow-wrap: break-word;
-	}
-
-	.signal-path-item__body,
-	.about-closing__copy {
-		display: grid;
-		gap: 1rem;
-	}
-
-	.signal-path-item__body {
-		margin-top: 0.2rem;
-	}
-
-	.signal-path-item#where-i-add-value {
-		background: var(--color-card-bg);
-		padding: clamp(1.5rem, 3vw, 2.5rem);
-	}
-
-	.about-closing {
-		border-top: 1px solid var(--color-border-soft);
-		background: var(--color-footer-bg);
-		padding-block: clamp(3rem, 6vw, 5rem);
-	}
-
-	.about-closing__inner {
-		display: grid;
-		gap: var(--spacing-07);
-		align-items: start;
-	}
-
-	.about-closing h2 {
-		max-width: 900px;
-		font-size: clamp(1.8rem, 3.4vw, 3.6rem);
-		line-height: 1.05;
-		letter-spacing: -0.055em;
-	}
-
-	.about-closing__actions {
-		align-items: center;
-	}
-
-	@media (min-width: 900px) {
-		.about-closing__inner {
-			grid-template-columns: minmax(0, 1fr) auto;
-			gap: clamp(2rem, 5vw, 4rem);
-		}
-
-		.about-closing__actions {
-			min-width: 230px;
-		}
-	}
-
-	@media (min-width: 1024px) {
-		.signal-path-list {
-			grid-template-columns: repeat(12, minmax(0, 1fr));
-		}
-
-		.signal-path-item#approach,
-		.signal-path-item#origin {
-			grid-column: span 7;
-		}
-
-		.signal-path-item#collaboration,
-		.signal-path-item#beyond-engineering {
-			grid-column: span 5;
-		}
-
-		.signal-path-item#where-i-add-value {
-			grid-column: span 12;
-		}
-	}
-
-	@media (max-width: 640px) {
-		.about-intro {
-			padding-block: 3.5rem 2.5rem;
-		}
-
-		.about-intro .page-container,
-		.about-routes .page-container,
-		.about-signal-path .page-container,
-		.about-closing .page-container {
-			width: min(calc(100vw - 32px), 340px);
-			max-width: min(calc(100vw - 32px), 340px);
-			margin-left: 16px;
-			margin-right: auto;
-			overflow: hidden;
-		}
-
-		.about-intro__inner {
-			grid-template-columns: 1fr;
-			align-items: start;
-			gap: 2rem;
-		}
-
-		.about-intro__copy {
-			max-width: 100%;
-		}
-
-		.about-intro .hero-title {
-			font-size: clamp(3.2rem, 15vw, 4.4rem);
-		}
-
-		.about-intro__content,
-		.about-intro__label,
-		.about-intro__copy,
-		.about-intro__copy p,
-		.about-pullquote,
-		.about-pullquote p,
-		.about-portrait {
-			width: 100%;
-			max-width: min(calc(100vw - 32px), 340px);
-		}
-
-		.about-intro__copy p,
-		.about-pullquote p {
-			overflow-wrap: anywhere;
-		}
-
-		.about-route-card {
-			display: grid;
-			flex-basis: 100%;
-			gap: 0.45rem;
-			max-width: 100%;
-		}
-
-		.about-route-card__actions {
-			width: 100%;
-		}
-
-		.about-route-card__actions .button {
-			width: auto;
-		}
-
-		.signal-path-list {
-			gap: 1.25rem;
-			width: 100%;
-			max-width: min(calc(100vw - 32px), 340px);
-		}
-
-		.signal-path-item h2 {
-			width: 100%;
-			max-width: 100%;
-			font-size: clamp(1.65rem, 8vw, 2.15rem);
-			line-height: 1.08;
-			overflow-wrap: anywhere;
-		}
-
-		.signal-path-item__secondary,
-		.signal-path-item__extra p,
-		.signal-path-item__body p,
-		.about-closing__copy p {
-			max-width: 100%;
-			overflow-wrap: anywhere;
-		}
-
-		.about-pullquote p {
-			font-size: clamp(1.45rem, 7.2vw, 2rem);
-			line-height: 1.2;
-		}
-
-	}
-
-	@media (prefers-reduced-motion: reduce) {
-		.signal-path-item__extra,
-		.signal-path-item__toggle {
-			transition: none;
-		}
-	}
+	.about-page { width:min(calc(100% - 5rem),var(--content-width)); margin:0 auto; padding:0; }
+	.about-eyebrow,.section-rail { font-family:var(--font-mono); font-size:.82rem; font-weight:600; letter-spacing:.08em; line-height:1.4; text-transform:uppercase; color:var(--color-muted); }
+	.about-hero { padding:6rem 0 0; }
+	.about-eyebrow { margin:0; }
+	.about-hero__layout { display:grid; grid-template-columns:minmax(0,1.35fr) minmax(15rem,20rem); gap:2.5rem; align-items:start; margin-top:1rem; }
+	.about-hero__copy { display:grid; gap:1rem; align-content:start; }
+	.about-hero h1 { max-width:none; margin:0; font-size:clamp(2.6rem,3.8vw,3.5rem); font-weight:800; letter-spacing:-.05em; line-height:1.02; }
+	.about-hero__lead { max-width:52rem; margin:0; font-size:1.08rem; line-height:1.7; color:var(--color-text); }
+	.about-hero__lead strong { font-weight:700; }
+	.about-hero__actions { display:none; }
+	.about-story { display:grid; gap:1rem; margin:0; max-width:52rem; }
+	.about-story p,.story-block p { margin:0; font-size:1.08rem; line-height:1.7; color:var(--color-text); }
+	.about-portrait { width:min(100%,20rem); height:auto; border-radius:1.5rem; box-shadow:0 18px 40px rgba(23,23,23,.08); }
+	.editorial-section { display:grid; grid-template-columns:16rem minmax(0,1fr); gap:0rem; padding:1rem 0; border-top:1px solid var(--color-border); scroll-margin-top:2rem; }
+	.section-rail h2,.section-rail p { margin:0; max-width:none; color:inherit; font:inherit; letter-spacing:inherit; text-transform:inherit; }
+	.story-block { display:grid; gap:.65rem; max-width:52rem; }
+	.story-block h2 { max-width:none; width:100%; margin:0; font-size:1.1625rem; line-height:1.16; letter-spacing:-.035em; font-weight:600; }
+	.story-block .intro { color:var(--color-muted); }
+	.story-block blockquote { margin:.5rem 0 0; padding-left:1rem; border-left:2px solid var(--color-border-strong); }
+	.story-block a { color:var(--color-link); text-underline-offset:.2em; }
+	.story-disclosure { margin-top:0; }
+	.story-disclosure summary { width:fit-content; display:inline-flex; align-items:center; gap:.4rem; padding:0; border:0; color:var(--color-link); cursor:pointer; font-family:var(--font-body); font-size:.875rem; font-weight:400; line-height:1.7; list-style:none; text-decoration:underline; text-underline-offset:.2em; }
+	.story-disclosure summary::-webkit-details-marker { display:none; }
+	.story-disclosure summary:hover { color:var(--color-text); }
+	.story-disclosure__open { display:none; }
+	.story-disclosure__arrow { transition:transform 140ms ease; }
+	.story-disclosure[open] .story-disclosure__closed { display:none; }
+	.story-disclosure[open] .story-disclosure__open { display:inline; }
+	.story-disclosure[open] .story-disclosure__arrow { transform:rotate(180deg); }
+	.story-disclosure__content { display:grid; gap:.65rem; margin-top:.65rem; }
+	.story-disclosure__content p { color:var(--color-muted); font-size:1.08rem; line-height:1.7; }
+	.about-closing { padding:5rem 0; }
+	.about-closing .button.primary,.about-closing .button.primary:hover,.about-closing .button.primary:focus-visible { color:#fff; }
+	.route-list { grid-column:1 / -1; max-width:none; }
+	.route-list__intro { margin-bottom:.25rem; }
+	.visitor-routes { gap: 0rem; padding-top:0; padding-bottom:4rem; border-top:0; }
+	.route-list > div { display:flex; align-items:baseline; gap:.45rem; padding-bottom:0; border-bottom:0; }
+	.route-list strong { font-size:1.08rem; }
+	.route-list > div p { color:var(--color-muted); }
+	.about-closing .story-block { grid-column:1 / -1; }
+	#approach { margin-top:0; }
+	@media(max-width:1100px){.about-hero__layout{grid-template-columns:1fr}.about-portrait{width:min(100%,16rem)}}
+	@media(max-width:720px){.about-hero{padding:3rem 0 0}.about-hero h1{font-size:clamp(2.15rem,10vw,2.45rem);line-height:1.04}.about-hero__actions{display:flex;flex-wrap:wrap;gap:.45rem 1rem;margin-top:0}.about-hero__actions a{color:var(--color-link);font-size:.92rem;font-weight:600;text-underline-offset:.2em}.editorial-section{grid-template-columns:1fr}.about-hero__lead,.about-story p,.story-block p{font-size:1.05rem}.route-list > div{display:block}.route-list > div p{margin-top:.2rem}.button{width:100%}}
+	@media(max-width:640px){.about-page{width:min(calc(100% - 32px),var(--content-width))}}
 </style>

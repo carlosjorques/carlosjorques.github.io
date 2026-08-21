@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { IDENTITY } from '../data/identity';
 
 type CvAction = {
 	label: string;
@@ -116,8 +117,8 @@ const cvProfile = {
 	"hero": {
 		"eyebrow": "Online CV",
 		"title": "Carlos Jorques",
-		"subtitle": "Senior Embedded Controls Engineer | Technical Lead | Electric & Autonomous Vehicle Systems",
-		"summary": "I am a senior embedded controls engineer with 10+ years of experience developing real time control software for automotive and heavy duty physical systems. My work focuses on EV thermal management, battery systems, autonomous propulsion control, diagnostics, functional safety, validation, and production software delivery.",
+		"subtitle": "Embedded Controls Technical Lead · Control Systems Architect · Electric & Autonomous Vehicle Systems",
+		"summary": "I am an Embedded Controls Technical Lead with 12+ years of experience developing real time control software for automotive and heavy duty physical systems. My work focuses on EV thermal management, battery systems, autonomous propulsion control, diagnostics, functional safety, validation, and production software delivery.",
 		"secondarySummary": "I translate automatic control concepts into robust embedded software that can be tested, calibrated, validated, and trusted in real machines. My experience spans control architecture, model based implementation, generated C/C++ workflows, MIL/SIL/HIL validation, and technical leadership across international automotive teams."
 	},
 	"actions": [
@@ -181,7 +182,7 @@ const cvProfile = {
 	],
 	"proofTiles": [
 		{
-			"value": "10+ years",
+		"value": "12+ years",
 			"label": "Automotive embedded controls"
 		},
 		{
@@ -207,14 +208,11 @@ const cvProfile = {
 	],
 	"relevantFor": [
 		"Senior Electronics Engineer",
-		"Embedded Controls Architect",
-		"Technical Lead",
-		"Control Systems Engineer",
-		"BMS / Thermal Management Engineer",
-		"Functional Safety Engineer",
-		"Autonomous Machine Controls",
-		"Powertrain Software Engineer",
-		"Model-Based Development Lead"
+		"Embedded Controls Technical Lead",
+		"Control Systems Architect",
+		"BMS / Thermal Management Software Lead",
+		"Model-Based Development Lead",
+		"Functional Safety-Related Controls"
 	],
 	"executiveSummary": [],
 	"expertise": [
@@ -332,7 +330,7 @@ const cvProfile = {
 				"Diagnostic strategy design",
 				"Fault detection and isolation",
 				"ISO 26262-aligned development",
-				"A-SPICE traceability",
+				"ASPICE traceability",
 				"Fallback and degradation logic"
 			],
 			"representativeWork": [
@@ -424,7 +422,7 @@ const cvProfile = {
 					"items": [
 						"Model calibration and validation across MIL, SIL, HIL, test bench, wind tunnel, test track, and vehicle environments.",
 						"Battery management and SOC/SOH/SOP-related thermal control strategies.",
-						"Functional safety analysis, diagnostics, fallback strategies, and ISO 26262 / A-SPICE-aligned workflows.",
+						"Functional safety analysis, diagnostics, fallback strategies, and ISO 26262 / ASPICE-aligned workflows.",
 						"GitLab CI/CD pipelines and SAFe Agile practices to improve integration quality and reduce development cycle time."
 					]
 				},
@@ -443,7 +441,7 @@ const cvProfile = {
 				"C",
 				"GitLab",
 				"ISO 26262",
-				"A-SPICE",
+				"ASPICE",
 				"BMS",
 				"diagnostics",
 				"EV thermal management"
@@ -1001,7 +999,7 @@ const cvProfile = {
 		},
 		{
 			"title": "Standards and Automotive Context",
-			"primaryTools": "ISO 26262 · A-SPICE · AUTOSAR · CAN/J1939 · Functional Safety",
+			"primaryTools": "ISO 26262 · ASPICE · AUTOSAR · CAN/J1939 · Functional Safety",
 			"methods": "Functional safety awareness, FuSa analysis, process alignment, automotive communication, traceability, production-oriented documentation."
 		},
 		{
@@ -1117,7 +1115,7 @@ const profileJsonLd = {
 	mainEntity: {
 		'@type': 'Person',
 		name: cvProfile.hero.title,
-		jobTitle: 'Senior Electronics Engineer and Embedded Controls Architect',
+	jobTitle: IDENTITY.title,
 		description:
 			'Senior electronics and embedded controls engineer specializing in EV thermal management, BMS, autonomous propulsion control, diagnostics, functional safety, model-based development, and real-time embedded software.',
 		url: Astro.url.href,
@@ -1127,7 +1125,7 @@ const profileJsonLd = {
 ---
 
 <Layout
-	title="Senior Embedded Controls Engineer CV | Carlos Jorques"
+	title={`${IDENTITY.name} CV | ${IDENTITY.title}`}
 	description="Senior electronics and embedded controls engineer specializing in EV thermal management, BMS, autonomous propulsion control, diagnostics, functional safety, model-based development, and real-time embedded software."
 >
 	<script type="application/ld+json" set:html={JSON.stringify(profileJsonLd)} />
@@ -1170,6 +1168,7 @@ const profileJsonLd = {
 							</a>
 						))}
 					</div>
+					<p class="cv-updated">Last updated: {new Date().toISOString().slice(0, 10)}</p>
 				</div>
 
 				<aside class="cv-hero__evidence" aria-label="Recruiter snapshot">
@@ -4097,9 +4096,78 @@ const profileJsonLd = {
 			padding: 0;
 		}
 
+		details > * { color: #000; }
+
 		a[href^='http']::after {
 			content: ' (' attr(href) ')';
 			font-weight: 400;
 		}
 	}
+</style>
+
+<style>
+	/* Maria resume pattern: editorial rails, continuous text, no card wall. */
+	.cv-page { width:min(calc(100% - 5rem),var(--content-width)); margin:0 auto; padding-bottom:5rem; }
+	.cv-page .page-container { width:100%; }
+	.cv-scroll-jump,.cv-section-nav-shell { display:none; }
+	.cv-hero { padding:6rem 0 4rem; background:transparent; border:0; }
+	.cv-hero__inner { display:grid; grid-template-columns:1fr; gap:0; }
+	.cv-hero__label { display:grid; gap:1rem; }
+	.cv-hero__label .section-eyebrow { margin:0; color:var(--color-muted); }
+	.cv-hero__name { max-width:none; font-size:clamp(3rem,4.8vw,5rem); line-height:1.02; letter-spacing:-.05em; font-weight:800; }
+	.cv-hero__content { max-width:52rem; margin-top:1.75rem; padding:0; border:0; }
+	.cv-hero__subtitle { max-width:44rem; font-size:1.2rem; line-height:1.55; font-weight:600; }
+	.cv-hero__summary,.cv-hero__extended { max-width:52rem; font-size:1.08rem; line-height:1.7; color:var(--color-text); }
+	.cv-actions { margin-top:1.5rem; }
+	.cv-hero__evidence { grid-column:1; display:grid; grid-template-columns:16rem minmax(0,1fr); gap:2rem; margin-top:4rem; padding:2.5rem 0 0; border-top:1px solid var(--color-border); }
+	.cv-hero__evidence::before { content:'Snapshot'; font-family:var(--font-mono); font-size:.82rem; font-weight:600; letter-spacing:.08em; line-height:1.4; text-transform:uppercase; color:var(--color-muted); }
+	.cv-proof-grid { grid-column:2; display:grid; gap:1rem; }
+	.cv-proof-grid li { display:grid; grid-template-columns:minmax(9rem,.35fr) 1fr; gap:1rem; padding:0; border:0; background:transparent; }
+	.cv-proof-grid strong,.cv-proof-grid span { font-family:var(--font-body); font-size:1.08rem; line-height:1.7; letter-spacing:0; text-transform:none; }
+	.cv-proof-grid strong { color:var(--color-text); font-weight:700; }
+	.cv-proof-grid span { color:var(--color-muted); }
+	.cv-role-strip { grid-column:2; margin-top:1rem; padding-top:1rem; border-top:1px solid var(--color-border-soft); }
+	.cv-role-strip > p { font-family:var(--font-mono); font-size:.82rem; letter-spacing:.08em; text-transform:uppercase; color:var(--color-muted); }
+	.cv-chip-list { display:flex; flex-wrap:wrap; gap:.35rem .8rem; }
+	.cv-chip-list li { border:0; border-radius:0; background:transparent; padding:0; color:var(--color-muted); }
+	.cv-chip-list li:not(:last-child)::after { content:' ·'; }
+	.cv-main-flow { display:block; }
+	.cv-section { padding:2.5rem 0; border-top:1px solid var(--color-border); background:transparent; }
+	.cv-section > .page-container { display:grid; grid-template-columns:16rem minmax(0,1fr); gap:2rem; align-items:start; }
+	.cv-section__intro { display:contents; }
+	.cv-section__intro h2 { grid-column:1; margin:0; max-width:none; color:var(--color-muted); font-family:var(--font-mono); font-size:.82rem; font-weight:600; letter-spacing:.08em; line-height:1.4; text-transform:uppercase; }
+	.cv-section__intro > p { grid-column:2; margin:0 0 1.5rem; max-width:52rem; font-size:1.08rem; line-height:1.7; color:var(--color-text); }
+	.cv-section > .page-container > :not(.cv-section__intro) { grid-column:2; width:100%; max-width:52rem; }
+	.core-expertise-grid,.representative-systems__grid,.cv-card-grid,.cv-card-grid--education,.cv-card-grid--tools,.cv-research-layout { display:grid; grid-template-columns:1fr; gap:0; }
+	.cv-card,.cv-expertise-card,.representative-system-card,.cv-education-card,.cv-tool-card,.cv-learning-card { display:grid; gap:1rem; margin:0; padding:1.5rem 0; border:0; border-top:1px solid var(--color-border-soft); border-radius:0; background:transparent; box-shadow:none; transform:none; }
+	.cv-card:hover,.cv-card:focus-within { background:transparent; border-color:var(--color-border); transform:none; }
+	.cv-expertise-card__icon-button,.cv-expertise-card__toggle,.cv-role__icon-button,.cv-role__toggle { display:none; }
+	.core-expertise-detail[hidden],.cv-role__details[hidden],.cv-role__details--compact[hidden] { display:block; }
+	.cv-expertise-card__title,.cv-card h3,.cv-role h3,.cv-education-card h3,.cv-tool-card h3 { max-width:none; font-size:clamp(1.35rem,2vw,1.8rem); line-height:1.15; letter-spacing:-.04em; font-weight:800; }
+	.cv-expertise-card__summary,.core-expertise-detail__summary,.cv-role__summary,.cv-card p { font-size:1.05rem; line-height:1.7; color:var(--color-muted); }
+	.cv-expertise-card__capabilities,.cv-detail-group ul,.cv-role__bullets { margin-top:.5rem; }
+	.cv-timeline { display:grid; gap:0; border-top:1px solid var(--color-border-soft); }
+	.cv-role { display:grid; grid-template-columns:12rem minmax(0,1fr); gap:2rem; padding:2rem 0; border-bottom:1px solid var(--color-border-soft); }
+	.cv-role__milestone { position:static; display:block; padding:0; }
+	.cv-role__marker,.cv-role::before { display:none; }
+	.cv-role__content { padding:0; border:0; border-radius:0; background:transparent; box-shadow:none; }
+	.cv-role__period,.cv-role__organization,.cv-role__location { font-size:.82rem; line-height:1.5; }
+	.cv-role__details { margin-top:1rem; padding-top:1rem; border-top:1px solid var(--color-border-soft); }
+	.cv-impact-list { border-top:1px solid var(--color-border-soft); }
+	.cv-impact-list li { display:grid; grid-template-columns:10rem minmax(0,1fr); gap:1rem; padding:1.5rem 0; border:0; border-bottom:1px solid var(--color-border-soft); border-radius:0; background:transparent; }
+	.cv-impact-list h3 { font-size:1.35rem; letter-spacing:-.035em; }
+	.cv-research-outcomes { border-top:1px solid var(--color-border-soft); }
+	.cv-final__inner { display:grid; grid-template-columns:16rem minmax(0,1fr); gap:2rem; }
+	.cv-final__inner > div:first-child { grid-column:2; }
+	.cv-final__inner h2 { font-size:clamp(1.7rem,3vw,2.4rem); }
+	.cv-final__actions { grid-column:2; display:flex; flex-wrap:wrap; }
+	@media(max-width:720px){
+		.cv-hero{padding:4rem 0 3rem}
+		.cv-hero__evidence,.cv-section > .page-container,.cv-final__inner{grid-template-columns:1fr;gap:1rem}
+		.cv-hero__evidence::before,.cv-proof-grid,.cv-role-strip,.cv-section__intro h2,.cv-section__intro > p,.cv-section > .page-container > :not(.cv-section__intro),.cv-final__inner > div:first-child,.cv-final__actions{grid-column:1}
+		.cv-proof-grid li,.cv-role,.cv-impact-list li{grid-template-columns:1fr;gap:.35rem}
+		.cv-section__intro > p{margin-bottom:1rem}
+		.cv-actions .button,.cv-final__actions .button{width:100%}
+	}
+	@media(max-width:640px){.cv-page{width:min(calc(100% - 32px),var(--content-width))}}
 </style>

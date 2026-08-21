@@ -1,8 +1,8 @@
 ---
-title: Scholar and ORCID links to add
+title: Public research profiles
 type: External links
-summary: Add Google Scholar, ORCID, university profile, publication list, or repository links when the public profile URLs are ready.
+summary: Verified public research identifiers and publication profiles will be linked here when available; the CV contains the formal record.
 featured: false
 ---
 
-This entry should collect external research identifiers and publication profiles.
+This entry collects external research identifiers and publication profiles.

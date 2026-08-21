@@ -8,7 +8,7 @@ capabilities:
   - Requirements discipline
   - Delivery planning
 standards:
-  - A-SPICE-oriented delivery
+  - ASPICE-oriented delivery
   - ISO 26262-oriented collaboration
   - AUTOSAR-oriented integration
 domain: Automotive technical delivery
@@ -35,7 +35,7 @@ The scope covered requirements, interface expectations, control behavior, diagno
 
 ## Standards / environment
 
-The work took place in automotive embedded development contexts influenced by requirements processes, A-SPICE expectations, ISO 26262-oriented collaboration, AUTOSAR-oriented development, and production delivery discipline.
+The work took place in automotive embedded development contexts influenced by requirements processes, ASPICE expectations, ISO 26262-oriented collaboration, AUTOSAR-oriented development, and production delivery discipline.
 
 ## Outcome
 

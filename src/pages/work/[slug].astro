@@ -1,0 +1,22 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+	const entries = await getCollection('cases');
+	return entries.map((entry) => ({ params: { slug: entry.id.replace(/\.md$/, '') }, props: { entry } }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+---
+
+<BaseLayout title={`${entry.data.title} | Work`} description={entry.data.summary}>
+	<article class="page-container prose work-note-page">
+		<p class="section-eyebrow">Work note</p>
+		<h1>{entry.data.title}</h1>
+		<p>{entry.data.summary}</p>
+		<Content />
+		<p><a href={`${import.meta.env.BASE_URL}work/`}>Back to Work</a> · <a href={`${import.meta.env.BASE_URL}contact/`}>Get in touch</a></p>
+	</article>
+</BaseLayout>

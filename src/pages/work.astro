@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import WorkCard from '../components/WorkCard.astro';
 
 const baseUrl = import.meta.env.BASE_URL;
 const withBase = (href: string) => {
@@ -9,6 +10,13 @@ const withBase = (href: string) => {
 
 	return href === '/' ? baseUrl : `${baseUrl}${href.replace(/^\//, '')}`;
 };
+
+const projectCards = [
+	{ id: 'electric-truck-thermal-management', title: 'Electric Truck Thermal Management and BMS Systems', institution: 'Scania', image: '/images/work/electric-truck-thermal-bms.webp', alt: 'Electric truck connected to a charger in snowy test conditions', overview: 'Embedded control software for coordinating battery, charging, auxiliary, and thermal behavior in heavy-duty electric vehicles.', context: 'Heavy-duty electrification and thermal behavior.', contribution: 'Control architecture, software integration, diagnostics, and validation.', constraints: 'Physical limits, timing, safety-related behavior, and vehicle evidence.', evidence: 'Production-oriented EV control delivery', tags: ['BMS', 'Thermal control', 'Charging behavior', 'Diagnostics', 'Calibration', 'Vehicle validation'], noteHref: '/work/embedded-control-system-architecture/', proofHref: '/cv/#experience', proofLabel: 'CV experience', loading: 'eager' as const },
+	{ id: 'autonomous-hauler-propulsion-control', title: 'Autonomous Electric Hauler Propulsion Control', institution: 'Volvo Construction Equipment', image: '/images/work/autonomous-hauler-propulsion.webp', alt: 'Autonomous electric haulers operating in a quarry', overview: 'Propulsion-control software for autonomous electric machines operating in demanding off-road environments.', context: 'Autonomous heavy-duty mobility.', contribution: 'Propulsion, torque allocation, diagnostic monitoring, and integration.', constraints: 'Redundancy, safety-related behavior, SIL/HIL, and vehicle validation.', evidence: 'Applied autonomous-machine control delivery', tags: ['Traction control', 'Torque allocation', 'Redundant actuators', 'Diagnostic monitoring', 'SIL/HIL', 'Vehicle validation'], noteHref: '/work/cross-functional-technical-delivery/', proofHref: '/cv/#representative-systems', proofLabel: 'CV systems' },
+	{ id: 'ebike-motor-control-power-electronics', title: 'E-Bike Motor Control and Power Electronics Software', institution: 'MAHLE', image: '/images/work/ebike-motor-control.webp', alt: 'E-bike motor and crank area after off-road use', overview: 'Application-layer embedded software connecting motor-control behavior, thermal modeling, wireless charging, and converter functionality.', context: 'Electrified power electronics.', contribution: 'Application software, model integration, and interfaces.', constraints: 'Thermal behavior, converter limits, AUTOSAR-oriented integration, and bench evidence.', evidence: 'Production embedded software contribution', tags: ['PMSM thermal modeling', 'AUTOSAR-oriented architecture', 'DC/DC interfaces', 'Power electronics', 'Bench validation'], noteHref: '/work/embedded-control-system-architecture/', proofHref: '/cv/#experience', proofLabel: 'CV experience' },
+	{ id: 'heavy-duty-engine-diagnostics-control-research', title: 'Heavy-Duty Engine Diagnostics and Control Research', institution: 'Lund University / Scania', image: '/images/work/heavy-duty-engine-diagnostics.webp', alt: 'Heavy-duty engine test bench with sensors and measurement cables', overview: 'Real-time diagnostic and combustion-control prototypes for heavy-duty engine systems with experimental validation.', context: 'Research translated into production-relevant control evidence.', contribution: 'Diagnostics, control algorithms, virtual sensing, and test-bench validation.', constraints: 'Real-time deadlines, uncertainty, sensor evidence, and experimental repeatability.', evidence: 'PhD, patents, and publications', tags: ['Diagnostics', 'Closed-loop control', 'Virtual sensing', 'Stochastic detection', 'Patents', 'Publications'], noteHref: '/work/control-algorithms-and-diagnostics/', proofHref: '/cv/#research', proofLabel: 'CV research record' },
+];
 ---
 
 <BaseLayout
@@ -19,11 +27,11 @@ const withBase = (href: string) => {
 		<div class="page-container work-hero__inner">
 			<div class="work-hero__label">
 				<p class="section-eyebrow">Work</p>
-				<h1 id="work-title" class="hero-title">Work</h1>
+				<h1 id="work-title" class="hero-title">Selected Projects</h1>
 			</div>
 			<div class="work-hero__mission">
 				<p>
-					Selected project and research notes on embedded control software, diagnostics, and validation.
+					Projects across architecture, implementation, and delivery of embedded control software I have shaped and led.
 				</p>
 			</div>
 		</div>
@@ -31,14 +39,7 @@ const withBase = (href: string) => {
 
 	<section class="section work-section work-section--selected" id="selected-projects" aria-labelledby="project-contexts-title">
 		<div class="page-container">
-			<div class="work-section__intro">
-				<h2 id="project-contexts-title">Selected Projects</h2>
-				<p>
-					Selected project contexts that point to deeper notes on system behavior, embedded control software,
-					diagnostics, validation, and production constraints.
-				</p>
-			</div>
-			<div class="work-index-grid">
+			<div class="work-index-grid work-index-grid--legacy" aria-hidden="true">
 				<article class="work-index-card work-index-card--project" id="electric-truck-thermal-management" aria-labelledby="electric-truck-thermal-management-title">
 					<figure class="work-index-card__media">
 						<img
@@ -246,201 +247,6 @@ const withBase = (href: string) => {
 		</div>
 	</section>
 
-	<section class="section work-section" id="selected-research" aria-labelledby="selected-research-title">
-		<div class="page-container">
-			<div class="work-section__intro">
-				<h2 id="selected-research-title">Selected Research</h2>
-				<p>
-					Research-connected notes from Lund University / Scania on diagnostics, control algorithms, virtual sensing,
-					experimental validation, and real-time implementation. The <a
-						href={withBase('/cv/#research')}
-						data-analytics-event="related_proof_click"
-						data-cta-id="work-research-intro-cv"
-						data-cta-placement="work-research-intro"
-						data-cta-intent="formal-proof"
-						data-source-section="selected-research"
-					>CV research record</a> contains the
-					formal publication and patent record.
-				</p>
-			</div>
-			<div class="work-index-grid work-index-grid--research">
-				<article class="work-index-card work-index-card--research" id="virtual-sensing-in-cycle-combustion-diagnostics" aria-labelledby="virtual-sensing-in-cycle-combustion-diagnostics-title">
-					<div class="work-index-card__body">
-						<header class="work-index-card__header">
-							<h3 id="virtual-sensing-in-cycle-combustion-diagnostics-title">Virtual Sensing for In-Cycle Combustion Diagnostics</h3>
-						</header>
-						<p class="work-index-card__overview">Research on estimating combustion states that are difficult to measure directly during engine operation.</p>
-						<div class="research-detail-grid">
-							<div class="research-detail-group">
-								<p class="research-detail-group__label">Technical area</p>
-								<ul class="work-label-list" aria-label="Virtual Sensing for In-Cycle Combustion Diagnostics technical areas">
-									<li>Virtual sensing</li>
-									<li>In-cycle estimation</li>
-									<li>Combustion diagnostics</li>
-									<li>Heavy-duty engines</li>
-								</ul>
-							</div>
-							<div class="research-detail-group">
-								<p class="research-detail-group__label">Research outcomes</p>
-								<ul class="research-outcome-list" aria-label="Virtual Sensing for In-Cycle Combustion Diagnostics research outcomes">
-									<li>Developed model-based estimators for combustion states not directly available to production control logic.</li>
-									<li>Validated virtual-sensing behavior using heavy-duty engine test-bench data.</li>
-								</ul>
-							</div>
-						</div>
-						<a class="work-note-link research-note-link" href="#virtual-sensing-in-cycle-combustion-diagnostics" aria-label="Read research note on Virtual Sensing for In-Cycle Combustion Diagnostics" data-analytics-event="work_anchor_click" data-cta-id="work-research-note-virtual-sensing-in-cycle-combustion-diagnostics" data-cta-placement="work-research-card" data-cta-intent="read-research-note" data-source-section="selected-research">
-							Read research note <span aria-hidden="true">-&gt;</span>
-						</a>
-						<p class="work-related-proof">
-							<span>Related proof</span>
-							<a href={withBase('/cv/#research')} data-analytics-event="related_proof_click" data-cta-id="work-research-proof-virtual-sensing-in-cycle-combustion-diagnostics" data-cta-placement="work-research-card" data-cta-intent="formal-proof" data-source-section="virtual-sensing-in-cycle-combustion-diagnostics">CV research record</a>
-						</p>
-					</div>
-				</article>
-
-				<article class="work-index-card work-index-card--research" id="stochastic-fault-detection-diagnostic-decision-logic" aria-labelledby="stochastic-fault-detection-diagnostic-decision-logic-title">
-					<div class="work-index-card__body">
-						<header class="work-index-card__header">
-							<h3 id="stochastic-fault-detection-diagnostic-decision-logic-title">Stochastic Fault Detection and Diagnostic Decision Logic</h3>
-						</header>
-						<p class="work-index-card__overview">Research on detecting abnormal combustion-system behavior using probability, sensor data, and diagnostic thresholds.</p>
-						<div class="research-detail-grid">
-							<div class="research-detail-group">
-								<p class="research-detail-group__label">Technical area</p>
-								<ul class="work-label-list" aria-label="Stochastic Fault Detection and Diagnostic Decision Logic technical areas">
-									<li>Stochastic detection</li>
-									<li>Misfire diagnosis</li>
-									<li>Adaptive thresholds</li>
-									<li>Sensor fusion</li>
-									<li>Diagnostic logic</li>
-								</ul>
-							</div>
-							<div class="research-detail-group">
-								<p class="research-detail-group__label">Research outcomes</p>
-								<ul class="research-outcome-list" aria-label="Stochastic Fault Detection and Diagnostic Decision Logic research outcomes">
-									<li>Developed diagnostic decision methods for combustion fault detection.</li>
-									<li>Evaluated diagnostic robustness under changing operating conditions.</li>
-								</ul>
-							</div>
-						</div>
-						<a class="work-note-link research-note-link" href="#stochastic-fault-detection-diagnostic-decision-logic" aria-label="Read research note on Stochastic Fault Detection and Diagnostic Decision Logic" data-analytics-event="work_anchor_click" data-cta-id="work-research-note-stochastic-fault-detection-diagnostic-decision-logic" data-cta-placement="work-research-card" data-cta-intent="read-research-note" data-source-section="selected-research">
-							Read research note <span aria-hidden="true">-&gt;</span>
-						</a>
-						<p class="work-related-proof">
-							<span>Related proof</span>
-							<a href={withBase('/cv/#research')} data-analytics-event="related_proof_click" data-cta-id="work-research-proof-stochastic-fault-detection-diagnostic-decision-logic" data-cta-placement="work-research-card" data-cta-intent="formal-proof" data-source-section="stochastic-fault-detection-diagnostic-decision-logic">CV research record</a>
-						</p>
-					</div>
-				</article>
-
-				<article class="work-index-card work-index-card--research" id="predictive-in-cycle-combustion-control" aria-labelledby="predictive-in-cycle-combustion-control-title">
-					<div class="work-index-card__body">
-						<header class="work-index-card__header">
-							<h3 id="predictive-in-cycle-combustion-control-title">Predictive In-Cycle Combustion Control</h3>
-						</header>
-						<p class="work-index-card__overview">Research on predictive closed-loop controllers that adjust fuel injection within the same combustion cycle.</p>
-						<div class="research-detail-grid">
-							<div class="research-detail-group">
-								<p class="research-detail-group__label">Technical area</p>
-								<ul class="work-label-list" aria-label="Predictive In-Cycle Combustion Control technical areas">
-									<li>Closed-loop control</li>
-									<li>Predictive control</li>
-									<li>Combustion control</li>
-									<li>Model adaptation</li>
-									<li>FPGA implementation</li>
-								</ul>
-							</div>
-							<div class="research-detail-group">
-								<p class="research-detail-group__label">Research outcomes</p>
-								<ul class="research-outcome-list" aria-label="Predictive In-Cycle Combustion Control research outcomes">
-									<li>Developed predictive controllers for cycle-resolved combustion regulation.</li>
-									<li>Validated control robustness under model uncertainty and changing fuel conditions.</li>
-								</ul>
-							</div>
-						</div>
-						<a class="work-note-link research-note-link" href="#predictive-in-cycle-combustion-control" aria-label="Read research note on Predictive In-Cycle Combustion Control" data-analytics-event="work_anchor_click" data-cta-id="work-research-note-predictive-in-cycle-combustion-control" data-cta-placement="work-research-card" data-cta-intent="read-research-note" data-source-section="selected-research">
-							Read research note <span aria-hidden="true">-&gt;</span>
-						</a>
-						<p class="work-related-proof">
-							<span>Related proof</span>
-							<a href={withBase('/cv/#research')} data-analytics-event="related_proof_click" data-cta-id="work-research-proof-predictive-in-cycle-combustion-control" data-cta-placement="work-research-card" data-cta-intent="formal-proof" data-source-section="predictive-in-cycle-combustion-control">CV research record</a>
-						</p>
-					</div>
-				</article>
-
-				<article class="work-index-card work-index-card--research" id="stochastic-set-point-optimization-efficiency" aria-labelledby="stochastic-set-point-optimization-efficiency-title">
-					<div class="work-index-card__body">
-						<header class="work-index-card__header">
-							<h3 id="stochastic-set-point-optimization-efficiency-title">Stochastic Set-Point Optimization for Efficiency</h3>
-						</header>
-						<p class="work-index-card__overview">Research on using stochastic combustion models and Monte Carlo simulation to optimize combustion-control set-points.</p>
-						<div class="research-detail-grid">
-							<div class="research-detail-group">
-								<p class="research-detail-group__label">Technical area</p>
-								<ul class="work-label-list" aria-label="Stochastic Set-Point Optimization for Efficiency technical areas">
-									<li>Efficiency optimization</li>
-									<li>Stochastic modeling</li>
-									<li>Monte Carlo simulation</li>
-									<li>Set-point optimization</li>
-									<li>Constraint handling</li>
-								</ul>
-							</div>
-							<div class="research-detail-group">
-								<p class="research-detail-group__label">Research outcomes</p>
-								<ul class="research-outcome-list" aria-label="Stochastic Set-Point Optimization for Efficiency research outcomes">
-									<li>Developed set-point optimization methods for combustion efficiency.</li>
-									<li>Evaluated trade-offs between efficiency, pressure-rise constraints, and misfire risk.</li>
-								</ul>
-							</div>
-						</div>
-						<a class="work-note-link research-note-link" href="#stochastic-set-point-optimization-efficiency" aria-label="Read research note on Stochastic Set-Point Optimization for Efficiency" data-analytics-event="work_anchor_click" data-cta-id="work-research-note-stochastic-set-point-optimization-efficiency" data-cta-placement="work-research-card" data-cta-intent="read-research-note" data-source-section="selected-research">
-							Read research note <span aria-hidden="true">-&gt;</span>
-						</a>
-						<p class="work-related-proof">
-							<span>Related proof</span>
-							<a href={withBase('/cv/#research')} data-analytics-event="related_proof_click" data-cta-id="work-research-proof-stochastic-set-point-optimization-efficiency" data-cta-placement="work-research-card" data-cta-intent="formal-proof" data-source-section="stochastic-set-point-optimization-efficiency">CV research record</a>
-						</p>
-					</div>
-				</article>
-
-				<article class="work-index-card work-index-card--research" id="real-time-combustion-control-implementation" aria-labelledby="real-time-combustion-control-implementation-title">
-					<div class="work-index-card__body">
-						<header class="work-index-card__header">
-							<h3 id="real-time-combustion-control-implementation-title">Real-Time Combustion Control Implementation</h3>
-						</header>
-						<p class="work-index-card__overview">Research on implementing combustion observers, virtual sensors, and control algorithms under real-time hardware constraints.</p>
-						<div class="research-detail-grid">
-							<div class="research-detail-group">
-								<p class="research-detail-group__label">Technical area</p>
-								<ul class="work-label-list" aria-label="Real-Time Combustion Control Implementation technical areas">
-									<li>Real-time implementation</li>
-									<li>FPGA</li>
-									<li>Hardware-constrained systems</li>
-									<li>Signal processing</li>
-									<li>Embedded control</li>
-								</ul>
-							</div>
-							<div class="research-detail-group">
-								<p class="research-detail-group__label">Research outcomes</p>
-								<ul class="research-outcome-list" aria-label="Real-Time Combustion Control Implementation research outcomes">
-									<li>Implemented in-cycle combustion-control methods for real-time execution on FPGA hardware.</li>
-									<li>Quantified timing, resource, and implementation constraints for embedded control deployment.</li>
-								</ul>
-							</div>
-						</div>
-						<a class="work-note-link research-note-link" href="#real-time-combustion-control-implementation" aria-label="Read research note on Real-Time Combustion Control Implementation" data-analytics-event="work_anchor_click" data-cta-id="work-research-note-real-time-combustion-control-implementation" data-cta-placement="work-research-card" data-cta-intent="read-research-note" data-source-section="selected-research">
-							Read research note <span aria-hidden="true">-&gt;</span>
-						</a>
-						<p class="work-related-proof">
-							<span>Related proof</span>
-							<a href={withBase('/cv/#research')} data-analytics-event="related_proof_click" data-cta-id="work-research-proof-real-time-combustion-control-implementation" data-cta-placement="work-research-card" data-cta-intent="formal-proof" data-source-section="real-time-combustion-control-implementation">CV research record</a>
-						</p>
-					</div>
-				</article>
-			</div>
-		</div>
-	</section>
-
 	<section class="section work-section work-section--threads" id="technical-areas" aria-labelledby="technical-areas-title">
 		<div class="page-container work-thread-summary">
 			<div class="work-section__intro">
@@ -548,7 +354,7 @@ const withBase = (href: string) => {
 
 	.work-hero .page-container,
 	.work-section .page-container {
-		width: min(calc(100% - 32px), 1120px);
+		width: min(calc(100% - 5rem), var(--content-width));
 		max-width: 100%;
 	}
 
@@ -668,6 +474,8 @@ const withBase = (href: string) => {
 		grid-template-columns: 1fr;
 		gap: clamp(0.85rem, 1.8vw, 1rem);
 	}
+
+	.work-index-grid--legacy { display: none; }
 
 	.work-index-grid--research {
 		gap: clamp(0.8rem, 1.6vw, 0.95rem);
@@ -1019,7 +827,7 @@ const withBase = (href: string) => {
 	@media (max-width: 640px) {
 		.work-hero .page-container,
 		.work-section .page-container {
-			width: min(calc(100% - 48px), 1120px);
+			width: min(calc(100% - 2rem), var(--content-width));
 		}
 
 		.work-hero__inner {
@@ -1068,5 +876,52 @@ const withBase = (href: string) => {
 		.work-index-card__media {
 			aspect-ratio: 3 / 2;
 		}
+	}
+</style>
+
+<style>
+	/* Maria theme adaptation: image-led project rows and quiet editorial evidence. */
+	.work-hero .page-container,
+	.work-section .page-container { width:min(calc(100% - 5rem),var(--content-width)); }
+	.work-hero { padding:4.5rem 0 3rem; border:0; }
+	.work-hero__inner { display:block; }
+	.work-hero__label { display:grid; gap:1rem; }
+	.work-hero .section-eyebrow { margin:0; color:var(--color-muted); }
+	.work-hero .hero-title { max-width:none; font-size:clamp(2.6rem,4.6vw,4.4rem); line-height:1.03; letter-spacing:-.05em; font-weight:800; }
+	.work-hero__mission { max-width:42rem; margin-top:1.35rem; padding:0; border:0; }
+	.work-hero__mission p { font-size:1.05rem; line-height:1.75; color:var(--color-muted); }
+	.work-section { padding-block:3rem 5rem; }
+	.work-section__intro { max-width:52rem; margin-bottom:3rem; }
+	.work-section__intro h2 { max-width:none; font-size:clamp(1.7rem,3vw,2.4rem); line-height:1.08; letter-spacing:-.04em; }
+	.work-section__intro p { margin-top:1rem; font-size:1.05rem; line-height:1.75; color:var(--color-muted); }
+	.work-index-grid { display:grid; grid-template-columns:1fr; gap:1.5rem; }
+	.work-index-card--project { display:grid; grid-template-columns:minmax(0,.9fr) minmax(22rem,1.1fr); gap:2rem; align-items:start; padding:1.5rem; background:var(--color-card-bg); border:1px solid var(--color-border); border-radius:1.5rem; box-shadow:none; }
+	.work-index-card--project .work-index-card__body { grid-column:1; grid-row:1; padding:0; align-content:start; }
+	.work-index-card--project .work-index-card__media { grid-column:2; grid-row:1; width:100%; height:auto; aspect-ratio:auto; border-radius:1rem; overflow:hidden; align-self:start; }
+	.work-index-card--project .work-index-card__media img { width:100%; height:auto; object-fit:initial; border-radius:1rem; box-shadow:0 18px 40px rgba(23,23,23,.08); }
+	.work-index-card__header h3 { font-size:clamp(1.6rem,2.1vw,2.2rem); line-height:1.08; letter-spacing:-.05em; font-weight:800; }
+	.work-index-card__institution,.work-index-card__header .section-eyebrow { font-family:var(--font-mono); font-size:.82rem; font-weight:600; letter-spacing:.08em; line-height:1.4; text-transform:uppercase; color:var(--color-muted); }
+	.work-index-card__overview { font-size:1.05rem; line-height:1.75; color:var(--color-muted); }
+	.work-note-link { display:inline-flex; width:fit-content; min-height:48px; align-items:center; gap:.6rem; padding:.85rem 1.1rem; border:1px solid #d0d0d0; border-radius:999px; font-size:1rem; font-weight:700; text-decoration:none; }
+	.work-label-list li,.work-thread-list li { border:0; border-radius:0; background:transparent; padding:0; color:var(--color-muted); }
+	.work-label-list li:not(:last-child)::after { content:' ·'; }
+	.work-index-grid--research { display:grid; grid-template-columns:1fr; gap:0; border-top:1px solid var(--color-border); }
+	.work-index-card--research { border:0; border-bottom:1px solid var(--color-border); border-radius:0; background:transparent; padding:2rem 0; }
+	.work-index-card--research .work-index-card__body { padding:0; max-width:52rem; }
+	.work-index-card--research:hover { transform:none; background:transparent; }
+	.work-section--threads { background:transparent; border-top:1px solid var(--color-border); }
+	.work-thread-summary { display:grid; grid-template-columns:16rem minmax(0,1fr); gap:2rem; }
+	.work-thread-group { padding:1rem 0; border-bottom:1px solid var(--color-border); }
+	.work-final { border-top:1px solid var(--color-border); }
+	@media(max-width:860px){
+		.work-index-card--project { grid-template-columns:1fr; gap:1.25rem; }
+		.work-index-card--project .work-index-card__body,.work-index-card--project .work-index-card__media { grid-column:1; }
+		.work-index-card--project .work-index-card__body { grid-row:1; }
+		.work-index-card--project .work-index-card__media { grid-row:2; }
+	}
+	@media(max-width:720px){
+		.work-hero { padding:4rem 0 2rem; }
+		.work-index-card--project { padding:1.2rem; }
+		.work-thread-summary { grid-template-columns:1fr; }
 	}
 </style>

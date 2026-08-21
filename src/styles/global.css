@@ -1,13 +1,13 @@
 :root {
-	--font-display: "Source Serif 4", Georgia, "Times New Roman", serif;
-	--font-body: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+	--font-display: "Manrope", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+	--font-body: "Manrope", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 	--font-sans: var(--font-body);
-	--font-mono: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+	--font-mono: "SFMono-Regular", "SF Mono", "Roboto Mono", "IBM Plex Mono", Consolas, monospace;
 
-	--type-hero-name-size: clamp(3.6rem, 9.2vw, 8.25rem);
-	--type-hero-name-line: 0.9;
-	--type-hero-name-tracking: -0.075em;
-	--type-hero-name-weight: 600;
+	--type-hero-name-size: clamp(3rem, 4.8vw, 5rem);
+	--type-hero-name-line: 1.02;
+	--type-hero-name-tracking: -0.05em;
+	--type-hero-name-weight: 800;
 
 	--type-hero-role-size: clamp(1.25rem, 2vw, 1.85rem);
 	--type-hero-role-line: 1.18;
@@ -19,19 +19,19 @@
 	--type-hero-summary-tracking: -0.01em;
 	--type-hero-summary-weight: 400;
 
-	--type-section-title-size: clamp(2.25rem, 5.2vw, 5.25rem);
-	--type-section-title-line: 0.98;
-	--type-section-title-tracking: -0.065em;
-	--type-section-title-weight: 600;
+	--type-section-title-size: clamp(2.6rem, 4.6vw, 4.4rem);
+	--type-section-title-line: 1.03;
+	--type-section-title-tracking: -0.05em;
+	--type-section-title-weight: 800;
 
 	--type-section-intro-size: clamp(1.02rem, 1.35vw, 1.25rem);
 	--type-section-intro-line: 1.5;
 	--type-section-intro-tracking: -0.02em;
 	--type-section-intro-weight: 400;
 
-	--type-eyebrow-size: 0.72rem;
-	--type-eyebrow-line: 1;
-	--type-eyebrow-tracking: 0.12em;
+	--type-eyebrow-size: 0.82rem;
+	--type-eyebrow-line: 1.4;
+	--type-eyebrow-tracking: 0.08em;
 	--type-eyebrow-weight: 600;
 
 	--type-body-size: 1rem;
@@ -47,7 +47,7 @@
 	--type-card-title-size: clamp(1.25rem, 1.8vw, 1.65rem);
 	--type-card-title-line: 1.08;
 	--type-card-title-tracking: -0.04em;
-	--type-card-title-weight: 600;
+	--type-card-title-weight: 700;
 
 	--type-card-body-size: 0.98rem;
 	--type-card-body-line: 1.58;
@@ -81,10 +81,10 @@
 	--type-chip-tracking: 0.045em;
 	--type-chip-weight: 500;
 
-	--type-nav-size: 0.72rem;
+	--type-nav-size: 0.875rem;
 	--type-nav-line: 1;
-	--type-nav-tracking: 0.08em;
-	--type-nav-weight: 600;
+	--type-nav-tracking: 0;
+	--type-nav-weight: 400;
 
 	--type-button-size: 0.78rem;
 	--type-button-line: 1;
@@ -96,48 +96,41 @@
 	   Main colors are defined by role first, then assigned below.
 	   ========================================================== */
 
-	--ux-canvas: #faf8f7;
-	--ux-canvas-raised: #f7f2ec;
-	--ux-surface-muted: #eee7df;
-	--ux-surface-support: #e7ddd4;
+	--ux-canvas: #ffffff;
+	--ux-canvas-raised: #ffffff;
+	--ux-surface-muted: #f7f7f7;
+	--ux-surface-support: #efefef;
 
-	--ux-content: #161616;
-	--ux-content-body: #2f2f2f;
-	--ux-content-muted: #666666;
-	--ux-content-soft: #8a817b;
-	--ux-content-secondary: #6f625b;
+	--ux-content: #171717;
+	--ux-content-body: #171717;
+	--ux-content-muted: #676767;
+	--ux-content-soft: #858585;
+	--ux-content-secondary: #4f4f4f;
 	--ux-content-inverse: #f5f5f5;
 
 	--ux-border-source: var(--ux-content);
 
 	/* Shared sunset/clay connector between light and dark themes. */
-	--ux-sunset-connector: #d06b6f;
+	--ux-sunset-connector: #5869d8;
 
 	/* Action colors are sunset-clay but tuned for serious UI contrast. */
 	--ux-action: var(--ux-sunset-connector);
-	--ux-action-hover: #c96369;
+	--ux-action-hover: #171717;
 
 	/* Use the darker signal for text on light backgrounds. */
-	--ux-signal: #9a4d4d;
-	--ux-signal-wash: #f3dcd6;
+	--ux-signal: #5869d8;
+	--ux-signal-wash: #f7f7f7;
 	--ux-focus: var(--ux-signal);
 
 	/* Mediterranean center-glow: same canvas, warm accent in the middle. */
-	--ux-immersive-canvas:
-		radial-gradient(
-			circle at 50% 38%,
-			color-mix(in srgb, var(--ux-sunset-connector) 18%, var(--ux-canvas)) 0%,
-			var(--ux-canvas) 42%,
-			color-mix(in srgb, var(--ux-canvas-raised) 44%, var(--ux-canvas)) 76%,
-			var(--ux-canvas) 100%
-		);
+	--ux-immersive-canvas: var(--ux-canvas);
 
 	--ux-display-emphasis:
 		linear-gradient(
 			90deg,
-			#9a4d4d 0%,
+			#20211e 0%,
 			var(--ux-sunset-connector) 48%,
-			#c9896c 100%
+			#315544 100%
 		);
 
 	--ux-media-overlay: color-mix(in srgb, var(--ux-canvas-raised) 10%, transparent);
@@ -204,14 +197,14 @@
 	--color-tag-text: var(--ux-content);
 	--color-quote-text: var(--color-accent-text);
 
-	--color-footer-bg: var(--ux-canvas-raised);
-	--color-footer-text: var(--ux-content-secondary);
-	--color-footer-link: var(--ux-content);
-	--color-footer-link-hover: var(--ux-content-secondary);
-	--color-footer-border: color-mix(in srgb, var(--ux-border-source) 16%, transparent);
+	--color-footer-bg: #ffffff;
+	--color-footer-text: #676767;
+	--color-footer-link: #171717;
+	--color-footer-link-hover: #171717;
+	--color-footer-border: #d9d9d9;
 
 	/* Layout */
-	--content-width: 1120px;
+	--content-width: 1248px;
 	--content-narrow: 760px;
 	--measure-reading: 760px;
 	--measure-compact: 620px;
@@ -236,37 +229,37 @@
 	--motion-standard-productive: cubic-bezier(0.22, 1, 0.36, 1);
 	--motion-entrance-expressive: cubic-bezier(0.16, 1, 0.3, 1);
 
-	--radius: 16px;
+	--radius: 1.5rem;
 	--radius-pill: 999px;
 
 	color-scheme: light;
 }
 
 :root[data-theme="dark"] {
-	--ux-canvas: #111820;
-	--ux-canvas-raised: #0b1118;
-	--ux-surface-muted: #16222b;
-	--ux-surface-depth: #0b1118;
-	--ux-surface-support: #1b2a35;
+	--ux-canvas: #0d1014;
+	--ux-canvas-raised: #0d1014;
+	--ux-surface-muted: #171b22;
+	--ux-surface-depth: #0d1014;
+	--ux-surface-support: #151a21;
 
-	--ux-content: #f1ede6;
-	--ux-content-body: #d7d0c8;
-	--ux-content-muted: #afa6a0;
-	--ux-content-soft: #9d9690;
-	--ux-content-subtle: #817b76;
-	--ux-content-secondary: #d7d0c8;
+	--ux-content: #f5f7fb;
+	--ux-content-body: #f5f7fb;
+	--ux-content-muted: #a3acb9;
+	--ux-content-soft: #8e98a6;
+	--ux-content-subtle: #75808e;
+	--ux-content-secondary: #dce2ea;
 	--ux-content-inverse: #0b1118;
 
 	/* Cool border source keeps the Nordic feel without turning borders blue-heavy. */
-	--ux-border-source: #c7d3d5;
+	--ux-border-source: #d9e1ec;
 
 	/* Same connector hue as light theme. */
-	--ux-sunset-connector: #d06b6f;
+	--ux-sunset-connector: #9dacff;
 
 	--ux-action: var(--ux-sunset-connector);
-	--ux-action-hover: #e08a84;
-	--ux-signal: #e08a84;
-	--ux-signal-wash: #2b2024;
+	--ux-action-hover: #c2ccff;
+	--ux-signal: #9dacff;
+	--ux-signal-wash: #171b22;
 	--ux-focus: var(--ux-signal);
 	--ux-card-subtext: #d7d0c8;
 
@@ -382,6 +375,7 @@ html {
 body {
 	margin: 0;
 	min-width: 320px;
+	overflow-x: clip;
 	background: var(--color-page-gradient);
 	color: var(--color-text);
 	font-family: var(--font-body);
@@ -416,7 +410,7 @@ h3 {
 	margin: 0;
 	color: var(--color-text);
 	font-family: var(--font-display);
-	font-weight: 600;
+	font-weight: 700;
 	letter-spacing: 0;
 }
 
@@ -494,7 +488,7 @@ h2 {
 	line-height: var(--type-section-title-line);
 	letter-spacing: var(--type-section-title-tracking);
 	font-weight: var(--type-section-title-weight);
-	max-width: 13ch;
+	max-width: 15ch;
 	overflow-wrap: normal;
 	margin: 0;
 }
@@ -749,13 +743,18 @@ li::marker {
 }
 
 .page-container {
-	width: min(80% - 48px, 1120px);
+	width: min(calc(100% - 5rem), var(--content-width));
 	margin-inline: auto;
+}
+
+html.menu-open,
+html.menu-open body {
+	overflow: hidden;
 }
 
 .container,
 .narrow {
-	width: min(100% - 48px, var(--content-width));
+	width: min(calc(100% - 5rem), var(--content-width));
 	margin-inline: auto;
 }
 
@@ -784,7 +783,7 @@ li::marker {
 
 .section {
 	background: var(--color-section-bg);
-	padding-block: clamp(3rem, 6vw, 5rem);
+	padding-block: clamp(5rem, 8vw, 7rem);
 }
 
 .eyebrow {
@@ -816,10 +815,10 @@ li::marker {
         align-items: center;
         justify-content: center;
         gap: 0.5rem;
-        border: 1px solid var(--color-border);
-        border-radius: var(--radius-pill);
-        background: transparent;
-        padding: 0.45rem 0.9rem;
+	border: 1px solid #d0d0d0;
+	border-radius: var(--radius-pill);
+		background: transparent;
+		padding: 0.65rem 1.25rem;
 	color: var(--color-button-secondary-text);
 	font-family: var(--font-mono);
 	font-size: var(--type-button-size);
@@ -841,16 +840,26 @@ li::marker {
 }
 
 .button.primary {
-	border-color: var(--color-button-primary-bg);
-	background: var(--color-button-primary-bg);
-	color: var(--color-button-primary-text);
+	border-color: var(--color-text);
+	background: var(--color-text);
+	color: var(--color-page);
 }
 
 .button.primary:hover,
 .button.primary:focus-visible {
-	border-color: var(--color-button-primary-state-bg);
-	background: var(--color-button-primary-state-bg);
-	color: var(--color-button-primary-state-text);
+	border-color: var(--color-accent-text);
+	background: var(--color-accent-text);
+	color: #fff;
+}
+
+@media (max-width: 640px) {
+	.page-container,
+	.container,
+	.narrow {
+		width: min(calc(100% - 2rem), var(--content-width));
+	}
+
+	.section { padding-block: 5rem; }
 }
 
 .button:active {
@@ -1024,7 +1033,7 @@ li::marker {
 	}
 
 	.page-container {
-		width: min(100% - 32px, 1120px);
+		width: min(100% - 32px, var(--content-width));
 	}
 
 	.container,

@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
+import { TAG_GROUPS, tagGroupFor } from '../../data/tagGroups';
 
 const baseUrl = import.meta.env.BASE_URL;
 const normalizedBase = baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`;
@@ -37,6 +38,7 @@ const articles = entries.map((entry) => ({
 const topics = Array.from(new Set(articles.flatMap((article) => article.tags))).sort((a, b) =>
 	a.localeCompare(b),
 );
+const groupSlug = (group: string) => toTagSlug(group);
 ---
 
 <Layout
@@ -53,9 +55,7 @@ const topics = Array.from(new Set(articles.flatMap((article) => article.tags))).
 
 				<div class="writing-hero__mission">
 					<p>
-						Notes on embedded control systems, software-defined vehicles, diagnostics, validation, and
-						technical leadership - where physical-system intent has to become reliable behavior in real
-						machines.
+						Notes on how software makes physical systems behave reliably — control, diagnostics, validation, architecture, and the organizations that build them. Most of the evidence comes from automotive and heavy-duty machines; the principles travel.
 					</p>
 				</div>
 			</div>
@@ -65,15 +65,15 @@ const topics = Array.from(new Set(articles.flatMap((article) => article.tags))).
 			<div class="page-container writing-container">
 				<h2 id="writing-list-title" class="visually-hidden">Article list</h2>
 
-				<details class="writing-filter-menu" data-filter-menu>
-					<summary>
-						<span class="filter-summary__label">Browse articles by topic</span>
-						<span class="filter-summary__current" data-filter-current>All topics</span>
-					</summary>
-					<div class="filter-chips" role="group" aria-label="Filter articles by topic">
-						<button class="filter-chip is-active" type="button" data-filter="all" aria-pressed="true">
-							All topics
-						</button>
+				<div class="writing-filter-bar">
+					<div class="filter-chips filter-chips--groups" role="group" aria-label="Filter articles by topic group">
+						{Object.keys(TAG_GROUPS).map((group) => <button class="filter-chip" type="button" data-filter={groupSlug(group)} data-filter-label={group} aria-pressed="false">{group}</button>)}
+					</div>
+					<details class="writing-filter-menu" data-filter-menu>
+						<summary>
+							<span class="filter-summary__label">Browse articles by topic</span>
+						</summary>
+						<div class="filter-chips" role="group" aria-label="Filter articles by topic">
 						{
 							topics.map((topic) => (
 								<button
@@ -87,13 +87,16 @@ const topics = Array.from(new Set(articles.flatMap((article) => article.tags))).
 								</button>
 							))
 						}
-					</div>
-				</details>
+						</div>
+					</details>
+					<button class="filter-all" type="button" data-filter-reset>All Topics</button>
+					<span class="visually-hidden" data-filter-current aria-live="polite">All topics</span>
+				</div>
 
 				<div class="article-list" data-article-list>
 					{
 						articles.map((article) => (
-							<article class="article-card" data-article-card data-tags={article.tags.map(toTagSlug).join(' ')}>
+							<article class="article-card" data-article-card data-tags={[...article.tags.map(toTagSlug), ...article.tags.map((tag) => groupSlug(tagGroupFor(tag)))].join(' ')}>
 								<a
 									class="article-card__link"
 									href={article.href}
@@ -104,30 +107,40 @@ const topics = Array.from(new Set(articles.flatMap((article) => article.tags))).
 									data-cta-intent={article.isDraft ? 'planned-authority' : 'authority'}
 									data-source-section="writing-list"
 								>
-									<div class="article-card__content">
-										<header class="article-card__header">
-											<h3 id={`${article.slug}-title`}>{article.title}</h3>
-											<p class="article-card__meta">
-												<time datetime={article.dateTime}>{article.date}</time>
-												{article.isDraft && <span>Planned article</span>}
-											</p>
-										</header>
-										<p class="article-card__excerpt">{article.excerpt}</p>
+								<div class="article-card__content">
+									<div class="article-card__rail">
+										<p class="article-card__meta">
+											<time datetime={article.dateTime}>{article.date}</time>
+											{article.isDraft && <span>Planned article</span>}
+										</p>
 										<ul class="article-card__tags" aria-label={`${article.title} topics`}>
 											{article.tags.map((tag) => (
 												<li>{tag}</li>
 											))}
 										</ul>
 									</div>
+									<div class="article-card__main">
+										<h3 id={`${article.slug}-title`}>{article.title}</h3>
+										<span class="article-card__cta">Read More <span aria-hidden="true">→</span></span>
+									</div>
+								</div>
 								</a>
 							</article>
 						))
 					}
 				</div>
 
+				<nav class="article-pagination" data-pagination aria-label="Article pages" hidden>
+					<button type="button" data-page-previous>Previous</button>
+					<div class="article-pagination__numbers" data-page-numbers></div>
+					<button type="button" data-page-next>Next</button>
+				</nav>
+
+				<button class="article-load-more" type="button" data-load-more hidden>Load more</button>
+
 				<div class="empty-state" data-empty-state hidden>
 					<p>No articles found for this topic yet.</p>
-					<button class="filter-reset" type="button" data-filter-reset>Return to All</button>
+					<button class="filter-reset" type="button" data-filter-reset>All Topics</button>
 				</div>
 			</div>
 		</section>
@@ -141,7 +154,7 @@ const topics = Array.from(new Set(articles.flatMap((article) => article.tags))).
 	}
 
 	.writing-container {
-		width: min(calc(100% - 32px), 1120px);
+		width: min(calc(100% - 5rem), var(--content-width));
 		max-width: 100%;
 	}
 
@@ -154,7 +167,7 @@ const topics = Array.from(new Set(articles.flatMap((article) => article.tags))).
 
 	.writing-hero .page-container,
 	.writing-list-section .page-container {
-		width: min(calc(100% - 32px), 1120px);
+		width: min(calc(100% - 5rem), var(--content-width));
 		max-width: 100%;
 	}
 
@@ -203,9 +216,13 @@ const topics = Array.from(new Set(articles.flatMap((article) => article.tags))).
 		overflow-wrap: anywhere;
 	}
 
+	.writing-filter-bar {
+		position: relative;
+		margin-bottom: clamp(1rem, 2.4vw, 1.35rem);
+	}
+
 	.writing-filter-menu {
 		margin-inline: auto;
-		margin-bottom: clamp(1rem, 2.4vw, 1.35rem);
 		box-sizing: border-box;
 		width: 100%;
 		max-width: 100%;
@@ -214,13 +231,14 @@ const topics = Array.from(new Set(articles.flatMap((article) => article.tags))).
 	}
 
 	.writing-filter-menu summary {
+		position: relative;
 		display: grid;
-		grid-template-columns: minmax(0, 1fr) auto auto;
+		grid-template-columns: minmax(0, 1fr);
 		gap: 0.75rem;
 		align-items: center;
 		cursor: pointer;
 		list-style: none;
-		padding: clamp(0.9rem, 2.2vw, 1.15rem) clamp(1rem, 2.5vw, 1.35rem);
+		padding: clamp(0.9rem, 2.2vw, 1.15rem) clamp(10rem, 18vw, 11.5rem) clamp(0.9rem, 2.2vw, 1.15rem) clamp(1rem, 2.5vw, 1.35rem);
 	}
 
 	.writing-filter-menu summary::-webkit-details-marker {
@@ -229,6 +247,10 @@ const topics = Array.from(new Set(articles.flatMap((article) => article.tags))).
 
 	.writing-filter-menu summary::after {
 		content: '+';
+		position: absolute;
+		top: 50%;
+		right: clamp(1rem, 2.5vw, 1.35rem);
+		transform: translateY(-50%);
 		display: inline-grid;
 		place-items: center;
 		width: 1.55rem;
@@ -259,9 +281,16 @@ const topics = Array.from(new Set(articles.flatMap((article) => article.tags))).
 		line-height: 1.25;
 	}
 
-	.filter-summary__current {
-		justify-self: end;
+	.filter-all {
+		position: absolute;
+		top: 1.85rem;
+		right: 3.65rem;
+		z-index: 2;
+		transform: translateY(-50%);
+		border: 0;
+		background: transparent;
 		color: var(--color-muted);
+		cursor: pointer;
 		font-family: var(--font-mono);
 		font-size: var(--type-chip-size);
 		font-weight: var(--type-chip-weight);
@@ -270,13 +299,30 @@ const topics = Array.from(new Set(articles.flatMap((article) => article.tags))).
 		text-transform: uppercase;
 	}
 
+	.filter-all:hover,
+	.filter-all:focus-visible {
+		color: var(--color-text);
+		text-decoration: underline;
+		text-underline-offset: 0.25em;
+	}
+
+	.filter-all.is-active {
+		color: var(--color-text);
+		font-weight: 750;
+	}
+
+	.filter-all:focus-visible {
+		outline: 2px solid var(--color-focus);
+		outline-offset: 3px;
+	}
+
 	.filter-chips {
 		display: flex;
 		flex-wrap: wrap;
 		gap: 0.5rem;
 		min-width: 0;
 		border-top: 1px solid var(--color-border-soft);
-		padding: 0 clamp(1rem, 2.5vw, 1.35rem) clamp(1rem, 2.5vw, 1.35rem);
+		padding: clamp(1rem, 2.5vw, 1.35rem);
 	}
 
 	.filter-chip,
@@ -331,15 +377,17 @@ const topics = Array.from(new Set(articles.flatMap((article) => article.tags))).
 
 	.article-list {
 		display: grid;
-		gap: 0.85rem;
+		gap: 0;
 		width: 100%;
 		max-width: 100%;
 		margin-inline: auto;
+		border-top: 1px solid var(--color-border-soft);
 	}
 
 	.article-card {
 		margin: 0;
 		min-width: 0;
+		border-bottom: 1px solid var(--color-border-soft);
 	}
 
 	.article-card[hidden] {
@@ -351,22 +399,17 @@ const topics = Array.from(new Set(articles.flatMap((article) => article.tags))).
 		box-sizing: border-box;
 		min-width: 0;
 		max-width: 100%;
-		border: 1px solid var(--color-border-soft);
-		border-radius: var(--radius);
-		background: var(--color-card-bg);
+		border: 0;
+		border-radius: 0;
+		background: transparent;
 		color: inherit;
 		text-decoration: none;
-		transition:
-			background-color var(--motion-duration-fast-02) var(--motion-standard-productive),
-			border-color var(--motion-duration-fast-02) var(--motion-standard-productive),
-			transform var(--motion-duration-fast-02) var(--motion-standard-productive);
+		transition: background-color var(--motion-duration-fast-02) var(--motion-standard-productive);
 	}
 
 	.article-card__link:hover,
 	.article-card__link:focus-visible {
-		border-color: var(--color-card-border-hover);
 		background: var(--color-card-bg-hover);
-		transform: translateY(-1px);
 	}
 
 	.article-card__link:focus-visible {
@@ -376,19 +419,22 @@ const topics = Array.from(new Set(articles.flatMap((article) => article.tags))).
 
 	.article-card__content {
 		display: grid;
-		gap: 0.85rem;
-		padding: clamp(1rem, 2.5vw, 1.35rem);
+		grid-template-columns: minmax(10rem, 15rem) minmax(0, 1fr);
+		gap: clamp(1.5rem, 4vw, 3rem);
+		padding: clamp(1.45rem, 3vw, 2.25rem) clamp(0.25rem, 1.5vw, 1rem);
 	}
 
-	.article-card__header {
+	.article-card__rail,
+	.article-card__main {
 		display: grid;
-		gap: 0.45rem;
+		align-content: start;
+		gap: 0.8rem;
 	}
 
 	.article-card h3 {
-		max-width: 44ch;
+		max-width: 32ch;
 		color: var(--color-text);
-		font-size: clamp(1.18rem, 2vw, 1.55rem);
+		font-size: clamp(1.4rem, 2.4vw, 2rem);
 		font-weight: 650;
 		letter-spacing: -0.035em;
 		line-height: 1.12;
@@ -415,18 +461,10 @@ const topics = Array.from(new Set(articles.flatMap((article) => article.tags))).
 		color: var(--color-border);
 	}
 
-	.article-card__excerpt {
-		max-width: 68ch;
-		color: var(--color-body-text);
-		font-size: var(--type-reading-size);
-		line-height: var(--type-reading-line);
-		overflow-wrap: anywhere;
-	}
-
 	.article-card__tags {
 		display: flex;
 		flex-wrap: wrap;
-		gap: 0.35rem;
+		gap: 0.2rem 0.45rem;
 		margin: 0;
 		padding: 0;
 		list-style: none;
@@ -434,17 +472,83 @@ const topics = Array.from(new Set(articles.flatMap((article) => article.tags))).
 
 	.article-card__tags li {
 		margin: 0;
-		border: 1px solid var(--color-border-soft);
-		border-radius: calc(var(--radius) * 0.45);
-		background: color-mix(in srgb, var(--color-surface-soft) 34%, transparent);
-		color: var(--color-tag-text);
+		border: 0;
+		background: transparent;
+		color: var(--color-muted);
 		font-family: var(--font-mono);
 		font-size: var(--type-chip-size);
 		font-weight: var(--type-chip-weight);
 		letter-spacing: 0;
 		line-height: var(--type-chip-line);
-		padding: 0.2rem 0.42rem;
+		padding: 0;
 		overflow-wrap: anywhere;
+	}
+
+	.article-card__tags li:not(:last-child)::after {
+		content: ',';
+	}
+
+	.article-card__cta {
+		width: fit-content;
+		color: var(--color-link);
+		font-family: var(--font-mono);
+		font-size: var(--type-chip-size);
+		font-weight: 650;
+		letter-spacing: var(--type-chip-tracking);
+		text-transform: uppercase;
+		text-decoration: underline;
+		text-underline-offset: 0.25em;
+	}
+
+	.article-pagination {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 0.5rem;
+		margin-top: 2rem;
+	}
+
+	.article-pagination[hidden],
+	.article-load-more[hidden] {
+		display: none;
+	}
+
+	.article-pagination__numbers {
+		display: flex;
+		gap: 0.35rem;
+	}
+
+	.article-pagination button,
+	.article-load-more {
+		min-height: 2.75rem;
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-pill);
+		background: transparent;
+		color: var(--color-text);
+		cursor: pointer;
+		font-family: var(--font-mono);
+		font-size: var(--type-chip-size);
+		font-weight: 650;
+		padding: 0.55rem 0.85rem;
+	}
+
+	.article-pagination button:hover,
+	.article-pagination button:focus-visible,
+	.article-load-more:hover,
+	.article-load-more:focus-visible,
+	.article-pagination button[aria-current='page'] {
+		border-color: var(--color-border-strong);
+		background: var(--color-surface-soft);
+	}
+
+	.article-pagination button:disabled {
+		cursor: default;
+		opacity: 0.4;
+	}
+
+	.article-load-more {
+		display: none;
+		margin: 1.5rem auto 0;
 	}
 
 	.empty-state {
@@ -483,7 +587,7 @@ const topics = Array.from(new Set(articles.flatMap((article) => article.tags))).
 	@media (max-width: 640px) {
 		.writing-hero .page-container,
 		.writing-list-section .page-container {
-			width: min(calc(100% - 48px), 1120px);
+			width: min(calc(100% - 2rem), var(--content-width));
 		}
 
 		.writing-hero__inner {
@@ -512,12 +616,28 @@ const topics = Array.from(new Set(articles.flatMap((article) => article.tags))).
 		}
 
 		.writing-filter-menu summary {
-			grid-template-columns: minmax(0, 1fr) auto;
+			padding-right: 9.5rem;
 		}
 
-		.filter-summary__current {
-			grid-column: 1 / -1;
-			justify-self: start;
+		.filter-all {
+			right: 3.25rem;
+		}
+
+		.article-card__content {
+			grid-template-columns: 1fr;
+			gap: 1rem;
+		}
+
+		.article-card__main {
+			gap: 0.7rem;
+		}
+
+		.article-pagination {
+			display: none;
+		}
+
+		.article-load-more:not([hidden]) {
+			display: flex;
 		}
 
 		.article-card__meta span::before {
@@ -530,52 +650,127 @@ const topics = Array.from(new Set(articles.flatMap((article) => article.tags))).
 	const filterButtons = Array.from(document.querySelectorAll<HTMLButtonElement>('[data-filter]'));
 	const articleCards = Array.from(document.querySelectorAll<HTMLElement>('[data-article-card]'));
 	const emptyState = document.querySelector<HTMLElement>('[data-empty-state]');
-	const resetButton = document.querySelector<HTMLButtonElement>('[data-filter-reset]');
+	const resetButtons = Array.from(document.querySelectorAll<HTMLButtonElement>('[data-filter-reset]'));
 	const filterCurrent = document.querySelector<HTMLElement>('[data-filter-current]');
+	const pagination = document.querySelector<HTMLElement>('[data-pagination]');
+	const pageNumbers = document.querySelector<HTMLElement>('[data-page-numbers]');
+	const previousButton = document.querySelector<HTMLButtonElement>('[data-page-previous]');
+	const nextButton = document.querySelector<HTMLButtonElement>('[data-page-next]');
+	const loadMoreButton = document.querySelector<HTMLButtonElement>('[data-load-more]');
+	const phoneQuery = window.matchMedia('(max-width: 640px)');
+	const selectedTopics = new Set<string>();
+	const pageSize = 8;
+	let currentPage = 1;
+	let phoneVisibleCount = pageSize;
 
-	const setFilter = (filter: string) => {
-		let visibleCount = 0;
-		let activeLabel = 'All topics';
+	const matchingCards = () => articleCards.filter((card) => {
+		if (selectedTopics.size === 0) return true;
+		const tags = card.dataset.tags?.split(' ') ?? [];
+		return Array.from(selectedTopics).some((topic) => tags.includes(topic));
+	});
+
+	const renderPageNumbers = (pageCount: number) => {
+		if (!pageNumbers) return;
+		pageNumbers.replaceChildren();
+
+		for (let page = 1; page <= pageCount; page += 1) {
+			const button = document.createElement('button');
+			button.type = 'button';
+			button.textContent = String(page);
+			button.setAttribute('aria-label', `Go to article page ${page}`);
+			if (page === currentPage) button.setAttribute('aria-current', 'page');
+			button.addEventListener('click', () => {
+				currentPage = page;
+				render();
+			});
+			pageNumbers.append(button);
+		}
+	};
+
+	const render = () => {
+		const matches = matchingCards();
+		const pageCount = Math.max(1, Math.ceil(matches.length / pageSize));
+		currentPage = Math.min(currentPage, pageCount);
+		const firstDesktopIndex = (currentPage - 1) * pageSize;
 
 		articleCards.forEach((card) => {
-			const tags = card.dataset.tags?.split(' ') ?? [];
-			const isVisible = filter === 'all' || tags.includes(filter);
+			const matchIndex = matches.indexOf(card);
+			const isMatch = matchIndex >= 0;
+			const isVisible = phoneQuery.matches
+				? isMatch && matchIndex < phoneVisibleCount
+				: isMatch && matchIndex >= firstDesktopIndex && matchIndex < firstDesktopIndex + pageSize;
 			card.hidden = !isVisible;
-
-			if (isVisible) {
-				visibleCount += 1;
-			}
 		});
 
 		filterButtons.forEach((button) => {
-			const isActive = button.dataset.filter === filter;
+			const filter = button.dataset.filter ?? '';
+			const isActive = selectedTopics.has(filter);
 			button.classList.toggle('is-active', isActive);
 			button.setAttribute('aria-pressed', String(isActive));
-
-			if (isActive) {
-				activeLabel = button.dataset.filterLabel ?? button.textContent?.trim() ?? 'All topics';
-			}
 		});
 
-		if (emptyState) {
-			emptyState.hidden = visibleCount > 0;
-		}
+		resetButtons.forEach((button) => {
+			const isActive = selectedTopics.size === 0;
+			button.classList.toggle('is-active', isActive);
+			button.setAttribute('aria-pressed', String(isActive));
+		});
 
 		if (filterCurrent) {
-			filterCurrent.textContent = activeLabel;
+			const labels = filterButtons
+				.filter((button) => selectedTopics.has(button.dataset.filter ?? ''))
+				.map((button) => button.dataset.filterLabel ?? button.textContent?.trim())
+				.filter(Boolean);
+			filterCurrent.textContent = labels.length > 0 ? `${labels.join(', ')} selected` : 'All topics selected';
 		}
+
+		if (emptyState) emptyState.hidden = matches.length > 0;
+		if (pagination) pagination.hidden = phoneQuery.matches || matches.length === 0 || pageCount <= 1;
+		if (previousButton) previousButton.disabled = currentPage === 1;
+		if (nextButton) nextButton.disabled = currentPage === pageCount;
+		if (loadMoreButton) loadMoreButton.hidden = !phoneQuery.matches || matches.length <= phoneVisibleCount;
+		renderPageNumbers(pageCount);
 	};
 
 	filterButtons.forEach((button) => {
 		button.addEventListener('click', () => {
-			setFilter(button.dataset.filter ?? 'all');
+			const filter = button.dataset.filter;
+			if (!filter) return;
+			if (selectedTopics.has(filter)) selectedTopics.delete(filter);
+			else selectedTopics.add(filter);
+			currentPage = 1;
+			phoneVisibleCount = pageSize;
+			render();
 		});
 	});
 
-	resetButton?.addEventListener('click', () => {
-		setFilter('all');
-		filterButtons.find((button) => button.dataset.filter === 'all')?.focus();
+	resetButtons.forEach((button) => button.addEventListener('click', () => {
+		selectedTopics.clear();
+		currentPage = 1;
+		phoneVisibleCount = pageSize;
+		render();
+	}));
+
+	previousButton?.addEventListener('click', () => {
+		if (currentPage > 1) currentPage -= 1;
+		render();
 	});
 
-	setFilter('all');
+	nextButton?.addEventListener('click', () => {
+		const pageCount = Math.max(1, Math.ceil(matchingCards().length / pageSize));
+		if (currentPage < pageCount) currentPage += 1;
+		render();
+	});
+
+	loadMoreButton?.addEventListener('click', () => {
+		phoneVisibleCount += pageSize;
+		render();
+	});
+
+	phoneQuery.addEventListener('change', () => {
+		currentPage = 1;
+		phoneVisibleCount = pageSize;
+		render();
+	});
+
+	render();
 </script>

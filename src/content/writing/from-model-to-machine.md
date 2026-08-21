@@ -2,7 +2,7 @@
 title: From model to machine
 description: What changes when a control algorithm leaves simulation and meets real hardware.
 publishDate: 2026-05-18
-category: Embedded Control Architecture
+category: Embedded Controls Architecture
 tags:
   - Modeling
   - Real-time software

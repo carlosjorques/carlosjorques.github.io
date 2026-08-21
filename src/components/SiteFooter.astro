@@ -1,14 +1,16 @@
 ---
+import { EMAIL_ADDRESS, IDENTITY, LINKEDIN_URL } from '../data/identity';
+
 const baseUrl = import.meta.env.BASE_URL;
 const normalizedBase = baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`;
 const withBase = (href: string) => (href === '/' ? normalizedBase : `${normalizedBase}${href.replace(/^\//, '')}`);
-const emailHref = 'mailto:carlosjorques@gmail.com';
-const linkedinHref = 'https://www.linkedin.com/in/carlosjorques/';
+const emailHref = `mailto:${EMAIL_ADDRESS}`;
+const linkedinHref = LINKEDIN_URL;
 ---
 
 <footer class="site-footer" id="site-footer-contact">
 	<div class="page-container site-footer__inner">
-		<span>Making complex systems behave reliably.</span>
+		<span>{IDENTITY.brandLine}</span>
 
 		<nav class="site-footer__links" aria-label="Footer links">
 			<a
@@ -34,14 +36,15 @@ const linkedinHref = 'https://www.linkedin.com/in/carlosjorques/';
 				LinkedIn
 			</a>
 			<a
-				href={withBase('/cv')}
+				href={withBase('/cv/Carlos_Jorques_CV.pdf')}
+				download
 				data-analytics-event="cta_click"
 				data-cta-id="footer-cv"
 				data-cta-placement="footer"
 				data-cta-intent="proof"
 				data-source-section="footer"
 			>
-				CV
+				CV (PDF)
 			</a>
 			<a href={withBase('/privacy')}>Privacy</a>
 		</nav>
@@ -50,9 +53,8 @@ const linkedinHref = 'https://www.linkedin.com/in/carlosjorques/';
 
 <style>
 	.site-footer {
-		border-top: 1px solid var(--color-footer-border);
 		background: var(--color-footer-bg);
-		padding-block: 2rem;
+		padding-block: 0 3rem;
 		color: var(--color-footer-text);
 	}
 
@@ -65,6 +67,8 @@ const linkedinHref = 'https://www.linkedin.com/in/carlosjorques/';
 		font-family: var(--font-body);
 		font-size: var(--type-body-size);
 		line-height: var(--type-body-line);
+		padding-top: 3rem;
+		border-top: 1px solid var(--color-footer-border);
 	}
 
 	.site-footer__inner > span {
@@ -75,11 +79,11 @@ const linkedinHref = 'https://www.linkedin.com/in/carlosjorques/';
 		display: flex;
 		gap: 1.25rem;
 		flex-wrap: wrap;
-		font-family: var(--font-mono);
-		font-size: var(--type-nav-size);
-		font-weight: var(--type-nav-weight);
-		letter-spacing: var(--type-nav-tracking);
-		text-transform: uppercase;
+		font-family: var(--font-body);
+		font-size: .95rem;
+		font-weight: 600;
+		letter-spacing: -.02em;
+		text-transform: none;
 	}
 
 	.site-footer__links a {
