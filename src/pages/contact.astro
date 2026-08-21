@@ -12,32 +12,6 @@ const contactEmail = 'carlosjorques@gmail.com';
 const emailHref = `mailto:${contactEmail}`;
 const cvPdfHref = '/cv/Carlos_Jorques_CV.pdf';
 const linkedinHref = 'https://www.linkedin.com/in/carlosjorques/';
-const links = {
-	cv: withBase('/cv'),
-	pdfCv: withBase(cvPdfHref),
-	work: withBase('/work'),
-	linkedin: linkedinHref,
-	privacy: withBase('/privacy'),
-};
-
-const secondaryLinks = [
-	{
-		label: 'LinkedIn',
-		href: links.linkedin,
-		external: true,
-		ariaLabel: 'Open Carlos Jorques on LinkedIn in a new tab',
-		analyticsEvent: 'linkedin_outbound_click',
-		ctaId: 'contact-linkedin',
-		intent: 'professional-profile',
-	},
-	{
-		label: 'Download PDF CV',
-		href: links.pdfCv,
-		analyticsEvent: 'cv_pdf_download',
-		ctaId: 'contact-download-cv',
-		intent: 'formal-proof',
-	},
-];
 ---
 
 <Layout
@@ -45,14 +19,18 @@ const secondaryLinks = [
 	description="Contact Carlos Jorques about embedded controls, electrification, autonomy, diagnostics, safety-critical software, technical leadership, or collaboration."
 >
 	<section class="contact-hero" aria-labelledby="contact-title">
-		<div class="page-container contact-hero__content">
-			<p class="section-eyebrow">Contact</p>
-			<h1 id="contact-title">Get in touch</h1>
-			<p class="contact-hero__lead">
-				If you are working on embedded controls, electrification, autonomy, diagnostics, validation, or safety-critical software, I would be glad to hear from you.
-			</p>
-			<p class="contact-hero__context">Open to technical discussions, architecture conversations, and role opportunities.</p>
-			<p class="contact-hero__context">Based in Spain · Working remotely with international teams</p>
+		<div class="page-container contact-hero__inner">
+			<div class="contact-hero__label">
+				<p class="section-eyebrow">Contact</p>
+				<h1 id="contact-title" class="hero-title">Get in touch</h1>
+			</div>
+			<div class="contact-hero__mission">
+				<p>
+					If you are working on embedded controls, electrification, autonomy, diagnostics, validation, or safety-critical software, I would be glad to hear from you.
+				</p>
+				<p>Open to technical discussions, architecture conversations, and role opportunities.</p>
+				<p>Based in Spain - working remotely with international teams.</p>
+			</div>
 		</div>
 	</section>
 
@@ -96,24 +74,33 @@ const secondaryLinks = [
 				</article>
 
 				<nav class="secondary-contact-links" aria-label="Secondary contact links">
-					{secondaryLinks.map((link) => (
-						<a
-							href={link.href}
-							target={link.external ? '_blank' : undefined}
-							rel={link.external ? 'noopener noreferrer' : undefined}
-							aria-label={link.ariaLabel}
-							data-analytics-event={link.analyticsEvent}
-							data-cta-id={link.ctaId}
-							data-cta-placement="contact-secondary-links"
-							data-cta-intent={link.intent}
-							data-source-section="contact-secondary"
-						>
-							<span>{link.label}</span>
-							<strong>{link.external ? 'Professional profile' : 'PDF resume'}</strong>
-						</a>
-					))}
 					<a
-						href={links.cv}
+						href={linkedinHref}
+						target="_blank"
+						rel="noopener noreferrer"
+						aria-label="Open Carlos Jorques on LinkedIn in a new tab"
+						data-analytics-event="linkedin_outbound_click"
+						data-cta-id="contact-linkedin"
+						data-cta-placement="contact-secondary-links"
+						data-cta-intent="professional-profile"
+						data-source-section="contact-secondary"
+					>
+						<span>LinkedIn</span>
+						<strong>Professional profile</strong>
+					</a>
+					<a
+						href={withBase(cvPdfHref)}
+						data-analytics-event="cv_pdf_download"
+						data-cta-id="contact-download-cv"
+						data-cta-placement="contact-secondary-links"
+						data-cta-intent="formal-proof"
+						data-source-section="contact-secondary"
+					>
+						<span>Download PDF CV</span>
+						<strong>PDF resume</strong>
+					</a>
+					<a
+						href={withBase('/cv')}
 						data-analytics-event="cta_click"
 						data-cta-id="contact-online-cv"
 						data-cta-placement="contact-secondary-links"
@@ -183,7 +170,7 @@ const secondaryLinks = [
 				</div>
 
 				<p class="contact-note" id="privacy-note">
-					I&apos;ll use your details only to reply to your message. <a href={links.privacy}>Read the privacy notice.</a>
+					I&apos;ll use your details only to reply to your message. <a href={withBase('/privacy')}>Read the privacy notice.</a>
 				</p>
 				<button class="button primary" type="submit" aria-describedby="privacy-note form-status">Send message</button>
 			</form>
@@ -193,41 +180,60 @@ const secondaryLinks = [
 
 <style>
 	.contact-hero {
-		padding-block: clamp(4rem, 8vw, 7rem) clamp(2.75rem, 5vw, 4.25rem);
+		padding-block: clamp(3rem, 5vw, 4.6rem) clamp(1.55rem, 3vw, 2.25rem);
 		border-bottom: 1px solid var(--color-border-soft);
 		background: transparent;
 	}
 
-	.contact-hero__content {
+	.contact-hero .page-container,
+	.contact-content .page-container {
+		width: min(calc(100% - 32px), 1120px);
+		max-width: 100%;
+	}
+
+	.contact-hero__inner,
+	.contact-hero__label,
+	.contact-hero__mission {
 		display: grid;
-		gap: var(--spacing-05);
-		max-width: 820px;
 	}
 
-	.contact-hero h1 {
-		max-width: 13ch;
-		font-family: var(--font-display);
-		font-size: var(--type-hero-name-size);
-		font-weight: var(--type-hero-name-weight);
-		letter-spacing: var(--type-hero-name-tracking);
-		line-height: var(--type-hero-name-line);
+	.contact-hero__inner {
+		grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+		gap: clamp(1.4rem, 5vw, 4.2rem);
+		align-items: end;
 	}
 
-	.contact-hero__lead {
-		max-width: 760px;
-		color: var(--color-text);
-		font-size: var(--type-hero-summary-size);
-		font-weight: var(--type-hero-summary-weight);
-		letter-spacing: var(--type-hero-summary-tracking);
-		line-height: var(--type-hero-summary-line);
+	.contact-hero__label {
+		gap: 0.85rem;
+		min-width: 0;
 	}
 
-	.contact-hero__context {
-		max-width: 620px;
+	.contact-hero__label .section-eyebrow {
+		margin: 0;
+	}
+
+	.contact-hero__mission {
+		gap: 0.75rem;
+		min-width: 0;
+		border-left: 1px solid var(--color-border-soft);
+		padding-left: clamp(1rem, 3vw, 2rem);
+	}
+
+	.contact-hero .hero-title {
+		max-width: none;
+		font-size: clamp(4.2rem, 8vw, 7rem);
+		overflow-wrap: normal;
+		word-break: normal;
+	}
+
+	.contact-hero__mission p {
+		max-width: 660px;
+		margin: 0;
 		color: var(--color-body-text);
-		font-size: var(--type-hero-summary-size);
-		letter-spacing: var(--type-hero-summary-tracking);
-		line-height: var(--type-hero-summary-line);
+		font-size: clamp(1.1rem, 1.45vw, 1.32rem);
+		font-weight: 400;
+		line-height: 1.5;
+		overflow-wrap: anywhere;
 	}
 
 	.contact-content {
@@ -462,8 +468,31 @@ const secondaryLinks = [
 			padding-block: 3.5rem 2.75rem;
 		}
 
-		.contact-hero h1 {
+		.contact-hero .page-container,
+		.contact-content .page-container {
+			width: min(calc(100% - 48px), 1120px);
+		}
+
+		.contact-hero__inner {
+			grid-template-columns: 1fr;
+			align-items: start;
+			gap: 1.1rem;
+		}
+
+		.contact-hero__mission {
+			border-left: 0;
+			border-top: 1px solid var(--color-border-soft);
+			padding-top: 1rem;
+			padding-left: 0;
 			max-width: 100%;
+		}
+
+		.contact-hero .hero-title {
+			font-size: clamp(3.2rem, 15vw, 4.4rem);
+		}
+
+		.contact-hero__label,
+		.contact-hero__mission {
 			overflow-wrap: anywhere;
 		}
 	}

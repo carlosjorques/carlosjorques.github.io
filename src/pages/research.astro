@@ -13,19 +13,15 @@ const supportingItems = researchItems.filter((item) => !item.data.featured);
 	title="Research"
 	description="Research background for Carlos Jorques, supporting credibility in modeling, analysis, and control for production embedded systems."
 >
-	<section class="section">
-		<div class="narrow">
-			<SectionHeading
-				eyebrow="Research"
-				title="Research foundation for industrial control systems work"
-				description="Research supports credibility, but the main identity of this site is industrial technical leadership in embedded control systems."
-			/>
-			<div class="prose">
+	<section class="research-hero" aria-labelledby="research-title">
+		<div class="page-container research-hero__inner">
+			<div class="research-hero__label">
+				<p class="section-eyebrow">Research</p>
+				<h1 id="research-title" class="hero-title">Research foundation</h1>
+			</div>
+			<div class="research-hero__mission">
 				<p>
-					My research background provides a foundation in modeling, analysis, and control. My
-					professional focus is applying that depth to production embedded systems where
-					architecture, safety, software integration, diagnostics, standards, suppliers, and
-					delivery constraints matter.
+					Research supports credibility, but the main identity of this site is industrial technical leadership in embedded control systems. My research background provides a foundation in modeling, analysis, and control applied to production constraints.
 				</p>
 			</div>
 		</div>
@@ -89,6 +85,62 @@ const supportingItems = researchItems.filter((item) => !item.data.featured);
 </Layout>
 
 <style>
+	.research-hero {
+		padding-block: clamp(3rem, 5vw, 4.6rem) clamp(1.55rem, 3vw, 2.25rem);
+		border-bottom: 1px solid var(--color-border-soft);
+		background: transparent;
+	}
+
+	.research-hero .page-container,
+	.section .container {
+		width: min(calc(100% - 32px), 1120px);
+		max-width: 100%;
+	}
+
+	.research-hero__inner,
+	.research-hero__label,
+	.research-hero__mission {
+		display: grid;
+	}
+
+	.research-hero__inner {
+		grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+		gap: clamp(1.4rem, 5vw, 4.2rem);
+		align-items: end;
+	}
+
+	.research-hero__label {
+		gap: 0.85rem;
+		min-width: 0;
+	}
+
+	.research-hero__label .section-eyebrow {
+		margin: 0;
+	}
+
+	.research-hero__mission {
+		min-width: 0;
+		border-left: 1px solid var(--color-border-soft);
+		padding-left: clamp(1rem, 3vw, 2rem);
+	}
+
+	.research-hero .hero-title {
+		max-width: none;
+		font-size: clamp(4.2rem, 8vw, 7rem);
+		overflow-wrap: normal;
+		word-break: normal;
+	}
+
+	.research-hero__mission p {
+		max-width: 660px;
+		margin: 0;
+		color: var(--color-body-text);
+		font-size: clamp(1.1rem, 1.45vw, 1.32rem);
+		font-weight: 400;
+		line-height: 1.5;
+		overflow-wrap: anywhere;
+	}
+
 	.research-grid {
 		display: grid;
 		grid-template-columns: 1fr;
@@ -128,6 +180,36 @@ const supportingItems = researchItems.filter((item) => !item.data.featured);
 	@media (min-width: 760px) {
 		.research-grid {
 			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+	}
+
+	@media (max-width: 640px) {
+		.research-hero .page-container,
+		.section .container {
+			width: min(calc(100% - 48px), 1120px);
+		}
+
+		.research-hero__inner {
+			grid-template-columns: 1fr;
+			align-items: start;
+			gap: 1.1rem;
+		}
+
+		.research-hero__mission {
+			border-left: 0;
+			border-top: 1px solid var(--color-border-soft);
+			padding-top: 1rem;
+			padding-left: 0;
+			max-width: 100%;
+		}
+
+		.research-hero .hero-title {
+			font-size: clamp(3.2rem, 15vw, 4.4rem);
+		}
+
+		.research-hero__label,
+		.research-hero__mission {
+			overflow-wrap: anywhere;
 		}
 	}
 </style>
