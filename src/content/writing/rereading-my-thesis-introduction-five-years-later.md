@@ -13,7 +13,7 @@ tags:
   - Electrification
   - PhD research
 featured: true
-draft: false
+draft: true
 ---
 
 Every thesis begins with a chapter that justifies its existence. Mine opened with the state of road transport in 2021: fossil fuels supplying 95% of transport energy, diesel powering more than 90% of road freight, batteries too heavy and too expensive for long-haul trucks, hydrogen waiting for infrastructure, and biofuels as the realistic bridge. On that foundation I built the case for [in-cycle closed-loop combustion control](/writing/controlling-combustion-while-it-happens/): if engines could measure their own combustion and correct it in real time, they could run efficiently and cleanly on fuels whose properties vary, under legislation that keeps tightening.

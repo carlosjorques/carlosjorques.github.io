@@ -12,7 +12,7 @@ tags:
   - Embedded control
   - Technical leadership
 featured: true
-draft: false
+draft: true
 ---
 
 Will AI replace automotive software engineers?

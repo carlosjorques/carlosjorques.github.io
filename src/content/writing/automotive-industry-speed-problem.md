@@ -12,7 +12,7 @@ tags:
   - Technical leadership
   - Engineering organization
 featured: true
-draft: false
+draft: true
 ---
 
 I have spent my career inside engine and vehicle control units: first developing combustion control software for diesel engines, later control software for some of the first electrified heavy trucks at Scania, and along the way a PhD at Lund University on in-cycle closed-loop combustion control ([Jorques Moreno, 2021](https://lup.lub.lu.se/search/publication/afeb6cfc-2aa4-4230-b51e-492b9376791e)). That vantage point, the millisecond loop where software meets physics, is a good place to watch an industry change. And the industry has changed more in the last eight years than in the previous forty.

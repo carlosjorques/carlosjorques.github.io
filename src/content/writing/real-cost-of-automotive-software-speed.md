@@ -12,7 +12,7 @@ tags:
   - Automotive software
   - Validation
 featured: true
-draft: false
+draft: true
 ---
 
 For decades, automotive software was an afterthought, downstream of the "real" vehicle.

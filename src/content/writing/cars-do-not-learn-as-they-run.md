@@ -11,7 +11,7 @@ tags:
   - Safety validation
   - Software-defined vehicles
 featured: true
-draft: false
+draft: true
 ---
 
 The most seductive image in automotive AI is the car that gets smarter with every mile. It learns your commute, it learns the pothole on your street, it learns from every near miss, and tomorrow it drives better than today. The image sells software-defined vehicles, and there is a kernel of truth inside it.

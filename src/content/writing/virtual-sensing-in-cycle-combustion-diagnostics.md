@@ -13,7 +13,7 @@ tags:
   - In-cycle diagnostics
   - Model-based estimation
 featured: true
-draft: false
+draft: true
 heroImage:
   src: /images/blog/virtual-sensing/thesis-pilot-mass-estimation.svg
   alt: Thesis plot comparing actual injected pilot mass with in-cycle pilot mass estimation

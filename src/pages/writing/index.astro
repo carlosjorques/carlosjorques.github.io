@@ -20,7 +20,7 @@ const formatDate = (date: Date) =>
 		day: 'numeric',
 	});
 
-const entries = (await getCollection('writing')).sort(
+const entries = (await getCollection('writing', ({ data }) => !data.draft)).sort(
 	(a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf(),
 );
 

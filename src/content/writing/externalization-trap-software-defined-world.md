@@ -12,7 +12,7 @@ tags:
   - Automotive software
   - Technical leadership
 featured: true
-draft: false
+draft: true
 ---
 
 Software-defined vehicles are often described through technology: centralized compute, zonal architectures, service-oriented software, cloud platforms, over-the-air updates, AI-enabled features, and continuous deployment.

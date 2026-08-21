@@ -11,7 +11,7 @@ tags:
   - Software-defined vehicles
   - Embedded control
 featured: true
-draft: false
+draft: true
 ---
 
 Ask where artificial intelligence lives in a modern car and most people will point at the driver assistance system. That answer is correct and badly incomplete. Machine learning is quietly working its way into places most drivers never think about: the model that estimates how much charge is left in the battery, the virtual sensor that infers emissions the hardware cannot measure directly, the shift strategy that anticipates the corner ahead. Meanwhile, in the most safety-critical loops, classical control still holds the actuators, and for good reasons.

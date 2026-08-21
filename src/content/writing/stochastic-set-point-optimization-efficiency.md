@@ -14,7 +14,7 @@ tags:
   - Constraint handling
   - Combustion control
 featured: true
-draft: false
+draft: true
 heroImage:
   src: /images/blog/stochastic-set-point-optimization/thesis-optimal-setpoint.svg
   alt: Thesis plot of indicated efficiency and CA50 set-point references under operating constraints

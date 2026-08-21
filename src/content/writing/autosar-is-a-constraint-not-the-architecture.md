@@ -12,7 +12,7 @@ tags:
   - Embedded control
   - Software architecture
 featured: true
-draft: false
+draft: true
 ---
 
 Ask an automotive software engineer in Europe what architecture their ECU has, and there is a good chance the answer will be one word: AUTOSAR.
