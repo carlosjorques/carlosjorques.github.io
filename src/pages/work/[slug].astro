@@ -15,57 +15,149 @@ const withBase = (href: string) => `${import.meta.env.BASE_URL}${href.replace(/^
 ---
 
 <BaseLayout title={`${data.title} | Work`} description={data.description}>
-	<article class="project-detail">
-		<div class="page-container">
-			<nav class="breadcrumb" aria-label="Breadcrumb"><a href={withBase('/work/')}>Work</a><span aria-hidden="true">/</span><span aria-current="page">{data.title}</span></nav>
-			<header class="project-detail__hero">
-				<div class="project-detail__hero-copy"><p class="section-eyebrow">{data.context}</p><h1>{data.title}</h1><p class="project-detail__outcome">{data.description}</p><ul class="tag-list" aria-label={`${data.title} tags`}>{data.tags.map((tag) => <li class="tag">{tag}</li>)}</ul></div>
-				<figure class="project-detail__hero-media"><Image src={data.image} alt={data.imageAlt} widths={[720, 1080, 1440]} sizes="(min-width: 900px) 50vw, 100vw" /></figure>
-			</header>
-			<div class="project-detail__sections">
-				<section aria-labelledby="context-objective"><h2 id="context-objective">Context &amp; Objective</h2><p>{data.objective}</p></section>
-				<section aria-labelledby="role-scope"><h2 id="role-scope">Role &amp; Scope</h2><p>{data.roleScope}</p><p>{data.contribution}</p>{data.collaborators && <p class="project-detail__muted"><strong>Collaborators:</strong> {data.collaborators}</p>}<h3>Tools &amp; methods</h3><ul class="tag-list">{data.toolsAndMethods.map((tool) => <li class="tag">{tool}</li>)}</ul></section>
-				<section aria-labelledby="constraints"><h2 id="constraints">Constraints</h2><p>{data.constraints}</p>{data.risks && <p class="project-detail__muted"><strong>Risks:</strong> {data.risks}</p>}</section>
-				<section aria-labelledby="process-decisions"><h2 id="process-decisions">Process &amp; Decisions</h2><h3>Process</h3><p>{data.process}</p><h3>Key decisions</h3><p>{data.decisions}</p></section>
-				<section aria-labelledby="deliverables"><h2 id="deliverables">Deliverables</h2><p>{data.deliverables}</p>{data.deliverableVisuals && <div class="project-detail__gallery">{data.deliverableVisuals.map((visual, index) => <Image src={visual} alt={`${data.title} supporting visual ${index + 1}`} widths={[480, 800]} sizes="(min-width: 768px) 40vw, 100vw" />)}</div>}</section>
-				<section aria-labelledby="outcomes-metrics"><h2 id="outcomes-metrics">Outcomes &amp; Metrics</h2><div class="metric-grid">{data.metrics.map((metric) => <div class="metric"><h3>{metric.value}</h3><p>{metric.label}</p></div>)}</div></section>
-				{data.reflection && <section aria-labelledby="reflection"><h2 id="reflection">Reflection</h2><p>{data.reflection}</p></section>}
+	<article class="project-page">
+		<div class="project-page__container">
+			<nav class="project-breadcrumb section-eyebrow" aria-label="Breadcrumb">
+				<a href={withBase('/work/')}>Work</a>
+				<span aria-hidden="true">/</span>
+				<span aria-current="page">{data.context}</span>
+			</nav>
+
+			<section class="project-hero" aria-labelledby="project-title">
+				<div class="project-hero__layout">
+					<div class="project-hero__copy">
+						<h1 id="project-title">{data.heroTitle ?? data.title}</h1>
+						<p class="project-hero__lead">{data.objective}</p>
+						<div class="project-hero__meta" aria-label="Project metadata">
+							<div><span>Company</span><strong>{data.company}</strong></div>
+							<div><span>Role</span><strong>{data.role}</strong></div>
+							<div><span>Focus</span><strong>{data.tags.join(' · ')}</strong></div>
+						</div>
+					</div>
+					<figure class="project-hero__media">
+						<Image src={data.image} alt={data.imageAlt} widths={[720, 1080, 1440]} sizes="(min-width: 900px) 34vw, 100vw" />
+					</figure>
+				</div>
+			</section>
+
+			<section class="project-overview" aria-labelledby="overview-title">
+				<p class="project-overview__label section-eyebrow">Overview</p>
+				<div class="project-overview__content">
+					<h2 id="overview-title">{data.overviewTitle ?? data.title}</h2>
+					<p>{data.overviewDescription ?? data.description}</p>
+					<p><strong>Focus:</strong> {data.overviewFocus ?? data.tags.join(' · ')}</p>
+					<p><strong>Scope:</strong> {data.overviewScope ?? data.roleScope}</p>
+				</div>
+			</section>
+
+			<div class="project-sections">
+
+				<section class="editorial-section" aria-labelledby="role-scope">
+					<div class="section-rail">Role &amp; scope</div>
+					<div class="story-block">
+						<h2 id="role-scope">{data.roleScopeTitle ?? 'Leading control architecture across battery and thermal systems'}</h2>
+						<p>{data.roleScope}</p>
+						<p>{data.contribution}</p>
+						{data.collaborators && <p class="story-block__muted"><strong>Collaborators:</strong> {data.collaborators}</p>}
+						<div class="project-subsection">
+							<h3>Tools &amp; methods</h3>
+							<ul class="tag-list" aria-label="Tools and methods">{data.toolsAndMethods.map((tool) => <li class="tag">{tool}</li>)}</ul>
+						</div>
+					</div>
+				</section>
+
+				<section class="editorial-section" aria-labelledby="constraints">
+					<div class="section-rail">Constraints</div>
+					<div class="story-block">
+						<h2 id="constraints">{data.constraintsTitle ?? 'Turning physical limits into deterministic software'}</h2>
+						<p>{data.constraints}</p>
+						{data.risks && <p class="story-block__muted"><strong>Risks considered:</strong> {data.risks}</p>}
+					</div>
+				</section>
+
+				<section class="editorial-section" aria-labelledby="process-decisions">
+					<div class="section-rail">Process &amp; decisions</div>
+					<div class="story-block">
+						<h2 id="process-decisions">{data.processTitle ?? 'Moving from model-based strategy to vehicle evidence'}</h2>
+						<div class="project-subsection"><h3>Process</h3><p>{data.process}</p></div>
+						<div class="project-subsection"><h3>Key decisions</h3><p>{data.decisions}</p></div>
+					</div>
+				</section>
+
+				<section class="editorial-section" aria-labelledby="deliverables">
+					<div class="section-rail">Deliverables</div>
+					<div class="story-block">
+						<h2 id="deliverables">{data.deliverablesTitle ?? 'Delivering software, diagnostics, and validation evidence'}</h2>
+						<p>{data.deliverables}</p>
+						{data.deliverableVisuals && <div class="project-gallery">{data.deliverableVisuals.map((visual, index) => <Image src={visual} alt={`${data.title} supporting visual ${index + 1}`} widths={[480, 800]} sizes="(min-width: 768px) 40vw, 100vw" />)}</div>}
+					</div>
+				</section>
+
+				<section class="editorial-section" aria-labelledby="outcomes-metrics">
+					<div class="section-rail">Outcomes &amp; metrics</div>
+					<div class="story-block">
+						<h2 id="outcomes-metrics">{data.outcomesTitle ?? 'Evidence of release-ready engineering'}</h2>
+						<dl class="project-metrics">{data.metrics.map((metric) => <div><dt>{metric.label}</dt><dd>{metric.value}</dd></div>)}</dl>
+					</div>
+				</section>
+
+				{data.reflection && <section class="editorial-section" aria-labelledby="reflection">
+					<div class="section-rail">What this demonstrates</div>
+					<div class="story-block"><h2 id="reflection">{data.reflectionTitle ?? 'System-level control leadership in a production environment'}</h2><p>{data.reflection}</p></div>
+				</section>}
 			</div>
 
 			{data.relatedWritingUrl && <p class="related-writing"><span>Related writing</span><a href={data.relatedWritingUrl}>Read the deeper technical note <span aria-hidden="true">→</span></a></p>}
-			<div class="project-detail__closing"><ContactCTA title="Interested in the engineering behind this work?" secondaryHref="/work/" secondaryLabel="View more work" /></div>
+			<div class="project-page__closing"><ContactCTA title="Interested in the engineering behind this work?" secondaryHref="/work/" secondaryLabel="View more work" /></div>
 		</div>
 	</article>
 </BaseLayout>
 
 <style>
-	.project-detail { padding: clamp(3rem, 5vw, 4.6rem) 0 5rem; }
-	.breadcrumb { display: flex; flex-wrap: wrap; gap: .55rem; margin-bottom: clamp(2.5rem, 6vw, 5rem); color: var(--color-muted); font-family: var(--font-mono); font-size: var(--type-meta-size); }
-	.breadcrumb a { color: var(--color-link); text-underline-offset: .2em; }
-	.project-detail__hero { display: grid; gap: clamp(2rem, 5vw, 4rem); align-items: center; padding-bottom: clamp(3rem, 7vw, 6rem); border-bottom: 1px solid var(--color-border); }
-	.project-detail__hero-copy { display: grid; gap: 1rem; max-width: 42rem; }
-	.project-detail .section-eyebrow { margin: 0; color: var(--color-muted); font-size: .82rem; font-weight: 600; letter-spacing: .08em; line-height: 1.4; }
-	.project-detail h1 { max-width: 14ch; margin: 0; font-size: clamp(2.6rem, 3.8vw, 3.5rem); font-weight: 800; letter-spacing: -.05em; line-height: 1.02; }
-	.project-detail__outcome { max-width: 48ch; color: var(--color-muted); font-size: clamp(1.15rem, 2vw, 1.4rem); line-height: 1.5; }
-	.project-detail__hero-media { order: -1; margin: 0; overflow: hidden; border-radius: var(--radius); background: var(--color-surface-soft); }
-	.project-detail__hero-media img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; }
-	.project-detail__sections { display: grid; max-width: 58rem; padding: 0 0 clamp(3rem, 7vw, 6rem); }
-	.project-detail__sections > section { display: grid; gap: 1rem; padding: clamp(2rem, 4vw, 3rem) 0; border-top: 1px solid var(--color-border); }
-	.project-detail__sections > section:first-child { border-top: 0; padding-top: 0; }
-	.project-detail h2 { max-width: 18ch; font-size: clamp(1.8rem, 3vw, 2.6rem); }
-	.project-detail h3 { margin-top: .5rem; font-family: var(--font-mono); font-size: var(--type-meta-size); letter-spacing: var(--type-meta-tracking); text-transform: uppercase; }
-	.project-detail__sections p { max-width: 62ch; font-size: 1.05rem; line-height: 1.7; }
-	.project-detail__muted { color: var(--color-muted); }
-	.project-detail__gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; margin-top: .5rem; }
-	.project-detail__gallery img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border: 1px solid var(--color-border); border-radius: var(--radius); }
-	.metric-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; }
-	.metric { display: grid; gap: .35rem; min-height: 7rem; align-content: center; border: 1px solid var(--color-card-border); border-radius: var(--radius); background: var(--color-card-bg); padding: 1rem; }
-	.metric h3 { margin: 0; color: var(--color-accent-text); font-family: var(--font-display); font-size: clamp(1.7rem, 3vw, 2.4rem); letter-spacing: -.05em; text-transform: none; }
-	.metric p { color: var(--color-muted); font-family: var(--font-mono); font-size: var(--type-meta-size); line-height: 1.35; }
+	.project-page { padding: 0 0 5rem; }
+	.project-page__container { width: min(calc(100% - 5rem), var(--content-width)); margin: 0 auto; }
+	.project-breadcrumb { display: flex; flex-wrap: wrap; gap: .45rem; padding: clamp(2rem, 4vw, 3rem) 0 0; color: var(--color-muted); }
+	.project-breadcrumb a { color: var(--color-text); text-decoration: none; }
+	.project-breadcrumb a:hover, .project-breadcrumb a:focus-visible { color: var(--color-link); text-decoration: underline; text-underline-offset: .2em; }
+	.project-hero { padding: 1rem 0 clamp(4rem, 8vw, 7rem); }
+	.section-rail, .project-hero__meta span, .project-subsection h3, .related-writing span { color: var(--color-muted); font-family: var(--font-mono); font-size: .82rem; font-weight: 600; letter-spacing: .08em; line-height: 1.4; text-transform: uppercase; }
+	.project-hero__layout { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(15rem, 20rem); gap: 2.5rem; align-items: start; }
+	.project-hero__copy { display: grid; gap: 1rem; align-content: start; }
+	.project-hero h1 { max-width: none; margin: 0; font-size: clamp(2.6rem, 3.8vw, 3.5rem); font-weight: 800; letter-spacing: -.05em; line-height: 1.02; }
+	.project-hero__lead { max-width: 52rem; color: var(--color-text); font-size: 1.08rem; line-height: 1.7; }
+	.project-hero__media { order: 2; width: min(100%, 20rem); aspect-ratio: 3 / 4; margin: 0; overflow: hidden; border-radius: 1.5rem; background: var(--color-surface-soft); box-shadow: 0 18px 40px rgba(23, 23, 23, .08); }
+	.project-hero__media img { width: 100%; height: 100%; object-fit: cover; }
+	.project-hero__meta { display: grid; gap: .9rem; margin-top: .5rem; max-width: 52rem; }
+	.project-hero__meta div { display: grid; grid-template-columns: 7rem minmax(0, 1fr); gap: .75rem; align-items: baseline; }
+	.project-hero__meta strong { font-size: .98rem; font-weight: 600; }
+	.project-sections { border-top: 1px solid var(--color-border); }
+	.project-overview { display: grid; grid-template-columns: 1fr; gap: 1rem; padding: 0 0 clamp(2.25rem, 4vw, 3.5rem); border-top: 0; }
+	.project-overview__label { grid-column: 1; margin: 0; }
+	.project-overview__content { grid-column: 1; display: grid; gap: .8rem; width: 100%; max-width: none; }
+	.project-overview__content h2 { max-width: none; margin: 0; font-size: clamp(1.8rem, 3vw, 2.6rem); line-height: 1.08; letter-spacing: -.045em; }
+	.project-overview__content p { max-width: none; margin: 0; font-size: 1.08rem; line-height: 1.7; }
+	.project-overview__content strong { font-weight: 600; }
+	.editorial-section { display: grid; grid-template-columns: 16rem minmax(0, 1fr); gap: 0; padding: 1rem 0 clamp(3rem, 6vw, 5rem); border-top: 1px solid var(--color-border); scroll-margin-top: 2rem; }
+	.editorial-section:first-child { border-top: 0; }
+	.section-rail { padding-top: .25rem; }
+	.story-block { display: grid; gap: .8rem; max-width: 52rem; }
+	.story-block h2 { max-width: none; width: 100%; margin: 0; font-size: clamp(1.2rem, 1.65vw, 1.5rem); font-weight: 800; line-height: 1.1; letter-spacing: -.035em; text-wrap: balance; }
+	.story-block p { max-width: 62ch; margin: 0; font-size: 1.08rem; line-height: 1.7; }
+	.story-block__muted { color: var(--color-muted); }
+	.story-block__muted strong { color: var(--color-text); }
+	.project-subsection { display: grid; gap: .65rem; margin-top: .35rem; }
+	.project-subsection h3 { margin: 0; }
+	.tag-list { display: flex; flex-wrap: wrap; gap: .55rem; margin: 0; padding: 0; list-style: none; }
+	.tag { display: inline-flex; align-items: center; border: 1px solid var(--color-border-soft); border-radius: var(--radius-pill); background: var(--color-surface-soft); padding: .18rem .45rem; color: var(--color-tag-text); font-family: var(--font-mono); font-size: var(--type-chip-size); line-height: var(--type-chip-line); }
+	.project-gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; margin-top: .5rem; }
+	.project-gallery img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border: 1px solid var(--color-border); border-radius: var(--radius); }
+	.project-metrics { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem 2rem; margin: .25rem 0 0; }
+	.project-metrics div { display: grid; gap: .25rem; padding-top: .65rem; border-top: 1px solid var(--color-border); }
+	.project-metrics dt { color: var(--color-muted); font-family: var(--font-mono); font-size: var(--type-meta-size); line-height: 1.35; text-transform: uppercase; }
+	.project-metrics dd { margin: 0; color: var(--color-text); font-family: var(--font-display); font-size: clamp(1.35rem, 2.2vw, 1.8rem); font-weight: 600; letter-spacing: -.04em; line-height: 1.08; }
 	.related-writing { display: flex; flex-wrap: wrap; gap: .75rem; align-items: baseline; padding: 1.25rem 0; border-top: 1px solid var(--color-border); color: var(--color-muted); }
-	.related-writing span { font-family: var(--font-mono); font-size: var(--type-meta-size); text-transform: uppercase; }
 	.related-writing a { color: var(--color-link); text-underline-offset: .2em; }
-	.project-detail__closing { padding-top: 2rem; }
-	@media (min-width: 900px) { .project-detail__hero { grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); } .project-detail__hero-media { order: 0; } }
-	@media (max-width: 720px) { .project-detail h1 { font-size: clamp(2.15rem, 10vw, 2.45rem); line-height: 1.04; } }
+	.project-page__closing { padding-top: 2rem; }
+	@media (max-width: 1100px) { .project-hero__layout { grid-template-columns: 1fr; } .project-hero__media { order: 0; } }
+	@media (max-width: 720px) { .project-page__container { width: min(calc(100% - 32px), var(--content-width)); } .project-hero { padding-top: 2.8rem; } .project-hero h1 { font-size: clamp(2.15rem, 10vw, 2.45rem); line-height: 1.04; } .project-hero__lead, .story-block p, .project-overview__content p { font-size: 1.05rem; } .editorial-section { grid-template-columns: 1fr; gap: .9rem; } .project-hero__meta div { grid-template-columns: 1fr; gap: .15rem; } .project-metrics { grid-template-columns: 1fr; gap: 1rem; } }
 </style>

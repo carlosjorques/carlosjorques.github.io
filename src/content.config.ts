@@ -68,6 +68,17 @@ const projects = defineCollection({
 		image: image(),
 		imageAlt: z.string(),
 		objective: z.string(),
+		heroTitle: z.string().optional(),
+		overviewTitle: z.string().optional(),
+		overviewDescription: z.string().optional(),
+		overviewFocus: z.string().optional(),
+		overviewScope: z.string().optional(),
+		roleScopeTitle: z.string().optional(),
+		constraintsTitle: z.string().optional(),
+		processTitle: z.string().optional(),
+		deliverablesTitle: z.string().optional(),
+		outcomesTitle: z.string().optional(),
+		reflectionTitle: z.string().optional(),
 		role: z.string().refine((value) => {
 			const wordCount = value.trim().split(/\s+/).filter(Boolean).length;
 			return wordCount >= 3 && wordCount <= 6;
