@@ -185,18 +185,27 @@ const groupSlug = (group: string) => toTagSlug(group);
 
 	.writing-hero .hero-title {
 		max-width: none;
-		font-size: clamp(4.2rem, 8vw, 7rem);
+		margin: 0;
+		font-size: clamp(2.6rem, 3.8vw, 3.5rem);
+		font-weight: 800;
+		letter-spacing: -0.05em;
+		line-height: 1.02;
 		overflow-wrap: normal;
 		word-break: normal;
 	}
 
 	.writing-hero__label {
-		gap: 0.85rem;
+		gap: 1rem;
 		min-width: 0;
 	}
 
 	.writing-hero__label .section-eyebrow {
 		margin: 0;
+		color: var(--color-muted);
+		font-size: .82rem;
+		font-weight: 600;
+		letter-spacing: .08em;
+		line-height: 1.4;
 	}
 
 	.writing-hero__mission {
@@ -220,6 +229,8 @@ const groupSlug = (group: string) => toTagSlug(group);
 		position: relative;
 		margin-bottom: clamp(1rem, 2.4vw, 1.35rem);
 	}
+	.writing-hero__mission { gap: 1rem; }
+	@media (max-width: 720px) { .writing-hero { padding-top: 3rem; } .writing-hero .hero-title { font-size: clamp(2.15rem, 10vw, 2.45rem); line-height: 1.04; } }
 
 	.writing-filter-menu {
 		margin-inline: auto;
@@ -612,7 +623,8 @@ const groupSlug = (group: string) => toTagSlug(group);
 		}
 
 		.writing-hero .hero-title {
-			font-size: clamp(3.2rem, 15vw, 4.4rem);
+			font-size: clamp(2.15rem, 10vw, 2.45rem);
+			line-height: 1.04;
 		}
 
 		.writing-filter-menu summary {

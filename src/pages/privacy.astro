@@ -98,12 +98,17 @@ const withBase = (href: string) => (href === '/' ? normalizedBase : `${normalize
 	}
 
 	.privacy-hero__label {
-		gap: 0.85rem;
+		gap: 1rem;
 		min-width: 0;
 	}
 
 	.privacy-hero__label .section-eyebrow {
 		margin: 0;
+		color: var(--color-muted);
+		font-size: .82rem;
+		font-weight: 600;
+		letter-spacing: .08em;
+		line-height: 1.4;
 	}
 
 	.privacy-hero__mission {
@@ -114,7 +119,11 @@ const withBase = (href: string) => (href === '/' ? normalizedBase : `${normalize
 
 	.privacy-hero .hero-title {
 		max-width: none;
-		font-size: clamp(4.2rem, 8vw, 7rem);
+		margin: 0;
+		font-size: clamp(2.6rem, 3.8vw, 3.5rem);
+		font-weight: 800;
+		letter-spacing: -.05em;
+		line-height: 1.02;
 		overflow-wrap: normal;
 		word-break: normal;
 	}
@@ -172,7 +181,7 @@ const withBase = (href: string) => (href === '/' ? normalizedBase : `${normalize
 
 	@media (max-width: 640px) {
 		.privacy-hero {
-			padding-block: 3.5rem 2.75rem;
+			padding-block: 3rem 2.75rem;
 		}
 
 		.privacy-hero .page-container,
@@ -195,7 +204,8 @@ const withBase = (href: string) => (href === '/' ? normalizedBase : `${normalize
 		}
 
 		.privacy-hero .hero-title {
-			font-size: clamp(3.2rem, 15vw, 4.4rem);
+			font-size: clamp(2.15rem, 10vw, 2.45rem);
+			line-height: 1.04;
 		}
 
 		.privacy-hero__label,

@@ -111,7 +111,7 @@ const portraitUrl = withBase('/images/carlos-jorques-intro.webp');
 <style>
 	.about-page { width:min(calc(100% - 5rem),var(--content-width)); margin:0 auto; padding:0; }
 	.about-eyebrow,.section-rail { font-family:var(--font-mono); font-size:.82rem; font-weight:600; letter-spacing:.08em; line-height:1.4; text-transform:uppercase; color:var(--color-muted); }
-	.about-hero { padding:6rem 0 0; }
+	.about-hero { padding:clamp(3rem,5vw,4.6rem) 0 0; }
 	.about-eyebrow { margin:0; }
 	.about-hero__layout { display:grid; grid-template-columns:minmax(0,1.35fr) minmax(15rem,20rem); gap:2.5rem; align-items:start; margin-top:1rem; }
 	.about-hero__copy { display:grid; gap:1rem; align-content:start; }

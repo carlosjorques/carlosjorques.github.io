@@ -110,12 +110,17 @@ const supportingItems = researchItems.filter((item) => !item.data.featured);
 	}
 
 	.research-hero__label {
-		gap: 0.85rem;
+		gap: 1rem;
 		min-width: 0;
 	}
 
 	.research-hero__label .section-eyebrow {
 		margin: 0;
+		color: var(--color-muted);
+		font-size: .82rem;
+		font-weight: 600;
+		letter-spacing: .08em;
+		line-height: 1.4;
 	}
 
 	.research-hero__mission {
@@ -126,7 +131,11 @@ const supportingItems = researchItems.filter((item) => !item.data.featured);
 
 	.research-hero .hero-title {
 		max-width: none;
-		font-size: clamp(4.2rem, 8vw, 7rem);
+		margin: 0;
+		font-size: clamp(2.6rem, 3.8vw, 3.5rem);
+		font-weight: 800;
+		letter-spacing: -.05em;
+		line-height: 1.02;
 		overflow-wrap: normal;
 		word-break: normal;
 	}
@@ -204,7 +213,8 @@ const supportingItems = researchItems.filter((item) => !item.data.featured);
 		}
 
 		.research-hero .hero-title {
-			font-size: clamp(3.2rem, 15vw, 4.4rem);
+			font-size: clamp(2.15rem, 10vw, 2.45rem);
+			line-height: 1.04;
 		}
 
 		.research-hero__label,
