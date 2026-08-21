@@ -14,7 +14,7 @@ tags:
   - FPGA implementation
   - Diesel engines
 featured: true
-draft: false
+draft: true
 heroImage:
   src: /images/blog/predictive-in-cycle-control/thesis-general-controller.svg
   alt: Thesis diagram of the predictive in-cycle combustion controller architecture

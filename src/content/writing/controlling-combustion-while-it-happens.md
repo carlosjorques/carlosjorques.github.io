@@ -13,7 +13,7 @@ tags:
   - Renewable fuels
   - PhD research
 featured: true
-draft: false
+draft: true
 ---
 
 A heavy-duty diesel engine at 1200 RPM completes a combustion cycle ten times per second. Inside each of those cycles, fuel is injected, ignites, burns, and pushes the piston, all within a few milliseconds. For a hundred years, the control philosophy for this process was simple: prepare everything in advance, let combustion happen, and look at the result afterwards.

@@ -11,7 +11,7 @@ tags:
   - Zonal architecture
   - Automotive software
 featured: true
-draft: false
+draft: true
 ---
 
 For three decades, the car solved every new problem the same way: add another computer. Electronic fuel injection got a computer. Then the airbags, the ABS, the seats, the mirrors, the ambient lighting. Each function arrived with its own electronic control unit, its own supplier, its own software, and its own wiring. It was a reasonable strategy, and it worked, right up until the moment it did not.

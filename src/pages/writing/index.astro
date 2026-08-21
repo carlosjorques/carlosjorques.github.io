@@ -20,7 +20,7 @@ const formatDate = (date: Date) =>
 		day: 'numeric',
 	});
 
-const entries = (await getCollection('writing')).sort(
+const entries = (await getCollection('writing', ({ data }) => !data.draft)).sort(
 	(a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf(),
 );
 
@@ -35,9 +35,6 @@ const articles = entries.map((entry) => ({
 	isDraft: entry.data.draft,
 }));
 
-const topics = Array.from(new Set(articles.flatMap((article) => article.tags))).sort((a, b) =>
-	a.localeCompare(b),
-);
 const groupSlug = (group: string) => toTagSlug(group);
 ---
 
@@ -47,17 +44,9 @@ const groupSlug = (group: string) => toTagSlug(group);
 >
 	<div class="writing-page">
 		<section class="writing-hero" aria-labelledby="writing-title">
-			<div class="page-container writing-hero__inner">
-				<div class="writing-hero__label">
-					<p class="section-eyebrow">Writing</p>
-					<h1 id="writing-title" class="hero-title">Reflections</h1>
-				</div>
-
-				<div class="writing-hero__mission">
-					<p>
-						Notes on how software makes physical systems behave reliably — control, diagnostics, validation, architecture, and the organizations that build them. Most of the evidence comes from automotive and heavy-duty machines; the principles travel.
-					</p>
-				</div>
+			<div class="page-container">
+				<p class="section-eyebrow">Writing</p>
+				<h1 id="writing-title" class="hero-title">Articles exploring latest trends on control systems development for complex physical systems.</h1>
 			</div>
 		</section>
 
@@ -66,31 +55,16 @@ const groupSlug = (group: string) => toTagSlug(group);
 				<h2 id="writing-list-title" class="visually-hidden">Article list</h2>
 
 				<div class="writing-filter-bar">
-					<div class="filter-chips filter-chips--groups" role="group" aria-label="Filter articles by topic group">
-						{Object.keys(TAG_GROUPS).map((group) => <button class="filter-chip" type="button" data-filter={groupSlug(group)} data-filter-label={group} aria-pressed="false">{group}</button>)}
-					</div>
 					<details class="writing-filter-menu" data-filter-menu>
 						<summary>
-							<span class="filter-summary__label">Browse articles by topic</span>
+							<span class="filter-summary__label">ALL TOPICS</span>
+							<span class="visually-hidden" data-filter-current aria-live="polite">All topics selected</span>
 						</summary>
-						<div class="filter-chips" role="group" aria-label="Filter articles by topic">
-						{
-							topics.map((topic) => (
-								<button
-									class="filter-chip"
-									type="button"
-									data-filter={toTagSlug(topic)}
-									data-filter-label={topic}
-									aria-pressed="false"
-								>
-									{topic}
-								</button>
-							))
-						}
+						<div class="filter-chips" role="group" aria-label="Filter articles by macro-topic">
+							<button class="filter-chip filter-chip--all" type="button" data-filter-reset aria-pressed="true">ALL TOPICS</button>
+							{Object.keys(TAG_GROUPS).map((group) => <button class="filter-chip" type="button" data-filter={groupSlug(group)} data-filter-label={group} aria-pressed="false">{group}</button>)}
 						</div>
 					</details>
-					<button class="filter-all" type="button" data-filter-reset>All Topics</button>
-					<span class="visually-hidden" data-filter-current aria-live="polite">All topics</span>
 				</div>
 
 				<div class="article-list" data-article-list>
@@ -140,7 +114,7 @@ const groupSlug = (group: string) => toTagSlug(group);
 
 				<div class="empty-state" data-empty-state hidden>
 					<p>No articles found for this topic yet.</p>
-					<button class="filter-reset" type="button" data-filter-reset>All Topics</button>
+					<button class="filter-reset" type="button" data-filter-reset>ALL TOPICS</button>
 				</div>
 			</div>
 		</section>
@@ -160,9 +134,8 @@ const groupSlug = (group: string) => toTagSlug(group);
 
 	.writing-hero {
 		overflow-x: clip;
-		border-bottom: 1px solid var(--color-border-soft);
 		background: transparent;
-		padding-block: clamp(3rem, 5vw, 4.6rem) clamp(1.55rem, 3vw, 2.25rem);
+		padding: clamp(3rem, 5vw, 4.6rem) 0 0;
 	}
 
 	.writing-hero .page-container,
@@ -171,19 +144,21 @@ const groupSlug = (group: string) => toTagSlug(group);
 		max-width: 100%;
 	}
 
-	.writing-hero__inner,
-	.writing-hero__label,
-	.writing-hero__mission {
+	.writing-hero .page-container {
 		display: grid;
+		gap: 1rem;
 	}
 
-	.writing-hero__inner {
-		grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
-		gap: clamp(1.4rem, 5vw, 4.2rem);
-		align-items: end;
+	.writing-hero .section-eyebrow {
+		margin: 0;
+		color: var(--color-muted);
+		font-size: .82rem;
+		font-weight: 600;
+		letter-spacing: .08em;
+		line-height: 1.4;
 	}
 
-	.writing-hero .hero-title {
+	.writing-hero h1.hero-title {
 		max-width: none;
 		margin: 0;
 		font-size: clamp(2.6rem, 3.8vw, 3.5rem);
@@ -194,42 +169,20 @@ const groupSlug = (group: string) => toTagSlug(group);
 		word-break: normal;
 	}
 
-	.writing-hero__label {
-		gap: 1rem;
-		min-width: 0;
-	}
-
-	.writing-hero__label .section-eyebrow {
+	.writing-hero__proof {
 		margin: 0;
-		color: var(--color-muted);
-		font-size: .82rem;
-		font-weight: 600;
-		letter-spacing: .08em;
-		line-height: 1.4;
-	}
-
-	.writing-hero__mission {
-		min-width: 0;
-		border-left: 1px solid var(--color-border-soft);
-		padding-left: clamp(1rem, 3vw, 2rem);
-	}
-
-	.writing-hero__mission p {
-		max-width: 660px;
-		margin: 0;
-		color: var(--color-body-text);
-		font-size: clamp(1.1rem, 1.45vw, 1.32rem);
-		font-weight: 400;
-		letter-spacing: var(--type-body-tracking);
-		line-height: 1.5;
-		overflow-wrap: anywhere;
+		color: var(--color-accent-text);
+		font-family: var(--font-mono);
+		font-size: var(--type-meta-size);
+		font-weight: var(--type-meta-weight);
+		letter-spacing: var(--type-meta-tracking);
+		text-transform: uppercase;
 	}
 
 	.writing-filter-bar {
 		position: relative;
 		margin-bottom: clamp(1rem, 2.4vw, 1.35rem);
 	}
-	.writing-hero__mission { gap: 1rem; }
 	@media (max-width: 720px) { .writing-hero { padding-top: 3rem; } .writing-hero .hero-title { font-size: clamp(2.15rem, 10vw, 2.45rem); line-height: 1.04; } }
 
 	.writing-filter-menu {
@@ -237,19 +190,17 @@ const groupSlug = (group: string) => toTagSlug(group);
 		box-sizing: border-box;
 		width: 100%;
 		max-width: 100%;
-		border-block: 1px solid var(--color-border-soft);
 		background: transparent;
 	}
 
 	.writing-filter-menu summary {
-		position: relative;
 		display: grid;
-		grid-template-columns: minmax(0, 1fr);
+		grid-template-columns: minmax(0, 1fr) auto;
 		gap: 0.75rem;
-		align-items: center;
+		align-items: start;
 		cursor: pointer;
 		list-style: none;
-		padding: clamp(0.9rem, 2.2vw, 1.15rem) clamp(10rem, 18vw, 11.5rem) clamp(0.9rem, 2.2vw, 1.15rem) clamp(1rem, 2.5vw, 1.35rem);
+		padding: clamp(0.9rem, 2.2vw, 1.15rem) 0;
 	}
 
 	.writing-filter-menu summary::-webkit-details-marker {
@@ -258,12 +209,10 @@ const groupSlug = (group: string) => toTagSlug(group);
 
 	.writing-filter-menu summary::after {
 		content: '+';
-		position: absolute;
-		top: 50%;
-		right: clamp(1rem, 2.5vw, 1.35rem);
-		transform: translateY(-50%);
 		display: inline-grid;
 		place-items: center;
+		justify-self: end;
+		align-self: start;
 		width: 1.55rem;
 		height: 1.55rem;
 		border: 1px solid var(--color-border);
@@ -292,48 +241,12 @@ const groupSlug = (group: string) => toTagSlug(group);
 		line-height: 1.25;
 	}
 
-	.filter-all {
-		position: absolute;
-		top: 1.85rem;
-		right: 3.65rem;
-		z-index: 2;
-		transform: translateY(-50%);
-		border: 0;
-		background: transparent;
-		color: var(--color-muted);
-		cursor: pointer;
-		font-family: var(--font-mono);
-		font-size: var(--type-chip-size);
-		font-weight: var(--type-chip-weight);
-		letter-spacing: var(--type-chip-tracking);
-		line-height: var(--type-chip-line);
-		text-transform: uppercase;
-	}
-
-	.filter-all:hover,
-	.filter-all:focus-visible {
-		color: var(--color-text);
-		text-decoration: underline;
-		text-underline-offset: 0.25em;
-	}
-
-	.filter-all.is-active {
-		color: var(--color-text);
-		font-weight: 750;
-	}
-
-	.filter-all:focus-visible {
-		outline: 2px solid var(--color-focus);
-		outline-offset: 3px;
-	}
-
 	.filter-chips {
 		display: flex;
 		flex-wrap: wrap;
 		gap: 0.5rem;
 		min-width: 0;
-		border-top: 1px solid var(--color-border-soft);
-		padding: clamp(1rem, 2.5vw, 1.35rem);
+		padding: clamp(1rem, 2.5vw, 1.35rem) 0;
 	}
 
 	.filter-chip,
@@ -382,8 +295,13 @@ const groupSlug = (group: string) => toTagSlug(group);
 		font-weight: 750;
 	}
 
+	.filter-chip--all {
+		font-weight: 750;
+		text-transform: uppercase;
+	}
+
 	.writing-list-section {
-		padding-block: clamp(1.25rem, 3vw, 2rem) clamp(3.6rem, 7vw, 5.2rem);
+		padding-block: clamp(3rem, 5vw, 5rem) clamp(3.6rem, 7vw, 5.2rem);
 	}
 
 	.article-list {
@@ -601,23 +519,7 @@ const groupSlug = (group: string) => toTagSlug(group);
 			width: min(calc(100% - 2rem), var(--content-width));
 		}
 
-		.writing-hero__inner {
-			grid-template-columns: 1fr;
-			align-items: start;
-			gap: 1.1rem;
-		}
-
-		.writing-hero__mission {
-			border-left: 0;
-			border-top: 1px solid var(--color-border-soft);
-			padding-top: 1rem;
-			padding-left: 0;
-			max-width: 100%;
-		}
-
-		.writing-hero__label,
-		.writing-hero__mission,
-		.writing-hero__mission p,
+		.writing-hero .page-container,
 		.article-card__content {
 			overflow-wrap: anywhere;
 		}
@@ -625,14 +527,6 @@ const groupSlug = (group: string) => toTagSlug(group);
 		.writing-hero .hero-title {
 			font-size: clamp(2.15rem, 10vw, 2.45rem);
 			line-height: 1.04;
-		}
-
-		.writing-filter-menu summary {
-			padding-right: 9.5rem;
-		}
-
-		.filter-all {
-			right: 3.25rem;
 		}
 
 		.article-card__content {

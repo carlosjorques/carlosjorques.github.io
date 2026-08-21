@@ -14,7 +14,7 @@ tags:
   - Signal processing
   - Hardware-constrained systems
 featured: true
-draft: false
+draft: true
 heroImage:
   src: /images/blog/real-time-combustion-control/thesis-fpga-diagram.svg
   alt: Thesis diagram of the FPGA data acquisition and combustion-control architecture

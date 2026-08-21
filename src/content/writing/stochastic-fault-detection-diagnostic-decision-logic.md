@@ -14,7 +14,7 @@ tags:
   - Sensor fusion
   - Diagnostic logic
 featured: true
-draft: false
+draft: true
 heroImage:
   src: /images/blog/stochastic-fault-detection/thesis-detection-performance.svg
   alt: Thesis plot summarizing pilot misfire detection performance under changing conditions
