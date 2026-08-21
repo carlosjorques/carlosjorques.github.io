@@ -1,0 +1,529 @@
+[
+  {
+    "id": "alten-delivery-centre-spain-technical-leader-senior-software-developer",
+    "company": "ALTEN Delivery Centre Spain",
+    "role": "Technical Leader | Senior Software Developer",
+    "location": "Valencia, Valencian Community, Spain",
+    "start_date": "April 2023",
+    "end_date": "Present",
+    "summary": "Provide technical leadership to a team of 3 engineers in embedded software development",
+    "source_notes": [
+      "Role label, location, or dates enriched from LinkedIn profile PDF."
+    ],
+    "related_capabilities": [
+      "embedded-software-validation",
+      "technical-leadership",
+      "embedded-controls-architecture",
+      "electric-autonomous-vehicle-systems",
+      "diagnostics-safety-robustness"
+    ],
+    "related_impacts": [
+      "technical-leadership-impact",
+      "production-software-delivery",
+      "electric-powertrain-control",
+      "functional-safety-support"
+    ],
+    "related_projects": [],
+    "related_skills": [
+      "matlab-simulink",
+      "agile",
+      "ci-cd",
+      "iso-26262",
+      "embedded-software-development",
+      "automotive"
+    ],
+    "related_methods": [
+      "model-based-development",
+      "sil",
+      "hil",
+      "requirements-engineering",
+      "control-design",
+      "ci-cd",
+      "functional-safety-analysis",
+      "vehicle-validation"
+    ]
+  },
+  {
+    "id": "traton-group-senior-development-engineer-consultant",
+    "company": "TRATON GROUP",
+    "role": "Senior Development Engineer - Consultant",
+    "location": "Sodertalje, Stockholm County, Sweden",
+    "start_date": "July 2025",
+    "end_date": "Present",
+    "summary": "Software development for electric trucks thermal management of batteries and MCS chargers",
+    "source_notes": [
+      "Role label, location, or dates enriched from LinkedIn profile PDF."
+    ],
+    "related_capabilities": [
+      "embedded-controls-architecture",
+      "embedded-software-validation",
+      "diagnostics-safety-robustness",
+      "electric-autonomous-vehicle-systems",
+      "control-systems-estimation",
+      "technical-leadership"
+    ],
+    "related_impacts": [
+      "electric-powertrain-control",
+      "production-software-delivery",
+      "improved-diagnostics",
+      "functional-safety-support",
+      "research-and-innovation",
+      "technical-leadership-impact"
+    ],
+    "related_projects": [
+      "electric-truck-thermal-management"
+    ],
+    "related_skills": [
+      "gitlab",
+      "safe",
+      "iso-26262",
+      "matlab-simulink",
+      "c",
+      "ci-cd",
+      "agile",
+      "thermal-management",
+      "battery-management",
+      "electric-vehicles",
+      "functional-safety"
+    ],
+    "related_methods": [
+      "model-based-development",
+      "mil",
+      "sil",
+      "hil",
+      "calibration",
+      "control-design",
+      "ci-cd",
+      "functional-safety-analysis",
+      "diagnostics-design",
+      "vehicle-validation",
+      "data-analysis"
+    ]
+  },
+  {
+    "id": "volvo-construction-equipment-senior-development-engineer-consultant",
+    "company": "Volvo Construction Equipment",
+    "role": "Senior Development Engineer - Consultant",
+    "location": "Gothenburg, Vastra Gotaland County, Sweden",
+    "start_date": "April 2023",
+    "end_date": "December 2024",
+    "summary": "Developed and integrated traction control functionality for autonomous electric haulers (TA15), enabling reliable autonomous propulsion control in harsh terrain",
+    "source_notes": [
+      "Role label, location, or dates enriched from LinkedIn profile PDF."
+    ],
+    "related_capabilities": [
+      "embedded-controls-architecture",
+      "embedded-software-validation",
+      "electric-autonomous-vehicle-systems",
+      "diagnostics-safety-robustness",
+      "technical-leadership"
+    ],
+    "related_impacts": [
+      "autonomous-vehicle-systems",
+      "electric-powertrain-control",
+      "functional-safety-support",
+      "production-software-delivery",
+      "improved-diagnostics",
+      "technical-leadership-impact"
+    ],
+    "related_projects": [
+      "autonomous-hauler-propulsion-control"
+    ],
+    "related_skills": [
+      "iso-26262",
+      "sil",
+      "hil",
+      "autonomous-driving",
+      "electric-vehicles",
+      "functional-safety",
+      "propulsion-control"
+    ],
+    "related_methods": [
+      "sil",
+      "hil",
+      "requirements-engineering",
+      "control-design",
+      "functional-safety-analysis",
+      "diagnostics-design",
+      "integration-testing",
+      "vehicle-validation",
+      "data-analysis"
+    ]
+  },
+  {
+    "id": "mahle-senior-embedded-software-developer-wireless-charging-and-e-mobility",
+    "company": "MAHLE",
+    "role": "Senior Embedded Software Developer | Wireless Charging & e-Mobility",
+    "location": "Valencia, Valencian Community, Spain",
+    "start_date": "January 2022",
+    "end_date": "March 2023",
+    "summary": "Software lead for the e-bike motor control development project",
+    "source_notes": [
+      "Role label, location, or dates enriched from LinkedIn profile PDF."
+    ],
+    "related_capabilities": [
+      "embedded-software-validation",
+      "electric-autonomous-vehicle-systems",
+      "embedded-controls-architecture",
+      "control-systems-estimation"
+    ],
+    "related_impacts": [
+      "electric-powertrain-control",
+      "technical-leadership-impact"
+    ],
+    "related_projects": [
+      "ebike-motor-control-power-electronics"
+    ],
+    "related_skills": [
+      "matlab-simulink",
+      "canalyzer",
+      "canoe",
+      "svn",
+      "c",
+      "c-plus-plus",
+      "classic-autosar",
+      "model-based-design",
+      "pmsm",
+      "jira",
+      "agile",
+      "e-bike-motor-control",
+      "wireless-charging",
+      "dc-dc-converters",
+      "automotive-spice"
+    ],
+    "related_methods": [
+      "model-based-development",
+      "hil",
+      "calibration",
+      "control-design"
+    ]
+  },
+  {
+    "id": "scania-senior-software-engineer",
+    "company": "Scania",
+    "role": "Senior Software Engineer",
+    "location": "Södertälje, Sweden",
+    "start_date": "2021",
+    "end_date": "2022",
+    "summary": "Design control architecture for thermal management in electric powertrains",
+    "source_notes": [],
+    "related_capabilities": [
+      "embedded-software-validation",
+      "electric-autonomous-vehicle-systems",
+      "embedded-controls-architecture",
+      "control-systems-estimation",
+      "diagnostics-safety-robustness"
+    ],
+    "related_impacts": [
+      "electric-powertrain-control",
+      "production-software-delivery",
+      "functional-safety-support",
+      "research-and-innovation"
+    ],
+    "related_projects": [
+      "electric-truck-thermal-management"
+    ],
+    "related_skills": [
+      "matlab-simulink",
+      "jenkins",
+      "git",
+      "agile",
+      "iso-26262",
+      "c",
+      "c-plus-plus",
+      "model-based-design",
+      "bms",
+      "thermal-management",
+      "functional-safety",
+      "jira",
+      "battery-management",
+      "electric-powertrains",
+      "mild-hybrid-vehicles"
+    ],
+    "related_methods": [
+      "model-based-development",
+      "mil",
+      "sil",
+      "hil",
+      "calibration",
+      "control-design",
+      "ci-cd",
+      "functional-safety-analysis",
+      "vehicle-validation",
+      "data-analysis"
+    ]
+  },
+  {
+    "id": "scania-lund-university-phd-researcher-real-time-diesel-combustion-control",
+    "company": "Scania, Lund University",
+    "role": "PhD Researcher | Real-Time Diesel Combustion Control",
+    "location": "Sodertalje, Stockholm County, Sweden",
+    "start_date": "January 2016",
+    "end_date": "May 2021",
+    "summary": "Researched in-cycle real-time combustion control algorithms for diesel engines running with bio-fuels",
+    "source_notes": [
+      "Role label, location, or dates enriched from LinkedIn profile PDF."
+    ],
+    "related_capabilities": [
+      "embedded-controls-architecture",
+      "embedded-software-validation",
+      "control-systems-estimation",
+      "electric-autonomous-vehicle-systems",
+      "diagnostics-safety-robustness",
+      "technical-leadership"
+    ],
+    "related_impacts": [
+      "research-and-innovation",
+      "electric-powertrain-control",
+      "improved-diagnostics",
+      "technical-leadership-impact"
+    ],
+    "related_projects": [
+      "heavy-duty-engine-diagnostics-control-research"
+    ],
+    "related_skills": [
+      "matlab-simulink",
+      "labview",
+      "fpga",
+      "signal-processing",
+      "data-processing",
+      "model-calibration",
+      "system-optimization",
+      "dynamic-modelling",
+      "combustion-control",
+      "diesel-engines",
+      "biofuels",
+      "real-time-control",
+      "diagnostics"
+    ],
+    "related_methods": [
+      "model-based-development",
+      "hil",
+      "calibration",
+      "control-design",
+      "diagnostics-design",
+      "vehicle-validation",
+      "data-analysis"
+    ]
+  },
+  {
+    "id": "scania-lund-university-research-intern-combustion-control-and-real-time-diagnostics",
+    "company": "Scania, Lund University",
+    "role": "Research Intern - Combustion Control & Real-Time Diagnostics",
+    "location": "Sodertalje, Sweden",
+    "start_date": "April 2018",
+    "end_date": "September 2018",
+    "summary": "Research real-time combustion modelling methods for engine onboard diagnostics",
+    "source_notes": [
+      "Role label, location, or dates enriched from LinkedIn profile PDF."
+    ],
+    "related_capabilities": [
+      "embedded-software-validation",
+      "electric-autonomous-vehicle-systems",
+      "embedded-controls-architecture",
+      "diagnostics-safety-robustness",
+      "control-systems-estimation"
+    ],
+    "related_impacts": [
+      "research-and-innovation",
+      "electric-powertrain-control",
+      "improved-diagnostics",
+      "functional-safety-support"
+    ],
+    "related_projects": [
+      "heavy-duty-engine-diagnostics-control-research"
+    ],
+    "related_skills": [
+      "matlab-simulink",
+      "jenkins",
+      "perforce",
+      "vision",
+      "agile",
+      "c",
+      "c-plus-plus",
+      "model-based-design",
+      "thermal-management",
+      "combustion-control",
+      "functional-safety",
+      "jira",
+      "combustion-modelling",
+      "engine-diagnostics",
+      "real-time-systems",
+      "embedded-software"
+    ],
+    "related_methods": [
+      "model-based-development",
+      "calibration",
+      "control-design",
+      "ci-cd",
+      "functional-safety-analysis",
+      "diagnostics-design",
+      "vehicle-validation"
+    ]
+  },
+  {
+    "id": "scania-software-engineer",
+    "company": "Scania",
+    "role": "Software Engineer",
+    "location": "Södertälje, Sweden",
+    "start_date": "2014",
+    "end_date": "2016",
+    "summary": "Developed software for engine diagnostics, calibration and safety functionality using MBD methods and C-code generation",
+    "source_notes": [],
+    "related_capabilities": [
+      "embedded-software-validation",
+      "embedded-controls-architecture",
+      "diagnostics-safety-robustness",
+      "electric-autonomous-vehicle-systems",
+      "control-systems-estimation"
+    ],
+    "related_impacts": [
+      "electric-powertrain-control",
+      "improved-diagnostics",
+      "research-and-innovation",
+      "functional-safety-support"
+    ],
+    "related_projects": [
+      "heavy-duty-engine-diagnostics-control-research"
+    ],
+    "related_skills": [
+      "matlab-simulink",
+      "jenkins",
+      "perforce",
+      "vision",
+      "agile",
+      "c",
+      "c-plus-plus",
+      "model-based-design",
+      "thermal-management",
+      "combustion-control",
+      "functional-safety",
+      "jira",
+      "engine-diagnostics",
+      "oil-systems",
+      "cooling-systems"
+    ],
+    "related_methods": [
+      "model-based-development",
+      "mil",
+      "sil",
+      "hil",
+      "calibration",
+      "control-design",
+      "ci-cd",
+      "functional-safety-analysis",
+      "diagnostics-design",
+      "vehicle-validation"
+    ]
+  },
+  {
+    "id": "scania-master-thesis-student",
+    "company": "Scania",
+    "role": "Master Thesis Student",
+    "location": "Södertälje, Sweden",
+    "start_date": "2014",
+    "end_date": "2014",
+    "summary": "Design of automatic control for the low-pressure fueling system of heavy-duty vehicles",
+    "source_notes": [],
+    "related_capabilities": [
+      "embedded-software-validation",
+      "electric-autonomous-vehicle-systems",
+      "embedded-controls-architecture",
+      "control-systems-estimation",
+      "diagnostics-safety-robustness",
+      "technical-leadership"
+    ],
+    "related_impacts": [
+      "electric-powertrain-control",
+      "research-and-innovation",
+      "production-software-delivery",
+      "functional-safety-support"
+    ],
+    "related_projects": [
+      "heavy-duty-engine-diagnostics-control-research"
+    ],
+    "related_skills": [
+      "matlab-simulink",
+      "model-based-design",
+      "thermal-management",
+      "combustion-control",
+      "functional-safety",
+      "jira",
+      "fuel-systems",
+      "control-systems",
+      "heavy-duty-vehicles"
+    ],
+    "related_methods": [
+      "model-based-development",
+      "mil",
+      "control-design",
+      "functional-safety-analysis",
+      "vehicle-validation"
+    ]
+  },
+  {
+    "id": "arduino-hardware-designer-educational-prototyping-and-pcb-development",
+    "company": "Arduino",
+    "role": "Hardware Designer - Educational Prototyping & PCB Development",
+    "location": "Malmo, Skane County, Sweden",
+    "start_date": "October 2013",
+    "end_date": "January 2014",
+    "summary": "Design and produce PCB circuits for educational projects based on TinkerKit",
+    "source_notes": [
+      "Role label, location, or dates enriched from LinkedIn profile PDF."
+    ],
+    "related_capabilities": [
+      "embedded-software-validation",
+      "electric-autonomous-vehicle-systems"
+    ],
+    "related_impacts": [
+      "production-software-delivery",
+      "electric-powertrain-control"
+    ],
+    "related_projects": [],
+    "related_skills": [
+      "arduino",
+      "pcb-design",
+      "eaglecad",
+      "fritzing",
+      "hardware-design",
+      "educational-technology",
+      "prototyping"
+    ],
+    "related_methods": []
+  },
+  {
+    "id": "sony-mobile-communications-software-engineering-intern-human-machine-interaction-hmi",
+    "company": "Sony Mobile Communications",
+    "role": "Software Engineering Intern - Human-Machine Interaction (HMI)",
+    "location": "Lund, Skane County, Sweden",
+    "start_date": "June 2013",
+    "end_date": "August 2013",
+    "summary": "Researched predictive algorithms for reduced screen latency implemented at kernel-level",
+    "source_notes": [
+      "Role label, location, or dates enriched from LinkedIn profile PDF."
+    ],
+    "related_capabilities": [
+      "embedded-software-validation",
+      "control-systems-estimation",
+      "electric-autonomous-vehicle-systems"
+    ],
+    "related_impacts": [
+      "production-software-delivery",
+      "electric-powertrain-control",
+      "research-and-innovation"
+    ],
+    "related_projects": [],
+    "related_skills": [
+      "matlab",
+      "kernel-level-programming",
+      "android-os",
+      "mobile-devices",
+      "human-machine-interaction-hmi",
+      "software-engineering"
+    ],
+    "related_methods": [
+      "model-based-development"
+    ]
+  }
+]

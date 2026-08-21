@@ -1,0 +1,3809 @@
+[
+  {
+    "id": "adaptive-controllers",
+    "name": "adaptive controllers",
+    "category": "technical",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [],
+    "related_projects": [],
+    "related_experience": [],
+    "source_terms": [
+      "raw.skills"
+    ],
+    "last_used": null,
+    "evidence_sentences": [
+      "Design of linear (PID), non-linear, adaptive, and model-based predictive (MPC) controllers",
+      "Full list: [Adaptive Control Strategies"
+    ]
+  },
+  {
+    "id": "adaptive-filters",
+    "name": "adaptive filters",
+    "category": "technical",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [],
+    "related_projects": [],
+    "related_experience": [],
+    "source_terms": [
+      "raw.skills"
+    ],
+    "last_used": null,
+    "evidence_sentences": [
+      "Signal processing with adaptive and optimal filters"
+    ]
+  },
+  {
+    "id": "advanced-control-strategies",
+    "name": "Advanced Control Strategies",
+    "category": "technical",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [],
+    "related_projects": [],
+    "related_experience": [],
+    "source_terms": [
+      "raw.skills"
+    ],
+    "last_used": null,
+    "evidence_sentences": [
+      "Full list: [Advanced Control Strategies"
+    ]
+  },
+  {
+    "id": "agile",
+    "name": "Agile",
+    "category": "Domain Knowledge",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [
+      "control-systems-estimation",
+      "diagnostics-safety-robustness",
+      "electric-autonomous-vehicle-systems",
+      "embedded-controls-architecture",
+      "embedded-software-validation",
+      "technical-leadership"
+    ],
+    "related_projects": [
+      "ebike-motor-control-power-electronics",
+      "electric-truck-thermal-management",
+      "heavy-duty-engine-diagnostics-control-research"
+    ],
+    "related_experience": [
+      "alten-delivery-centre-spain-technical-leader-senior-software-developer",
+      "mahle-senior-embedded-software-developer-wireless-charging-and-e-mobility",
+      "scania-lund-university-research-intern-combustion-control-and-real-time-diagnostics",
+      "scania-senior-software-engineer",
+      "scania-software-engineer",
+      "traton-group-senior-development-engineer-consultant"
+    ],
+    "source_terms": [
+      "experience.tags"
+    ]
+  },
+  {
+    "id": "agile-scrum",
+    "name": "Agile (Scrum)",
+    "category": "soft",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [],
+    "related_projects": [],
+    "related_experience": [],
+    "source_terms": [
+      "raw.skills"
+    ],
+    "last_used": null,
+    "evidence_sentences": [
+      "Agile (Scrum) and CI/CD workflows using Git, Jenkins, and Jira",
+      "Full list: [Agile Software Development",
+      "Full list: [Agile Project Management",
+      "Full list: [Scrum"
+    ]
+  },
+  {
+    "id": "agile-project-management",
+    "name": "Agile Project Management",
+    "category": "soft",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [],
+    "related_projects": [],
+    "related_experience": [],
+    "source_terms": [
+      "raw.skills"
+    ],
+    "last_used": null,
+    "evidence_sentences": [
+      "Full list: [Agile Project Management"
+    ]
+  },
+  {
+    "id": "agile-software-development",
+    "name": "Agile Software Development",
+    "category": "soft",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [],
+    "related_projects": [],
+    "related_experience": [],
+    "source_terms": [
+      "raw.skills"
+    ],
+    "last_used": null,
+    "evidence_sentences": [
+      "Full list: [Agile Software Development"
+    ]
+  },
+  {
+    "id": "android-os",
+    "name": "Android OS",
+    "category": "Domain Knowledge",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [
+      "control-systems-estimation",
+      "electric-autonomous-vehicle-systems",
+      "embedded-software-validation"
+    ],
+    "related_projects": [],
+    "related_experience": [
+      "sony-mobile-communications-software-engineering-intern-human-machine-interaction-hmi"
+    ],
+    "source_terms": [
+      "experience.tags"
+    ]
+  },
+  {
+    "id": "arduino",
+    "name": "Arduino",
+    "category": "technical",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [
+      "electric-autonomous-vehicle-systems",
+      "embedded-software-validation"
+    ],
+    "related_projects": [],
+    "related_experience": [
+      "arduino-hardware-designer-educational-prototyping-and-pcb-development"
+    ],
+    "source_terms": [
+      "experience.tags",
+      "raw.skills"
+    ],
+    "last_used": null,
+    "evidence_sentences": [
+      "Hobbies Arduino and ESP32 projects",
+      "Full list: [Arduino"
+    ]
+  },
+  {
+    "id": "autodesk-inventor",
+    "name": "Autodesk Inventor",
+    "category": "technical",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [],
+    "related_projects": [],
+    "related_experience": [],
+    "source_terms": [
+      "raw.skills"
+    ],
+    "last_used": null,
+    "evidence_sentences": [
+      "Software Platforms Git/SVN Jenkins/Gitlab Jira Eclipse Visual Studio CANalyzer CANoe Davinci Configurator & Developer PSIM LaTex Microsoft Office Vision Autodesk Inventor Graphana"
+    ]
+  },
+  {
+    "id": "automotive",
+    "name": "Automotive",
+    "category": "Domain Knowledge",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [
+      "diagnostics-safety-robustness",
+      "electric-autonomous-vehicle-systems",
+      "embedded-controls-architecture",
+      "embedded-software-validation",
+      "technical-leadership"
+    ],
+    "related_projects": [],
+    "related_experience": [
+      "alten-delivery-centre-spain-technical-leader-senior-software-developer"
+    ],
+    "source_terms": [
+      "experience.tags"
+    ]
+  },
+  {
+    "id": "automotive-industry",
+    "name": "Automotive Industry",
+    "category": "domain",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [],
+    "related_projects": [],
+    "related_experience": [],
+    "source_terms": [
+      "raw.skills"
+    ],
+    "last_used": null,
+    "evidence_sentences": [
+      "Full list: [Automotive Industry"
+    ]
+  },
+  {
+    "id": "automotive-spice",
+    "name": "Automotive SPICE",
+    "category": "domain",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [
+      "control-systems-estimation",
+      "electric-autonomous-vehicle-systems",
+      "embedded-controls-architecture",
+      "embedded-software-validation"
+    ],
+    "related_projects": [
+      "ebike-motor-control-power-electronics"
+    ],
+    "related_experience": [
+      "mahle-senior-embedded-software-developer-wireless-charging-and-e-mobility"
+    ],
+    "source_terms": [
+      "experience.tags",
+      "raw.skills"
+    ],
+    "last_used": null,
+    "evidence_sentences": [
+      "Automotive SPICE",
+      "Full list: [Automotive SPICE (ASPICE)"
+    ]
+  },
+  {
+    "id": "autonomous-driving",
+    "name": "Autonomous Driving",
+    "category": "Domain Knowledge",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [
+      "diagnostics-safety-robustness",
+      "electric-autonomous-vehicle-systems",
+      "embedded-controls-architecture",
+      "embedded-software-validation",
+      "technical-leadership"
+    ],
+    "related_projects": [
+      "autonomous-hauler-propulsion-control"
+    ],
+    "related_experience": [
+      "volvo-construction-equipment-senior-development-engineer-consultant"
+    ],
+    "source_terms": [
+      "experience.tags"
+    ]
+  },
+  {
+    "id": "autonomous-vehicles",
+    "name": "Autonomous Vehicles",
+    "category": "domain",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [],
+    "related_projects": [],
+    "related_experience": [],
+    "source_terms": [
+      "raw.skills"
+    ],
+    "last_used": null,
+    "evidence_sentences": [
+      "Full list: [Autonomous Vehicles"
+    ]
+  },
+  {
+    "id": "autosar",
+    "name": "AUTOSAR",
+    "category": "technical tool",
+    "proficiency": "basic",
+    "years": null,
+    "related_capabilities": [
+      "electric-autonomous-vehicle-systems",
+      "embedded-controls-architecture",
+      "embedded-software-validation"
+    ],
+    "related_projects": [
+      "ebike-motor-control-power-electronics"
+    ],
+    "related_experience": [],
+    "source_terms": [
+      "raw.skills"
+    ],
+    "last_used": null,
+    "evidence_sentences": [
+      "AUTOSAR (basic)",
+      "Listed in the LinkedIn profile technical tools and skills section."
+    ]
+  },
+  {
+    "id": "autosar-architecture",
+    "name": "AUTOSAR architecture",
+    "category": "domain",
+    "proficiency": "Familiarity",
+    "years": null,
+    "related_capabilities": [],
+    "related_projects": [],
+    "related_experience": [],
+    "source_terms": [
+      "raw.skills"
+    ],
+    "last_used": null,
+    "evidence_sentences": [
+      "Familiarity with AUTOSAR architecture and functional safety lifecycle (ISO 26262)",
+      "Full list: [AUTOSAR",
+      "Full list: [AUTOSAR Automotive SPICE (ASPICE)"
+    ]
+  },
+  {
+    "id": "autosar-oriented-architecture",
+    "name": "AUTOSAR-oriented architecture",
+    "category": "Standards & Protocols",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [
+      "control-systems-estimation",
+      "diagnostics-safety-robustness",
+      "electric-autonomous-vehicle-systems",
+      "embedded-controls-architecture",
+      "embedded-software-validation"
+    ],
+    "related_projects": [
+      "autonomous-hauler-propulsion-control",
+      "ebike-motor-control-power-electronics",
+      "electric-truck-thermal-management",
+      "heavy-duty-engine-diagnostics-control-research"
+    ],
+    "related_experience": [],
+    "source_terms": [
+      "project.labels",
+      "project"
+    ]
+  },
+  {
+    "id": "battery-management",
+    "name": "Battery Management",
+    "category": "Domain Knowledge",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [
+      "control-systems-estimation",
+      "diagnostics-safety-robustness",
+      "electric-autonomous-vehicle-systems",
+      "embedded-controls-architecture",
+      "embedded-software-validation",
+      "technical-leadership"
+    ],
+    "related_projects": [
+      "electric-truck-thermal-management"
+    ],
+    "related_experience": [
+      "scania-senior-software-engineer",
+      "traton-group-senior-development-engineer-consultant"
+    ],
+    "source_terms": [
+      "experience.tags"
+    ]
+  },
+  {
+    "id": "battery-management-systems",
+    "name": "Battery Management Systems",
+    "category": "domain",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [],
+    "related_projects": [],
+    "related_experience": [],
+    "source_terms": [
+      "raw.skills"
+    ],
+    "last_used": null,
+    "evidence_sentences": [
+      "Full list: [Battery Management Systems"
+    ]
+  },
+  {
+    "id": "bench-validation",
+    "name": "Bench validation",
+    "category": "Embedded Software",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [
+      "control-systems-estimation",
+      "diagnostics-safety-robustness",
+      "electric-autonomous-vehicle-systems",
+      "embedded-controls-architecture",
+      "embedded-software-validation"
+    ],
+    "related_projects": [
+      "autonomous-hauler-propulsion-control",
+      "ebike-motor-control-power-electronics",
+      "electric-truck-thermal-management",
+      "heavy-duty-engine-diagnostics-control-research"
+    ],
+    "related_experience": [],
+    "source_terms": [
+      "project.labels",
+      "project"
+    ]
+  },
+  {
+    "id": "biofuels",
+    "name": "Biofuels",
+    "category": "Domain Knowledge",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [
+      "control-systems-estimation",
+      "diagnostics-safety-robustness",
+      "electric-autonomous-vehicle-systems",
+      "embedded-controls-architecture",
+      "embedded-software-validation",
+      "technical-leadership"
+    ],
+    "related_projects": [
+      "heavy-duty-engine-diagnostics-control-research"
+    ],
+    "related_experience": [
+      "scania-lund-university-phd-researcher-real-time-diesel-combustion-control"
+    ],
+    "source_terms": [
+      "experience.tags"
+    ]
+  },
+  {
+    "id": "bms",
+    "name": "BMS",
+    "category": "Vehicle Systems",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [
+      "control-systems-estimation",
+      "diagnostics-safety-robustness",
+      "electric-autonomous-vehicle-systems",
+      "embedded-controls-architecture",
+      "embedded-software-validation"
+    ],
+    "related_projects": [
+      "autonomous-hauler-propulsion-control",
+      "ebike-motor-control-power-electronics",
+      "electric-truck-thermal-management",
+      "heavy-duty-engine-diagnostics-control-research"
+    ],
+    "related_experience": [
+      "scania-senior-software-engineer"
+    ],
+    "source_terms": [
+      "experience.tags",
+      "project.labels",
+      "project"
+    ]
+  },
+  {
+    "id": "c",
+    "name": "C",
+    "category": "technical tool",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [
+      "control-systems-estimation",
+      "diagnostics-safety-robustness",
+      "electric-autonomous-vehicle-systems",
+      "embedded-controls-architecture",
+      "embedded-software-validation",
+      "technical-leadership"
+    ],
+    "related_projects": [
+      "autonomous-hauler-propulsion-control",
+      "ebike-motor-control-power-electronics",
+      "electric-truck-thermal-management",
+      "heavy-duty-engine-diagnostics-control-research"
+    ],
+    "related_experience": [
+      "mahle-senior-embedded-software-developer-wireless-charging-and-e-mobility",
+      "scania-lund-university-research-intern-combustion-control-and-real-time-diagnostics",
+      "scania-senior-software-engineer",
+      "scania-software-engineer",
+      "traton-group-senior-development-engineer-consultant"
+    ],
+    "source_terms": [
+      "experience.tags",
+      "raw.skills"
+    ],
+    "last_used": null,
+    "evidence_sentences": [
+      "Real-time embedded software implementation in C, using Eclipse and Visual Studio",
+      "Full list: [C (Programming Language)",
+      "Listed in the LinkedIn profile technical tools and skills section."
+    ]
+  },
+  {
+    "id": "c-plus-plus",
+    "name": "C++",
+    "category": "technical tool",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [
+      "control-systems-estimation",
+      "diagnostics-safety-robustness",
+      "electric-autonomous-vehicle-systems",
+      "embedded-controls-architecture",
+      "embedded-software-validation"
+    ],
+    "related_projects": [
+      "ebike-motor-control-power-electronics",
+      "electric-truck-thermal-management",
+      "heavy-duty-engine-diagnostics-control-research"
+    ],
+    "related_experience": [
+      "mahle-senior-embedded-software-developer-wireless-charging-and-e-mobility",
+      "scania-lund-university-research-intern-combustion-control-and-real-time-diagnostics",
+      "scania-senior-software-engineer",
+      "scania-software-engineer"
+    ],
+    "source_terms": [
+      "experience.tags",
+      "raw.skills"
+    ],
+    "last_used": null,
+    "evidence_sentences": [
+      "Programming Tools MATLAB/Simulink C/C++ LabView Python (basic) Java (basic) CAPL",
+      "Full list: [Embedded C/C++",
+      "Listed in the LinkedIn profile technical tools and skills section."
+    ]
+  },
+  {
+    "id": "calibration",
+    "name": "Calibration",
+    "category": "Embedded Software",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [
+      "control-systems-estimation",
+      "diagnostics-safety-robustness",
+      "electric-autonomous-vehicle-systems",
+      "embedded-controls-architecture",
+      "embedded-software-validation"
+    ],
+    "related_projects": [
+      "autonomous-hauler-propulsion-control",
+      "ebike-motor-control-power-electronics",
+      "electric-truck-thermal-management",
+      "heavy-duty-engine-diagnostics-control-research"
+    ],
+    "related_experience": [],
+    "source_terms": [
+      "project.labels",
+      "project"
+    ]
+  },
+  {
+    "id": "can",
+    "name": "CAN",
+    "category": "technical tool",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [
+      "control-systems-estimation",
+      "diagnostics-safety-robustness",
+      "electric-autonomous-vehicle-systems",
+      "embedded-controls-architecture",
+      "embedded-software-validation",
+      "technical-leadership"
+    ],
+    "related_projects": [
+      "electric-truck-thermal-management",
+      "heavy-duty-engine-diagnostics-control-research"
+    ],
+    "related_experience": [],
+    "source_terms": [
+      "raw.skills"
+    ],
+    "last_used": null,
+    "evidence_sentences": [
+      "Listed in the LinkedIn profile technical tools and skills section."
+    ]
+  },
+  {
+    "id": "can-j1939",
+    "name": "CAN (J1939)",
+    "category": "domain",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [],
+    "related_projects": [],
+    "related_experience": [],
+    "source_terms": [
+      "raw.skills"
+    ],
+    "last_used": null,
+    "evidence_sentences": [
+      "Automotive Standards CAN (J1939)"
+    ]
+  },
+  {
+    "id": "canalyzer",
+    "name": "CANAlyzer",
+    "category": "technical",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [
+      "control-systems-estimation",
+      "electric-autonomous-vehicle-systems",
+      "embedded-controls-architecture",
+      "embedded-software-validation"
+    ],
+    "related_projects": [
+      "ebike-motor-control-power-electronics"
+    ],
+    "related_experience": [
+      "mahle-senior-embedded-software-developer-wireless-charging-and-e-mobility"
+    ],
+    "source_terms": [
+      "experience.tags",
+      "raw.skills"
+    ],
+    "last_used": null,
+    "evidence_sentences": [
+      "Data-driven tuning and validation in test environments with Vision, CANAlyzer, CANoe, etc.",
+      "Software Platforms Git/SVN Jenkins/Gitlab Jira Eclipse Visual Studio CANalyzer CANoe Davinci Configurator & Developer PSIM LaTex Microsoft Office Vision Autodesk Inventor Graphana"
+    ]
+  },
+  {
+    "id": "canoe",
+    "name": "CANoe",
+    "category": "technical",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [
+      "control-systems-estimation",
+      "electric-autonomous-vehicle-systems",
+      "embedded-controls-architecture",
+      "embedded-software-validation"
+    ],
+    "related_projects": [
+      "ebike-motor-control-power-electronics"
+    ],
+    "related_experience": [
+      "mahle-senior-embedded-software-developer-wireless-charging-and-e-mobility"
+    ],
+    "source_terms": [
+      "experience.tags",
+      "raw.skills"
+    ],
+    "last_used": null,
+    "evidence_sentences": [
+      "Data-driven tuning and validation in test environments with Vision, CANAlyzer, CANoe, etc.",
+      "Software Platforms Git/SVN Jenkins/Gitlab Jira Eclipse Visual Studio CANalyzer CANoe Davinci Configurator & Developer PSIM LaTex Microsoft Office Vision Autodesk Inventor Graphana",
+      "Full list: [CAN Communication"
+    ]
+  },
+  {
+    "id": "capl",
+    "name": "CAPL",
+    "category": "technical",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [],
+    "related_projects": [],
+    "related_experience": [],
+    "source_terms": [
+      "raw.skills"
+    ],
+    "last_used": null,
+    "evidence_sentences": [
+      "Programming Tools MATLAB/Simulink C/C++ LabView Python (basic) Java (basic) CAPL"
+    ]
+  },
+  {
+    "id": "catalan",
+    "name": "Catalan",
+    "category": "language",
+    "proficiency": "Native or Bilingual",
+    "years": null,
+    "related_capabilities": [],
+    "related_projects": [],
+    "related_experience": [],
+    "source_terms": [
+      "raw.skills"
+    ],
+    "last_used": null,
+    "evidence_sentences": [
+      "[Catalan]: [Native ]",
+      "LinkedIn language proficiency: Native or Bilingual."
+    ]
+  },
+  {
+    "id": "charging-behavior",
+    "name": "Charging behavior",
+    "category": "Embedded Software",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [
+      "control-systems-estimation",
+      "diagnostics-safety-robustness",
+      "electric-autonomous-vehicle-systems",
+      "embedded-controls-architecture",
+      "embedded-software-validation"
+    ],
+    "related_projects": [
+      "autonomous-hauler-propulsion-control",
+      "ebike-motor-control-power-electronics",
+      "electric-truck-thermal-management",
+      "heavy-duty-engine-diagnostics-control-research"
+    ],
+    "related_experience": [],
+    "source_terms": [
+      "project.labels",
+      "project"
+    ]
+  },
+  {
+    "id": "ci-cd",
+    "name": "CI/CD",
+    "category": "technical",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [
+      "control-systems-estimation",
+      "diagnostics-safety-robustness",
+      "electric-autonomous-vehicle-systems",
+      "embedded-controls-architecture",
+      "embedded-software-validation",
+      "technical-leadership"
+    ],
+    "related_projects": [
+      "electric-truck-thermal-management"
+    ],
+    "related_experience": [
+      "alten-delivery-centre-spain-technical-leader-senior-software-developer",
+      "traton-group-senior-development-engineer-consultant"
+    ],
+    "source_terms": [
+      "experience.tags",
+      "raw.skills"
+    ],
+    "last_used": null,
+    "evidence_sentences": [
+      "Agile (Scrum) and CI/CD workflows using Git, Jenkins, and Jira",
+      "Full list: [Continuous Integration and Continuous Delivery (CI/CD)"
+    ]
+  },
+  {
+    "id": "classic-autosar",
+    "name": "Classic AUTOSAR",
+    "category": "Standards & Protocols",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [
+      "control-systems-estimation",
+      "electric-autonomous-vehicle-systems",
+      "embedded-controls-architecture",
+      "embedded-software-validation"
+    ],
+    "related_projects": [
+      "ebike-motor-control-power-electronics"
+    ],
+    "related_experience": [
+      "mahle-senior-embedded-software-developer-wireless-charging-and-e-mobility"
+    ],
+    "source_terms": [
+      "experience.tags"
+    ]
+  },
+  {
+    "id": "closed-loop-control",
+    "name": "Closed-loop control",
+    "category": "Embedded Software",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [
+      "control-systems-estimation",
+      "diagnostics-safety-robustness",
+      "electric-autonomous-vehicle-systems",
+      "embedded-controls-architecture",
+      "embedded-software-validation"
+    ],
+    "related_projects": [
+      "autonomous-hauler-propulsion-control",
+      "ebike-motor-control-power-electronics",
+      "electric-truck-thermal-management",
+      "heavy-duty-engine-diagnostics-control-research"
+    ],
+    "related_experience": [],
+    "source_terms": [
+      "project.labels",
+      "project"
+    ]
+  },
+  {
+    "id": "combustion-control",
+    "name": "Combustion Control",
+    "category": "domain",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [
+      "control-systems-estimation",
+      "diagnostics-safety-robustness",
+      "electric-autonomous-vehicle-systems",
+      "embedded-controls-architecture",
+      "embedded-software-validation",
+      "technical-leadership"
+    ],
+    "related_projects": [
+      "heavy-duty-engine-diagnostics-control-research"
+    ],
+    "related_experience": [
+      "scania-lund-university-phd-researcher-real-time-diesel-combustion-control",
+      "scania-lund-university-research-intern-combustion-control-and-real-time-diagnostics",
+      "scania-master-thesis-student",
+      "scania-software-engineer"
+    ],
+    "source_terms": [
+      "experience.tags",
+      "raw.skills"
+    ],
+    "last_used": null,
+    "evidence_sentences": [
+      "Full list: [Combustion Control"
+    ]
+  },
+  {
+    "id": "combustion-modelling",
+    "name": "Combustion Modelling",
+    "category": "Embedded Software",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [
+      "control-systems-estimation",
+      "diagnostics-safety-robustness",
+      "electric-autonomous-vehicle-systems",
+      "embedded-controls-architecture",
+      "embedded-software-validation"
+    ],
+    "related_projects": [
+      "heavy-duty-engine-diagnostics-control-research"
+    ],
+    "related_experience": [
+      "scania-lund-university-research-intern-combustion-control-and-real-time-diagnostics"
+    ],
+    "source_terms": [
+      "experience.tags"
+    ]
+  },
+  {
+    "id": "communication",
+    "name": "Communication",
+    "category": "soft",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [
+      "control-systems-estimation",
+      "electric-autonomous-vehicle-systems",
+      "embedded-software-validation"
+    ],
+    "related_projects": [],
+    "related_experience": [],
+    "source_terms": [
+      "raw.skills"
+    ],
+    "last_used": null,
+    "evidence_sentences": [
+      "Full list: [Communication"
+    ]
+  },
+  {
+    "id": "control-and-automation-techniques",
+    "name": "Control and automation techniques",
+    "category": "technical",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [],
+    "related_projects": [],
+    "related_experience": [],
+    "source_terms": [
+      "raw.skills"
+    ],
+    "last_used": null,
+    "evidence_sentences": [
+      "Control and automation techniques",
+      "Full list: [Automation"
+    ]
+  },
+  {
+    "id": "control-systems",
+    "name": "Control Systems",
+    "category": "Embedded Software",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [
+      "control-systems-estimation",
+      "diagnostics-safety-robustness",
+      "electric-autonomous-vehicle-systems",
+      "embedded-controls-architecture",
+      "embedded-software-validation",
+      "technical-leadership"
+    ],
+    "related_projects": [
+      "heavy-duty-engine-diagnostics-control-research"
+    ],
+    "related_experience": [
+      "scania-master-thesis-student"
+    ],
+    "source_terms": [
+      "experience.tags"
+    ]
+  },
+  {
+    "id": "control-systems-design",
+    "name": "Control Systems Design",
+    "category": "technical",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [],
+    "related_projects": [],
+    "related_experience": [],
+    "source_terms": [
+      "raw.skills"
+    ],
+    "last_used": null,
+    "evidence_sentences": [
+      "Full list: [Control Systems Design"
+    ]
+  },
+  {
+    "id": "control-theory",
+    "name": "Control-theory",
+    "category": "technical",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [],
+    "related_projects": [],
+    "related_experience": [],
+    "source_terms": [
+      "raw.skills"
+    ],
+    "last_used": null,
+    "evidence_sentences": [
+      "Control-theory: architecture design, implementation, allocation, tuning and testing",
+      "Full list: [Control Theory",
+      "Full list: [Control Systems Design"
+    ]
+  },
+  {
+    "id": "cooling-system",
+    "name": "Cooling System",
+    "category": "domain",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [],
+    "related_projects": [],
+    "related_experience": [],
+    "source_terms": [
+      "raw.skills"
+    ],
+    "last_used": null,
+    "evidence_sentences": [
+      "Full list: [Cooling System"
+    ]
+  },
+  {
+    "id": "cooling-systems",
+    "name": "Cooling Systems",
+    "category": "Embedded Software",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [
+      "control-systems-estimation",
+      "diagnostics-safety-robustness",
+      "electric-autonomous-vehicle-systems",
+      "embedded-controls-architecture",
+      "embedded-software-validation"
+    ],
+    "related_projects": [
+      "heavy-duty-engine-diagnostics-control-research"
+    ],
+    "related_experience": [
+      "scania-software-engineer"
+    ],
+    "source_terms": [
+      "experience.tags"
+    ]
+  },
+  {
+    "id": "critical-thinking",
+    "name": "Critical Thinking",
+    "category": "soft",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [],
+    "related_projects": [],
+    "related_experience": [],
+    "source_terms": [
+      "raw.skills"
+    ],
+    "last_used": null,
+    "evidence_sentences": [
+      "Full list: [Critical Thinking"
+    ]
+  },
+  {
+    "id": "cross-team-collaboration",
+    "name": "Cross-team Collaboration",
+    "category": "soft",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [],
+    "related_projects": [],
+    "related_experience": [],
+    "source_terms": [
+      "raw.skills"
+    ],
+    "last_used": null,
+    "evidence_sentences": [
+      "Full list: [Cross-team Collaboration"
+    ]
+  },
+  {
+    "id": "data-analysis",
+    "name": "Data Analysis",
+    "category": "technical",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [],
+    "related_projects": [],
+    "related_experience": [],
+    "source_terms": [
+      "raw.skills"
+    ],
+    "last_used": null,
+    "evidence_sentences": [
+      "Full list: [Data Analysis"
+    ]
+  },
+  {
+    "id": "data-processing",
+    "name": "Data Processing",
+    "category": "Embedded Software",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [
+      "control-systems-estimation",
+      "diagnostics-safety-robustness",
+      "electric-autonomous-vehicle-systems",
+      "embedded-controls-architecture",
+      "embedded-software-validation",
+      "technical-leadership"
+    ],
+    "related_projects": [
+      "heavy-duty-engine-diagnostics-control-research"
+    ],
+    "related_experience": [
+      "scania-lund-university-phd-researcher-real-time-diesel-combustion-control"
+    ],
+    "source_terms": [
+      "experience.tags"
+    ]
+  },
+  {
+    "id": "data-driven-tuning-and-validation",
+    "name": "Data-driven tuning and validation",
+    "category": "technical",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [],
+    "related_projects": [],
+    "related_experience": [],
+    "source_terms": [
+      "raw.skills"
+    ],
+    "last_used": null,
+    "evidence_sentences": [
+      "Data-driven tuning and validation in test environments with Vision, CANAlyzer, CANoe, etc."
+    ]
+  },
+  {
+    "id": "davinci-configurator-and-developer",
+    "name": "Davinci Configurator & Developer",
+    "category": "technical",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [],
+    "related_projects": [],
+    "related_experience": [],
+    "source_terms": [
+      "raw.skills"
+    ],
+    "last_used": null,
+    "evidence_sentences": [
+      "Software Platforms Git/SVN Jenkins/Gitlab Jira Eclipse Visual Studio CANalyzer CANoe Davinci Configurator & Developer PSIM LaTex Microsoft Office Vision Autodesk Inventor Graphana",
+      "Full list: [Davinci Configurator"
+    ]
+  },
+  {
+    "id": "dc-dc-converter",
+    "name": "DC-DC Converter",
+    "category": "domain",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [],
+    "related_projects": [],
+    "related_experience": [],
+    "source_terms": [
+      "raw.skills"
+    ],
+    "last_used": null,
+    "evidence_sentences": [
+      "Full list: [DC-DC Converter"
+    ]
+  },
+  {
+    "id": "dc-dc-converters",
+    "name": "DC/DC Converters",
+    "category": "Embedded Software",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [
+      "control-systems-estimation",
+      "electric-autonomous-vehicle-systems",
+      "embedded-controls-architecture",
+      "embedded-software-validation"
+    ],
+    "related_projects": [
+      "ebike-motor-control-power-electronics"
+    ],
+    "related_experience": [
+      "mahle-senior-embedded-software-developer-wireless-charging-and-e-mobility"
+    ],
+    "source_terms": [
+      "experience.tags"
+    ]
+  },
+  {
+    "id": "dc-dc-interfaces",
+    "name": "DC/DC interfaces",
+    "category": "Embedded Software",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [
+      "control-systems-estimation",
+      "diagnostics-safety-robustness",
+      "electric-autonomous-vehicle-systems",
+      "embedded-controls-architecture",
+      "embedded-software-validation"
+    ],
+    "related_projects": [
+      "autonomous-hauler-propulsion-control",
+      "ebike-motor-control-power-electronics",
+      "electric-truck-thermal-management",
+      "heavy-duty-engine-diagnostics-control-research"
+    ],
+    "related_experience": [],
+    "source_terms": [
+      "project.labels",
+      "project"
+    ]
+  },
+  {
+    "id": "diagnostic-monitoring",
+    "name": "Diagnostic monitoring",
+    "category": "Embedded Software",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [
+      "control-systems-estimation",
+      "diagnostics-safety-robustness",
+      "electric-autonomous-vehicle-systems",
+      "embedded-controls-architecture",
+      "embedded-software-validation"
+    ],
+    "related_projects": [
+      "autonomous-hauler-propulsion-control",
+      "ebike-motor-control-power-electronics",
+      "electric-truck-thermal-management",
+      "heavy-duty-engine-diagnostics-control-research"
+    ],
+    "related_experience": [],
+    "source_terms": [
+      "project.labels",
+      "project"
+    ]
+  },
+  {
+    "id": "diagnostics",
+    "name": "Diagnostics",
+    "category": "Diagnostics & Safety",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [
+      "control-systems-estimation",
+      "diagnostics-safety-robustness",
+      "electric-autonomous-vehicle-systems",
+      "embedded-controls-architecture",
+      "embedded-software-validation",
+      "technical-leadership"
+    ],
+    "related_projects": [
+      "autonomous-hauler-propulsion-control",
+      "ebike-motor-control-power-electronics",
+      "electric-truck-thermal-management",
+      "heavy-duty-engine-diagnostics-control-research"
+    ],
+    "related_experience": [
+      "scania-lund-university-phd-researcher-real-time-diesel-combustion-control"
+    ],
+    "source_terms": [
+      "experience.tags",
+      "project.labels",
+      "project"
+    ]
+  },
+  {
+    "id": "diesel-engines",
+    "name": "Diesel Engines",
+    "category": "Domain Knowledge",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [
+      "control-systems-estimation",
+      "diagnostics-safety-robustness",
+      "electric-autonomous-vehicle-systems",
+      "embedded-controls-architecture",
+      "embedded-software-validation",
+      "technical-leadership"
+    ],
+    "related_projects": [
+      "heavy-duty-engine-diagnostics-control-research"
+    ],
+    "related_experience": [
+      "scania-lund-university-phd-researcher-real-time-diesel-combustion-control"
+    ],
+    "source_terms": [
+      "experience.tags"
+    ]
+  },
+  {
+    "id": "dynamic-modelling",
+    "name": "Dynamic Modelling",
+    "category": "Embedded Software",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [
+      "control-systems-estimation",
+      "diagnostics-safety-robustness",
+      "electric-autonomous-vehicle-systems",
+      "embedded-controls-architecture",
+      "embedded-software-validation",
+      "technical-leadership"
+    ],
+    "related_projects": [
+      "heavy-duty-engine-diagnostics-control-research"
+    ],
+    "related_experience": [
+      "scania-lund-university-phd-researcher-real-time-diesel-combustion-control"
+    ],
+    "source_terms": [
+      "experience.tags"
+    ]
+  },
+  {
+    "id": "e-bike-motor-control",
+    "name": "E-bike Motor Control",
+    "category": "Embedded Software",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [
+      "control-systems-estimation",
+      "diagnostics-safety-robustness",
+      "electric-autonomous-vehicle-systems",
+      "embedded-controls-architecture",
+      "embedded-software-validation"
+    ],
+    "related_projects": [
+      "autonomous-hauler-propulsion-control",
+      "ebike-motor-control-power-electronics",
+      "electric-truck-thermal-management",
+      "heavy-duty-engine-diagnostics-control-research"
+    ],
+    "related_experience": [
+      "mahle-senior-embedded-software-developer-wireless-charging-and-e-mobility"
+    ],
+    "source_terms": [
+      "experience.tags",
+      "project.labels",
+      "project"
+    ]
+  },
+  {
+    "id": "eaglecad",
+    "name": "EagleCAD",
+    "category": "Embedded Software",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [
+      "electric-autonomous-vehicle-systems",
+      "embedded-software-validation"
+    ],
+    "related_projects": [],
+    "related_experience": [
+      "arduino-hardware-designer-educational-prototyping-and-pcb-development"
+    ],
+    "source_terms": [
+      "experience.tags"
+    ]
+  },
+  {
+    "id": "eclipse",
+    "name": "Eclipse",
+    "category": "technical",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [],
+    "related_projects": [],
+    "related_experience": [],
+    "source_terms": [
+      "raw.skills"
+    ],
+    "last_used": null,
+    "evidence_sentences": [
+      "Real-time embedded software implementation in C, using Eclipse and Visual Studio",
+      "Software Platforms Git/SVN Jenkins/Gitlab Jira Eclipse Visual Studio",
+      "Full list: [Eclipse"
+    ]
+  },
+  {
+    "id": "educational-technology",
+    "name": "Educational Technology",
+    "category": "Embedded Software",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [
+      "electric-autonomous-vehicle-systems",
+      "embedded-software-validation"
+    ],
+    "related_projects": [],
+    "related_experience": [
+      "arduino-hardware-designer-educational-prototyping-and-pcb-development"
+    ],
+    "source_terms": [
+      "experience.tags"
+    ]
+  },
+  {
+    "id": "electric-powertrains",
+    "name": "Electric Powertrains",
+    "category": "Embedded Software",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [
+      "control-systems-estimation",
+      "diagnostics-safety-robustness",
+      "electric-autonomous-vehicle-systems",
+      "embedded-controls-architecture",
+      "embedded-software-validation"
+    ],
+    "related_projects": [
+      "electric-truck-thermal-management"
+    ],
+    "related_experience": [
+      "scania-senior-software-engineer"
+    ],
+    "source_terms": [
+      "experience.tags"
+    ]
+  },
+  {
+    "id": "electric-vehicles",
+    "name": "Electric Vehicles",
+    "category": "domain",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [
+      "control-systems-estimation",
+      "diagnostics-safety-robustness",
+      "electric-autonomous-vehicle-systems",
+      "embedded-controls-architecture",
+      "embedded-software-validation",
+      "technical-leadership"
+    ],
+    "related_projects": [
+      "autonomous-hauler-propulsion-control",
+      "electric-truck-thermal-management"
+    ],
+    "related_experience": [
+      "traton-group-senior-development-engineer-consultant",
+      "volvo-construction-equipment-senior-development-engineer-consultant"
+    ],
+    "source_terms": [
+      "experience.tags",
+      "raw.skills"
+    ],
+    "last_used": null,
+    "evidence_sentences": [
+      "Full list: [Electric Vehicles"
+    ]
+  },
+  {
+    "id": "electrical-engineering",
+    "name": "Electrical Engineering",
+    "category": "domain",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [],
+    "related_projects": [],
+    "related_experience": [],
+    "source_terms": [
+      "raw.skills"
+    ],
+    "last_used": null,
+    "evidence_sentences": [
+      "Full list: [Electrical Engineering"
+    ]
+  },
+  {
+    "id": "electronics",
+    "name": "Electronics",
+    "category": "domain",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [
+      "electric-autonomous-vehicle-systems",
+      "embedded-controls-architecture",
+      "embedded-software-validation"
+    ],
+    "related_projects": [
+      "ebike-motor-control-power-electronics"
+    ],
+    "related_experience": [],
+    "source_terms": [
+      "raw.skills"
+    ],
+    "last_used": null,
+    "evidence_sentences": [
+      "Full list: [Electronics"
+    ]
+  },
+  {
+    "id": "embedded-coder",
+    "name": "Embedded Coder",
+    "category": "technical tool",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [],
+    "related_projects": [],
+    "related_experience": [],
+    "source_terms": [
+      "raw.skills"
+    ],
+    "last_used": null,
+    "evidence_sentences": [
+      "Listed in the LinkedIn profile technical tools and skills section."
+    ]
+  },
+  {
+    "id": "embedded-software",
+    "name": "Embedded Software",
+    "category": "Domain Knowledge",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [
+      "control-systems-estimation",
+      "diagnostics-safety-robustness",
+      "electric-autonomous-vehicle-systems",
+      "embedded-controls-architecture",
+      "embedded-software-validation",
+      "technical-leadership"
+    ],
+    "related_projects": [
+      "ebike-motor-control-power-electronics",
+      "heavy-duty-engine-diagnostics-control-research"
+    ],
+    "related_experience": [
+      "scania-lund-university-research-intern-combustion-control-and-real-time-diagnostics"
+    ],
+    "source_terms": [
+      "experience.tags"
+    ]
+  },
+  {
+    "id": "embedded-software-development",
+    "name": "Embedded Software Development",
+    "category": "Domain Knowledge",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [
+      "diagnostics-safety-robustness",
+      "electric-autonomous-vehicle-systems",
+      "embedded-controls-architecture",
+      "embedded-software-validation",
+      "technical-leadership"
+    ],
+    "related_projects": [],
+    "related_experience": [
+      "alten-delivery-centre-spain-technical-leader-senior-software-developer"
+    ],
+    "source_terms": [
+      "experience.tags"
+    ]
+  },
+  {
+    "id": "embedded-systems",
+    "name": "Embedded Systems",
+    "category": "LinkedIn top skill",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [],
+    "related_projects": [],
+    "related_experience": [],
+    "source_terms": [
+      "raw.skills"
+    ],
+    "last_used": null,
+    "evidence_sentences": [
+      "Full list: [Embedded Systems Model-Based Design (MBD)",
+      "Listed as a top skill in the LinkedIn profile export."
+    ]
+  },
+  {
+    "id": "engine-diagnostics",
+    "name": "Engine Diagnostics",
+    "category": "Diagnostics & Safety",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [
+      "control-systems-estimation",
+      "diagnostics-safety-robustness",
+      "electric-autonomous-vehicle-systems",
+      "embedded-controls-architecture",
+      "embedded-software-validation"
+    ],
+    "related_projects": [
+      "heavy-duty-engine-diagnostics-control-research"
+    ],
+    "related_experience": [
+      "scania-lund-university-research-intern-combustion-control-and-real-time-diagnostics",
+      "scania-software-engineer"
+    ],
+    "source_terms": [
+      "experience.tags"
+    ]
+  },
+  {
+    "id": "english",
+    "name": "English",
+    "category": "language",
+    "proficiency": "Full Professional",
+    "years": null,
+    "related_capabilities": [],
+    "related_projects": [],
+    "related_experience": [],
+    "source_terms": [
+      "raw.skills"
+    ],
+    "last_used": null,
+    "evidence_sentences": [
+      "[English]: [Full professional]",
+      "LinkedIn language proficiency: Full Professional."
+    ]
+  },
+  {
+    "id": "esp32",
+    "name": "ESP32",
+    "category": "technical",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [],
+    "related_projects": [],
+    "related_experience": [],
+    "source_terms": [
+      "raw.skills"
+    ],
+    "last_used": null,
+    "evidence_sentences": [
+      "Hobbies Arduino and ESP32 projects",
+      "Full list: [ESP32 Microcontrollers"
+    ]
+  },
+  {
+    "id": "fpga",
+    "name": "FPGA",
+    "category": "technical",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [
+      "control-systems-estimation",
+      "diagnostics-safety-robustness",
+      "electric-autonomous-vehicle-systems",
+      "embedded-controls-architecture",
+      "embedded-software-validation",
+      "technical-leadership"
+    ],
+    "related_projects": [
+      "heavy-duty-engine-diagnostics-control-research"
+    ],
+    "related_experience": [
+      "scania-lund-university-phd-researcher-real-time-diesel-combustion-control"
+    ],
+    "source_terms": [
+      "experience.tags",
+      "raw.skills"
+    ],
+    "last_used": null,
+    "evidence_sentences": [
+      "Full list: [FPGA"
+    ]
+  },
+  {
+    "id": "fritzing",
+    "name": "Fritzing",
+    "category": "Domain Knowledge",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [
+      "electric-autonomous-vehicle-systems",
+      "embedded-software-validation"
+    ],
+    "related_projects": [],
+    "related_experience": [
+      "arduino-hardware-designer-educational-prototyping-and-pcb-development"
+    ],
+    "source_terms": [
+      "experience.tags"
+    ]
+  },
+  {
+    "id": "fuel-systems",
+    "name": "Fuel Systems",
+    "category": "Domain Knowledge",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [
+      "control-systems-estimation",
+      "diagnostics-safety-robustness",
+      "electric-autonomous-vehicle-systems",
+      "embedded-controls-architecture",
+      "embedded-software-validation",
+      "technical-leadership"
+    ],
+    "related_projects": [
+      "heavy-duty-engine-diagnostics-control-research"
+    ],
+    "related_experience": [
+      "scania-master-thesis-student"
+    ],
+    "source_terms": [
+      "experience.tags"
+    ]
+  },
+  {
+    "id": "functional-design-specification-fds",
+    "name": "Functional Design Specification (FDS)",
+    "category": "technical",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [],
+    "related_projects": [],
+    "related_experience": [],
+    "source_terms": [
+      "raw.skills"
+    ],
+    "last_used": null,
+    "evidence_sentences": [
+      "Full list: [Functional Design Specification (FDS)"
+    ]
+  },
+  {
+    "id": "functional-safety",
+    "name": "Functional Safety",
+    "category": "Embedded Software",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [
+      "control-systems-estimation",
+      "diagnostics-safety-robustness",
+      "electric-autonomous-vehicle-systems",
+      "embedded-controls-architecture",
+      "embedded-software-validation",
+      "technical-leadership"
+    ],
+    "related_projects": [
+      "autonomous-hauler-propulsion-control",
+      "electric-truck-thermal-management",
+      "heavy-duty-engine-diagnostics-control-research"
+    ],
+    "related_experience": [
+      "scania-lund-university-research-intern-combustion-control-and-real-time-diagnostics",
+      "scania-master-thesis-student",
+      "scania-senior-software-engineer",
+      "scania-software-engineer",
+      "traton-group-senior-development-engineer-consultant",
+      "volvo-construction-equipment-senior-development-engineer-consultant"
+    ],
+    "source_terms": [
+      "experience.tags"
+    ]
+  },
+  {
+    "id": "functional-safety-lifecycle-iso-26262",
+    "name": "functional safety lifecycle (ISO 26262)",
+    "category": "domain",
+    "proficiency": "Familiarity",
+    "years": null,
+    "related_capabilities": [],
+    "related_projects": [],
+    "related_experience": [],
+    "source_terms": [
+      "raw.skills"
+    ],
+    "last_used": null,
+    "evidence_sentences": [
+      "Familiarity with AUTOSAR architecture and functional safety lifecycle (ISO 26262)",
+      "Full list: [Functional Safety ISO 26262"
+    ]
+  },
+  {
+    "id": "git",
+    "name": "Git",
+    "category": "technical tool",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [
+      "control-systems-estimation",
+      "diagnostics-safety-robustness",
+      "electric-autonomous-vehicle-systems",
+      "embedded-controls-architecture",
+      "embedded-software-validation"
+    ],
+    "related_projects": [
+      "electric-truck-thermal-management"
+    ],
+    "related_experience": [
+      "scania-senior-software-engineer"
+    ],
+    "source_terms": [
+      "experience.tags",
+      "raw.skills"
+    ],
+    "last_used": null,
+    "evidence_sentences": [
+      "Agile (Scrum) and CI/CD workflows using Git, Jenkins, and Jira",
+      "Software Platforms Git/SVN Jenkins/Gitlab Jira Eclipse Visual Studio",
+      "Full list: [Git",
+      "Full list: [Gitlab",
+      "Listed in the LinkedIn profile technical tools and skills section."
+    ]
+  },
+  {
+    "id": "gitlab",
+    "name": "GitLab",
+    "category": "technical",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [
+      "control-systems-estimation",
+      "diagnostics-safety-robustness",
+      "electric-autonomous-vehicle-systems",
+      "embedded-controls-architecture",
+      "embedded-software-validation",
+      "technical-leadership"
+    ],
+    "related_projects": [
+      "electric-truck-thermal-management"
+    ],
+    "related_experience": [
+      "traton-group-senior-development-engineer-consultant"
+    ],
+    "source_terms": [
+      "experience.tags",
+      "raw.skills"
+    ],
+    "last_used": null,
+    "evidence_sentences": [
+      "Software Platforms Git/SVN Jenkins/Gitlab Jira Eclipse Visual Studio"
+    ]
+  },
+  {
+    "id": "google-test",
+    "name": "Google Test",
+    "category": "technical",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [],
+    "related_projects": [],
+    "related_experience": [],
+    "source_terms": [
+      "raw.skills"
+    ],
+    "last_used": null,
+    "evidence_sentences": [
+      "Full list: [Google Test"
+    ]
+  },
+  {
+    "id": "graphana",
+    "name": "Graphana",
+    "category": "technical",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [],
+    "related_projects": [],
+    "related_experience": [],
+    "source_terms": [
+      "raw.skills"
+    ],
+    "last_used": null,
+    "evidence_sentences": [
+      "Software Platforms Git/SVN Jenkins/Gitlab Jira Eclipse Visual Studio CANalyzer CANoe Davinci Configurator & Developer PSIM LaTex Microsoft Office Vision Autodesk Inventor Graphana"
+    ]
+  },
+  {
+    "id": "hardware-design",
+    "name": "Hardware Design",
+    "category": "Domain Knowledge",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [
+      "electric-autonomous-vehicle-systems",
+      "embedded-software-validation"
+    ],
+    "related_projects": [],
+    "related_experience": [
+      "arduino-hardware-designer-educational-prototyping-and-pcb-development"
+    ],
+    "source_terms": [
+      "experience.tags"
+    ]
+  },
+  {
+    "id": "heavy-duty-engines",
+    "name": "Heavy-Duty Engines",
+    "category": "domain",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [],
+    "related_projects": [],
+    "related_experience": [],
+    "source_terms": [
+      "raw.skills"
+    ],
+    "last_used": null,
+    "evidence_sentences": [
+      "Full list: [Heavy-Duty Engines"
+    ]
+  },
+  {
+    "id": "heavy-duty-vehicles",
+    "name": "Heavy-Duty Vehicles",
+    "category": "Embedded Software",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [
+      "control-systems-estimation",
+      "diagnostics-safety-robustness",
+      "electric-autonomous-vehicle-systems",
+      "embedded-controls-architecture",
+      "embedded-software-validation",
+      "technical-leadership"
+    ],
+    "related_projects": [
+      "heavy-duty-engine-diagnostics-control-research"
+    ],
+    "related_experience": [
+      "scania-master-thesis-student"
+    ],
+    "source_terms": [
+      "experience.tags"
+    ]
+  },
+  {
+    "id": "hil",
+    "name": "HIL",
+    "category": "Domain Knowledge",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [
+      "diagnostics-safety-robustness",
+      "electric-autonomous-vehicle-systems",
+      "embedded-controls-architecture",
+      "embedded-software-validation",
+      "technical-leadership"
+    ],
+    "related_projects": [
+      "autonomous-hauler-propulsion-control"
+    ],
+    "related_experience": [
+      "volvo-construction-equipment-senior-development-engineer-consultant"
+    ],
+    "source_terms": [
+      "experience.tags"
+    ]
+  },
+  {
+    "id": "hil-sil-testing",
+    "name": "HIL/SIL Testing",
+    "category": "technical",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [],
+    "related_projects": [],
+    "related_experience": [],
+    "source_terms": [
+      "raw.skills"
+    ],
+    "last_used": null,
+    "evidence_sentences": [
+      "Full list: [HIL/SIL Testing"
+    ]
+  },
+  {
+    "id": "human-machine-interaction-hmi",
+    "name": "Human-Machine Interaction (HMI)",
+    "category": "Embedded Software",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [
+      "control-systems-estimation",
+      "electric-autonomous-vehicle-systems",
+      "embedded-software-validation"
+    ],
+    "related_projects": [],
+    "related_experience": [
+      "sony-mobile-communications-software-engineering-intern-human-machine-interaction-hmi"
+    ],
+    "source_terms": [
+      "experience.tags"
+    ]
+  },
+  {
+    "id": "i2c",
+    "name": "I2C",
+    "category": "technical",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [],
+    "related_projects": [],
+    "related_experience": [],
+    "source_terms": [
+      "raw.skills"
+    ],
+    "last_used": null,
+    "evidence_sentences": [
+      "Full list: [I2C"
+    ]
+  },
+  {
+    "id": "infineon",
+    "name": "Infineon",
+    "category": "technical",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [],
+    "related_projects": [],
+    "related_experience": [],
+    "source_terms": [
+      "raw.skills"
+    ],
+    "last_used": null,
+    "evidence_sentences": [
+      "Full list: [Infineon LabVIEW"
+    ]
+  },
+  {
+    "id": "internal-combustion-engines",
+    "name": "Internal Combustion Engines",
+    "category": "domain",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [],
+    "related_projects": [],
+    "related_experience": [],
+    "source_terms": [
+      "raw.skills"
+    ],
+    "last_used": null,
+    "evidence_sentences": [
+      "Full list: [Internal Combustion Engines"
+    ]
+  },
+  {
+    "id": "iso-26262",
+    "name": "ISO 26262",
+    "category": "technical tool",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [
+      "control-systems-estimation",
+      "diagnostics-safety-robustness",
+      "electric-autonomous-vehicle-systems",
+      "embedded-controls-architecture",
+      "embedded-software-validation",
+      "technical-leadership"
+    ],
+    "related_projects": [
+      "autonomous-hauler-propulsion-control",
+      "electric-truck-thermal-management"
+    ],
+    "related_experience": [
+      "alten-delivery-centre-spain-technical-leader-senior-software-developer",
+      "scania-senior-software-engineer",
+      "traton-group-senior-development-engineer-consultant",
+      "volvo-construction-equipment-senior-development-engineer-consultant"
+    ],
+    "source_terms": [
+      "experience.tags",
+      "raw.skills"
+    ],
+    "last_used": null,
+    "evidence_sentences": [
+      "Automotive Standards ISO 26262 (Functional Safety)",
+      "Listed in the LinkedIn profile technical tools and skills section."
+    ]
+  },
+  {
+    "id": "java",
+    "name": "Java",
+    "category": "language",
+    "proficiency": "basic",
+    "years": null,
+    "related_capabilities": [],
+    "related_projects": [],
+    "related_experience": [],
+    "source_terms": [
+      "raw.skills"
+    ],
+    "last_used": null,
+    "evidence_sentences": [
+      "Programming Tools MATLAB/Simulink C/C++ LabView Python (basic) Java (basic) CAPL"
+    ]
+  },
+  {
+    "id": "jenkins",
+    "name": "Jenkins",
+    "category": "technical tool",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [
+      "control-systems-estimation",
+      "diagnostics-safety-robustness",
+      "electric-autonomous-vehicle-systems",
+      "embedded-controls-architecture",
+      "embedded-software-validation"
+    ],
+    "related_projects": [
+      "electric-truck-thermal-management",
+      "heavy-duty-engine-diagnostics-control-research"
+    ],
+    "related_experience": [
+      "scania-lund-university-research-intern-combustion-control-and-real-time-diagnostics",
+      "scania-senior-software-engineer",
+      "scania-software-engineer"
+    ],
+    "source_terms": [
+      "experience.tags",
+      "raw.skills"
+    ],
+    "last_used": null,
+    "evidence_sentences": [
+      "Agile (Scrum) and CI/CD workflows using Git, Jenkins, and Jira",
+      "Software Platforms Git/SVN Jenkins/Gitlab Jira Eclipse Visual Studio",
+      "Full list: [Jenkins",
+      "Listed in the LinkedIn profile technical tools and skills section."
+    ]
+  },
+  {
+    "id": "jira",
+    "name": "Jira",
+    "category": "technical tool",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [
+      "control-systems-estimation",
+      "diagnostics-safety-robustness",
+      "electric-autonomous-vehicle-systems",
+      "embedded-controls-architecture",
+      "embedded-software-validation",
+      "technical-leadership"
+    ],
+    "related_projects": [
+      "ebike-motor-control-power-electronics",
+      "electric-truck-thermal-management",
+      "heavy-duty-engine-diagnostics-control-research"
+    ],
+    "related_experience": [
+      "mahle-senior-embedded-software-developer-wireless-charging-and-e-mobility",
+      "scania-lund-university-research-intern-combustion-control-and-real-time-diagnostics",
+      "scania-master-thesis-student",
+      "scania-senior-software-engineer",
+      "scania-software-engineer"
+    ],
+    "source_terms": [
+      "experience.tags",
+      "raw.skills"
+    ],
+    "last_used": null,
+    "evidence_sentences": [
+      "Agile (Scrum) and CI/CD workflows using Git, Jenkins, and Jira",
+      "Software Platforms Git/SVN Jenkins/Gitlab Jira Eclipse Visual Studio",
+      "Full list: [Jira",
+      "Listed in the LinkedIn profile technical tools and skills section."
+    ]
+  },
+  {
+    "id": "kanban",
+    "name": "Kanban",
+    "category": "soft",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [
+      "embedded-software-validation"
+    ],
+    "related_projects": [],
+    "related_experience": [],
+    "source_terms": [
+      "raw.skills"
+    ],
+    "last_used": null,
+    "evidence_sentences": [
+      "Full list: [Kanban"
+    ]
+  },
+  {
+    "id": "kernel-level-programming",
+    "name": "Kernel-level programming",
+    "category": "Domain Knowledge",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [
+      "control-systems-estimation",
+      "electric-autonomous-vehicle-systems",
+      "embedded-software-validation"
+    ],
+    "related_projects": [],
+    "related_experience": [
+      "sony-mobile-communications-software-engineering-intern-human-machine-interaction-hmi"
+    ],
+    "source_terms": [
+      "experience.tags"
+    ]
+  },
+  {
+    "id": "labview",
+    "name": "LabView",
+    "category": "technical",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [
+      "control-systems-estimation",
+      "diagnostics-safety-robustness",
+      "electric-autonomous-vehicle-systems",
+      "embedded-controls-architecture",
+      "embedded-software-validation",
+      "technical-leadership"
+    ],
+    "related_projects": [
+      "heavy-duty-engine-diagnostics-control-research"
+    ],
+    "related_experience": [
+      "scania-lund-university-phd-researcher-real-time-diesel-combustion-control"
+    ],
+    "source_terms": [
+      "experience.tags",
+      "raw.skills"
+    ],
+    "last_used": null,
+    "evidence_sentences": [
+      "Core Competences Model-Based Development (MBD) with MATLAB/Simulink and LabView",
+      "Full list: [Infineon LabVIEW"
+    ]
+  },
+  {
+    "id": "latex",
+    "name": "LaTex",
+    "category": "technical",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [],
+    "related_projects": [],
+    "related_experience": [],
+    "source_terms": [
+      "raw.skills"
+    ],
+    "last_used": null,
+    "evidence_sentences": [
+      "Software Platforms Git/SVN Jenkins/Gitlab Jira Eclipse Visual Studio CANalyzer CANoe Davinci Configurator & Developer PSIM LaTex Microsoft Office Vision Autodesk Inventor Graphana"
+    ]
+  },
+  {
+    "id": "leadership",
+    "name": "Leadership",
+    "category": "soft",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [
+      "technical-leadership"
+    ],
+    "related_projects": [],
+    "related_experience": [],
+    "source_terms": [
+      "raw.skills"
+    ],
+    "last_used": null,
+    "evidence_sentences": [
+      "Full list: [Leadership"
+    ]
+  },
+  {
+    "id": "matlab",
+    "name": "MATLAB",
+    "category": "technical tool",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [
+      "control-systems-estimation",
+      "electric-autonomous-vehicle-systems",
+      "embedded-software-validation"
+    ],
+    "related_projects": [],
+    "related_experience": [
+      "sony-mobile-communications-software-engineering-intern-human-machine-interaction-hmi"
+    ],
+    "source_terms": [
+      "experience.tags",
+      "raw.skills"
+    ],
+    "last_used": null,
+    "evidence_sentences": [
+      "Listed as a top skill in the LinkedIn profile export.",
+      "Listed in the LinkedIn profile technical tools and skills section."
+    ]
+  },
+  {
+    "id": "matlab-simulink",
+    "name": "MATLAB/Simulink",
+    "category": "technical",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [
+      "control-systems-estimation",
+      "diagnostics-safety-robustness",
+      "electric-autonomous-vehicle-systems",
+      "embedded-controls-architecture",
+      "embedded-software-validation",
+      "technical-leadership"
+    ],
+    "related_projects": [
+      "ebike-motor-control-power-electronics",
+      "electric-truck-thermal-management",
+      "heavy-duty-engine-diagnostics-control-research"
+    ],
+    "related_experience": [
+      "alten-delivery-centre-spain-technical-leader-senior-software-developer",
+      "mahle-senior-embedded-software-developer-wireless-charging-and-e-mobility",
+      "scania-lund-university-phd-researcher-real-time-diesel-combustion-control",
+      "scania-lund-university-research-intern-combustion-control-and-real-time-diagnostics",
+      "scania-master-thesis-student",
+      "scania-senior-software-engineer",
+      "scania-software-engineer",
+      "traton-group-senior-development-engineer-consultant"
+    ],
+    "source_terms": [
+      "experience.tags",
+      "raw.skills"
+    ],
+    "last_used": null,
+    "evidence_sentences": [
+      "Core Competences Model-Based Development (MBD) with MATLAB/Simulink and LabView",
+      "Programming Tools MATLAB/Simulink",
+      "Full list: [Matlab Simulink"
+    ]
+  },
+  {
+    "id": "mechatronics",
+    "name": "Mechatronics",
+    "category": "domain",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [],
+    "related_projects": [],
+    "related_experience": [],
+    "source_terms": [
+      "raw.skills"
+    ],
+    "last_used": null,
+    "evidence_sentences": [
+      "Full list: [Mechatronics"
+    ]
+  },
+  {
+    "id": "mentoring",
+    "name": "Mentoring",
+    "category": "soft",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [
+      "technical-leadership"
+    ],
+    "related_projects": [],
+    "related_experience": [],
+    "source_terms": [
+      "raw.skills"
+    ],
+    "last_used": null,
+    "evidence_sentences": [
+      "Full list: [Mentoring"
+    ]
+  },
+  {
+    "id": "microsoft-office",
+    "name": "Microsoft Office",
+    "category": "technical",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [],
+    "related_projects": [],
+    "related_experience": [],
+    "source_terms": [
+      "raw.skills"
+    ],
+    "last_used": null,
+    "evidence_sentences": [
+      "Software Platforms Git/SVN Jenkins/Gitlab Jira Eclipse Visual Studio CANalyzer CANoe Davinci Configurator & Developer PSIM LaTex Microsoft Office Vision Autodesk Inventor Graphana",
+      "Full list: [Microsoft Office",
+      "Full list: [PowerPoint"
+    ]
+  },
+  {
+    "id": "mild-hybrid-vehicles",
+    "name": "Mild-Hybrid Vehicles",
+    "category": "Embedded Software",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [
+      "control-systems-estimation",
+      "diagnostics-safety-robustness",
+      "electric-autonomous-vehicle-systems",
+      "embedded-controls-architecture",
+      "embedded-software-validation"
+    ],
+    "related_projects": [
+      "electric-truck-thermal-management"
+    ],
+    "related_experience": [
+      "scania-senior-software-engineer"
+    ],
+    "source_terms": [
+      "experience.tags"
+    ]
+  },
+  {
+    "id": "mobile-devices",
+    "name": "Mobile Devices",
+    "category": "Embedded Software",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [
+      "control-systems-estimation",
+      "electric-autonomous-vehicle-systems",
+      "embedded-software-validation"
+    ],
+    "related_projects": [],
+    "related_experience": [
+      "sony-mobile-communications-software-engineering-intern-human-machine-interaction-hmi"
+    ],
+    "source_terms": [
+      "experience.tags"
+    ]
+  },
+  {
+    "id": "model-calibration",
+    "name": "Model Calibration",
+    "category": "Embedded Software",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [
+      "control-systems-estimation",
+      "diagnostics-safety-robustness",
+      "electric-autonomous-vehicle-systems",
+      "embedded-controls-architecture",
+      "embedded-software-validation",
+      "technical-leadership"
+    ],
+    "related_projects": [
+      "heavy-duty-engine-diagnostics-control-research"
+    ],
+    "related_experience": [
+      "scania-lund-university-phd-researcher-real-time-diesel-combustion-control"
+    ],
+    "source_terms": [
+      "experience.tags"
+    ]
+  },
+  {
+    "id": "model-based-design",
+    "name": "Model-Based Design",
+    "category": "Domain Knowledge",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [
+      "control-systems-estimation",
+      "diagnostics-safety-robustness",
+      "electric-autonomous-vehicle-systems",
+      "embedded-controls-architecture",
+      "embedded-software-validation",
+      "technical-leadership"
+    ],
+    "related_projects": [
+      "ebike-motor-control-power-electronics",
+      "electric-truck-thermal-management",
+      "heavy-duty-engine-diagnostics-control-research"
+    ],
+    "related_experience": [
+      "mahle-senior-embedded-software-developer-wireless-charging-and-e-mobility",
+      "scania-lund-university-research-intern-combustion-control-and-real-time-diagnostics",
+      "scania-master-thesis-student",
+      "scania-senior-software-engineer",
+      "scania-software-engineer"
+    ],
+    "source_terms": [
+      "experience.tags"
+    ]
+  },
+  {
+    "id": "model-based-design-mbd",
+    "name": "Model-Based Design (MBD)",
+    "category": "LinkedIn top skill",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [],
+    "related_projects": [],
+    "related_experience": [],
+    "source_terms": [
+      "raw.skills"
+    ],
+    "last_used": null,
+    "evidence_sentences": [
+      "Listed as a top skill in the LinkedIn profile export."
+    ]
+  },
+  {
+    "id": "model-based-development-mbd",
+    "name": "Model-Based Development (MBD)",
+    "category": "technical",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [],
+    "related_projects": [],
+    "related_experience": [],
+    "source_terms": [
+      "raw.skills"
+    ],
+    "last_used": null,
+    "evidence_sentences": [
+      "Core Competences Model-Based Development (MBD) with MATLAB/Simulink and LabView",
+      "Full list: [Embedded Systems Model-Based Design (MBD)"
+    ]
+  },
+  {
+    "id": "model-based-predictive-mpc-controllers",
+    "name": "model-based predictive (MPC) controllers",
+    "category": "technical",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [],
+    "related_projects": [],
+    "related_experience": [],
+    "source_terms": [
+      "raw.skills"
+    ],
+    "last_used": null,
+    "evidence_sentences": [
+      "Design of linear (PID), non-linear, adaptive, and model-based predictive (MPC) controllers",
+      "Full list: [Model Based Control"
+    ]
+  },
+  {
+    "id": "non-linear-controllers",
+    "name": "non-linear controllers",
+    "category": "technical",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [],
+    "related_projects": [],
+    "related_experience": [],
+    "source_terms": [
+      "raw.skills"
+    ],
+    "last_used": null,
+    "evidence_sentences": [
+      "Design of linear (PID), non-linear, adaptive, and model-based predictive (MPC) controllers"
+    ]
+  },
+  {
+    "id": "oil-systems",
+    "name": "Oil Systems",
+    "category": "Domain Knowledge",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [
+      "control-systems-estimation",
+      "diagnostics-safety-robustness",
+      "electric-autonomous-vehicle-systems",
+      "embedded-controls-architecture",
+      "embedded-software-validation"
+    ],
+    "related_projects": [
+      "heavy-duty-engine-diagnostics-control-research"
+    ],
+    "related_experience": [
+      "scania-software-engineer"
+    ],
+    "source_terms": [
+      "experience.tags"
+    ]
+  },
+  {
+    "id": "optimal-filters",
+    "name": "optimal filters",
+    "category": "technical",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [],
+    "related_projects": [],
+    "related_experience": [],
+    "source_terms": [
+      "raw.skills"
+    ],
+    "last_used": null,
+    "evidence_sentences": [
+      "Signal processing with adaptive and optimal filters"
+    ]
+  },
+  {
+    "id": "optimization-methods",
+    "name": "optimization methods",
+    "category": "technical",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [],
+    "related_projects": [],
+    "related_experience": [],
+    "source_terms": [
+      "raw.skills"
+    ],
+    "last_used": null,
+    "evidence_sentences": [
+      "Stochastic detection algorithms and optimization methods"
+    ]
+  },
+  {
+    "id": "patent-applications",
+    "name": "Patent Applications",
+    "category": "technical",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [],
+    "related_projects": [],
+    "related_experience": [],
+    "source_terms": [
+      "raw.skills"
+    ],
+    "last_used": null,
+    "evidence_sentences": [
+      "Full list: [Patent Applications"
+    ]
+  },
+  {
+    "id": "patents",
+    "name": "Patents",
+    "category": "Domain Knowledge",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [
+      "control-systems-estimation",
+      "diagnostics-safety-robustness",
+      "electric-autonomous-vehicle-systems",
+      "embedded-controls-architecture",
+      "embedded-software-validation"
+    ],
+    "related_projects": [
+      "autonomous-hauler-propulsion-control",
+      "ebike-motor-control-power-electronics",
+      "electric-truck-thermal-management",
+      "heavy-duty-engine-diagnostics-control-research"
+    ],
+    "related_experience": [],
+    "source_terms": [
+      "project.labels",
+      "project"
+    ]
+  },
+  {
+    "id": "pcb-design",
+    "name": "PCB Design",
+    "category": "Embedded Software",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [
+      "electric-autonomous-vehicle-systems",
+      "embedded-software-validation"
+    ],
+    "related_projects": [],
+    "related_experience": [
+      "arduino-hardware-designer-educational-prototyping-and-pcb-development"
+    ],
+    "source_terms": [
+      "experience.tags"
+    ]
+  },
+  {
+    "id": "perforce",
+    "name": "Perforce",
+    "category": "Embedded Software",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [
+      "control-systems-estimation",
+      "diagnostics-safety-robustness",
+      "electric-autonomous-vehicle-systems",
+      "embedded-controls-architecture",
+      "embedded-software-validation"
+    ],
+    "related_projects": [
+      "heavy-duty-engine-diagnostics-control-research"
+    ],
+    "related_experience": [
+      "scania-lund-university-research-intern-combustion-control-and-real-time-diagnostics",
+      "scania-software-engineer"
+    ],
+    "source_terms": [
+      "experience.tags"
+    ]
+  },
+  {
+    "id": "pid-controllers",
+    "name": "PID controllers",
+    "category": "technical",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [],
+    "related_projects": [],
+    "related_experience": [],
+    "source_terms": [
+      "raw.skills"
+    ],
+    "last_used": null,
+    "evidence_sentences": [
+      "Design of linear (PID), non-linear, adaptive, and model-based predictive (MPC) controllers"
+    ]
+  },
+  {
+    "id": "pmsm",
+    "name": "PMSM",
+    "category": "Vehicle Systems",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [
+      "control-systems-estimation",
+      "electric-autonomous-vehicle-systems",
+      "embedded-controls-architecture",
+      "embedded-software-validation"
+    ],
+    "related_projects": [
+      "ebike-motor-control-power-electronics"
+    ],
+    "related_experience": [
+      "mahle-senior-embedded-software-developer-wireless-charging-and-e-mobility"
+    ],
+    "source_terms": [
+      "experience.tags"
+    ]
+  },
+  {
+    "id": "pmsm-thermal-modeling",
+    "name": "PMSM thermal modeling",
+    "category": "Vehicle Systems",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [
+      "control-systems-estimation",
+      "diagnostics-safety-robustness",
+      "electric-autonomous-vehicle-systems",
+      "embedded-controls-architecture",
+      "embedded-software-validation"
+    ],
+    "related_projects": [
+      "autonomous-hauler-propulsion-control",
+      "ebike-motor-control-power-electronics",
+      "electric-truck-thermal-management",
+      "heavy-duty-engine-diagnostics-control-research"
+    ],
+    "related_experience": [],
+    "source_terms": [
+      "project.labels",
+      "project"
+    ]
+  },
+  {
+    "id": "power-electronics",
+    "name": "Power Electronics",
+    "category": "domain",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [
+      "control-systems-estimation",
+      "diagnostics-safety-robustness",
+      "electric-autonomous-vehicle-systems",
+      "embedded-controls-architecture",
+      "embedded-software-validation"
+    ],
+    "related_projects": [
+      "autonomous-hauler-propulsion-control",
+      "ebike-motor-control-power-electronics",
+      "electric-truck-thermal-management",
+      "heavy-duty-engine-diagnostics-control-research"
+    ],
+    "related_experience": [],
+    "source_terms": [
+      "raw.skills",
+      "project.labels",
+      "project"
+    ],
+    "last_used": null,
+    "evidence_sentences": [
+      "Full list: [Power Electronics"
+    ]
+  },
+  {
+    "id": "powertrain-control",
+    "name": "Powertrain Control",
+    "category": "domain",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [],
+    "related_projects": [],
+    "related_experience": [],
+    "source_terms": [
+      "raw.skills"
+    ],
+    "last_used": null,
+    "evidence_sentences": [
+      "Full list: [Powertrain Control"
+    ]
+  },
+  {
+    "id": "proactive",
+    "name": "Proactive",
+    "category": "soft",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [],
+    "related_projects": [],
+    "related_experience": [],
+    "source_terms": [
+      "raw.skills"
+    ],
+    "last_used": null,
+    "evidence_sentences": [
+      "Full list: [Proactive"
+    ]
+  },
+  {
+    "id": "problem-solving",
+    "name": "Problem Solving",
+    "category": "soft",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [],
+    "related_projects": [],
+    "related_experience": [],
+    "source_terms": [
+      "raw.skills"
+    ],
+    "last_used": null,
+    "evidence_sentences": [
+      "Full list: [Problem Solving"
+    ]
+  },
+  {
+    "id": "propulsion-control",
+    "name": "Propulsion Control",
+    "category": "Embedded Software",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [
+      "diagnostics-safety-robustness",
+      "electric-autonomous-vehicle-systems",
+      "embedded-controls-architecture",
+      "embedded-software-validation",
+      "technical-leadership"
+    ],
+    "related_projects": [
+      "autonomous-hauler-propulsion-control"
+    ],
+    "related_experience": [
+      "volvo-construction-equipment-senior-development-engineer-consultant"
+    ],
+    "source_terms": [
+      "experience.tags"
+    ]
+  },
+  {
+    "id": "prototyping",
+    "name": "Prototyping",
+    "category": "Domain Knowledge",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [
+      "electric-autonomous-vehicle-systems",
+      "embedded-software-validation"
+    ],
+    "related_projects": [],
+    "related_experience": [
+      "arduino-hardware-designer-educational-prototyping-and-pcb-development"
+    ],
+    "source_terms": [
+      "experience.tags"
+    ]
+  },
+  {
+    "id": "psim",
+    "name": "PSIM",
+    "category": "technical",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [],
+    "related_projects": [],
+    "related_experience": [],
+    "source_terms": [
+      "raw.skills"
+    ],
+    "last_used": null,
+    "evidence_sentences": [
+      "Software Platforms Git/SVN Jenkins/Gitlab Jira Eclipse Visual Studio CANalyzer CANoe Davinci Configurator & Developer PSIM LaTex Microsoft Office Vision Autodesk Inventor Graphana"
+    ]
+  },
+  {
+    "id": "publications",
+    "name": "Publications",
+    "category": "Embedded Software",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [
+      "control-systems-estimation",
+      "diagnostics-safety-robustness",
+      "electric-autonomous-vehicle-systems",
+      "embedded-controls-architecture",
+      "embedded-software-validation"
+    ],
+    "related_projects": [
+      "autonomous-hauler-propulsion-control",
+      "ebike-motor-control-power-electronics",
+      "electric-truck-thermal-management",
+      "heavy-duty-engine-diagnostics-control-research"
+    ],
+    "related_experience": [],
+    "source_terms": [
+      "project.labels",
+      "project"
+    ]
+  },
+  {
+    "id": "python",
+    "name": "Python",
+    "category": "language",
+    "proficiency": "basic",
+    "years": null,
+    "related_capabilities": [
+      "embedded-software-validation"
+    ],
+    "related_projects": [],
+    "related_experience": [],
+    "source_terms": [
+      "raw.skills"
+    ],
+    "last_used": null,
+    "evidence_sentences": [
+      "Programming Tools MATLAB/Simulink C/C++ LabView Python (basic) Java (basic) CAPL",
+      "Full list: [Python (Programming Language)"
+    ]
+  },
+  {
+    "id": "rapid-learning",
+    "name": "Rapid Learning",
+    "category": "soft",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [],
+    "related_projects": [],
+    "related_experience": [],
+    "source_terms": [
+      "raw.skills"
+    ],
+    "last_used": null,
+    "evidence_sentences": [
+      "Full list: [Rapid Learning"
+    ]
+  },
+  {
+    "id": "real-time-control",
+    "name": "Real-time Control",
+    "category": "Embedded Software",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [
+      "control-systems-estimation",
+      "diagnostics-safety-robustness",
+      "electric-autonomous-vehicle-systems",
+      "embedded-controls-architecture",
+      "embedded-software-validation",
+      "technical-leadership"
+    ],
+    "related_projects": [
+      "heavy-duty-engine-diagnostics-control-research"
+    ],
+    "related_experience": [
+      "scania-lund-university-phd-researcher-real-time-diesel-combustion-control"
+    ],
+    "source_terms": [
+      "experience.tags"
+    ]
+  },
+  {
+    "id": "real-time-embedded-software-implementation",
+    "name": "Real-time embedded software implementation",
+    "category": "technical",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [],
+    "related_projects": [],
+    "related_experience": [],
+    "source_terms": [
+      "raw.skills"
+    ],
+    "last_used": null,
+    "evidence_sentences": [
+      "Real-time embedded software implementation in C, using Eclipse and Visual Studio",
+      "Full list: [Real-Time Embedded Systems"
+    ]
+  },
+  {
+    "id": "real-time-operating-systems-rtos",
+    "name": "Real-Time Operating Systems (RTOS)",
+    "category": "technical",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [],
+    "related_projects": [],
+    "related_experience": [],
+    "source_terms": [
+      "raw.skills"
+    ],
+    "last_used": null,
+    "evidence_sentences": [
+      "Full list: [Real-Time Operating Systems (RTOS)"
+    ]
+  },
+  {
+    "id": "real-time-systems",
+    "name": "Real-time Systems",
+    "category": "Domain Knowledge",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [
+      "control-systems-estimation",
+      "diagnostics-safety-robustness",
+      "electric-autonomous-vehicle-systems",
+      "embedded-controls-architecture",
+      "embedded-software-validation"
+    ],
+    "related_projects": [
+      "heavy-duty-engine-diagnostics-control-research"
+    ],
+    "related_experience": [
+      "scania-lund-university-research-intern-combustion-control-and-real-time-diagnostics"
+    ],
+    "source_terms": [
+      "experience.tags"
+    ]
+  },
+  {
+    "id": "redundant-actuators",
+    "name": "Redundant actuators",
+    "category": "Embedded Software",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [
+      "control-systems-estimation",
+      "diagnostics-safety-robustness",
+      "electric-autonomous-vehicle-systems",
+      "embedded-controls-architecture",
+      "embedded-software-validation"
+    ],
+    "related_projects": [
+      "autonomous-hauler-propulsion-control",
+      "ebike-motor-control-power-electronics",
+      "electric-truck-thermal-management",
+      "heavy-duty-engine-diagnostics-control-research"
+    ],
+    "related_experience": [],
+    "source_terms": [
+      "project.labels",
+      "project"
+    ]
+  },
+  {
+    "id": "safe",
+    "name": "SAFe",
+    "category": "Domain Knowledge",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [
+      "control-systems-estimation",
+      "diagnostics-safety-robustness",
+      "electric-autonomous-vehicle-systems",
+      "embedded-controls-architecture",
+      "embedded-software-validation",
+      "technical-leadership"
+    ],
+    "related_projects": [
+      "electric-truck-thermal-management",
+      "heavy-duty-engine-diagnostics-control-research"
+    ],
+    "related_experience": [
+      "traton-group-senior-development-engineer-consultant"
+    ],
+    "source_terms": [
+      "experience.tags"
+    ]
+  },
+  {
+    "id": "service-provider-interface-spi",
+    "name": "Service Provider Interface (SPI)",
+    "category": "technical",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [],
+    "related_projects": [],
+    "related_experience": [],
+    "source_terms": [
+      "raw.skills"
+    ],
+    "last_used": null,
+    "evidence_sentences": [
+      "Full list: [Service Provider Interface (SPI)"
+    ]
+  },
+  {
+    "id": "signal-processing",
+    "name": "Signal Processing",
+    "category": "technical",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [
+      "control-systems-estimation",
+      "diagnostics-safety-robustness",
+      "electric-autonomous-vehicle-systems",
+      "embedded-controls-architecture",
+      "embedded-software-validation",
+      "technical-leadership"
+    ],
+    "related_projects": [
+      "heavy-duty-engine-diagnostics-control-research"
+    ],
+    "related_experience": [
+      "scania-lund-university-phd-researcher-real-time-diesel-combustion-control"
+    ],
+    "source_terms": [
+      "experience.tags",
+      "raw.skills"
+    ],
+    "last_used": null,
+    "evidence_sentences": [
+      "Signal processing with adaptive and optimal filters",
+      "Full list: [Signal Processing"
+    ]
+  },
+  {
+    "id": "sil",
+    "name": "SIL",
+    "category": "Domain Knowledge",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [
+      "diagnostics-safety-robustness",
+      "electric-autonomous-vehicle-systems",
+      "embedded-controls-architecture",
+      "embedded-software-validation",
+      "technical-leadership"
+    ],
+    "related_projects": [
+      "autonomous-hauler-propulsion-control"
+    ],
+    "related_experience": [
+      "volvo-construction-equipment-senior-development-engineer-consultant"
+    ],
+    "source_terms": [
+      "experience.tags"
+    ]
+  },
+  {
+    "id": "sil-hil",
+    "name": "SIL/HIL",
+    "category": "Domain Knowledge",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [
+      "control-systems-estimation",
+      "diagnostics-safety-robustness",
+      "electric-autonomous-vehicle-systems",
+      "embedded-controls-architecture",
+      "embedded-software-validation"
+    ],
+    "related_projects": [
+      "autonomous-hauler-propulsion-control",
+      "ebike-motor-control-power-electronics",
+      "electric-truck-thermal-management",
+      "heavy-duty-engine-diagnostics-control-research"
+    ],
+    "related_experience": [],
+    "source_terms": [
+      "project.labels",
+      "project"
+    ]
+  },
+  {
+    "id": "simulink",
+    "name": "Simulink",
+    "category": "technical tool",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [
+      "embedded-software-validation"
+    ],
+    "related_projects": [],
+    "related_experience": [],
+    "source_terms": [
+      "raw.skills"
+    ],
+    "last_used": null,
+    "evidence_sentences": [
+      "Listed in the LinkedIn profile technical tools and skills section."
+    ]
+  },
+  {
+    "id": "software-development",
+    "name": "Software Development",
+    "category": "technical",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [],
+    "related_projects": [],
+    "related_experience": [],
+    "source_terms": [
+      "raw.skills"
+    ],
+    "last_used": null,
+    "evidence_sentences": [
+      "Full list: [Software Development"
+    ]
+  },
+  {
+    "id": "software-engineering",
+    "name": "Software Engineering",
+    "category": "Domain Knowledge",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [
+      "control-systems-estimation",
+      "electric-autonomous-vehicle-systems",
+      "embedded-software-validation"
+    ],
+    "related_projects": [],
+    "related_experience": [
+      "sony-mobile-communications-software-engineering-intern-human-machine-interaction-hmi"
+    ],
+    "source_terms": [
+      "experience.tags"
+    ]
+  },
+  {
+    "id": "software-requirements-specification-srs",
+    "name": "Software Requirements Specification (SRS)",
+    "category": "technical",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [],
+    "related_projects": [],
+    "related_experience": [],
+    "source_terms": [
+      "raw.skills"
+    ],
+    "last_used": null,
+    "evidence_sentences": [
+      "Full list: [Software Requirements Specification (SRS)"
+    ]
+  },
+  {
+    "id": "spanish",
+    "name": "Spanish",
+    "category": "language",
+    "proficiency": "Native or Bilingual",
+    "years": null,
+    "related_capabilities": [],
+    "related_projects": [],
+    "related_experience": [],
+    "source_terms": [
+      "raw.skills"
+    ],
+    "last_used": null,
+    "evidence_sentences": [
+      "[Spanish]: [Mother ]",
+      "LinkedIn language proficiency: Native or Bilingual."
+    ]
+  },
+  {
+    "id": "stateflow",
+    "name": "Stateflow",
+    "category": "technical tool",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [],
+    "related_projects": [],
+    "related_experience": [],
+    "source_terms": [
+      "raw.skills"
+    ],
+    "last_used": null,
+    "evidence_sentences": [
+      "Listed in the LinkedIn profile technical tools and skills section."
+    ]
+  },
+  {
+    "id": "stochastic-detection",
+    "name": "Stochastic detection",
+    "category": "Embedded Software",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [
+      "control-systems-estimation",
+      "diagnostics-safety-robustness",
+      "electric-autonomous-vehicle-systems",
+      "embedded-controls-architecture",
+      "embedded-software-validation"
+    ],
+    "related_projects": [
+      "autonomous-hauler-propulsion-control",
+      "ebike-motor-control-power-electronics",
+      "electric-truck-thermal-management",
+      "heavy-duty-engine-diagnostics-control-research"
+    ],
+    "related_experience": [],
+    "source_terms": [
+      "project.labels",
+      "project"
+    ]
+  },
+  {
+    "id": "stochastic-detection-algorithms",
+    "name": "Stochastic detection algorithms",
+    "category": "technical",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [],
+    "related_projects": [],
+    "related_experience": [],
+    "source_terms": [
+      "raw.skills"
+    ],
+    "last_used": null,
+    "evidence_sentences": [
+      "Stochastic detection algorithms and optimization methods"
+    ]
+  },
+  {
+    "id": "svn",
+    "name": "SVN",
+    "category": "technical",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [
+      "control-systems-estimation",
+      "electric-autonomous-vehicle-systems",
+      "embedded-controls-architecture",
+      "embedded-software-validation"
+    ],
+    "related_projects": [
+      "ebike-motor-control-power-electronics"
+    ],
+    "related_experience": [
+      "mahle-senior-embedded-software-developer-wireless-charging-and-e-mobility"
+    ],
+    "source_terms": [
+      "experience.tags",
+      "raw.skills"
+    ],
+    "last_used": null,
+    "evidence_sentences": [
+      "Software Platforms Git/SVN Jenkins/Gitlab Jira Eclipse Visual Studio",
+      "Full list: [SVN"
+    ]
+  },
+  {
+    "id": "swedish",
+    "name": "Swedish",
+    "category": "language",
+    "proficiency": "Full Professional",
+    "years": null,
+    "related_capabilities": [
+      "embedded-software-validation"
+    ],
+    "related_projects": [],
+    "related_experience": [],
+    "source_terms": [
+      "raw.skills"
+    ],
+    "last_used": null,
+    "evidence_sentences": [
+      "[Swedish]: [Full professional]",
+      "LinkedIn language proficiency: Full Professional."
+    ]
+  },
+  {
+    "id": "system-calibration",
+    "name": "System calibration",
+    "category": "technical",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [],
+    "related_projects": [],
+    "related_experience": [],
+    "source_terms": [
+      "raw.skills"
+    ],
+    "last_used": null,
+    "evidence_sentences": [
+      "System modeling, identification, and calibration",
+      "Full list: [Sensors Calibration"
+    ]
+  },
+  {
+    "id": "system-documentation",
+    "name": "System Documentation",
+    "category": "technical",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [],
+    "related_projects": [],
+    "related_experience": [],
+    "source_terms": [
+      "raw.skills"
+    ],
+    "last_used": null,
+    "evidence_sentences": [
+      "Full list: [System Documentation"
+    ]
+  },
+  {
+    "id": "system-identification",
+    "name": "System identification",
+    "category": "technical",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [
+      "control-systems-estimation"
+    ],
+    "related_projects": [],
+    "related_experience": [],
+    "source_terms": [
+      "raw.skills"
+    ],
+    "last_used": null,
+    "evidence_sentences": [
+      "System modeling, identification, and calibration"
+    ]
+  },
+  {
+    "id": "system-modeling",
+    "name": "System modeling",
+    "category": "technical",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [],
+    "related_projects": [],
+    "related_experience": [],
+    "source_terms": [
+      "raw.skills"
+    ],
+    "last_used": null,
+    "evidence_sentences": [
+      "System modeling, identification, and calibration",
+      "Full list: [Embedded Systems Model-Based Design (MBD)"
+    ]
+  },
+  {
+    "id": "system-optimization",
+    "name": "System Optimization",
+    "category": "Domain Knowledge",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [
+      "control-systems-estimation",
+      "diagnostics-safety-robustness",
+      "electric-autonomous-vehicle-systems",
+      "embedded-controls-architecture",
+      "embedded-software-validation",
+      "technical-leadership"
+    ],
+    "related_projects": [
+      "heavy-duty-engine-diagnostics-control-research"
+    ],
+    "related_experience": [
+      "scania-lund-university-phd-researcher-real-time-diesel-combustion-control"
+    ],
+    "source_terms": [
+      "experience.tags"
+    ]
+  },
+  {
+    "id": "technical-documentation",
+    "name": "Technical Documentation",
+    "category": "technical",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [],
+    "related_projects": [],
+    "related_experience": [],
+    "source_terms": [
+      "raw.skills"
+    ],
+    "last_used": null,
+    "evidence_sentences": [
+      "Full list: [Technical Documentation"
+    ]
+  },
+  {
+    "id": "test-bench-validation",
+    "name": "Test-bench validation",
+    "category": "Embedded Software",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [
+      "control-systems-estimation",
+      "diagnostics-safety-robustness",
+      "electric-autonomous-vehicle-systems",
+      "embedded-controls-architecture",
+      "embedded-software-validation"
+    ],
+    "related_projects": [
+      "autonomous-hauler-propulsion-control",
+      "ebike-motor-control-power-electronics",
+      "electric-truck-thermal-management",
+      "heavy-duty-engine-diagnostics-control-research"
+    ],
+    "related_experience": [],
+    "source_terms": [
+      "project.labels",
+      "project"
+    ]
+  },
+  {
+    "id": "thermal-control",
+    "name": "Thermal control",
+    "category": "Embedded Software",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [
+      "control-systems-estimation",
+      "diagnostics-safety-robustness",
+      "electric-autonomous-vehicle-systems",
+      "embedded-controls-architecture",
+      "embedded-software-validation"
+    ],
+    "related_projects": [
+      "autonomous-hauler-propulsion-control",
+      "ebike-motor-control-power-electronics",
+      "electric-truck-thermal-management",
+      "heavy-duty-engine-diagnostics-control-research"
+    ],
+    "related_experience": [],
+    "source_terms": [
+      "project.labels",
+      "project"
+    ]
+  },
+  {
+    "id": "thermal-management",
+    "name": "Thermal Management",
+    "category": "domain",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [
+      "control-systems-estimation",
+      "diagnostics-safety-robustness",
+      "electric-autonomous-vehicle-systems",
+      "embedded-controls-architecture",
+      "embedded-software-validation",
+      "technical-leadership"
+    ],
+    "related_projects": [
+      "electric-truck-thermal-management",
+      "heavy-duty-engine-diagnostics-control-research"
+    ],
+    "related_experience": [
+      "scania-lund-university-research-intern-combustion-control-and-real-time-diagnostics",
+      "scania-master-thesis-student",
+      "scania-senior-software-engineer",
+      "scania-software-engineer",
+      "traton-group-senior-development-engineer-consultant"
+    ],
+    "source_terms": [
+      "experience.tags",
+      "raw.skills"
+    ],
+    "last_used": null,
+    "evidence_sentences": [
+      "Full list: [Thermal Management"
+    ]
+  },
+  {
+    "id": "torque-allocation",
+    "name": "Torque allocation",
+    "category": "Embedded Software",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [
+      "control-systems-estimation",
+      "diagnostics-safety-robustness",
+      "electric-autonomous-vehicle-systems",
+      "embedded-controls-architecture",
+      "embedded-software-validation"
+    ],
+    "related_projects": [
+      "autonomous-hauler-propulsion-control",
+      "ebike-motor-control-power-electronics",
+      "electric-truck-thermal-management",
+      "heavy-duty-engine-diagnostics-control-research"
+    ],
+    "related_experience": [],
+    "source_terms": [
+      "project.labels",
+      "project"
+    ]
+  },
+  {
+    "id": "traction-and-torque-control",
+    "name": "Traction & Torque Control",
+    "category": "domain",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [],
+    "related_projects": [],
+    "related_experience": [],
+    "source_terms": [
+      "raw.skills"
+    ],
+    "last_used": null,
+    "evidence_sentences": [
+      "Full list: [Traction & Torque Control"
+    ]
+  },
+  {
+    "id": "traction-control",
+    "name": "Traction control",
+    "category": "Embedded Software",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [
+      "control-systems-estimation",
+      "diagnostics-safety-robustness",
+      "electric-autonomous-vehicle-systems",
+      "embedded-controls-architecture",
+      "embedded-software-validation"
+    ],
+    "related_projects": [
+      "autonomous-hauler-propulsion-control",
+      "ebike-motor-control-power-electronics",
+      "electric-truck-thermal-management",
+      "heavy-duty-engine-diagnostics-control-research"
+    ],
+    "related_experience": [],
+    "source_terms": [
+      "project.labels",
+      "project"
+    ]
+  },
+  {
+    "id": "unit-testing",
+    "name": "Unit Testing",
+    "category": "technical",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [],
+    "related_projects": [],
+    "related_experience": [],
+    "source_terms": [
+      "raw.skills"
+    ],
+    "last_used": null,
+    "evidence_sentences": [
+      "Full list: [Unit Testing"
+    ]
+  },
+  {
+    "id": "universal-asynchronous-receiver-transmitter-uart",
+    "name": "Universal Asynchronous Receiver/Transmitter (UART)",
+    "category": "technical",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [],
+    "related_projects": [],
+    "related_experience": [],
+    "source_terms": [
+      "raw.skills"
+    ],
+    "last_used": null,
+    "evidence_sentences": [
+      "Full list: [Universal Asynchronous Receiver/Transmitter (UART)"
+    ]
+  },
+  {
+    "id": "vector-tools",
+    "name": "Vector tools",
+    "category": "technical tool",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [],
+    "related_projects": [],
+    "related_experience": [],
+    "source_terms": [
+      "raw.skills"
+    ],
+    "last_used": null,
+    "evidence_sentences": [
+      "Listed in the LinkedIn profile technical tools and skills section."
+    ]
+  },
+  {
+    "id": "vehicle-validation",
+    "name": "Vehicle validation",
+    "category": "Embedded Software",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [
+      "control-systems-estimation",
+      "diagnostics-safety-robustness",
+      "electric-autonomous-vehicle-systems",
+      "embedded-controls-architecture",
+      "embedded-software-validation"
+    ],
+    "related_projects": [
+      "autonomous-hauler-propulsion-control",
+      "ebike-motor-control-power-electronics",
+      "electric-truck-thermal-management",
+      "heavy-duty-engine-diagnostics-control-research"
+    ],
+    "related_experience": [],
+    "source_terms": [
+      "project.labels",
+      "project"
+    ]
+  },
+  {
+    "id": "virtual-sensing",
+    "name": "Virtual sensing",
+    "category": "Domain Knowledge",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [
+      "control-systems-estimation",
+      "diagnostics-safety-robustness",
+      "electric-autonomous-vehicle-systems",
+      "embedded-controls-architecture",
+      "embedded-software-validation"
+    ],
+    "related_projects": [
+      "autonomous-hauler-propulsion-control",
+      "ebike-motor-control-power-electronics",
+      "electric-truck-thermal-management",
+      "heavy-duty-engine-diagnostics-control-research"
+    ],
+    "related_experience": [],
+    "source_terms": [
+      "project.labels",
+      "project"
+    ]
+  },
+  {
+    "id": "vision",
+    "name": "Vision",
+    "category": "technical",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [
+      "control-systems-estimation",
+      "diagnostics-safety-robustness",
+      "electric-autonomous-vehicle-systems",
+      "embedded-controls-architecture",
+      "embedded-software-validation"
+    ],
+    "related_projects": [
+      "heavy-duty-engine-diagnostics-control-research"
+    ],
+    "related_experience": [
+      "scania-lund-university-research-intern-combustion-control-and-real-time-diagnostics",
+      "scania-software-engineer"
+    ],
+    "source_terms": [
+      "experience.tags",
+      "raw.skills"
+    ],
+    "last_used": null,
+    "evidence_sentences": [
+      "Data-driven tuning and validation in test environments with Vision, CANAlyzer, CANoe, etc.",
+      "Software Platforms Git/SVN Jenkins/Gitlab Jira Eclipse Visual Studio CANalyzer CANoe Davinci Configurator & Developer PSIM LaTex Microsoft Office Vision Autodesk Inventor Graphana",
+      "Full list: [Vision"
+    ]
+  },
+  {
+    "id": "visual-studio",
+    "name": "Visual Studio",
+    "category": "technical",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [],
+    "related_projects": [],
+    "related_experience": [],
+    "source_terms": [
+      "raw.skills"
+    ],
+    "last_used": null,
+    "evidence_sentences": [
+      "Real-time embedded software implementation in C, using Eclipse and Visual Studio",
+      "Software Platforms Git/SVN Jenkins/Gitlab Jira Eclipse Visual Studio",
+      "Full list: [Visual Studio"
+    ]
+  },
+  {
+    "id": "wireless-charging",
+    "name": "Wireless Charging",
+    "category": "domain",
+    "proficiency": "working",
+    "years": null,
+    "related_capabilities": [
+      "control-systems-estimation",
+      "diagnostics-safety-robustness",
+      "electric-autonomous-vehicle-systems",
+      "embedded-controls-architecture",
+      "embedded-software-validation"
+    ],
+    "related_projects": [
+      "autonomous-hauler-propulsion-control",
+      "ebike-motor-control-power-electronics",
+      "electric-truck-thermal-management",
+      "heavy-duty-engine-diagnostics-control-research"
+    ],
+    "related_experience": [
+      "mahle-senior-embedded-software-developer-wireless-charging-and-e-mobility"
+    ],
+    "source_terms": [
+      "experience.tags",
+      "raw.skills",
+      "project.labels",
+      "project"
+    ],
+    "last_used": null,
+    "evidence_sentences": [
+      "Full list: [Wireless Charging"
+    ]
+  }
+]

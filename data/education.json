@@ -1,0 +1,141 @@
+[
+  {
+    "id": "lund-university-phd-mechanical-engineering",
+    "type": "academic degree",
+    "institution": "Lund University",
+    "degree": "PhD Mechanical Engineering",
+    "year": "2021",
+    "focus": "Mechanical Engineering",
+    "dissertation": "Design and Optimization of In-Cycle Closed-Loop Combustion Control with Multiple Injection",
+    "summary": "Industrial PhD in collaboration with Scania, focused on real-time diagnostics and combustion control for heavy-duty diesel engines using biofuels. ▸ Research supported sustainable transport strategies in line with CO₂ reduction goals. ▸ Developed model-based algorithms and FPGA-based controllers for in-cycle diagnostics and control. ▸ Contributed to Scania’s innovation program and co-authored several peer-reviewed publications and patents. ▸ Participated in international conferences and mentored thesis students. 🎓 Thesis presentation (YouTube): https://www.youtube.com/watch?v=vTkDS-V9lFw 📄 Thesis publication (Lund University): https://portal.research.lu.se/portal/files/96902493/PhD_Thesis_Open.pdf",
+    "related_capabilities": [
+      "embedded-controls-architecture",
+      "embedded-software-validation",
+      "diagnostics-safety-robustness",
+      "electric-autonomous-vehicle-systems"
+    ]
+  },
+  {
+    "id": "lund-university-msc-electrical-engineering",
+    "type": "academic degree",
+    "institution": "Lund University",
+    "degree": "MSc Electrical Engineering",
+    "year": "2014",
+    "focus": "Automatic Control and automation",
+    "dissertation": null,
+    "summary": "Specialized in control systems, embedded software, and mechatronics with a strong focus on model-based development using MATLAB/Simulink. ▸ Master thesis at Scania: designed a multi-pump fuel control system, implemented real-time control algorithms, and contributed to a patent application.",
+    "related_capabilities": [
+      "embedded-software-validation",
+      "electric-autonomous-vehicle-systems",
+      "embedded-controls-architecture",
+      "control-systems-estimation"
+    ]
+  },
+  {
+    "id": "polytechnical-university-of-valencia-msc-industrial-engineering",
+    "type": "academic degree",
+    "institution": "Polytechnical University of Valencia",
+    "degree": "MSc Industrial Engineering",
+    "year": "2014",
+    "focus": "Electronics and automation",
+    "dissertation": null,
+    "summary": "Comprehensive engineering program covering mechanical, electrical, and control engineering, equivalent to a combined Bachelor’s and Master’s degree in Industrial Engineering. ▸ Emphasis on automation, control theory, and energy systems. ▸ Exchange studies and thesis collaboration with Lund University and Scania in Sweden. ▸ Developed strong foundations in multidisciplinary engineering, leading to specialization in automotive embedded systems.",
+    "related_capabilities": [
+      "electric-autonomous-vehicle-systems",
+      "embedded-controls-architecture",
+      "embedded-software-validation"
+    ]
+  },
+  {
+    "id": "alten-langchain-and-llms-with-python",
+    "type": "course",
+    "institution": "Alten",
+    "degree": "Langchain and LLMs with Python",
+    "year": "2025",
+    "focus": null,
+    "dissertation": null,
+    "summary": "",
+    "related_capabilities": [
+      "embedded-software-validation"
+    ]
+  },
+  {
+    "id": "cualtis-project-management-product-owner-kanban",
+    "type": "course",
+    "institution": "Cualtis",
+    "degree": "Project management: Product Owner + Kanban",
+    "year": "2024",
+    "focus": null,
+    "dissertation": null,
+    "summary": "",
+    "related_capabilities": [
+      "embedded-software-validation"
+    ]
+  },
+  {
+    "id": "education-power-electronic-converters",
+    "type": "course",
+    "institution": null,
+    "degree": "Power electronic converters",
+    "year": "2022",
+    "focus": null,
+    "dissertation": null,
+    "summary": "",
+    "related_capabilities": [
+      "embedded-software-validation"
+    ]
+  },
+  {
+    "id": "swedish-electromobility-centre-introduction-to-electromobility",
+    "type": "course",
+    "institution": "Swedish Electromobility Centre",
+    "degree": "Introduction to electromobility",
+    "year": "2020",
+    "focus": null,
+    "dissertation": null,
+    "summary": "",
+    "related_capabilities": [
+      "embedded-software-validation"
+    ]
+  },
+  {
+    "id": "scania-scania-innovation-challenge",
+    "type": "course",
+    "institution": "Scania",
+    "degree": "Scania Innovation Challenge",
+    "year": "2019",
+    "focus": null,
+    "dissertation": null,
+    "summary": "",
+    "related_capabilities": [
+      "embedded-software-validation"
+    ]
+  },
+  {
+    "id": "gamma-technologies-gt-power",
+    "type": "course",
+    "institution": "Gamma Technologies",
+    "degree": "GT-Power",
+    "year": "2015",
+    "focus": null,
+    "dissertation": null,
+    "summary": "",
+    "related_capabilities": [
+      "embedded-software-validation"
+    ]
+  },
+  {
+    "id": "coursera-control-of-mobile-robots",
+    "type": "course",
+    "institution": "Coursera",
+    "degree": "Control of mobile robots",
+    "year": "2013",
+    "focus": null,
+    "dissertation": null,
+    "summary": "",
+    "related_capabilities": [
+      "embedded-controls-architecture",
+      "embedded-software-validation"
+    ]
+  }
+]

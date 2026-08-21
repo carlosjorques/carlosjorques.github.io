@@ -1,0 +1,321 @@
+[
+  {
+    "id": "model-based-development",
+    "title": "Model-Based Development",
+    "related_projects": [],
+    "related_capabilities": [
+      "control-systems-estimation",
+      "diagnostics-safety-robustness",
+      "electric-autonomous-vehicle-systems",
+      "embedded-controls-architecture",
+      "embedded-software-validation",
+      "technical-leadership"
+    ],
+    "related_experience": [
+      "alten-delivery-centre-spain-technical-leader-senior-software-developer",
+      "mahle-senior-embedded-software-developer-wireless-charging-and-e-mobility",
+      "scania-lund-university-phd-researcher-real-time-diesel-combustion-control",
+      "scania-lund-university-research-intern-combustion-control-and-real-time-diagnostics",
+      "scania-master-thesis-student",
+      "scania-senior-software-engineer",
+      "scania-software-engineer",
+      "sony-mobile-communications-software-engineering-intern-human-machine-interaction-hmi",
+      "traton-group-senior-development-engineer-consultant"
+    ],
+    "related_skills": []
+  },
+  {
+    "id": "mil",
+    "title": "MIL",
+    "related_projects": [],
+    "related_capabilities": [
+      "control-systems-estimation",
+      "diagnostics-safety-robustness",
+      "electric-autonomous-vehicle-systems",
+      "embedded-controls-architecture",
+      "embedded-software-validation",
+      "technical-leadership"
+    ],
+    "related_experience": [
+      "scania-master-thesis-student",
+      "scania-senior-software-engineer",
+      "scania-software-engineer",
+      "traton-group-senior-development-engineer-consultant"
+    ],
+    "related_skills": []
+  },
+  {
+    "id": "sil",
+    "title": "SIL",
+    "related_projects": [
+      "autonomous-hauler-propulsion-control"
+    ],
+    "related_capabilities": [
+      "control-systems-estimation",
+      "diagnostics-safety-robustness",
+      "electric-autonomous-vehicle-systems",
+      "embedded-controls-architecture",
+      "embedded-software-validation",
+      "technical-leadership"
+    ],
+    "related_experience": [
+      "alten-delivery-centre-spain-technical-leader-senior-software-developer",
+      "scania-senior-software-engineer",
+      "scania-software-engineer",
+      "traton-group-senior-development-engineer-consultant",
+      "volvo-construction-equipment-senior-development-engineer-consultant"
+    ],
+    "related_skills": []
+  },
+  {
+    "id": "hil",
+    "title": "HIL",
+    "related_projects": [
+      "autonomous-hauler-propulsion-control"
+    ],
+    "related_capabilities": [
+      "control-systems-estimation",
+      "diagnostics-safety-robustness",
+      "electric-autonomous-vehicle-systems",
+      "embedded-controls-architecture",
+      "embedded-software-validation",
+      "technical-leadership"
+    ],
+    "related_experience": [
+      "alten-delivery-centre-spain-technical-leader-senior-software-developer",
+      "mahle-senior-embedded-software-developer-wireless-charging-and-e-mobility",
+      "scania-lund-university-phd-researcher-real-time-diesel-combustion-control",
+      "scania-senior-software-engineer",
+      "scania-software-engineer",
+      "traton-group-senior-development-engineer-consultant",
+      "volvo-construction-equipment-senior-development-engineer-consultant"
+    ],
+    "related_skills": []
+  },
+  {
+    "id": "calibration",
+    "title": "Calibration",
+    "related_projects": [
+      "electric-truck-thermal-management"
+    ],
+    "related_capabilities": [
+      "control-systems-estimation",
+      "diagnostics-safety-robustness",
+      "electric-autonomous-vehicle-systems",
+      "embedded-controls-architecture",
+      "embedded-software-validation",
+      "technical-leadership"
+    ],
+    "related_experience": [
+      "mahle-senior-embedded-software-developer-wireless-charging-and-e-mobility",
+      "scania-lund-university-phd-researcher-real-time-diesel-combustion-control",
+      "scania-lund-university-research-intern-combustion-control-and-real-time-diagnostics",
+      "scania-senior-software-engineer",
+      "scania-software-engineer",
+      "traton-group-senior-development-engineer-consultant"
+    ],
+    "related_skills": []
+  },
+  {
+    "id": "requirements-engineering",
+    "title": "Requirements Engineering",
+    "related_projects": [],
+    "related_capabilities": [
+      "diagnostics-safety-robustness",
+      "electric-autonomous-vehicle-systems",
+      "embedded-controls-architecture",
+      "embedded-software-validation",
+      "technical-leadership"
+    ],
+    "related_experience": [
+      "alten-delivery-centre-spain-technical-leader-senior-software-developer",
+      "volvo-construction-equipment-senior-development-engineer-consultant"
+    ],
+    "related_skills": []
+  },
+  {
+    "id": "control-design",
+    "title": "Control Design",
+    "related_projects": [
+      "autonomous-hauler-propulsion-control",
+      "ebike-motor-control-power-electronics",
+      "electric-truck-thermal-management",
+      "heavy-duty-engine-diagnostics-control-research"
+    ],
+    "related_capabilities": [
+      "control-systems-estimation",
+      "diagnostics-safety-robustness",
+      "electric-autonomous-vehicle-systems",
+      "embedded-controls-architecture",
+      "embedded-software-validation",
+      "technical-leadership"
+    ],
+    "related_experience": [
+      "alten-delivery-centre-spain-technical-leader-senior-software-developer",
+      "mahle-senior-embedded-software-developer-wireless-charging-and-e-mobility",
+      "scania-lund-university-phd-researcher-real-time-diesel-combustion-control",
+      "scania-lund-university-research-intern-combustion-control-and-real-time-diagnostics",
+      "scania-master-thesis-student",
+      "scania-senior-software-engineer",
+      "scania-software-engineer",
+      "traton-group-senior-development-engineer-consultant",
+      "volvo-construction-equipment-senior-development-engineer-consultant"
+    ],
+    "related_skills": []
+  },
+  {
+    "id": "observer-design",
+    "title": "Observer Design",
+    "related_projects": [
+      "heavy-duty-engine-diagnostics-control-research"
+    ],
+    "related_capabilities": [
+      "control-systems-estimation",
+      "diagnostics-safety-robustness",
+      "embedded-controls-architecture",
+      "embedded-software-validation"
+    ],
+    "related_experience": [],
+    "related_skills": []
+  },
+  {
+    "id": "system-identification",
+    "title": "System Identification",
+    "related_projects": [],
+    "related_capabilities": [],
+    "related_experience": [],
+    "related_skills": []
+  },
+  {
+    "id": "ci-cd",
+    "title": "CI/CD",
+    "related_projects": [],
+    "related_capabilities": [
+      "control-systems-estimation",
+      "diagnostics-safety-robustness",
+      "electric-autonomous-vehicle-systems",
+      "embedded-controls-architecture",
+      "embedded-software-validation",
+      "technical-leadership"
+    ],
+    "related_experience": [
+      "alten-delivery-centre-spain-technical-leader-senior-software-developer",
+      "scania-lund-university-research-intern-combustion-control-and-real-time-diagnostics",
+      "scania-senior-software-engineer",
+      "scania-software-engineer",
+      "traton-group-senior-development-engineer-consultant"
+    ],
+    "related_skills": []
+  },
+  {
+    "id": "functional-safety-analysis",
+    "title": "Functional Safety Analysis",
+    "related_projects": [],
+    "related_capabilities": [
+      "control-systems-estimation",
+      "diagnostics-safety-robustness",
+      "electric-autonomous-vehicle-systems",
+      "embedded-controls-architecture",
+      "embedded-software-validation",
+      "technical-leadership"
+    ],
+    "related_experience": [
+      "alten-delivery-centre-spain-technical-leader-senior-software-developer",
+      "scania-lund-university-research-intern-combustion-control-and-real-time-diagnostics",
+      "scania-master-thesis-student",
+      "scania-senior-software-engineer",
+      "scania-software-engineer",
+      "traton-group-senior-development-engineer-consultant",
+      "volvo-construction-equipment-senior-development-engineer-consultant"
+    ],
+    "related_skills": []
+  },
+  {
+    "id": "diagnostics-design",
+    "title": "Diagnostics Design",
+    "related_projects": [
+      "autonomous-hauler-propulsion-control",
+      "electric-truck-thermal-management",
+      "heavy-duty-engine-diagnostics-control-research"
+    ],
+    "related_capabilities": [
+      "control-systems-estimation",
+      "diagnostics-safety-robustness",
+      "electric-autonomous-vehicle-systems",
+      "embedded-controls-architecture",
+      "embedded-software-validation",
+      "technical-leadership"
+    ],
+    "related_experience": [
+      "scania-lund-university-phd-researcher-real-time-diesel-combustion-control",
+      "scania-lund-university-research-intern-combustion-control-and-real-time-diagnostics",
+      "scania-software-engineer",
+      "traton-group-senior-development-engineer-consultant",
+      "volvo-construction-equipment-senior-development-engineer-consultant"
+    ],
+    "related_skills": []
+  },
+  {
+    "id": "integration-testing",
+    "title": "Integration Testing",
+    "related_projects": [],
+    "related_capabilities": [
+      "diagnostics-safety-robustness",
+      "electric-autonomous-vehicle-systems",
+      "embedded-controls-architecture",
+      "embedded-software-validation",
+      "technical-leadership"
+    ],
+    "related_experience": [
+      "volvo-construction-equipment-senior-development-engineer-consultant"
+    ],
+    "related_skills": []
+  },
+  {
+    "id": "vehicle-validation",
+    "title": "Vehicle Validation",
+    "related_projects": [
+      "autonomous-hauler-propulsion-control",
+      "electric-truck-thermal-management"
+    ],
+    "related_capabilities": [
+      "control-systems-estimation",
+      "diagnostics-safety-robustness",
+      "electric-autonomous-vehicle-systems",
+      "embedded-controls-architecture",
+      "embedded-software-validation",
+      "technical-leadership"
+    ],
+    "related_experience": [
+      "alten-delivery-centre-spain-technical-leader-senior-software-developer",
+      "scania-lund-university-phd-researcher-real-time-diesel-combustion-control",
+      "scania-lund-university-research-intern-combustion-control-and-real-time-diagnostics",
+      "scania-master-thesis-student",
+      "scania-senior-software-engineer",
+      "scania-software-engineer",
+      "traton-group-senior-development-engineer-consultant",
+      "volvo-construction-equipment-senior-development-engineer-consultant"
+    ],
+    "related_skills": []
+  },
+  {
+    "id": "data-analysis",
+    "title": "Data Analysis",
+    "related_projects": [],
+    "related_capabilities": [
+      "control-systems-estimation",
+      "diagnostics-safety-robustness",
+      "electric-autonomous-vehicle-systems",
+      "embedded-controls-architecture",
+      "embedded-software-validation",
+      "technical-leadership"
+    ],
+    "related_experience": [
+      "scania-lund-university-phd-researcher-real-time-diesel-combustion-control",
+      "scania-senior-software-engineer",
+      "traton-group-senior-development-engineer-consultant",
+      "volvo-construction-equipment-senior-development-engineer-consultant"
+    ],
+    "related_skills": []
+  }
+]

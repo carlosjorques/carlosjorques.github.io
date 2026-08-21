@@ -21,7 +21,7 @@ That is the wrong question.
 
 The better question is whether automotive organizations are ready to absorb AI-accelerated engineering output without increasing rework, validation debt, safety risk, and architectural noise.
 
-The first article in this series argued that speed in software-defined physical systems is not code volume. It is learning from the machine. The second argued that speed is lost when organizations externalize ownership of the learning loop. This third article is about what happens when AI enters that system.
+This series, introduced in [The Automotive Industry Has a Speed Problem, and Software Is Where It Shows](/writing/automotive-industry-speed-problem/), makes two arguments before this one. [The first](/writing/real-cost-of-automotive-software-speed/) is that speed in software-defined physical systems is not code volume. It is learning from the machine. [The second](/writing/externalization-trap-software-defined-world/) is that speed is lost when organizations externalize ownership of the learning loop. This article is about what happens when AI enters that system.
 
 AI tests whether the organization is strong enough to absorb faster output.
 
@@ -302,9 +302,10 @@ In a software-defined physical system, AI is valuable only when it helps softwar
 
 ## Part of the series: Software-Defined Physical Systems
 
-1. The Real Cost of Automotive Software Is Learning Speed
-2. The Externalization Trap in Automotive Software
-3. AI Will Not Replace Automotive Engineers
+1. [The Automotive Industry Has a Speed Problem, and Software Is Where It Shows](/writing/automotive-industry-speed-problem/) (the overview)
+2. [The Real Cost of Automotive Software Is Learning Speed](/writing/real-cost-of-automotive-software-speed/)
+3. [The Externalization Trap in Automotive Software](/writing/externalization-trap-software-defined-world/)
+4. AI Will Not Replace Automotive Engineers (this article)
 
 ## Sources and further reading
 

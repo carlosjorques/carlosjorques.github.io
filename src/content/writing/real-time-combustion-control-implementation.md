@@ -3,7 +3,8 @@ title: Real-Time Combustion Control Implementation
 subtitle: Turning combustion algorithms into hardware-executable control systems
 description: How combustion observers, virtual sensors, diagnostic logic, and predictive controllers can be implemented under real-time FPGA hardware constraints for in-cycle combustion control.
 publishDate: 2026-06-25
-readingTime: 17 min read
+updatedDate: 2026-07-07
+readingTime: 12 min read
 category: Control Algorithms & Diagnostics
 tags:
   - Real-time implementation
@@ -23,8 +24,8 @@ heroImage:
 	<h2 id="key-ideas-title">Key ideas</h2>
 	<ul>
 		<li>In-cycle combustion control is only useful if the algorithm executes before the control window closes.</li>
-		<li>FPGA hardware enables deterministic crank-angle-resolved execution.</li>
-		<li>Virtual sensors and observers must be accurate enough, early enough, and computationally feasible.</li>
+		<li>At 1200 RPM, a 0.2 crank-angle-degree sample arrives roughly every 27 microseconds. The per-sample pipeline must fit inside that budget.</li>
+		<li>FPGA hardware enables deterministic, parallel, crank-angle-resolved execution that a sequential CPU cannot guarantee.</li>
 		<li>Real-time implementation requires model simplification, fixed-point awareness, and resource budgeting.</li>
 		<li>Modular controller architecture and finite-state coordination improve scalability and robustness.</li>
 	</ul>
@@ -34,9 +35,7 @@ A combustion-control algorithm is only useful in-cycle if it can run before the 
 
 That sounds obvious, but it changes the way the control problem must be designed. In-cycle combustion control does not operate on relaxed desktop-computing time. It operates on crank-angle-resolved engine time, where measurements, estimation, diagnostic decisions, model predictions, and actuator commands must be completed within a few crank-angle degrees.
 
-My [PhD thesis](/research/), *Design and Optimization of In-Cycle Closed-Loop Combustion Control with Multiple Injections*, investigated this problem in the context of pilot-main diesel combustion. One part of the work focused on real-time combustion control implementation: how to implement combustion observers, virtual sensors, diagnostic logic, model adaptation, and predictive controllers under hardware constraints.
-
-The goal was not only to develop control methods that worked in analysis or simulation. The goal was to implement in-cycle combustion-control methods for real-time execution on FPGA hardware and to quantify the timing, resource, and implementation constraints that determine whether embedded deployment is feasible.
+This article is part of the series introduced in [Controlling Combustion While It Happens](/writing/controlling-combustion-while-it-happens/), where I explain the motivation and full context of my PhD research on in-cycle closed-loop combustion control. This one is the capstone. It covers how the observers, virtual sensors, diagnostic logic, model adaptation, and predictive controllers from the other articles were made to run under hard real-time constraints on FPGA hardware.
 
 ## Real-time control pipeline
 
@@ -56,29 +55,52 @@ The implementation problem can be understood as a deterministic pipeline. Each s
 	<figcaption>The control pipeline turns pressure measurements into a same-cycle injection decision only when every stage fits inside the available crank-angle window.</figcaption>
 </figure>
 
-## Why implementation is part of the control problem
+## The 27-microsecond budget
 
-Combustion control is often discussed in terms of models, estimators, and controller design. Those are essential, but for in-cycle control they are not enough.
+The research focused on pilot-main diesel combustion, where the controller estimates the pilot combustion state and corrects the main injection within the same cycle. The control strategy itself, and why the pilot-main interaction creates this opportunity, is covered in [predictive in-cycle combustion control](/writing/predictive-in-cycle-combustion-control/). Here, what matters is the timing it imposes.
 
-A controller may be accurate but too slow. An estimator may be physically meaningful but too computationally expensive. A diagnostic method may perform well offline but require too many crank-angle samples before it can make a decision. A model may predict combustion accurately but use mathematical operations that are expensive or difficult to implement deterministically in embedded hardware.
+In-cylinder pressure was sampled every 0.2 crank-angle degrees. Timing in this system is not measured in milliseconds but in engine position, and at higher engine speeds the same number of crank-angle degrees corresponds to less physical time. At 1200 RPM, a 0.2 CAD interval is roughly 27 microseconds. That is the recurring per-sample budget, and everything the pipeline does per sample has to fit inside it:
 
-For cycle-to-cycle control, some of these limitations can be tolerated. The controller has an entire engine cycle, or more, to process measurements and update the next command. For in-cycle control, the available time is much shorter. The controller must act before the remaining injection event occurs.
+<div class="comparison-table" role="region" aria-label="What must execute within the 27-microsecond per-sample window">
+	<table>
+		<thead>
+			<tr>
+				<th scope="col">Per-sample task</th>
+				<th scope="col">What it consumes</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<th scope="row">Pressure referencing and filtering</th>
+				<td>Arithmetic on the incoming sample stream</td>
+			</tr>
+			<tr>
+				<th scope="row">Crank-angle synchronization</th>
+				<td>Deterministic event handling at engine position</td>
+			</tr>
+			<tr>
+				<th scope="row">Heat-release and state estimation updates</th>
+				<td>Multipliers, memory, fixed-point data paths</td>
+			</tr>
+			<tr>
+				<th scope="row">Diagnostic decisions</th>
+				<td>Threshold logic, probability evaluation</td>
+			</tr>
+			<tr>
+				<th scope="row">Prediction and injection correction</th>
+				<td>Model evaluation, controller computation</td>
+			</tr>
+			<tr>
+				<th scope="row">Actuator command generation</th>
+				<td>Output timing margin before the injection deadline</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
 
-This means implementation constraints must influence the algorithm itself. The design question is not simply, "Which model is most accurate?" It is, "Which model is accurate enough, early enough, and simple enough to run in real time?"
+Every one of these competes for the same real-time budget. A controller may be accurate but too slow. An estimator may be physically meaningful but too computationally expensive. A diagnostic method may perform well offline but require too many crank-angle samples before it can decide. For cycle-to-cycle control, some of these limitations can be tolerated because the controller has an entire cycle to update the next command. For in-cycle control, they cannot.
 
-## The in-cycle timing challenge
-
-The research focused on pilot-main diesel combustion. In this combustion strategy, a small pilot injection occurs before the main injection. The pilot combustion affects the following main combustion event, influencing ignition delay, heat-release shape, combustion phasing, load, noise, efficiency, and emissions.
-
-This interaction creates the opportunity for in-cycle control. If the controller can estimate what happened during the pilot combustion, it can modify the main injection in the same cycle.
-
-But the timing requirement is severe.
-
-The system must acquire in-cylinder pressure data, synchronize it with crank angle, process the signal, estimate combustion states, run diagnostic logic, predict the remaining combustion response, compute an injection correction, and send the actuator command before the main injection command must be finalized.
-
-Every part of the algorithm consumes time and hardware resources. Signal filtering, heat-release computation, pressure prediction, start-of-combustion detection, pilot-mass estimation, misfire diagnosis, model adaptation, and controller execution all compete for the same real-time budget.
-
-The thesis treated this as a hardware-constrained control-design problem.
+This means implementation constraints must influence the algorithm itself. The design question is not simply, "Which model is most accurate?" It is, "Which model is accurate enough, early enough, and simple enough to run in real time?" The thesis treated this as a hardware-constrained control-design problem.
 
 <figure class="article-figure">
 	<img src="/images/blog/real-time-combustion-control/thesis-state-machine-signals.svg" alt="Modular in-cycle closed-loop combustion control signals and finite-state-machine states over crank angle" loading="lazy" />
@@ -87,132 +109,135 @@ The thesis treated this as a hardware-constrained control-design problem.
 
 ## Why FPGA hardware was used
 
-The control and estimation algorithms were implemented on FPGA hardware.
+The control and estimation algorithms were implemented on FPGA hardware. The choice follows directly from the timing budget. A sequential processor shares one instruction stream across all tasks and inherits timing jitter from scheduling, interrupts, and memory access. An FPGA gives each module its own logic, running concurrently, with clock-cycle-deterministic timing:
 
-An FPGA is well suited for this type of problem because it can execute many operations in parallel with deterministic timing. That is valuable for crank-angle-resolved combustion control, where the system must process incoming pressure data and trigger outputs at precisely defined engine positions.
+<div class="comparison-table" role="region" aria-label="CPU sequential versus FPGA parallel execution properties">
+	<table>
+		<thead>
+			<tr>
+				<th scope="col">Property</th>
+				<th scope="col">CPU (sequential)</th>
+				<th scope="col">FPGA (parallel)</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<th scope="row">Execution model</th>
+				<td>One instruction stream shared by all tasks</td>
+				<td>Dedicated logic per module, running concurrently</td>
+			</tr>
+			<tr>
+				<th scope="row">Timing behavior</th>
+				<td>Jitter from scheduling, interrupts, caches</td>
+				<td>Deterministic, clock-cycle accurate</td>
+			</tr>
+			<tr>
+				<th scope="row">Time base</th>
+				<td>Wall-clock time, software timers</td>
+				<td>Crank-angle events, position-triggered outputs</td>
+			</tr>
+			<tr>
+				<th scope="row">Arithmetic</th>
+				<td>Floating point comes cheap</td>
+				<td>Fixed point, word lengths must be budgeted</td>
+			</tr>
+			<tr>
+				<th scope="row">Adding functionality</th>
+				<td>Longer execution time, later deadline risk</td>
+				<td>More logic and multipliers, same latency</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
 
-The FPGA implementation allowed measurements to be processed fast enough for pilot-main injection control. It also supported modular execution of observers, estimators, diagnostic logic, predictive models, and actuator-command generation.
-
-However, the benefit came with constraints. FPGA resources are finite. Memory, multipliers, logic elements, data-path width, and execution scheduling all matter. Algorithms that appear simple in floating-point simulation may become expensive when mapped to fixed-point or resource-limited hardware.
-
-The thesis therefore quantified hardware requirements and evaluated how design choices affected timing and resource usage.
-
-<section class="metric-grid" aria-label="Implementation characteristics for real-time combustion control">
-	<div class="metric-card">
-		<strong>FPGA</strong>
-		<span>Real-time execution platform</span>
-	</div>
-	<div class="metric-card">
-		<strong>Crank angle</strong>
-		<span>Control time base</span>
-	</div>
-	<div class="metric-card">
-		<strong>Pressure</strong>
-		<span>Primary measurement input</span>
-	</div>
-	<div class="metric-card">
-		<strong>Observers</strong>
-		<span>Virtual sensing and diagnostics</span>
-	</div>
-	<div class="metric-card">
-		<strong>Budgeted</strong>
-		<span>Timing, resources, and scheduling</span>
-	</div>
-	<div class="metric-card">
-		<strong>FSM</strong>
-		<span>Modular architecture coordination</span>
-	</div>
-	<div class="metric-card">
-		<strong>Deadline</strong>
-		<span>Injection command finalization</span>
-	</div>
-	<div class="metric-card">
-		<strong>Robustness</strong>
-		<span>Operating and fuel-condition changes</span>
-	</div>
-</section>
+The benefit came with constraints. FPGA resources are finite: memory, multipliers, logic elements, data-path width, and execution scheduling all matter. Algorithms that appear simple in floating-point simulation may become expensive when mapped to fixed-point or resource-limited hardware. The thesis therefore quantified hardware requirements and evaluated how design choices affected timing and resource usage.
 
 ## Signal processing under real-time constraints
 
-In-cylinder pressure was the primary measurement for combustion diagnostics and control. It contains rich information, but it must be processed carefully before it can be used.
+In-cylinder pressure was the primary measurement. Before it can be used, the signal must be referenced, filtered, synchronized with crank angle, and combined with cylinder-volume information. Heat-release analysis then uses the pressure trace, volume trace, and thermodynamic assumptions to estimate combustion progress. In offline analysis this processing can be detailed and computationally intensive. In real-time control it must be simplified.
 
-The pressure signal must be referenced, filtered, synchronized with crank angle, and combined with cylinder-volume information. Heat-release analysis then uses the pressure trace, volume trace, and thermodynamic assumptions to estimate combustion progress.
+The thesis addressed this with implementation-oriented models. Cylinder volume estimation, for example, was improved with a model that accounts for thermal, pressure, and inertial deformation effects, while remaining simple enough for real-time execution. The same logic applied to heat capacity ratio estimation, start-of-combustion detection, pilot misfire detection, and pilot mass estimation.
 
-In offline analysis, this processing can be detailed and computationally intensive. In real-time control, it must be simplified.
-
-The thesis addressed this by developing implementation-oriented models and estimators. For example, cylinder volume estimation was improved using a model that accounts for thermal, pressure, and inertial deformation effects. This improved heat-release accuracy, but the model also needed to remain simple enough for real-time execution.
-
-The same implementation logic applied to other estimators. Heat capacity ratio estimation, start-of-combustion detection, pilot misfire detection, and pilot mass estimation all had to be designed around the available computation time.
-
-The practical result was a set of virtual sensors that were not only physically motivated, but also compatible with crank-angle-resolved implementation. A related article covers this layer in more detail: [virtual sensing for in-cycle combustion diagnostics](/writing/virtual-sensing-in-cycle-combustion-diagnostics/).
-
-## Simplifying models without losing control value
-
-A recurring theme in the thesis was the trade-off between model fidelity and implementation feasibility.
-
-Detailed combustion models can describe physical processes more completely, but they are often too slow or too complex for in-cycle control. The controller does not need a perfect reconstruction of the combustion event. It needs the right information early enough to make a useful decision.
-
-For pilot mass estimation, the thesis used simplified dynamic models suitable for FPGA implementation. The model represented the progression from injection to vaporization to premixed combustion, with rate constants parameterized using ignition delay. This reduced computational complexity while preserving the information needed for control.
-
-This is an important implementation principle: in embedded combustion control, the best model is not necessarily the most detailed model. It is the model that gives the controller enough information at the correct time with acceptable uncertainty and feasible hardware cost.
-
-## Virtual sensors as embedded observers
-
-The virtual sensors developed in the thesis were designed to provide feedback information to the in-cycle controller. They estimated quantities that were not directly measurable with sufficient timing or reliability.
-
-These included cylinder volume deviation, heat capacity ratio, start of combustion, pilot misfire, and pilot fuel mass.
-
-Each observer had a real-time role. Cylinder volume estimation improved the heat-release basis used by later estimators. Heat capacity ratio estimation improved pressure prediction. Start-of-combustion detection provided timing information. Pilot misfire detection identified abnormal pilot combustion. Pilot mass estimation quantified the pilot combustion state before the main injection.
-
-For embedded implementation, each observer had to satisfy three requirements:
+These estimators form the virtual-sensing layer of the controller, and what each one estimates and how is covered in [virtual sensing for in-cycle combustion diagnostics](/writing/virtual-sensing-in-cycle-combustion-diagnostics/). From the implementation side, each observer had to satisfy three requirements:
 
 1. it had to use available sensor data,
 2. it had to finish before its output was needed,
 3. it had to fit within hardware resources.
 
-This is why the thesis treated virtual sensing and implementation together. A virtual sensor that works only after the cycle is complete may be useful for analysis, but it cannot support same-cycle control.
+A virtual sensor that works only after the cycle is complete may be useful for analysis, but it cannot support same-cycle control.
+
+## Simplifying models without losing control value
+
+Detailed combustion models describe physical processes more completely, but they are often too slow or too complex for in-cycle control. The controller does not need a perfect reconstruction of the combustion event. It needs the right information early enough to make a useful decision.
+
+<div class="comparison-table" role="region" aria-label="Detailed offline model versus control-oriented model">
+	<table>
+		<thead>
+			<tr>
+				<th scope="col">Property</th>
+				<th scope="col">Detailed offline model</th>
+				<th scope="col">Control-oriented model</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<th scope="row">Objective</th>
+				<td>Physical fidelity</td>
+				<td>Timely, actionable estimates</td>
+			</tr>
+			<tr>
+				<th scope="row">Accuracy</th>
+				<td>Reconstructs the full combustion event</td>
+				<td>Accurate enough for the states the controller uses</td>
+			</tr>
+			<tr>
+				<th scope="row">Computation</th>
+				<td>Iterative, floating point, may use future samples</td>
+				<td>Causal, fixed-point compatible, bounded per sample</td>
+			</tr>
+			<tr>
+				<th scope="row">Availability</th>
+				<td>After the cycle is complete</td>
+				<td>Inside the crank-angle control window</td>
+			</tr>
+			<tr>
+				<th scope="row">Hardware cost</th>
+				<td>Not a design constraint</td>
+				<td>Budgeted multipliers, memory, data-path width</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+Pilot mass estimation is a concrete example. The thesis used a simplified dynamic model of the progression from injection to vaporization to premixed combustion, with rate constants parameterized by ignition delay. This reduced computational complexity while preserving the information needed for control. In embedded combustion control, the best model is not necessarily the most detailed one. It is the model that gives the controller enough information at the correct time with acceptable uncertainty and feasible hardware cost.
 
 ## Diagnostic logic in hardware
 
-The thesis also implemented diagnostic decision logic for pilot misfire detection.
+The thesis also implemented diagnostic decision logic for pilot misfire detection, so the controller could compensate with the remaining injection when the pilot failed to combust. The detection methods themselves, from deterministic thresholds to stochastic detection and sensor fusion, are covered in [stochastic fault detection and diagnostic decision logic](/writing/stochastic-fault-detection-diagnostic-decision-logic/).
 
-Pilot misfire diagnosis is a useful example because the decision must be both fast and robust. The system must decide whether the pilot event combusted before the main injection. If a misfire is detected early enough, the controller can compensate by modifying the remaining injection strategy.
-
-The diagnostic methods included deterministic thresholds, stochastic detection, adaptive thresholds, and sensor fusion of pressure-derived indicators. These methods were evaluated not only for detection performance, but also for their suitability in real-time control. The diagnostic design is discussed separately in [stochastic fault detection and diagnostic decision logic](/writing/stochastic-fault-detection-diagnostic-decision-logic/).
-
-A simple threshold is attractive because it is computationally efficient and transparent. A stochastic detector can represent uncertainty more explicitly, but it requires probability models and additional computation. Sensor fusion can improve robustness, but it adds calibration and implementation complexity.
-
-The thesis showed that implementation constraints are part of diagnostic design. The most accurate detector is not always the best embedded detector if its additional complexity does not justify the marginal performance gain.
+The implementation lesson is about cost. A simple threshold is computationally efficient and transparent. A stochastic detector represents uncertainty explicitly but requires probability models and additional computation. Sensor fusion improves robustness but adds calibration and implementation complexity. The most accurate detector is not always the best embedded detector if its additional complexity does not justify the marginal performance gain.
 
 ## Predictive control execution
 
-The predictive controller used early combustion information to adjust the remaining injection command within the same cycle.
+The predictive controller used early combustion information to adjust the remaining injection command within the same cycle. The control strategy and the prediction models behind it are the subject of [predictive in-cycle combustion control](/writing/predictive-in-cycle-combustion-control/).
 
-This required a deterministic execution sequence. The controller had to wait for enough pressure-derived information to estimate the pilot combustion state, but not so long that the main injection command became impossible to change. The predictive model then estimated how the main combustion would respond, and the controller computed an injection correction.
-
-That sequence had to be synchronized with crank angle. Timing was not simply measured in milliseconds, but in engine position. At higher engine speeds, the same number of crank-angle degrees corresponds to less physical time, making the implementation problem harder.
-
-This is one reason FPGA execution was important. It provided deterministic timing for the control pipeline and enabled the controller to operate at the required crank-angle resolution. The broader control strategy is covered in [predictive in-cycle combustion control](/writing/predictive-in-cycle-combustion-control/).
+What this article adds is the execution side: the controller had to wait for enough pressure-derived information to estimate the pilot combustion state, but not so long that the main injection command became impossible to change. That sequence had to be synchronized with crank angle, and FPGA execution provided the deterministic timing that made it reliable at the required resolution.
 
 ## Online adaptation and implementation complexity
 
-The thesis investigated online model adaptation to maintain prediction accuracy under changing operating conditions and fuel properties.
+The thesis investigated online model adaptation to maintain prediction accuracy under changing operating conditions and fuel properties. Adaptation improves robustness, but each adapted parameter costs memory, update logic, calibration effort, and validation. If too many parameters are adapted independently, the controller becomes difficult to tune and may introduce undesirable transients.
 
-Adaptation improves robustness, but it also increases implementation complexity. Additional parameters require additional memory, update logic, calibration effort, and validation. If too many parameters are adapted independently, the controller can become difficult to tune and may introduce undesirable transients.
-
-To address this, the thesis proposed reduced multi-cylinder adaptation. Some model parameters were adapted per cylinder, while others were shared across cylinders. This reduced complexity while maintaining useful prediction performance.
-
-This illustrates another embedded-control principle: adaptation should be designed with the implementation architecture in mind. The goal is not to adapt every possible parameter. The goal is to adapt the parameters that provide the greatest robustness benefit for the lowest hardware and calibration cost.
+To address this, the thesis proposed reduced multi-cylinder adaptation. Some model parameters were adapted per cylinder, while others were shared across cylinders. This reduced complexity while maintaining useful prediction performance. The goal is not to adapt every possible parameter. It is to adapt the parameters that provide the greatest robustness benefit for the lowest hardware and calibration cost.
 
 ## Modular controller architecture
 
-A major implementation outcome of the thesis was a modular controller structure coordinated by a finite-state machine.
+One implementation outcome of the thesis was a modular controller structure coordinated by a finite-state machine.
 
 The control system included measurement processing, virtual sensing, model-based prediction, adaptation, controller selection, actuator-output generation, and supervisory strategy coordination. The finite-state machine synchronized these modules and selected the active control mode depending on the current combustion and control state.
 
 This was important because in-cycle control is conditional. The system must know whether pilot combustion is observable, whether the main injection is still controllable, whether a misfire has been detected, and whether compensation should be applied. If in-cycle control is not feasible, the system must avoid issuing corrections based on insufficient information or unavailable actuator authority.
 
-The modular architecture improved scalability and calibration. It allowed individual functions to be developed and tested separately, then integrated into a coordinated control system.
+The modular architecture also improved scalability and calibration. Individual functions could be developed and tested separately, then integrated into a coordinated control system.
 
 <figure class="article-figure">
 	<img src="/images/blog/real-time-combustion-control/thesis-closed-loop-diagram.svg" alt="Modular closed-loop feedback structure supervised by actuator, sensor, and controller finite-state machines" loading="lazy" />
@@ -221,16 +246,11 @@ The modular architecture improved scalability and calibration. It allowed indivi
 
 ## Quantifying hardware requirements
 
-The thesis emphasized that real-time feasibility must be measured, not assumed.
+Real-time feasibility must be measured, not assumed. For FPGA deployment, this means quantifying timing, resource usage, numerical representation, and module scheduling on the actual target, in this case Xilinx Virtex-5 hardware. The questions are concrete:
 
-For FPGA deployment, this means quantifying timing, resource usage, numerical representation, and module scheduling. Algorithms must be evaluated in terms of whether they meet the required control deadlines and whether they fit within available hardware resources.
-
-This includes questions such as:
-
-* How much computation is required per crank-angle sample?
+* How much computation is required per 0.2 CAD sample?
 * Which operations dominate FPGA resource usage?
 * Can the algorithm be represented with fixed-point arithmetic?
-* How many modules can run in parallel?
 * Which computations can be reused across cylinders?
 * What timing margin remains before the actuator command must be issued?
 
@@ -289,44 +309,31 @@ By quantifying these constraints, the thesis connected control design with embed
 
 ## Robustness across operating conditions and fuels
 
-The implementation was validated under changing operating conditions and fuel conditions.
+The implementation was validated under changing operating and fuel conditions. This matters because embedded combustion control cannot depend on a single carefully tuned operating point. Engine speed, load, injection timing, rail pressure, EGR ratio, temperature, and fuel properties all change the combustion response and the timing available for control.
 
-This matters because embedded combustion control cannot depend on a single carefully tuned operating point. Engine speed, load, injection timing, rail pressure, EGR ratio, temperature, and fuel properties can all change the combustion response and the timing available for control.
+The experiments showed that the modular design, online adaptation, and real-time estimation structure improved tracking performance and reduced transients across conditions and fuels. The implementation was not only fast enough, but robust enough to support practical combustion-control experiments.
 
-The thesis showed that the modular controller design, online adaptation, and real-time estimation structure improved tracking performance and reduced transients across different operating conditions and fuels. This demonstrated that the implementation was not only fast enough, but also robust enough to support practical combustion-control experiments.
+## The takeaway
 
-## From algorithm to deployable control system
+Real-time combustion control implementation is about making advanced combustion algorithms executable at the speed of the engine.
 
-One of the strongest messages from the implementation work is that combustion-control research must bridge the gap between offline algorithm development and embedded execution.
+An offline estimator can use future samples, high-precision arithmetic, and complex computation. An in-cycle controller must act with incomplete information, deterministic timing, and finite hardware resources, inside a per-sample window of about 27 microseconds at 1200 RPM. FPGA implementation makes this possible, but only if the algorithms are simplified, synchronized, and structured for embedded execution from the beginning.
 
-An offline estimator can use future samples, high-precision arithmetic, and complex computation. A real-time estimator cannot. An offline controller can be evaluated after the full cycle is known. An in-cycle controller must act with incomplete information. An offline model can be recalibrated manually. An embedded model must operate across changing conditions with limited resources.
-
-The thesis addressed this gap by designing observers, virtual sensors, predictive controllers, diagnostic logic, and adaptation methods with real-time execution in mind.
-
-The result was a combustion-control framework that could run on FPGA hardware, process pressure measurements at the required time scale, and issue control actions within the same engine cycle.
+That is the contribution of this part of the thesis: it showed how combustion observers, virtual sensors, diagnostic methods, predictive controllers, and adaptation logic can be implemented as a real-time hardware-constrained control system. In practical terms, this is what turns combustion-control research into something that can intervene during the combustion cycle itself, rather than remaining a set of algorithms that only work offline. Related articles cover [stochastic set-point optimization for efficiency](/writing/stochastic-set-point-optimization-efficiency/) and the wider [combustion control research](/research/) context.
 
 <figure class="article-figure">
 	<img src="/images/blog/real-time-combustion-control/thesis-propagation-delay.svg" alt="Propagation delay of combustion-control modules implemented on Xilinx Virtex-5 FPGA hardware" loading="lazy" />
 	<figcaption>Offline analysis can wait for complete data. In-cycle implementation has to decide with partial information, deterministic timing, and finite hardware resources.</figcaption>
 </figure>
 
-## What this work shows
+## Part of the series: In-Cycle Combustion Control
 
-The central lesson is that real-time combustion control is not only a control-theory problem. It is an implementation problem.
-
-The controller must estimate hidden combustion states, diagnose abnormal combustion behavior, predict the remaining cycle response, adapt to changing conditions, and issue actuator commands within strict timing and resource constraints.
-
-The thesis implemented in-cycle combustion-control methods on FPGA hardware and quantified the timing, resource, and implementation constraints that shape embedded deployment. The work showed that virtual sensing, predictive control, diagnostic logic, and model adaptation can be made compatible with real-time execution when the algorithms are designed around hardware constraints from the beginning.
-
-## The takeaway
-
-Real-time combustion control implementation is about making advanced combustion algorithms executable at the speed of the engine.
-
-In-cycle control cannot wait for complete post-cycle analysis. It requires observers and controllers that operate with partial information, deterministic timing, and limited hardware resources. FPGA implementation makes this possible, but only if the algorithms are simplified, synchronized, and structured for embedded execution.
-
-That is the contribution of this part of the thesis: it showed how combustion observers, virtual sensors, diagnostic methods, predictive controllers, and adaptation logic can be implemented as a real-time hardware-constrained control system.
-
-In practical terms, the work moves combustion-control research from algorithms that work offline toward controllers that can intervene during the combustion cycle itself. Related articles cover [stochastic set-point optimization for efficiency](/writing/stochastic-set-point-optimization-efficiency/) and the wider [combustion control research](/research/) context.
+1. [Controlling Combustion While It Happens](/writing/controlling-combustion-while-it-happens/) (the overview)
+2. [Virtual Sensing for In-Cycle Combustion Diagnostics](/writing/virtual-sensing-in-cycle-combustion-diagnostics/)
+3. [Stochastic Fault Detection and Diagnostic Decision Logic](/writing/stochastic-fault-detection-diagnostic-decision-logic/)
+4. [Predictive In-Cycle Combustion Control](/writing/predictive-in-cycle-combustion-control/)
+5. [Stochastic Set-Point Optimization for Efficiency](/writing/stochastic-set-point-optimization-efficiency/)
+6. Real-Time Combustion Control Implementation (this article)
 
 ## Source articles
 
@@ -335,7 +342,9 @@ This article is based on my PhD thesis and the following thesis papers:
 - Carlos Jorques Moreno, Ola Stenlaas, and Per Tunestal, "Modular Design and Integration of In-Cycle Closed-Loop Combustion Controllers for a Wide-Range of Operating Conditions," accepted for publication in *2021 American Control Conference (ACC)*, New Orleans, LA, USA, 2021.
 - Carlos Jorques Moreno, Ola Stenlaas, and Per Tunestal, "Quantification of FPGA Requirements for Closed-Loop Combustion Control Implementation," submitted to *ICE2021, International Conference on Engines and Vehicles*, Capri, Italy, 2021.
 - Carlos Jorques Moreno, Ola Stenlaas, and Per Tunestal, "Predictive In-Cycle Closed-Loop Combustion Control with Pilot-Main Injections," *IFAC-PapersOnLine*, 53(2):14000-14007, 2020.
-- Carlos Jorques Moreno, Ola Stenlaas, and Per Tunestal, *Design and Optimization of In-Cycle Closed-Loop Combustion Control with Multiple Injections*, PhD thesis, Lund University, 2021.
+- Carlos Jorques Moreno, Ola Stenlaas, and Per Tunestal, *Design and Optimization of In-Cycle Closed-Loop Combustion Control with Multiple Injections*, PhD thesis, Lund University, 2021. [Open-access PDF](https://lup.lub.lu.se/search/files/96902493/PhD_Thesis_Open.pdf).
+- Carlos Jorques Moreno, Ola Stenlaas, and Per Tunestal, "Cylinder pressure based virtual sensor for in-cycle pilot mass estimation," *Control Engineering Practice*, 122, 2022. [doi:10.1016/j.conengprac.2022.105097](https://doi.org/10.1016/j.conengprac.2022.105097).
+- Dennis Vollberg et al., "Smart in-cylinder pressure sensor for closed-loop combustion control," *Journal of Sensors and Sensor Systems*, 11:1-13, 2022. [doi:10.5194/jsss-11-1-2022](https://doi.org/10.5194/jsss-11-1-2022). A view of the sensor hardware ecosystem moving toward production closed-loop combustion control.
 
 <section class="article-cta" aria-labelledby="article-next-title">
 	<h2 id="article-next-title">Need help turning control algorithms into real-time embedded systems?</h2>
