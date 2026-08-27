@@ -7,9 +7,10 @@ interface Props {
 	disclosureLabel: string;
 	expanded: string[];
 	quote?: string;
+	collapsible?: boolean;
 }
 
-const { id, label, title, intro, disclosureLabel, expanded, quote } = Astro.props;
+const { id, label, title, intro, disclosureLabel, expanded, quote, collapsible = true } = Astro.props;
 ---
 
 <section class="editorial-section" id={id} aria-labelledby={`${id}-title`}>
@@ -17,7 +18,7 @@ const { id, label, title, intro, disclosureLabel, expanded, quote } = Astro.prop
 	<div class="story-block">
 		<h2 id={`${id}-title`}>{title}</h2>
 		<p class="intro">{intro}</p>
-		<details class="story-disclosure">
+		{collapsible ? <details class="story-disclosure">
 			<summary>
 				<span class="story-disclosure__closed">{disclosureLabel}</span>
 				<span class="story-disclosure__open">Read less</span>
@@ -27,19 +28,21 @@ const { id, label, title, intro, disclosureLabel, expanded, quote } = Astro.prop
 				{expanded.map((paragraph) => <p>{paragraph}</p>)}
 				{quote && <blockquote><p>{quote}</p></blockquote>}
 			</div>
-		</details>
+		</details> : <>
+			{expanded.map((paragraph) => <p>{paragraph}</p>)}
+			{quote && <blockquote><p>{quote}</p></blockquote>}
+		</>}
 	</div>
 </section>
 
 <style>
-	.editorial-section { display:grid; grid-template-columns:16rem minmax(0,1fr); gap:2rem; padding:2rem 0; border-top:1px solid var(--color-border); scroll-margin-top:2rem; }
+	.editorial-section { display:grid; grid-template-columns:16rem minmax(0,1fr); gap:0; padding:1rem 0 clamp(3rem,6vw,5rem); border-top:1px solid var(--color-border); scroll-margin-top:2rem; }
 	.section-rail { font-family:var(--font-mono); font-size:.82rem; font-weight:600; letter-spacing:.08em; line-height:1.4; text-transform:uppercase; color:var(--color-muted); }
 	.section-rail p { margin:0; max-width:none; color:inherit; font:inherit; letter-spacing:inherit; text-transform:inherit; }
-	.story-block { display:grid; gap:.65rem; max-width:52rem; }
-	.story-block h2 { max-width:none; width:100%; margin:0; font-size:1.1625rem; line-height:1.16; letter-spacing:-.035em; font-weight:600; }
-	.story-block p { margin:0; font-size:0.95rem; line-height:1.5; color:var(--color-text); }
-	.story-block .intro {font-size:0.9rem}
-	.story-disclosure__content p {font-size:0.9rem; color:var(--color-muted); }
+	.section-rail { padding-top:.25rem; }
+	.story-block { display:grid; gap:.8rem; max-width:52rem; }
+	.story-block h2 { max-width:none; width:100%; margin:0; font-size:clamp(1.2rem,1.65vw,1.5rem); font-weight:800; line-height:1.1; letter-spacing:-.035em; text-wrap:balance; }
+	.story-block p { max-width:none; margin:0; font-size:1.08rem; line-height:1.7; color:var(--color-text); }
 	.story-block blockquote { margin:.5rem 0 0; padding-left:1rem; border-left:2px solid var(--color-border-strong); }
 	.story-block a { color:var(--color-link); text-underline-offset:.2em; }
 	.story-disclosure { margin-top:0; }
@@ -51,7 +54,7 @@ const { id, label, title, intro, disclosureLabel, expanded, quote } = Astro.prop
 	.story-disclosure[open] .story-disclosure__closed { display:none; }
 	.story-disclosure[open] .story-disclosure__open { display:inline; }
 	.story-disclosure[open] .story-disclosure__arrow { transform:rotate(180deg); }
-	.story-disclosure__content { display:grid; gap:.65rem; margin-top:.65rem; }
+	.story-disclosure__content { display:grid; gap:.8rem; margin-top:.65rem; }
 
 	@media(max-width:720px){
 		.editorial-section { grid-template-columns:1fr; }

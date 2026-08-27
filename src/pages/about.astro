@@ -14,16 +14,13 @@ const portraitUrl = withBase('/images/carlos-jorques-intro.webp');
 			<p class="about-eyebrow">About me</p>
 			<div class="about-hero__layout">
 				<div class="about-hero__copy">
-					<h1 id="about-title">I lead embedded controls teams that shape how complex machines sense, decide, and act reliably.</h1>
-					<p class="about-hero__lead">I’m Carlos, an <strong>Embedded Controls Technical Lead</strong> who combines hands-on development with technical direction across control strategy, software architecture, and system integration.</p>
+					<h1 id="about-title">I lead the design of embedded control systems that shape how complex machines sense, decide, and act reliably.</h1>
+					<p class="about-hero__lead">I’m Carlos, an <strong>Embedded Control Systems Architect and Technical Lead</strong> who combines hands-on development with technical direction across control strategy, real-time software, diagnostics, and system integration.</p>
 					<nav class="about-hero__actions" aria-label="About quick links">
 						<a href={withBase('/cv')}>View CV</a>
 						<a href={withBase('/work')}>Selected work</a>
 						<a href={withBase('/contact')}>Get in touch</a>
 					</nav>
-					<div class="about-story">
-					<p>For the past 12+ years, I have developed production embedded control software for electric trucks, autonomous machines, power electronics, and other complex vehicle systems. At Scania, Volvo CE, and MAHLE Electronics, I have worked with international teams across software, electronics, controls, diagnostics, testing, and calibration. Software from that work now runs in production vehicles and machines around the world.</p>
-					</div>
 				</div>
 				<img class="about-portrait" src={portraitUrl} alt="Carlos Jorques" width="768" height="1024" loading="eager" decoding="async" />
 			</div>
@@ -37,40 +34,39 @@ const portraitUrl = withBase('/images/carlos-jorques-intro.webp');
 		</section>
 
 		<AboutStoryBlock
-			id="role"
-			label="What I Lead"
-			title="Turning system goals into software that teams can deliver"
-			intro="I lead embedded controls work from system definition through implementation and production delivery, while remaining close to the engineering."
-			disclosureLabel="See the scope of my work"
+			id="background"
+			label="Background"
+			title="Production embedded controls for complex physical systems"
+			intro="For more than 12 years, I have developed production embedded control software for electric trucks, autonomous machines, power electronics, and other complex vehicle systems."
+			disclosureLabel="See my production background"
 			expanded={[
-				"I translate product goals into control strategies, software responsibilities, interfaces, development priorities, and validation evidence. My work includes shaping software architecture, developing control functions, resolving integration issues, and connecting testing and calibration results back to design decisions.",
-				"I am particularly drawn to electrified systems, autonomous machines, robotics, industrial automation, power electronics, and energy systems—anywhere software must interact reliably with physical behaviour."
+				"At Scania, Volvo CE, and MAHLE Electronics, I have worked with international teams across controls, embedded software, electronics, diagnostics, testing, and calibration. Software from this work runs in production vehicles and machines around the world."
 			]}
+			collapsible={false}
 		/>
 
 		<AboutStoryBlock
 			id="approach"
-			label="Engineering Approach"
-			title="Understanding what should be built matters as much as building it"
-			intro="I make the intended behaviour, physical constraints, interfaces, and uncertainties visible before implementation makes important decisions expensive to change."
-			disclosureLabel="How I make technical decisions"
+			label="Engineering Scope"
+			title="From control strategy to production delivery"
+			intro="I lead embedded controls from system definition and control strategy through real-time software, diagnostics, validation, calibration, and system integration."
+			disclosureLabel="How I shape engineering decisions"
 			expanded={[
-				"The right answer is not always a more advanced algorithm. It may be a clearer interface, a simpler architecture, stronger diagnostics, a better test strategy, or a more accurate understanding of the physical system.",
-				"I favour solutions that are technically sound and practical to deliver. I also make trade-offs explicit, so the team understands the evidence, assumptions, constraints, and alternatives behind each important decision."
+				"I turn product goals, physical behaviour, interfaces, and uncertainty into clear software responsibilities and validation evidence. I favour robust solutions that respect performance, timing, safety-related constraints, and the realities of production delivery."
 			]}
+			collapsible={false}
 		/>
 
 		<AboutStoryBlock
 			id="collaboration"
 			label="Technical Leadership"
-			title="Creating the clarity teams need to move forward"
-			intro="I establish technical direction, clarify responsibilities, and help engineers across disciplines reach decisions they can understand, support, and deliver together."
-			disclosureLabel="How I lead multidisciplinary teams"
+			title="Technical direction across multidisciplinary teams"
+			intro="I establish technical direction and align controls, embedded software, electronics, diagnostics, testing, calibration, and supplier interfaces around the intended system behaviour."
+			disclosureLabel="How I help teams deliver"
 			expanded={[
-				"Complex system problems often emerge at the boundaries—between software and hardware, between disciplines, or between expected and actual behaviour. I help teams build a shared understanding of the complete system before committing to a solution.",
-				"My role is not to have every answer. It is to keep implementation connected to system intent, help the team ask the right questions, and create the conditions for good engineering."
+				"I clarify responsibilities, resolve issues at discipline boundaries, and keep decisions connected to system intent, engineering evidence, and production delivery."
 			]}
-			quote="An elegant algorithm is only the beginning. The real engineering challenge is making it work reliably."
+			collapsible={false}
 		/>
 
 		<AboutStoryBlock
