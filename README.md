@@ -37,6 +37,10 @@ Current deployment assumptions:
 
 In the GitHub repository settings, set Pages source to **GitHub Actions**. Each push to `master` will build and deploy the site.
 
+## Contact form
+
+The Contact page sends form submissions through [Web3Forms](https://web3forms.com/), so this static GitHub Pages site does not need a mail server or reveal the receiving email address. The Web3Forms access key is a public browser identifier and is configured in `src/pages/contact.astro`.
+
 ## Project Guidance
 
 This repository also contains project-local instructions and skills for evolving the site:
