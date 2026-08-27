@@ -43,6 +43,7 @@ type ExpertiseGroup = {
 type ExperienceItem = {
 	title: string;
 	organization?: string;
+	assignment?: string;
 	location?: string;
 	dates: string;
 	summary: string;
@@ -119,8 +120,8 @@ const cvProfile = {
 		"eyebrow": "Online CV",
 		"title": "Carlos Jorques",
 		"subtitle": "Embedded Control Systems Architect · Technical Leader · Electric & Autonomous Vehicle Systems",
-		"summary": "I design and lead real-time embedded control software for automotive and heavy-duty physical systems. Across 12+ years, my work has covered EV thermal management, battery systems, autonomous propulsion, diagnostics, functional safety, validation, and production delivery.",
-		"secondarySummary": "I translate automatic control concepts into robust software that can be tested, calibrated, validated, and trusted in real machines. My experience spans control architecture, model-based implementation, generated C/C++ workflows, MIL/SIL/HIL validation, and technical leadership across international teams."
+		"summary": "I design and lead real-time embedded control software for electrified, autonomous, and heavy-duty physical systems, spanning thermal management, battery systems, diagnostics, safety, validation, and production delivery.",
+		"secondarySummary": "I turn control concepts into testable, calibrated, validated software for real machines, spanning control architecture, generated C/C++, MIL/SIL/HIL, diagnostics, supplier coordination, and PhD-trained engineering depth."
 	},
 	"actions": [
 		{
@@ -159,14 +160,6 @@ const cvProfile = {
 		{
 			"label": "Experience",
 			"href": "#experience"
-		},
-		{
-			"label": "Systems",
-			"href": "#representative-systems"
-		},
-		{
-			"label": "Research",
-			"href": "#research"
 		},
 		{
 			"label": "Education",
@@ -330,7 +323,7 @@ const cvProfile = {
 				"Diagnostic strategy design",
 				"Fault detection and isolation",
 				"ISO 26262-aligned development",
-				"ASPICE traceability",
+				"A-SPICE traceability",
 				"Fallback and degradation logic"
 			],
 			"representativeWork": [
@@ -409,7 +402,8 @@ const cvProfile = {
 	"experience": [
 		{
 			"title": "Senior Developer Engineer",
-			"organization": "Traton / Scania Assignment",
+			"organization": "Alten Delivery Center",
+			"assignment": "Traton / Scania",
 			"dates": "July 2025-Present",
 			"summary": "Embedded software for electric truck thermal management, battery systems, charger coordination, diagnostics, and real-time controller architecture.",
 			"highlights": [
@@ -422,7 +416,7 @@ const cvProfile = {
 					"items": [
 						"Model calibration and validation across MIL, SIL, HIL, test bench, wind tunnel, test track, and vehicle environments.",
 						"Battery management and SOC/SOH/SOP-related thermal control strategies.",
-						"Functional safety analysis, diagnostics, fallback strategies, and ISO 26262 / ASPICE-aligned workflows.",
+						"Functional safety analysis, diagnostics, fallback strategies, and ISO 26262 / A-SPICE-aligned workflows.",
 						"GitLab CI/CD pipelines and SAFe Agile practices to improve integration quality and reduce development cycle time."
 					]
 				},
@@ -441,7 +435,7 @@ const cvProfile = {
 				"C",
 				"GitLab",
 				"ISO 26262",
-				"ASPICE",
+				"A-SPICE",
 				"BMS",
 				"diagnostics",
 				"EV thermal management"
@@ -480,7 +474,8 @@ const cvProfile = {
 		},
 		{
 			"title": "Senior Developer Engineer",
-			"organization": "Volvo CE Assignment",
+			"organization": "Alten Delivery Center",
+			"assignment": "Volvo CE",
 			"dates": "April 2022-December 2024",
 			"summary": "Propulsion control software for autonomous electric haulers, including traction control, speed control, torque allocation, diagnostics, and functional safety.",
 			"highlights": [
@@ -999,7 +994,7 @@ const cvProfile = {
 		},
 		{
 			"title": "Standards and Automotive Context",
-			"primaryTools": "ISO 26262 · ASPICE · AUTOSAR · CAN/J1939 · Functional Safety",
+			"primaryTools": "ISO 26262 · A-SPICE · AUTOSAR-oriented · CAN/J1939 · Functional Safety",
 			"methods": "Functional safety awareness, FuSa analysis, process alignment, automotive communication, traceability, production-oriented documentation."
 		},
 		{
@@ -1109,6 +1104,16 @@ const groupExperienceDetails = (item: (typeof cvProfile.experience)[number]) => 
 const hasExperienceDetails = (groups: ReturnType<typeof groupExperienceDetails>) =>
 	groups.technicalScope.length > 0 || groups.deliveryValidation.length > 0 || groups.leadershipCollaboration.length > 0;
 
+const ownershipLabel = (text: string) => {
+	const normalized = text.trim().toLowerCase();
+	if (/^(led|lead|owned)/.test(normalized)) return 'Led';
+	if (/^(designed|design|architected|architect)/.test(normalized)) return 'Designed';
+	if (/^(validated|validate|tested|test)/.test(normalized)) return 'Validated';
+	if (/^(coordinated|coordinate)/.test(normalized)) return 'Coordinated';
+	if (/^(developed|develop|created|create|built|build|implemented|implement)/.test(normalized)) return 'Implemented';
+	return 'Contributed';
+};
+
 const profileJsonLd = {
 	'@context': 'https://schema.org',
 	'@type': 'ProfilePage',
@@ -1168,11 +1173,34 @@ const profileJsonLd = {
 						))}
 					</div>
 					<p class="cv-updated">CV revised: {cvProfile.lastUpdated}</p>
+					<p class="cv-hero__brand">Control Intelligence for Physical Systems.</p>
+					<p class="cv-hero__fit"><strong>Best fit:</strong> architecture and technical-lead roles spanning embedded controls, electrification, diagnostics, and autonomous physical systems.</p>
+					<p class="cv-hero__impact"><strong>Selected production impact:</strong> led and mentored a team of 3 embedded software engineers across production-oriented control software delivery.</p>
+				</div>
+
+				<div class="cv-section-nav-shell">
+					<nav class="cv-section-nav" aria-label="CV page sections">
+						<div class="cv-section-nav__inner">
+							<span class="cv-section-nav__label">Jump to:</span>
+							<ul class="cv-section-nav__links">
+								{cvProfile.sectionNav.map((item) => (
+									<li>
+										<a class="cv-section-nav__link" href={item.href} data-cv-section-link
+											data-analytics-event="cta_click"
+										data-cta-id={`cv-section-${item.label.toLowerCase().replaceAll(' ', '-')}`}
+											data-cta-placement="cv-section-nav" data-cta-intent="section-navigation"
+											data-source-section="cv-section-nav">{item.label}</a>
+									</li>
+								))}
+							</ul>
+						</div>
+					</nav>
 				</div>
 
 				<aside class="cv-hero__evidence" aria-label="Recruiter snapshot">
 					<div class="cv-hero__details">
 						<p class="cv-hero__extended">{cvProfile.hero.secondarySummary}</p>
+						<a class="cv-hero__profile-link" href={withBase('/work/')}>See the technical work behind this profile →</a>
 					</div>
 					<ul class="cv-proof-grid" aria-label="Career proof points">
 						{cvProfile.proofTiles.map((tile) => (
@@ -1196,7 +1224,7 @@ const profileJsonLd = {
 		</section>
 
                 <div class="cv-shell">
-                        <div class="cv-section-nav-shell">
+                        <div class="cv-section-nav-shell cv-section-nav-shell--secondary">
                                 <nav class="page-container cv-section-nav" aria-label="CV page sections">
                                         <div class="cv-section-nav__inner">
                                                 <span class="cv-section-nav__label">Jump to:</span>
@@ -1352,6 +1380,7 @@ const profileJsonLd = {
                                                                 <div class="cv-role__milestone-meta">
                                                                         <p class="cv-role__period">{item.dates}</p>
                                                                         {item.organization && <p class="cv-role__organization">{item.organization}</p>}
+                                                                        {item.assignment && <p class="cv-role__assignment">Client assignment: {item.assignment}</p>}
                                                                         {item.location && <p class="cv-role__location">{item.location}</p>}
                                                                 </div>
                                                         </aside>
@@ -1375,7 +1404,7 @@ const profileJsonLd = {
                                                                 </header>
                                                                 <ul class="cv-role__bullets" aria-label={`${item.title} key responsibilities`}>
                                                                         {item.highlights.slice(0, 3).map((highlight) => (
-                                                                                <li>{highlight}</li>
+										<li><span class="cv-ownership-label">{ownershipLabel(highlight)}</span><span>{highlight}</span></li>
                                                                         ))}
                                                                 </ul>
 								<ul class="cv-chip-list" aria-label={`${item.title} technologies and methods`}>
@@ -1474,157 +1503,6 @@ const profileJsonLd = {
                                                 </section>
                                         </li>
                                 </ol>
-                        </div>
-                </section>
-
-		<section class="cv-section representative-systems" id="representative-systems" aria-labelledby="representative-systems-title" data-cv-section>
-			<div class="page-container">
-				<div class="cv-section__intro">
-					<h2 id="representative-systems-title">Representative Systems</h2>
-					<p>Compact examples of systems where my embedded controls work has been applied. In practical terms, this work helps machines use energy wisely, respond predictably to faults, protect hardware, and behave reliably in the physical world. The same capabilities transfer to electrified equipment, autonomous machines, robotics, industrial automation, energy systems, and other software controlled physical systems. Full project context is available on the Work page.</p>
-				</div>
-				<div class="representative-systems__grid">
-					{cvProfile.caseStudies.map((item) => {
-						const titleId = `representative-${expertiseCardId(item.title)}-title`;
-						return (
-						<article class="cv-card cv-card--interactive cv-expertise-card representative-system-card" data-analytics="cv_representative_system_view" aria-labelledby={titleId}>
-							<header class="cv-expertise-card__header representative-system-card__header">
-								<h3 id={titleId} class="cv-expertise-card__title">{item.title}</h3>
-								<p class="cv-expertise-card__summary">{item.statement}</p>
-							</header>
-							<dl class="representative-system-card__meta">
-								<div>
-									<dt>Role</dt>
-									<dd>{item.role}</dd>
-								</div>
-								<div>
-									<dt>Focus</dt>
-									<dd>{item.focus}</dd>
-								</div>
-								<div>
-									<dt>Evidence</dt>
-									<dd>{item.proof}</dd>
-								</div>
-							</dl>
-							<a
-								class="cv-expertise-card__toggle representative-system-card__link"
-								href={withBase(item.href)}
-								data-analytics-event="related_proof_click"
-								data-cta-id={`cv-work-context-${expertiseCardId(item.title)}`}
-								data-cta-placement="cv-representative-systems"
-								data-cta-intent="proof"
-								data-source-section="representative-systems"
-							>
-														Explore {item.title.toLowerCase()} work →
-							</a>
-						</article>
-						);
-					})}
-				</div>
-			</div>
-		</section>
-
-		<section class="cv-section" id="research" aria-labelledby="research-title" data-cv-section>
-			<div class="page-container">
-				<div class="cv-section__intro">
-					<h2 id="research-title">Research, Patents & Publications</h2>
-					<p>{cvProfile.research.intro}</p>
-				</div>
-
-                                <div class="cv-research-layout">
-                                        <article class="cv-card">
-                                                <h3>Research focus</h3>
-                                                <ul class="cv-research-focus-list" aria-label="Research focus">
-                                                        {cvProfile.research.themes.map((theme) => (
-                                                                <li>{theme}</li>
-                                                        ))}
-                                                </ul>
-                                        </article>
-                                        <article class="cv-card">
-                                                <h3>Academic and patent record</h3>
-                                                <ul class="cv-research-stats">
-                                                        {cvProfile.research.evidence.map((item) => (
-                                                                <li>
-                                                                        <strong>{item.value}</strong>
-                                                                        <div>
-                                                                                <span>{item.label}</span>
-                                                                                {item.description && <p>{item.description}</p>}
-                                                                        </div>
-                                                                </li>
-                                                        ))}
-                                                </ul>
-                                        </article>
-                                </div>
-
-                                <article class="cv-card cv-research-outcomes">
-                                        <h3>Published outcomes</h3>
-                                        <ul class="cv-research-outcome-grid">
-                                                {cvProfile.research.outcomes.map((outcome) => (
-                                                        <li>
-                                                                <strong>{outcome.value}</strong>
-                                                                <span>{outcome.label}</span>
-                                                        </li>
-                                                ))}
-                                        </ul>
-					<div class="cv-research-relevance">
-						<h3>Engineering relevance</h3>
-						<p>{cvProfile.research.relevance}</p>
-					</div>
-					<div class="cv-research-records" aria-label="Formal publication and patent records">
-						<details class="cv-disclosure cv-disclosure--inline cv-research-record">
-							<summary>Publication record ({cvProfile.research.publications.length})</summary>
-							<ol class="cv-research-record-list cv-disclosure__content">
-								{cvProfile.research.publications.map((publication) => (
-									<li>
-										<div class="cv-publication-citation">
-											<h4>{publication.title}</h4>
-											{publication.authors && <p class="cv-publication-citation__authors">{publication.authors}</p>}
-											<p class="cv-publication-citation__source">
-												{publication.venue && <em>{publication.venue}</em>}
-												{publication.venue && publication.year && <span>, </span>}
-												{publication.year && <span>{publication.year}</span>}
-											</p>
-											{(publication.doi || publication.href) && (
-												<p class="cv-publication-citation__link">
-													{publication.doi ? (
-														<a href={publication.href ?? `https://doi.org/${publication.doi}`} target="_blank" rel="noopener noreferrer">
-															doi:{publication.doi}
-														</a>
-													) : (
-														<a href={publication.href} target="_blank" rel="noopener noreferrer">View record</a>
-													)}
-												</p>
-											)}
-										</div>
-									</li>
-								))}
-							</ol>
-						</details>
-						<details class="cv-disclosure cv-disclosure--inline cv-research-record">
-							<summary>Patent record ({cvProfile.research.patents.length})</summary>
-							<ol class="cv-research-record-list cv-disclosure__content">
-								{cvProfile.research.patents.map((patent) => (
-									<li>
-										<div class="cv-publication-citation cv-patent-citation">
-											<h4>{patent.title}</h4>
-											<p class="cv-publication-citation__source">
-												<em>
-													{patent.href ? (
-														<a href={patent.href} target="_blank" rel="noopener noreferrer">{patent.issuer}</a>
-													) : (
-														patent.issuer
-													)}
-												</em>
-												{patent.year && <span>, {patent.year}</span>}
-											</p>
-											<p>{patent.description}</p>
-										</div>
-									</li>
-								))}
-							</ol>
-						</details>
-					</div>
-				</article>
                         </div>
                 </section>
 
@@ -1750,7 +1628,7 @@ const profileJsonLd = {
 	(() => {
 		const scrollJump = document.querySelector('[data-cv-scroll-jump]');
 		const sectionNavShell = document.querySelector('.cv-section-nav-shell');
-		const navLinks = Array.from(document.querySelectorAll('[data-cv-section-link]'));
+		const navLinks = Array.from(document.querySelectorAll('.cv-section-nav-shell:not(.cv-section-nav-shell--secondary) [data-cv-section-link]'));
 		const sections = navLinks
 			.map((link) => {
 				const href = link.getAttribute('href');
@@ -4128,6 +4006,8 @@ const profileJsonLd = {
 	.cv-page .page-container { width:100%; }
 	.cv-scroll-jump { display:grid; }
 	.cv-section-nav-shell { display:block; }
+	.cv-section-nav-shell--secondary { display:none; }
+	.cv-hero > .page-container > .cv-section-nav-shell { position:sticky; top:0; z-index:80; }
 	.cv-hero { padding:clamp(3rem,5vw,4.6rem) 0 4rem; background:transparent; border:0; }
 	.cv-hero__inner { display:grid; grid-template-columns:1fr; gap:0; }
 	.cv-hero__label { display:grid; gap:1rem; }
@@ -4135,8 +4015,11 @@ const profileJsonLd = {
 	.cv-hero__name { max-width:none; margin:0; font-size:clamp(2.6rem,3.8vw,3.5rem); line-height:1.02; letter-spacing:-.05em; font-weight:800; }
 	.cv-hero__content { max-width:52rem; margin-top:1rem; padding:0; border:0; gap:1rem; }
 	.cv-hero__subtitle { max-width:44rem; font-size:1.2rem; line-height:1.55; font-weight:600; }
+	.cv-hero__brand { margin:.35rem 0 0; color:var(--color-accent-text); font-family:var(--font-mono); font-size:.84rem; font-weight:700; letter-spacing:.04em; text-transform:uppercase; }
 	.cv-hero__summary,.cv-hero__extended { max-width:52rem; font-size:1.08rem; line-height:1.7; color:var(--color-text); }
 	.cv-actions { margin-top:1.5rem; }
+	.cv-hero__fit,.cv-hero__impact { max-width:52rem; margin:.75rem 0 0; color:var(--color-muted); font-size:.95rem; line-height:1.55; }
+	.cv-hero__impact { border-left:2px solid var(--color-accent-text); padding-left:.8rem; }
 	.cv-hero__evidence { grid-column:1; display:grid; grid-template-columns:16rem minmax(0,1fr); gap:2rem; margin-top:4rem; padding:2.5rem 0 0; border-top:1px solid var(--color-border); }
 	.cv-hero__evidence::before { content:'Snapshot'; font-family:var(--font-mono); font-size:.82rem; font-weight:600; letter-spacing:.08em; line-height:1.4; text-transform:uppercase; color:var(--color-muted); }
 	.cv-hero__details { grid-column:2; grid-row:1; margin-top:0; }
@@ -4161,11 +4044,13 @@ const profileJsonLd = {
 	.core-expertise-grid,.representative-systems__grid,.cv-card-grid,.cv-card-grid--education,.cv-card-grid--tools,.cv-research-layout { display:grid; grid-template-columns:1fr; gap:0; }
 	.cv-card,.cv-expertise-card,.representative-system-card,.cv-education-card,.cv-tool-card,.cv-learning-card { display:grid; gap:1rem; margin:0; padding:1.5rem 0; border:0; border-top:1px solid var(--color-border-soft); border-radius:0; background:transparent; box-shadow:none; transform:none; }
 	.cv-card:hover,.cv-card:focus-within { background:transparent; border-color:var(--color-border); transform:none; }
-	.cv-expertise-card__icon-button,.cv-role__icon-button { display:grid; }
+	.cv-expertise-card__icon-button,.cv-role__icon-button { display:none; }
 	.cv-expertise-card__toggle,.cv-role__toggle { display:inline-flex; }
+	.cv-role__toggle--compact { display:none; }
 	.core-expertise-detail[hidden],.cv-role__details[hidden],.cv-role__details--compact[hidden] { display:none; }
 	.cv-hero__details { margin-top:1rem; max-width:52rem; }
 	.cv-hero__details .cv-hero__extended { margin-top:.8rem; }
+	.cv-hero__profile-link { display:inline-block; margin-top:.65rem; color:var(--color-text); font-family:var(--font-mono); font-size:.78rem; font-weight:700; letter-spacing:.03em; text-decoration:underline; text-underline-offset:.25em; }
 	.cv-expertise-card__title,.cv-card h3,.cv-role h3,.cv-education-card h3,.cv-tool-card h3 { max-width:none; font-size:clamp(1.35rem,2vw,1.8rem); line-height:1.15; letter-spacing:-.04em; font-weight:800; }
 	.cv-expertise-card__summary,.core-expertise-detail__summary,.cv-role__summary,.cv-card p { font-size:1.05rem; line-height:1.7; color:var(--color-muted); }
 	.cv-expertise-card__capabilities,.cv-detail-group ul,.cv-role__bullets { margin-top:.5rem; }
@@ -4176,6 +4061,8 @@ const profileJsonLd = {
 	.cv-role__content { padding:0; border:0; border-radius:0; background:transparent; box-shadow:none; }
 	.cv-role__period,.cv-role__organization,.cv-role__location { font-size:.82rem; line-height:1.5; }
 	.cv-role__details { margin-top:1rem; padding-top:1rem; border-top:1px solid var(--color-border-soft); }
+	.cv-role__assignment { margin:0; color:var(--color-muted); font-family:var(--font-mono); font-size:.78rem; letter-spacing:.03em; }
+	.cv-ownership-label { display:inline-block; min-width:5.6rem; margin-right:.5rem; color:var(--color-accent-text); font-family:var(--font-mono); font-size:.72rem; font-weight:700; letter-spacing:.06em; text-transform:uppercase; vertical-align:baseline; }
 	.cv-impact-list { border-top:1px solid var(--color-border-soft); }
 	.cv-impact-list li { display:grid; grid-template-columns:10rem minmax(0,1fr); gap:1rem; padding:1.5rem 0; border:0; border-bottom:1px solid var(--color-border-soft); border-radius:0; background:transparent; }
 	.cv-impact-list h3 { font-size:1.35rem; letter-spacing:-.035em; }
