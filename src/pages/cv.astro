@@ -107,6 +107,7 @@ type LearningRecognition = {
 };
 
 const cvProfile = {
+	"lastUpdated": "2026-08-27",
 	"links": {
 		"email": "mailto:carlosjorques@gmail.com",
 		"pdf": "/cv/Carlos_Jorques_CV.pdf",
@@ -117,9 +118,9 @@ const cvProfile = {
 	"hero": {
 		"eyebrow": "Online CV",
 		"title": "Carlos Jorques",
-		"subtitle": "Embedded Controls Technical Lead · Control Systems Architect · Electric & Autonomous Vehicle Systems",
-		"summary": "I am an Embedded Controls Technical Lead with 12+ years of experience developing real time control software for automotive and heavy duty physical systems. My work focuses on EV thermal management, battery systems, autonomous propulsion control, diagnostics, functional safety, validation, and production software delivery.",
-		"secondarySummary": "I translate automatic control concepts into robust embedded software that can be tested, calibrated, validated, and trusted in real machines. My experience spans control architecture, model based implementation, generated C/C++ workflows, MIL/SIL/HIL validation, and technical leadership across international automotive teams."
+		"subtitle": "Embedded Control Systems Architect · Technical Leader · Electric & Autonomous Vehicle Systems",
+		"summary": "I design and lead real-time embedded control software for automotive and heavy-duty physical systems. Across 12+ years, my work has covered EV thermal management, battery systems, autonomous propulsion, diagnostics, functional safety, validation, and production delivery.",
+		"secondarySummary": "I translate automatic control concepts into robust software that can be tested, calibrated, validated, and trusted in real machines. My experience spans control architecture, model-based implementation, generated C/C++ workflows, MIL/SIL/HIL validation, and technical leadership across international teams."
 	},
 	"actions": [
 		{
@@ -207,7 +208,6 @@ const cvProfile = {
 		}
 	],
 	"relevantFor": [
-		"Senior Electronics Engineer",
 		"Embedded Controls Technical Lead",
 		"Control Systems Architect",
 		"BMS / Thermal Management Software Lead",
@@ -1115,9 +1115,9 @@ const profileJsonLd = {
 	mainEntity: {
 		'@type': 'Person',
 		name: cvProfile.hero.title,
-	jobTitle: IDENTITY.title,
+		jobTitle: 'Embedded Control Systems Architect · Technical Leader',
 		description:
-			'Senior electronics and embedded controls engineer specializing in EV thermal management, BMS, autonomous propulsion control, diagnostics, functional safety, model-based development, and real-time embedded software.',
+			'Embedded Control Systems Architect and Technical Leader specializing in real-time control software, electrified vehicles, autonomous machines, diagnostics, functional safety, and production validation.',
 		url: Astro.url.href,
 		sameAs: [cvProfile.links.linkedin],
 	},
@@ -1125,12 +1125,12 @@ const profileJsonLd = {
 ---
 
 <Layout
-	title={`${IDENTITY.name} CV | ${IDENTITY.title}`}
-	description="Senior electronics and embedded controls engineer specializing in EV thermal management, BMS, autonomous propulsion control, diagnostics, functional safety, model-based development, and real-time embedded software."
+	title={`${IDENTITY.name} CV | Embedded Control Systems Architect`}
+	description="Embedded Control Systems Architect and Technical Leader specializing in real-time control software, electrified vehicles, autonomous machines, diagnostics, functional safety, and production validation."
 >
 	<script type="application/ld+json" set:html={JSON.stringify(profileJsonLd)} />
 
-	<div class="cv-page">
+	<div class="cv-page" id="top">
 		<a class="cv-scroll-jump" href="#top" aria-label="Scroll to the top of the page" data-cv-scroll-jump>
 			<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
 				<path d="M12 17V7.5" />
@@ -1142,12 +1142,11 @@ const profileJsonLd = {
 			<div class="page-container cv-hero__inner">
 				<div class="cv-hero__label">
 					<p class="section-eyebrow">{cvProfile.hero.eyebrow}</p>
-					<h1 id="cv-title" class="cv-hero__name hero-title">{cvProfile.hero.title}</h1>
+					<h1 id="cv-title" class="cv-hero__name hero-title">{cvProfile.hero.title}, Ph.D.</h1>
 				</div>
 				<div class="cv-hero__content">
 					<p class="cv-hero__subtitle hero-role cv-hero__role">{cvProfile.hero.subtitle}</p>
 					<p class="cv-hero__summary hero-summary">{cvProfile.hero.summary}</p>
-					<p class="cv-hero__extended">{cvProfile.hero.secondarySummary}</p>
 					{cvProfile.hero.tertiarySummary && <p class="cv-hero__extended">{cvProfile.hero.tertiarySummary}</p>}
 
 					<div class="button-row cv-actions" aria-label="CV actions">
@@ -1168,10 +1167,13 @@ const profileJsonLd = {
 							</a>
 						))}
 					</div>
-					<p class="cv-updated">Last updated: {new Date().toISOString().slice(0, 10)}</p>
+					<p class="cv-updated">CV revised: {cvProfile.lastUpdated}</p>
 				</div>
 
 				<aside class="cv-hero__evidence" aria-label="Recruiter snapshot">
+					<div class="cv-hero__details">
+						<p class="cv-hero__extended">{cvProfile.hero.secondarySummary}</p>
+					</div>
 					<ul class="cv-proof-grid" aria-label="Career proof points">
 						{cvProfile.proofTiles.map((tile) => (
 							<li>
@@ -1221,6 +1223,25 @@ const profileJsonLd = {
                         </div>
 
 			<div class="cv-main-flow">
+				<section class="cv-section cv-section--compact" id="impact" aria-labelledby="impact-title" data-cv-section>
+					<div class="page-container">
+						<div class="cv-section__intro">
+							<h2 id="impact-title">Engineering Outcomes</h2>
+							<p>{cvProfile.impactIntro}</p>
+						</div>
+						<ul class="cv-impact-list">
+							{cvProfile.impactHighlights.map((highlight) => (
+								<li>
+									<span>{highlight.category}</span>
+									<div>
+										<h3>{highlight.title}</h3>
+										<p>{highlight.body}</p>
+									</div>
+								</li>
+							))}
+						</ul>
+					</div>
+				</section>
 				<section class="cv-section" id="expertise" aria-labelledby="core-expertise-heading" data-cv-section>
 					<div class="page-container">
 						<header class="cv-section__intro cv-section__intro--expertise">
@@ -1293,26 +1314,6 @@ const profileJsonLd = {
 					</div>
 				</section>
 
-		<section class="cv-section cv-section--compact" id="impact" aria-labelledby="impact-title" data-cv-section>
-                        <div class="page-container">
-                                <div class="cv-section__intro">
-                                        <h2 id="impact-title">Engineering Outcomes</h2>
-                                        <p>{cvProfile.impactIntro}</p>
-                                </div>
-                                <ul class="cv-impact-list">
-                                        {cvProfile.impactHighlights.map((highlight) => (
-                                                <li>
-                                                        <span>{highlight.category}</span>
-                                                        <div>
-                                                                <h3>{highlight.title}</h3>
-                                                                <p>{highlight.body}</p>
-                                                        </div>
-                                                </li>
-                                        ))}
-                                </ul>
-			</div>
-		</section>
-
 		<section class="cv-section" id="experience" aria-labelledby="experience-title" data-cv-section>
 			<div class="page-container">
 				<div class="cv-section__intro">
@@ -1320,6 +1321,7 @@ const profileJsonLd = {
 					<p>
 						Selected professional experience across embedded controls, automotive software, electric vehicles,
 						autonomous machines, diagnostics, validation, and technical leadership.
+						The timeline shows employer context alongside client and assignment work where roles overlap.
 					</p>
 				</div>
 
@@ -1479,7 +1481,7 @@ const profileJsonLd = {
 			<div class="page-container">
 				<div class="cv-section__intro">
 					<h2 id="representative-systems-title">Representative Systems</h2>
-					<p>Compact examples of systems where my embedded controls work has been applied. The same capabilities transfer to electrified equipment, autonomous machines, robotics, industrial automation, energy systems, and other software controlled physical systems. Full project context is available on the Work page.</p>
+					<p>Compact examples of systems where my embedded controls work has been applied. In practical terms, this work helps machines use energy wisely, respond predictably to faults, protect hardware, and behave reliably in the physical world. The same capabilities transfer to electrified equipment, autonomous machines, robotics, industrial automation, energy systems, and other software controlled physical systems. Full project context is available on the Work page.</p>
 				</div>
 				<div class="representative-systems__grid">
 					{cvProfile.caseStudies.map((item) => {
@@ -1513,7 +1515,7 @@ const profileJsonLd = {
 								data-cta-intent="proof"
 								data-source-section="representative-systems"
 							>
-								View work context →
+														Explore {item.title.toLowerCase()} work →
 							</a>
 						</article>
 						);
@@ -4100,6 +4102,12 @@ const profileJsonLd = {
 			display: block;
 		}
 
+		.core-expertise-detail[hidden],
+		.cv-role__details[hidden],
+		.cv-role__details--compact[hidden] {
+			display: block !important;
+		}
+
 		.cv-disclosure > summary {
 			border: 0;
 			padding: 0;
@@ -4118,7 +4126,8 @@ const profileJsonLd = {
 	/* Maria resume pattern: editorial rails, continuous text, no card wall. */
 	.cv-page { width:min(calc(100% - 5rem),var(--content-width)); margin:0 auto; padding-bottom:5rem; }
 	.cv-page .page-container { width:100%; }
-	.cv-scroll-jump,.cv-section-nav-shell { display:none; }
+	.cv-scroll-jump { display:grid; }
+	.cv-section-nav-shell { display:block; }
 	.cv-hero { padding:clamp(3rem,5vw,4.6rem) 0 4rem; background:transparent; border:0; }
 	.cv-hero__inner { display:grid; grid-template-columns:1fr; gap:0; }
 	.cv-hero__label { display:grid; gap:1rem; }
@@ -4130,17 +4139,19 @@ const profileJsonLd = {
 	.cv-actions { margin-top:1.5rem; }
 	.cv-hero__evidence { grid-column:1; display:grid; grid-template-columns:16rem minmax(0,1fr); gap:2rem; margin-top:4rem; padding:2.5rem 0 0; border-top:1px solid var(--color-border); }
 	.cv-hero__evidence::before { content:'Snapshot'; font-family:var(--font-mono); font-size:.82rem; font-weight:600; letter-spacing:.08em; line-height:1.4; text-transform:uppercase; color:var(--color-muted); }
-	.cv-proof-grid { grid-column:2; display:grid; gap:1rem; }
+	.cv-hero__details { grid-column:2; grid-row:1; margin-top:0; }
+	.cv-proof-grid { grid-column:2; grid-row:2; display:grid; gap:1rem; }
 	.cv-proof-grid li { display:grid; grid-template-columns:minmax(9rem,.35fr) 1fr; gap:1rem; padding:0; border:0; background:transparent; }
 	.cv-proof-grid strong,.cv-proof-grid span { font-family:var(--font-body); font-size:1.08rem; line-height:1.7; letter-spacing:0; text-transform:none; }
 	.cv-proof-grid strong { color:var(--color-text); font-weight:700; }
 	.cv-proof-grid span { color:var(--color-muted); }
 	.cv-role-strip { grid-column:2; margin-top:1rem; padding-top:1rem; border-top:1px solid var(--color-border-soft); }
+	.cv-section-nav-shell::before { border-bottom:0; }
 	.cv-role-strip > p { font-family:var(--font-mono); font-size:.82rem; letter-spacing:.08em; text-transform:uppercase; color:var(--color-muted); }
 	.cv-chip-list { display:flex; flex-wrap:wrap; gap:.35rem .8rem; }
 	.cv-chip-list li { border:0; border-radius:0; background:transparent; padding:0; color:var(--color-muted); }
 	.cv-chip-list li:not(:last-child)::after { content:' ·'; }
-	.cv-main-flow { display:block; }
+	.cv-main-flow { display:flex; flex-direction:column; }
 	.cv-section { padding:2.5rem 0; border-top:1px solid var(--color-border); background:transparent; }
 	.cv-section > .page-container { display:grid; grid-template-columns:16rem minmax(0,1fr); gap:2rem; align-items:start; }
 	.cv-section__intro { display:contents; }
@@ -4150,8 +4161,11 @@ const profileJsonLd = {
 	.core-expertise-grid,.representative-systems__grid,.cv-card-grid,.cv-card-grid--education,.cv-card-grid--tools,.cv-research-layout { display:grid; grid-template-columns:1fr; gap:0; }
 	.cv-card,.cv-expertise-card,.representative-system-card,.cv-education-card,.cv-tool-card,.cv-learning-card { display:grid; gap:1rem; margin:0; padding:1.5rem 0; border:0; border-top:1px solid var(--color-border-soft); border-radius:0; background:transparent; box-shadow:none; transform:none; }
 	.cv-card:hover,.cv-card:focus-within { background:transparent; border-color:var(--color-border); transform:none; }
-	.cv-expertise-card__icon-button,.cv-expertise-card__toggle,.cv-role__icon-button,.cv-role__toggle { display:none; }
-	.core-expertise-detail[hidden],.cv-role__details[hidden],.cv-role__details--compact[hidden] { display:block; }
+	.cv-expertise-card__icon-button,.cv-role__icon-button { display:grid; }
+	.cv-expertise-card__toggle,.cv-role__toggle { display:inline-flex; }
+	.core-expertise-detail[hidden],.cv-role__details[hidden],.cv-role__details--compact[hidden] { display:none; }
+	.cv-hero__details { margin-top:1rem; max-width:52rem; }
+	.cv-hero__details .cv-hero__extended { margin-top:.8rem; }
 	.cv-expertise-card__title,.cv-card h3,.cv-role h3,.cv-education-card h3,.cv-tool-card h3 { max-width:none; font-size:clamp(1.35rem,2vw,1.8rem); line-height:1.15; letter-spacing:-.04em; font-weight:800; }
 	.cv-expertise-card__summary,.core-expertise-detail__summary,.cv-role__summary,.cv-card p { font-size:1.05rem; line-height:1.7; color:var(--color-muted); }
 	.cv-expertise-card__capabilities,.cv-detail-group ul,.cv-role__bullets { margin-top:.5rem; }
@@ -4174,10 +4188,12 @@ const profileJsonLd = {
 		.cv-hero{padding:3rem 0 3rem}
 		.cv-hero__name{font-size:clamp(2.15rem,10vw,2.45rem);line-height:1.04}
 		.cv-hero__evidence,.cv-section > .page-container,.cv-final__inner{grid-template-columns:1fr;gap:1rem}
-		.cv-hero__evidence::before,.cv-proof-grid,.cv-role-strip,.cv-section__intro h2,.cv-section__intro > p,.cv-section > .page-container > :not(.cv-section__intro),.cv-final__inner > div:first-child,.cv-final__actions{grid-column:1}
+		.cv-hero__evidence::before,.cv-hero__details,.cv-proof-grid,.cv-role-strip,.cv-section__intro h2,.cv-section__intro > p,.cv-section > .page-container > :not(.cv-section__intro),.cv-final__inner > div:first-child,.cv-final__actions{grid-column:1}
 		.cv-proof-grid li,.cv-role,.cv-impact-list li{grid-template-columns:1fr;gap:.35rem}
 		.cv-section__intro > p{margin-bottom:1rem}
 		.cv-actions .button,.cv-final__actions .button{width:100%}
+		.cv-section-nav-shell { overflow-x:auto; }
+		.cv-section-nav { min-width:max-content; }
 	}
 	@media(max-width:640px){.cv-page{width:min(calc(100% - 32px),var(--content-width))}}
 </style>
