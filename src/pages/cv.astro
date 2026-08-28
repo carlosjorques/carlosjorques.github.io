@@ -72,6 +72,11 @@ type MethodGroup = {
 	items: string[];
 };
 
+type SnapshotItem = {
+	value: string;
+	label: string;
+};
+
 const baseUrl = import.meta.env.BASE_URL;
 const normalizedBase = baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`;
 const withBase = (href: string) =>
@@ -79,8 +84,10 @@ const withBase = (href: string) =>
 		? href
 		: `${normalizedBase}${href.replace(/^\//, '')}`;
 
+const isPlaceholder = (value: string) => /^\[.*\]$/.test(value.trim());
+
 const actions: CvAction[] = [
-	{ label: 'Download CV', href: '#download-cv', primary: true },
+	{ label: 'Download CV', href: '/cv/Carlos_Jorques_CV.pdf', primary: true },
 	{ label: 'Contact', href: '/contact' },
 ];
 
@@ -93,178 +100,581 @@ const sectionNav: SectionNavItem[] = [
 	{ id: 'methods', label: 'Methods' },
 ];
 
-const proofItems = [
-	{ value: '[Proof item 01]', label: '[Professional proof placeholder]' },
-	{ value: '[Proof item 02]', label: '[Domain or system placeholder]' },
-	{ value: '[Proof item 03]', label: '[Role-scope placeholder]' },
-	{ value: '[Proof item 04]', label: '[Production or validation placeholder]' },
-	{ value: '[Proof item 05]', label: '[Credential placeholder]' },
-	{ value: '[Proof item 06]', label: '[Location or availability placeholder]' },
+const proofItems: SnapshotItem[] = [
+	{ value: '12+ years', label: 'Automotive embedded controls' },
+	{ value: 'Current focus', label: 'EV thermal management, BMS, diagnostics' },
+	{ value: 'Leadership', label: 'Technical lead for embedded software engineers' },
+	{ value: 'Systems', label: 'Electric trucks, autonomous haulers, powertrain controls' },
+	{ value: 'Evidence', label: 'PhD, 5 patents, 15+ publications' },
+	{ value: 'Location', label: 'Valencia, Spain / open to selected opportunities' },
 ];
 
 const overview: OverviewItem = {
-	heading: '[Overview content heading]',
+	heading: 'Embedded control software for complex physical systems',
 	paragraphs: [
-		'[Overview paragraph placeholder describing the professional scope of this CV.]',
-		'[Overview paragraph placeholder describing the kinds of systems, responsibilities, or contexts represented here.]',
-		'[Overview paragraph placeholder describing how experience, projects, and credentials are organized on this page.]',
+		'I design and lead real-time embedded control software for electrified, autonomous, and heavy-duty physical systems, spanning thermal management, battery systems, diagnostics, safety, validation, and production delivery.',
+		'I turn control concepts into testable, calibrated, validated software for real machines, spanning control architecture, generated C/C++, MIL/SIL/HIL, diagnostics, supplier coordination, and PhD-trained engineering depth.',
+		'This page brings together the professional scope, role history, project record, credentials, and methods behind that work.',
 	],
-	scopeItems: ['[Professional-scope placeholder 01]', '[Professional-scope placeholder 02]', '[Professional-scope placeholder 03]'],
+	scopeItems: [
+		'Embedded Controls Technical Lead',
+		'Control Systems Architect',
+		'BMS / Thermal Management Software Lead',
+		'Model-Based Development Lead',
+		'Functional Safety-Related Controls',
+	],
 };
 
 const expertiseItems: ExpertiseItem[] = [
 	{
 		id: 'expertise-area-01',
-		title: '[Expertise title 01]',
-		scope: '[One-sentence scope placeholder describing the expertise area.]',
-		problemsAddressed: ['[Problem placeholder 01]', '[Problem placeholder 02]'],
-		ownership: ['[Ownership placeholder 01]', '[Ownership placeholder 02]'],
-		methodsAndConstraints: ['[Method or constraint placeholder 01]', '[Method or constraint placeholder 02]'],
-		applications: ['[Application placeholder 01]', '[Application placeholder 02]'],
+		title: 'Embedded Controls Architecture',
+		scope: 'Technical definition of embedded control functions for vehicle, powertrain, and physical systems.',
+		problemsAddressed: [
+			'Control function decomposition',
+			'Software, sensor, actuator, and plant model interfaces',
+			'Vehicle and powertrain behavior definition',
+			'Diagnostics, fallback, and degradation concepts',
+			'Real time robustness and integration tradeoffs',
+		],
+		ownership: [
+			'I define the boundaries between control intent, software architecture, diagnostics, calibration hooks, and integration interfaces so algorithms can survive real ECU timing, signal quality, physical constraints, and validation requirements.',
+		],
+		methodsAndConstraints: [
+			'Requirements driven functional design and software architecture.',
+			'Control design for systems with physical constraints, timing constraints, diagnostics, and validation requirements.',
+			'Integration aware architecture supporting calibration, testing, fault handling, and release maturity.',
+			'Experience across production and research environments.',
+		],
+		applications: [
+			'Electric truck thermal management and battery system controller architecture.',
+			'Autonomous electric hauler propulsion control, speed control, and torque allocation.',
+			'Heavy duty engine diagnostics and closed loop combustion control.',
+			'Architecture for production oriented generated code and C/C++ integration workflows.',
+		],
 	},
 	{
 		id: 'expertise-area-02',
-		title: '[Expertise title 02]',
-		scope: '[One-sentence scope placeholder describing the expertise area.]',
-		problemsAddressed: ['[Problem placeholder 01]', '[Problem placeholder 02]'],
-		ownership: ['[Ownership placeholder 01]', '[Ownership placeholder 02]'],
-		methodsAndConstraints: ['[Method or constraint placeholder 01]', '[Method or constraint placeholder 02]'],
-		applications: ['[Application placeholder 01]', '[Application placeholder 02]'],
+		title: 'Electric and Autonomous Vehicle Systems',
+		scope: 'Embedded control software for electric, autonomous, and heavy-duty vehicle platforms.',
+		problemsAddressed: [
+			'EV thermal management',
+			'Battery and BMS control',
+			'Charger coordination',
+			'Autonomous propulsion control',
+			'Heavy-duty vehicle systems',
+		],
+		ownership: [
+			'The common thread is coordinating energy, actuation, sensing, and protection logic so vehicle behavior remains predictable across charging, propulsion, thermal limits, and degraded operating conditions.',
+		],
+		methodsAndConstraints: [
+			'System-level thinking across batteries, chargers, actuators, sensors, and vehicle behavior.',
+			'Validation in simulation, bench, test-track, vehicle, and field-data contexts where applicable.',
+			'Control strategies designed for efficiency, component protection, controlled degradation, and reliable operation.',
+			'Experience across heavy-duty transport, autonomous machines, e-mobility, and power electronics.',
+		],
+		applications: [
+			'Electric truck thermal management for batteries, auxiliaries, power electronics, and charging.',
+			'Battery management and SOC/SOH/SOP-related thermal control strategies.',
+			'Autonomous electric hauler traction and speed-control software.',
+			'E-bike motor control, wireless charging, and DC/DC converter software.',
+		],
 	},
 	{
 		id: 'expertise-area-03',
-		title: '[Expertise title 03]',
-		scope: '[One-sentence scope placeholder describing the expertise area.]',
-		problemsAddressed: ['[Problem placeholder 01]', '[Problem placeholder 02]'],
-		ownership: ['[Ownership placeholder 01]', '[Ownership placeholder 02]'],
-		methodsAndConstraints: ['[Method or constraint placeholder 01]', '[Method or constraint placeholder 02]'],
-		applications: ['[Application placeholder 01]', '[Application placeholder 02]'],
+		title: 'Control Systems and Estimation',
+		scope: 'Real time control, virtual sensing, observer design, calibration, model adaptation, and system identification for physical systems.',
+		problemsAddressed: [
+			'Feedback control',
+			'Virtual sensing',
+			'Observer design',
+			'Calibration and model adaptation',
+			'System identification',
+		],
+		ownership: [
+			'Control systems and estimation connect physical behavior, models, measurements, and software implementation. My work has included feedback control, virtual sensing, observer design, calibration, model adaptation, stochastic detection, and system identification for heavy duty physical systems.',
+		],
+		methodsAndConstraints: [
+			'Feedback control, virtual sensing, and observer design.',
+			'Calibration, model adaptation, and system identification.',
+			'Stochastic detection and diagnostic reasoning.',
+			'Model based implementation for embedded software.',
+		],
+		applications: [
+			'Real time control for physical systems.',
+			'Virtual sensing and observer based estimation.',
+			'Calibration and model adaptation.',
+			'System identification and signal analysis.',
+		],
 	},
 	{
 		id: 'expertise-area-04',
-		title: '[Expertise title 04]',
-		scope: '[One-sentence scope placeholder describing the expertise area.]',
-		problemsAddressed: ['[Problem placeholder 01]', '[Problem placeholder 02]'],
-		ownership: ['[Ownership placeholder 01]', '[Ownership placeholder 02]'],
-		methodsAndConstraints: ['[Method or constraint placeholder 01]', '[Method or constraint placeholder 02]'],
-		applications: ['[Application placeholder 01]', '[Application placeholder 02]'],
+		title: 'Embedded Software and Validation',
+		scope: 'Production delivery of embedded control software from implementation to validated release.',
+		problemsAddressed: [
+			'Model based implementation',
+			'Generated C/C++ integration',
+			'MIL/SIL/HIL validation',
+			'CI/CD and software integration',
+			'Calibration, debugging, and release support',
+		],
+		ownership: [
+			'I turn control concepts and software architecture into testable embedded software, integrating generated code, C/C++ implementation, calibration workflows, validation evidence, and release oriented delivery practices.',
+		],
+		methodsAndConstraints: [
+			'Full lifecycle involvement from requirements and concept design to validation and production oriented delivery.',
+			'Testing across MIL, SIL, HIL, test bench, wind tunnel, test track, on road, and field data environments where applicable.',
+			'Use of Git, GitLab, Jenkins, Jira, CI/CD, debugging, ECU flashing, and traceable development workflows.',
+			'Focus on maintainable software boundaries, testability, calibration maturity, and integration quality.',
+		],
+		applications: [
+			'Model based software for electric truck thermal management and battery system functionality.',
+			'Propulsion control validation for autonomous electric haulers in manual and autonomous modes.',
+			'Application layer software for e-bike motor control, wireless charging, and DC/DC converter interfaces.',
+			'Heavy duty engine diagnostic software using model based methods and generated C code workflows.',
+		],
 	},
 	{
 		id: 'expertise-area-05',
-		title: '[Expertise title 05]',
-		scope: '[One-sentence scope placeholder describing the expertise area.]',
-		problemsAddressed: ['[Problem placeholder 01]', '[Problem placeholder 02]'],
-		ownership: ['[Ownership placeholder 01]', '[Ownership placeholder 02]'],
-		methodsAndConstraints: ['[Method or constraint placeholder 01]', '[Method or constraint placeholder 02]'],
-		applications: ['[Application placeholder 01]', '[Application placeholder 02]'],
+		title: 'Diagnostics, Safety, and Robustness',
+		scope: 'Diagnostic and safety-aware control software for reliable physical systems.',
+		problemsAddressed: [
+			'Diagnostic strategy design',
+			'Fault detection and isolation',
+			'ISO 26262-aligned development',
+			'A-SPICE traceability',
+			'Fallback and degradation logic',
+		],
+		ownership: [
+			'My diagnostic work starts by separating physical cause, signal symptom, control response, and degraded behavior, then using evidence to decide what the system can still do safely and reliably.',
+		],
+		methodsAndConstraints: [
+			'Separate root cause, control strategy, diagnostic logic, degradation behavior, and implementation before coding.',
+			'Use empirical data, simulation, HIL, bench, vehicle, and field evidence to support diagnostic and robustness decisions.',
+			'Develop monitoring and degradation logic so systems can remain controlled under component or signal faults.',
+			'Apply functional safety and traceability-aware practices in production-oriented automotive environments.',
+		],
+		applications: [
+			'Diagnostics and fallback strategies for EV thermal systems and battery-related functions.',
+			'Safety-related monitoring for autonomous propulsion and speed-control functionality.',
+			'Heavy-duty engine, fuel-system, oil-system, and cooling-system diagnostics.',
+			'Real-time model-based diagnostics and virtual sensing from industrial PhD research.',
+		],
 	},
 	{
 		id: 'expertise-area-06',
-		title: '[Expertise title 06]',
-		scope: '[One-sentence scope placeholder describing the expertise area.]',
-		problemsAddressed: ['[Problem placeholder 01]', '[Problem placeholder 02]'],
-		ownership: ['[Ownership placeholder 01]', '[Ownership placeholder 02]'],
-		methodsAndConstraints: ['[Method or constraint placeholder 01]', '[Method or constraint placeholder 02]'],
-		applications: ['[Application placeholder 01]', '[Application placeholder 02]'],
+		title: 'Technical Leadership',
+		scope: 'Technical direction for embedded software teams in automotive development environments.',
+		problemsAddressed: [
+			'Embedded software mentoring',
+			'Technical delivery coordination',
+			'Architecture reviews',
+			'Cross-functional alignment',
+			'Agile development support',
+		],
+		ownership: [
+			'I help teams make ambiguous engineering work visible: what is known, what is assumed, what must be validated, and which technical choices affect delivery, quality, and long-term maintainability.',
+		],
+		methodsAndConstraints: [
+			'Provide structural clarity in technically ambiguous situations.',
+			'Make technical trade-offs, risks, assumptions, and validation needs visible.',
+			'Support team autonomy and accountability while maintaining architectural coherence.',
+			'Translate different engineering perspectives into practical technical decisions and release-oriented plans.',
+		],
+		applications: [
+			'Technical leadership of a team of 3 embedded software engineers.',
+			'Planning, mentoring, delivery coordination, and technical-quality support in embedded automotive assignments.',
+			'Cross-functional coordination across system engineering, software, validation, suppliers, and stakeholders.',
+			'Support for Agile, Scrum, Kanban, SAFe, and CI/CD delivery environments.',
+		],
 	},
 ];
 
 const experienceItems: ExperienceItem[] = [
 	{
 		id: 'experience-role-01',
-		title: '[Job title placeholder]',
-		context: '[Employer or client context placeholder]',
-		meta: '[Dates] · [Location]',
-		mandate: '[One-line mandate placeholder.]',
-		contributions: ['[Contribution placeholder 01]', '[Contribution placeholder 02]', '[Contribution placeholder 03]'],
-		ownership: '[Ownership or leadership scope placeholder]',
+		title: 'Senior Developer Engineer',
+		context: 'Alten Delivery Center · Traton / Scania',
+		meta: 'July 2025-Present · [Location placeholder]',
+		mandate: 'Embedded software for electric truck thermal management, battery systems, charger coordination, diagnostics, and real-time controller architecture.',
+		contributions: [
+			'Develop and validate thermal management software for batteries, auxiliaries, power electronics, and charging systems.',
+			'Support predictive thermal control, diagnostics, functional safety analysis, and CI/CD integration.',
+		],
+		ownership: 'Embedded software delivery for electric truck thermal systems, battery systems, and diagnostics.',
 		details: [
-			{ title: 'Responsibilities', items: ['[Responsibility placeholder 01]', '[Responsibility placeholder 02]'] },
-			{ title: 'Selected outcomes', items: ['[Outcome placeholder 01]', '[Outcome placeholder 02]'] },
-			{ title: 'Technical scope', items: ['[Technical-scope placeholder 01]', '[Technical-scope placeholder 02]'] },
-			{ title: 'Leadership and collaboration', items: ['[Leadership placeholder 01]', '[Leadership placeholder 02]'] },
-			{ title: 'Validation/production context', items: ['[Validation placeholder 01]', '[Validation placeholder 02]'] },
-			{ title: 'Related-project links', items: ['[Related-project placeholder]'] },
+			{
+				title: 'Responsibilities',
+				items: [
+					'Develop embedded software for electric truck thermal management, battery systems, charger coordination, diagnostics, and controller architecture.',
+				],
+			},
+			{
+				title: 'Selected outcomes',
+				items: ['[Selected outcomes placeholder]'],
+			},
+			{
+				title: 'Technical scope',
+				items: [
+					'Model calibration and validation across MIL, SIL, HIL, test bench, wind tunnel, test track, and vehicle environments.',
+					'Battery management and SOC/SOH/SOP-related thermal control strategies.',
+					'Functional safety analysis, diagnostics, fallback strategies, and ISO 26262 / A-SPICE-aligned workflows.',
+				],
+			},
+			{
+				title: 'Leadership and collaboration',
+				items: [
+					'Cross-functional coordination across Traton and Scania R&D.',
+					'Supplier coordination and traceable engineering practices.',
+				],
+			},
+			{
+				title: 'Validation/production context',
+				items: [
+					'GitLab CI/CD pipelines and SAFe Agile practices to improve integration quality and reduce development cycle time.',
+					'Calibration maturity tracking across simulation, bench, and vehicle environments.',
+				],
+			},
+			{
+				title: 'Related-project links',
+				items: ['[Specific related-project link placeholder]'],
+			},
 		],
 	},
 	{
 		id: 'experience-role-02',
-		title: '[Job title placeholder]',
-		context: '[Employer or client context placeholder]',
-		meta: '[Dates] · [Location]',
-		mandate: '[One-line mandate placeholder.]',
-		contributions: ['[Contribution placeholder 01]', '[Contribution placeholder 02]', '[Contribution placeholder 03]'],
-		ownership: '[Ownership or leadership scope placeholder]',
+		title: 'Senior Software Developer / Technical Leader',
+		context: 'Alten Delivery Center',
+		meta: '2023-Present · Valencia, Spain',
+		mandate: 'Provided technical direction across architecture, planning, software quality, mentoring, and cross functional delivery alignment.',
+		contributions: [
+			'Provide technical leadership to a team of 3 engineers in embedded software development.',
+			'Coordinate planning, technical quality, mentoring, and client assignment delivery.',
+		],
+		ownership: 'Technical leadership for embedded software delivery, mentoring, and architecture support.',
 		details: [
-			{ title: 'Responsibilities', items: ['[Responsibility placeholder 01]', '[Responsibility placeholder 02]'] },
-			{ title: 'Selected outcomes', items: ['[Outcome placeholder 01]', '[Outcome placeholder 02]'] },
-			{ title: 'Technical scope', items: ['[Technical-scope placeholder 01]', '[Technical-scope placeholder 02]'] },
-			{ title: 'Leadership and collaboration', items: ['[Leadership placeholder 01]', '[Leadership placeholder 02]'] },
-			{ title: 'Validation/production context', items: ['[Validation placeholder 01]', '[Validation placeholder 02]'] },
-			{ title: 'Related-project links', items: ['[Related-project placeholder]'] },
+			{
+				title: 'Responsibilities',
+				items: [
+					'Provide technical direction across architecture, planning, software quality, mentoring, and delivery coordination.',
+				],
+			},
+			{ title: 'Selected outcomes', items: ['[Selected outcomes placeholder]'] },
+			{
+				title: 'Technical scope',
+				items: [
+					'System requirements and architecture design for embedded automotive software assignments.',
+					'Controller implementation, validation, debugging, and issue tracking.',
+				],
+			},
+			{
+				title: 'Leadership and collaboration',
+				items: [
+					'Knowledge sharing across Agile and CI/CD workflows.',
+					'Alten Key People program for mentoring and project management.',
+				],
+			},
+			{ title: 'Validation/production context', items: ['[Validation/production context placeholder]'] },
+			{ title: 'Related-project links', items: ['[Specific related-project link placeholder]'] },
 		],
 	},
 	{
 		id: 'experience-role-03',
-		title: '[Job title placeholder]',
-		context: '[Employer or client context placeholder]',
-		meta: '[Dates] · [Location]',
-		mandate: '[One-line mandate placeholder.]',
-		contributions: ['[Contribution placeholder 01]', '[Contribution placeholder 02]', '[Contribution placeholder 03]'],
-		ownership: '[Ownership or leadership scope placeholder]',
+		title: 'Senior Developer Engineer',
+		context: 'Alten Delivery Center · Volvo CE',
+		meta: 'April 2022-December 2024 · [Location placeholder]',
+		mandate: 'Propulsion control software for autonomous electric haulers, including traction control, speed control, torque allocation, diagnostics, and functional safety.',
+		contributions: [
+			'Developed and integrated traction and speed control functionality for autonomous electric haulers.',
+			'Designed propulsion torque control architecture for dual electric motors and redundant actuator concepts.',
+		],
+		ownership: 'Propulsion control architecture, speed control, and diagnostics for autonomous electric haulers.',
 		details: [
-			{ title: 'Responsibilities', items: ['[Responsibility placeholder 01]', '[Responsibility placeholder 02]'] },
-			{ title: 'Selected outcomes', items: ['[Outcome placeholder 01]', '[Outcome placeholder 02]'] },
-			{ title: 'Technical scope', items: ['[Technical-scope placeholder 01]', '[Technical-scope placeholder 02]'] },
-			{ title: 'Leadership and collaboration', items: ['[Leadership placeholder 01]', '[Leadership placeholder 02]'] },
-			{ title: 'Validation/production context', items: ['[Validation placeholder 01]', '[Validation placeholder 02]'] },
-			{ title: 'Related-project links', items: ['[Related-project placeholder]'] },
+			{
+				title: 'Responsibilities',
+				items: [
+					'Develop propulsion control software for autonomous electric haulers, including traction control, speed control, torque allocation, diagnostics, and safety-related monitoring.',
+				],
+			},
+			{ title: 'Selected outcomes', items: ['[Selected outcomes placeholder]'] },
+			{
+				title: 'Technical scope',
+				items: [
+					'Safety-related speed control and monitoring software.',
+					'Debugging, tuning, issue tracking, and system-level evaluations.',
+				],
+			},
+			{
+				title: 'Leadership and collaboration',
+				items: ['Mentoring and support for junior developers.'],
+			},
+			{
+				title: 'Validation/production context',
+				items: ['Unit tests, integration tests, SIL/HIL, and vehicle evaluations in manual and autonomous modes.'],
+			},
+			{ title: 'Related-project links', items: ['[Specific related-project link placeholder]'] },
 		],
 	},
 	{
 		id: 'experience-role-04',
-		title: '[Job title placeholder]',
-		context: '[Employer or client context placeholder]',
-		meta: '[Dates] · [Location]',
-		mandate: '[One-line mandate placeholder.]',
-		contributions: ['[Contribution placeholder 01]', '[Contribution placeholder 02]'],
-		ownership: '[Ownership or leadership scope placeholder]',
+		title: 'Development Software Engineer',
+		context: 'Mahle Electronics',
+		meta: '2022-2023 · Valencia, Spain',
+		mandate: 'Electric mobility software for e-bike motor control, power electronics interfaces, thermal modeling, and AUTOSAR-oriented software architecture.',
+		contributions: [
+			'Led software development for an e-bike motor control project.',
+			'Implemented application-layer software for wireless battery charging and DC/DC converter functionality.',
+		],
+		ownership: 'Software development for e-bike control, power electronics, and AUTOSAR-oriented architecture.',
 		details: [
-			{ title: 'Responsibilities', items: ['[Responsibility placeholder 01]', '[Responsibility placeholder 02]'] },
-			{ title: 'Selected outcomes', items: ['[Outcome placeholder 01]', '[Outcome placeholder 02]'] },
-			{ title: 'Technical scope', items: ['[Technical-scope placeholder 01]', '[Technical-scope placeholder 02]'] },
-			{ title: 'Leadership and collaboration', items: ['[Leadership placeholder 01]', '[Leadership placeholder 02]'] },
-			{ title: 'Validation/production context', items: ['[Validation placeholder 01]', '[Validation placeholder 02]'] },
-			{ title: 'Related-project links', items: ['[Related-project placeholder]'] },
+			{
+				title: 'Responsibilities',
+				items: [
+					'Develop software for e-bike motor control, wireless battery charging, DC/DC conversion, thermal modeling, and AUTOSAR-oriented architecture.',
+				],
+			},
+			{
+				title: 'Selected outcomes',
+				items: [
+					'Developed and calibrated a virtual PMSM motor temperature model with approximately 98% accuracy.',
+				],
+			},
+			{
+				title: 'Technical scope',
+				items: [
+					'Optimized PMSM electric motor controller behavior.',
+					'Developed model-based software strategy for an adaptive platform using AUTOSAR-oriented methods.',
+				],
+			},
+			{
+				title: 'Leadership and collaboration',
+				items: ['Acted as Scrum Master and contributed to Automotive SPICE methodology implementation.'],
+			},
+			{ title: 'Validation/production context', items: ['[Validation/production context placeholder]'] },
+			{ title: 'Related-project links', items: ['[Specific related-project link placeholder]'] },
+		],
+	},
+	{
+		id: 'experience-role-05',
+		title: 'Senior Development Engineer',
+		context: 'Scania',
+		meta: '2021-2022 · Sodertalje, Sweden',
+		mandate: 'Developed embedded control software for electric powertrain thermal management and battery management functions in heavy-duty vehicle applications.',
+		contributions: [
+			'Designed control architecture for thermal management in electric powertrains.',
+			'Developed estimation methods for state of charge, state of power, and state of health in mild-hybrid vehicle batteries.',
+		],
+		ownership: 'Control architecture and estimation for heavy-duty EV thermal management and battery systems.',
+		details: [
+			{
+				title: 'Responsibilities',
+				items: [
+					'Develop embedded control software for electric powertrain thermal management and battery management functions.',
+				],
+			},
+			{ title: 'Selected outcomes', items: ['[Selected outcomes placeholder]'] },
+			{
+				title: 'Technical scope',
+				items: [
+					'Passive and active cooling control integration across cabin climate, fans, heat pumps, batteries, and electric motors.',
+					'Control and diagnosis concepts for electric truck thermal management and BMS functionality.',
+					'Supplier contact, calibration maturity tracking, debugging, issue tracking, ECU flashing, and patent applications.',
+					'Implementation and testing of control software for electric vehicles.',
+				],
+			},
+			{ title: 'Leadership and collaboration', items: ['Supplier contact and patent applications.'] },
+			{
+				title: 'Validation/production context',
+				items: [
+					'MIL validation for model behavior and software logic.',
+					'SIL and HIL validation for generated software and integration behavior.',
+					'Bench, wind tunnel, test track, and on-road validation.',
+					'Data analysis and calibration maturity tracking.',
+				],
+			},
+			{ title: 'Related-project links', items: ['[Specific related-project link placeholder]'] },
+		],
+	},
+	{
+		id: 'experience-role-06',
+		title: 'Industrial PhD Student',
+		context: 'Scania and Lund University',
+		meta: '2016-2021 · Sodertalje, Sweden',
+		mandate: 'Conducted industrial PhD research on real-time diagnostics and in-cycle closed-loop combustion control for heavy-duty diesel engines operating with biofuels.',
+		contributions: [
+			'Developed real-time model-based diagnostics and control algorithms for heavy-duty engine combustion systems.',
+			'Designed and implemented in-cycle closed-loop combustion control concepts using FPGA and LabVIEW.',
+		],
+		ownership: 'Industrial PhD research bridging diagnostics, control algorithms, embedded implementation, and experimental validation.',
+		details: [
+			{
+				title: 'Responsibilities',
+				items: [
+					'Conduct industrial PhD research on real-time diagnostics and in-cycle closed-loop combustion control for heavy-duty diesel engines operating with biofuels.',
+				],
+			},
+			{
+				title: 'Selected outcomes',
+				items: [
+					'25 to 75% reduced controlled parameter dispersion.',
+					'60% reduced pilot fuel mass estimation error.',
+					'Up to 96% real time pilot misfire detection.',
+					'Up to +1.8% indicated efficiency improvement in stochastic set-point optimization.',
+				],
+			},
+			{
+				title: 'Technical scope',
+				items: [
+					'Virtual sensors, stochastic detection methods, predictive models, and online adaptation strategies.',
+					'Research on heavy-duty diesel engines operating with biofuels.',
+				],
+			},
+			{
+				title: 'Leadership and collaboration',
+				items: [
+					'Peer-reviewed publications, patent applications, conference representation, and thesis mentoring.',
+				],
+			},
+			{
+				title: 'Validation/production context',
+				items: ['Experiments, data analysis, calibration, and validation on test benches and prototype systems.'],
+			},
+			{ title: 'Related-project links', items: ['[Specific related-project link placeholder]'] },
+		],
+	},
+	{
+		id: 'experience-role-07',
+		title: 'Development Engineer',
+		context: 'Scania',
+		meta: '2014-2016 · Sodertalje, Sweden',
+		mandate: 'Developed embedded control and diagnostic software for heavy-duty engine systems, oil systems, cooling systems, and safety-related functionality.',
+		contributions: [
+			'Developed software for engine diagnostics, calibration, and safety functionality using model-based methods and C-code generation.',
+			'Implemented control and diagnostic functions for oil level, oil pressure, warning handling, and driver display information.',
+		],
+		ownership: 'Embedded control and diagnostic software for heavy-duty engine, oil, cooling, and safety-related systems.',
+		details: [
+			{
+				title: 'Responsibilities',
+				items: [
+					'Develop embedded control and diagnostic software for heavy-duty engine systems, oil systems, cooling systems, and safety-related functionality.',
+				],
+			},
+			{ title: 'Selected outcomes', items: ['[Selected outcomes placeholder]'] },
+			{
+				title: 'Technical scope',
+				items: [
+					'Concepts for controllable cooling systems, controllable oil pumps, and oil degradation models.',
+					'Generated C-code workflows for model-based embedded software.',
+				],
+			},
+			{
+				title: 'Leadership and collaboration',
+				items: ['Supplier contact, patent applications, and thesis mentoring.'],
+			},
+			{
+				title: 'Validation/production context',
+				items: [
+					'Validation using MIL, SIL, HIL, test bench, wind tunnel, test track, and on-road testing.',
+					'ECU flashing and issue tracking.',
+				],
+			},
+			{ title: 'Related-project links', items: ['[Specific related-project link placeholder]'] },
+		],
+	},
+	{
+		id: 'experience-role-08',
+		title: 'Master Thesis Student',
+		context: 'Scania',
+		meta: '2014 · [Location placeholder]',
+		mandate: 'Master thesis on automatic control for a low-pressure fuel system in heavy-duty vehicles.',
+		contributions: [
+			'Built and evaluated a test-rig control strategy using MATLAB/Simulink.',
+			'Contributed to real-time control algorithm and patent-related work.',
+		],
+		ownership: '[Ownership scope placeholder]',
+		details: [
+			{ title: 'Responsibilities', items: ['Master thesis work on automatic control for a low-pressure fuel system in heavy-duty vehicles.'] },
+			{ title: 'Selected outcomes', items: ['[Selected outcomes placeholder]'] },
+			{ title: 'Technical scope', items: ['Built and evaluated a test-rig control strategy using MATLAB/Simulink.'] },
+			{ title: 'Leadership and collaboration', items: ['Contributed to patent-related work.'] },
+			{ title: 'Validation/production context', items: ['Real-time control algorithm evaluation on a test rig.'] },
+			{ title: 'Related-project links', items: ['[Specific related-project link placeholder]'] },
+		],
+	},
+	{
+		id: 'experience-role-09',
+		title: 'Hardware Engineer',
+		context: 'Arduino Verkstad',
+		meta: '2014 · [Location placeholder]',
+		mandate: 'Short-term hardware engineering work focused on educational electronics platforms and embedded prototyping.',
+		contributions: [
+			'Designed and produced PCB circuits for TinkerKit-based educational projects.',
+			'Created documentation for Arduino courses and maker education materials.',
+		],
+		ownership: '[Ownership scope placeholder]',
+		details: [
+			{ title: 'Responsibilities', items: ['Hardware engineering work for educational electronics platforms and embedded prototyping.'] },
+			{ title: 'Selected outcomes', items: ['[Selected outcomes placeholder]'] },
+			{ title: 'Technical scope', items: ['Designed and produced PCB circuits for TinkerKit-based educational projects.'] },
+			{ title: 'Leadership and collaboration', items: ['Created documentation for Arduino courses and maker education materials.'] },
+			{ title: 'Validation/production context', items: ['[Validation/production context placeholder]'] },
+			{ title: 'Related-project links', items: ['[Specific related-project link placeholder]'] },
+		],
+	},
+	{
+		id: 'experience-role-10',
+		title: 'Software Researcher',
+		context: 'Sony Mobile Communications',
+		meta: 'May 2013-August 2013 · [Location placeholder]',
+		mandate: 'Engineering internship in mobile R&D focused on predictive algorithms for reduced touchscreen latency.',
+		contributions: [
+			'Researched predictive screen interaction models for improved responsiveness.',
+			'Implemented selected algorithms at Android kernel level for real-time evaluation.',
+		],
+		ownership: '[Ownership scope placeholder]',
+		details: [
+			{ title: 'Responsibilities', items: ['Engineering internship in mobile R&D focused on predictive algorithms for reduced touchscreen latency.'] },
+			{ title: 'Selected outcomes', items: ['[Selected outcomes placeholder]'] },
+			{ title: 'Technical scope', items: ['Implemented selected algorithms at Android kernel level for real-time evaluation.'] },
+			{ title: 'Leadership and collaboration', items: ['[Leadership and collaboration placeholder]'] },
+			{ title: 'Validation/production context', items: ['Real-time evaluation of predictive screen interaction models.'] },
+			{ title: 'Related-project links', items: ['[Specific related-project link placeholder]'] },
 		],
 	},
 ];
 
 const projectRows: ProjectRow[] = [
 	{
-		title: '[Project or system placeholder 01]',
-		summary: '[One-line contribution placeholder.]',
-		meta: '[Domain placeholder] · [Associated role or period placeholder]',
+		title: 'Electric Truck Thermal Management and Battery Systems',
+		summary: 'Embedded control software for battery, auxiliary, power electronics, and charging thermal coordination in heavy-duty electric vehicles.',
+		meta: 'EV systems · Senior developer engineer',
 		linkLabel: 'View project detail',
-		linkHref: '/work/project-placeholder-01',
+		linkHref: '/work/electric-truck-thermal-management/',
 	},
 	{
-		title: '[Project or system placeholder 02]',
-		summary: '[One-line contribution placeholder.]',
-		meta: '[Domain placeholder] · [Associated role or period placeholder]',
+		title: 'Autonomous Electric Hauler Propulsion Control',
+		summary: 'Propulsion and speed-control software for autonomous electric haulers operating in demanding off-road environments.',
+		meta: 'Autonomous machines · Senior developer engineer / technical lead',
+		linkLabel: 'View project detail',
+		linkHref: '/work/autonomous-hauler-propulsion-control/',
 	},
 	{
-		title: '[Project or system placeholder 03]',
-		summary: '[One-line contribution placeholder.]',
-		meta: '[Domain placeholder] · [Associated role or period placeholder]',
+		title: 'E-Bike Motor Control and Power Electronics Software',
+		summary: 'Embedded software for e-bike motor control, wireless charging, DC/DC conversion, and PMSM thermal modeling.',
+		meta: 'Power electronics · Software lead / Scrum Master',
+		linkLabel: 'View project detail',
+		linkHref: '/work/ebike-motor-control-power-electronics/',
 	},
 	{
-		title: '[Project or system placeholder 04]',
-		summary: '[One-line contribution placeholder.]',
-		meta: '[Domain placeholder] · [Associated role or period placeholder]',
+		title: 'Heavy-Duty Engine Diagnostics and Control Research',
+		summary: 'Real-time control and diagnostic algorithms for heavy-duty combustion systems with experimental validation.',
+		meta: 'Real-time control research · Industrial PhD researcher',
+		linkLabel: 'View project detail',
+		linkHref: '/work/heavy-duty-engine-diagnostics-control-research/',
 	},
 	{
-		title: '[Project or system placeholder 05]',
+		title: '[Project or system placeholder]',
 		summary: '[One-line contribution placeholder.]',
 		meta: '[Domain placeholder] · [Associated role or period placeholder]',
 	},
@@ -274,43 +684,119 @@ const credentialGroups: CredentialGroup[] = [
 	{
 		id: 'credential-education',
 		title: 'Education',
-		visibleItems: ['[Education record placeholder]'],
+		visibleItems: [
+			'PhD, Mechanical Engineering · Lund University · 2021',
+			'MSc, Electrical Engineering · Lund University · 2014',
+			'MSc, Industrial Engineering · Polytechnic University of Valencia · 2014',
+		],
 	},
 	{
 		id: 'credential-research',
 		title: 'Research and publications',
-		visibleItems: ['[Research summary placeholder]'],
+		visibleItems: [
+			'Research evidence behind my work in real-time control, virtual sensing, diagnostics, stochastic modeling, and hardware-constrained implementation for heavy-duty physical systems.',
+			'Research translated combustion sensing, stochastic diagnostics, and predictive control into experimentally validated methods for robust, efficient real-time heavy-duty engine control, supporting lower-emission transport, biofuel flexibility, and embedded deployment under industrial hardware constraints.',
+		],
 		disclosure: {
 			collapsedLabel: 'See publications',
 			expandedLabel: 'Hide publications',
-			details: ['[Publication placeholder 01]', '[Publication placeholder 02]', '[Publication placeholder 03]'],
+			details: [
+				'Investigation of Small Pilot Combustion in a Heavy-Duty Diesel Engine · SAE International Journal of Engines · 2017',
+				'Influence of Small Pilot on Main Injection in a Heavy-Duty Diesel Engine · SAE Technical Paper Series · 2017',
+				'Cylinder Pressure-Based Virtual Sensor for In-Cycle Pilot Mass Estimation · SAE International Journal of Engines · 2018',
+				'In-Cycle Closed-Loop Combustion Controllability with Pilot-Main Injections · THIESEL 2018 · 2018',
+				'Predictive In-Cycle Closed-Loop Combustion Control with Pilot-Main Injections · IFAC-PapersOnLine · 2020',
+				'In-Cycle Closed-Loop Combustion Control with Pilot-Main Injections for Maximum Indicated Efficiency · IFAC PapersOnLine · 2018',
+				'Internal Combustion Engine Cylinder Volume Trace Deviation · SAE International Journal of Engines · 2018',
+				'Cylinder Pressure Based Method for In-Cycle Pilot Misfire Detection · SAE International Journal of Advances and Current Practices in Mobility · 2019',
+				'Bayesian Method for Fuel Mass Estimation of Short Pilot Injections based on its Misfire Probability · ACC · 2020',
+				'Multi-Cylinder Adaptation of In-Cycle Predictive Combustion Models · SAE Technical Paper Series · 2020',
+				'In-Cycle Closed-Loop Combustion Control for Pilot Misfire Compensation · SAE International Journal of Advances and Current Practices in Mobility · 2020',
+				'Stochastic Set-Point Optimization for In-Cycle Closed-Loop Combustion Control Operation · SAE Technical Paper Series · 2021',
+				'Modular Design and Integration of In-Cycle Closed-Loop Combustion Controllers for a Wide-Range of Operating Conditions · ACC · 2021',
+				'FPGA Implementation of In-Cycle Closed-Loop Combustion Control Methods · SAE Technical Paper Series · 2021',
+				'Indicated efficiency optimization by in-cycle closed-loop combustion control of diesel engines · Control Engineering Practice · 2022',
+			],
 		},
 	},
 	{
 		id: 'credential-patents',
 		title: 'Patents',
-		visibleItems: ['[Patent summary placeholder]'],
+		visibleItems: ['5 patent records across control, diagnostics, and combustion-related inventions.'],
 		disclosure: {
 			collapsedLabel: 'See all patents',
 			expandedLabel: 'Hide patents',
-			details: ['[Patent placeholder 01]', '[Patent placeholder 02]', '[Patent placeholder 03]'],
+			details: [
+				'Method and system for determining in-cycle a pilot injection fuel mass in a combustion chamber of an engine · WO2019045623A1 · 2019-03-07',
+				'Method and system for fuel pump regulation · WO2016043652A1 · 2016-03-24',
+				'System and method for improving heat release evaluation at a reciprocating internal combustion engine · WO2017217912A1 · 2017-12-21',
+				'Method and system for diagnosing a fuel system II · WO2017003366A1 · 2017-01-05',
+				'Method and system for diagnosing a fuel system · WO2017003365A1 · 2017-01-05',
+			],
 		},
 	},
 	{
 		id: 'credential-certifications',
 		title: 'Certifications and recognition',
-		visibleItems: ['[Certification or recognition placeholder]'],
+		visibleItems: [
+			'Outstanding Oral Presentation Award, SAE, 2017',
+			'Scania Innovation Challenge, Scania, 2019',
+			'Best Academic Record for First Year, Polytechnic University of Valencia, 2009',
+			'Double Degree Scholarship, COIICV, 2013',
+		],
 	},
 ];
 
 const methodGroups: MethodGroup[] = [
-	{ title: 'Control and architecture methods', items: ['[Method placeholder 01]', '[Method placeholder 02]', '[Method placeholder 03]'] },
-	{ title: 'Embedded software', items: ['[Embedded-software placeholder 01]', '[Embedded-software placeholder 02]', '[Embedded-software placeholder 03]'] },
-	{ title: 'Validation', items: ['[Validation placeholder 01]', '[Validation placeholder 02]', '[Validation placeholder 03]'] },
-	{ title: 'Standards and processes', items: ['[Standard or process placeholder 01]', '[Standard or process placeholder 02]', '[Standard or process placeholder 03]'] },
-	{ title: 'Tools and environments', items: ['[Tool placeholder 01]', '[Tool placeholder 02]', '[Tool placeholder 03]'] },
-	{ title: 'Languages', items: ['[Language placeholder 01]', '[Language placeholder 02]', '[Language placeholder 03]'] },
-	{ title: 'Continuing learning', items: ['[Learning placeholder 01]', '[Learning placeholder 02]', '[Learning placeholder 03]'] },
+	{
+		title: 'Control and architecture methods',
+		items: [
+			'Model-based development, system identification, calibration, observer design, virtual sensing, model adaptation, signal processing, Kalman filtering, stochastic modeling, optimization, and model predictive control.',
+			'MATLAB, Simulink, Stateflow, Embedded Coder, and LabVIEW.',
+		],
+	},
+	{
+		title: 'Embedded software',
+		items: [
+			'Real-time embedded implementation, generated code integration, diagnostics implementation, scripting, automation, AUTOSAR-oriented workflows, and hardware-constrained algorithms.',
+			'C, C++, Python, CAPL, LabVIEW FPGA, and ECU flashing.',
+		],
+	},
+	{
+		title: 'Validation',
+		items: [
+			'Test bench validation, vehicle validation, wind tunnel, test track, on road testing, regression testing, fault injection, calibration support, and ECU debugging.',
+			'MIL, SIL, HIL, CANalyzer, CANoe, and Google Test.',
+		],
+	},
+	{
+		title: 'Standards and processes',
+		items: [
+			'Functional safety awareness, FuSa analysis, process alignment, automotive communication, traceability, and production-oriented documentation.',
+			'ISO 26262, A-SPICE, AUTOSAR-oriented workflows, CAN/J1939, and functional safety.',
+		],
+	},
+	{
+		title: 'Tools and environments',
+		items: [
+			'Code review, issue tracking, requirements alignment, architecture coordination, release workflows, agile delivery, continuous integration, mentoring, and cross functional coordination.',
+			'Git, GitLab, Jenkins, Jira, CI/CD, and SAFe.',
+		],
+	},
+	{
+		title: 'Languages',
+		items: ['Spanish · native', 'Catalan · native', 'English · full professional', 'Swedish · full professional'],
+	},
+	{
+		title: 'Continuing learning',
+		items: [
+			'LangChain and LLMs with Python, Alten, 2025',
+			'Project Management: Product Owner and Kanban, Cualtis, 2024',
+			'Power Electronic Converters, 2022',
+			'Introduction to Electromobility, Swedish Electromobility Centre, 2020',
+			'GT Power, Gamma Technologies, 2015',
+		],
+	},
 ];
 
 const visibleExperienceCount = 3;
@@ -326,8 +812,8 @@ const visibleExperienceCount = 3;
 				<div class="cv-hero__inner">
 					<div class="cv-hero__copy">
 						<p class="section-eyebrow">Online CV</p>
-						<h1 id="cv-title" class="hero-title">[Professional title]</h1>
-						<p class="cv-hero__positioning">[Concise positioning placeholder paragraph for the professional profile presented on this page.]</p>
+						<h1 id="cv-title" class="hero-title">Embedded Control Systems Architect</h1>
+						<p class="cv-hero__positioning">I design and lead real-time embedded control software for electrified, autonomous, and heavy-duty physical systems, spanning thermal management, battery systems, diagnostics, safety, validation, and production delivery.</p>
 						<div class="button-row cv-hero__actions">
 							{actions.map((action) => (
 								<a class:list={['button', { primary: action.primary }]} href={withBase(action.href)}>
@@ -341,8 +827,8 @@ const visibleExperienceCount = 3;
 						<ul class="cv-proof__list">
 							{proofItems.map((item) => (
 								<li>
-									<strong>{item.value}</strong>
-									<span>{item.label}</span>
+									<strong class:list={{ 'cv-missing': isPlaceholder(item.value) }}>{item.value}</strong>
+									<span class:list={{ 'cv-missing': isPlaceholder(item.label) }}>{item.label}</span>
 								</li>
 							))}
 						</ul>
@@ -387,15 +873,15 @@ const visibleExperienceCount = 3;
 				<div class="page-container cv-section__layout">
 					<h2 id="overview-title" class="cv-section__rail-heading">Overview</h2>
 					<div class="cv-section__content">
-						<h3>{overview.heading}</h3>
+						<h3 class:list={{ 'cv-missing': isPlaceholder(overview.heading) }}>{overview.heading}</h3>
 						<div class="cv-prose">
 							{overview.paragraphs.map((paragraph) => (
-								<p>{paragraph}</p>
+								<p class:list={{ 'cv-missing': isPlaceholder(paragraph) }}>{paragraph}</p>
 							))}
 						</div>
 						<ul class="cv-scope-list">
 							{overview.scopeItems.map((item) => (
-								<li>{item}</li>
+								<li class:list={{ 'cv-missing': isPlaceholder(item) }}>{item}</li>
 							))}
 						</ul>
 					</div>
@@ -410,8 +896,8 @@ const visibleExperienceCount = 3;
 							{expertiseItems.map((item) => (
 								<article class="cv-card panel cv-disclosure-item" aria-labelledby={`${item.id}-title`}>
 									<div class="cv-card__collapsed">
-										<h3 id={`${item.id}-title`}>{item.title}</h3>
-										<p class="cv-card__summary">{item.scope}</p>
+										<h3 id={`${item.id}-title`} class:list={{ 'cv-missing': isPlaceholder(item.title) }}>{item.title}</h3>
+										<p class:list={['cv-card__summary', { 'cv-missing': isPlaceholder(item.scope) }]}>{item.scope}</p>
 										<button
 											class="cv-disclosure-button"
 											type="button"
@@ -429,7 +915,7 @@ const visibleExperienceCount = 3;
 											<h4 id={`${item.id}-problems`}>Problems addressed</h4>
 											<ul>
 												{item.problemsAddressed.map((detail) => (
-													<li>{detail}</li>
+													<li class:list={{ 'cv-missing': isPlaceholder(detail) }}>{detail}</li>
 												))}
 											</ul>
 										</section>
@@ -437,7 +923,7 @@ const visibleExperienceCount = 3;
 											<h4 id={`${item.id}-ownership`}>Scope of ownership</h4>
 											<ul>
 												{item.ownership.map((detail) => (
-													<li>{detail}</li>
+													<li class:list={{ 'cv-missing': isPlaceholder(detail) }}>{detail}</li>
 												))}
 											</ul>
 										</section>
@@ -445,7 +931,7 @@ const visibleExperienceCount = 3;
 											<h4 id={`${item.id}-methods`}>Methods and constraints</h4>
 											<ul>
 												{item.methodsAndConstraints.map((detail) => (
-													<li>{detail}</li>
+													<li class:list={{ 'cv-missing': isPlaceholder(detail) }}>{detail}</li>
 												))}
 											</ul>
 										</section>
@@ -453,13 +939,13 @@ const visibleExperienceCount = 3;
 											<h4 id={`${item.id}-applications`}>Representative applications</h4>
 											<ul>
 												{item.applications.map((detail) => (
-													<li>{detail}</li>
+													<li class:list={{ 'cv-missing': isPlaceholder(detail) }}>{detail}</li>
 												))}
 											</ul>
 										</section>
 										{item.relatedProject && (
 											<p class="cv-related-link">
-												<a href={withBase(item.relatedProject.href)}>{item.relatedProject.label}</a>
+												<a class:list={{ 'cv-missing': isPlaceholder(item.relatedProject.label) }} href={withBase(item.relatedProject.href)}>{item.relatedProject.label}</a>
 											</p>
 										)}
 									</div>
@@ -480,18 +966,18 @@ const visibleExperienceCount = 3;
 									<article class="cv-role__card cv-disclosure-item" aria-labelledby={`${item.id}-title`}>
 										<div class="cv-role__collapsed">
 											<div class="cv-role__identity">
-												<p class="cv-role__meta">{item.meta}</p>
-												<h3 id={`${item.id}-title`}>{item.title}</h3>
-												<p class="cv-role__context">{item.context}</p>
+												<p class:list={['cv-role__meta', { 'cv-missing': isPlaceholder(item.meta) }]}>{item.meta}</p>
+												<h3 id={`${item.id}-title`} class:list={{ 'cv-missing': isPlaceholder(item.title) }}>{item.title}</h3>
+												<p class:list={['cv-role__context', { 'cv-missing': isPlaceholder(item.context) }]}>{item.context}</p>
 											</div>
 											<div class="cv-role__summary-block">
-												<p class="cv-role__mandate">{item.mandate}</p>
+												<p class:list={['cv-role__mandate', { 'cv-missing': isPlaceholder(item.mandate) }]}>{item.mandate}</p>
 												<ul class="cv-role__contributions">
 													{item.contributions.map((contribution) => (
-														<li>{contribution}</li>
+														<li class:list={{ 'cv-missing': isPlaceholder(contribution) }}>{contribution}</li>
 													))}
 												</ul>
-												<p class="cv-role__ownership">
+												<p class:list={['cv-role__ownership', { 'cv-missing': isPlaceholder(item.ownership) }]}>
 													<span>Ownership</span>
 													{item.ownership}
 												</p>
@@ -514,7 +1000,7 @@ const visibleExperienceCount = 3;
 													<h4 id={`${item.id}-${group.title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`}>{group.title}</h4>
 													<ul>
 														{group.items.map((detail) => (
-															<li>{detail}</li>
+															<li class:list={{ 'cv-missing': isPlaceholder(detail) }}>{detail}</li>
 														))}
 													</ul>
 												</section>
@@ -548,12 +1034,12 @@ const visibleExperienceCount = 3;
 						<div class="cv-project-list" role="list">
 							{projectRows.map((row) => (
 								<article class="cv-project-row" role="listitem">
-									<h3>{row.title}</h3>
-									<p class="cv-project-row__summary">{row.summary}</p>
-									<p class="cv-project-row__meta">{row.meta}</p>
+									<h3 class:list={{ 'cv-missing': isPlaceholder(row.title) }}>{row.title}</h3>
+									<p class:list={['cv-project-row__summary', { 'cv-missing': isPlaceholder(row.summary) }]}>{row.summary}</p>
+									<p class:list={['cv-project-row__meta', { 'cv-missing': isPlaceholder(row.meta) }]}>{row.meta}</p>
 									{row.linkHref && row.linkLabel && (
 										<p class="cv-project-row__link">
-											<a href={withBase(row.linkHref)}>{row.linkLabel}</a>
+											<a class:list={{ 'cv-missing': isPlaceholder(row.linkLabel) }} href={withBase(row.linkHref)}>{row.linkLabel}</a>
 										</p>
 									)}
 								</article>
@@ -573,10 +1059,10 @@ const visibleExperienceCount = 3;
 						<div class="cv-credentials-list">
 							{credentialGroups.map((group) => (
 								<section class="cv-credential-group" aria-labelledby={`${group.id}-title`}>
-									<h3 id={`${group.id}-title`}>{group.title}</h3>
+									<h3 id={`${group.id}-title`} class:list={{ 'cv-missing': isPlaceholder(group.title) }}>{group.title}</h3>
 									<ul class="cv-credential-group__visible">
 										{group.visibleItems.map((item) => (
-											<li>{item}</li>
+											<li class:list={{ 'cv-missing': isPlaceholder(item) }}>{item}</li>
 										))}
 									</ul>
 									{group.disclosure && (
@@ -595,7 +1081,7 @@ const visibleExperienceCount = 3;
 											<div id={`${group.id}-details`} class="cv-disclosure-panel" hidden>
 												<ul class="cv-plain-list">
 													{group.disclosure.details.map((detail) => (
-														<li>{detail}</li>
+														<li class:list={{ 'cv-missing': isPlaceholder(detail) }}>{detail}</li>
 													))}
 												</ul>
 											</div>
@@ -615,10 +1101,10 @@ const visibleExperienceCount = 3;
 						<div class="cv-method-groups">
 							{methodGroups.map((group) => (
 								<section class="cv-method-group" aria-labelledby={`method-${group.title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`}>
-									<h3 id={`method-${group.title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`}>{group.title}</h3>
+									<h3 id={`method-${group.title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`} class:list={{ 'cv-missing': isPlaceholder(group.title) }}>{group.title}</h3>
 									<ul>
 										{group.items.map((item) => (
-											<li>{item}</li>
+											<li class:list={{ 'cv-missing': isPlaceholder(item) }}>{item}</li>
 										))}
 									</ul>
 								</section>
@@ -841,16 +1327,26 @@ const visibleExperienceCount = 3;
 	}
 
 	.cv-section__rail-heading {
+		margin: 0;
 		max-width: none;
-		font-size: clamp(1.45rem, 2.4vw, 2.2rem);
-		line-height: 1.08;
-		letter-spacing: -0.045em;
+		color: var(--color-muted);
+		font-family: var(--font-mono);
+		font-size: var(--type-eyebrow-size);
+		font-weight: var(--type-eyebrow-weight);
+		letter-spacing: var(--type-eyebrow-tracking);
+		line-height: var(--type-eyebrow-line);
+		text-transform: uppercase;
 	}
 
 	.cv-section__content {
 		display: grid;
 		gap: 1.25rem;
 		max-width: 52rem;
+		align-content: start;
+	}
+
+	.cv-section__content > :first-child {
+		margin-top: 0;
 	}
 
 	.cv-prose {
@@ -882,12 +1378,26 @@ const visibleExperienceCount = 3;
 		display: grid;
 		grid-template-columns: 1fr;
 		gap: 1rem;
+		align-items: start;
 	}
 
 	.cv-card {
 		display: grid;
 		gap: 1rem;
 		padding: 1.25rem;
+		align-self: start;
+	}
+
+	.cv-card-grid > .cv-card:first-child,
+	.cv-experience-list > .cv-role:first-child .cv-role__card,
+	.cv-project-list > .cv-project-row:first-child,
+	.cv-credentials-list > .cv-credential-group:first-child,
+	.cv-method-groups > .cv-method-group:first-child {
+		padding-top: 0;
+	}
+
+	.cv-card-grid > .cv-card:first-child {
+		padding-top: 1.25rem;
 	}
 
 	.cv-card__collapsed,
@@ -999,6 +1509,17 @@ const visibleExperienceCount = 3;
 	.cv-role__card {
 		display: grid;
 		gap: 1rem;
+		padding: 1.25rem;
+		border-radius: var(--radius);
+		background: var(--color-card-bg);
+	}
+
+	.cv-project-row,
+	.cv-credential-group,
+	.cv-method-group {
+		padding: 1.25rem;
+		border-radius: var(--radius);
+		background: var(--color-card-bg);
 	}
 
 	.cv-role__collapsed {
@@ -1077,6 +1598,24 @@ const visibleExperienceCount = 3;
 	.cv-method-group ul {
 		display: grid;
 		gap: 0.45rem;
+		list-style: disc;
+	}
+
+	.cv-method-group li::marker,
+	.cv-role__contributions li::marker,
+	.cv-scope-list li::marker,
+	.cv-plain-list li::marker,
+	.cv-credential-group__visible li::marker,
+	.cv-detail-group li::marker {
+		color: var(--color-muted);
+	}
+
+	.cv-missing {
+		color: #b42318;
+	}
+
+	.cv-missing::marker {
+		color: #b42318;
 	}
 
 	@media (min-width: 760px) {
@@ -1176,6 +1715,7 @@ const visibleExperienceCount = 3;
 		const toggles = Array.from(root.querySelectorAll('[data-disclosure-toggle]'));
 		const navLinks = Array.from(root.querySelectorAll('[data-cv-nav-link]'));
 		const mobileNav = root.querySelector('.cv-section-nav-mobile');
+		const stickyNav = root.querySelector('.cv-section-nav-shell');
 		const seeAllRolesButton = root.querySelector('[data-see-all-roles]');
 		const extraRoles = Array.from(root.querySelectorAll('[data-role-visibility="extra"]'));
 
@@ -1232,31 +1772,53 @@ const visibleExperienceCount = 3;
 			})
 			.filter(Boolean);
 
-		if ('IntersectionObserver' in window && sections.length > 0) {
+		if (sections.length > 0) {
 			const setActiveLink = (id) => {
 				navLinks.forEach((link) => {
 					link.setAttribute('aria-current', link.getAttribute('data-target') === id ? 'true' : 'false');
 				});
 			};
 
-			const observer = new IntersectionObserver(
-				(entries) => {
-					const visible = entries
-						.filter((entry) => entry.isIntersecting)
-						.sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+			const updateActiveSection = () => {
+				const navHeight = stickyNav instanceof HTMLElement ? stickyNav.getBoundingClientRect().height : 0;
+				const probeLine = navHeight + 24;
+				const sectionOffsets = sections.map((item) => {
+					const rect = item.section.getBoundingClientRect();
+					return {
+						id: item.id,
+						top: rect.top,
+						bottom: rect.bottom,
+					};
+				});
 
-					if (visible?.target?.id) {
-						setActiveLink(visible.target.id);
-					}
-				},
-				{
-					rootMargin: '-25% 0px -55% 0px',
-					threshold: [0.2, 0.45, 0.7],
-				},
-			);
+				const containing = sectionOffsets.find((item) => item.top <= probeLine && item.bottom > probeLine);
+				if (containing) {
+					setActiveLink(containing.id);
+					return;
+				}
 
-			sections.forEach((item) => observer.observe(item.section));
-			setActiveLink('overview');
+				const pastSections = sectionOffsets.filter((item) => item.top <= probeLine);
+				if (pastSections.length > 0) {
+					setActiveLink(pastSections[pastSections.length - 1].id);
+					return;
+				}
+
+				setActiveLink(sectionOffsets[0].id);
+			};
+
+			let ticking = false;
+			const requestUpdate = () => {
+				if (ticking) return;
+				ticking = true;
+				window.requestAnimationFrame(() => {
+					updateActiveSection();
+					ticking = false;
+				});
+			};
+
+			requestUpdate();
+			window.addEventListener('scroll', requestUpdate, { passive: true });
+			window.addEventListener('resize', requestUpdate);
 		}
 
 		navLinks.forEach((link) => {
