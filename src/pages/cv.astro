@@ -1,1436 +1,534 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { IDENTITY } from '../data/identity';
 
 type CvAction = {
 	label: string;
 	href: string;
 	primary?: boolean;
-	external?: boolean;
 	download?: boolean;
-	analytics: string;
 };
 
 type SectionNavItem = {
+	id: string;
 	label: string;
-	href: string;
 };
 
-type ProofTile = {
+type ProofItem = {
 	value: string;
 	label: string;
 };
 
-type ImpactHighlight = {
-	category: string;
+type DetailGroup = {
 	title: string;
-	body: string;
+	items: string[];
 };
 
-type ExpertiseGroup = {
-	eyebrow?: string;
+type ExpertiseItem = {
+	id: string;
+	eyebrow: string;
 	title: string;
-	summary?: string;
-	compactSummary?: string;
-	detailSummary?: string;
-	items: string[];
-	chips?: string[];
-	evidence?: string[];
-	representativeWork?: string[];
-	methods?: string[];
+	scope: string;
+	keywords: string[];
+	details: DetailGroup[];
 };
 
 type ExperienceItem = {
+	id: string;
 	title: string;
-	organization?: string;
-	assignment?: string;
-	location?: string;
-	dates: string;
-	summary: string;
-	highlights: string[];
-	details?: string[];
-	detailGroups?: {
-		title: 'Technical details' | 'Validation scope' | 'Additional responsibilities';
-		items: string[];
-	}[];
-	tags: string[];
+	context: string;
+	meta: string;
+	mandate: string;
+	contributions: string[];
+	ownership: string;
+	details: DetailGroup[];
 };
 
-type CompactExperienceItem = {
+type ProjectRow = {
+	system: string;
+	context: string;
+	contribution: string;
+	rolePeriod: string;
+	expertise: string;
+	linkLabel?: string;
+	linkHref?: string;
+};
+
+type CredentialGroup = {
+	id: string;
 	title: string;
-	organization: string;
-	dates: string;
-	summary: string;
-	bullets: string[];
+	visibleItems: string[];
+	details?: DetailGroup[];
 };
 
-type CaseStudy = {
-	eyebrow: string;
+type MethodGroup = {
 	title: string;
-	statement: string;
-	role: string;
-	focus: string;
-	proof: string;
-	href: string;
+	items: string[];
 };
-
-type ResearchMetric = {
-	value: string;
-	label: string;
-	description?: string;
-};
-
-type ResearchOutcome = {
-	value: string;
-	label: string;
-};
-
-type EducationItem = {
-	degree: string;
-	year: string;
-	institution?: string;
-	focus?: string;
-	dissertation?: string;
-	description: string;
-	links?: { label: string; href: string }[];
-};
-
-type ToolGroup = {
-	title: string;
-	primaryTools?: string;
-	methods?: string;
-	languages?: { language: string; level: string }[];
-};
-
-type LearningRecognition = {
-	recognition: string[];
-	recentLearning: string[];
-};
-
-const cvProfile = {
-	"lastUpdated": "2026-08-27",
-	"links": {
-		"email": "mailto:carlosjorques@gmail.com",
-		"pdf": "/cv/Carlos_Jorques_CV.pdf",
-		"contact": "/contact",
-		"work": "/work",
-		"linkedin": "https://www.linkedin.com/in/carlosjorques/"
-	},
-	"hero": {
-		"eyebrow": "Online CV",
-		"title": "Carlos Jorques",
-		"subtitle": "Embedded Control Systems Architect · Technical Leader · Electric & Autonomous Vehicle Systems",
-		"summary": "I design and lead real-time embedded control software for electrified, autonomous, and heavy-duty physical systems, spanning thermal management, battery systems, diagnostics, safety, validation, and production delivery.",
-		"secondarySummary": "I turn control concepts into testable, calibrated, validated software for real machines, spanning control architecture, generated C/C++, MIL/SIL/HIL, diagnostics, supplier coordination, and PhD-trained engineering depth."
-	},
-	"actions": [
-		{
-			"label": "Email Carlos",
-			"href": "mailto:carlosjorques@gmail.com",
-			"primary": true,
-			"analytics": "contact_email_click",
-			"ctaId": "cv-email-carlos",
-			"intent": "contact"
-		},
-		{
-			"label": "Download PDF CV",
-			"href": "/cv/Carlos_Jorques_CV.pdf",
-			"download": true,
-			"analytics": "cv_pdf_download",
-			"ctaId": "cv-download-pdf",
-			"intent": "formal-proof"
-		},
-		{
-			"label": "See Work",
-			"href": "/work",
-			"analytics": "cta_click",
-			"ctaId": "cv-see-work",
-			"intent": "proof"
-		}
-	],
-	"sectionNav": [
-		{
-			"label": "Expertise",
-			"href": "#expertise"
-		},
-		{
-			"label": "Impact",
-			"href": "#impact"
-		},
-		{
-			"label": "Experience",
-			"href": "#experience"
-		},
-		{
-			"label": "Education",
-			"href": "#education"
-		},
-		{
-			"label": "Tools",
-			"href": "#tools"
-		},
-		{
-			"label": "Contact",
-			"href": "#contact"
-		}
-	],
-	"proofTiles": [
-		{
-		"value": "12+ years",
-			"label": "Automotive embedded controls"
-		},
-		{
-			"value": "Current focus",
-			"label": "EV thermal management, BMS, diagnostics"
-		},
-		{
-			"value": "Leadership",
-			"label": "Technical lead for embedded software engineers"
-		},
-		{
-			"value": "Systems",
-			"label": "Electric trucks, autonomous haulers, powertrain controls"
-		},
-		{
-			"value": "Evidence",
-			"label": "PhD, 5 patents, 15+ publications"
-		},
-		{
-			"value": "Location",
-			"label": "Valencia, Spain / open to selected opportunities"
-		}
-	],
-	"relevantFor": [
-		"Embedded Controls Technical Lead",
-		"Control Systems Architect",
-		"BMS / Thermal Management Software Lead",
-		"Model-Based Development Lead",
-		"Functional Safety-Related Controls"
-	],
-	"executiveSummary": [],
-	"expertise": [
-		{
-			"eyebrow": "Control architecture",
-			"title": "Embedded Controls Architecture",
-			"summary": "Technical definition of embedded control functions for vehicle, powertrain, and physical systems.",
-			"compactSummary": "Technical definition of embedded control functions for vehicle, powertrain, and physical systems.",
-			"detailSummary": "I define the boundaries between control intent, software architecture, diagnostics, calibration hooks, and integration interfaces so algorithms can survive real ECU timing, signal quality, physical constraints, and validation requirements.",
-			"items": [
-				"Control function decomposition",
-				"Software, sensor, actuator, and plant model interfaces",
-				"Vehicle and powertrain behavior definition",
-				"Diagnostics, fallback, and degradation concepts",
-				"Real time robustness and integration tradeoffs"
-			],
-			"representativeWork": [
-				"Electric truck thermal management and battery system controller architecture.",
-				"Autonomous electric hauler propulsion control, speed control, and torque allocation.",
-				"Heavy duty engine diagnostics and closed loop combustion control.",
-				"Architecture for production oriented generated code and C/C++ integration workflows."
-			],
-			"methods": [
-				"Requirements driven functional design and software architecture.",
-				"Control design for systems with physical constraints, timing constraints, diagnostics, and validation requirements.",
-				"Integration aware architecture supporting calibration, testing, fault handling, and release maturity.",
-				"Experience across production and research environments."
-			]
-		},
-		{
-			"eyebrow": "Vehicle systems",
-			"title": "Electric and Autonomous Vehicle Systems",
-			"summary": "Embedded control software for electric, autonomous, and heavy-duty vehicle platforms.",
-			"compactSummary": "Embedded control software for electric, autonomous, and heavy-duty vehicle platforms.",
-			"detailSummary": "The common thread is coordinating energy, actuation, sensing, and protection logic so vehicle behavior remains predictable across charging, propulsion, thermal limits, and degraded operating conditions.",
-			"items": [
-				"EV thermal management",
-				"Battery and BMS control",
-				"Charger coordination",
-				"Autonomous propulsion control",
-				"Heavy-duty vehicle systems"
-			],
-			"representativeWork": [
-				"Electric truck thermal management for batteries, auxiliaries, power electronics, and charging.",
-				"Battery management and SOC/SOH/SOP-related thermal control strategies.",
-				"Autonomous electric hauler traction and speed-control software.",
-				"E-bike motor control, wireless charging, and DC/DC converter software."
-			],
-			"methods": [
-				"System-level thinking across batteries, chargers, actuators, sensors, and vehicle behavior.",
-				"Validation in simulation, bench, test-track, vehicle, and field-data contexts where applicable.",
-				"Control strategies designed for efficiency, component protection, controlled degradation, and reliable operation.",
-				"Experience across heavy-duty transport, autonomous machines, e-mobility, and power electronics."
-			]
-		},
-		{
-			"eyebrow": "Automatic control",
-			"title": "Control Systems and Estimation",
-			"summary": "Real time control, virtual sensing, observer design, calibration, model adaptation, and system identification for physical systems.",
-			"compactSummary": "Real time control, virtual sensing, observer design, calibration, model adaptation, and system identification for physical systems.",
-			"detailSummary": "Control systems and estimation connect physical behavior, models, measurements, and software implementation. My work has included feedback control, virtual sensing, observer design, calibration, model adaptation, stochastic detection, and system identification for heavy duty physical systems.",
-			"items": [
-				"Feedback control",
-				"Virtual sensing",
-				"Observer design",
-				"Calibration and model adaptation",
-				"System identification"
-			],
-			"representativeWork": [
-				"Real time control for physical systems.",
-				"Virtual sensing and observer based estimation.",
-				"Calibration and model adaptation.",
-				"System identification and signal analysis."
-			],
-			"methods": [
-				"Feedback control, virtual sensing, and observer design.",
-				"Calibration, model adaptation, and system identification.",
-				"Stochastic detection and diagnostic reasoning.",
-				"Model based implementation for embedded software."
-			]
-		},
-		{
-			"eyebrow": "Software delivery",
-			"title": "Embedded Software and Validation",
-			"summary": "Production delivery of embedded control software from implementation to validated release.",
-			"compactSummary": "Production delivery of embedded control software from implementation to validated release.",
-			"detailSummary": "I turn control concepts and software architecture into testable embedded software, integrating generated code, C/C++ implementation, calibration workflows, validation evidence, and release oriented delivery practices.",
-			"items": [
-				"Model based implementation",
-				"Generated C/C++ integration",
-				"MIL/SIL/HIL validation",
-				"CI/CD and software integration",
-				"Calibration, debugging, and release support"
-			],
-			"representativeWork": [
-				"Model based software for electric truck thermal management and battery system functionality.",
-				"Propulsion control validation for autonomous electric haulers in manual and autonomous modes.",
-				"Application layer software for e-bike motor control, wireless charging, and DC/DC converter interfaces.",
-				"Heavy duty engine diagnostic software using model based methods and generated C code workflows."
-			],
-			"methods": [
-				"Full lifecycle involvement from requirements and concept design to validation and production oriented delivery.",
-				"Testing across MIL, SIL, HIL, test bench, wind tunnel, test track, on road, and field data environments where applicable.",
-				"Use of Git, GitLab, Jenkins, Jira, CI/CD, debugging, ECU flashing, and traceable development workflows.",
-				"Focus on maintainable software boundaries, testability, calibration maturity, and integration quality."
-			]
-		},
-		{
-			"eyebrow": "Safety & diagnostics",
-			"title": "Diagnostics, Safety, and Robustness",
-			"summary": "Diagnostic and safety-aware control software for reliable physical systems.",
-			"compactSummary": "Diagnostic and safety-aware control software for reliable physical systems.",
-			"detailSummary": "My diagnostic work starts by separating physical cause, signal symptom, control response, and degraded behavior, then using evidence to decide what the system can still do safely and reliably.",
-			"items": [
-				"Diagnostic strategy design",
-				"Fault detection and isolation",
-				"ISO 26262-aligned development",
-				"A-SPICE traceability",
-				"Fallback and degradation logic"
-			],
-			"representativeWork": [
-				"Diagnostics and fallback strategies for EV thermal systems and battery-related functions.",
-				"Safety-related monitoring for autonomous propulsion and speed-control functionality.",
-				"Heavy-duty engine, fuel-system, oil-system, and cooling-system diagnostics.",
-				"Real-time model-based diagnostics and virtual sensing from industrial PhD research."
-			],
-			"methods": [
-				"Separate root cause, control strategy, diagnostic logic, degradation behavior, and implementation before coding.",
-				"Use empirical data, simulation, HIL, bench, vehicle, and field evidence to support diagnostic and robustness decisions.",
-				"Develop monitoring and degradation logic so systems can remain controlled under component or signal faults.",
-				"Apply functional safety and traceability-aware practices in production-oriented automotive environments."
-			]
-		},
-		{
-			"eyebrow": "Technical direction",
-			"title": "Technical Leadership",
-			"summary": "Technical direction for embedded software teams in automotive development environments.",
-			"compactSummary": "Technical direction for embedded software teams in automotive development environments.",
-			"detailSummary": "I help teams make ambiguous engineering work visible: what is known, what is assumed, what must be validated, and which technical choices affect delivery, quality, and long-term maintainability.",
-			"items": [
-				"Embedded software mentoring",
-				"Technical delivery coordination",
-				"Architecture reviews",
-				"Cross-functional alignment",
-				"Agile development support"
-			],
-			"representativeWork": [
-				"Technical leadership of a team of 3 embedded software engineers.",
-				"Planning, mentoring, delivery coordination, and technical-quality support in embedded automotive assignments.",
-				"Cross-functional coordination across system engineering, software, validation, suppliers, and stakeholders.",
-				"Support for Agile, Scrum, Kanban, SAFe, and CI/CD delivery environments."
-			],
-			"methods": [
-				"Provide structural clarity in technically ambiguous situations.",
-				"Make technical trade-offs, risks, assumptions, and validation needs visible.",
-				"Support team autonomy and accountability while maintaining architectural coherence.",
-				"Translate different engineering perspectives into practical technical decisions and release-oriented plans."
-			]
-		}
-	],
-	"impactIntro": "Selected outcomes showing how embedded control software, electrification, diagnostics, autonomous systems, and applied control research translated into system value.",
-	"impactHighlights": [
-		{
-			"category": "Leadership",
-			"title": "Embedded software delivery",
-			"body": "Led and mentored a team of 3 embedded software engineers, supporting architecture clarity, delivery coordination, and model based automotive control software development."
-		},
-		{
-			"category": "Electrification",
-			"title": "Electric truck control software",
-			"body": "Delivered control software for thermal coordination, battery systems, charger interfaces, diagnostics, and validation evidence."
-		},
-		{
-			"category": "Autonomous systems",
-			"title": "Vehicle level motion control",
-			"body": "Designed and integrated traction and speed-control software for autonomous electric haulers."
-		},
-		{
-			"category": "Diagnostics",
-			"title": "Fault tolerant control concepts",
-			"body": "Developed control architecture and diagnostics for dual-motor torque allocation and redundant actuator concepts."
-		},
-		{
-			"category": "Power electronics",
-			"title": "Electrified system control",
-			"body": "Created model-based thermal and control software for e-bike motor control, wireless charging, and DC/DC converter applications."
-		},
-		{
-			"category": "Research",
-			"title": "Validated control research",
-			"body": "Published results showing 25 to 75 percent reduction in controlled parameter dispersion, 60 percent reduction in pilot fuel mass estimation error, and up to 96 percent real-time pilot misfire detection."
-		}
-	],
-	"experience": [
-		{
-			"title": "Senior Developer Engineer",
-			"organization": "Alten Delivery Center",
-			"assignment": "Traton / Scania",
-			"dates": "July 2025-Present",
-			"summary": "Embedded software for electric truck thermal management, battery systems, charger coordination, diagnostics, and real-time controller architecture.",
-			"highlights": [
-				"Develop and validate thermal management software for batteries, auxiliaries, power electronics, and charging systems.",
-				"Support predictive thermal control, diagnostics, functional safety analysis, and CI/CD integration."
-			],
-			"detailGroups": [
-				{
-					"title": "Technical details",
-					"items": [
-						"Model calibration and validation across MIL, SIL, HIL, test bench, wind tunnel, test track, and vehicle environments.",
-						"Battery management and SOC/SOH/SOP-related thermal control strategies.",
-						"Functional safety analysis, diagnostics, fallback strategies, and ISO 26262 / A-SPICE-aligned workflows.",
-						"GitLab CI/CD pipelines and SAFe Agile practices to improve integration quality and reduce development cycle time."
-					]
-				},
-				{
-					"title": "Additional responsibilities",
-					"items": [
-						"Cross-functional coordination across Traton and Scania R&D.",
-						"Supplier coordination and traceable engineering practices.",
-						"Controller architecture using model-based development.",
-						"Calibration maturity tracking across simulation, bench, and vehicle environments."
-					]
-				}
-			],
-			"tags": [
-				"MATLAB/Simulink",
-				"C",
-				"GitLab",
-				"ISO 26262",
-				"A-SPICE",
-				"BMS",
-				"diagnostics",
-				"EV thermal management"
-			]
-		},
-		{
-			"title": "Senior Software Developer / Technical Leader",
-			"organization": "Alten Delivery Center",
-			"location": "Valencia, Spain",
-			"dates": "2023-Present",
-			"summary": "Provided technical direction across architecture, planning, software quality, mentoring, and cross functional delivery alignment.",
-			"highlights": [
-				"Provide technical leadership to a team of 3 engineers in embedded software development.",
-				"Coordinate planning, technical quality, mentoring, and client assignment delivery."
-			],
-			"detailGroups": [
-				{
-					"title": "Additional responsibilities",
-					"items": [
-						"System requirements and architecture design for embedded automotive software assignments.",
-						"Controller implementation, validation, debugging, and issue tracking.",
-						"Knowledge sharing across Agile and CI/CD workflows.",
-						"Alten Key People program for mentoring and project management."
-					]
-				}
-			],
-			"tags": [
-				"MATLAB/Simulink",
-				"C/C++",
-				"ISO 26262",
-				"Agile",
-				"CI/CD",
-				"SIL/HIL",
-				"technical leadership"
-			]
-		},
-		{
-			"title": "Senior Developer Engineer",
-			"organization": "Alten Delivery Center",
-			"assignment": "Volvo CE",
-			"dates": "April 2022-December 2024",
-			"summary": "Propulsion control software for autonomous electric haulers, including traction control, speed control, torque allocation, diagnostics, and functional safety.",
-			"highlights": [
-				"Developed and integrated traction and speed control functionality for autonomous electric haulers.",
-				"Designed propulsion torque control architecture for dual electric motors and redundant actuator concepts."
-			],
-			"detailGroups": [
-				{
-					"title": "Validation scope",
-					"items": [
-						"Unit tests, integration tests, SIL/HIL, and vehicle evaluations in manual and autonomous modes.",
-						"Safety-related speed control and monitoring software.",
-						"Debugging, tuning, issue tracking, and system-level evaluations.",
-						"Mentoring and support for junior developers."
-					]
-				}
-			],
-			"tags": [
-				"MATLAB/Simulink",
-				"ISO 26262",
-				"SIL",
-				"HIL",
-				"diagnostics",
-				"data analysis",
-				"autonomous vehicle control",
-				"propulsion control"
-			]
-		},
-		{
-			"title": "Development Software Engineer",
-			"organization": "Mahle Electronics",
-			"location": "Valencia, Spain",
-			"dates": "2022-2023",
-			"summary": "Electric mobility software for e-bike motor control, power electronics interfaces, thermal modeling, and AUTOSAR-oriented software architecture.",
-			"highlights": [
-				"Led software development for an e-bike motor control project.",
-				"Implemented application-layer software for wireless battery charging and DC/DC converter functionality."
-			],
-			"detailGroups": [
-				{
-					"title": "Technical details",
-					"items": [
-						"Developed and calibrated a virtual PMSM motor temperature model with approximately 98% accuracy.",
-						"Optimized PMSM electric motor controller behavior.",
-						"Developed model-based software strategy for an adaptive platform using AUTOSAR-oriented methods.",
-						"Acted as Scrum Master and contributed to Automotive SPICE methodology implementation."
-					]
-				}
-			],
-			"tags": [
-				"MATLAB/Simulink",
-				"C",
-				"C++",
-				"Classic AUTOSAR",
-				"CANalyzer",
-				"Agile",
-				"PMSM",
-				"model-based development"
-			]
-		},
-		{
-			"title": "Senior Development Engineer",
-			"organization": "Scania",
-			"location": "Sodertalje, Sweden",
-			"dates": "2021-2022",
-			"summary": "Developed embedded control software for electric powertrain thermal management and battery management functions in heavy-duty vehicle applications.",
-			"highlights": [
-				"Designed control architecture for thermal management in electric powertrains.",
-				"Developed estimation methods for state of charge, state of power, and state of health in mild-hybrid vehicle batteries."
-			],
-			"detailGroups": [
-				{
-					"title": "Technical details",
-					"items": [
-						"Passive and active cooling control integration across cabin climate, fans, heat pumps, batteries, and electric motors.",
-						"Control and diagnosis concepts for electric truck thermal management and BMS functionality.",
-						"Supplier contact, calibration maturity tracking, debugging, issue tracking, ECU flashing, and patent applications.",
-						"Implementation and testing of control software for electric vehicles."
-					]
-				},
-				{
-					"title": "Validation scope",
-					"items": [
-						"MIL validation for model behavior and software logic.",
-						"SIL and HIL validation for generated software and integration behavior.",
-						"Bench, wind tunnel, test track, and on-road validation.",
-						"Data analysis and calibration maturity tracking."
-					]
-				}
-			],
-			"tags": [
-				"MATLAB/Simulink",
-				"C",
-				"C++",
-				"Jenkins",
-				"Git",
-				"ISO 26262",
-				"BMS",
-				"thermal management"
-			]
-		},
-		{
-			"title": "Industrial PhD Student",
-			"organization": "Scania and Lund University",
-			"location": "Sodertalje, Sweden",
-			"dates": "2016-2021",
-			"summary": "Conducted industrial PhD research on real-time diagnostics and in-cycle closed-loop combustion control for heavy-duty diesel engines operating with biofuels.",
-			"highlights": [
-				"Developed real-time model-based diagnostics and control algorithms for heavy-duty engine combustion systems.",
-				"Designed and implemented in-cycle closed-loop combustion control concepts using FPGA and LabVIEW."
-			],
-			"detailGroups": [
-				{
-					"title": "Technical details",
-					"items": [
-						"Virtual sensors, stochastic detection methods, predictive models, and online adaptation strategies.",
-						"Experiments, data analysis, calibration, and validation on test benches and prototype systems.",
-						"Peer-reviewed publications, patent applications, conference representation, and thesis mentoring.",
-						"Research on heavy-duty diesel engines operating with biofuels."
-					]
-				}
-			],
-			"tags": [
-				"MATLAB/Simulink",
-				"LabVIEW",
-				"FPGA",
-				"signal processing",
-				"stochastic modeling",
-				"model calibration",
-				"experimental validation"
-			]
-		},
-		{
-			"title": "Development Engineer",
-			"organization": "Scania",
-			"location": "Sodertalje, Sweden",
-			"dates": "2014-2016",
-			"summary": "Developed embedded control and diagnostic software for heavy-duty engine systems, oil systems, cooling systems, and safety-related functionality.",
-			"highlights": [
-				"Developed software for engine diagnostics, calibration, and safety functionality using model-based methods and C-code generation.",
-				"Implemented control and diagnostic functions for oil level, oil pressure, warning handling, and driver display information."
-			],
-			"detailGroups": [
-				{
-					"title": "Technical details",
-					"items": [
-						"Concepts for controllable cooling systems, controllable oil pumps, and oil degradation models.",
-						"Validation using MIL, SIL, HIL, test bench, wind tunnel, test track, and on-road testing.",
-						"ECU flashing, issue tracking, supplier contact, patent applications, and thesis mentoring.",
-						"Generated C-code workflows for model-based embedded software."
-					]
-				}
-			],
-			"tags": [
-				"MATLAB/Simulink",
-				"C",
-				"C++",
-				"Jenkins",
-				"Perforce",
-				"Vision",
-				"Jira",
-				"diagnostics",
-				"functional safety"
-			]
-		}
-	],
-	"earlierExperience": [
-		{
-			"title": "Master Thesis Student",
-			"organization": "Scania",
-			"dates": "2014",
-			"summary": "Master thesis on automatic control for a low-pressure fuel system in heavy-duty vehicles.",
-			"bullets": [
-				"Built and evaluated a test-rig control strategy using MATLAB/Simulink.",
-				"Contributed to real-time control algorithm and patent-related work."
-			]
-		},
-		{
-			"title": "Hardware Engineer",
-			"organization": "Arduino Verkstad",
-			"dates": "2014",
-			"summary": "Short-term hardware engineering work focused on educational electronics platforms and embedded prototyping.",
-			"bullets": [
-				"Designed and produced PCB circuits for TinkerKit-based educational projects.",
-				"Created documentation for Arduino courses and maker education materials."
-			]
-		},
-		{
-			"title": "Software Researcher",
-			"organization": "Sony Mobile Communications",
-			"dates": "May 2013-August 2013",
-			"summary": "Engineering internship in mobile R&D focused on predictive algorithms for reduced touchscreen latency.",
-			"bullets": [
-				"Researched predictive screen interaction models for improved responsiveness.",
-				"Implemented selected algorithms at Android kernel level for real-time evaluation."
-			]
-		}
-	],
-	"caseStudies": [
-		{
-			"eyebrow": "EV systems",
-			"title": "Electric Truck Thermal Management and Battery Systems",
-			"statement": "Embedded control software for battery, auxiliary, power electronics, and charging thermal coordination in heavy-duty electric vehicles.",
-			"role": "Senior developer engineer",
-			"focus": "BMS / thermal control / diagnostics",
-			"proof": "MIL/SIL/HIL / vehicle testing / ISO 26262 context",
-			"href": "/work#electric-truck-thermal-management"
-		},
-		{
-			"eyebrow": "Autonomous machines",
-			"title": "Autonomous Electric Hauler Propulsion Control",
-			"statement": "Propulsion and speed-control software for autonomous electric haulers operating in demanding off-road environments.",
-			"role": "Senior developer engineer / technical lead",
-			"focus": "Traction control / torque allocation / diagnostics",
-			"proof": "Dual motors / redundant actuators / SIL/HIL / vehicle testing",
-			"href": "/work#autonomous-hauler-propulsion-control"
-		},
-		{
-			"eyebrow": "Power electronics",
-			"title": "E-Bike Motor Control and Power Electronics Software",
-			"statement": "Embedded software for e-bike motor control, wireless charging, DC/DC conversion, and PMSM thermal modeling.",
-			"role": "Software lead / Scrum Master",
-			"focus": "PMSM / AUTOSAR / power electronics",
-			"proof": "98% thermal model accuracy / bench validation / Agile delivery",
-			"href": "/work#ebike-motor-control-power-electronics"
-		},
-		{
-			"eyebrow": "Real-time control research",
-			"title": "Heavy-Duty Engine Diagnostics and Control Research",
-			"statement": "Real-time control and diagnostic algorithms for heavy-duty combustion systems with experimental validation.",
-			"role": "Industrial PhD researcher",
-			"focus": "Closed-loop control / virtual sensing / stochastic detection",
-			"proof": "Patents / publications / test-bench validation",
-			"href": "/work#heavy-duty-engine-diagnostics-control-research"
-		}
-	],
-	"research": {
-		"intro": "Research evidence behind my work in real-time control, virtual sensing, diagnostics, stochastic modeling, and hardware-constrained implementation for heavy-duty physical systems.",
-		"themes": [
-			"Closed-loop combustion control",
-			"Virtual sensing and diagnostics",
-			"Stochastic detection and estimation",
-			"Predictive control and model adaptation",
-			"Real-time hardware implementation",
-			"Experimental validation"
-		],
-		"outcomes": [
-			{
-				"value": "25 to 75%",
-				"label": "Reduced controlled parameter dispersion"
-			},
-			{
-				"value": "60%",
-				"label": "Reduced pilot fuel mass estimation error"
-			},
-			{
-				"value": "Up to 96%",
-				"label": "Real time pilot misfire detection"
-			},
-			{
-				"value": "Up to +1.8%",
-				"label": "Indicated efficiency improvement in stochastic set-point optimization"
-			}
-		],
-		"evidence": [
-			{
-				"value": "5",
-				"label": "Patent records",
-				"description": "Control, diagnostics, and combustion related inventions"
-			},
-				{
-					"value": "15+",
-					"label": "Scientific publications",
-					"description": "Real-time control, diagnostics, estimation, and validation"
-			},
-			{
-				"value": "PhD",
-				"label": "Industrial research",
-				"description": "Scania and Lund University"
-				}
-			],
-			"relevance": "Research translated combustion sensing, stochastic diagnostics, and predictive control into experimentally validated methods for robust, efficient real-time heavy-duty engine control, supporting lower-emission transport, biofuel flexibility, and embedded deployment under industrial hardware constraints.",
-			"publications": [
-				{
-					"title": "Investigation of Small Pilot Combustion in a Heavy-Duty Diesel Engine",
-					"type": "Journal article",
-					"venue": "SAE International Journal of Engines",
-					"year": "2017",
-					"authors": "Carlos Jorques Moreno, Ola Stenlaas, Per Tunestal",
-					"doi": "10.4271/2017-01-0718",
-					"href": "https://doi.org/10.4271/2017-01-0718"
-				},
-				{
-					"title": "Influence of Small Pilot on Main Injection in a Heavy-Duty Diesel Engine",
-					"type": "SAE technical paper",
-					"venue": "SAE Technical Paper Series",
-					"year": "2017",
-					"authors": "Carlos Jorques Moreno, Ola Stenlaas, Per Tunestal",
-					"doi": "10.4271/2017-01-0708",
-					"href": "https://doi.org/10.4271/2017-01-0708"
-				},
-				{
-					"title": "Cylinder Pressure-Based Virtual Sensor for In-Cycle Pilot Mass Estimation",
-					"type": "Journal article",
-					"venue": "SAE International Journal of Engines",
-					"year": "2018",
-					"authors": "Carlos Jorques Moreno, Ola Stenlaas, Per Tunestal",
-					"doi": "10.4271/2018-01-1163",
-					"href": "https://doi.org/10.4271/2018-01-1163"
-				},
-				{
-					"title": "In-Cycle Closed-Loop Combustion Controllability with Pilot-Main Injections",
-					"type": "Conference paper",
-					"venue": "THIESEL 2018 Conference on Thermo- and Fluid Dynamic Processes in Direct Injection Engines",
-					"year": "2018",
-					"authors": "Carlos Jorques Moreno, Ola Stenlaas, Per Tunestal"
-				},
-				{
-					"title": "Predictive In-Cycle Closed-Loop Combustion Control with Pilot-Main Injections",
-					"type": "Paper",
-					"venue": "IFAC-PapersOnLine",
-					"year": "2020",
-					"authors": "Carlos Jorques Moreno, Ola Stenlaas, Per Tunestal",
-					"doi": "10.1016/j.ifacol.2020.12.920",
-					"href": "https://doi.org/10.1016/j.ifacol.2020.12.920"
-				},
-				{
-					"title": "In-Cycle Closed-Loop Combustion Control with Pilot-Main Injections for Maximum Indicated Efficiency",
-					"type": "Conference paper",
-					"venue": "IFAC PapersOnLine",
-					"year": "2018",
-					"authors": "Carlos Jorques Moreno, Ola Stenlaas, Per Tunestal",
-					"doi": "10.1016/j.ifacol.2018.10.018",
-					"href": "https://doi.org/10.1016/j.ifacol.2018.10.018"
-				},
-				{
-					"title": "Internal Combustion Engine Cylinder Volume Trace Deviation",
-					"type": "Article",
-					"venue": "SAE International Journal of Engines",
-					"year": "2018",
-					"authors": "Ivan Anagrius West, Carlos Jorques Moreno, Ola Stenlaas, Fredrik Haslestad, Ola Jonsson",
-					"doi": "10.4271/03-11-02-0013",
-					"href": "https://doi.org/10.4271/03-11-02-0013"
-				},
-				{
-					"title": "Cylinder Pressure Based Method for In-Cycle Pilot Misfire Detection",
-					"type": "Journal article",
-					"venue": "SAE International Journal of Advances and Current Practices in Mobility",
-					"year": "2019",
-					"authors": "Carlos Jorques Moreno, Ola Stenlaas, Per Tunestal",
-					"doi": "10.4271/2019-24-0017",
-					"href": "https://doi.org/10.4271/2019-24-0017"
-				},
-				{
-					"title": "Bayesian Method for Fuel Mass Estimation of Short Pilot Injections based on its Misfire Probability",
-					"type": "Conference paper",
-					"venue": "2020 American Control Conference (ACC)",
-					"year": "2020",
-					"authors": "Carlos Jorques Moreno, Ola Stenlaas, Per Tunestal",
-					"doi": "10.23919/acc45564.2020.9147866",
-					"href": "https://doi.org/10.23919/acc45564.2020.9147866"
-				},
-				{
-					"title": "Multi-Cylinder Adaptation of In-Cycle Predictive Combustion Models",
-					"type": "SAE technical paper",
-					"venue": "SAE Technical Paper Series",
-					"year": "2020",
-					"authors": "Carlos Jorques Moreno, Ola Stenlaas, Per Tunestal",
-					"doi": "10.4271/2020-01-2087",
-					"href": "https://doi.org/10.4271/2020-01-2087"
-				},
-				{
-					"title": "In-Cycle Closed-Loop Combustion Control for Pilot Misfire Compensation",
-					"type": "Journal article",
-					"venue": "SAE International Journal of Advances and Current Practices in Mobility",
-					"year": "2020",
-					"authors": "Carlos Jorques Moreno, Ola Stenlaas, Per Tunestal",
-					"doi": "10.4271/2020-01-2086",
-					"href": "https://doi.org/10.4271/2020-01-2086"
-				},
-				{
-					"title": "Stochastic Set-Point Optimization for In-Cycle Closed-Loop Combustion Control Operation",
-					"type": "Journal article",
-					"venue": "SAE Technical Paper Series",
-					"year": "2021",
-					"authors": "Carlos Jorques Moreno, Ola Stenlaas, Per Tunestal",
-					"doi": "10.4271/2021-01-0531",
-					"href": "https://doi.org/10.4271/2021-01-0531"
-				},
-				{
-					"title": "Modular Design and Integration of In-Cycle Closed-Loop Combustion Controllers for a Wide-Range of Operating Conditions",
-					"type": "Conference paper",
-					"venue": "2021 American Control Conference (ACC)",
-					"year": "2021",
-					"authors": "Carlos Jorques Moreno, Ola Stenlaas, Per Tunestal",
-					"doi": "10.23919/acc50511.2021.9482854",
-					"href": "https://doi.org/10.23919/acc50511.2021.9482854"
-				},
-				{
-					"title": "FPGA Implementation of In-Cycle Closed-Loop Combustion Control Methods",
-					"type": "Conference paper",
-					"venue": "SAE Technical Paper Series",
-					"year": "2021",
-					"authors": "Carlos Jorques Moreno, Ola Stenlaas, Per Tunestal",
-					"doi": "10.4271/2021-24-0024",
-					"href": "https://doi.org/10.4271/2021-24-0024"
-				},
-				{
-					"title": "Indicated efficiency optimization by in-cycle closed-loop combustion control of diesel engines",
-					"type": "Article",
-					"venue": "Control Engineering Practice",
-					"year": "2022",
-					"authors": "C. Jorques Moreno, O. Stenlaas, P. Tunestal",
-					"doi": "10.1016/j.conengprac.2022.105097",
-					"href": "https://doi.org/10.1016/j.conengprac.2022.105097"
-				}
-			],
-			"patents": [
-				{
-					"title": "Method and system for determining in-cycle a pilot injection fuel mass in a combustion chamber of an engine",
-					"issuer": "WO2019045623A1",
-					"year": "2019-03-07",
-					"href": "https://patents.google.com/patent/WO2019045623A1/en",
-					"description": "Method to determine in-cycle pilot injection fuel mass from pressure information and possible vaporization or combustion timing."
-				},
-				{
-					"title": "Method and system for fuel pump regulation",
-					"issuer": "WO2016043652A1",
-					"year": "2016-03-24",
-					"href": "https://patents.google.com/patent/WO2016043652A1/en",
-					"description": "Method for fuel-pump control in a fuel system, including system, vehicle, computer program, and computer-program product applications."
-				},
-				{
-					"title": "System and method for improving heat release evaluation at a reciprocating internal combustion engine",
-					"issuer": "WO2017217912A1",
-					"year": "2017-12-21",
-					"href": "https://patents.google.com/patent/WO2017217912A1/en",
-					"description": "Method for improving heat-release evaluation using a model for cylinder-volume deviations and dynamic engine parameters."
-				},
-				{
-					"title": "Method and system for diagnosing a fuel system II",
-					"issuer": "WO2017003366A1",
-					"year": "2017-01-05",
-					"href": "https://patents.google.com/patent/WO2017003366A1/en",
-					"description": "Method for diagnosing a vehicle fuel system using filtered pressure-sensor signals and fuel-flow error determination."
-				},
-				{
-					"title": "Method and system for diagnosing a fuel system",
-					"issuer": "WO2017003365A1",
-					"year": "2017-01-05",
-					"href": "https://patents.google.com/patent/WO2017003365A1/en",
-					"description": "Method for diagnosing fuel-flow errors in vehicles with combustion engines and multiple fuel pumps using pump power consumption."
-				}
-			],
-			"workHref": "/work"
-		},
-	"education": [
-		{
-			"degree": "PhD, Mechanical Engineering",
-			"year": "2021",
-			"institution": "Lund University",
-			"dissertation": "Design and Optimization of In Cycle Closed Loop Combustion Control with Multiple Injection",
-			"description": "Industrial PhD with Scania focused on real-time control, diagnostics, virtual sensing, stochastic detection, FPGA-based implementation, and experimental validation for heavy-duty diesel engines.",
-			"links": [
-				{
-					"label": "Thesis publication",
-					"href": "https://portal.research.lu.se/portal/files/96902493/PhD_Thesis_Open.pdf"
-				},
-				{
-					"label": "Thesis presentation",
-					"href": "https://www.youtube.com/watch?v=vTkDS-V9lFw"
-				},
-				{
-					"label": "Research context",
-					"href": "/work"
-				}
-			]
-		},
-		{
-			"degree": "MSc, Electrical Engineering",
-			"year": "2014",
-			"institution": "Lund University",
-			"focus": "Automatic control and automation.",
-			"description": "Specialized in control systems, embedded software, mechatronics, signal processing, optimal control, power electronics, and robotics. Master thesis at Scania on a multi-pump fuel control system with real-time control algorithms and patent work."
-		},
-		{
-			"degree": "MSc, Industrial Engineering",
-			"year": "2014",
-			"institution": "Polytechnic University of Valencia",
-			"focus": "Electronics and automation.",
-			"description": "Multidisciplinary engineering program covering mechanical, electrical, electronic, control, automation, and energy systems. Graduated with honors and received academic scholarships and recognition."
-		}
-	],
-	"educationIntro": "Academic foundation in automatic control, dynamic systems, embedded software, and industrial research for heavy-duty physical systems.",
-	"toolsIntro": "A snapshot of the tools, methods, standards, languages, and learning habits that support my work across embedded control software, validation, diagnostics, and production delivery.",
-	"tools": [
-		{
-			"title": "Control and Modeling",
-			"primaryTools": "MATLAB · Simulink · Stateflow · Embedded Coder · LabVIEW",
-			"methods": "Model-based development, system identification, calibration, observer design, virtual sensing, model adaptation, signal processing, Kalman filtering, stochastic modeling, optimization, model predictive control."
-		},
-		{
-			"title": "Embedded Software",
-			"primaryTools": "C · C++ · Python · CAPL · LabVIEW FPGA · ECU flashing",
-			"methods": "Real-time embedded implementation, generated code integration, diagnostics implementation, scripting, automation, AUTOSAR-oriented workflows, hardware-constrained algorithms."
-		},
-		{
-			"title": "Validation and Testing",
-			"primaryTools": "MIL · SIL · HIL · CANalyzer · CANoe · Google Test",
-			"methods": "Test bench validation, vehicle validation, wind tunnel, test track, on road testing, regression testing, fault injection, calibration support, ECU debugging."
-		},
-		{
-			"title": "Delivery and Collaboration",
-			"primaryTools": "Git · GitLab · Jenkins · Jira · CI/CD · SAFe",
-			"methods": "Code review, issue tracking, requirements alignment, architecture coordination, release workflows, agile delivery, continuous integration, mentoring, cross functional coordination."
-		},
-		{
-			"title": "Standards and Automotive Context",
-			"primaryTools": "ISO 26262 · A-SPICE · AUTOSAR-oriented · CAN/J1939 · Functional Safety",
-			"methods": "Functional safety awareness, FuSa analysis, process alignment, automotive communication, traceability, production-oriented documentation."
-		},
-		{
-			"title": "Languages",
-			"languages": [
-				{
-					"language": "Spanish",
-					"level": "native"
-				},
-				{
-					"language": "Catalan",
-					"level": "native"
-				},
-				{
-					"language": "English",
-					"level": "full professional"
-				},
-				{
-					"language": "Swedish",
-					"level": "full professional"
-				}
-			]
-		}
-	],
-	"learningRecognition": {
-		"recognition": [
-			"Outstanding Oral Presentation Award, SAE, 2017",
-			"Scania Innovation Challenge, Scania, 2019",
-			"Best Academic Record for First Year, Polytechnic University of Valencia, 2009",
-			"Double Degree Scholarship, COIICV, 2013"
-		],
-		"recentLearning": [
-			"LangChain and LLMs with Python, Alten, 2025",
-			"Project Management: Product Owner and Kanban, Cualtis, 2024",
-			"Power Electronic Converters, 2022",
-			"Introduction to Electromobility, Swedish Electromobility Centre, 2020",
-			"GT Power, Gamma Technologies, 2015"
-		]
-	},
-	"finalContact": "For roles or technical conversations involving embedded controls, electric vehicles, battery and thermal management, diagnostics, functional safety, autonomous machines, or reliable physical systems, contact me directly or download the PDF resume. I am based in Spain and open to selected remote or hybrid opportunities with international teams."
-} as const;
 
 const baseUrl = import.meta.env.BASE_URL;
-const withBase = (href: string) => {
-	if (href.startsWith('http') || href.startsWith('mailto:') || href.startsWith('#')) {
-		return href;
-	}
+const normalizedBase = baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`;
+const withBase = (href: string) =>
+	href.startsWith('http') || href.startsWith('mailto:') || href.startsWith('#')
+		? href
+		: `${normalizedBase}${href.replace(/^\//, '')}`;
 
-	return href === '/' ? baseUrl : `${baseUrl}${href.replace(/^\//, '')}`;
-};
+const actions: CvAction[] = [
+	{ label: 'Download CV', href: '#download-cv', primary: true, download: true },
+	{ label: 'Contact', href: '/contact' },
+];
 
-const expertiseCardId = (title: string) =>
-	`expertise-${title
-		.toLowerCase()
-		.replace(/&/g, 'and')
-		.replace(/[^a-z0-9]+/g, '-')
-		.replace(/^-|-$/g, '')}`;
+const sectionNav: SectionNavItem[] = [
+	{ id: 'overview', label: 'Overview' },
+	{ id: 'expertise', label: 'Expertise' },
+	{ id: 'experience', label: 'Experience' },
+	{ id: 'projects', label: 'Projects' },
+	{ id: 'credentials', label: 'Credentials' },
+	{ id: 'methods', label: 'Methods' },
+];
 
-const experienceItemId = (item: (typeof cvProfile.experience)[number], index: number) =>
-        `experience-${index + 1}-${item.title
-                .toLowerCase()
-                .replace(/&/g, 'and')
-                .replace(/[^a-z0-9]+/g, '-')
-                .replace(/^-|-$/g, '')}`;
+const proofItems: ProofItem[] = [
+	{ value: '[Proof item 01]', label: '[Professional proof placeholder]' },
+	{ value: '[Proof item 02]', label: '[Domain or system placeholder]' },
+	{ value: '[Proof item 03]', label: '[Role-scope placeholder]' },
+	{ value: '[Proof item 04]', label: '[Production or validation placeholder]' },
+	{ value: '[Proof item 05]', label: '[Credential placeholder]' },
+	{ value: '[Proof item 06]', label: '[Location or availability placeholder]' },
+];
 
-const earlierExperienceItemId = (item: (typeof cvProfile.earlierExperience)[number], index: number) =>
-        `earlier-experience-${index + 1}-${item.title
-                .toLowerCase()
-                .replace(/&/g, 'and')
-                .replace(/[^a-z0-9]+/g, '-')
-                .replace(/^-|-$/g, '')}`;
-
-const addUnique = (items: string[], item: string) => {
-        if (!items.includes(item)) {
-                items.push(item);
-        }
-};
-
-const groupExperienceDetails = (item: (typeof cvProfile.experience)[number]) => {
-	const grouped = {
-		technicalScope: [] as string[],
-		deliveryValidation: [] as string[],
-		leadershipCollaboration: [] as string[],
-	};
-
-	item.detailGroups?.forEach((group) => {
-		group.items.forEach((detail) => {
-			const normalized = detail.toLowerCase();
-			const isLeadership =
-				/mentor|coordination|supplier|stakeholder|planning|scrum|agile|knowledge|conference|thesis|key people|project management/.test(normalized);
-			const isDelivery =
-				/validation|test|mil|sil|hil|bench|wind tunnel|track|on-road|vehicle|field|calibration|ci\/cd|pipeline|debugging|issue tracking|ecu flashing|release|integration quality|cycle time|data analysis|process|a-spice|spice/.test(normalized);
-
-			if (isLeadership) {
-				addUnique(grouped.leadershipCollaboration, detail);
-			} else if (isDelivery || group.title === 'Validation scope') {
-				addUnique(grouped.deliveryValidation, detail);
-			} else {
-				addUnique(grouped.technicalScope, detail);
-			}
-		});
-	});
-
-	return grouped;
-};
-
-const hasExperienceDetails = (groups: ReturnType<typeof groupExperienceDetails>) =>
-	groups.technicalScope.length > 0 || groups.deliveryValidation.length > 0 || groups.leadershipCollaboration.length > 0;
-
-const ownershipLabel = (text: string) => {
-	const normalized = text.trim().toLowerCase();
-	if (/^(led|lead|owned)/.test(normalized)) return 'Led';
-	if (/^(designed|design|architected|architect)/.test(normalized)) return 'Designed';
-	if (/^(validated|validate|tested|test)/.test(normalized)) return 'Validated';
-	if (/^(coordinated|coordinate)/.test(normalized)) return 'Coordinated';
-	if (/^(developed|develop|created|create|built|build|implemented|implement)/.test(normalized)) return 'Implemented';
-	return 'Contributed';
-};
-
-const profileJsonLd = {
-	'@context': 'https://schema.org',
-	'@type': 'ProfilePage',
-	mainEntity: {
-		'@type': 'Person',
-		name: cvProfile.hero.title,
-		jobTitle: 'Embedded Control Systems Architect · Technical Leader',
-		description:
-			'Embedded Control Systems Architect and Technical Leader specializing in real-time control software, electrified vehicles, autonomous machines, diagnostics, functional safety, and production validation.',
-		url: Astro.url.href,
-		sameAs: [cvProfile.links.linkedin],
+const expertiseItems: ExpertiseItem[] = [
+	{
+		id: 'expertise-area-01',
+		eyebrow: '[Expertise area]',
+		title: '[Expertise title 01]',
+		scope: '[One-sentence scope placeholder describing the area covered.]',
+		keywords: ['[Keyword 01]', '[Keyword 02]', '[Keyword 03]'],
+		details: [
+			{ title: 'Problems addressed', items: ['[Problem placeholder 01]', '[Problem placeholder 02]'] },
+			{ title: 'Scope of ownership', items: ['[Ownership placeholder 01]', '[Ownership placeholder 02]'] },
+			{ title: 'Decisions and constraints', items: ['[Constraint placeholder 01]', '[Constraint placeholder 02]'] },
+			{ title: 'Methods', items: ['[Method placeholder 01]', '[Method placeholder 02]'] },
+			{ title: 'Representative applications', items: ['[Application placeholder 01]', '[Application placeholder 02]'] },
+			{ title: 'Related project link area', items: ['[Related-project placeholder]'] },
+		],
 	},
-};
+	{
+		id: 'expertise-area-02',
+		eyebrow: '[Expertise area]',
+		title: '[Expertise title 02]',
+		scope: '[One-sentence scope placeholder describing the area covered.]',
+		keywords: ['[Keyword 01]', '[Keyword 02]', '[Keyword 03]'],
+		details: [
+			{ title: 'Problems addressed', items: ['[Problem placeholder 01]', '[Problem placeholder 02]'] },
+			{ title: 'Scope of ownership', items: ['[Ownership placeholder 01]', '[Ownership placeholder 02]'] },
+			{ title: 'Decisions and constraints', items: ['[Constraint placeholder 01]', '[Constraint placeholder 02]'] },
+			{ title: 'Methods', items: ['[Method placeholder 01]', '[Method placeholder 02]'] },
+			{ title: 'Representative applications', items: ['[Application placeholder 01]', '[Application placeholder 02]'] },
+			{ title: 'Related project link area', items: ['[Related-project placeholder]'] },
+		],
+	},
+	{
+		id: 'expertise-area-03',
+		eyebrow: '[Expertise area]',
+		title: '[Expertise title 03]',
+		scope: '[One-sentence scope placeholder describing the area covered.]',
+		keywords: ['[Keyword 01]', '[Keyword 02]', '[Keyword 03]'],
+		details: [
+			{ title: 'Problems addressed', items: ['[Problem placeholder 01]', '[Problem placeholder 02]'] },
+			{ title: 'Scope of ownership', items: ['[Ownership placeholder 01]', '[Ownership placeholder 02]'] },
+			{ title: 'Decisions and constraints', items: ['[Constraint placeholder 01]', '[Constraint placeholder 02]'] },
+			{ title: 'Methods', items: ['[Method placeholder 01]', '[Method placeholder 02]'] },
+			{ title: 'Representative applications', items: ['[Application placeholder 01]', '[Application placeholder 02]'] },
+			{ title: 'Related project link area', items: ['[Related-project placeholder]'] },
+		],
+	},
+	{
+		id: 'expertise-area-04',
+		eyebrow: '[Expertise area]',
+		title: '[Expertise title 04]',
+		scope: '[One-sentence scope placeholder describing the area covered.]',
+		keywords: ['[Keyword 01]', '[Keyword 02]', '[Keyword 03]'],
+		details: [
+			{ title: 'Problems addressed', items: ['[Problem placeholder 01]', '[Problem placeholder 02]'] },
+			{ title: 'Scope of ownership', items: ['[Ownership placeholder 01]', '[Ownership placeholder 02]'] },
+			{ title: 'Decisions and constraints', items: ['[Constraint placeholder 01]', '[Constraint placeholder 02]'] },
+			{ title: 'Methods', items: ['[Method placeholder 01]', '[Method placeholder 02]'] },
+			{ title: 'Representative applications', items: ['[Application placeholder 01]', '[Application placeholder 02]'] },
+			{ title: 'Related project link area', items: ['[Related-project placeholder]'] },
+		],
+	},
+	{
+		id: 'expertise-area-05',
+		eyebrow: '[Expertise area]',
+		title: '[Expertise title 05]',
+		scope: '[One-sentence scope placeholder describing the area covered.]',
+		keywords: ['[Keyword 01]', '[Keyword 02]', '[Keyword 03]'],
+		details: [
+			{ title: 'Problems addressed', items: ['[Problem placeholder 01]', '[Problem placeholder 02]'] },
+			{ title: 'Scope of ownership', items: ['[Ownership placeholder 01]', '[Ownership placeholder 02]'] },
+			{ title: 'Decisions and constraints', items: ['[Constraint placeholder 01]', '[Constraint placeholder 02]'] },
+			{ title: 'Methods', items: ['[Method placeholder 01]', '[Method placeholder 02]'] },
+			{ title: 'Representative applications', items: ['[Application placeholder 01]', '[Application placeholder 02]'] },
+			{ title: 'Related project link area', items: ['[Related-project placeholder]'] },
+		],
+	},
+	{
+		id: 'expertise-area-06',
+		eyebrow: '[Expertise area]',
+		title: '[Expertise title 06]',
+		scope: '[One-sentence scope placeholder describing the area covered.]',
+		keywords: ['[Keyword 01]', '[Keyword 02]', '[Keyword 03]'],
+		details: [
+			{ title: 'Problems addressed', items: ['[Problem placeholder 01]', '[Problem placeholder 02]'] },
+			{ title: 'Scope of ownership', items: ['[Ownership placeholder 01]', '[Ownership placeholder 02]'] },
+			{ title: 'Decisions and constraints', items: ['[Constraint placeholder 01]', '[Constraint placeholder 02]'] },
+			{ title: 'Methods', items: ['[Method placeholder 01]', '[Method placeholder 02]'] },
+			{ title: 'Representative applications', items: ['[Application placeholder 01]', '[Application placeholder 02]'] },
+			{ title: 'Related project link area', items: ['[Related-project placeholder]'] },
+		],
+	},
+];
+
+const experienceItems: ExperienceItem[] = [
+	{
+		id: 'experience-role-01',
+		title: '[Job title placeholder]',
+		context: '[Employer or client context placeholder]',
+		meta: '[Dates] · [Location]',
+		mandate: '[One-line mandate placeholder.]',
+		contributions: ['[Contribution placeholder 01]', '[Contribution placeholder 02]', '[Contribution placeholder 03]'],
+		ownership: '[Ownership or leadership scope placeholder]',
+		details: [
+			{ title: 'Responsibilities', items: ['[Responsibility placeholder 01]', '[Responsibility placeholder 02]'] },
+			{ title: 'Selected outcomes', items: ['[Outcome placeholder 01]', '[Outcome placeholder 02]'] },
+			{ title: 'Technical scope', items: ['[Technical-scope placeholder 01]', '[Technical-scope placeholder 02]'] },
+			{ title: 'Leadership and collaboration', items: ['[Leadership placeholder 01]', '[Leadership placeholder 02]'] },
+			{ title: 'Validation/production context', items: ['[Validation placeholder 01]', '[Validation placeholder 02]'] },
+			{ title: 'Related-project links', items: ['[Related-project placeholder]'] },
+		],
+	},
+	{
+		id: 'experience-role-02',
+		title: '[Job title placeholder]',
+		context: '[Employer or client context placeholder]',
+		meta: '[Dates] · [Location]',
+		mandate: '[One-line mandate placeholder.]',
+		contributions: ['[Contribution placeholder 01]', '[Contribution placeholder 02]', '[Contribution placeholder 03]'],
+		ownership: '[Ownership or leadership scope placeholder]',
+		details: [
+			{ title: 'Responsibilities', items: ['[Responsibility placeholder 01]', '[Responsibility placeholder 02]'] },
+			{ title: 'Selected outcomes', items: ['[Outcome placeholder 01]', '[Outcome placeholder 02]'] },
+			{ title: 'Technical scope', items: ['[Technical-scope placeholder 01]', '[Technical-scope placeholder 02]'] },
+			{ title: 'Leadership and collaboration', items: ['[Leadership placeholder 01]', '[Leadership placeholder 02]'] },
+			{ title: 'Validation/production context', items: ['[Validation placeholder 01]', '[Validation placeholder 02]'] },
+			{ title: 'Related-project links', items: ['[Related-project placeholder]'] },
+		],
+	},
+	{
+		id: 'experience-role-03',
+		title: '[Job title placeholder]',
+		context: '[Employer or client context placeholder]',
+		meta: '[Dates] · [Location]',
+		mandate: '[One-line mandate placeholder.]',
+		contributions: ['[Contribution placeholder 01]', '[Contribution placeholder 02]', '[Contribution placeholder 03]'],
+		ownership: '[Ownership or leadership scope placeholder]',
+		details: [
+			{ title: 'Responsibilities', items: ['[Responsibility placeholder 01]', '[Responsibility placeholder 02]'] },
+			{ title: 'Selected outcomes', items: ['[Outcome placeholder 01]', '[Outcome placeholder 02]'] },
+			{ title: 'Technical scope', items: ['[Technical-scope placeholder 01]', '[Technical-scope placeholder 02]'] },
+			{ title: 'Leadership and collaboration', items: ['[Leadership placeholder 01]', '[Leadership placeholder 02]'] },
+			{ title: 'Validation/production context', items: ['[Validation placeholder 01]', '[Validation placeholder 02]'] },
+			{ title: 'Related-project links', items: ['[Related-project placeholder]'] },
+		],
+	},
+	{
+		id: 'experience-role-04',
+		title: '[Job title placeholder]',
+		context: '[Employer or client context placeholder]',
+		meta: '[Dates] · [Location]',
+		mandate: '[One-line mandate placeholder.]',
+		contributions: ['[Contribution placeholder 01]', '[Contribution placeholder 02]'],
+		ownership: '[Ownership or leadership scope placeholder]',
+		details: [
+			{ title: 'Responsibilities', items: ['[Responsibility placeholder 01]', '[Responsibility placeholder 02]'] },
+			{ title: 'Selected outcomes', items: ['[Outcome placeholder 01]', '[Outcome placeholder 02]'] },
+			{ title: 'Technical scope', items: ['[Technical-scope placeholder 01]', '[Technical-scope placeholder 02]'] },
+			{ title: 'Leadership and collaboration', items: ['[Leadership placeholder 01]', '[Leadership placeholder 02]'] },
+			{ title: 'Validation/production context', items: ['[Validation placeholder 01]', '[Validation placeholder 02]'] },
+			{ title: 'Related-project links', items: ['[Related-project placeholder]'] },
+		],
+	},
+];
+
+const projectRows: ProjectRow[] = [
+	{
+		system: '[Project or system placeholder 01]',
+		context: '[Domain or context placeholder]',
+		contribution: '[One-line contribution placeholder.]',
+		rolePeriod: '[Associated role or period]',
+		expertise: '[Expertise reference placeholder]',
+		linkLabel: 'View selected work',
+		linkHref: '/work',
+	},
+	{
+		system: '[Project or system placeholder 02]',
+		context: '[Domain or context placeholder]',
+		contribution: '[One-line contribution placeholder.]',
+		rolePeriod: '[Associated role or period]',
+		expertise: '[Expertise reference placeholder]',
+	},
+	{
+		system: '[Project or system placeholder 03]',
+		context: '[Domain or context placeholder]',
+		contribution: '[One-line contribution placeholder.]',
+		rolePeriod: '[Associated role or period]',
+		expertise: '[Expertise reference placeholder]',
+	},
+	{
+		system: '[Project or system placeholder 04]',
+		context: '[Domain or context placeholder]',
+		contribution: '[One-line contribution placeholder.]',
+		rolePeriod: '[Associated role or period]',
+		expertise: '[Expertise reference placeholder]',
+	},
+	{
+		system: '[Project or system placeholder 05]',
+		context: '[Domain or context placeholder]',
+		contribution: '[One-line contribution placeholder.]',
+		rolePeriod: '[Associated role or period]',
+		expertise: '[Expertise reference placeholder]',
+	},
+];
+
+const credentialGroups: CredentialGroup[] = [
+	{
+		id: 'credential-education',
+		title: 'Education',
+		visibleItems: ['[Degree placeholder] · [Institution placeholder] · [Year placeholder]'],
+		details: [{ title: 'Supporting detail', items: ['[Education detail placeholder]'] }],
+	},
+	{
+		id: 'credential-research',
+		title: 'Research',
+		visibleItems: ['[Research credential placeholder] · [Context placeholder]'],
+		details: [{ title: 'Supporting detail', items: ['[Research detail placeholder]'] }],
+	},
+	{
+		id: 'credential-patents',
+		title: 'Patents',
+		visibleItems: ['[Patent placeholder] · [Status or date placeholder]'],
+		details: [{ title: 'Supporting detail', items: ['[Patent detail placeholder]'] }],
+	},
+	{
+		id: 'credential-publications',
+		title: 'Publications',
+		visibleItems: ['[Publication placeholder] · [Venue or year placeholder]'],
+		details: [{ title: 'Supporting detail', items: ['[Publication detail placeholder]'] }],
+	},
+	{
+		id: 'credential-certifications',
+		title: 'Certifications and recognition',
+		visibleItems: ['[Certification or recognition placeholder] · [Issuer or year placeholder]'],
+		details: [{ title: 'Supporting detail', items: ['[Recognition detail placeholder]'] }],
+	},
+];
+
+const methodGroups: MethodGroup[] = [
+	{ title: 'Control and architecture methods', items: ['[Method placeholder 01]', '[Method placeholder 02]', '[Method placeholder 03]'] },
+	{ title: 'Embedded software', items: ['[Embedded-software placeholder 01]', '[Embedded-software placeholder 02]', '[Embedded-software placeholder 03]'] },
+	{ title: 'Validation', items: ['[Validation placeholder 01]', '[Validation placeholder 02]', '[Validation placeholder 03]'] },
+	{ title: 'Standards and processes', items: ['[Standard or process placeholder 01]', '[Standard or process placeholder 02]', '[Standard or process placeholder 03]'] },
+	{ title: 'Tools and environments', items: ['[Tool placeholder 01]', '[Tool placeholder 02]', '[Tool placeholder 03]'] },
+	{ title: 'Languages', items: ['[Language placeholder 01]', '[Language placeholder 02]', '[Language placeholder 03]'] },
+	{ title: 'Continuing learning', items: ['[Learning placeholder 01]', '[Learning placeholder 02]', '[Learning placeholder 03]'] },
+];
 ---
 
 <Layout
-	title={`${IDENTITY.name} CV | Embedded Control Systems Architect`}
-	description="Embedded Control Systems Architect and Technical Leader specializing in real-time control software, electrified vehicles, autonomous machines, diagnostics, functional safety, and production validation."
+	title="CV | Carlos Jorques"
+	description="Structural CV page skeleton for Carlos Jorques, following the portfolio’s established layout, section rhythm, and reusable interaction patterns."
 >
-	<script type="application/ld+json" set:html={JSON.stringify(profileJsonLd)} />
-
-	<div class="cv-page" id="top">
-		<a class="cv-scroll-jump" href="#top" aria-label="Scroll to the top of the page" data-cv-scroll-jump>
-			<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-				<path d="M12 17V7.5" />
-				<path d="M8.75 10.75 12 7.5l3.25 3.25" />
-			</svg>
-		</a>
-
-		<section class="cv-hero" aria-labelledby="cv-title">
-			<div class="page-container cv-hero__inner">
-				<div class="cv-hero__label">
-					<p class="section-eyebrow">{cvProfile.hero.eyebrow}</p>
-					<h1 id="cv-title" class="cv-hero__name hero-title">{cvProfile.hero.title}, Ph.D.</h1>
-				</div>
-				<div class="cv-hero__content">
-					<p class="cv-hero__subtitle hero-role cv-hero__role">{cvProfile.hero.subtitle}</p>
-					<p class="cv-hero__summary hero-summary">{cvProfile.hero.summary}</p>
-					{cvProfile.hero.tertiarySummary && <p class="cv-hero__extended">{cvProfile.hero.tertiarySummary}</p>}
-
-					<div class="button-row cv-actions" aria-label="CV actions">
-						{cvProfile.actions.map((action) => (
-							<a
-								class={action.primary ? 'button primary' : 'button'}
-								href={withBase(action.href)}
-								target={action.external ? '_blank' : undefined}
-								rel={action.external ? 'noopener noreferrer' : undefined}
-								download={action.download ? true : undefined}
-								data-analytics-event={action.analytics}
-								data-cta-id={action.ctaId}
-								data-cta-placement="cv-hero"
-								data-cta-intent={action.intent}
-								data-source-section="cv-hero"
-							>
-								{action.label}
-							</a>
-						))}
-					</div>
-					<p class="cv-updated">CV revised: {cvProfile.lastUpdated}</p>
-					<p class="cv-hero__brand">Control Intelligence for Physical Systems.</p>
-					<p class="cv-hero__fit"><strong>Best fit:</strong> architecture and technical-lead roles spanning embedded controls, electrification, diagnostics, and autonomous physical systems.</p>
-					<p class="cv-hero__impact"><strong>Selected production impact:</strong> led and mentored a team of 3 embedded software engineers across production-oriented control software delivery.</p>
-				</div>
-
-				<div class="cv-section-nav-shell">
-					<nav class="cv-section-nav" aria-label="CV page sections">
-						<div class="cv-section-nav__inner">
-							<span class="cv-section-nav__label">Jump to:</span>
-							<ul class="cv-section-nav__links">
-								{cvProfile.sectionNav.map((item) => (
-									<li>
-										<a class="cv-section-nav__link" href={item.href} data-cv-section-link
-											data-analytics-event="cta_click"
-										data-cta-id={`cv-section-${item.label.toLowerCase().replaceAll(' ', '-')}`}
-											data-cta-placement="cv-section-nav" data-cta-intent="section-navigation"
-											data-source-section="cv-section-nav">{item.label}</a>
-									</li>
-								))}
-							</ul>
-						</div>
-					</nav>
-				</div>
-
-				<aside class="cv-hero__evidence" aria-label="Recruiter snapshot">
-					<div class="cv-hero__details">
-						<p class="cv-hero__extended">{cvProfile.hero.secondarySummary}</p>
-						<a class="cv-hero__profile-link" href={withBase('/work/')}>See the technical work behind this profile →</a>
-					</div>
-					<ul class="cv-proof-grid" aria-label="Career proof points">
-						{cvProfile.proofTiles.map((tile) => (
-							<li>
-								<strong>{tile.value}</strong>
-								<span>{tile.label}</span>
-							</li>
-						))}
-					</ul>
-
-					<div class="cv-role-strip" aria-label="Relevant roles">
-						<p>Relevant for</p>
-						<ul class="cv-chip-list cv-chip-list--strong">
-							{cvProfile.relevantFor.map((role) => (
-								<li>{role}</li>
+	<div class="cv-page">
+		<section id="overview" class="cv-hero" aria-labelledby="cv-title">
+			<div class="page-container">
+				<div class="cv-hero__inner">
+					<div class="cv-hero__copy">
+						<p class="section-eyebrow">Online CV</p>
+						<h1 id="cv-title" class="hero-title">[Professional title]</h1>
+						<p class="cv-hero__role">[Short positioning placeholder]</p>
+						<p class="cv-hero__summary">[Overview placeholder describing what this CV page will communicate.]</p>
+						<div class="button-row cv-hero__actions">
+							{actions.map((action) => (
+								<a
+									class:list={['button', { primary: action.primary }]}
+									href={withBase(action.href)}
+								>
+									{action.label}
+								</a>
 							))}
-						</ul>
-					</div>
-				</aside>
-			</div>
-		</section>
-
-                <div class="cv-shell">
-                        <div class="cv-section-nav-shell cv-section-nav-shell--secondary">
-                                <nav class="page-container cv-section-nav" aria-label="CV page sections">
-                                        <div class="cv-section-nav__inner">
-                                                <span class="cv-section-nav__label">Jump to:</span>
-                                                <ul class="cv-section-nav__links">
-                                                        {cvProfile.sectionNav.map((item) => (
-                                                                <li>
-                                                                        <a
-										class="cv-section-nav__link"
-										href={item.href}
-										data-cv-section-link
-										data-analytics-event="cta_click"
-										data-cta-id={`cv-section-${item.label.toLowerCase().replaceAll(' ', '-')}`}
-										data-cta-placement="cv-section-nav"
-										data-cta-intent="section-navigation"
-										data-source-section="cv-section-nav"
-									>
-										{item.label}
-									</a>
-                                                                </li>
-                                                        ))}
-                                                </ul>
-                                        </div>
-                                </nav>
-                        </div>
-
-			<div class="cv-main-flow">
-				<section class="cv-section cv-section--compact" id="impact" aria-labelledby="impact-title" data-cv-section>
-					<div class="page-container">
-						<div class="cv-section__intro">
-							<h2 id="impact-title">Engineering Outcomes</h2>
-							<p>{cvProfile.impactIntro}</p>
 						</div>
-						<ul class="cv-impact-list">
-							{cvProfile.impactHighlights.map((highlight) => (
+						<p id="download-cv" class="cv-placeholder-note">[Download target placeholder]</p>
+					</div>
+					<aside class="cv-proof panel" aria-label="Professional proof snapshot">
+						<p class="cv-proof__label">Professional snapshot</p>
+						<ul class="cv-proof__list">
+							{proofItems.map((item) => (
 								<li>
-									<span>{highlight.category}</span>
-									<div>
-										<h3>{highlight.title}</h3>
-										<p>{highlight.body}</p>
-									</div>
+									<strong>{item.value}</strong>
+									<span>{item.label}</span>
 								</li>
 							))}
 						</ul>
+					</aside>
+				</div>
+			</div>
+		</section>
+
+		<div class="cv-section-nav-shell">
+			<div class="page-container">
+				<nav class="cv-section-nav cv-section-nav--desktop" aria-label="CV sections">
+					<ul>
+						{sectionNav.map((item) => (
+							<li>
+								<a class="cv-nav-link" href={`#${item.id}`} data-cv-nav-link data-target={item.id}>
+									{item.label}
+								</a>
+							</li>
+						))}
+					</ul>
+				</nav>
+
+				<details class="cv-section-nav-mobile">
+					<summary>CV sections</summary>
+					<nav aria-label="CV sections">
+						<ul>
+							{sectionNav.map((item) => (
+								<li>
+									<a class="cv-nav-link" href={`#${item.id}`} data-cv-nav-link data-target={item.id}>
+										{item.label}
+									</a>
+								</li>
+							))}
+						</ul>
+					</nav>
+				</details>
+
+				<div class="cv-section-nav__actions" aria-label="CV actions">
+					<a class="button" href={withBase('#download-cv')} download>Download CV</a>
+					<a class="button" href={withBase('/contact')}>Contact</a>
+				</div>
+			</div>
+		</div>
+
+		<main class="cv-main-flow">
+			<section id="expertise" class="cv-section" aria-labelledby="expertise-title">
+				<div class="page-container cv-section__layout">
+					<div class="cv-section__rail">
+						<p class="section-eyebrow">Core expertise</p>
+						<h2 id="expertise-title" class="cv-section__heading">[Expertise section title]</h2>
+						<p class="cv-section__intro-copy">[Short placeholder introduction for the expertise section.]</p>
 					</div>
-				</section>
-				<section class="cv-section" id="expertise" aria-labelledby="core-expertise-heading" data-cv-section>
-					<div class="page-container">
-						<header class="cv-section__intro cv-section__intro--expertise">
-							<h2 id="core-expertise-heading">Core Expertise</h2>
-							<p>
-								A capability map across embedded controls architecture, automotive software, electric and autonomous vehicle systems,
-								production software validation, diagnostics, safety, robustness, and technical leadership.
-							</p>
-						</header>
-						<div class="core-expertise-grid">
-							{cvProfile.expertise.map((group) => {
-								const panelId = `${expertiseCardId(group.title)}-detail-panel`;
-								const titleId = `${expertiseCardId(group.title)}-title`;
-								return (
-									<article class="cv-card cv-card--interactive cv-expertise-card" data-expertise-card data-panel-id={panelId} data-expanded="false" aria-labelledby={titleId}>
+					<div class="cv-section__content">
+						<div class="cv-card-grid">
+							{expertiseItems.map((item, index) => (
+								<article class="cv-card cv-disclosure-item" aria-labelledby={`${item.id}-title`}>
+									<div class="cv-card__collapsed">
+										<p class="cv-card__eyebrow">{item.eyebrow}</p>
+										<h3 id={`${item.id}-title`}>{item.title}</h3>
+										<p class="cv-card__summary">{item.scope}</p>
+										<ul class="tag-list cv-card__keywords" aria-label={`${item.title} keywords`}>
+											{item.keywords.map((keyword) => (
+												<li class="tag">{keyword}</li>
+											))}
+										</ul>
 										<button
-											class="cv-expertise-card__icon-button"
+											class="cv-disclosure-button"
 											type="button"
 											aria-expanded="false"
-											aria-controls={panelId}
-											aria-label={`View details for ${group.title}`}
-											data-expertise-toggle
-											data-analytics="cv_expertise_evidence_open"
+											aria-controls={`${item.id}-details`}
+											data-disclosure-toggle
+											data-label-collapsed="Show structure"
+											data-label-expanded="Hide structure"
 										>
+											<span>Show structure</span>
 											<span aria-hidden="true">+</span>
 										</button>
-										<header class="cv-expertise-card__header">
-											<h3 id={titleId} class="cv-expertise-card__title">{group.title}</h3>
-											{group.compactSummary && <p class="cv-expertise-card__summary">{group.compactSummary}</p>}
-										</header>
-										<div class="cv-expertise-card__capabilities-block">
-											<ul class="cv-expertise-card__capabilities">
-												{group.items.map((item) => (
-													<li>{item}</li>
-												))}
-											</ul>
-										</div>
-										<button class="cv-expertise-card__toggle" type="button" aria-expanded="false" aria-controls={panelId} data-expertise-toggle>
-											<span data-expertise-toggle-label>View details</span>
-										</button>
-										<div class="core-expertise-detail" id={panelId} data-expertise-detail hidden>
-											{group.detailSummary && <p class="core-expertise-detail__summary">{group.detailSummary}</p>}
-											<div class="core-expertise-detail__grid">
-												{group.representativeWork && group.representativeWork.length > 0 && (
-													<section class="cv-detail-group" aria-label={`${group.title} representative work`}>
-														<h4>Representative work</h4>
-														<ul>
-															{group.representativeWork.map((item) => (
-																<li>{item}</li>
-															))}
-														</ul>
-													</section>
-												)}
-												{group.methods && group.methods.length > 0 && (
-													<section class="cv-detail-group" aria-label={`${group.title} methods and evidence`}>
-														<h4>Methods and evidence</h4>
-														<ul>
-															{group.methods.map((item) => (
-																<li>{item}</li>
-															))}
-														</ul>
-													</section>
-												)}
-											</div>
-										</div>
-									</article>
-								);
-							})}
+									</div>
+									<div id={`${item.id}-details`} class="cv-disclosure-panel" hidden>
+										{item.details.map((group) => (
+											<section class="cv-detail-group" aria-labelledby={`${item.id}-${group.title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`}>
+												<h4 id={`${item.id}-${group.title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`}>{group.title}</h4>
+												<ul>
+													{group.items.map((detail) => (
+														<li>{detail}</li>
+													))}
+												</ul>
+											</section>
+										))}
+										{index === 0 && (
+											<p class="cv-related-link">
+												<a href={withBase('/work')}>View selected work</a>
+											</p>
+										)}
+									</div>
+								</article>
+							))}
 						</div>
 					</div>
-				</section>
-
-		<section class="cv-section" id="experience" aria-labelledby="experience-title" data-cv-section>
-			<div class="page-container">
-				<div class="cv-section__intro">
-					<h2 id="experience-title">Experience</h2>
-					<p>
-						Selected professional experience across embedded controls, automotive software, electric vehicles,
-						autonomous machines, diagnostics, validation, and technical leadership.
-						The timeline shows employer context alongside client and assignment work where roles overlap.
-					</p>
 				</div>
+			</section>
 
-				<ol class="cv-timeline" aria-label="Professional experience timeline">
-					{cvProfile.experience.map((item, index) => {
-						const detailsId = `${experienceItemId(item, index)}-details`;
-						const groupedDetails = groupExperienceDetails(item);
-						const deliveryValidationCollaboration = [
-							...groupedDetails.deliveryValidation,
-							...groupedDetails.leadershipCollaboration,
-						];
-						const detailGroups = [
-							groupedDetails.technicalScope.length > 0
-								? { title: 'Technical scope', items: groupedDetails.technicalScope }
-								: null,
-							deliveryValidationCollaboration.length > 0
-								? {
-									title: 'Delivery, validation, and collaboration',
-									items: deliveryValidationCollaboration,
-								}
-								: null,
-						].filter((group): group is { title: string; items: string[] } => Boolean(group));
-						const canExpand = hasExperienceDetails(groupedDetails);
-						return (
-                                                <li class={index === 0 ? 'cv-role cv-role--current' : 'cv-role'}>
-                                                        <aside class="cv-role__milestone" aria-label={`${item.dates}${item.organization ? `, ${item.organization}` : ''}`}>
-                                                                <span class="cv-role__marker" aria-hidden="true"></span>
-                                                                <div class="cv-role__milestone-meta">
-                                                                        <p class="cv-role__period">{item.dates}</p>
-                                                                        {item.organization && <p class="cv-role__organization">{item.organization}</p>}
-                                                                        {item.assignment && <p class="cv-role__assignment">Client assignment: {item.assignment}</p>}
-                                                                        {item.location && <p class="cv-role__location">{item.location}</p>}
-                                                                </div>
-                                                        </aside>
-                                                        <article class="cv-role__content" data-experience-card data-experience-details-id={detailsId} data-expanded="false">
-                                                                {canExpand && (
-                                                                        <button
-                                                                                class="cv-role__icon-button"
-                                                                                type="button"
-                                                                                aria-expanded="false"
-                                                                                aria-controls={detailsId}
-                                                                                aria-label={`View details for ${item.title}`}
-                                                                                data-experience-toggle
-                                                                                data-analytics="cv_experience_depth_open"
-                                                                        >
-                                                                                <span aria-hidden="true" data-experience-toggle-icon>+</span>
-                                                                        </button>
-                                                                )}
-                                                                <header class="cv-role__header">
-                                                                        <h3>{item.title}</h3>
-                                                                        <p class="cv-role__summary">{item.summary}</p>
-                                                                </header>
-                                                                <ul class="cv-role__bullets" aria-label={`${item.title} key responsibilities`}>
-                                                                        {item.highlights.slice(0, 3).map((highlight) => (
-										<li><span class="cv-ownership-label">{ownershipLabel(highlight)}</span><span>{highlight}</span></li>
-                                                                        ))}
-                                                                </ul>
-								<ul class="cv-chip-list" aria-label={`${item.title} technologies and methods`}>
-									{item.tags.slice(0, 8).map((tag) => (
-										<li>{tag}</li>
-									))}
-								</ul>
-								{canExpand && (
-									<button
-										class="cv-role__toggle"
-										type="button"
-										aria-expanded="false"
-										aria-controls={detailsId}
-										data-experience-toggle
-										data-analytics="cv_experience_depth_open"
-									>
-										<span data-experience-toggle-label>Technical details</span>
-										<span aria-hidden="true" data-experience-toggle-icon>+</span>
-									</button>
-								)}
-								{canExpand && (
-									<div id={detailsId} class="cv-role__details" data-experience-details hidden>
-										<div class={detailGroups.length === 1 ? 'cv-role__details-grid cv-role__details-grid--single' : 'cv-role__details-grid'}>
-											{detailGroups.map((group) => (
-												<section class="cv-detail-group" aria-label={`${item.title} ${group.title.toLowerCase()}`}>
-													<h4>{group.title}</h4>
+			<section id="experience" class="cv-section" aria-labelledby="experience-title">
+				<div class="page-container cv-section__layout">
+					<div class="cv-section__rail">
+						<p class="section-eyebrow">Experience</p>
+						<h2 id="experience-title" class="cv-section__heading">[Experience section title]</h2>
+						<p class="cv-section__intro-copy">[Short placeholder introduction for reverse-chronology role history.]</p>
+					</div>
+					<div class="cv-section__content">
+						<div class="cv-section__toolbar">
+							<button class="cv-toolbar-button" type="button" data-expand-all="experience">Expand all</button>
+							<button class="cv-toolbar-button" type="button" data-collapse-all="experience">Collapse all</button>
+						</div>
+						<ol class="cv-experience-list">
+							{experienceItems.map((item) => (
+								<li class="cv-role">
+									<article class="cv-role__card cv-disclosure-item" aria-labelledby={`${item.id}-title`}>
+										<div class="cv-role__collapsed">
+											<div class="cv-role__identity">
+												<p class="cv-role__meta">{item.meta}</p>
+												<h3 id={`${item.id}-title`}>{item.title}</h3>
+												<p class="cv-role__context">{item.context}</p>
+											</div>
+											<div class="cv-role__summary-block">
+												<p class="cv-role__mandate">{item.mandate}</p>
+												<ul class="cv-role__contributions">
+													{item.contributions.map((contribution) => (
+														<li>{contribution}</li>
+													))}
+												</ul>
+												<p class="cv-role__ownership">
+													<span>Ownership</span>
+													{item.ownership}
+												</p>
+												<button
+													class="cv-disclosure-button"
+													type="button"
+													aria-expanded="false"
+													aria-controls={`${item.id}-details`}
+													data-disclosure-toggle
+													data-disclosure-group="experience"
+													data-label-collapsed="Show structure"
+													data-label-expanded="Hide structure"
+												>
+													<span>Show structure</span>
+													<span aria-hidden="true">+</span>
+												</button>
+											</div>
+										</div>
+										<div id={`${item.id}-details`} class="cv-disclosure-panel cv-disclosure-panel--role" hidden>
+											{item.details.map((group) => (
+												<section class="cv-detail-group" aria-labelledby={`${item.id}-${group.title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`}>
+													<h4 id={`${item.id}-${group.title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`}>{group.title}</h4>
 													<ul>
 														{group.items.map((detail) => (
 															<li>{detail}</li>
@@ -1438,1734 +536,534 @@ const profileJsonLd = {
 													</ul>
 												</section>
 											))}
+											<p class="cv-related-link">
+												<a href={withBase('/work')}>View selected work</a>
+											</p>
 										</div>
-									</div>
-								)}
-							</article>
-						</li>
-                                                );
-                                        })}
-                                        <li class="cv-role cv-role--earlier">
-                                                <aside class="cv-role__milestone" aria-label="May 2013-2014, Earlier experience">
-                                                        <span class="cv-role__marker" aria-hidden="true"></span>
-                                                        <div class="cv-role__milestone-meta">
-                                                                <p class="cv-role__period">May 2013-2014</p>
-                                                                <p class="cv-role__organization">Earlier experience</p>
-                                                        </div>
-                                                </aside>
-                                                <section class="cv-role__content cv-role__content--earlier" aria-label="Earlier experience roles">
-                                                        <div class="cv-earlier-grid">
-                                                                {cvProfile.earlierExperience.map((item, index) => {
-                                                                        const detailsId = `${earlierExperienceItemId(item, index)}-details`;
-                                                                        const titleId = `${earlierExperienceItemId(item, index)}-title`;
-
-                                                                        return (
-                                                                                <article
-                                                                                        class="cv-role__content cv-role__content--compact cv-earlier-card"
-                                                                                        data-earlier-experience-card
-                                                                                        data-earlier-experience-details-id={detailsId}
-                                                                                        data-expanded="false"
-                                                                                        aria-labelledby={titleId}
-                                                                                >
-                                                                                        <header class="cv-role__header cv-role__header--compact">
-                                                                                                <p class="cv-role__meta-inline">
-                                                                                                        <span>{item.dates}</span>
-                                                                                                        <span>{item.organization}</span>
-                                                                                                </p>
-                                                                                                <h4 id={titleId} class="cv-role__title cv-role__title--compact">{item.title}</h4>
-                                                                                                <p class="cv-role__summary cv-role__summary--compact">{item.summary}</p>
-                                                                                        </header>
-                                                                                        <button
-                                                                                                class="cv-role__toggle cv-role__toggle--compact"
-                                                                                                type="button"
-                                                                                                aria-expanded="false"
-                                                                                                aria-controls={detailsId}
-                                                                                                data-earlier-experience-toggle
-                                                                                                data-analytics="cv_earlier_experience_open"
-                                                                                        >
-                                                                                                <span data-earlier-experience-toggle-label>Technical details</span>
-                                                                                                <span aria-hidden="true" data-earlier-experience-toggle-icon>+</span>
-                                                                                        </button>
-                                                                                        <div class="cv-role__details cv-role__details--compact" id={detailsId} data-earlier-experience-details hidden>
-                                                                                                <section class="cv-detail-group" aria-label={`${item.title} details`}>
-                                                                                                        <h5>Details</h5>
-                                                                                                        <ul>
-                                                                                                                {item.bullets.map((bullet) => (
-                                                                                                                        <li>{bullet}</li>
-                                                                                                                ))}
-                                                                                                        </ul>
-                                                                                                </section>
-                                                                                        </div>
-                                                                                </article>
-                                                                        );
-                                                                })}
-                                                        </div>
-                                                </section>
-                                        </li>
-				</ol>
-			</div>
-		</section>
-
-		<section class="cv-work-handoff" aria-labelledby="cv-work-handoff-title">
-			<div class="page-container">
-				<div class="cv-work-handoff__inner">
-					<div>
-						<p class="section-eyebrow">Go deeper</p>
-						<h2 id="cv-work-handoff-title">See the systems behind the timeline</h2>
-						<p>Explore public-safe project context, applied domains, and research translated into production-oriented engineering decisions.</p>
+									</article>
+								</li>
+							))}
+						</ol>
 					</div>
-					<a class="button" href={withBase('/work/')} data-analytics-event="cta_click" data-cta-id="cv-work-handoff" data-cta-placement="cv-experience" data-cta-intent="proof" data-source-section="cv-experience">Explore Work →</a>
 				</div>
-			</div>
-		</section>
+			</section>
 
-		<section class="cv-section" id="education" aria-labelledby="education-title" data-cv-section>
-                        <div class="page-container">
-                                <div class="cv-section__intro">
-                                        <h2 id="education-title">Education</h2>
-                                        <p>{cvProfile.educationIntro}</p>
-                                </div>
-                                <div class="cv-card-grid cv-card-grid--education">
-                                        {cvProfile.education.map((item) => (
-                                                <article class="cv-card cv-education-card cv-card--interactive">
-                                                        <div class="cv-education-card__identity">
-                                                                <p class="cv-card__meta">{item.year}</p>
-                                                                <h3>{item.degree}</h3>
-                                                                {item.institution && <p class="cv-education-card__institution">{item.institution}</p>}
-                                                        </div>
-                                                        <div class="cv-education-card__details">
-                                                                {item.dissertation && (
-                                                                        <p class="cv-education-card__field"><strong>Dissertation</strong><span>{item.dissertation}</span></p>
-                                                                )}
-                                                                {item.focus && <p class="cv-education-card__field"><strong>Focus</strong><span>{item.focus}</span></p>}
-                                                                <p class="cv-education-card__field"><strong>Relevance</strong><span>{item.description}</span></p>
-                                                        </div>
-                                                        {item.links && (
-                                                                <div class="cv-education-card__links" aria-label={`${item.degree} links`}>
-                                                                        {item.links.map((link) => (
-                                                                                <a href={withBase(link.href)} target={link.href.startsWith('http') ? '_blank' : undefined} rel={link.href.startsWith('http') ? 'noopener noreferrer' : undefined}>{link.label}</a>
-                                                                        ))}
-                                                                </div>
-                                                        )}
-                                                </article>
-                                        ))}
-                                </div>
-			</div>
-		</section>
-
-                                <section class="cv-section" id="tools" aria-labelledby="tools-title" data-cv-section>
-                                        <div class="page-container">
-                                                <div class="cv-section__intro">
-                                                        <h2 id="tools-title">Tools, Methods &amp; Continuous Learning</h2>
-                                                        <p>{cvProfile.toolsIntro}</p>
-                                                </div>
-                                                <div class="cv-card-grid cv-card-grid--tools">
-                                                        {cvProfile.tools.map((group) => (
-                                                                <article class="cv-card cv-card--compact cv-tool-card">
-                                                                        <h3>{group.title}</h3>
-                                                                        {group.languages ? (
-                                                                                <ul class="cv-language-list">
-                                                                                        {group.languages.map((item) => (
-                                                                                                <li>
-                                                                                                        <strong>{item.language}</strong>
-                                                                                                        <span>{item.level}</span>
-                                                                                                </li>
-                                                                                        ))}
-                                                                                </ul>
-                                                                        ) : (
-                                                                                <div class="cv-tool-card__body">
-                                                                                        <p class="cv-tool-card__primary">{group.primaryTools}</p>
-                                                                                        <p class="cv-tool-card__methods">{group.methods}</p>
-                                                                                </div>
-                                                                        )}
-                                                                </article>
-                                                        ))}
-                                                </div>
-
-                                                <article class="cv-card cv-card--compact cv-learning-card" aria-labelledby="learning-title">
-                                                        <h3 id="learning-title">Continuous Learning and Recognition</h3>
-                                                        <div class="cv-learning-card__grid">
-                                                                <section aria-label="Recognition">
-                                                                        <h4>Recognition</h4>
-                                                                        <ul>
-                                                                                {cvProfile.learningRecognition.recognition.map((item) => (
-                                                                                        <li>{item}</li>
-                                                                                ))}
-                                                                        </ul>
-                                                                </section>
-                                                                <section aria-label="Recent learning">
-                                                                        <h4>Recent learning</h4>
-                                                                        <ul>
-                                                                                {cvProfile.learningRecognition.recentLearning.map((item) => (
-                                                                                        <li>{item}</li>
-                                                                                ))}
-                                                                        </ul>
-                                                                </section>
-                                                        </div>
-                                                </article>
-                        </div>
-                </section>
-
-		<section class="cv-section cv-final" id="contact" aria-labelledby="contact-title" data-cv-section>
-			<div class="page-container cv-final__inner">
-				<div>
-					<h2 id="contact-title">Let's Connect</h2>
-					<p>{cvProfile.finalContact}</p>
+			<section id="projects" class="cv-section" aria-labelledby="projects-title">
+				<div class="page-container cv-section__layout">
+					<div class="cv-section__rail">
+						<p class="section-eyebrow">Project record</p>
+						<h2 id="projects-title" class="cv-section__heading">[Project record section title]</h2>
+						<p class="cv-section__intro-copy">[Short placeholder introduction for the compact project index.]</p>
+					</div>
+					<div class="cv-section__content">
+						<div class="cv-project-list" role="list">
+							{projectRows.map((row) => (
+								<article class="cv-project-row" role="listitem">
+									<div>
+										<p class="cv-project-row__label">Project or system</p>
+										<h3>{row.system}</h3>
+									</div>
+									<dl class="cv-project-row__meta">
+										<div>
+											<dt>Domain or context</dt>
+											<dd>{row.context}</dd>
+										</div>
+										<div>
+											<dt>Contribution</dt>
+											<dd>{row.contribution}</dd>
+										</div>
+										<div>
+											<dt>Associated role or period</dt>
+											<dd>{row.rolePeriod}</dd>
+										</div>
+										<div>
+											<dt>Expertise references</dt>
+											<dd>{row.expertise}</dd>
+										</div>
+									</dl>
+									{row.linkHref && row.linkLabel && (
+										<p class="cv-project-row__link">
+											<a href={withBase(row.linkHref)}>{row.linkLabel}</a>
+										</p>
+									)}
+								</article>
+							))}
+						</div>
+					</div>
 				</div>
-				<div class="cv-final__actions" aria-label="Bottom CV actions">
-					{cvProfile.actions.map((action) => (
-						<a
-							class={action.primary ? 'button primary' : 'button'}
-							href={withBase(action.href)}
-							target={action.external ? '_blank' : undefined}
-							rel={action.external ? 'noopener noreferrer' : undefined}
-							download={action.download ? true : undefined}
-							data-analytics-event={action.analytics}
-							data-cta-id={action.ctaId}
-							data-cta-placement="cv-final"
-							data-cta-intent={action.intent}
-							data-source-section="cv-final"
-						>
-							{action.label}
-						</a>
-					))}
+			</section>
+
+			<section id="credentials" class="cv-section" aria-labelledby="credentials-title">
+				<div class="page-container cv-section__layout">
+					<div class="cv-section__rail">
+						<p class="section-eyebrow">Education and professional record</p>
+						<h2 id="credentials-title" class="cv-section__heading">[Credentials section title]</h2>
+						<p class="cv-section__intro-copy">[Short placeholder introduction for essential credential metadata.]</p>
+					</div>
+					<div class="cv-section__content">
+						<div class="cv-credentials-list">
+							{credentialGroups.map((group) => (
+								<section class="cv-credential-group cv-disclosure-item" aria-labelledby={`${group.id}-title`}>
+									<div class="cv-credential-group__collapsed">
+										<h3 id={`${group.id}-title`}>{group.title}</h3>
+										<ul class="cv-credential-group__visible">
+											{group.visibleItems.map((item) => (
+												<li>{item}</li>
+											))}
+										</ul>
+										{group.details && (
+											<button
+												class="cv-disclosure-button"
+												type="button"
+												aria-expanded="false"
+												aria-controls={`${group.id}-details`}
+												data-disclosure-toggle
+												data-label-collapsed="Show detail"
+												data-label-expanded="Hide detail"
+											>
+												<span>Show detail</span>
+												<span aria-hidden="true">+</span>
+											</button>
+										)}
+									</div>
+									{group.details && (
+										<div id={`${group.id}-details`} class="cv-disclosure-panel" hidden>
+											{group.details.map((detailGroup) => (
+												<section class="cv-detail-group" aria-labelledby={`${group.id}-${detailGroup.title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`}>
+													<h4 id={`${group.id}-${detailGroup.title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`}>{detailGroup.title}</h4>
+													<ul>
+														{detailGroup.items.map((detail) => (
+															<li>{detail}</li>
+														))}
+													</ul>
+												</section>
+											))}
+										</div>
+									)}
+								</section>
+							))}
+						</div>
+					</div>
 				</div>
-			</div>
-		</section>
-			</div>
-		</div>
+			</section>
+
+			<section id="methods" class="cv-section" aria-labelledby="methods-title">
+				<div class="page-container cv-section__layout">
+					<div class="cv-section__rail">
+						<p class="section-eyebrow">Methods, tools and additional information</p>
+						<h2 id="methods-title" class="cv-section__heading">[Methods section title]</h2>
+						<p class="cv-section__intro-copy">[Short placeholder introduction for grouped methods and tools.]</p>
+					</div>
+					<div class="cv-section__content">
+						<div class="cv-method-groups">
+							{methodGroups.map((group) => (
+								<section class="cv-method-group" aria-labelledby={`method-${group.title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`}>
+									<h3 id={`method-${group.title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`}>{group.title}</h3>
+									<ul>
+										{group.items.map((item) => (
+											<li>{item}</li>
+										))}
+									</ul>
+								</section>
+							))}
+						</div>
+					</div>
+				</div>
+			</section>
+		</main>
 	</div>
 </Layout>
 
-<script is:inline>
-	(() => {
-		const scrollJump = document.querySelector('[data-cv-scroll-jump]');
-		const sectionNavShell = document.querySelector('.cv-section-nav-shell');
-		const navLinks = Array.from(document.querySelectorAll('.cv-section-nav-shell:not(.cv-section-nav-shell--secondary) [data-cv-section-link]'));
-		const sections = navLinks
-			.map((link) => {
-				const href = link.getAttribute('href');
-				return href ? document.querySelector(href) : null;
-			})
-			.filter(Boolean);
-
-		if (scrollJump) {
-			scrollJump.addEventListener('click', (event) => {
-				event.preventDefault();
-				window.scrollTo({
-					top: 0,
-					behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
-				});
-			});
-		}
-
-		if (navLinks.length > 0 && sections.length > 0) {
-			const setActiveSection = (id) => {
-				navLinks.forEach((link) => {
-					const isActive = link.getAttribute('href') === `#${id}`;
-					if (isActive) {
-						link.setAttribute('aria-current', 'true');
-					} else {
-						link.removeAttribute('aria-current');
-					}
-				});
-			};
-
-			let activeFrame = 0;
-
-			const getStickyOffset = () => {
-				const shellHeight = sectionNavShell instanceof HTMLElement ? sectionNavShell.getBoundingClientRect().height : 0;
-				const rootStyles = window.getComputedStyle(document.documentElement);
-				const baseFontSize = Number.parseFloat(rootStyles.fontSize) || 16;
-				return shellHeight + baseFontSize;
-			};
-
-			const updateActiveSection = () => {
-				activeFrame = 0;
-				const activationLine = window.scrollY + getStickyOffset();
-				let activeSection = sections[0];
-
-				sections.forEach((section) => {
-					if (section instanceof HTMLElement && section.offsetTop <= activationLine) {
-						activeSection = section;
-					}
-				});
-
-				if (activeSection?.id) {
-					setActiveSection(activeSection.id);
-				}
-			};
-
-			const requestActiveSectionUpdate = () => {
-				if (activeFrame === 0) {
-					activeFrame = window.requestAnimationFrame(updateActiveSection);
-				}
-			};
-
-			updateActiveSection();
-			window.addEventListener('scroll', requestActiveSectionUpdate, { passive: true });
-			window.addEventListener('resize', requestActiveSectionUpdate);
-		}
-
-		const emitAnalyticsEvent = (element) => {
-			window.dispatchEvent(
-				new CustomEvent('cv:analytics', {
-					detail: {
-						event: element.dataset.analytics,
-						href: element.getAttribute?.('href') ?? undefined,
-					},
-				})
-			);
-		};
-
-		document.querySelectorAll('a[data-analytics]').forEach((link) => {
-			link.addEventListener('click', () => emitAnalyticsEvent(link));
-		});
-
-		const expertiseCards = Array.from(document.querySelectorAll('[data-expertise-card]'));
-
-		const setActiveExpertiseCard = (activeCard) => {
-			expertiseCards.forEach((card) => {
-				const isActive = Boolean(activeCard) && card === activeCard;
-				const panelId = card.dataset.panelId;
-				card.dataset.expanded = String(isActive);
-
-				card.querySelectorAll('[data-expertise-toggle]').forEach((toggle) => {
-					toggle.setAttribute('aria-expanded', String(isActive));
-
-					if (toggle.classList.contains('cv-expertise-card__icon-button')) {
-						const title = card.querySelector('.cv-expertise-card__title')?.textContent?.trim() ?? 'this expertise area';
-						toggle.setAttribute('aria-label', `${isActive ? 'Hide' : 'View'} details for ${title}`);
-						const icon = toggle.querySelector('[aria-hidden="true"]');
-						if (icon) {
-							icon.textContent = isActive ? '-' : '+';
-						}
-					}
-				});
-
-				card.querySelectorAll('[data-expertise-toggle-label]').forEach((label) => {
-					label.textContent = isActive ? 'Hide details' : 'View details';
-				});
-
-				card.querySelectorAll('[data-expertise-detail]').forEach((panel) => {
-					if (panel.id === panelId) {
-						panel.hidden = !isActive;
-					}
-				});
-			});
-		};
-
-		document.querySelectorAll('[data-expertise-toggle]').forEach((button) => {
-			button.addEventListener('click', () => {
-				const card = button.closest('[data-expertise-card]');
-
-				if (!card) {
-					return;
-				}
-
-				const shouldExpand = card.dataset.expanded !== 'true';
-				setActiveExpertiseCard(shouldExpand ? card : null);
-
-				if (shouldExpand && button instanceof HTMLElement && button.dataset.analytics) {
-					emitAnalyticsEvent(button);
-				}
-			});
-		});
-
-		const experienceCards = Array.from(document.querySelectorAll('[data-experience-card]'));
-
-		const setActiveExperienceCard = (activeCard) => {
-			experienceCards.forEach((card) => {
-				const isActive = Boolean(activeCard) && card === activeCard;
-				const detailsId = card.dataset.experienceDetailsId;
-				card.dataset.expanded = String(isActive);
-
-				card.querySelectorAll('[data-experience-toggle]').forEach((toggle) => {
-					toggle.setAttribute('aria-expanded', String(isActive));
-
-					if (toggle.classList.contains('cv-role__icon-button')) {
-						const title = card.querySelector('.cv-role__header h3')?.textContent?.trim() ?? 'this experience';
-						toggle.setAttribute('aria-label', `${isActive ? 'Hide' : 'View'} details for ${title}`);
-					}
-				});
-
-				card.querySelectorAll('[data-experience-toggle-label]').forEach((label) => {
-					label.textContent = isActive ? 'Hide details' : 'Technical details';
-				});
-
-				card.querySelectorAll('[data-experience-toggle-icon]').forEach((icon) => {
-					icon.textContent = isActive ? '-' : '+';
-				});
-
-				card.querySelectorAll('[data-experience-details]').forEach((details) => {
-					if (details.id === detailsId) {
-						details.hidden = !isActive;
-					}
-				});
-			});
-		};
-
-                document.querySelectorAll('[data-experience-toggle]').forEach((button) => {
-                        button.addEventListener('click', () => {
-                                const card = button.closest('[data-experience-card]');
-
-                                if (!card) {
-					return;
-				}
-
-				const shouldExpand = card.dataset.expanded !== 'true';
-				setActiveExperienceCard(shouldExpand ? card : null);
-
-				if (shouldExpand && button instanceof HTMLElement && button.dataset.analytics) {
-					emitAnalyticsEvent(button);
-                                }
-                        });
-                });
-
-                const earlierExperienceCards = Array.from(document.querySelectorAll('[data-earlier-experience-card]'));
-
-                const setActiveEarlierExperienceCard = (activeCard) => {
-                        earlierExperienceCards.forEach((card) => {
-                                const isActive = Boolean(activeCard) && card === activeCard;
-                                const detailsId = card.dataset.earlierExperienceDetailsId;
-                                card.dataset.expanded = String(isActive);
-
-                                card.querySelectorAll('[data-earlier-experience-toggle]').forEach((toggle) => {
-                                        toggle.setAttribute('aria-expanded', String(isActive));
-                                });
-
-                card.querySelectorAll('[data-earlier-experience-toggle-label]').forEach((label) => {
-                                        label.textContent = isActive ? 'Hide details' : 'Technical details';
-                                });
-
-                                card.querySelectorAll('[data-earlier-experience-toggle-icon]').forEach((icon) => {
-                                        icon.textContent = isActive ? '-' : '+';
-                                });
-
-                                card.querySelectorAll('[data-earlier-experience-details]').forEach((details) => {
-                                        if (details.id === detailsId) {
-                                                details.hidden = !isActive;
-                                        }
-                                });
-                        });
-                };
-
-                document.querySelectorAll('[data-earlier-experience-toggle]').forEach((button) => {
-                        button.addEventListener('click', () => {
-                                const card = button.closest('[data-earlier-experience-card]');
-
-                                if (!card) {
-                                        return;
-                                }
-
-                                const shouldExpand = card.dataset.expanded !== 'true';
-                                setActiveEarlierExperienceCard(shouldExpand ? card : null);
-
-                                if (shouldExpand && button instanceof HTMLElement && button.dataset.analytics) {
-                                        emitAnalyticsEvent(button);
-                                }
-                        });
-                });
-
-                document.querySelectorAll('details[data-analytics]').forEach((details) => {
-                        details.addEventListener('toggle', () => {
-                                if (!details.open) {
-                                        return;
-                                }
-
-				emitAnalyticsEvent(details);
-			});
-		});
-	})();
-</script>
-
 <style>
-        .cv-page {
-                --cv-max-measure: 66ch;
-                --cv-hero-header-offset: 68px;
-                --cv-nav-height: 2.15rem;
-                --cv-nav-sticky-top: 0px;
-                --cv-nav-shell-y-padding: 0.36rem;
-                --cv-nav-clearance: 1.1rem;
-                --cv-nav-shell-height: calc(var(--cv-nav-height) + (2 * var(--cv-nav-shell-y-padding)));
-                --type-compact-size: clamp(0.95rem, 0.92rem + 0.14vw, 1.02rem);
-                --type-compact-line: 1.55;
-                --type-reading-size: clamp(1.02rem, 0.98rem + 0.18vw, 1.12rem);
-                --type-reading-line: 1.62;
-                --type-metadata-size: clamp(0.78rem, 0.75rem + 0.1vw, 0.84rem);
-                --type-meta-size: var(--type-metadata-size);
-                --type-chip-size: clamp(0.78rem, 0.75rem + 0.1vw, 0.84rem);
-        }
-
-        .cv-shell {
-                display: block;
-        }
-
-	.cv-main-flow {
-		min-width: 0;
+	.cv-page {
+		width: min(calc(100% - 5rem), var(--content-width));
+		margin: 0 auto;
+		padding-bottom: 5rem;
 	}
 
-        .cv-scroll-jump {
-                position: fixed;
-                right: 1rem;
-                bottom: 1rem;
-                z-index: 28;
-                display: inline-grid;
-                width: 2.45rem;
-                height: 2.45rem;
-                place-items: center;
-                border: 1px solid color-mix(in srgb, var(--color-page) 12%, transparent);
-                border-radius: var(--radius-pill);
-                background: var(--color-text);
-                color: var(--color-page);
-                text-decoration: none;
-                box-shadow: 0 10px 24px color-mix(in srgb, #000 22%, transparent);
-                transition:
-                        transform var(--motion-duration-fast-02) var(--motion-standard-productive),
-                        border-color var(--motion-duration-fast-02) var(--motion-standard-productive),
-                        background-color var(--motion-duration-fast-02) var(--motion-standard-productive),
-                        box-shadow var(--motion-duration-fast-02) var(--motion-standard-productive);
-        }
+	.cv-page .page-container {
+		width: 100%;
+	}
 
-        .cv-scroll-jump svg {
-                width: 1.15rem;
-                height: 1.15rem;
-                stroke: currentColor;
-                stroke-width: 1.4;
-                fill: none;
-                stroke-linecap: round;
-                stroke-linejoin: round;
-        }
-
-        .cv-scroll-jump:hover,
-        .cv-scroll-jump:focus-visible {
-                transform: translateY(-2px);
-                border-color: color-mix(in srgb, var(--color-page) 22%, transparent);
-                background: color-mix(in srgb, var(--color-text) 90%, white);
-                box-shadow: 0 12px 28px color-mix(in srgb, #000 28%, transparent);
-        }
-
-        .cv-hero {
-                display: grid;
-                align-items: start;
-                border-bottom: 1px solid var(--color-border-soft);
-                background: transparent;
-		padding-block: clamp(3rem, 5vw, 4.6rem) clamp(1.55rem, 3vw, 2.25rem);
+	.cv-hero {
+		padding: clamp(3rem, 5vw, 4.6rem) 0 2.5rem;
 	}
 
 	.cv-hero__inner {
 		display: grid;
-		grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
-		gap: clamp(1.4rem, 5vw, 4.2rem);
-		align-items: end;
+		grid-template-columns: minmax(0, 1.15fr) minmax(18rem, 0.85fr);
+		gap: clamp(1.5rem, 4vw, 3rem);
+		align-items: start;
 	}
 
-	.cv-hero__label {
+	.cv-hero__copy {
 		display: grid;
 		gap: 1rem;
-		min-width: 0;
+		max-width: 52rem;
 	}
 
-	.cv-hero__label .section-eyebrow {
+	.cv-hero .section-eyebrow {
 		margin: 0;
 		color: var(--color-muted);
-		font-size: .82rem;
-		font-weight: 600;
-		letter-spacing: .08em;
-		line-height: 1.4;
 	}
 
-	.cv-hero__content {
-		display: grid;
-		gap: 0.75rem;
-		min-width: 0;
-		max-width: 660px;
-		border-left: 1px solid var(--color-border-soft);
-		padding-left: clamp(1rem, 3vw, 2rem);
+	.cv-hero__role,
+	.cv-hero__summary {
+		max-width: 60ch;
 	}
 
-	.cv-hero h1 {
-		max-width: none;
-		margin: 0;
-		font-size: clamp(2.6rem, 3.8vw, 3.5rem);
-		font-weight: 800;
-		letter-spacing: -.05em;
-		line-height: 1.02;
-		overflow-wrap: normal;
-		word-break: normal;
-	}
-
-	.cv-hero__subtitle {
-		max-width: 27ch;
+	.cv-hero__role {
 		color: var(--color-text);
-		font-size: clamp(1.45rem, 2vw, 1.95rem);
-		font-weight: var(--type-hero-role-weight);
-		line-height: 1.2;
-		letter-spacing: -0.03em;
-		overflow-wrap: anywhere;
 	}
 
-	.cv-hero__summary,
-	.cv-hero__extended {
-		max-width: 68ch;
+	.cv-hero__summary {
 		color: var(--color-muted);
-		font-size: clamp(1.05rem, 1.2vw, 1.18rem);
-		line-height: 1.58;
-		letter-spacing: var(--type-hero-summary-tracking);
-		overflow-wrap: anywhere;
+		font-size: var(--type-reading-size);
+		line-height: var(--type-reading-line);
 	}
 
-	.cv-actions {
-		margin-top: clamp(0.35rem, 1vw, 0.75rem);
-		gap: 0.85rem;
+	.cv-hero__actions {
+		margin-top: 0.5rem;
 	}
 
-	.cv-actions .button {
-		min-height: 2.75rem;
-		padding: 0.58rem 1rem;
-		font-size: clamp(0.85rem, 0.78rem + 0.1vw, 0.92rem);
+	.cv-placeholder-note {
+		color: var(--color-muted);
+		font-family: var(--font-mono);
+		font-size: var(--type-meta-size);
+		font-weight: 500;
+		letter-spacing: var(--type-meta-tracking);
+		line-height: 1.45;
+		text-transform: uppercase;
 	}
 
-	.cv-hero__evidence {
+	.cv-proof {
 		display: grid;
-		grid-column: 1 / -1;
-		gap: clamp(0.9rem, 1.8vw, 1.25rem);
-		min-width: 0;
-		margin-top: clamp(1rem, 2vw, 1.5rem);
+		gap: 1rem;
+		padding: clamp(1.1rem, 2.4vw, 1.5rem);
 	}
 
-	.cv-proof-grid {
-		display: grid;
-		grid-template-columns: repeat(2, minmax(0, 1fr));
-		gap: 0.75rem;
+	.cv-proof__label {
 		margin: 0;
+		color: var(--color-accent-text);
+		font-family: var(--font-mono);
+		font-size: var(--type-meta-size);
+		font-weight: 700;
+		letter-spacing: var(--type-meta-tracking);
+		line-height: var(--type-meta-line);
+		text-transform: uppercase;
+	}
+
+	.cv-proof__list {
+		display: grid;
+		gap: 0.9rem;
 		padding: 0;
 		list-style: none;
 	}
 
-	.cv-proof-grid li {
+	.cv-proof__list li {
 		display: grid;
-		gap: 0.28rem;
+		gap: 0.3rem;
 		margin: 0;
-		border: 1px solid var(--color-card-border);
-		border-radius: var(--radius);
-		background: var(--color-card-bg);
-		padding: 0.78rem 0.85rem;
-		transition:
-			background-color var(--motion-duration-fast-02) var(--motion-standard-productive),
-			border-color var(--motion-duration-fast-02) var(--motion-standard-productive),
-			transform var(--motion-duration-fast-02) var(--motion-standard-productive);
+		padding-bottom: 0.9rem;
+		border-bottom: 1px solid var(--color-border-soft);
 	}
 
-	.cv-proof-grid li:hover {
-		border-color: var(--color-card-border-hover);
-		background: var(--color-card-bg-hover);
-		transform: translateY(-2px);
+	.cv-proof__list li:last-child {
+		padding-bottom: 0;
+		border-bottom: 0;
 	}
 
-	.cv-proof-grid strong {
-		color: var(--color-text);
-		font-family: var(--font-display);
-		font-size: clamp(1.02rem, 1.15vw, 1.2rem);
-		line-height: 1.18;
-		letter-spacing: -0.015em;
-	}
-
-	.cv-proof-grid span {
-		color: var(--color-muted);
+	.cv-proof__list strong {
 		font-family: var(--font-body);
-		font-size: clamp(0.88rem, 0.95vw, 0.96rem);
-		line-height: 1.42;
-		letter-spacing: 0;
-		text-transform: none;
-	}
-
-	.cv-role-strip {
-		display: grid;
-		gap: 0.65rem;
-		padding: 0.05rem 0.05rem 0;
-	}
-
-	.cv-role-strip .cv-chip-list {
-		display: grid;
-		gap: 0.42rem;
-	}
-
-	.cv-role-strip > p {
-		color: var(--color-soft);
-		font-family: var(--font-mono);
-		font-size: 0.78rem;
-		font-weight: var(--type-eyebrow-weight);
-		letter-spacing: 0.08em;
-		line-height: var(--type-eyebrow-line);
-	}
-
-	.cv-role-strip .cv-chip-list li {
-		background: transparent;
-		padding: 0;
-		color: var(--color-text);
-		font-size: clamp(0.78rem, 0.9vw, 0.86rem);
+		font-size: 1rem;
 		line-height: 1.45;
+		letter-spacing: -0.01em;
+		color: var(--color-text);
 	}
 
-        .cv-section-nav-shell {
-                position: sticky;
-                top: var(--cv-nav-sticky-top);
-                z-index: 80;
-                margin: 0 0 var(--cv-nav-clearance);
-                background: color-mix(in srgb, var(--color-surface-soft) 26%, var(--color-page));
-                padding-block: var(--cv-nav-shell-y-padding);
-                isolation: isolate;
-        }
-
-        .cv-section-nav-shell::before {
-                content: '';
-                position: absolute;
-                inset: 0 calc(50% - 50vw);
-                z-index: -1;
-                border-bottom: 1px solid color-mix(in srgb, var(--color-card-border) 38%, transparent);
-                background: color-mix(in srgb, var(--color-surface-soft) 26%, var(--color-page));
-                box-shadow: none;
-                pointer-events: none;
-        }
-
-        .cv-section-nav-shell::after {
-                content: '';
-                position: absolute;
-                top: 100%;
-                right: calc(50% - 50vw);
-                left: calc(50% - 50vw);
-                height: var(--cv-nav-clearance);
-                background: linear-gradient(
-                        180deg,
-                        var(--color-page) 0%,
-                        var(--color-page) 48%,
-                        color-mix(in srgb, var(--color-page) 72%, transparent) 72%,
-                        transparent 100%
-                );
-                pointer-events: none;
-        }
-
-        .cv-section-nav {
-                margin: 0 auto;
-        }
-
-        .cv-section-nav__inner {
-                display: flex;
-                min-height: var(--cv-nav-height);
-                align-items: center;
-                gap: 0.75rem;
-                border: 0;
-                border-radius: 0;
-                background: transparent;
-                padding: 0;
-                box-shadow: none;
-        }
-
-        .cv-card__meta,
-        .cv-role__period,
-        .cv-role__location,
-        .cv-disclosure > summary {
-                font-family: var(--font-mono);
-		font-size: var(--type-meta-size);
-		font-weight: var(--type-meta-weight);
-		letter-spacing: var(--type-meta-tracking);
-                line-height: var(--type-meta-line);
-                text-transform: uppercase;
-        }
-
-        .cv-section-nav__label {
-                flex: 0 0 auto;
-                color: var(--color-soft);
-                font-family: var(--font-body);
-                font-size: 0.72rem;
-                font-weight: 500;
-                letter-spacing: 0;
-                line-height: 1.2;
-                text-transform: none;
-                white-space: nowrap;
-        }
-
-        .cv-section-nav__links {
-                display: flex;
-                flex: 1 1 auto;
-                align-items: center;
-                gap: clamp(0.65rem, 1.4vw, 1.1rem);
-                min-width: 0;
-                margin: 0;
-                padding: 0;
-                overflow-x: auto;
-                overscroll-behavior-x: contain;
-                list-style: none;
-                scrollbar-width: none;
-        }
-
-        .cv-section-nav__links::-webkit-scrollbar {
-                display: none;
-        }
-
-        .cv-section-nav__links li {
-                flex: 0 0 auto;
-                margin: 0;
-        }
-
-        .cv-section-nav__link {
-                position: relative;
-                display: inline-flex;
-                align-items: center;
-                min-height: var(--cv-nav-height);
-                border-radius: 0;
-                padding: 0.25rem 0;
-                color: var(--color-muted);
-                font-family: var(--font-mono);
-                font-size: var(--type-meta-size);
-                font-weight: var(--type-meta-weight);
-                letter-spacing: 0.055em;
-                line-height: var(--type-meta-line);
-                text-decoration: none;
-                text-transform: uppercase;
-                transition:
-                        background-color var(--motion-duration-fast-02) var(--motion-standard-productive),
-                        color 140ms cubic-bezier(0.2, 0, 0, 1),
-                        transform 140ms cubic-bezier(0.2, 0, 0, 1);
-        }
-
-        .cv-section-nav__link:hover,
-        .cv-section-nav__link:focus-visible {
-                color: var(--color-text);
-        }
-
-        .cv-section-nav__link:focus-visible {
-                outline: 2px solid var(--color-accent-text);
-                outline-offset: 2px;
-        }
-
-        .cv-section-nav__link[aria-current='true'] {
-                color: var(--color-text);
-                font-weight: 700;
-        }
-
-        .cv-section-nav__link[aria-current='true']::after {
-                content: '';
-                position: absolute;
-                right: 0;
-                bottom: -0.22rem;
-                left: 0;
-                height: 1px;
-                background: color-mix(in srgb, var(--color-accent-text) 70%, transparent);
-        }
-
-        .cv-section {
-                padding-block: clamp(3rem, 6vw, 5rem);
-                scroll-margin-top: calc(var(--cv-nav-sticky-top) + var(--cv-nav-shell-height) + var(--cv-nav-clearance));
-                background-color: var(--color-page);
-                background-image: linear-gradient(
-                        180deg,
-                        color-mix(in srgb, var(--color-footer-bg) 28%, var(--color-page)) 0%,
-                        var(--color-page) 100%
-                );
-                background-repeat: no-repeat;
-                background-position: top left;
-                background-size: 100% clamp(5rem, 8vw, 6.5rem);
-        }
-
-	.cv-section--compact {
-		padding-block: clamp(2.25rem, 5vw, 4rem);
-	}
-
-	.cv-section__intro {
-		display: grid;
-		gap: 0.65rem;
-		max-width: var(--cv-max-measure);
-		margin-bottom: 1.5rem;
-	}
-
-	.cv-section__intro--expertise {
-		margin-bottom: clamp(1.35rem, 3vw, 2rem);
-	}
-
-	.cv-section__intro--tight {
-		margin-bottom: 1rem;
-	}
-
-	.cv-section__eyebrow {
-		color: var(--color-soft);
+	.cv-proof__list span {
+		color: var(--color-muted);
 		font-family: var(--font-mono);
-		font-size: var(--type-eyebrow-size);
-		font-weight: var(--type-eyebrow-weight);
-		line-height: var(--type-eyebrow-line);
-		letter-spacing: var(--type-eyebrow-tracking);
+		font-size: var(--type-meta-size);
+		font-weight: 500;
+		letter-spacing: var(--type-meta-tracking);
+		line-height: 1.45;
 		text-transform: uppercase;
 	}
 
-	.cv-section__intro h2,
-	.cv-final h2 {
-		font-size: var(--type-section-title-size);
-		line-height: var(--type-section-title-line);
-		letter-spacing: var(--type-section-title-tracking);
-		font-weight: var(--type-section-title-weight);
+	.cv-section-nav-shell {
+		position: sticky;
+		top: 72px;
+		z-index: 30;
+		border-top: 1px solid var(--color-border);
+		border-bottom: 1px solid var(--color-border);
+		background: color-mix(in srgb, var(--color-page) 92%, transparent);
+		backdrop-filter: blur(12px);
 	}
 
-	.cv-section__intro h3,
-	.cv-courses h3 {
-		font-size: var(--type-card-title-size);
-		line-height: var(--type-card-title-line);
-		letter-spacing: var(--type-card-title-tracking);
-		font-weight: var(--type-card-title-weight);
-	}
-
-	.cv-section__intro p,
-	.cv-final p {
-		color: var(--color-muted);
-		font-size: var(--type-reading-size);
-		line-height: var(--type-reading-line);
-	}
-
-	.cv-card p,
-	.cv-card li,
-	.cv-card dd,
-	.cv-role__summary,
-	.cv-role__bullets li,
-	.cv-disclosure li {
-		color: var(--color-muted);
-		font-size: var(--type-compact-size);
-		line-height: var(--type-compact-line);
-	}
-
-	.cv-card-grid {
+	.cv-section-nav-shell .page-container {
 		display: grid;
-		grid-template-columns: 1fr;
-		gap: clamp(1.25rem, 3vw, 1.75rem);
-		background: transparent;
-	}
-
-	.core-expertise-grid,
-	.cv-featured-expertise-grid,
-	.representative-systems__grid {
-		display: grid;
-		grid-template-columns: 1fr;
-		gap: clamp(1.25rem, 3vw, 1.75rem);
-		align-items: stretch;
-	}
-
-	.cv-card {
-		display: grid;
-		align-content: start;
-		gap: 0.85rem;
-		border: 1px solid var(--color-card-border);
-		border-radius: var(--radius);
-		background: transparent;
-		padding: clamp(1.15rem, 3vw, 1.55rem);
-	}
-
-	.cv-card--interactive {
-		transition:
-			background-color 140ms cubic-bezier(0.2, 0, 0, 1),
-			border-color 140ms cubic-bezier(0.2, 0, 0, 1),
-			transform 140ms cubic-bezier(0.2, 0, 0, 1);
-	}
-
-	.cv-card--interactive:hover {
-		border-color: var(--color-card-border-hover);
-		background: transparent;
-		transform: translateY(-2px);
-	}
-
-	.cv-card--compact {
-		gap: 0.7rem;
-	}
-
-        .cv-card h3 {
-                font-size: var(--type-card-title-size);
-                line-height: var(--type-card-title-line);
-                letter-spacing: var(--type-card-title-tracking);
-                font-weight: var(--type-card-title-weight);
-        }
-
-        .cv-card-grid--education {
-                grid-template-columns: 1fr;
-                align-items: start;
-                grid-auto-rows: auto;
-        }
-
-        .cv-education-card {
-                display: grid;
-                gap: 0.75rem 1.5rem;
-                align-content: start;
-                height: fit-content;
-        }
-
-        .cv-education-card__identity,
-        .cv-education-card__details {
-                display: grid;
-                gap: 0.45rem;
-        }
-
-        .cv-education-card__identity h3 {
-                margin: 0;
-                color: var(--color-text);
-                font-family: var(--font-display);
-                font-size: var(--type-card-title-size);
-                font-weight: var(--type-card-title-weight);
-                line-height: var(--type-card-title-line);
-                letter-spacing: var(--type-card-title-tracking);
-        }
-
-        .cv-education-card__institution {
-                margin: 0;
-                color: var(--color-muted);
-                font-size: var(--type-card-body-size);
-                line-height: var(--type-card-body-line);
-        }
-
-        .cv-education-card__field {
-                display: grid;
-                gap: 0.2rem;
-                margin: 0;
-        }
-
-        .cv-education-card__field strong {
-                color: var(--color-text);
-                font-size: var(--type-meta-size);
-                font-weight: 700;
-                line-height: var(--type-meta-line);
-                letter-spacing: var(--type-meta-tracking);
-                text-transform: uppercase;
-        }
-
-        .cv-education-card__field span {
-                color: var(--color-muted);
-                font-size: var(--type-card-body-size);
-                line-height: var(--type-card-body-line);
-        }
-
-        .cv-education-card__links {
-                display: flex;
-                flex-wrap: wrap;
-                gap: 0.55rem;
-                margin-top: 0.2rem;
-        }
-
-        .cv-education-card__links a {
-                width: fit-content;
-                color: var(--color-text);
-                font-weight: 700;
-                text-decoration: underline;
-                text-decoration-thickness: 1px;
-                text-underline-offset: 0.2em;
-        }
-
-        .cv-education-card__links a:hover,
-        .cv-education-card__links a:focus-visible {
-                color: var(--color-text);
-        }
-
-	.cv-expertise-card {
-		position: relative;
-		grid-template-rows: minmax(5.55rem, auto) 1fr auto auto;
-		gap: 0.65rem;
-		height: 100%;
-		padding: clamp(1rem, 2.2vw, 1.25rem);
-		transition:
-			background-color var(--motion-duration-fast-02) var(--motion-standard-productive),
-			border-color var(--motion-duration-fast-02) var(--motion-standard-productive),
-			box-shadow var(--motion-duration-fast-02) var(--motion-standard-productive),
-			transform var(--motion-duration-fast-02) var(--motion-standard-productive);
-	}
-
-	.cv-expertise-card[data-expanded='true'] {
-		grid-column: 1 / -1;
-		grid-template-rows: auto auto auto auto;
-		height: auto;
-		border-color: var(--color-card-border-hover);
-		background: color-mix(in srgb, var(--color-surface-soft) 42%, transparent);
-		box-shadow: 0 12px 28px color-mix(in srgb, var(--color-text) 7%, transparent);
-	}
-
-	.cv-expertise-card__icon-button {
-		position: absolute;
-		z-index: 2;
-		top: clamp(0.75rem, 1.5vw, 1rem);
-		right: clamp(0.75rem, 1.5vw, 1rem);
-		display: inline-grid;
-		width: 2.5rem;
-		height: 2.5rem;
-		place-items: center;
-		border: 1px solid var(--color-card-border);
-		border-radius: var(--radius-pill);
-		background: transparent;
-		color: var(--color-text);
-		cursor: pointer;
-		font-family: var(--font-body);
-		font-size: 0.9rem;
-		line-height: 1;
-		transition:
-			background-color var(--motion-duration-fast-02) var(--motion-standard-productive),
-			border-color var(--motion-duration-fast-02) var(--motion-standard-productive),
-			transform var(--motion-duration-fast-02) var(--motion-standard-productive);
-	}
-
-	.cv-expertise-card[data-expanded='true'] .cv-expertise-card__icon-button {
-		border-color: var(--color-card-border-hover);
-		background: var(--color-surface-soft);
-	}
-
-	.cv-expertise-card__header {
-		display: grid;
-		gap: 0.55rem;
-		padding-right: 2.25rem;
-	}
-
-	.cv-expertise-card__icon-button:focus-visible,
-	.cv-expertise-card__toggle:focus-visible {
-		outline: 2px solid var(--color-accent-text);
-		outline-offset: 3px;
-	}
-
-	.cv-expertise-card__title {
-		max-width: 18rem;
-		padding-right: 0;
-	}
-
-	.cv-expertise-card__summary {
-		max-width: 36ch;
-		color: var(--color-text);
-		font-weight: 600;
-	}
-
-	.cv-expertise-card__capabilities-block {
-		display: grid;
-		margin-bottom: clamp(0.45rem, 1.4vw, 0.8rem);
-	}
-
-	.cv-expertise-card__capabilities {
-		display: grid;
-		grid-template-columns: repeat(2, minmax(0, 1fr));
-		gap: 0.45rem 0.7rem;
-		align-content: start;
-		margin: 0;
-		padding-left: 1rem;
-	}
-
-	.cv-expertise-card__capabilities li {
-		color: var(--color-muted);
-		font-size: var(--type-compact-size);
-		line-height: var(--type-compact-line);
-	}
-
-	.cv-expertise-card__toggle {
-		justify-self: start;
-		align-self: end;
-		margin-top: auto;
-		border: 1px solid var(--color-card-border);
-		border-radius: var(--radius-pill);
-		background: transparent;
-		padding: 0.5rem 0.75rem;
-		min-height: 2.5rem;
-		color: var(--color-text);
-		cursor: pointer;
-		font-family: var(--font-mono);
-		font-size: var(--type-meta-size);
-		font-weight: var(--type-meta-weight);
-		letter-spacing: var(--type-meta-tracking);
-		line-height: var(--type-meta-line);
-		text-transform: uppercase;
-		transition:
-			background-color var(--motion-duration-fast-02) var(--motion-standard-productive),
-			border-color var(--motion-duration-fast-02) var(--motion-standard-productive),
-			color var(--motion-duration-fast-02) var(--motion-standard-productive);
-	}
-
-	.cv-expertise-card__toggle:hover {
-		border-color: var(--color-card-border-hover);
-		background: var(--color-surface-soft);
-	}
-
-	.core-expertise-detail {
-		display: grid;
+		grid-template-columns: minmax(0, 1fr) auto;
 		gap: 1rem;
-		margin-top: 0.35rem;
-		border-top: 1px solid var(--color-card-border-hover);
-		padding-top: clamp(1rem, 2.5vw, 1.35rem);
+		align-items: center;
+		padding: 0.85rem 0;
 	}
 
-	.core-expertise-detail[hidden] {
-		display: none;
-	}
-
-	.core-expertise-detail__summary {
-		max-width: var(--cv-max-measure);
-		color: var(--color-muted);
-		font-size: var(--type-reading-size);
-		line-height: var(--type-reading-line);
-	}
-
-	.core-expertise-detail__grid {
-		display: grid;
-		gap: 1rem;
-		align-items: start;
-	}
-
-	.core-expertise-detail .cv-detail-group {
-		display: grid;
-		gap: 0.7rem;
-	}
-
-	.core-expertise-detail .cv-detail-group + .cv-detail-group {
-		margin-top: 0;
-	}
-
-	.core-expertise-detail .cv-detail-group ul {
-		display: grid;
-		gap: 0.65rem;
-		margin: 0;
-		padding-left: 1.15rem;
-		list-style-position: outside;
-	}
-
-	.core-expertise-detail .cv-detail-group li {
-		padding-left: 0;
-		list-style-position: outside;
-		font-size: var(--type-reading-size);
-		line-height: var(--type-reading-line);
-	}
-
-	.cv-card ul,
-	.cv-card ol,
-	.cv-role__bullets {
-		display: grid;
-		gap: 0.48rem;
-	}
-
-	.cv-card li,
-	.cv-role__bullets li,
-	.cv-disclosure li {
-		margin: 0;
-	}
-
-		.cv-card__meta,
-		.cv-role__period {
-				color: var(--color-accent-text);
-		}
-
-	.cv-chip-list {
+	.cv-section-nav--desktop ul,
+	.cv-section-nav-mobile ul {
 		display: flex;
 		flex-wrap: wrap;
-		gap: 0.55rem 0.7rem;
-		margin: 0;
-		padding: 0;
-		min-width: 0;
-		list-style: none;
-	}
-
-	.cv-chip-list li {
-		max-width: 100%;
-		min-width: 0;
-		margin: 0;
-		border-radius: calc(var(--radius) * 0.6);
-		background: var(--color-surface-soft);
-                padding: 0.3rem 0.5rem;
-                color: var(--color-tag-text);
-                font-family: var(--font-mono);
-		font-size: var(--type-chip-size);
-		font-weight: var(--type-chip-weight);
-		line-height: var(--type-chip-line);
-		letter-spacing: var(--type-chip-tracking);
-		overflow-wrap: anywhere;
-		transition:
-			border-color 140ms cubic-bezier(0.2, 0, 0, 1),
-			background-color 140ms cubic-bezier(0.2, 0, 0, 1);
-	}
-
-	.cv-card .cv-expertise-card__capabilities {
-		display: grid;
-		gap: 0.45rem 0.7rem;
-		margin: 0;
-		padding-left: 1rem;
-	}
-
-	.cv-card .cv-expertise-card__capabilities li {
-		width: auto;
-	}
-
-	.cv-chip-list--strong li {
-		background: var(--color-card-bg);
-		color: var(--color-text);
-	}
-
-        .cv-tool-card {
-                display: grid;
-                align-content: start;
-                gap: 0.85rem;
-                height: 100%;
-        }
-
-        .cv-tool-card__body {
-                display: grid;
-                gap: 0.55rem;
-        }
-
-        .cv-tool-card__primary {
-                color: var(--color-text);
-                font-size: var(--type-card-body-size);
-                font-weight: 700;
-                line-height: var(--type-card-body-line);
-        }
-
-        .cv-tool-card__methods {
-                color: var(--color-muted);
-                font-size: var(--type-card-body-size);
-                line-height: var(--type-card-body-line);
-        }
-
-        .cv-learning-card {
-                display: grid;
-                gap: clamp(1rem, 2vw, 1.35rem);
-                margin-top: clamp(1rem, 2vw, 1.25rem);
-        }
-
-        .cv-learning-card__grid {
-                display: grid;
-                gap: clamp(1rem, 2vw, 1.5rem);
-        }
-
-        .cv-learning-card section {
-                display: grid;
-                gap: 0.55rem;
-                align-content: start;
-        }
-
-        .cv-learning-card h4 {
-                color: var(--color-soft);
-                font-family: var(--font-mono);
-                font-size: var(--type-meta-size);
-                font-weight: var(--type-meta-weight);
-                line-height: var(--type-meta-line);
-                letter-spacing: var(--type-meta-tracking);
-                text-transform: uppercase;
-        }
-
-        .cv-learning-card ul {
-                display: grid;
-                gap: 0.45rem;
-                margin: 0;
-                padding-left: 1.15rem;
-        }
-
-        .cv-learning-card li {
-                margin: 0;
-                color: var(--color-muted);
-                font-size: var(--type-card-body-size);
-                line-height: var(--type-card-body-line);
-        }
-
-	.cv-impact-list {
-		display: grid;
-		grid-template-columns: 1fr;
-		gap: 0.85rem;
+		gap: 0.65rem 1rem;
 		margin: 0;
 		padding: 0;
 		list-style: none;
 	}
 
-        .cv-impact-list li {
-                display: grid;
-                gap: 0.5rem;
-                align-items: start;
-                margin: 0;
-                border: 1px solid var(--color-card-border);
-                border-radius: var(--radius);
-                background: transparent;
-                padding: 0.95rem 1rem;
-                color: var(--color-muted);
-                font-size: var(--type-card-body-size);
-                line-height: var(--type-card-body-line);
+	.cv-nav-link {
+		display: inline-flex;
+		align-items: center;
+		min-height: 40px;
+		color: var(--color-muted);
+		font-family: var(--font-mono);
+		font-size: var(--type-nav-size);
+		font-weight: 600;
+		letter-spacing: 0.04em;
+		text-decoration: none;
+		text-transform: uppercase;
 		transition:
-			background-color var(--motion-duration-fast-02) var(--motion-standard-productive),
-			border-color var(--motion-duration-fast-02) var(--motion-standard-productive),
+			color var(--motion-duration-fast-02) var(--motion-standard-productive),
 			transform var(--motion-duration-fast-02) var(--motion-standard-productive);
 	}
 
-	.cv-impact-list li:hover {
-		border-color: var(--color-card-border-hover);
-		background: transparent;
-		transform: translateY(-2px);
+	.cv-nav-link:hover,
+	.cv-nav-link:focus-visible,
+	.cv-nav-link[aria-current='true'] {
+		color: var(--color-accent-text);
+		transform: translateY(-1px);
 	}
 
-        .cv-impact-list li > span {
-                color: var(--color-soft);
-                font-family: var(--font-mono);
-                font-size: var(--type-meta-size);
-                font-weight: var(--type-meta-weight);
-                line-height: var(--type-meta-line);
-                letter-spacing: var(--type-meta-tracking);
-                text-transform: uppercase;
-        }
-
-        .cv-impact-list li > div {
-                display: grid;
-                gap: 0.35rem;
-        }
-
-        .cv-impact-list h3 {
-                color: var(--color-text);
-                font-family: var(--font-display);
-                font-size: var(--type-card-title-size);
-                font-weight: var(--type-card-title-weight);
-                line-height: var(--type-card-title-line);
-                letter-spacing: var(--type-card-title-tracking);
-        }
-
-        .cv-impact-list p {
-                color: var(--color-muted);
-                font-family: var(--font-body);
-                font-size: var(--type-card-body-size);
-		line-height: var(--type-card-body-line);
-		letter-spacing: var(--type-card-body-tracking);
+	.cv-section-nav-mobile {
+		display: none;
 	}
 
-	.cv-timeline {
-		display: grid;
-		gap: clamp(1.5rem, 3vw, 2.5rem);
-		margin: 0;
-		padding: 0;
+	.cv-section-nav-mobile summary {
+		display: inline-flex;
+		align-items: center;
+		justify-content: space-between;
+		width: 100%;
+		min-height: 44px;
+		cursor: pointer;
 		list-style: none;
+		color: var(--color-text);
+		font-family: var(--font-mono);
+		font-size: var(--type-nav-size);
+		font-weight: 600;
+		letter-spacing: 0.04em;
+		text-transform: uppercase;
 	}
 
-	.cv-role {
-		position: relative;
+	.cv-section-nav-mobile summary::-webkit-details-marker {
+		display: none;
+	}
+
+	.cv-section-nav-mobile nav {
+		padding-top: 0.6rem;
+	}
+
+	.cv-section-nav-mobile ul {
 		display: grid;
-		grid-template-columns: minmax(10rem, 14rem) minmax(0, 1fr);
-		gap: clamp(1rem, 2.5vw, 2rem);
+		gap: 0.2rem;
+	}
+
+	.cv-section-nav-mobile li {
+		margin: 0;
+	}
+
+	.cv-section-nav__actions {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.75rem;
+		justify-content: flex-end;
+	}
+
+	.cv-main-flow {
+		display: flex;
+		flex-direction: column;
+	}
+
+	.cv-section {
+		padding: 2.75rem 0;
+		border-top: 1px solid var(--color-border);
+	}
+
+	.cv-section__layout {
+		display: grid;
+		grid-template-columns: 16rem minmax(0, 1fr);
+		gap: 2rem;
 		align-items: start;
 	}
 
-        .cv-role::before {
-                content: '';
-                position: absolute;
-                top: 0.55rem;
-                bottom: calc(-1 * clamp(1.5rem, 3vw, 2.5rem));
-                left: 0.35rem;
-                width: 1px;
-                background: linear-gradient(
-                        color-mix(in srgb, var(--color-accent-text) 62%, transparent),
-                        var(--color-border-soft)
-                );
-        }
-
-	.cv-role:last-child::before {
-		bottom: 0;
-	}
-
-        .cv-role__milestone {
-                position: sticky;
-                top: 6rem;
-                display: grid;
-                grid-template-columns: 0.75rem minmax(0, 1fr);
-                gap: 0.75rem;
-                align-items: start;
-        }
-
-        .cv-role__marker {
-                position: relative;
-                z-index: 1;
-                display: block;
-                width: 0.7rem;
-                height: 0.7rem;
-                margin-top: 0.35rem;
-                border: 1px solid var(--color-card-border-hover);
-                border-radius: var(--radius-pill);
-                background: var(--color-page);
-        }
-
-        .cv-role--current .cv-role__marker {
-                border-color: var(--color-border-strong);
-                background: var(--color-accent-text);
-        }
-
-	.cv-role__milestone-meta {
+	.cv-section__rail {
 		display: grid;
-		gap: 0.25rem;
-		padding-top: 0.1rem;
-		min-width: 0;
+		gap: 0.8rem;
+		align-content: start;
 	}
 
-	.cv-role__milestone-meta p {
+	.cv-section__rail .section-eyebrow {
 		margin: 0;
+		color: var(--color-muted);
+	}
+
+	.cv-section__heading {
+		max-width: none;
+		font-size: clamp(1.45rem, 2.4vw, 2.2rem);
+		line-height: 1.08;
+		letter-spacing: -0.045em;
+	}
+
+	.cv-section__intro-copy {
+		max-width: 30ch;
+		color: var(--color-muted);
+		font-size: var(--type-card-body-size);
+		line-height: 1.65;
+	}
+
+	.cv-section__content {
+		display: grid;
+		gap: 1.25rem;
+		max-width: 52rem;
+	}
+
+	.cv-card-grid,
+	.cv-credentials-list,
+	.cv-method-groups {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: 0;
+	}
+
+	.cv-card,
+	.cv-credential-group,
+	.cv-method-group,
+	.cv-project-row,
+	.cv-role__card {
+		padding: 1.5rem 0;
+		border-top: 1px solid var(--color-border-soft);
+	}
+
+	.cv-card:first-child,
+	.cv-credential-group:first-child,
+	.cv-method-group:first-child,
+	.cv-project-row:first-child,
+	.cv-role:first-child .cv-role__card {
+		border-top-color: var(--color-border);
+	}
+
+	.cv-card__collapsed,
+	.cv-role__collapsed,
+	.cv-credential-group__collapsed {
+		display: grid;
+		gap: 0.75rem;
+	}
+
+	.cv-card__eyebrow,
+	.cv-project-row__label,
+	.cv-role__meta {
+		margin: 0;
+		color: var(--color-accent-text);
 		font-family: var(--font-mono);
 		font-size: var(--type-meta-size);
-		line-height: var(--type-meta-line);
-		letter-spacing: var(--type-meta-tracking);
-		text-transform: uppercase;
-	}
-
-        .cv-role__content {
-                position: relative;
-                display: grid;
-                gap: 0.85rem;
-                min-width: 0;
-                border: 1px solid var(--color-card-border);
-                border-radius: var(--radius);
-		background: transparent;
-		padding: clamp(1.15rem, 3vw, 1.7rem);
-		transition:
-			border-color 140ms cubic-bezier(0.2, 0, 0, 1),
-			background-color 140ms cubic-bezier(0.2, 0, 0, 1);
-	}
-
-	.cv-role--current .cv-role__content,
-	.cv-role__content[data-expanded='true'] {
-		border-color: var(--color-card-border-hover);
-		background: transparent;
-	}
-
-        .cv-role__content:hover {
-                border-color: var(--color-card-border-hover);
-                background: transparent;
-        }
-
-        .cv-role__content--earlier,
-        .cv-role__content--earlier:hover {
-                border: 0;
-                background: transparent;
-                padding: 0;
-        }
-
-        .cv-role__icon-button {
-                position: absolute;
-                z-index: 2;
-                top: clamp(0.75rem, 1.5vw, 1rem);
-                right: clamp(0.75rem, 1.5vw, 1rem);
-                display: inline-grid;
-                width: 2.5rem;
-                height: 2.5rem;
-                place-items: center;
-                border: 1px solid var(--color-card-border);
-                border-radius: var(--radius-pill);
-                background: transparent;
-                color: var(--color-text);
-                cursor: pointer;
-                font-family: var(--font-body);
-                font-size: 0.9rem;
-                line-height: 1;
-                transition:
-                        background-color var(--motion-duration-fast-02) var(--motion-standard-productive),
-                        border-color var(--motion-duration-fast-02) var(--motion-standard-productive),
-                        transform var(--motion-duration-fast-02) var(--motion-standard-productive);
-        }
-
-        .cv-role__content[data-expanded='true'] .cv-role__icon-button {
-                border-color: var(--color-card-border-hover);
-                background: var(--color-surface-soft);
-        }
-
-        .cv-role__icon-button:focus-visible {
-                outline: 2px solid var(--color-accent-text);
-                outline-offset: 3px;
-        }
-
-        .cv-role__header {
-                display: grid;
-                gap: 0.55rem;
-                padding-right: 2.25rem;
-        }
-
-	.cv-role__organization {
-		color: var(--color-text);
-		font-weight: 700;
-	}
-
-	.cv-role__location {
-		color: var(--color-soft);
-	}
-
-        .cv-role__summary {
-                max-width: var(--cv-max-measure);
-                color: var(--color-text);
-                font-weight: 600;
-        }
-
-        .cv-detail-group h4,
-        .cv-detail-group h5 {
-                color: var(--color-text);
-                font-size: var(--type-meta-size);
-                font-weight: 700;
-		line-height: var(--type-meta-line);
-	}
-
-        .cv-role__bullets {
-                max-width: 74ch;
-                margin: 0.1rem 0 0;
-                padding-left: 1.15rem;
-        }
-
-        .cv-role__bullets li {
-                margin-bottom: 0.38rem;
-        }
-
-        .cv-role__bullets li:last-child {
-                margin-bottom: 0;
-        }
-
-        .cv-role__toggle {
-                display: inline-flex;
-                width: auto;
-                max-width: max-content;
-                align-self: flex-start;
-                align-items: center;
-                justify-content: center;
-                gap: 0.5rem;
-                border: 1px solid var(--color-card-border);
-                border-radius: var(--radius-pill);
-                background: transparent;
-                padding: 0.5rem 0.75rem;
-                min-height: 2.5rem;
-                color: var(--color-text);
-                cursor: pointer;
-                font-family: var(--font-mono);
-		font-size: var(--type-meta-size);
-		font-weight: var(--type-meta-weight);
+		font-weight: 600;
 		letter-spacing: var(--type-meta-tracking);
 		line-height: var(--type-meta-line);
 		text-transform: uppercase;
-		transition:
-			background-color var(--motion-duration-fast-02) var(--motion-standard-productive),
-			border-color var(--motion-duration-fast-02) var(--motion-standard-productive),
-			color var(--motion-duration-fast-02) var(--motion-standard-productive);
 	}
 
-	.cv-role__toggle:hover,
-	.cv-role__toggle:focus-visible {
-		border-color: var(--color-card-border-hover);
+	.cv-card h3,
+	.cv-role h3,
+	.cv-credential-group h3,
+	.cv-project-row h3,
+	.cv-method-group h3 {
+		max-width: none;
+		font-size: clamp(1.2rem, 1.8vw, 1.55rem);
+		line-height: 1.1;
+		letter-spacing: -0.04em;
+	}
+
+	.cv-card__summary,
+	.cv-role__mandate,
+	.cv-project-row dd,
+	.cv-credential-group__visible li,
+	.cv-method-group li {
+		color: var(--color-body-text);
+		font-size: var(--type-card-body-size);
+		line-height: 1.62;
+	}
+
+	.cv-card__keywords {
+		margin-top: 0.1rem;
+	}
+
+	.cv-card__keywords,
+	.cv-role__contributions,
+	.cv-credential-group__visible,
+	.cv-method-group ul {
+		padding-left: 1.1rem;
+	}
+
+	.cv-role__context,
+	.cv-role__ownership,
+	.cv-related-link a,
+	.cv-project-row__link a {
+		color: var(--color-muted);
+	}
+
+	.cv-disclosure-button,
+	.cv-toolbar-button {
+		width: fit-content;
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5rem;
+		padding: 0;
+		border: 0;
 		background: transparent;
+		color: var(--color-link);
+		cursor: pointer;
+		font-family: var(--font-mono);
+		font-size: var(--type-nav-size);
+		font-weight: 600;
+		letter-spacing: 0.04em;
+		text-decoration: underline;
+		text-decoration-thickness: 1px;
+		text-underline-offset: 0.2em;
+		text-transform: uppercase;
+	}
+
+	.cv-disclosure-button:hover,
+	.cv-disclosure-button:focus-visible,
+	.cv-toolbar-button:hover,
+	.cv-toolbar-button:focus-visible,
+	.cv-related-link a:hover,
+	.cv-related-link a:focus-visible,
+	.cv-project-row__link a:hover,
+	.cv-project-row__link a:focus-visible {
 		color: var(--color-text);
 	}
 
-	.cv-role__toggle:focus-visible {
-		outline: 2px solid var(--color-accent-text);
-		outline-offset: 3px;
+	.cv-disclosure-button [aria-hidden='true'] {
+		display: inline-block;
+		min-width: 0.8rem;
+		text-align: center;
 	}
 
-        .cv-role__details {
-                display: grid;
-                gap: 1rem;
-                margin-top: 0.15rem;
-                border-top: 1px solid var(--color-border-soft);
-                padding-top: 1.1rem;
-        }
-
-	.cv-role__details[hidden] {
-		display: none;
-	}
-
-        .cv-role__details-grid {
-                display: grid;
-                grid-template-columns: repeat(2, minmax(0, 1fr));
-                gap: clamp(1.1rem, 2.5vw, 1.65rem);
-                align-items: start;
-        }
-
-        .cv-role__details-grid--single {
-                grid-template-columns: minmax(0, 1fr);
-        }
-
-        .cv-role__details-grid--single .cv-detail-group {
-                max-width: 68ch;
-        }
-
-        .cv-role__details .cv-detail-group {
-                gap: 0.6rem;
-                margin-top: 0;
-        }
-
-        .cv-role__details .cv-detail-group ul {
-                display: grid;
-                gap: 0.55rem;
-                margin: 0;
-                padding-left: 1.15rem;
-        }
-
-        .cv-role__details .cv-detail-group li {
-                margin: 0;
-                font-size: var(--type-reading-size);
-                line-height: var(--type-reading-line);
-        }
-
-	.cv-disclosure {
+	.cv-disclosure-panel {
 		display: grid;
 		gap: 1rem;
+		padding-top: 1rem;
 	}
 
-	.cv-disclosure--inline {
-		margin-top: 0.15rem;
-	}
-
-	.cv-disclosure--wide,
-	.cv-disclosure--card {
-		margin-top: 1.5rem;
-	}
-
-	.cv-disclosure--card {
-		border: 1px solid var(--color-card-border);
-		border-radius: var(--radius);
-		background: transparent;
-		padding: clamp(1.15rem, 3vw, 1.55rem);
-	}
-
-	.cv-disclosure > summary {
-		display: flex;
-		width: 100%;
-		align-items: center;
-		justify-content: space-between;
-		gap: 0.5rem;
-		border: 1px solid var(--color-card-border);
-		border-radius: var(--radius);
-		background: transparent;
-		padding: 0.65rem 0.75rem;
-		min-height: 2.5rem;
-		color: var(--color-text);
-		cursor: pointer;
-		list-style: none;
-		transition:
-			background-color var(--motion-duration-fast-02) var(--motion-standard-productive),
-			border-color var(--motion-duration-fast-02) var(--motion-standard-productive),
-			color var(--motion-duration-fast-02) var(--motion-standard-productive);
-	}
-
-	.cv-disclosure > summary::-webkit-details-marker {
+	.cv-disclosure-panel[hidden] {
 		display: none;
-	}
-
-	.cv-disclosure > summary::after {
-		content: '+';
-		flex: 0 0 auto;
-		display: inline-grid;
-		width: 1.15rem;
-		height: 1.15rem;
-		place-items: center;
-		border: 1px solid var(--color-card-border);
-		border-radius: calc(var(--radius) * 0.45);
-		color: var(--color-text);
-		font-family: var(--font-body);
-		font-size: var(--type-body-size);
-		line-height: 1;
-		transition: transform 180ms cubic-bezier(0.2, 0, 0, 1);
-	}
-
-	.cv-disclosure[open] > summary::after {
-		content: '-';
-		transform: rotate(180deg);
-	}
-
-	.cv-disclosure > summary:hover,
-	.cv-disclosure > summary:focus-visible {
-		border-color: var(--color-card-border-hover);
-		background: transparent;
-		color: var(--color-text);
-	}
-
-	.cv-disclosure__content {
-		margin-top: 1rem;
 	}
 
 	.cv-detail-group {
@@ -3173,935 +1071,364 @@ const profileJsonLd = {
 		gap: 0.45rem;
 	}
 
-        .cv-detail-group + .cv-detail-group {
-                margin-top: 1rem;
-        }
-
-        .cv-role__details .cv-detail-group + .cv-detail-group {
-                margin-top: 0;
-        }
-
-        .cv-earlier-grid {
-                display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(min(17rem, 100%), 1fr));
-                gap: clamp(1rem, 2vw, 1.25rem);
-                align-items: stretch;
-        }
-
-        .cv-role__content--compact {
-                gap: 0.75rem;
-                height: 100%;
-                padding: clamp(1rem, 1.7vw, 1.35rem);
-        }
-
-        .cv-role__header--compact {
-                gap: 0.5rem;
-                padding-right: 0;
-        }
-
-        .cv-role__meta-inline {
-                display: flex;
-                flex-wrap: wrap;
-                gap: 0.25rem 0.65rem;
-                margin: 0;
-                color: var(--color-soft);
-                font-family: var(--font-mono);
-                font-size: var(--type-meta-size);
-                font-weight: var(--type-meta-weight);
-                letter-spacing: var(--type-meta-tracking);
-                line-height: var(--type-meta-line);
-                text-transform: uppercase;
-        }
-
-        .cv-role__meta-inline span:not(:last-child)::after {
-                content: "·";
-                margin-left: 0.65rem;
-                color: var(--color-soft);
-        }
-
-        .cv-role__title--compact {
-                margin: 0;
-                color: var(--color-text);
-                font-family: var(--font-display);
-                font-size: clamp(1.12rem, 1.55vw, 1.32rem);
-                font-weight: var(--type-card-title-weight);
-                line-height: var(--type-card-title-line);
-                letter-spacing: var(--type-card-title-tracking);
-        }
-
-        .cv-role__summary--compact {
-                max-width: 44ch;
-                margin: 0;
-                color: var(--color-muted);
-                font-size: var(--type-card-body-size);
-                font-weight: 400;
-                line-height: var(--type-card-body-line);
-        }
-
-        .cv-role__toggle--compact {
-                margin-top: 0.15rem;
-        }
-
-        .cv-role__details--compact {
-                gap: 0.65rem;
-                margin-top: 0.2rem;
-                padding-top: 0.9rem;
-        }
-
-        .cv-role__details--compact .cv-detail-group {
-                gap: 0.45rem;
-        }
-
-        .cv-role__details--compact .cv-detail-group h5 {
-                margin: 0;
-        }
-
-        .cv-role__details--compact .cv-detail-group ul {
-                display: grid;
-                gap: 0.38rem;
-                margin: 0;
-                padding-left: 1.15rem;
-        }
-
-        .cv-role__details--compact .cv-detail-group li {
-                margin: 0;
-                font-size: var(--type-reading-size);
-                line-height: var(--type-reading-line);
-        }
-
-	.representative-system-card {
-		grid-template-rows: minmax(5.55rem, auto) 1fr auto;
-	}
-
-	.representative-system-card__header {
-		padding-right: 0;
-	}
-
-	.representative-system-card__meta {
-		display: grid;
-		gap: 0;
+	.cv-detail-group h4 {
 		margin: 0;
-	}
-
-	.representative-system-card__meta div {
-		display: grid;
-		grid-template-columns: minmax(4.5rem, auto) minmax(0, 1fr);
-		gap: 0.75rem;
-		border-top: 1px solid var(--color-border-soft);
-		padding: 0.55rem 0;
-	}
-
-	.representative-system-card__meta dt {
-		color: var(--color-soft);
+		color: var(--color-text);
 		font-family: var(--font-mono);
 		font-size: var(--type-meta-size);
 		font-weight: 700;
 		letter-spacing: var(--type-meta-tracking);
+		line-height: 1.35;
 		text-transform: uppercase;
 	}
 
-	.representative-system-card__meta dd {
-		margin: 0;
+	.cv-detail-group ul {
+		padding-left: 1.1rem;
+	}
+
+	.cv-detail-group li,
+	.cv-role__ownership,
+	.cv-project-row dt {
 		color: var(--color-muted);
 		font-size: var(--type-card-body-size);
-		line-height: var(--type-card-body-line);
+		line-height: 1.58;
 	}
 
-	.representative-system-card__link {
-		text-decoration: none;
+	.cv-related-link {
+		margin: 0;
 	}
 
-	.representative-system-card__link:focus-visible {
-		outline: 2px solid var(--color-accent-text);
-		outline-offset: 3px;
-	}
-
-        .cv-research-layout {
-                display: grid;
-                grid-template-columns: 1fr;
-                gap: clamp(1.25rem, 3vw, 1.75rem);
-                background: transparent;
-        }
-
-        .cv-research-focus-list {
-                display: grid;
-                gap: 0.55rem;
-                margin: 0;
-                padding: 0;
-                list-style: none;
-        }
-
-        .cv-research-focus-list li {
-                margin: 0;
-                border-bottom: 1px solid var(--color-border-soft);
-                padding-bottom: 0.45rem;
-                color: var(--color-muted);
-                font-family: var(--font-body);
-                font-size: var(--type-card-body-size);
-                line-height: var(--type-card-body-line);
-        }
-
-        .cv-research-focus-list li:last-child {
-                border-bottom: 0;
-                padding-bottom: 0;
-        }
-
-        .cv-compact-list {
-                display: grid;
-                gap: 0.6rem;
-                padding-left: 1.15rem;
-	}
-
-        .cv-research-stats {
-                display: grid;
-                grid-template-columns: 1fr;
-                gap: 0;
-                margin: 0;
-                padding: 0;
-                list-style: none;
-        }
-
-        .cv-research-stats li {
-                display: grid;
-                grid-template-columns: minmax(3.6rem, auto) minmax(0, 1fr);
-                gap: 0.8rem;
-                align-items: start;
-                margin: 0;
-                border-bottom: 1px solid var(--color-border-soft);
-                padding: 0.75rem 0;
-        }
-
-        .cv-research-stats li:first-child {
-                padding-top: 0;
-        }
-
-        .cv-research-stats li:last-child {
-                border-bottom: 0;
-                padding-bottom: 0;
-        }
-
-        .cv-research-stats strong {
-                color: var(--color-text);
-                font-family: var(--font-display);
-		font-size: var(--type-card-title-size);
-		line-height: var(--type-card-title-line);
-                letter-spacing: var(--type-card-title-tracking);
-        }
-
-        .cv-research-stats div {
-                display: grid;
-                gap: 0.2rem;
-        }
-
-        .cv-research-stats span,
-        .cv-research-outcome-grid span {
-                display: block;
-                color: var(--color-text);
-                font-family: var(--font-body);
-                font-size: var(--type-card-body-size);
-                font-weight: 700;
-                line-height: var(--type-card-body-line);
-                letter-spacing: var(--type-card-body-tracking);
-        }
-
-        .cv-research-stats p {
-                color: var(--color-muted);
-                font-family: var(--font-body);
-                font-size: var(--type-card-body-size);
-                line-height: var(--type-card-body-line);
-                letter-spacing: var(--type-card-body-tracking);
-        }
-
-        .cv-research-outcomes {
-                display: grid;
-                gap: 1rem;
-                margin-top: 1.5rem;
-        }
-
-        .cv-research-outcome-grid {
-                display: grid;
-                grid-template-columns: 1fr;
-                gap: 0;
-                margin: 0;
-                padding: 0;
-                list-style: none;
-        }
-
-        .cv-research-outcome-grid li {
-                display: flex;
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 0.25rem;
-                text-align: left;
-                margin: 0;
-                border-bottom: 1px solid var(--color-border-soft);
-                padding: 0.75rem 0;
-        }
-
-        .cv-research-outcome-grid li:first-child {
-                padding-top: 0;
-        }
-
-        .cv-research-outcome-grid li:last-child {
-                border-bottom: 0;
-                padding-bottom: 0;
-        }
-
-        .cv-research-outcome-grid strong {
-                display: block;
-                width: 100%;
-                color: var(--color-text);
-                font-family: var(--font-display);
-                font-size: clamp(1.12rem, 1.55vw, 1.35rem);
-                line-height: var(--type-card-title-line);
-                letter-spacing: var(--type-card-title-tracking);
-        }
-
-        .cv-research-outcome-grid span {
-                width: 100%;
-        }
-
-        .cv-research-relevance {
-                display: grid;
-                gap: 0.45rem;
-                border-top: 1px solid var(--color-border-soft);
-                padding-top: 0.95rem;
-        }
-
-        .cv-research-relevance h3 {
-                font-size: var(--type-meta-size);
-                line-height: var(--type-meta-line);
-                letter-spacing: var(--type-meta-tracking);
-                text-transform: uppercase;
-        }
-
-        .cv-research-relevance p {
-                max-width: var(--cv-max-measure);
-                color: var(--color-muted);
-                font-size: var(--type-card-body-size);
-                line-height: var(--type-card-body-line);
-        }
-
-        .cv-research-records {
-                display: grid;
-                gap: 0.75rem;
-        }
-
-        .cv-research-record > summary {
-                font-family: var(--font-mono);
-                font-size: var(--type-meta-size);
-                font-weight: 700;
-                letter-spacing: var(--type-meta-tracking);
-                line-height: var(--type-meta-line);
-                text-transform: uppercase;
-        }
-
-        .cv-research-record-list {
-                display: grid;
-                gap: 0;
-                margin: 0;
-                padding-left: 1.2rem;
-        }
-
-        .cv-research-record-list > li {
-                margin: 0;
-                border-bottom: 1px solid var(--color-border-soft);
-                padding: 0.95rem 0;
-        }
-
-        .cv-research-record-list > li:first-child {
-                padding-top: 0;
-        }
-
-        .cv-research-record-list > li:last-child {
-                border-bottom: 0;
-                padding-bottom: 0;
-        }
-
-        .cv-research-record-list__body {
-                display: grid;
-                gap: 0.55rem;
-        }
-
-        .cv-research-record-list h4,
-        .cv-publication-citation h4 {
-                margin: 0;
-                color: var(--color-text);
-                font-family: var(--font-display);
-                font-size: clamp(1rem, 1.1vw, 1.12rem);
-                font-weight: var(--type-card-title-weight);
-                line-height: 1.16;
-                letter-spacing: -0.025em;
-        }
-
-        .cv-publication-citation {
-                display: grid;
-                gap: 0.32rem;
-                max-width: 78ch;
-        }
-
-        .cv-publication-citation p {
-                margin: 0;
-                color: var(--color-muted);
-                font-size: var(--type-card-body-size);
-                line-height: var(--type-card-body-line);
-        }
-
-        .cv-publication-citation__authors {
-                color: var(--color-body-text);
-        }
-
-        .cv-publication-citation__source em {
-                color: var(--color-text);
-                font-style: italic;
-        }
-
-        .cv-publication-citation__source a {
-                color: inherit;
-                font-weight: 700;
-                text-decoration: underline;
-                text-decoration-thickness: 1px;
-                text-underline-offset: 0.18em;
-        }
-
-        .cv-publication-citation__link a {
-                color: var(--color-text);
-                font-weight: 700;
-                text-decoration: underline;
-                text-decoration-thickness: 1px;
-                text-underline-offset: 0.18em;
-        }
-
-        .cv-publication-citation__source a:focus-visible,
-        .cv-publication-citation__link a:focus-visible {
-                outline: 2px solid var(--color-accent-text);
-                outline-offset: 3px;
-        }
-
-        .cv-research-meta {
-                display: grid;
-                gap: 0.35rem;
-                margin: 0;
-        }
-
-        .cv-research-meta div {
-                display: grid;
-                grid-template-columns: minmax(5.75rem, auto) minmax(0, 1fr);
-                gap: 0.75rem;
-                align-items: start;
-        }
-
-        .cv-research-meta dt {
-                color: var(--color-soft);
-                font-family: var(--font-mono);
-                font-size: var(--type-meta-size);
-                font-weight: 700;
-                line-height: var(--type-meta-line);
-                letter-spacing: var(--type-meta-tracking);
-                text-transform: uppercase;
-        }
-
-        .cv-research-meta dd {
-                margin: 0;
-                color: var(--color-muted);
-                font-size: var(--type-card-body-size);
-                line-height: var(--type-card-body-line);
-        }
-
-        .cv-research-meta a {
-                color: var(--color-text);
-                font-weight: 700;
-                text-decoration: underline;
-                text-decoration-thickness: 1px;
-                text-underline-offset: 0.18em;
-        }
-
-        .cv-research-meta a:focus-visible {
-                outline: 2px solid var(--color-accent-text);
-                outline-offset: 3px;
-        }
-
-        .cv-research-link {
-                width: fit-content;
-                color: var(--color-text);
-		font-weight: 700;
-		text-decoration: underline;
-                text-decoration-thickness: 1px;
-                text-underline-offset: 0.2em;
-        }
-
-	.cv-research-link:hover,
-	.cv-research-link:focus-visible {
-		color: var(--color-text);
-	}
-
-	.cv-research-link:focus-visible {
-		outline: 2px solid var(--color-accent-text);
-		outline-offset: 3px;
-	}
-
-        .cv-link-list {
-                display: grid;
-                gap: 0.35rem;
-		padding-left: 1.15rem;
-	}
-
-	.cv-link-list a {
-		color: var(--color-text);
+	.cv-related-link a,
+	.cv-project-row__link a {
 		font-weight: 700;
 		text-decoration: underline;
 		text-decoration-thickness: 1px;
-		text-underline-offset: 0.2em;
+		text-underline-offset: 0.18em;
 	}
 
-	.cv-link-list a:hover,
-	.cv-link-list a:focus-visible {
-		color: var(--color-text);
+	.cv-section__toolbar {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 1rem;
+		justify-content: flex-end;
 	}
 
-	.cv-link-list a:focus-visible,
-	.cv-education-card__links a:focus-visible {
-		outline: 2px solid var(--color-accent-text);
-		outline-offset: 3px;
-	}
-
-	.cv-language-list {
+	.cv-experience-list {
 		display: grid;
-		gap: 0.65rem;
+		gap: 0;
 		margin: 0;
 		padding: 0;
 		list-style: none;
 	}
 
-	.cv-language-list li {
-		display: flex;
-		justify-content: space-between;
-		gap: 1rem;
+	.cv-role {
 		margin: 0;
-		border-bottom: 1px solid var(--color-border-soft);
-		padding-bottom: 0.5rem;
 	}
 
-	.cv-language-list strong {
-		color: var(--color-text);
-	}
-
-	.cv-language-list span {
-		color: var(--color-muted);
-	}
-
-	.cv-final {
-		border-bottom: 0;
-		background: transparent;
-	}
-
-	.cv-final__inner {
-		display: grid;
+	.cv-role__collapsed {
+		grid-template-columns: minmax(0, 0.34fr) minmax(0, 0.66fr);
 		gap: 1.5rem;
+	}
+
+	.cv-role__identity,
+	.cv-role__summary-block {
+		display: grid;
+		gap: 0.65rem;
+		align-content: start;
+	}
+
+	.cv-role__context {
+		font-family: var(--font-mono);
+		font-size: var(--type-meta-size);
+		font-weight: 600;
+		letter-spacing: var(--type-meta-tracking);
+		line-height: 1.35;
+		text-transform: uppercase;
+	}
+
+	.cv-role__contributions {
+		margin: 0;
+	}
+
+	.cv-role__ownership {
+		margin: 0;
+	}
+
+	.cv-role__ownership span {
+		display: inline-block;
+		margin-right: 0.45rem;
+		color: var(--color-accent-text);
+		font-family: var(--font-mono);
+		font-size: var(--type-meta-size);
+		font-weight: 700;
+		letter-spacing: var(--type-meta-tracking);
+		line-height: 1.35;
+		text-transform: uppercase;
+	}
+
+	.cv-disclosure-panel--role {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 1rem 1.5rem;
+	}
+
+	.cv-disclosure-panel--role .cv-related-link {
+		grid-column: 1 / -1;
+	}
+
+	.cv-project-list {
+		display: grid;
+		gap: 0;
+	}
+
+	.cv-project-row {
+		display: grid;
+		gap: 1rem;
+	}
+
+	.cv-project-row__meta {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 0.85rem 1.5rem;
+		margin: 0;
+	}
+
+	.cv-project-row__meta div {
+		display: grid;
+		gap: 0.2rem;
+	}
+
+	.cv-project-row dt {
+		font-family: var(--font-mono);
+		font-weight: 700;
+		letter-spacing: 0.04em;
+		text-transform: uppercase;
+	}
+
+	.cv-project-row dd {
+		margin: 0;
+	}
+
+	.cv-credential-group__visible {
+		margin: 0;
+	}
+
+	.cv-method-group {
+		display: grid;
+		grid-template-columns: minmax(0, 0.32fr) minmax(0, 0.68fr);
+		gap: 1rem 1.5rem;
 		align-items: start;
 	}
 
-	.cv-final__inner > div:first-child {
-		display: grid;
-		gap: 0.75rem;
-		max-width: var(--cv-max-measure);
+	.cv-method-group ul {
+		margin: 0;
 	}
 
-	.cv-final__actions {
-		display: grid;
-		gap: 0.9rem;
-		align-items: start;
-	}
-
-	.cv-final__actions > .button {
-		width: 100%;
-	}
-
-        @media (min-width: 700px) {
-                .cv-proof-grid,
-                .cv-card-grid--three,
-                .cv-card-grid--tools {
-                        grid-template-columns: repeat(2, minmax(0, 1fr));
-                }
-
-                .cv-card-grid--two,
-                .core-expertise-grid,
-                .cv-research-layout,
-                .representative-systems__grid {
-                        grid-template-columns: repeat(2, minmax(0, 1fr));
-                }
-
-                .cv-research-outcome-grid {
-                        grid-template-columns: repeat(4, minmax(0, 1fr));
-                        gap: 0.9rem;
-                }
-
-                .cv-research-outcome-grid li {
-                        border-right: 1px solid var(--color-border-soft);
-                        border-bottom: 0;
-                        padding: 0 0.9rem 0 0;
-                }
-
-                .cv-research-outcome-grid li:last-child {
-                        border-right: 0;
-                        padding-right: 0;
-                }
-
-		.core-expertise-detail__grid {
+	@media (min-width: 760px) {
+		.cv-card-grid {
 			grid-template-columns: repeat(2, minmax(0, 1fr));
-			gap: clamp(1.25rem, 3vw, 2rem);
+			gap: 0 1.5rem;
 		}
 
-                .cv-impact-list {
-                        grid-template-columns: repeat(2, minmax(0, 1fr));
-                }
-
-                .cv-learning-card__grid {
-                        grid-template-columns: repeat(2, minmax(0, 1fr));
-                }
-
-                .cv-education-card {
-                        grid-template-columns: minmax(0, 0.35fr) minmax(0, 0.65fr);
-                        align-items: start;
-                        align-content: start;
-                }
-
-                .cv-education-card__identity {
-                        grid-column: 1;
-                }
-
-                .cv-education-card__details,
-                .cv-education-card__links {
-                        grid-column: 2;
-                }
-        }
-
-	@media (min-width: 980px) {
-		.cv-hero__inner {
-			grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
-		}
-
-                .cv-card-grid--three,
-                .cv-card-grid--tools {
-                        grid-template-columns: repeat(3, minmax(0, 1fr));
-                }
-
-                .cv-final__inner {
-                        grid-template-columns: minmax(0, 1fr) auto;
-                        gap: 2rem;
-                }
-
-		.cv-final__actions {
-			min-width: 230px;
+		.cv-card:nth-child(2) {
+			border-top-color: var(--color-border);
 		}
 	}
 
-        @media (max-width: 760px) {
-                .cv-page {
-                        --cv-nav-height: 2.35rem;
-                        --cv-nav-shell-y-padding: 0.4rem;
-                        --cv-nav-clearance: 1.2rem;
-                }
-
-                .cv-section-nav-shell {
-                        margin-bottom: var(--cv-nav-clearance);
-                        padding-block: var(--cv-nav-shell-y-padding);
-                        top: var(--cv-nav-sticky-top);
-                }
-
-                .cv-section-nav__inner {
-                        min-height: var(--cv-nav-height);
-                        white-space: nowrap;
-                }
-
-                .cv-section-nav__label {
-                        position: sticky;
-                        left: 0;
-                        z-index: 1;
-                        padding-left: 0;
-                        padding-right: 0.4rem;
-                        background: color-mix(in srgb, var(--color-surface-soft) 26%, var(--color-page));
-                }
-
-                .cv-section-nav__links {
-                        gap: 0.85rem;
-                }
-
-                .cv-role__details-grid {
-                        grid-template-columns: 1fr;
-                }
-        }
-
-        @media (max-width: 640px) {
-		.cv-hero {
-			align-items: start;
-			padding-block: 3.5rem 2.75rem;
-		}
-
-		.cv-hero__inner {
+	@media (max-width: 980px) {
+		.cv-hero__inner,
+		.cv-section__layout,
+		.cv-role__collapsed,
+		.cv-method-group {
 			grid-template-columns: 1fr;
-			align-items: start;
-			gap: 1.1rem;
 		}
 
-		.cv-hero__content {
-			border-left: 0;
-			border-top: 1px solid var(--color-border-soft);
-			padding-top: 1rem;
-			padding-left: 0;
-			max-width: 100%;
+		.cv-section__intro-copy {
+			max-width: 52ch;
 		}
 
-		.cv-hero__content,
-		.cv-hero__label,
-		.cv-hero__evidence,
-		.cv-actions {
-			width: calc(100vw - 2rem);
-			max-width: calc(100vw - 2rem);
+		.cv-disclosure-panel--role,
+		.cv-project-row__meta {
+			grid-template-columns: 1fr;
+		}
+	}
+
+	@media (max-width: 760px) {
+		.cv-page {
+			width: min(calc(100% - 2rem), var(--content-width));
 		}
 
-		.cv-hero__content > * {
-			min-width: 0;
+		.cv-hero {
+			padding: 3rem 0 2rem;
 		}
 
-		.cv-hero h1 {
-			max-width: none;
-			font-size: clamp(3.2rem, 15vw, 4.4rem);
-			overflow-wrap: anywhere;
+		.cv-section-nav-shell {
+			top: 68px;
 		}
 
-		.cv-hero__subtitle {
-			width: 100%;
-			max-width: min(18rem, 100%);
-			min-width: 0;
-			font-size: 1.12rem;
-			line-height: 1.28;
-			white-space: normal;
-			overflow-wrap: anywhere;
-			word-break: break-word;
+		.cv-section-nav-shell .page-container {
+			grid-template-columns: 1fr;
+			align-items: stretch;
 		}
 
-		.cv-hero__subtitle,
-		.cv-hero__summary,
-		.cv-hero__extended {
-			overflow-wrap: anywhere;
-		}
-
-		.cv-hero__summary,
-		.cv-hero__extended {
-			max-width: 34ch;
-			font-size: 1rem;
-			line-height: 1.56;
-		}
-
-		.cv-role-strip .cv-chip-list {
-			display: grid;
-			gap: 0.42rem;
-		}
-
-		.cv-role-strip .cv-chip-list li {
-			max-width: 100%;
-			overflow-wrap: anywhere;
-		}
-
-                .cv-proof-grid {
-                        grid-template-columns: 1fr;
-                }
-
-                .cv-expertise-card__capabilities {
-                        grid-template-columns: 1fr;
-                }
-
-                .cv-role {
-                        grid-template-columns: 1fr;
-                        gap: 0.65rem;
-		}
-
-		.cv-role::before {
+		.cv-section-nav--desktop {
 			display: none;
 		}
 
-                .cv-role__milestone {
-                        position: static;
-                        grid-template-columns: 0.75rem minmax(0, 1fr);
-                        gap: 0.65rem;
-                }
-
-                .cv-role__marker {
-                        width: 0.7rem;
-                        height: 0.7rem;
-                }
-
-		.representative-system-card__meta div {
-			grid-template-columns: 1fr;
-			gap: 0.2rem;
+		.cv-section-nav-mobile {
+			display: block;
 		}
 
-		.cv-expertise-card__icon-button,
-		.cv-role__icon-button {
-			width: 2.5rem;
-			height: 2.5rem;
+		.cv-section-nav__actions {
+			justify-content: stretch;
+		}
+
+		.cv-section-nav__actions .button {
+			width: 100%;
+		}
+
+		.cv-card-grid {
+			grid-template-columns: 1fr;
+		}
+
+		.cv-card:nth-child(2) {
+			border-top-color: var(--color-border-soft);
 		}
 	}
 
 	@media (prefers-reduced-motion: reduce) {
 		.cv-page *,
-                .cv-page *::before,
-                .cv-page *::after {
-                        animation-duration: 0.001ms !important;
-                        animation-iteration-count: 1 !important;
-                        scroll-behavior: auto !important;
-                        transition-duration: 0.001ms !important;
-                }
-
-                .cv-scroll-jump {
-                        transition: none;
-                }
-        }
+		.cv-page *::before,
+		.cv-page *::after {
+			animation-duration: 0.001ms !important;
+			animation-iteration-count: 1 !important;
+			scroll-behavior: auto !important;
+			transition-duration: 0.001ms !important;
+		}
+	}
 
 	@media print {
 		:global(.site-header),
-                :global(.site-footer),
-                :global(.skip-link),
-                .cv-scroll-jump,
-                .cv-section-nav-shell,
-                .cv-section-nav,
-                .cv-expertise-card__icon-button,
-                .cv-expertise-card__toggle,
-                .cv-role__icon-button,
-                .cv-role__toggle,
-                .cv-actions,
-                .cv-final__actions {
-                        display: none !important;
-                }
+		:global(.site-footer),
+		:global(.skip-link),
+		.cv-section-nav-shell,
+		.cv-disclosure-button,
+		.cv-section__toolbar {
+			display: none !important;
+		}
+
+		.cv-page {
+			width: 100%;
+			padding-bottom: 0;
+		}
 
 		.cv-hero,
 		.cv-section {
+			padding: 1rem 0;
 			background: transparent;
-			padding-block: 1rem;
+		}
+
+		.cv-disclosure-panel[hidden] {
+			display: grid !important;
 		}
 
 		.cv-card,
-		.cv-role,
-		.cv-role__content,
-		.cv-disclosure--card,
-		.cv-impact-list li {
+		.cv-role__card,
+		.cv-project-row,
+		.cv-credential-group,
+		.cv-method-group {
 			break-inside: avoid;
 		}
-
-		.cv-disclosure:not([open]) > *:not(summary) {
-			display: block;
-		}
-
-		.core-expertise-detail[hidden],
-		.cv-role__details[hidden],
-		.cv-role__details--compact[hidden] {
-			display: block !important;
-		}
-
-		.cv-disclosure > summary {
-			border: 0;
-			padding: 0;
-		}
-
-		details > * { color: #000; }
-
-		a[href^='http']::after {
-			content: ' (' attr(href) ')';
-			font-weight: 400;
-		}
 	}
 </style>
 
-<style>
-	/* Maria resume pattern: editorial rails, continuous text, no card wall. */
-	.cv-page { width:min(calc(100% - 5rem),var(--content-width)); margin:0 auto; padding-bottom:5rem; }
-	.cv-page .page-container { width:100%; }
-	.cv-scroll-jump { display:grid; }
-	.cv-section-nav-shell { display:block; }
-	.cv-section-nav-shell--secondary { display:none; }
-	.cv-hero > .page-container > .cv-section-nav-shell { position:sticky; top:0; z-index:80; }
-	.cv-hero { padding:clamp(3rem,5vw,4.6rem) 0 4rem; background:transparent; border:0; }
-	.cv-hero__inner { display:grid; grid-template-columns:1fr; gap:0; }
-	.cv-hero__label { display:grid; gap:1rem; }
-	.cv-hero__label .section-eyebrow { margin:0; color:var(--color-muted); font-size:.82rem; font-weight:600; letter-spacing:.08em; line-height:1.4; }
-	.cv-hero__name { max-width:none; margin:0; font-size:clamp(2.6rem,3.8vw,3.5rem); line-height:1.02; letter-spacing:-.05em; font-weight:800; }
-	.cv-hero__content { max-width:52rem; margin-top:1rem; padding:0; border:0; gap:1rem; }
-	.cv-hero__subtitle { max-width:44rem; font-size:1.2rem; line-height:1.55; font-weight:600; }
-	.cv-hero__brand { margin:.35rem 0 0; color:var(--color-accent-text); font-family:var(--font-mono); font-size:.84rem; font-weight:700; letter-spacing:.04em; text-transform:uppercase; }
-	.cv-hero__summary,.cv-hero__extended { max-width:52rem; font-size:1.08rem; line-height:1.7; color:var(--color-text); }
-	.cv-actions { margin-top:1.5rem; }
-	.cv-hero__fit,.cv-hero__impact { max-width:52rem; margin:.75rem 0 0; color:var(--color-muted); font-size:.95rem; line-height:1.55; }
-	.cv-hero__impact { border-left:2px solid var(--color-accent-text); padding-left:.8rem; }
-	.cv-hero__evidence { grid-column:1; display:grid; grid-template-columns:16rem minmax(0,1fr); gap:2rem; margin-top:4rem; padding:2.5rem 0 0; border-top:1px solid var(--color-border); }
-	.cv-hero__evidence::before { content:'Snapshot'; font-family:var(--font-mono); font-size:.82rem; font-weight:600; letter-spacing:.08em; line-height:1.4; text-transform:uppercase; color:var(--color-muted); }
-	.cv-hero__details { grid-column:2; grid-row:1; margin-top:0; }
-	.cv-proof-grid { grid-column:2; grid-row:2; display:grid; gap:1rem; }
-	.cv-proof-grid li { display:grid; grid-template-columns:minmax(9rem,.35fr) 1fr; gap:1rem; padding:0; border:0; background:transparent; }
-	.cv-proof-grid strong,.cv-proof-grid span { font-family:var(--font-body); font-size:1.08rem; line-height:1.7; letter-spacing:0; text-transform:none; }
-	.cv-proof-grid strong { color:var(--color-text); font-weight:700; }
-	.cv-proof-grid span { color:var(--color-muted); }
-	.cv-role-strip { grid-column:2; margin-top:1rem; padding-top:1rem; border-top:1px solid var(--color-border-soft); }
-	.cv-section-nav-shell::before { border-bottom:0; }
-	.cv-role-strip > p { font-family:var(--font-mono); font-size:.82rem; letter-spacing:.08em; text-transform:uppercase; color:var(--color-muted); }
-	.cv-chip-list { display:flex; flex-wrap:wrap; gap:.35rem .8rem; }
-	.cv-chip-list li { border:0; border-radius:0; background:transparent; padding:0; color:var(--color-muted); }
-	.cv-chip-list li:not(:last-child)::after { content:' ·'; }
-	.cv-main-flow { display:flex; flex-direction:column; }
-	.cv-section { padding:2.5rem 0; border-top:1px solid var(--color-border); background:transparent; }
-	.cv-section > .page-container { display:grid; grid-template-columns:16rem minmax(0,1fr); gap:2rem; align-items:start; }
-	.cv-section__intro { display:contents; }
-	.cv-section__intro h2 { grid-column:1; margin:0; max-width:none; color:var(--color-muted); font-family:var(--font-mono); font-size:.82rem; font-weight:600; letter-spacing:.08em; line-height:1.4; text-transform:uppercase; }
-	.cv-section__intro > p { grid-column:2; margin:0 0 1.5rem; max-width:52rem; font-size:1.08rem; line-height:1.7; color:var(--color-text); }
-	.cv-section > .page-container > :not(.cv-section__intro) { grid-column:2; width:100%; max-width:52rem; }
-	.core-expertise-grid,.representative-systems__grid,.cv-card-grid,.cv-card-grid--education,.cv-card-grid--tools,.cv-research-layout { display:grid; grid-template-columns:1fr; gap:0; }
-	.cv-card,.cv-expertise-card,.representative-system-card,.cv-education-card,.cv-tool-card,.cv-learning-card { display:grid; gap:1rem; margin:0; padding:1.5rem 0; border:0; border-top:1px solid var(--color-border-soft); border-radius:0; background:transparent; box-shadow:none; transform:none; }
-	.cv-card:hover,.cv-card:focus-within { background:transparent; border-color:var(--color-border); transform:none; }
-	.cv-expertise-card__icon-button,.cv-role__icon-button { display:none; }
-	.cv-expertise-card__toggle,.cv-role__toggle { display:inline-flex; }
-	.cv-role__toggle--compact { display:none; }
-	.core-expertise-detail[hidden],.cv-role__details[hidden],.cv-role__details--compact[hidden] { display:none; }
-	.cv-hero__details { margin-top:1rem; max-width:52rem; }
-	.cv-hero__details .cv-hero__extended { margin-top:.8rem; }
-	.cv-hero__profile-link { display:inline-block; margin-top:.65rem; color:var(--color-text); font-family:var(--font-mono); font-size:.78rem; font-weight:700; letter-spacing:.03em; text-decoration:underline; text-underline-offset:.25em; }
-	.cv-expertise-card__title,.cv-card h3,.cv-role h3,.cv-education-card h3,.cv-tool-card h3 { max-width:none; font-size:clamp(1.35rem,2vw,1.8rem); line-height:1.15; letter-spacing:-.04em; font-weight:800; }
-	.cv-expertise-card__summary,.core-expertise-detail__summary,.cv-role__summary,.cv-card p { font-size:1.05rem; line-height:1.7; color:var(--color-muted); }
-	.cv-expertise-card__capabilities,.cv-detail-group ul,.cv-role__bullets { margin-top:.5rem; }
-	.cv-timeline { display:grid; gap:0; border-top:1px solid var(--color-border-soft); }
-	.cv-role { display:grid; grid-template-columns:12rem minmax(0,1fr); gap:2rem; padding:2rem 0; border-bottom:1px solid var(--color-border-soft); }
-	.cv-role__milestone { position:static; display:block; padding:0; }
-	.cv-role__marker,.cv-role::before { display:none; }
-	.cv-role__content { padding:0; border:0; border-radius:0; background:transparent; box-shadow:none; }
-	.cv-role__period,.cv-role__organization,.cv-role__location { font-size:.82rem; line-height:1.5; }
-	.cv-role__details { margin-top:1rem; padding-top:1rem; border-top:1px solid var(--color-border-soft); }
-	.cv-role__assignment { margin:0; color:var(--color-muted); font-family:var(--font-mono); font-size:.78rem; letter-spacing:.03em; }
-	.cv-ownership-label { display:inline-block; min-width:5.6rem; margin-right:.5rem; color:var(--color-accent-text); font-family:var(--font-mono); font-size:.72rem; font-weight:700; letter-spacing:.06em; text-transform:uppercase; vertical-align:baseline; }
-	.cv-work-handoff { border-top:1px solid var(--color-border); border-bottom:1px solid var(--color-border); padding:2rem 0; }
-	.cv-work-handoff__inner { display:flex; align-items:center; justify-content:space-between; gap:2rem; }
-	.cv-work-handoff h2 { margin:.35rem 0 .45rem; font-size:clamp(1.45rem,2.2vw,2rem); letter-spacing:-.035em; }
-	.cv-work-handoff p:not(.section-eyebrow) { max-width:42rem; margin:0; color:var(--color-muted); font-size:1rem; line-height:1.6; }
-	.cv-impact-list { border-top:1px solid var(--color-border-soft); }
-	.cv-impact-list li { display:grid; grid-template-columns:10rem minmax(0,1fr); gap:1rem; padding:1.5rem 0; border:0; border-bottom:1px solid var(--color-border-soft); border-radius:0; background:transparent; }
-	.cv-impact-list h3 { font-size:1.35rem; letter-spacing:-.035em; }
-	.cv-research-outcomes { border-top:1px solid var(--color-border-soft); }
-	.cv-final__inner { display:grid; grid-template-columns:16rem minmax(0,1fr); gap:2rem; }
-	.cv-final__inner > div:first-child { grid-column:2; }
-	.cv-final__inner h2 { font-size:clamp(1.7rem,3vw,2.4rem); }
-	.cv-final__actions { grid-column:2; display:flex; flex-wrap:wrap; }
-	@media(max-width:720px){
-		.cv-hero{padding:3rem 0 3rem}
-		.cv-hero__name{font-size:clamp(2.15rem,10vw,2.45rem);line-height:1.04}
-		.cv-hero__evidence,.cv-section > .page-container,.cv-final__inner{grid-template-columns:1fr;gap:1rem}
-		.cv-hero__evidence::before,.cv-hero__details,.cv-proof-grid,.cv-role-strip,.cv-section__intro h2,.cv-section__intro > p,.cv-section > .page-container > :not(.cv-section__intro),.cv-final__inner > div:first-child,.cv-final__actions{grid-column:1}
-		.cv-proof-grid li,.cv-role,.cv-impact-list li{grid-template-columns:1fr;gap:.35rem}
-		.cv-section__intro > p{margin-bottom:1rem}
-		.cv-actions .button,.cv-final__actions .button{width:100%}
-		.cv-section-nav-shell { overflow:visible; }
-		.cv-section-nav { min-width:0; }
-		.cv-section-nav__inner { min-height:0; padding-block:.65rem; flex-wrap:wrap; white-space:normal; }
-		.cv-section-nav__links { flex-wrap:wrap; row-gap:.45rem; overflow:visible; }
-		.cv-work-handoff__inner { align-items:flex-start; flex-direction:column; gap:1rem; }
-		.cv-work-handoff .button { width:100%; }
-	}
-	@media(max-width:640px){.cv-page{width:min(calc(100% - 32px),var(--content-width))}}
-</style>
+<script is:inline>
+	(() => {
+		const root = document;
+		const toggles = Array.from(root.querySelectorAll('[data-disclosure-toggle]'));
+		const navLinks = Array.from(root.querySelectorAll('[data-cv-nav-link]'));
+		const mobileNav = root.querySelector('.cv-section-nav-mobile');
+		const experienceExpandAll = root.querySelector('[data-expand-all="experience"]');
+		const experienceCollapseAll = root.querySelector('[data-collapse-all="experience"]');
+
+		const setDisclosureState = (button, expanded) => {
+			const panelId = button.getAttribute('aria-controls');
+			if (!panelId) return;
+
+			const panel = root.getElementById(panelId);
+			if (!panel) return;
+
+			button.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+			const collapsedLabel = button.getAttribute('data-label-collapsed') ?? 'Show structure';
+			const expandedLabel = button.getAttribute('data-label-expanded') ?? 'Hide structure';
+			const label = button.querySelector('span');
+			const icon = button.querySelector('[aria-hidden="true"]');
+			if (label) label.textContent = expanded ? expandedLabel : collapsedLabel;
+			if (icon) icon.textContent = expanded ? '−' : '+';
+			panel.hidden = !expanded;
+		};
+
+		toggles.forEach((button) => {
+			setDisclosureState(button, button.getAttribute('aria-expanded') === 'true');
+			button.addEventListener('click', () => {
+				const expanded = button.getAttribute('aria-expanded') === 'true';
+				setDisclosureState(button, !expanded);
+			});
+		});
+
+		const experienceButtons = toggles.filter(
+			(button) => button.getAttribute('data-disclosure-group') === 'experience',
+		);
+
+		experienceExpandAll?.addEventListener('click', () => {
+			experienceButtons.forEach((button) => setDisclosureState(button, true));
+		});
+
+		experienceCollapseAll?.addEventListener('click', () => {
+			experienceButtons.forEach((button) => setDisclosureState(button, false));
+		});
+
+		const sections = navLinks
+			.map((link) => {
+				const target = link.getAttribute('data-target');
+				if (!target) return null;
+				const section = root.getElementById(target);
+				return section ? { id: target, section } : null;
+			})
+			.filter(Boolean);
+
+		if ('IntersectionObserver' in window && sections.length > 0) {
+			const setActiveLink = (id) => {
+				navLinks.forEach((link) => {
+					link.setAttribute('aria-current', link.getAttribute('data-target') === id ? 'true' : 'false');
+				});
+			};
+
+			const observer = new IntersectionObserver(
+				(entries) => {
+					const visible = entries
+						.filter((entry) => entry.isIntersecting)
+						.sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+
+					if (visible?.target?.id) {
+						setActiveLink(visible.target.id);
+					}
+				},
+				{
+					rootMargin: '-25% 0px -55% 0px',
+					threshold: [0.2, 0.45, 0.7],
+				},
+			);
+
+			sections.forEach((item) => observer.observe(item.section));
+			setActiveLink('overview');
+		}
+
+		navLinks.forEach((link) => {
+			link.addEventListener('click', () => {
+				if (mobileNav?.hasAttribute('open')) {
+					mobileNav.removeAttribute('open');
+				}
+			});
+		});
+	})();
+</script>
