@@ -93,8 +93,8 @@ const actions: CvAction[] = [
 
 const sectionNav: SectionNavItem[] = [
 	{ id: 'overview', label: 'Overview' },
-	{ id: 'expertise', label: 'Expertise' },
 	{ id: 'experience', label: 'Experience' },
+	{ id: 'expertise', label: 'Expertise' },
 	{ id: 'projects', label: 'Projects' },
 	{ id: 'credentials', label: 'Credentials' },
 	{ id: 'methods', label: 'Methods' },
@@ -888,74 +888,6 @@ const visibleExperienceCount = 3;
 				</div>
 			</section>
 
-			<section id="expertise" class="cv-section" aria-labelledby="expertise-title">
-				<div class="page-container cv-section__layout">
-					<h2 id="expertise-title" class="cv-section__rail-heading">Core expertise</h2>
-					<div class="cv-section__content">
-						<div class="cv-card-grid">
-							{expertiseItems.map((item) => (
-								<article class="cv-card panel cv-disclosure-item" aria-labelledby={`${item.id}-title`}>
-									<div class="cv-card__collapsed">
-										<h3 id={`${item.id}-title`} class:list={{ 'cv-missing': isPlaceholder(item.title) }}>{item.title}</h3>
-										<p class:list={['cv-card__summary', { 'cv-missing': isPlaceholder(item.scope) }]}>{item.scope}</p>
-										<button
-											class="cv-disclosure-button"
-											type="button"
-											aria-expanded="false"
-											aria-controls={`${item.id}-details`}
-											data-disclosure-toggle
-											data-label-collapsed="View expertise details"
-											data-label-expanded="Hide expertise details"
-										>
-											<span>View expertise details</span>
-										</button>
-									</div>
-									<div id={`${item.id}-details`} class="cv-disclosure-panel" hidden>
-										<section class="cv-detail-group" aria-labelledby={`${item.id}-problems`}>
-											<h4 id={`${item.id}-problems`}>Problems addressed</h4>
-											<ul>
-												{item.problemsAddressed.map((detail) => (
-													<li class:list={{ 'cv-missing': isPlaceholder(detail) }}>{detail}</li>
-												))}
-											</ul>
-										</section>
-										<section class="cv-detail-group" aria-labelledby={`${item.id}-ownership`}>
-											<h4 id={`${item.id}-ownership`}>Scope of ownership</h4>
-											<ul>
-												{item.ownership.map((detail) => (
-													<li class:list={{ 'cv-missing': isPlaceholder(detail) }}>{detail}</li>
-												))}
-											</ul>
-										</section>
-										<section class="cv-detail-group" aria-labelledby={`${item.id}-methods`}>
-											<h4 id={`${item.id}-methods`}>Methods and constraints</h4>
-											<ul>
-												{item.methodsAndConstraints.map((detail) => (
-													<li class:list={{ 'cv-missing': isPlaceholder(detail) }}>{detail}</li>
-												))}
-											</ul>
-										</section>
-										<section class="cv-detail-group" aria-labelledby={`${item.id}-applications`}>
-											<h4 id={`${item.id}-applications`}>Representative applications</h4>
-											<ul>
-												{item.applications.map((detail) => (
-													<li class:list={{ 'cv-missing': isPlaceholder(detail) }}>{detail}</li>
-												))}
-											</ul>
-										</section>
-										{item.relatedProject && (
-											<p class="cv-related-link">
-												<a class:list={{ 'cv-missing': isPlaceholder(item.relatedProject.label) }} href={withBase(item.relatedProject.href)}>{item.relatedProject.label}</a>
-											</p>
-										)}
-									</div>
-								</article>
-							))}
-						</div>
-					</div>
-				</div>
-			</section>
-
 			<section id="experience" class="cv-section" aria-labelledby="experience-title">
 				<div class="page-container cv-section__layout">
 					<h2 id="experience-title" class="cv-section__rail-heading">Experience</h2>
@@ -1023,6 +955,74 @@ const visibleExperienceCount = 3;
 								See all experience ({experienceItems.length} roles)
 							</button>
 						)}
+					</div>
+				</div>
+			</section>
+
+			<section id="expertise" class="cv-section" aria-labelledby="expertise-title">
+				<div class="page-container cv-section__layout">
+					<h2 id="expertise-title" class="cv-section__rail-heading">Core expertise</h2>
+					<div class="cv-section__content">
+						<div class="cv-card-grid">
+							{expertiseItems.map((item) => (
+								<article class="cv-card panel cv-disclosure-item" aria-labelledby={`${item.id}-title`}>
+									<div class="cv-card__collapsed">
+										<h3 id={`${item.id}-title`} class:list={{ 'cv-missing': isPlaceholder(item.title) }}>{item.title}</h3>
+										<p class:list={['cv-card__summary', { 'cv-missing': isPlaceholder(item.scope) }]}>{item.scope}</p>
+										<button
+											class="cv-disclosure-button"
+											type="button"
+											aria-expanded="false"
+											aria-controls={`${item.id}-details`}
+											data-disclosure-toggle
+											data-label-collapsed="View expertise details"
+											data-label-expanded="Hide expertise details"
+										>
+											<span>View expertise details</span>
+										</button>
+									</div>
+									<div id={`${item.id}-details`} class="cv-disclosure-panel" hidden>
+										<section class="cv-detail-group" aria-labelledby={`${item.id}-problems`}>
+											<h4 id={`${item.id}-problems`}>Problems addressed</h4>
+											<ul>
+												{item.problemsAddressed.map((detail) => (
+													<li class:list={{ 'cv-missing': isPlaceholder(detail) }}>{detail}</li>
+												))}
+											</ul>
+										</section>
+										<section class="cv-detail-group" aria-labelledby={`${item.id}-ownership`}>
+											<h4 id={`${item.id}-ownership`}>Scope of ownership</h4>
+											<ul>
+												{item.ownership.map((detail) => (
+													<li class:list={{ 'cv-missing': isPlaceholder(detail) }}>{detail}</li>
+												))}
+											</ul>
+										</section>
+										<section class="cv-detail-group" aria-labelledby={`${item.id}-methods`}>
+											<h4 id={`${item.id}-methods`}>Methods and constraints</h4>
+											<ul>
+												{item.methodsAndConstraints.map((detail) => (
+													<li class:list={{ 'cv-missing': isPlaceholder(detail) }}>{detail}</li>
+												))}
+											</ul>
+										</section>
+										<section class="cv-detail-group" aria-labelledby={`${item.id}-applications`}>
+											<h4 id={`${item.id}-applications`}>Representative applications</h4>
+											<ul>
+												{item.applications.map((detail) => (
+													<li class:list={{ 'cv-missing': isPlaceholder(detail) }}>{detail}</li>
+												))}
+											</ul>
+										</section>
+										{item.relatedProject && (
+											<p class="cv-related-link">
+												<a class:list={{ 'cv-missing': isPlaceholder(item.relatedProject.label) }} href={withBase(item.relatedProject.href)}>{item.relatedProject.label}</a>
+											</p>
+										)}
+									</div>
+								</article>
+							))}
+						</div>
 					</div>
 				</div>
 			</section>
@@ -1109,6 +1109,26 @@ const visibleExperienceCount = 3;
 									</ul>
 								</section>
 							))}
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<section class="cv-section cv-closing" aria-labelledby="cv-closing-title">
+				<div class="page-container cv-section__layout">
+					<h2 id="cv-closing-title" class="cv-section__rail-heading">Contact</h2>
+					<div class="cv-section__content">
+						<h3>Looking for an embedded controls technical lead?</h3>
+						<div class="cv-prose">
+							<p>
+								For roles or technical conversations involving embedded controls, electric vehicles, battery and thermal management,
+								diagnostics, functional safety, autonomous machines, or reliable physical systems, contact me directly or download the PDF CV.
+							</p>
+							<p>Based in Spain and open to selected remote or hybrid opportunities with international teams.</p>
+						</div>
+						<div class="button-row">
+							<a class="button primary" href={withBase('/contact')}>Contact</a>
+							<a class="button" href={withBase('/cv/Carlos_Jorques_CV.pdf')}>Download CV</a>
 						</div>
 					</div>
 				</div>
