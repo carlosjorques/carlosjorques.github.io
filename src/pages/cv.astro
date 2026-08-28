@@ -5,7 +5,6 @@ type CvAction = {
 	label: string;
 	href: string;
 	primary?: boolean;
-	download?: boolean;
 };
 
 type SectionNavItem = {
@@ -13,9 +12,10 @@ type SectionNavItem = {
 	label: string;
 };
 
-type ProofItem = {
-	value: string;
-	label: string;
+type OverviewItem = {
+	heading: string;
+	paragraphs: string[];
+	scopeItems: string[];
 };
 
 type DetailGroup = {
@@ -25,11 +25,16 @@ type DetailGroup = {
 
 type ExpertiseItem = {
 	id: string;
-	eyebrow: string;
 	title: string;
 	scope: string;
-	keywords: string[];
-	details: DetailGroup[];
+	methodsAndConstraints: string[];
+	problemsAddressed: string[];
+	ownership: string[];
+	applications: string[];
+	relatedProject?: {
+		label: string;
+		href: string;
+	};
 };
 
 type ExperienceItem = {
@@ -44,11 +49,9 @@ type ExperienceItem = {
 };
 
 type ProjectRow = {
-	system: string;
-	context: string;
-	contribution: string;
-	rolePeriod: string;
-	expertise: string;
+	title: string;
+	summary: string;
+	meta: string;
 	linkLabel?: string;
 	linkHref?: string;
 };
@@ -57,7 +60,11 @@ type CredentialGroup = {
 	id: string;
 	title: string;
 	visibleItems: string[];
-	details?: DetailGroup[];
+	disclosure?: {
+		collapsedLabel: string;
+		expandedLabel: string;
+		details: string[];
+	};
 };
 
 type MethodGroup = {
@@ -73,7 +80,7 @@ const withBase = (href: string) =>
 		: `${normalizedBase}${href.replace(/^\//, '')}`;
 
 const actions: CvAction[] = [
-	{ label: 'Download CV', href: '#download-cv', primary: true, download: true },
+	{ label: 'Download CV', href: '#download-cv', primary: true },
 	{ label: 'Contact', href: '/contact' },
 ];
 
@@ -86,7 +93,7 @@ const sectionNav: SectionNavItem[] = [
 	{ id: 'methods', label: 'Methods' },
 ];
 
-const proofItems: ProofItem[] = [
+const proofItems = [
 	{ value: '[Proof item 01]', label: '[Professional proof placeholder]' },
 	{ value: '[Proof item 02]', label: '[Domain or system placeholder]' },
 	{ value: '[Proof item 03]', label: '[Role-scope placeholder]' },
@@ -95,96 +102,70 @@ const proofItems: ProofItem[] = [
 	{ value: '[Proof item 06]', label: '[Location or availability placeholder]' },
 ];
 
+const overview: OverviewItem = {
+	heading: '[Overview content heading]',
+	paragraphs: [
+		'[Overview paragraph placeholder describing the professional scope of this CV.]',
+		'[Overview paragraph placeholder describing the kinds of systems, responsibilities, or contexts represented here.]',
+		'[Overview paragraph placeholder describing how experience, projects, and credentials are organized on this page.]',
+	],
+	scopeItems: ['[Professional-scope placeholder 01]', '[Professional-scope placeholder 02]', '[Professional-scope placeholder 03]'],
+};
+
 const expertiseItems: ExpertiseItem[] = [
 	{
 		id: 'expertise-area-01',
-		eyebrow: '[Expertise area]',
 		title: '[Expertise title 01]',
-		scope: '[One-sentence scope placeholder describing the area covered.]',
-		keywords: ['[Keyword 01]', '[Keyword 02]', '[Keyword 03]'],
-		details: [
-			{ title: 'Problems addressed', items: ['[Problem placeholder 01]', '[Problem placeholder 02]'] },
-			{ title: 'Scope of ownership', items: ['[Ownership placeholder 01]', '[Ownership placeholder 02]'] },
-			{ title: 'Decisions and constraints', items: ['[Constraint placeholder 01]', '[Constraint placeholder 02]'] },
-			{ title: 'Methods', items: ['[Method placeholder 01]', '[Method placeholder 02]'] },
-			{ title: 'Representative applications', items: ['[Application placeholder 01]', '[Application placeholder 02]'] },
-			{ title: 'Related project link area', items: ['[Related-project placeholder]'] },
-		],
+		scope: '[One-sentence scope placeholder describing the expertise area.]',
+		problemsAddressed: ['[Problem placeholder 01]', '[Problem placeholder 02]'],
+		ownership: ['[Ownership placeholder 01]', '[Ownership placeholder 02]'],
+		methodsAndConstraints: ['[Method or constraint placeholder 01]', '[Method or constraint placeholder 02]'],
+		applications: ['[Application placeholder 01]', '[Application placeholder 02]'],
 	},
 	{
 		id: 'expertise-area-02',
-		eyebrow: '[Expertise area]',
 		title: '[Expertise title 02]',
-		scope: '[One-sentence scope placeholder describing the area covered.]',
-		keywords: ['[Keyword 01]', '[Keyword 02]', '[Keyword 03]'],
-		details: [
-			{ title: 'Problems addressed', items: ['[Problem placeholder 01]', '[Problem placeholder 02]'] },
-			{ title: 'Scope of ownership', items: ['[Ownership placeholder 01]', '[Ownership placeholder 02]'] },
-			{ title: 'Decisions and constraints', items: ['[Constraint placeholder 01]', '[Constraint placeholder 02]'] },
-			{ title: 'Methods', items: ['[Method placeholder 01]', '[Method placeholder 02]'] },
-			{ title: 'Representative applications', items: ['[Application placeholder 01]', '[Application placeholder 02]'] },
-			{ title: 'Related project link area', items: ['[Related-project placeholder]'] },
-		],
+		scope: '[One-sentence scope placeholder describing the expertise area.]',
+		problemsAddressed: ['[Problem placeholder 01]', '[Problem placeholder 02]'],
+		ownership: ['[Ownership placeholder 01]', '[Ownership placeholder 02]'],
+		methodsAndConstraints: ['[Method or constraint placeholder 01]', '[Method or constraint placeholder 02]'],
+		applications: ['[Application placeholder 01]', '[Application placeholder 02]'],
 	},
 	{
 		id: 'expertise-area-03',
-		eyebrow: '[Expertise area]',
 		title: '[Expertise title 03]',
-		scope: '[One-sentence scope placeholder describing the area covered.]',
-		keywords: ['[Keyword 01]', '[Keyword 02]', '[Keyword 03]'],
-		details: [
-			{ title: 'Problems addressed', items: ['[Problem placeholder 01]', '[Problem placeholder 02]'] },
-			{ title: 'Scope of ownership', items: ['[Ownership placeholder 01]', '[Ownership placeholder 02]'] },
-			{ title: 'Decisions and constraints', items: ['[Constraint placeholder 01]', '[Constraint placeholder 02]'] },
-			{ title: 'Methods', items: ['[Method placeholder 01]', '[Method placeholder 02]'] },
-			{ title: 'Representative applications', items: ['[Application placeholder 01]', '[Application placeholder 02]'] },
-			{ title: 'Related project link area', items: ['[Related-project placeholder]'] },
-		],
+		scope: '[One-sentence scope placeholder describing the expertise area.]',
+		problemsAddressed: ['[Problem placeholder 01]', '[Problem placeholder 02]'],
+		ownership: ['[Ownership placeholder 01]', '[Ownership placeholder 02]'],
+		methodsAndConstraints: ['[Method or constraint placeholder 01]', '[Method or constraint placeholder 02]'],
+		applications: ['[Application placeholder 01]', '[Application placeholder 02]'],
 	},
 	{
 		id: 'expertise-area-04',
-		eyebrow: '[Expertise area]',
 		title: '[Expertise title 04]',
-		scope: '[One-sentence scope placeholder describing the area covered.]',
-		keywords: ['[Keyword 01]', '[Keyword 02]', '[Keyword 03]'],
-		details: [
-			{ title: 'Problems addressed', items: ['[Problem placeholder 01]', '[Problem placeholder 02]'] },
-			{ title: 'Scope of ownership', items: ['[Ownership placeholder 01]', '[Ownership placeholder 02]'] },
-			{ title: 'Decisions and constraints', items: ['[Constraint placeholder 01]', '[Constraint placeholder 02]'] },
-			{ title: 'Methods', items: ['[Method placeholder 01]', '[Method placeholder 02]'] },
-			{ title: 'Representative applications', items: ['[Application placeholder 01]', '[Application placeholder 02]'] },
-			{ title: 'Related project link area', items: ['[Related-project placeholder]'] },
-		],
+		scope: '[One-sentence scope placeholder describing the expertise area.]',
+		problemsAddressed: ['[Problem placeholder 01]', '[Problem placeholder 02]'],
+		ownership: ['[Ownership placeholder 01]', '[Ownership placeholder 02]'],
+		methodsAndConstraints: ['[Method or constraint placeholder 01]', '[Method or constraint placeholder 02]'],
+		applications: ['[Application placeholder 01]', '[Application placeholder 02]'],
 	},
 	{
 		id: 'expertise-area-05',
-		eyebrow: '[Expertise area]',
 		title: '[Expertise title 05]',
-		scope: '[One-sentence scope placeholder describing the area covered.]',
-		keywords: ['[Keyword 01]', '[Keyword 02]', '[Keyword 03]'],
-		details: [
-			{ title: 'Problems addressed', items: ['[Problem placeholder 01]', '[Problem placeholder 02]'] },
-			{ title: 'Scope of ownership', items: ['[Ownership placeholder 01]', '[Ownership placeholder 02]'] },
-			{ title: 'Decisions and constraints', items: ['[Constraint placeholder 01]', '[Constraint placeholder 02]'] },
-			{ title: 'Methods', items: ['[Method placeholder 01]', '[Method placeholder 02]'] },
-			{ title: 'Representative applications', items: ['[Application placeholder 01]', '[Application placeholder 02]'] },
-			{ title: 'Related project link area', items: ['[Related-project placeholder]'] },
-		],
+		scope: '[One-sentence scope placeholder describing the expertise area.]',
+		problemsAddressed: ['[Problem placeholder 01]', '[Problem placeholder 02]'],
+		ownership: ['[Ownership placeholder 01]', '[Ownership placeholder 02]'],
+		methodsAndConstraints: ['[Method or constraint placeholder 01]', '[Method or constraint placeholder 02]'],
+		applications: ['[Application placeholder 01]', '[Application placeholder 02]'],
 	},
 	{
 		id: 'expertise-area-06',
-		eyebrow: '[Expertise area]',
 		title: '[Expertise title 06]',
-		scope: '[One-sentence scope placeholder describing the area covered.]',
-		keywords: ['[Keyword 01]', '[Keyword 02]', '[Keyword 03]'],
-		details: [
-			{ title: 'Problems addressed', items: ['[Problem placeholder 01]', '[Problem placeholder 02]'] },
-			{ title: 'Scope of ownership', items: ['[Ownership placeholder 01]', '[Ownership placeholder 02]'] },
-			{ title: 'Decisions and constraints', items: ['[Constraint placeholder 01]', '[Constraint placeholder 02]'] },
-			{ title: 'Methods', items: ['[Method placeholder 01]', '[Method placeholder 02]'] },
-			{ title: 'Representative applications', items: ['[Application placeholder 01]', '[Application placeholder 02]'] },
-			{ title: 'Related project link area', items: ['[Related-project placeholder]'] },
-		],
+		scope: '[One-sentence scope placeholder describing the expertise area.]',
+		problemsAddressed: ['[Problem placeholder 01]', '[Problem placeholder 02]'],
+		ownership: ['[Ownership placeholder 01]', '[Ownership placeholder 02]'],
+		methodsAndConstraints: ['[Method or constraint placeholder 01]', '[Method or constraint placeholder 02]'],
+		applications: ['[Application placeholder 01]', '[Application placeholder 02]'],
 	},
 ];
 
@@ -261,41 +242,31 @@ const experienceItems: ExperienceItem[] = [
 
 const projectRows: ProjectRow[] = [
 	{
-		system: '[Project or system placeholder 01]',
-		context: '[Domain or context placeholder]',
-		contribution: '[One-line contribution placeholder.]',
-		rolePeriod: '[Associated role or period]',
-		expertise: '[Expertise reference placeholder]',
-		linkLabel: 'View selected work',
-		linkHref: '/work',
+		title: '[Project or system placeholder 01]',
+		summary: '[One-line contribution placeholder.]',
+		meta: '[Domain placeholder] · [Associated role or period placeholder]',
+		linkLabel: 'View project detail',
+		linkHref: '/work/project-placeholder-01',
 	},
 	{
-		system: '[Project or system placeholder 02]',
-		context: '[Domain or context placeholder]',
-		contribution: '[One-line contribution placeholder.]',
-		rolePeriod: '[Associated role or period]',
-		expertise: '[Expertise reference placeholder]',
+		title: '[Project or system placeholder 02]',
+		summary: '[One-line contribution placeholder.]',
+		meta: '[Domain placeholder] · [Associated role or period placeholder]',
 	},
 	{
-		system: '[Project or system placeholder 03]',
-		context: '[Domain or context placeholder]',
-		contribution: '[One-line contribution placeholder.]',
-		rolePeriod: '[Associated role or period]',
-		expertise: '[Expertise reference placeholder]',
+		title: '[Project or system placeholder 03]',
+		summary: '[One-line contribution placeholder.]',
+		meta: '[Domain placeholder] · [Associated role or period placeholder]',
 	},
 	{
-		system: '[Project or system placeholder 04]',
-		context: '[Domain or context placeholder]',
-		contribution: '[One-line contribution placeholder.]',
-		rolePeriod: '[Associated role or period]',
-		expertise: '[Expertise reference placeholder]',
+		title: '[Project or system placeholder 04]',
+		summary: '[One-line contribution placeholder.]',
+		meta: '[Domain placeholder] · [Associated role or period placeholder]',
 	},
 	{
-		system: '[Project or system placeholder 05]',
-		context: '[Domain or context placeholder]',
-		contribution: '[One-line contribution placeholder.]',
-		rolePeriod: '[Associated role or period]',
-		expertise: '[Expertise reference placeholder]',
+		title: '[Project or system placeholder 05]',
+		summary: '[One-line contribution placeholder.]',
+		meta: '[Domain placeholder] · [Associated role or period placeholder]',
 	},
 ];
 
@@ -303,32 +274,32 @@ const credentialGroups: CredentialGroup[] = [
 	{
 		id: 'credential-education',
 		title: 'Education',
-		visibleItems: ['[Degree placeholder] · [Institution placeholder] · [Year placeholder]'],
-		details: [{ title: 'Supporting detail', items: ['[Education detail placeholder]'] }],
+		visibleItems: ['[Education record placeholder]'],
 	},
 	{
 		id: 'credential-research',
-		title: 'Research',
-		visibleItems: ['[Research credential placeholder] · [Context placeholder]'],
-		details: [{ title: 'Supporting detail', items: ['[Research detail placeholder]'] }],
+		title: 'Research and publications',
+		visibleItems: ['[Research summary placeholder]'],
+		disclosure: {
+			collapsedLabel: 'See publications',
+			expandedLabel: 'Hide publications',
+			details: ['[Publication placeholder 01]', '[Publication placeholder 02]', '[Publication placeholder 03]'],
+		},
 	},
 	{
 		id: 'credential-patents',
 		title: 'Patents',
-		visibleItems: ['[Patent placeholder] · [Status or date placeholder]'],
-		details: [{ title: 'Supporting detail', items: ['[Patent detail placeholder]'] }],
-	},
-	{
-		id: 'credential-publications',
-		title: 'Publications',
-		visibleItems: ['[Publication placeholder] · [Venue or year placeholder]'],
-		details: [{ title: 'Supporting detail', items: ['[Publication detail placeholder]'] }],
+		visibleItems: ['[Patent summary placeholder]'],
+		disclosure: {
+			collapsedLabel: 'See all patents',
+			expandedLabel: 'Hide patents',
+			details: ['[Patent placeholder 01]', '[Patent placeholder 02]', '[Patent placeholder 03]'],
+		},
 	},
 	{
 		id: 'credential-certifications',
 		title: 'Certifications and recognition',
-		visibleItems: ['[Certification or recognition placeholder] · [Issuer or year placeholder]'],
-		details: [{ title: 'Supporting detail', items: ['[Recognition detail placeholder]'] }],
+		visibleItems: ['[Certification or recognition placeholder]'],
 	},
 ];
 
@@ -341,34 +312,31 @@ const methodGroups: MethodGroup[] = [
 	{ title: 'Languages', items: ['[Language placeholder 01]', '[Language placeholder 02]', '[Language placeholder 03]'] },
 	{ title: 'Continuing learning', items: ['[Learning placeholder 01]', '[Learning placeholder 02]', '[Learning placeholder 03]'] },
 ];
+
+const visibleExperienceCount = 3;
 ---
 
 <Layout
 	title="CV | Carlos Jorques"
-	description="Structural CV page skeleton for Carlos Jorques, following the portfolio’s established layout, section rhythm, and reusable interaction patterns."
+	description="Structural CV page skeleton for Carlos Jorques, aligned with the portfolio’s established layout, spacing, and responsive patterns."
 >
 	<div class="cv-page">
-		<section id="overview" class="cv-hero" aria-labelledby="cv-title">
+		<section id="cv-hero" class="cv-hero" aria-labelledby="cv-title">
 			<div class="page-container">
 				<div class="cv-hero__inner">
 					<div class="cv-hero__copy">
 						<p class="section-eyebrow">Online CV</p>
 						<h1 id="cv-title" class="hero-title">[Professional title]</h1>
-						<p class="cv-hero__role">[Short positioning placeholder]</p>
-						<p class="cv-hero__summary">[Overview placeholder describing what this CV page will communicate.]</p>
+						<p class="cv-hero__positioning">[Concise positioning placeholder paragraph for the professional profile presented on this page.]</p>
 						<div class="button-row cv-hero__actions">
 							{actions.map((action) => (
-								<a
-									class:list={['button', { primary: action.primary }]}
-									href={withBase(action.href)}
-								>
+								<a class:list={['button', { primary: action.primary }]} href={withBase(action.href)}>
 									{action.label}
 								</a>
 							))}
 						</div>
-						<p id="download-cv" class="cv-placeholder-note">[Download target placeholder]</p>
 					</div>
-					<aside class="cv-proof panel" aria-label="Professional proof snapshot">
+					<aside class="cv-proof panel" aria-label="Professional snapshot">
 						<p class="cv-proof__label">Professional snapshot</p>
 						<ul class="cv-proof__list">
 							{proofItems.map((item) => (
@@ -411,62 +379,87 @@ const methodGroups: MethodGroup[] = [
 						</ul>
 					</nav>
 				</details>
-
-				<div class="cv-section-nav__actions" aria-label="CV actions">
-					<a class="button" href={withBase('#download-cv')} download>Download CV</a>
-					<a class="button" href={withBase('/contact')}>Contact</a>
-				</div>
 			</div>
 		</div>
 
 		<main class="cv-main-flow">
+			<section id="overview" class="cv-section" aria-labelledby="overview-title">
+				<div class="page-container cv-section__layout">
+					<h2 id="overview-title" class="cv-section__rail-heading">Overview</h2>
+					<div class="cv-section__content">
+						<h3>{overview.heading}</h3>
+						<div class="cv-prose">
+							{overview.paragraphs.map((paragraph) => (
+								<p>{paragraph}</p>
+							))}
+						</div>
+						<ul class="cv-scope-list">
+							{overview.scopeItems.map((item) => (
+								<li>{item}</li>
+							))}
+						</ul>
+					</div>
+				</div>
+			</section>
+
 			<section id="expertise" class="cv-section" aria-labelledby="expertise-title">
 				<div class="page-container cv-section__layout">
-					<div class="cv-section__rail">
-						<p class="section-eyebrow">Core expertise</p>
-						<h2 id="expertise-title" class="cv-section__heading">[Expertise section title]</h2>
-						<p class="cv-section__intro-copy">[Short placeholder introduction for the expertise section.]</p>
-					</div>
+					<h2 id="expertise-title" class="cv-section__rail-heading">Core expertise</h2>
 					<div class="cv-section__content">
 						<div class="cv-card-grid">
-							{expertiseItems.map((item, index) => (
-								<article class="cv-card cv-disclosure-item" aria-labelledby={`${item.id}-title`}>
+							{expertiseItems.map((item) => (
+								<article class="cv-card panel cv-disclosure-item" aria-labelledby={`${item.id}-title`}>
 									<div class="cv-card__collapsed">
-										<p class="cv-card__eyebrow">{item.eyebrow}</p>
 										<h3 id={`${item.id}-title`}>{item.title}</h3>
 										<p class="cv-card__summary">{item.scope}</p>
-										<ul class="tag-list cv-card__keywords" aria-label={`${item.title} keywords`}>
-											{item.keywords.map((keyword) => (
-												<li class="tag">{keyword}</li>
-											))}
-										</ul>
 										<button
 											class="cv-disclosure-button"
 											type="button"
 											aria-expanded="false"
 											aria-controls={`${item.id}-details`}
 											data-disclosure-toggle
-											data-label-collapsed="Show structure"
-											data-label-expanded="Hide structure"
+											data-label-collapsed="View expertise details"
+											data-label-expanded="Hide expertise details"
 										>
-											<span>Show structure</span>
-											<span aria-hidden="true">+</span>
+											<span>View expertise details</span>
 										</button>
 									</div>
 									<div id={`${item.id}-details`} class="cv-disclosure-panel" hidden>
-										{item.details.map((group) => (
-											<section class="cv-detail-group" aria-labelledby={`${item.id}-${group.title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`}>
-												<h4 id={`${item.id}-${group.title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`}>{group.title}</h4>
-												<ul>
-													{group.items.map((detail) => (
-														<li>{detail}</li>
-													))}
-												</ul>
-											</section>
-										))}
-										{index === 0 && (
+										<section class="cv-detail-group" aria-labelledby={`${item.id}-problems`}>
+											<h4 id={`${item.id}-problems`}>Problems addressed</h4>
+											<ul>
+												{item.problemsAddressed.map((detail) => (
+													<li>{detail}</li>
+												))}
+											</ul>
+										</section>
+										<section class="cv-detail-group" aria-labelledby={`${item.id}-ownership`}>
+											<h4 id={`${item.id}-ownership`}>Scope of ownership</h4>
+											<ul>
+												{item.ownership.map((detail) => (
+													<li>{detail}</li>
+												))}
+											</ul>
+										</section>
+										<section class="cv-detail-group" aria-labelledby={`${item.id}-methods`}>
+											<h4 id={`${item.id}-methods`}>Methods and constraints</h4>
+											<ul>
+												{item.methodsAndConstraints.map((detail) => (
+													<li>{detail}</li>
+												))}
+											</ul>
+										</section>
+										<section class="cv-detail-group" aria-labelledby={`${item.id}-applications`}>
+											<h4 id={`${item.id}-applications`}>Representative applications</h4>
+											<ul>
+												{item.applications.map((detail) => (
+													<li>{detail}</li>
+												))}
+											</ul>
+										</section>
+										{item.relatedProject && (
 											<p class="cv-related-link">
-												<a href={withBase('/work')}>View selected work</a>
+												<a href={withBase(item.relatedProject.href)}>{item.relatedProject.label}</a>
 											</p>
 										)}
 									</div>
@@ -479,19 +472,11 @@ const methodGroups: MethodGroup[] = [
 
 			<section id="experience" class="cv-section" aria-labelledby="experience-title">
 				<div class="page-container cv-section__layout">
-					<div class="cv-section__rail">
-						<p class="section-eyebrow">Experience</p>
-						<h2 id="experience-title" class="cv-section__heading">[Experience section title]</h2>
-						<p class="cv-section__intro-copy">[Short placeholder introduction for reverse-chronology role history.]</p>
-					</div>
+					<h2 id="experience-title" class="cv-section__rail-heading">Experience</h2>
 					<div class="cv-section__content">
-						<div class="cv-section__toolbar">
-							<button class="cv-toolbar-button" type="button" data-expand-all="experience">Expand all</button>
-							<button class="cv-toolbar-button" type="button" data-collapse-all="experience">Collapse all</button>
-						</div>
-						<ol class="cv-experience-list">
-							{experienceItems.map((item) => (
-								<li class="cv-role">
+						<ol id="experience-list" class="cv-experience-list">
+							{experienceItems.map((item, index) => (
+								<li class:list={['cv-role', { 'cv-role--extra': index >= visibleExperienceCount }]} data-role-visibility={index >= visibleExperienceCount ? 'extra' : 'primary'}>
 									<article class="cv-role__card cv-disclosure-item" aria-labelledby={`${item.id}-title`}>
 										<div class="cv-role__collapsed">
 											<div class="cv-role__identity">
@@ -516,12 +501,10 @@ const methodGroups: MethodGroup[] = [
 													aria-expanded="false"
 													aria-controls={`${item.id}-details`}
 													data-disclosure-toggle
-													data-disclosure-group="experience"
-													data-label-collapsed="Show structure"
-													data-label-expanded="Hide structure"
+													data-label-collapsed="View role details"
+													data-label-expanded="Hide role details"
 												>
-													<span>Show structure</span>
-													<span aria-hidden="true">+</span>
+													<span>View role details</span>
 												</button>
 											</div>
 										</div>
@@ -536,51 +519,38 @@ const methodGroups: MethodGroup[] = [
 													</ul>
 												</section>
 											))}
-											<p class="cv-related-link">
-												<a href={withBase('/work')}>View selected work</a>
-											</p>
 										</div>
 									</article>
 								</li>
 							))}
 						</ol>
+						{experienceItems.length > visibleExperienceCount && (
+							<button
+								class="cv-see-all-button"
+								type="button"
+								aria-expanded="false"
+								aria-controls="experience-list"
+								data-see-all-roles
+								data-label-collapsed={`See all experience (${experienceItems.length} roles)`}
+								data-label-expanded="Show recent experience"
+							>
+								See all experience ({experienceItems.length} roles)
+							</button>
+						)}
 					</div>
 				</div>
 			</section>
 
 			<section id="projects" class="cv-section" aria-labelledby="projects-title">
 				<div class="page-container cv-section__layout">
-					<div class="cv-section__rail">
-						<p class="section-eyebrow">Project record</p>
-						<h2 id="projects-title" class="cv-section__heading">[Project record section title]</h2>
-						<p class="cv-section__intro-copy">[Short placeholder introduction for the compact project index.]</p>
-					</div>
+					<h2 id="projects-title" class="cv-section__rail-heading">Project record</h2>
 					<div class="cv-section__content">
 						<div class="cv-project-list" role="list">
 							{projectRows.map((row) => (
 								<article class="cv-project-row" role="listitem">
-									<div>
-										<p class="cv-project-row__label">Project or system</p>
-										<h3>{row.system}</h3>
-									</div>
-									<dl class="cv-project-row__meta">
-										<div>
-											<dt>Domain or context</dt>
-											<dd>{row.context}</dd>
-										</div>
-										<div>
-											<dt>Contribution</dt>
-											<dd>{row.contribution}</dd>
-										</div>
-										<div>
-											<dt>Associated role or period</dt>
-											<dd>{row.rolePeriod}</dd>
-										</div>
-										<div>
-											<dt>Expertise references</dt>
-											<dd>{row.expertise}</dd>
-										</div>
-									</dl>
+									<h3>{row.title}</h3>
+									<p class="cv-project-row__summary">{row.summary}</p>
+									<p class="cv-project-row__meta">{row.meta}</p>
 									{row.linkHref && row.linkLabel && (
 										<p class="cv-project-row__link">
 											<a href={withBase(row.linkHref)}>{row.linkLabel}</a>
@@ -589,56 +559,47 @@ const methodGroups: MethodGroup[] = [
 								</article>
 							))}
 						</div>
+						<p class="cv-section-cta">
+							<a href={withBase('/work')}>Explore selected work</a>
+						</p>
 					</div>
 				</div>
 			</section>
 
 			<section id="credentials" class="cv-section" aria-labelledby="credentials-title">
 				<div class="page-container cv-section__layout">
-					<div class="cv-section__rail">
-						<p class="section-eyebrow">Education and professional record</p>
-						<h2 id="credentials-title" class="cv-section__heading">[Credentials section title]</h2>
-						<p class="cv-section__intro-copy">[Short placeholder introduction for essential credential metadata.]</p>
-					</div>
+					<h2 id="credentials-title" class="cv-section__rail-heading">Education and professional record</h2>
 					<div class="cv-section__content">
 						<div class="cv-credentials-list">
 							{credentialGroups.map((group) => (
-								<section class="cv-credential-group cv-disclosure-item" aria-labelledby={`${group.id}-title`}>
-									<div class="cv-credential-group__collapsed">
-										<h3 id={`${group.id}-title`}>{group.title}</h3>
-										<ul class="cv-credential-group__visible">
-											{group.visibleItems.map((item) => (
-												<li>{item}</li>
-											))}
-										</ul>
-										{group.details && (
+								<section class="cv-credential-group" aria-labelledby={`${group.id}-title`}>
+									<h3 id={`${group.id}-title`}>{group.title}</h3>
+									<ul class="cv-credential-group__visible">
+										{group.visibleItems.map((item) => (
+											<li>{item}</li>
+										))}
+									</ul>
+									{group.disclosure && (
+										<>
 											<button
 												class="cv-disclosure-button"
 												type="button"
 												aria-expanded="false"
 												aria-controls={`${group.id}-details`}
 												data-disclosure-toggle
-												data-label-collapsed="Show detail"
-												data-label-expanded="Hide detail"
+												data-label-collapsed={group.disclosure.collapsedLabel}
+												data-label-expanded={group.disclosure.expandedLabel}
 											>
-												<span>Show detail</span>
-												<span aria-hidden="true">+</span>
+												<span>{group.disclosure.collapsedLabel}</span>
 											</button>
-										)}
-									</div>
-									{group.details && (
-										<div id={`${group.id}-details`} class="cv-disclosure-panel" hidden>
-											{group.details.map((detailGroup) => (
-												<section class="cv-detail-group" aria-labelledby={`${group.id}-${detailGroup.title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`}>
-													<h4 id={`${group.id}-${detailGroup.title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`}>{detailGroup.title}</h4>
-													<ul>
-														{detailGroup.items.map((detail) => (
-															<li>{detail}</li>
-														))}
-													</ul>
-												</section>
-											))}
-										</div>
+											<div id={`${group.id}-details`} class="cv-disclosure-panel" hidden>
+												<ul class="cv-plain-list">
+													{group.disclosure.details.map((detail) => (
+														<li>{detail}</li>
+													))}
+												</ul>
+											</div>
+										</>
 									)}
 								</section>
 							))}
@@ -649,11 +610,7 @@ const methodGroups: MethodGroup[] = [
 
 			<section id="methods" class="cv-section" aria-labelledby="methods-title">
 				<div class="page-container cv-section__layout">
-					<div class="cv-section__rail">
-						<p class="section-eyebrow">Methods, tools and additional information</p>
-						<h2 id="methods-title" class="cv-section__heading">[Methods section title]</h2>
-						<p class="cv-section__intro-copy">[Short placeholder introduction for grouped methods and tools.]</p>
-					</div>
+					<h2 id="methods-title" class="cv-section__rail-heading">Methods, tools and additional information</h2>
 					<div class="cv-section__content">
 						<div class="cv-method-groups">
 							{methodGroups.map((group) => (
@@ -679,10 +636,16 @@ const methodGroups: MethodGroup[] = [
 		width: min(calc(100% - 5rem), var(--content-width));
 		margin: 0 auto;
 		padding-bottom: 5rem;
+		--cv-anchor-offset: 1.5rem;
 	}
 
 	.cv-page .page-container {
 		width: 100%;
+	}
+
+	.cv-hero,
+	.cv-section {
+		scroll-margin-top: var(--cv-anchor-offset);
 	}
 
 	.cv-hero {
@@ -707,16 +670,8 @@ const methodGroups: MethodGroup[] = [
 		color: var(--color-muted);
 	}
 
-	.cv-hero__role,
-	.cv-hero__summary {
+	.cv-hero__positioning {
 		max-width: 60ch;
-	}
-
-	.cv-hero__role {
-		color: var(--color-text);
-	}
-
-	.cv-hero__summary {
 		color: var(--color-muted);
 		font-size: var(--type-reading-size);
 		line-height: var(--type-reading-line);
@@ -726,31 +681,27 @@ const methodGroups: MethodGroup[] = [
 		margin-top: 0.5rem;
 	}
 
-	.cv-placeholder-note {
-		color: var(--color-muted);
-		font-family: var(--font-mono);
-		font-size: var(--type-meta-size);
-		font-weight: 500;
-		letter-spacing: var(--type-meta-tracking);
-		line-height: 1.45;
-		text-transform: uppercase;
-	}
-
 	.cv-proof {
 		display: grid;
 		gap: 1rem;
 		padding: clamp(1.1rem, 2.4vw, 1.5rem);
 	}
 
-	.cv-proof__label {
+	.cv-proof__label,
+	.cv-project-row__meta,
+	.cv-role__meta,
+	.cv-role__context {
 		margin: 0;
-		color: var(--color-accent-text);
 		font-family: var(--font-mono);
 		font-size: var(--type-meta-size);
-		font-weight: 700;
+		font-weight: 600;
 		letter-spacing: var(--type-meta-tracking);
 		line-height: var(--type-meta-line);
 		text-transform: uppercase;
+	}
+
+	.cv-proof__label {
+		color: var(--color-accent-text);
 	}
 
 	.cv-proof__list {
@@ -764,13 +715,6 @@ const methodGroups: MethodGroup[] = [
 		display: grid;
 		gap: 0.3rem;
 		margin: 0;
-		padding-bottom: 0.9rem;
-		border-bottom: 1px solid var(--color-border-soft);
-	}
-
-	.cv-proof__list li:last-child {
-		padding-bottom: 0;
-		border-bottom: 0;
 	}
 
 	.cv-proof__list strong {
@@ -793,19 +737,17 @@ const methodGroups: MethodGroup[] = [
 
 	.cv-section-nav-shell {
 		position: sticky;
-		top: 72px;
+		top: 0;
 		z-index: 30;
 		border-top: 1px solid var(--color-border);
 		border-bottom: 1px solid var(--color-border);
-		background: color-mix(in srgb, var(--color-page) 92%, transparent);
-		backdrop-filter: blur(12px);
+		background: var(--color-page);
 	}
 
 	.cv-section-nav-shell .page-container {
 		display: grid;
-		grid-template-columns: minmax(0, 1fr) auto;
-		gap: 1rem;
-		align-items: center;
+		grid-template-columns: 1fr;
+		gap: 0.75rem;
 		padding: 0.85rem 0;
 	}
 
@@ -875,15 +817,10 @@ const methodGroups: MethodGroup[] = [
 		gap: 0.2rem;
 	}
 
-	.cv-section-nav-mobile li {
+	.cv-section-nav-mobile li,
+	.cv-scope-list li,
+	.cv-plain-list li {
 		margin: 0;
-	}
-
-	.cv-section-nav__actions {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 0.75rem;
-		justify-content: flex-end;
 	}
 
 	.cv-main-flow {
@@ -903,29 +840,11 @@ const methodGroups: MethodGroup[] = [
 		align-items: start;
 	}
 
-	.cv-section__rail {
-		display: grid;
-		gap: 0.8rem;
-		align-content: start;
-	}
-
-	.cv-section__rail .section-eyebrow {
-		margin: 0;
-		color: var(--color-muted);
-	}
-
-	.cv-section__heading {
+	.cv-section__rail-heading {
 		max-width: none;
 		font-size: clamp(1.45rem, 2.4vw, 2.2rem);
 		line-height: 1.08;
 		letter-spacing: -0.045em;
-	}
-
-	.cv-section__intro-copy {
-		max-width: 30ch;
-		color: var(--color-muted);
-		font-size: var(--type-card-body-size);
-		line-height: 1.65;
 	}
 
 	.cv-section__content {
@@ -934,92 +853,51 @@ const methodGroups: MethodGroup[] = [
 		max-width: 52rem;
 	}
 
-	.cv-card-grid,
-	.cv-credentials-list,
-	.cv-method-groups {
+	.cv-prose {
 		display: grid;
-		grid-template-columns: 1fr;
-		gap: 0;
+		gap: 1rem;
 	}
 
-	.cv-card,
-	.cv-credential-group,
-	.cv-method-group,
-	.cv-project-row,
-	.cv-role__card {
-		padding: 1.5rem 0;
-		border-top: 1px solid var(--color-border-soft);
-	}
-
-	.cv-card:first-child,
-	.cv-credential-group:first-child,
-	.cv-method-group:first-child,
-	.cv-project-row:first-child,
-	.cv-role:first-child .cv-role__card {
-		border-top-color: var(--color-border);
-	}
-
-	.cv-card__collapsed,
-	.cv-role__collapsed,
-	.cv-credential-group__collapsed {
-		display: grid;
-		gap: 0.75rem;
-	}
-
-	.cv-card__eyebrow,
-	.cv-project-row__label,
-	.cv-role__meta {
-		margin: 0;
-		color: var(--color-accent-text);
-		font-family: var(--font-mono);
-		font-size: var(--type-meta-size);
-		font-weight: 600;
-		letter-spacing: var(--type-meta-tracking);
-		line-height: var(--type-meta-line);
-		text-transform: uppercase;
-	}
-
-	.cv-card h3,
-	.cv-role h3,
-	.cv-credential-group h3,
-	.cv-project-row h3,
-	.cv-method-group h3 {
-		max-width: none;
-		font-size: clamp(1.2rem, 1.8vw, 1.55rem);
-		line-height: 1.1;
-		letter-spacing: -0.04em;
-	}
-
+	.cv-prose p,
+	.cv-scope-list li,
 	.cv-card__summary,
 	.cv-role__mandate,
-	.cv-project-row dd,
+	.cv-role__ownership,
+	.cv-project-row__summary,
 	.cv-credential-group__visible li,
-	.cv-method-group li {
+	.cv-method-group li,
+	.cv-detail-group li {
 		color: var(--color-body-text);
 		font-size: var(--type-card-body-size);
 		line-height: 1.62;
 	}
 
-	.cv-card__keywords {
-		margin-top: 0.1rem;
-	}
-
-	.cv-card__keywords,
+	.cv-scope-list,
 	.cv-role__contributions,
-	.cv-credential-group__visible,
-	.cv-method-group ul {
+	.cv-plain-list {
 		padding-left: 1.1rem;
 	}
 
-	.cv-role__context,
-	.cv-role__ownership,
-	.cv-related-link a,
-	.cv-project-row__link a {
-		color: var(--color-muted);
+	.cv-card-grid {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: 1rem;
+	}
+
+	.cv-card {
+		display: grid;
+		gap: 1rem;
+		padding: 1.25rem;
+	}
+
+	.cv-card__collapsed,
+	.cv-role__collapsed {
+		display: grid;
+		gap: 0.75rem;
 	}
 
 	.cv-disclosure-button,
-	.cv-toolbar-button {
+	.cv-see-all-button {
 		width: fit-content;
 		display: inline-flex;
 		align-items: center;
@@ -1041,25 +919,21 @@ const methodGroups: MethodGroup[] = [
 
 	.cv-disclosure-button:hover,
 	.cv-disclosure-button:focus-visible,
-	.cv-toolbar-button:hover,
-	.cv-toolbar-button:focus-visible,
+	.cv-see-all-button:hover,
+	.cv-see-all-button:focus-visible,
 	.cv-related-link a:hover,
 	.cv-related-link a:focus-visible,
 	.cv-project-row__link a:hover,
-	.cv-project-row__link a:focus-visible {
+	.cv-project-row__link a:focus-visible,
+	.cv-section-cta a:hover,
+	.cv-section-cta a:focus-visible {
 		color: var(--color-text);
-	}
-
-	.cv-disclosure-button [aria-hidden='true'] {
-		display: inline-block;
-		min-width: 0.8rem;
-		text-align: center;
 	}
 
 	.cv-disclosure-panel {
 		display: grid;
 		gap: 1rem;
-		padding-top: 1rem;
+		padding-top: 0.25rem;
 	}
 
 	.cv-disclosure-panel[hidden] {
@@ -1082,47 +956,49 @@ const methodGroups: MethodGroup[] = [
 		text-transform: uppercase;
 	}
 
-	.cv-detail-group ul {
+	.cv-detail-group ul,
+	.cv-credential-group__visible,
+	.cv-method-group ul {
+		margin: 0;
 		padding-left: 1.1rem;
 	}
 
-	.cv-detail-group li,
-	.cv-role__ownership,
-	.cv-project-row dt {
-		color: var(--color-muted);
-		font-size: var(--type-card-body-size);
-		line-height: 1.58;
-	}
-
-	.cv-related-link {
+	.cv-related-link,
+	.cv-project-row__link,
+	.cv-section-cta {
 		margin: 0;
 	}
 
 	.cv-related-link a,
-	.cv-project-row__link a {
+	.cv-project-row__link a,
+	.cv-section-cta a {
 		font-weight: 700;
 		text-decoration: underline;
 		text-decoration-thickness: 1px;
 		text-underline-offset: 0.18em;
 	}
 
-	.cv-section__toolbar {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 1rem;
-		justify-content: flex-end;
-	}
-
-	.cv-experience-list {
+	.cv-experience-list,
+	.cv-project-list,
+	.cv-credentials-list,
+	.cv-method-groups {
 		display: grid;
-		gap: 0;
+		gap: 1.5rem;
 		margin: 0;
 		padding: 0;
 		list-style: none;
 	}
 
-	.cv-role {
+	.cv-role,
+	.cv-project-row,
+	.cv-credential-group,
+	.cv-method-group {
 		margin: 0;
+	}
+
+	.cv-role__card {
+		display: grid;
+		gap: 1rem;
 	}
 
 	.cv-role__collapsed {
@@ -1137,13 +1013,13 @@ const methodGroups: MethodGroup[] = [
 		align-content: start;
 	}
 
-	.cv-role__context {
-		font-family: var(--font-mono);
-		font-size: var(--type-meta-size);
-		font-weight: 600;
-		letter-spacing: var(--type-meta-tracking);
-		line-height: 1.35;
-		text-transform: uppercase;
+	.cv-role__meta {
+		color: var(--color-accent-text);
+	}
+
+	.cv-role__context,
+	.cv-project-row__meta {
+		color: var(--color-muted);
 	}
 
 	.cv-role__contributions {
@@ -1171,83 +1047,53 @@ const methodGroups: MethodGroup[] = [
 		gap: 1rem 1.5rem;
 	}
 
-	.cv-disclosure-panel--role .cv-related-link {
-		grid-column: 1 / -1;
-	}
-
-	.cv-project-list {
-		display: grid;
-		gap: 0;
+	.cv-role--extra[hidden] {
+		display: none;
 	}
 
 	.cv-project-row {
 		display: grid;
-		gap: 1rem;
+		gap: 0.45rem;
 	}
 
+	.cv-project-row__summary,
 	.cv-project-row__meta {
-		display: grid;
-		grid-template-columns: repeat(2, minmax(0, 1fr));
-		gap: 0.85rem 1.5rem;
 		margin: 0;
 	}
 
-	.cv-project-row__meta div {
-		display: grid;
-		gap: 0.2rem;
-	}
-
-	.cv-project-row dt {
-		font-family: var(--font-mono);
-		font-weight: 700;
-		letter-spacing: 0.04em;
-		text-transform: uppercase;
-	}
-
-	.cv-project-row dd {
-		margin: 0;
-	}
-
-	.cv-credential-group__visible {
-		margin: 0;
-	}
-
+	.cv-credential-group,
 	.cv-method-group {
 		display: grid;
-		grid-template-columns: minmax(0, 0.32fr) minmax(0, 0.68fr);
-		gap: 1rem 1.5rem;
-		align-items: start;
+		gap: 0.75rem;
+	}
+
+	.cv-method-group h3 {
+		max-width: none;
+		font-size: clamp(1.1rem, 1.6vw, 1.35rem);
+		line-height: 1.15;
+		letter-spacing: -0.03em;
 	}
 
 	.cv-method-group ul {
-		margin: 0;
+		display: grid;
+		gap: 0.45rem;
 	}
 
 	@media (min-width: 760px) {
 		.cv-card-grid {
 			grid-template-columns: repeat(2, minmax(0, 1fr));
-			gap: 0 1.5rem;
-		}
-
-		.cv-card:nth-child(2) {
-			border-top-color: var(--color-border);
+			gap: 1.25rem 1.5rem;
 		}
 	}
 
 	@media (max-width: 980px) {
 		.cv-hero__inner,
 		.cv-section__layout,
-		.cv-role__collapsed,
-		.cv-method-group {
+		.cv-role__collapsed {
 			grid-template-columns: 1fr;
 		}
 
-		.cv-section__intro-copy {
-			max-width: 52ch;
-		}
-
-		.cv-disclosure-panel--role,
-		.cv-project-row__meta {
+		.cv-disclosure-panel--role {
 			grid-template-columns: 1fr;
 		}
 	}
@@ -1261,15 +1107,6 @@ const methodGroups: MethodGroup[] = [
 			padding: 3rem 0 2rem;
 		}
 
-		.cv-section-nav-shell {
-			top: 68px;
-		}
-
-		.cv-section-nav-shell .page-container {
-			grid-template-columns: 1fr;
-			align-items: stretch;
-		}
-
 		.cv-section-nav--desktop {
 			display: none;
 		}
@@ -1278,20 +1115,8 @@ const methodGroups: MethodGroup[] = [
 			display: block;
 		}
 
-		.cv-section-nav__actions {
-			justify-content: stretch;
-		}
-
-		.cv-section-nav__actions .button {
-			width: 100%;
-		}
-
 		.cv-card-grid {
 			grid-template-columns: 1fr;
-		}
-
-		.cv-card:nth-child(2) {
-			border-top-color: var(--color-border-soft);
 		}
 	}
 
@@ -1312,7 +1137,7 @@ const methodGroups: MethodGroup[] = [
 		:global(.skip-link),
 		.cv-section-nav-shell,
 		.cv-disclosure-button,
-		.cv-section__toolbar {
+		.cv-see-all-button {
 			display: none !important;
 		}
 
@@ -1331,6 +1156,10 @@ const methodGroups: MethodGroup[] = [
 			display: grid !important;
 		}
 
+		.cv-role--extra[hidden] {
+			display: list-item !important;
+		}
+
 		.cv-card,
 		.cv-role__card,
 		.cv-project-row,
@@ -1347,8 +1176,8 @@ const methodGroups: MethodGroup[] = [
 		const toggles = Array.from(root.querySelectorAll('[data-disclosure-toggle]'));
 		const navLinks = Array.from(root.querySelectorAll('[data-cv-nav-link]'));
 		const mobileNav = root.querySelector('.cv-section-nav-mobile');
-		const experienceExpandAll = root.querySelector('[data-expand-all="experience"]');
-		const experienceCollapseAll = root.querySelector('[data-collapse-all="experience"]');
+		const seeAllRolesButton = root.querySelector('[data-see-all-roles]');
+		const extraRoles = Array.from(root.querySelectorAll('[data-role-visibility="extra"]'));
 
 		const setDisclosureState = (button, expanded) => {
 			const panelId = button.getAttribute('aria-controls');
@@ -1358,12 +1187,10 @@ const methodGroups: MethodGroup[] = [
 			if (!panel) return;
 
 			button.setAttribute('aria-expanded', expanded ? 'true' : 'false');
-			const collapsedLabel = button.getAttribute('data-label-collapsed') ?? 'Show structure';
-			const expandedLabel = button.getAttribute('data-label-expanded') ?? 'Hide structure';
+			const collapsedLabel = button.getAttribute('data-label-collapsed') ?? 'View details';
+			const expandedLabel = button.getAttribute('data-label-expanded') ?? 'Hide details';
 			const label = button.querySelector('span');
-			const icon = button.querySelector('[aria-hidden="true"]');
 			if (label) label.textContent = expanded ? expandedLabel : collapsedLabel;
-			if (icon) icon.textContent = expanded ? '−' : '+';
 			panel.hidden = !expanded;
 		};
 
@@ -1375,17 +1202,26 @@ const methodGroups: MethodGroup[] = [
 			});
 		});
 
-		const experienceButtons = toggles.filter(
-			(button) => button.getAttribute('data-disclosure-group') === 'experience',
-		);
+		const setExtraRolesState = (expanded) => {
+			extraRoles.forEach((role) => {
+				role.hidden = !expanded;
+			});
 
-		experienceExpandAll?.addEventListener('click', () => {
-			experienceButtons.forEach((button) => setDisclosureState(button, true));
-		});
+			if (seeAllRolesButton instanceof HTMLButtonElement) {
+				seeAllRolesButton.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+				const collapsedLabel = seeAllRolesButton.getAttribute('data-label-collapsed') ?? 'See all experience';
+				const expandedLabel = seeAllRolesButton.getAttribute('data-label-expanded') ?? 'Show recent experience';
+				seeAllRolesButton.textContent = expanded ? expandedLabel : collapsedLabel;
+			}
+		};
 
-		experienceCollapseAll?.addEventListener('click', () => {
-			experienceButtons.forEach((button) => setDisclosureState(button, false));
-		});
+		if (extraRoles.length > 0) {
+			setExtraRolesState(false);
+			seeAllRolesButton?.addEventListener('click', () => {
+				const expanded = seeAllRolesButton.getAttribute('aria-expanded') === 'true';
+				setExtraRolesState(!expanded);
+			});
+		}
 
 		const sections = navLinks
 			.map((link) => {
