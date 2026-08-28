@@ -1502,9 +1502,22 @@ const profileJsonLd = {
                                                         </div>
                                                 </section>
                                         </li>
-                                </ol>
-                        </div>
-                </section>
+				</ol>
+			</div>
+		</section>
+
+		<section class="cv-work-handoff" aria-labelledby="cv-work-handoff-title">
+			<div class="page-container">
+				<div class="cv-work-handoff__inner">
+					<div>
+						<p class="section-eyebrow">Go deeper</p>
+						<h2 id="cv-work-handoff-title">See the systems behind the timeline</h2>
+						<p>Explore public-safe project context, applied domains, and research translated into production-oriented engineering decisions.</p>
+					</div>
+					<a class="button" href={withBase('/work/')} data-analytics-event="cta_click" data-cta-id="cv-work-handoff" data-cta-placement="cv-experience" data-cta-intent="proof" data-source-section="cv-experience">Explore Work →</a>
+				</div>
+			</div>
+		</section>
 
 		<section class="cv-section" id="education" aria-labelledby="education-title" data-cv-section>
                         <div class="page-container">
@@ -4063,6 +4076,10 @@ const profileJsonLd = {
 	.cv-role__details { margin-top:1rem; padding-top:1rem; border-top:1px solid var(--color-border-soft); }
 	.cv-role__assignment { margin:0; color:var(--color-muted); font-family:var(--font-mono); font-size:.78rem; letter-spacing:.03em; }
 	.cv-ownership-label { display:inline-block; min-width:5.6rem; margin-right:.5rem; color:var(--color-accent-text); font-family:var(--font-mono); font-size:.72rem; font-weight:700; letter-spacing:.06em; text-transform:uppercase; vertical-align:baseline; }
+	.cv-work-handoff { border-top:1px solid var(--color-border); border-bottom:1px solid var(--color-border); padding:2rem 0; }
+	.cv-work-handoff__inner { display:flex; align-items:center; justify-content:space-between; gap:2rem; }
+	.cv-work-handoff h2 { margin:.35rem 0 .45rem; font-size:clamp(1.45rem,2.2vw,2rem); letter-spacing:-.035em; }
+	.cv-work-handoff p:not(.section-eyebrow) { max-width:42rem; margin:0; color:var(--color-muted); font-size:1rem; line-height:1.6; }
 	.cv-impact-list { border-top:1px solid var(--color-border-soft); }
 	.cv-impact-list li { display:grid; grid-template-columns:10rem minmax(0,1fr); gap:1rem; padding:1.5rem 0; border:0; border-bottom:1px solid var(--color-border-soft); border-radius:0; background:transparent; }
 	.cv-impact-list h3 { font-size:1.35rem; letter-spacing:-.035em; }
@@ -4079,8 +4096,12 @@ const profileJsonLd = {
 		.cv-proof-grid li,.cv-role,.cv-impact-list li{grid-template-columns:1fr;gap:.35rem}
 		.cv-section__intro > p{margin-bottom:1rem}
 		.cv-actions .button,.cv-final__actions .button{width:100%}
-		.cv-section-nav-shell { overflow-x:auto; }
-		.cv-section-nav { min-width:max-content; }
+		.cv-section-nav-shell { overflow:visible; }
+		.cv-section-nav { min-width:0; }
+		.cv-section-nav__inner { min-height:0; padding-block:.65rem; flex-wrap:wrap; white-space:normal; }
+		.cv-section-nav__links { flex-wrap:wrap; row-gap:.45rem; overflow:visible; }
+		.cv-work-handoff__inner { align-items:flex-start; flex-direction:column; gap:1rem; }
+		.cv-work-handoff .button { width:100%; }
 	}
 	@media(max-width:640px){.cv-page{width:min(calc(100% - 32px),var(--content-width))}}
 </style>
