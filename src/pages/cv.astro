@@ -52,6 +52,7 @@ type ExperienceGroup = {
 	heading: string;
 	meta: string;
 	location: string;
+	defaultVisible?: boolean;
 	roles: ExperienceItem[];
 };
 
@@ -572,6 +573,7 @@ const experienceGroups: ExperienceGroup[] = [
 		heading: 'Earlier experience',
 		meta: '2013-2014',
 		location: 'Sweden',
+		defaultVisible: false,
 		roles: [
 			{
 				id: 'experience-role-08',
@@ -757,8 +759,6 @@ const methodGroups: MethodGroup[] = [
 	},
 ];
 
-const visibleExperienceCount = 4;
-const totalExperienceRoles = experienceGroups.reduce((count, group) => count + group.roles.length, 0);
 const normalizeRoleContext = (context: string, groupHeading: string) => {
 	if (context === groupHeading) return '';
 	const prefix = `${groupHeading} · `;
@@ -767,19 +767,15 @@ const normalizeRoleContext = (context: string, groupHeading: string) => {
 const experienceRenderGroups: ExperienceRenderGroup[] = [];
 
 {
-	let visibleRolesUsed = 0;
-
 	for (const group of experienceGroups) {
-		const isExtra = visibleRolesUsed >= visibleExperienceCount;
 		experienceRenderGroups.push({
 			...group,
-			isExtra,
+			isExtra: group.defaultVisible === false,
 			roles: group.roles.map((role) => ({
 				...role,
 				displayContext: normalizeRoleContext(role.context, group.heading),
 			})),
 		});
-		visibleRolesUsed += group.roles.length;
 	}
 }
 
@@ -969,10 +965,10 @@ const visibleProjectRows = projectRows
 								aria-expanded="false"
 								aria-controls="experience-list"
 								data-see-all-roles
-								data-label-collapsed={`See all experience (${totalExperienceRoles} roles)`}
-								data-label-expanded="Show recent experience"
+								data-label-collapsed="See earlier experience"
+								data-label-expanded="Hide earlier experience"
 							>
-								<span>See all experience ({totalExperienceRoles} roles)</span>
+								<span>See earlier experience</span>
 							</button>
 						)}
 					</div>
@@ -2007,8 +2003,8 @@ const visibleProjectRows = projectRows
 
 			if (seeAllRolesButton instanceof HTMLButtonElement) {
 				seeAllRolesButton.setAttribute('aria-expanded', expanded ? 'true' : 'false');
-				const collapsedLabel = seeAllRolesButton.getAttribute('data-label-collapsed') ?? 'See all experience';
-				const expandedLabel = seeAllRolesButton.getAttribute('data-label-expanded') ?? 'Show recent experience';
+				const collapsedLabel = seeAllRolesButton.getAttribute('data-label-collapsed') ?? 'See earlier experience';
+				const expandedLabel = seeAllRolesButton.getAttribute('data-label-expanded') ?? 'Hide earlier experience';
 				seeAllRolesButton.textContent = expanded ? expandedLabel : collapsedLabel;
 			}
 		};
