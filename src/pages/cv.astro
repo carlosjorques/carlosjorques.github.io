@@ -48,6 +48,23 @@ type ExperienceItem = {
 	details: DetailGroup[];
 };
 
+type ExperienceGroup = {
+	id: string;
+	heading: string;
+	meta: string;
+	location: string;
+	roles: ExperienceItem[];
+};
+
+type ExperienceRenderRole = ExperienceItem & {
+	displayContext: string;
+};
+
+type ExperienceRenderGroup = ExperienceGroup & {
+	isExtra: boolean;
+	roles: ExperienceRenderRole[];
+};
+
 type ProjectRow = {
 	title: string;
 	summary: string;
@@ -60,6 +77,8 @@ type CredentialGroup = {
 	id: string;
 	title: string;
 	visibleItems: string[];
+	linkLabel?: string;
+	linkHref?: string;
 	disclosure?: {
 		collapsedLabel: string;
 		expandedLabel: string;
@@ -290,8 +309,14 @@ const expertiseItems: ExpertiseItem[] = [
 	},
 ];
 
-const experienceItems: ExperienceItem[] = [
+const experienceGroups: ExperienceGroup[] = [
 	{
+		id: 'experience-group-alten',
+		heading: 'Alten Delivery Center',
+		meta: 'April 2022-Present',
+		location: 'Valencia, Spain',
+		roles: [
+			{
 		id: 'experience-role-01',
 		title: 'Senior Developer Engineer',
 		context: 'Alten Delivery Center · Traton / Scania',
@@ -415,7 +440,14 @@ const experienceItems: ExperienceItem[] = [
 			{ title: 'Related-project links', items: ['[Specific related-project link placeholder]'] },
 		],
 	},
+],
+	},
 	{
+		id: 'experience-group-mahle',
+		heading: 'Mahle Electronics',
+		meta: '2022-2023',
+		location: 'Valencia, Spain',
+		roles: [{
 		id: 'experience-role-04',
 		title: 'Development Software Engineer',
 		context: 'Mahle Electronics',
@@ -453,8 +485,14 @@ const experienceItems: ExperienceItem[] = [
 			{ title: 'Validation/production context', items: ['[Validation/production context placeholder]'] },
 			{ title: 'Related-project links', items: ['[Specific related-project link placeholder]'] },
 		],
+	}],
 	},
 	{
+		id: 'experience-group-scania',
+		heading: 'Scania',
+		meta: '2014-2022',
+		location: 'Sodertalje, Sweden',
+		roles: [{
 		id: 'experience-role-05',
 		title: 'Senior Development Engineer',
 		context: 'Scania',
@@ -601,8 +639,14 @@ const experienceItems: ExperienceItem[] = [
 			{ title: 'Validation/production context', items: ['Real-time control algorithm evaluation on a test rig.'] },
 			{ title: 'Related-project links', items: ['[Specific related-project link placeholder]'] },
 		],
+	}],
 	},
 	{
+		id: 'experience-group-arduino',
+		heading: 'Arduino Verkstad',
+		meta: '2014',
+		location: '[Location placeholder]',
+		roles: [{
 		id: 'experience-role-09',
 		title: 'Hardware Engineer',
 		context: 'Arduino Verkstad',
@@ -621,8 +665,14 @@ const experienceItems: ExperienceItem[] = [
 			{ title: 'Validation/production context', items: ['[Validation/production context placeholder]'] },
 			{ title: 'Related-project links', items: ['[Specific related-project link placeholder]'] },
 		],
+	}],
 	},
 	{
+		id: 'experience-group-sony',
+		heading: 'Sony Mobile Communications',
+		meta: 'May 2013-August 2013',
+		location: '[Location placeholder]',
+		roles: [{
 		id: 'experience-role-10',
 		title: 'Software Researcher',
 		context: 'Sony Mobile Communications',
@@ -641,6 +691,7 @@ const experienceItems: ExperienceItem[] = [
 			{ title: 'Validation/production context', items: ['Real-time evaluation of predictive screen interaction models.'] },
 			{ title: 'Related-project links', items: ['[Specific related-project link placeholder]'] },
 		],
+	}],
 	},
 ];
 
@@ -685,10 +736,12 @@ const credentialGroups: CredentialGroup[] = [
 		id: 'credential-education',
 		title: 'Education',
 		visibleItems: [
-			'PhD, Mechanical Engineering · Lund University · 2021',
+			'PhD, Mechanical Engineering · Lund University · 2021. Research focus: real-time control, virtual sensing, diagnostics, and stochastic modeling for heavy-duty physical systems.',
 			'MSc, Electrical Engineering · Lund University · 2014',
 			'MSc, Industrial Engineering · Polytechnic University of Valencia · 2014',
 		],
+		linkLabel: 'See research and publications',
+		linkHref: '#credential-research-title',
 	},
 	{
 		id: 'credential-research',
@@ -799,7 +852,31 @@ const methodGroups: MethodGroup[] = [
 	},
 ];
 
-const visibleExperienceCount = 3;
+const visibleExperienceCount = 4;
+const totalExperienceRoles = experienceGroups.reduce((count, group) => count + group.roles.length, 0);
+const normalizeRoleContext = (context: string, groupHeading: string) => {
+	if (context === groupHeading) return '';
+	const prefix = `${groupHeading} · `;
+	return context.startsWith(prefix) ? context.slice(prefix.length) : context;
+};
+const experienceRenderGroups: ExperienceRenderGroup[] = [];
+
+{
+	let visibleRolesUsed = 0;
+
+	for (const group of experienceGroups) {
+		const isExtra = visibleRolesUsed >= visibleExperienceCount;
+		experienceRenderGroups.push({
+			...group,
+			isExtra,
+			roles: group.roles.map((role) => ({
+				...role,
+				displayContext: normalizeRoleContext(role.context, group.heading),
+			})),
+		});
+		visibleRolesUsed += group.roles.length;
+	}
+}
 ---
 
 <Layout
@@ -812,8 +889,8 @@ const visibleExperienceCount = 3;
 				<div class="cv-hero__inner">
 					<div class="cv-hero__copy">
 						<p class="section-eyebrow">Online CV</p>
-						<h1 id="cv-title" class="hero-title">Embedded Control Systems Architect</h1>
-						<p class="cv-hero__positioning">I design and lead real-time embedded control software for electrified, autonomous, and heavy-duty physical systems, spanning thermal management, battery systems, diagnostics, safety, validation, and production delivery.</p>
+						<h1 id="cv-title" class="hero-title">Carlos Jorques</h1>
+						<p class="cv-hero__positioning">Embedded Control Systems Architect and Technical Leader. I design and lead real-time embedded control software for electrified, autonomous, and heavy-duty physical systems, spanning thermal management, battery systems, diagnostics, safety, validation, and production delivery.</p>
 						<div class="button-row cv-hero__actions">
 							{actions.map((action) => (
 								<a class:list={['button', { primary: action.primary }]} href={withBase(action.href)}>
@@ -891,68 +968,85 @@ const visibleExperienceCount = 3;
 			<section id="experience" class="cv-section" aria-labelledby="experience-title">
 				<div class="page-container cv-section__layout">
 					<h2 id="experience-title" class="cv-section__rail-heading">Experience</h2>
-					<div class="cv-section__content">
+					<div class="cv-section__content cv-section__content--wide">
 						<ol id="experience-list" class="cv-experience-list">
-							{experienceItems.map((item, index) => (
-								<li class:list={['cv-role', { 'cv-role--extra': index >= visibleExperienceCount }]} data-role-visibility={index >= visibleExperienceCount ? 'extra' : 'primary'}>
-									<article class="cv-role__card cv-disclosure-item" aria-labelledby={`${item.id}-title`}>
-										<div class="cv-role__collapsed">
-											<div class="cv-role__identity">
-												<p class:list={['cv-role__meta', { 'cv-missing': isPlaceholder(item.meta) }]}>{item.meta}</p>
-												<h3 id={`${item.id}-title`} class:list={{ 'cv-missing': isPlaceholder(item.title) }}>{item.title}</h3>
-												<p class:list={['cv-role__context', { 'cv-missing': isPlaceholder(item.context) }]}>{item.context}</p>
+							{experienceRenderGroups.map((group) => (
+								<li class:list={['cv-experience-group', { 'cv-role--extra': group.isExtra }]} data-role-visibility={group.isExtra ? 'extra' : 'primary'}>
+									<section class="cv-experience-group__section" aria-labelledby={`${group.id}-title`}>
+										<header class="cv-experience-group__header">
+											<div class="cv-experience-group__header-stick">
+												<h3 id={`${group.id}-title`} class:list={{ 'cv-missing': isPlaceholder(group.heading) }}>{group.heading}</h3>
+												<p class:list={['cv-experience-group__meta', { 'cv-missing': isPlaceholder(group.meta) }]}>{group.meta}</p>
+												<p class:list={['cv-experience-group__location', { 'cv-missing': isPlaceholder(group.location) }]}>{group.location}</p>
 											</div>
-											<div class="cv-role__summary-block">
-												<p class:list={['cv-role__mandate', { 'cv-missing': isPlaceholder(item.mandate) }]}>{item.mandate}</p>
-												<ul class="cv-role__contributions">
-													{item.contributions.map((contribution) => (
-														<li class:list={{ 'cv-missing': isPlaceholder(contribution) }}>{contribution}</li>
-													))}
-												</ul>
-												<p class:list={['cv-role__ownership', { 'cv-missing': isPlaceholder(item.ownership) }]}>
-													<span>Ownership</span>
-													{item.ownership}
-												</p>
-												<button
-													class="cv-disclosure-button"
-													type="button"
-													aria-expanded="false"
-													aria-controls={`${item.id}-details`}
-													data-disclosure-toggle
-													data-label-collapsed="View role details"
-													data-label-expanded="Hide role details"
-												>
-													<span>View role details</span>
-												</button>
-											</div>
-										</div>
-										<div id={`${item.id}-details`} class="cv-disclosure-panel cv-disclosure-panel--role" hidden>
-											{item.details.map((group) => (
-												<section class="cv-detail-group" aria-labelledby={`${item.id}-${group.title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`}>
-													<h4 id={`${item.id}-${group.title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`}>{group.title}</h4>
-													<ul>
-														{group.items.map((detail) => (
-															<li class:list={{ 'cv-missing': isPlaceholder(detail) }}>{detail}</li>
-														))}
-													</ul>
-												</section>
+										</header>
+										<ol class="cv-experience-group__roles">
+											{group.roles.map((item) => (
+												<li class="cv-role">
+													<article class="cv-role__card cv-disclosure-item" aria-labelledby={`${item.id}-title`}>
+														<div class="cv-role__collapsed">
+															<div class="cv-role__taxonomy">
+																<h4 id={`${item.id}-title`} class:list={{ 'cv-missing': isPlaceholder(item.title) }}>{item.title}</h4>
+																{item.displayContext && (
+																	<p class:list={['cv-role__context', { 'cv-missing': isPlaceholder(item.displayContext) }]}>{item.displayContext}</p>
+																)}
+																<p class:list={['cv-role__context', { 'cv-missing': isPlaceholder(item.meta) }]}>{item.meta}</p>
+															</div>
+															<div class="cv-role__summary-block">
+																<p class:list={['cv-role__mandate', { 'cv-missing': isPlaceholder(item.mandate) }]}>{item.mandate}</p>
+																<ul class="cv-role__contributions">
+																	{item.contributions.map((contribution) => (
+																		<li class:list={{ 'cv-missing': isPlaceholder(contribution) }}>{contribution}</li>
+																	))}
+																</ul>
+																<p class:list={['cv-role__ownership', { 'cv-missing': isPlaceholder(item.ownership) }]}>
+																	<span>Ownership</span>
+																	{item.ownership}
+																</p>
+																<button
+																	class="cv-disclosure-button"
+																	type="button"
+																	aria-expanded="false"
+																	aria-controls={`${item.id}-details`}
+																	data-disclosure-toggle
+																	data-label-collapsed="View role details"
+																	data-label-expanded="Hide role details"
+																>
+																	<span>View role details</span>
+																</button>
+															</div>
+														</div>
+														<div id={`${item.id}-details`} class="cv-disclosure-panel cv-disclosure-panel--role" hidden>
+															{item.details.map((detailGroup) => (
+																<section class="cv-detail-group" aria-labelledby={`${item.id}-${detailGroup.title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`}>
+																	<h5 id={`${item.id}-${detailGroup.title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`}>{detailGroup.title}</h5>
+																	<ul>
+																		{detailGroup.items.map((detail) => (
+																			<li class:list={{ 'cv-missing': isPlaceholder(detail) }}>{detail}</li>
+																		))}
+																	</ul>
+																</section>
+															))}
+														</div>
+													</article>
+												</li>
 											))}
-										</div>
-									</article>
+										</ol>
+									</section>
 								</li>
 							))}
 						</ol>
-						{experienceItems.length > visibleExperienceCount && (
+						{experienceRenderGroups.some((group) => group.isExtra) && (
 							<button
 								class="cv-see-all-button"
 								type="button"
 								aria-expanded="false"
 								aria-controls="experience-list"
 								data-see-all-roles
-								data-label-collapsed={`See all experience (${experienceItems.length} roles)`}
+								data-label-collapsed={`See all experience (${totalExperienceRoles} roles)`}
 								data-label-expanded="Show recent experience"
 							>
-								See all experience ({experienceItems.length} roles)
+								<span>See all experience ({totalExperienceRoles} roles)</span>
 							</button>
 						)}
 					</div>
@@ -962,7 +1056,7 @@ const visibleExperienceCount = 3;
 			<section id="expertise" class="cv-section" aria-labelledby="expertise-title">
 				<div class="page-container cv-section__layout">
 					<h2 id="expertise-title" class="cv-section__rail-heading">Core expertise</h2>
-					<div class="cv-section__content">
+					<div class="cv-section__content cv-section__content--wide">
 						<div class="cv-card-grid">
 							{expertiseItems.map((item) => (
 								<article class="cv-card panel cv-disclosure-item" aria-labelledby={`${item.id}-title`}>
@@ -1065,6 +1159,11 @@ const visibleExperienceCount = 3;
 											<li class:list={{ 'cv-missing': isPlaceholder(item) }}>{item}</li>
 										))}
 									</ul>
+									{group.linkLabel && group.linkHref && (
+										<p class="cv-credential-group__link">
+											<a class:list={{ 'cv-missing': isPlaceholder(group.linkLabel) }} href={withBase(group.linkHref)}>{group.linkLabel}</a>
+										</p>
+									)}
 									{group.disclosure && (
 										<>
 											<button
@@ -1339,10 +1438,14 @@ const visibleExperienceCount = 3;
 		border-top: 1px solid var(--color-border);
 	}
 
+	#overview {
+		border-top: 0;
+	}
+
 	.cv-section__layout {
 		display: grid;
-		grid-template-columns: 16rem minmax(0, 1fr);
-		gap: 2rem;
+		grid-template-columns: 12rem minmax(0, 1fr);
+		gap: 1.5rem;
 		align-items: start;
 	}
 
@@ -1365,8 +1468,27 @@ const visibleExperienceCount = 3;
 		align-content: start;
 	}
 
+	.cv-section__content--wide {
+		max-width: none;
+	}
+
 	.cv-section__content > :first-child {
 		margin-top: 0;
+	}
+
+	.cv-section__content > h3,
+	.cv-card__collapsed > h3,
+	.cv-project-row > h3,
+	.cv-credential-group > h3,
+	.cv-method-group > h3 {
+		margin: 0;
+		max-width: none;
+		color: var(--color-text);
+		font-family: var(--font-display);
+		font-size: clamp(1.2rem, 1.7vw, 1.45rem);
+		font-weight: 700;
+		line-height: 1.12;
+		letter-spacing: -0.03em;
 	}
 
 	.cv-prose {
@@ -1398,18 +1520,19 @@ const visibleExperienceCount = 3;
 		display: grid;
 		grid-template-columns: 1fr;
 		gap: 1rem;
-		align-items: start;
+		align-items: stretch;
 	}
 
 	.cv-card {
 		display: grid;
 		gap: 1rem;
 		padding: 1.25rem;
-		align-self: start;
+		height: 100%;
+		align-content: start;
 	}
 
 	.cv-card-grid > .cv-card:first-child,
-	.cv-experience-list > .cv-role:first-child .cv-role__card,
+	.cv-experience-list > .cv-experience-group:first-child .cv-experience-group__section,
 	.cv-project-list > .cv-project-row:first-child,
 	.cv-credentials-list > .cv-credential-group:first-child,
 	.cv-method-groups > .cv-method-group:first-child {
@@ -1447,6 +1570,11 @@ const visibleExperienceCount = 3;
 		text-transform: uppercase;
 	}
 
+	.cv-see-all-button {
+		justify-self: start;
+		align-self: start;
+	}
+
 	.cv-disclosure-button:hover,
 	.cv-disclosure-button:focus-visible,
 	.cv-see-all-button:hover,
@@ -1475,7 +1603,8 @@ const visibleExperienceCount = 3;
 		gap: 0.45rem;
 	}
 
-	.cv-detail-group h4 {
+	.cv-detail-group h4,
+	.cv-detail-group h5 {
 		margin: 0;
 		color: var(--color-text);
 		font-family: var(--font-mono);
@@ -1495,12 +1624,14 @@ const visibleExperienceCount = 3;
 
 	.cv-related-link,
 	.cv-project-row__link,
+	.cv-credential-group__link,
 	.cv-section-cta {
 		margin: 0;
 	}
 
 	.cv-related-link a,
 	.cv-project-row__link a,
+	.cv-credential-group__link a,
 	.cv-section-cta a {
 		font-weight: 700;
 		text-decoration: underline;
@@ -1519,6 +1650,82 @@ const visibleExperienceCount = 3;
 		list-style: none;
 	}
 
+	.cv-experience-group {
+		margin: 0;
+	}
+
+	.cv-experience-group__section {
+		display: grid;
+		grid-template-columns: minmax(9rem, 10.5rem) minmax(0, 1fr);
+		gap: 1rem 1rem;
+		align-items: stretch;
+	}
+
+	.cv-experience-group__header {
+		display: grid;
+		gap: 0.35rem;
+		align-self: stretch;
+		margin-top: 0;
+	}
+
+	.cv-experience-group__header-stick {
+		display: grid;
+		gap: 0.35rem;
+		align-content: start;
+		position: sticky;
+		top: var(--cv-anchor-offset);
+		align-self: start;
+		height: fit-content;
+		margin-top: 0;
+		padding-top: 0;
+		padding-bottom: 0.75rem;
+		background: var(--color-page);
+	}
+
+	.cv-experience-group__header h3 {
+		margin: 0;
+		max-width: none;
+		color: var(--color-text);
+		font-family: var(--font-mono);
+		font-size: var(--type-meta-size);
+		font-weight: 700;
+		letter-spacing: var(--type-meta-tracking);
+		line-height: var(--type-meta-line);
+		text-transform: uppercase;
+	}
+
+	.cv-experience-group__meta {
+		margin: 0;
+		color: var(--color-accent-text);
+		font-family: var(--font-mono);
+		font-size: var(--type-meta-size);
+		font-weight: 400;
+		letter-spacing: var(--type-meta-tracking);
+		line-height: var(--type-meta-line);
+		text-transform: uppercase;
+	}
+
+	.cv-experience-group__location {
+		margin: 0;
+		color: var(--color-muted);
+		font-family: var(--font-mono);
+		font-size: var(--type-meta-size);
+		font-weight: 400;
+		letter-spacing: var(--type-meta-tracking);
+		line-height: var(--type-meta-line);
+		text-transform: uppercase;
+	}
+
+	.cv-experience-group__roles {
+		display: grid;
+		gap: 1rem;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+		min-width: 0;
+		align-content: start;
+	}
+
 	.cv-role,
 	.cv-project-row,
 	.cv-credential-group,
@@ -1529,8 +1736,8 @@ const visibleExperienceCount = 3;
 	.cv-role__card {
 		display: grid;
 		gap: 1rem;
+		width: 100%;
 		padding: 1.25rem;
-		border-radius: var(--radius);
 		background: var(--color-card-bg);
 	}
 
@@ -1538,29 +1745,51 @@ const visibleExperienceCount = 3;
 	.cv-credential-group,
 	.cv-method-group {
 		padding: 1.25rem;
-		border-radius: var(--radius);
 		background: var(--color-card-bg);
 	}
 
 	.cv-role__collapsed {
-		grid-template-columns: minmax(0, 0.34fr) minmax(0, 0.66fr);
-		gap: 1.5rem;
+		grid-template-columns: 1fr;
+		gap: 0.9rem;
 	}
 
-	.cv-role__identity,
+	.cv-role__taxonomy,
 	.cv-role__summary-block {
 		display: grid;
-		gap: 0.65rem;
+		gap: 0.35rem;
 		align-content: start;
 	}
 
 	.cv-role__meta {
 		color: var(--color-accent-text);
+		font-family: var(--font-mono);
+		font-size: var(--type-meta-size);
+		font-weight: 400;
+		letter-spacing: var(--type-meta-tracking);
+		line-height: var(--type-meta-line);
+		text-transform: uppercase;
+	}
+
+	.cv-role__card h4 {
+		margin: 0;
+		max-width: none;
+		color: var(--color-text);
+		font-family: var(--font-display);
+		font-size: clamp(1.2rem, 1.7vw, 1.45rem);
+		font-weight: 700;
+		line-height: 1.12;
+		letter-spacing: -0.03em;
 	}
 
 	.cv-role__context,
 	.cv-project-row__meta {
 		color: var(--color-muted);
+		font-family: var(--font-mono);
+		font-size: var(--type-meta-size);
+		font-weight: 400;
+		letter-spacing: var(--type-meta-tracking);
+		line-height: var(--type-meta-line);
+		text-transform: uppercase;
 	}
 
 	.cv-role__contributions {
@@ -1592,6 +1821,11 @@ const visibleExperienceCount = 3;
 		display: none;
 	}
 
+	.cv-experience-list > .cv-experience-group:first-child .cv-experience-group__roles > .cv-role:first-child .cv-role__card {
+		padding-top: 0;
+		margin-top: -0.2rem;
+	}
+
 	.cv-project-row {
 		display: grid;
 		gap: 0.45rem;
@@ -1606,13 +1840,6 @@ const visibleExperienceCount = 3;
 	.cv-method-group {
 		display: grid;
 		gap: 0.75rem;
-	}
-
-	.cv-method-group h3 {
-		max-width: none;
-		font-size: clamp(1.1rem, 1.6vw, 1.35rem);
-		line-height: 1.15;
-		letter-spacing: -0.03em;
 	}
 
 	.cv-method-group ul {
@@ -1648,8 +1875,14 @@ const visibleExperienceCount = 3;
 	@media (max-width: 980px) {
 		.cv-hero__inner,
 		.cv-section__layout,
-		.cv-role__collapsed {
+		.cv-experience-group__section {
 			grid-template-columns: 1fr;
+		}
+
+		.cv-experience-group__header-stick {
+			position: static;
+			top: auto;
+			padding-bottom: 0;
 		}
 
 		.cv-disclosure-panel--role {
@@ -1725,6 +1958,12 @@ const visibleExperienceCount = 3;
 		.cv-credential-group,
 		.cv-method-group {
 			break-inside: avoid;
+		}
+
+		.cv-experience-group__header-stick {
+			position: static;
+			top: auto;
+			background: transparent;
 		}
 	}
 </style>
