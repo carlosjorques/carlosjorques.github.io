@@ -120,26 +120,22 @@ const sectionNav: SectionNavItem[] = [
 ];
 
 const proofItems: SnapshotItem[] = [
-	{ value: '12+ years', label: 'Automotive embedded controls' },
-	{ value: 'Current focus', label: 'EV thermal management, BMS, diagnostics' },
-	{ value: 'Leadership', label: 'Technical lead for embedded software engineers' },
-	{ value: 'Systems', label: 'Electric trucks, autonomous haulers, powertrain controls' },
-	{ value: 'Outcomes', label: 'PhD, 5 patents, 15 publications' },
-	{ value: 'Location', label: 'Valencia, Spain / open to selected opportunities' },
+	{ value: '12+ years', label: 'Embedded controls in automotive systems' },
+	{ value: 'End-to-end scope', label: 'Architecture, control design, embedded software and validation' },
+	{ value: 'Technical leadership', label: 'Team direction, mentoring and cross-functional delivery' },
+	{ value: 'Industrial Ph.D.', label: '5 patents and 15 publications' },
 ];
 
 const overview: OverviewItem = {
-	heading: 'Embedded Controls Technical Lead · Control Systems Architect · Electric & Autonomous Vehicle Systems',
+	heading: 'Embedded Control Systems Architect & Technical Lead',
 	paragraphs: [
-		'I am an Embedded Controls Technical Lead with 12+ years of experience developing real time control software for automotive and heavy duty physical systems. My work focuses on EV thermal management, battery systems, autonomous propulsion control, diagnostics, functional safety, validation, and production software delivery.',
-		'I turn control concepts into testable, calibrated, validated software for real machines, spanning control architecture, generated C/C++, MIL/SIL/HIL, diagnostics, supplier coordination, and PhD-trained engineering depth.',
-	],
+		'I work at the boundary between control theory, embedded software and physical hardware. My role is to define how control intent, diagnostics, calibration, interfaces and validation evidence come together in production-oriented software.',
+		'My strongest contribution is turning technically ambiguous system problems into clear architecture and executable plans, then supporting teams through implementation, integration, calibration and validation on real machine.'
+		],
 	scopeItems: [
-		'Embedded Controls Technical Lead',
-		'Control Systems Architect',
-		'BMS / Thermal Management Software Lead',
-		'Model-Based Development Lead',
-		'Functional Safety-Related Controls',
+		'Architecture and technical direction',
+		'Control software delivery and integration',
+		'Validation, diagnostics and release readiness',
 	],
 };
 
@@ -623,7 +619,7 @@ const experienceGroups: ExperienceGroup[] = [
 		id: 'experience-role-08',
 		title: 'Master Thesis Student',
 		context: 'Scania',
-		meta: '2014 · [Location placeholder]',
+		meta: '2014 · Södertälje',
 		mandate: 'Master thesis on automatic control for a low-pressure fuel system in heavy-duty vehicles.',
 		contributions: [
 			'Built and evaluated a test-rig control strategy using MATLAB/Simulink.',
@@ -644,12 +640,12 @@ const experienceGroups: ExperienceGroup[] = [
 		id: 'experience-group-arduino',
 		heading: 'Arduino Verkstad',
 		meta: '2014',
-		location: '[Location placeholder]',
+		location: 'Malmö, Sweden',
 		roles: [{
 		id: 'experience-role-09',
 		title: 'Hardware Engineer',
 		context: 'Arduino Verkstad',
-		meta: '2014 · [Location placeholder]',
+		meta: '2014 · Malmö, Sweden',
 		mandate: 'Short-term hardware engineering work focused on educational electronics platforms and embedded prototyping.',
 		contributions: [
 			'Designed and produced PCB circuits for TinkerKit-based educational projects.',
@@ -670,12 +666,12 @@ const experienceGroups: ExperienceGroup[] = [
 		id: 'experience-group-sony',
 		heading: 'Sony Mobile Communications',
 		meta: 'May 2013-August 2013',
-		location: '[Location placeholder]',
+		location: 'Lund, Sweden',
 		roles: [{
 		id: 'experience-role-10',
 		title: 'Software Researcher',
 		context: 'Sony Mobile Communications',
-		meta: 'May 2013-August 2013 · [Location placeholder]',
+		meta: 'May 2013-August 2013 · Lund, Sweden',
 		mandate: 'Engineering internship in mobile R&D focused on predictive algorithms for reduced touchscreen latency.',
 		contributions: [
 			'Researched predictive screen interaction models for improved responsiveness.',
@@ -889,7 +885,9 @@ const experienceRenderGroups: ExperienceRenderGroup[] = [];
 					<div class="cv-hero__copy">
 						<p class="section-eyebrow">Online CV</p>
 						<h1 id="cv-title" class="hero-title">Carlos Jorques, Ph.D.</h1>
-						<p class="cv-hero__positioning">Embedded Control Systems Architect and Technical Leader. I design and lead real-time embedded control software for electrified, autonomous, and heavy-duty physical systems, spanning thermal management, battery systems, diagnostics, safety, validation, and production delivery.</p>
+						<p class="cv-hero__positioning">
+							I lead the architecture and delivery of real-time control software for electric and autonomous heavy-duty vehicles, connecting control design, embedded implementation, diagnostics and validation.
+						</p>
 						<div class="button-row cv-hero__actions">
 							{actions.map((action) => (
 								<a class:list={['button', { primary: action.primary }]} href={withBase(action.href)}>
