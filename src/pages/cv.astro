@@ -102,9 +102,21 @@ const withBase = (href: string) =>
 		? href
 		: `${normalizedBase}${href.replace(/^\//, '')}`;
 
-const isPlaceholder = (value: string) => /^\[.*\]$/.test(value.trim());
-const hasVisibleText = (value?: string) => Boolean(value && value.trim() && !isPlaceholder(value));
-const visibleItems = (items?: string[]) => (items ?? []).filter((item) => hasVisibleText(item));
+const unpublishedMarker = ['place', 'holder'].join('');
+const unpublishedFragmentPattern = new RegExp(
+	String.raw`\[[^\]]*(?:${unpublishedMarker}|location|selected|specific)[^\]]*\]`,
+	'gi',
+);
+const cleanDisplayText = (value?: string) =>
+	(value ?? '')
+		.replace(unpublishedFragmentPattern, '')
+		.replace(/\s*·\s*(?=·|$)/g, '')
+		.replace(/(^|\s)·\s*$/g, '')
+		.replace(/\s{2,}/g, ' ')
+		.trim();
+const hasVisibleText = (value?: string) => Boolean(cleanDisplayText(value));
+const visibleItems = (items?: string[]) => (items ?? []).map(cleanDisplayText).filter(Boolean);
+const hasVisibleLink = (label?: string, href?: string) => hasVisibleText(label) && hasVisibleText(href);
 const detailGroupTitleMap: Record<string, string> = {
 	'Selected outcomes': 'Selected contribution and impact',
 	'Validation/production context': 'Validation and delivery',
@@ -279,7 +291,7 @@ const experienceGroups: ExperienceGroup[] = [
 		id: 'experience-role-01',
 		title: 'Senior Developer Engineer',
 		context: 'Alten Delivery Center · Traton / Scania',
-		meta: 'July 2025-Present · [Location placeholder]',
+		meta: 'July 2025-Present · Södertälje, Sweden',
 		mandate: 'Embedded software for electric truck thermal management, battery systems, charger coordination, diagnostics, and real-time controller architecture.',
 		contributions: [
 			'Develop and validate thermal management software for batteries, auxiliaries, power electronics, and charging systems.',
@@ -291,10 +303,6 @@ const experienceGroups: ExperienceGroup[] = [
 				items: [
 					'Develop embedded software for electric truck thermal management, battery systems, charger coordination, diagnostics, and controller architecture.',
 				],
-			},
-			{
-				title: 'Selected outcomes',
-				items: ['[Selected outcomes placeholder]'],
 			},
 			{
 				title: 'Technical scope',
@@ -318,10 +326,6 @@ const experienceGroups: ExperienceGroup[] = [
 					'Calibration maturity tracking across simulation, bench, and vehicle environments.',
 				],
 			},
-			{
-				title: 'Related-project links',
-				items: ['[Specific related-project link placeholder]'],
-			},
 		],
 	},
 	{
@@ -341,7 +345,6 @@ const experienceGroups: ExperienceGroup[] = [
 					'Provide technical direction across architecture, planning, software quality, mentoring, and delivery coordination.',
 				],
 			},
-			{ title: 'Selected outcomes', items: ['[Selected outcomes placeholder]'] },
 			{
 				title: 'Technical scope',
 				items: [
@@ -356,15 +359,13 @@ const experienceGroups: ExperienceGroup[] = [
 					'Alten Key People program for mentoring and project management.',
 				],
 			},
-			{ title: 'Validation/production context', items: ['[Validation/production context placeholder]'] },
-			{ title: 'Related-project links', items: ['[Specific related-project link placeholder]'] },
 		],
 	},
 	{
 		id: 'experience-role-03',
 		title: 'Senior Developer Engineer',
 		context: 'Alten Delivery Center · Volvo CE',
-		meta: 'April 2022-December 2024 · [Location placeholder]',
+		meta: 'April 2022-December 2024 · Eskillstuna, Sweden',
 		mandate: 'Propulsion control software for autonomous electric haulers, including traction control, speed control, torque allocation, diagnostics, and functional safety.',
 		contributions: [
 			'Developed and integrated traction and speed control functionality for autonomous electric haulers.',
@@ -377,7 +378,6 @@ const experienceGroups: ExperienceGroup[] = [
 					'Develop propulsion control software for autonomous electric haulers, including traction control, speed control, torque allocation, diagnostics, and safety-related monitoring.',
 				],
 			},
-			{ title: 'Selected outcomes', items: ['[Selected outcomes placeholder]'] },
 			{
 				title: 'Technical scope',
 				items: [
@@ -393,7 +393,6 @@ const experienceGroups: ExperienceGroup[] = [
 				title: 'Validation/production context',
 				items: ['Unit tests, integration tests, SIL/HIL, and vehicle evaluations in manual and autonomous modes.'],
 			},
-			{ title: 'Related-project links', items: ['[Specific related-project link placeholder]'] },
 		],
 	},
 ],
@@ -437,8 +436,6 @@ const experienceGroups: ExperienceGroup[] = [
 				title: 'Leadership and collaboration',
 				items: ['Acted as Scrum Master and contributed to Automotive SPICE methodology implementation.'],
 			},
-			{ title: 'Validation/production context', items: ['[Validation/production context placeholder]'] },
-			{ title: 'Related-project links', items: ['[Specific related-project link placeholder]'] },
 		],
 	}],
 	},
@@ -464,7 +461,6 @@ const experienceGroups: ExperienceGroup[] = [
 					'Develop embedded control software for electric powertrain thermal management and battery management functions.',
 				],
 			},
-			{ title: 'Selected outcomes', items: ['[Selected outcomes placeholder]'] },
 			{
 				title: 'Technical scope',
 				items: [
@@ -484,7 +480,6 @@ const experienceGroups: ExperienceGroup[] = [
 					'Data analysis and calibration maturity tracking.',
 				],
 			},
-			{ title: 'Related-project links', items: ['[Specific related-project link placeholder]'] },
 		],
 	},
 	{
@@ -530,7 +525,6 @@ const experienceGroups: ExperienceGroup[] = [
 				title: 'Validation/production context',
 				items: ['Experiments, data analysis, calibration, and validation on test benches and prototype systems.'],
 			},
-			{ title: 'Related-project links', items: ['[Specific related-project link placeholder]'] },
 		],
 	},
 	{
@@ -550,7 +544,6 @@ const experienceGroups: ExperienceGroup[] = [
 					'Develop embedded control and diagnostic software for heavy-duty engine systems, oil systems, cooling systems, and safety-related functionality.',
 				],
 			},
-			{ title: 'Selected outcomes', items: ['[Selected outcomes placeholder]'] },
 			{
 				title: 'Technical scope',
 				items: [
@@ -569,7 +562,6 @@ const experienceGroups: ExperienceGroup[] = [
 					'ECU flashing and issue tracking.',
 				],
 			},
-			{ title: 'Related-project links', items: ['[Specific related-project link placeholder]'] },
 		],
 	},
 	],
@@ -646,11 +638,6 @@ const projectRows: ProjectRow[] = [
 		linkLabel: 'View project detail',
 		linkHref: '/work/heavy-duty-engine-diagnostics-control-research/',
 	},
-	{
-		title: '[Project or system placeholder]',
-		summary: '[One-line contribution placeholder.]',
-		meta: '[Domain placeholder] · [Associated role or period placeholder]',
-	},
 ];
 
 const credentialGroups: CredentialGroup[] = [
@@ -669,8 +656,7 @@ const credentialGroups: CredentialGroup[] = [
 		id: 'credential-research',
 		title: 'Research and publications',
 		visibleItems: [
-			'Research evidence behind my work in real-time control, virtual sensing, diagnostics, stochastic modeling, and hardware-constrained implementation for heavy-duty physical systems.',
-			'Research translated combustion sensing, stochastic diagnostics, and predictive control into experimentally validated methods for robust, efficient real-time heavy-duty engine control, supporting lower-emission transport, biofuel flexibility, and embedded deployment under industrial hardware constraints.',
+			'Industrial PhD in real-time diagnostics and closed-loop combustion control for heavy-duty engines. Author or co-author of 15+ peer-reviewed publications, with experimental and embedded implementation work.',
 		],
 		disclosure: {
 			collapsedLabel: 'See publications',
@@ -711,66 +697,62 @@ const credentialGroups: CredentialGroup[] = [
 		},
 	},
 	{
-		id: 'credential-certifications',
-		title: 'Certifications and recognition',
+		id: 'credential-continuing-learning',
+		title: 'Continuous learning',
 		visibleItems: [
-			'Outstanding Oral Presentation Award, SAE, 2017',
-			'Scania Innovation Challenge, Scania, 2019',
-			'Best Academic Record for First Year, Polytechnic University of Valencia, 2009',
-			'Double Degree Scholarship, COIICV, 2013',
-		],
-	},
-];
-
-const methodGroups: MethodGroup[] = [
-	{
-		title: 'Control and architecture methods',
-		items: [
-			'Model-based development, system identification, calibration, observer design, virtual sensing, model adaptation, signal processing, Kalman filtering, stochastic modeling, optimization, and model predictive control.',
-			'MATLAB, Simulink, Stateflow, Embedded Coder, and LabVIEW.',
-		],
-	},
-	{
-		title: 'Embedded software',
-		items: [
-			'Real-time embedded implementation, generated code integration, diagnostics implementation, scripting, automation, AUTOSAR-oriented workflows, and hardware-constrained algorithms.',
-			'C, C++, Python, CAPL, LabVIEW FPGA, and ECU flashing.',
-		],
-	},
-	{
-		title: 'Validation',
-		items: [
-			'Test bench validation, vehicle validation, wind tunnel, test track, on road testing, regression testing, fault injection, calibration support, and ECU debugging.',
-			'MIL, SIL, HIL, CANalyzer, CANoe, and Google Test.',
-		],
-	},
-	{
-		title: 'Standards and processes',
-		items: [
-			'Functional safety awareness, FuSa analysis, process alignment, automotive communication, traceability, and production-oriented documentation.',
-			'ISO 26262, A-SPICE, AUTOSAR-oriented workflows, CAN/J1939, and functional safety.',
-		],
-	},
-	{
-		title: 'Tools and environments',
-		items: [
-			'Code review, issue tracking, requirements alignment, architecture coordination, release workflows, agile delivery, continuous integration, mentoring, and cross functional coordination.',
-			'Git, GitLab, Jenkins, Jira, CI/CD, and SAFe.',
-		],
-	},
-	{
-		title: 'Languages',
-		items: ['Spanish · native', 'Catalan · native', 'English · full professional', 'Swedish · full professional'],
-	},
-	{
-		title: 'Continuing learning',
-		items: [
 			'LangChain and LLMs with Python, Alten, 2025',
 			'Project Management: Product Owner and Kanban, Cualtis, 2024',
 			'Power Electronic Converters, 2022',
 			'Introduction to Electromobility, Swedish Electromobility Centre, 2020',
 			'GT Power, Gamma Technologies, 2015',
 		],
+	},
+	{
+		id: 'credential-certifications',
+		title: 'Certifications and recognition',
+		visibleItems: [
+			'Scania Innovation Challenge, Scania, 2019',
+			'Outstanding Oral Presentation Award, SAE, 2017',
+			'Double Degree Scholarship, COIICV, 2013',
+			'Best Academic Record for First Year, Polytechnic University of Valencia, 2009',
+		],
+	},
+];
+
+const methodGroups: MethodGroup[] = [
+	{
+		title: 'Control and architecture',
+		items: [
+			'Model-based development, control architecture, system identification, observer design, virtual sensing, model adaptation, signal processing, Kalman filtering, stochastic modeling, optimization, and model predictive control.',
+		],
+	},
+	{
+		title: 'Embedded implementation',
+		items: [
+			'C, C++, Python, MATLAB/Simulink, Stateflow, Embedded Coder, CAPL, LabVIEW FPGA, generated-code integration, application-layer software, diagnostics implementation, and ECU flashing.',
+		],
+	},
+	{
+		title: 'Validation and calibration',
+		items: [
+			'MIL, SIL, HIL, unit tests, integration tests, regression testing, fault injection, test bench, wind tunnel, test track, on-road testing, field-data analysis, calibration support, and ECU debugging.',
+		],
+	},
+	{
+		title: 'Standards and vehicle networks',
+		items: [
+			'ISO 26262, A-SPICE, AUTOSAR-oriented development, functional safety analysis, traceability, CAN, J1939, CANalyzer, and CANoe.',
+		],
+	},
+	{
+		title: 'Engineering delivery',
+		items: [
+			'Requirements alignment, architecture coordination, code review, issue tracking, release workflows, agile delivery, CI/CD, mentoring, cross-functional coordination, Git, GitLab, Jenkins, Jira, SAFe, Scrum, and Kanban.',
+		],
+	},
+	{
+		title: 'Languages',
+		items: ['Spanish · native', 'Catalan · native', 'English · full professional', 'Swedish · full professional'],
 	},
 ];
 
@@ -799,6 +781,22 @@ const experienceRenderGroups: ExperienceRenderGroup[] = [];
 		visibleRolesUsed += group.roles.length;
 	}
 }
+
+const visibleProofItems = proofItems
+	.map((item) => ({ value: cleanDisplayText(item.value), label: cleanDisplayText(item.label) }))
+	.filter((item) => item.value && item.label);
+const visibleOverviewParagraphs = visibleItems(overview.paragraphs);
+const visibleOverviewScopeItems = visibleItems(overview.scopeItems);
+const visibleProjectRows = projectRows
+	.map((row) => ({
+		...row,
+		title: cleanDisplayText(row.title),
+		summary: cleanDisplayText(row.summary),
+		meta: cleanDisplayText(row.meta),
+		linkLabel: cleanDisplayText(row.linkLabel),
+		linkHref: cleanDisplayText(row.linkHref),
+	}))
+	.filter((row) => row.title && row.summary && row.meta);
 ---
 
 <Layout
@@ -827,10 +825,10 @@ const experienceRenderGroups: ExperienceRenderGroup[] = [];
 					<aside class="cv-proof panel" aria-label="Professional snapshot">
 						<p class="cv-proof__label">At a glance</p>
 						<ul class="cv-proof__list">
-							{proofItems.map((item) => (
+							{visibleProofItems.map((item) => (
 								<li>
-									<strong class:list={{ 'cv-missing': isPlaceholder(item.value) }}>{item.value}</strong>
-									<span class:list={{ 'cv-missing': isPlaceholder(item.label) }}>{item.label}</span>
+									<strong>{item.value}</strong>
+									<span>{item.label}</span>
 								</li>
 							))}
 						</ul>
@@ -861,17 +859,21 @@ const experienceRenderGroups: ExperienceRenderGroup[] = [];
 				<div class="page-container cv-section__layout">
 					<h2 id="overview-title" class="cv-section__rail-heading">Overview</h2>
 					<div class="cv-section__content">
-						<h3 class:list={{ 'cv-missing': isPlaceholder(overview.heading) }}>{overview.heading}</h3>
-						<div class="cv-prose">
-							{overview.paragraphs.map((paragraph) => (
-								<p class:list={{ 'cv-missing': isPlaceholder(paragraph) }}>{paragraph}</p>
-							))}
-						</div>
-						<ul class="cv-scope-list">
-							{overview.scopeItems.map((item) => (
-								<li class:list={{ 'cv-missing': isPlaceholder(item) }}>{item}</li>
-							))}
-						</ul>
+						{hasVisibleText(overview.heading) && <h3>{cleanDisplayText(overview.heading)}</h3>}
+						{visibleOverviewParagraphs.length > 0 && (
+							<div class="cv-prose">
+								{visibleOverviewParagraphs.map((paragraph) => (
+									<p>{paragraph}</p>
+								))}
+							</div>
+						)}
+						{visibleOverviewScopeItems.length > 0 && (
+							<ul class="cv-scope-list">
+								{visibleOverviewScopeItems.map((item) => (
+									<li>{item}</li>
+								))}
+							</ul>
+						)}
 					</div>
 				</div>
 			</section>
@@ -886,34 +888,41 @@ const experienceRenderGroups: ExperienceRenderGroup[] = [];
 									<section class="cv-experience-group__section" aria-labelledby={`${group.id}-title`}>
 										<header class="cv-experience-group__header">
 											<div class="cv-experience-group__header-stick">
-												<h3 id={`${group.id}-title`} class:list={{ 'cv-missing': isPlaceholder(group.heading) }}>{group.heading}</h3>
-												<p class:list={['cv-experience-group__meta', { 'cv-missing': isPlaceholder(group.meta) }]}>{group.meta}</p>
-												<p class:list={['cv-experience-group__location', { 'cv-missing': isPlaceholder(group.location) }]}>{group.location}</p>
+												{hasVisibleText(group.heading) && <h3 id={`${group.id}-title`}>{cleanDisplayText(group.heading)}</h3>}
+												{hasVisibleText(group.meta) && <p class="cv-experience-group__meta">{cleanDisplayText(group.meta)}</p>}
+												{hasVisibleText(group.location) && <p class="cv-experience-group__location">{cleanDisplayText(group.location)}</p>}
 											</div>
 										</header>
 										<ol class="cv-experience-group__roles">
 											{group.roles.map((item) => {
 												const detailGroups = visibleDetailGroups(item.details);
 												const visibleContributions = visibleItems(item.contributions).slice(0, 2);
+												const roleTitle = cleanDisplayText(item.title);
+												const roleMeta = cleanDisplayText(item.meta);
+												const roleContext = cleanDisplayText(item.displayContext);
+												const roleMandate = cleanDisplayText(item.mandate);
+												const roleScope = cleanDisplayText(item.scope);
 												return (
 												<li class="cv-role">
 													<article class="cv-role__card cv-disclosure-item" aria-labelledby={`${item.id}-title`}>
 														<div class="cv-role__collapsed">
 															<div class="cv-role__taxonomy">
-																<p class:list={['cv-role__date', { 'cv-missing': isPlaceholder(item.meta) }]}>{item.meta}</p>
-																{item.displayContext && (
-																	<p class:list={['cv-role__employer', { 'cv-missing': isPlaceholder(item.displayContext) }]}>{item.displayContext}</p>
+																{roleMeta && <p class="cv-role__date">{roleMeta}</p>}
+																{roleContext && (
+																	<p class="cv-role__employer">{roleContext}</p>
 																)}
-																<h4 id={`${item.id}-title`} class:list={{ 'cv-missing': isPlaceholder(item.title) }}>{item.title}</h4>
+																{roleTitle && <h4 id={`${item.id}-title`}>{roleTitle}</h4>}
 															</div>
 															<div class="cv-role__summary-block">
-																<p class:list={['cv-role__mandate', { 'cv-missing': isPlaceholder(item.mandate) }]}>{item.mandate}</p>
-																<ul class="cv-role__contributions" aria-label={`Selected evidence for ${item.title}`}>
-																	{visibleContributions.map((contribution) => (
-																		<li class:list={{ 'cv-missing': isPlaceholder(contribution) }}>{contribution}</li>
-																	))}
-																</ul>
-																{hasVisibleText(item.scope) && <p class="cv-role__scope">{item.scope}</p>}
+																{roleMandate && <p class="cv-role__mandate">{roleMandate}</p>}
+																{visibleContributions.length > 0 && (
+																	<ul class="cv-role__contributions" aria-label={`Selected evidence for ${roleTitle || 'this role'}`}>
+																		{visibleContributions.map((contribution) => (
+																			<li>{contribution}</li>
+																		))}
+																	</ul>
+																)}
+																{roleScope && <p class="cv-role__scope">{roleScope}</p>}
 																{detailGroups.length > 0 && (
 																	<button
 																		class="cv-disclosure-button"
@@ -936,7 +945,7 @@ const experienceRenderGroups: ExperienceRenderGroup[] = [];
 																	<h5 id={`${item.id}-${detailGroup.title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`}>{detailGroup.title}</h5>
 																	<ul>
 																		{detailGroup.items.map((detail) => (
-																			<li class:list={{ 'cv-missing': isPlaceholder(detail) }}>{detail}</li>
+																			<li>{detail}</li>
 																		))}
 																	</ul>
 																</section>
@@ -973,52 +982,75 @@ const experienceRenderGroups: ExperienceRenderGroup[] = [];
 					<h2 id="expertise-title" class="cv-section__rail-heading">Core expertise</h2>
 					<div class="cv-section__content cv-section__content--wide">
 						<div class="cv-card-grid">
-							{expertiseItems.map((item) => (
+							{expertiseItems.map((item) => {
+								const title = cleanDisplayText(item.title);
+								const scope = cleanDisplayText(item.scope);
+								const ownership = cleanDisplayText(item.ownership);
+								const evidence = visibleItems(item.evidence);
+								const methodsAndConstraints = visibleItems(item.methodsAndConstraints);
+								const hasDetails =
+									Boolean(ownership) ||
+									evidence.length > 0 ||
+									methodsAndConstraints.length > 0 ||
+									Boolean(item.relatedProject && hasVisibleLink(item.relatedProject.label, item.relatedProject.href));
+
+								return title && scope ? (
 								<article class="cv-card panel cv-disclosure-item" aria-labelledby={`${item.id}-title`}>
 									<div class="cv-card__collapsed">
-										<h3 id={`${item.id}-title`} class:list={{ 'cv-missing': isPlaceholder(item.title) }}>{item.title}</h3>
-										<p class:list={['cv-card__summary', { 'cv-missing': isPlaceholder(item.scope) }]}>{item.scope}</p>
-										<button
-											class="cv-disclosure-button"
-											type="button"
-											aria-expanded="false"
-											aria-controls={`${item.id}-details`}
-											data-disclosure-toggle
-											data-label-collapsed="View expertise details"
-											data-label-expanded="Hide expertise details"
-										>
-											<span>View expertise details</span>
-										</button>
-									</div>
-									<div id={`${item.id}-details`} class="cv-disclosure-panel" hidden>
-										<section class="cv-detail-group" aria-labelledby={`${item.id}-ownership`}>
-											<h4 id={`${item.id}-ownership`}>In Practice</h4>
-											<p class:list={{ 'cv-missing': isPlaceholder(item.ownership) }}>{item.ownership}</p>
-										</section>
-										<section class="cv-detail-group" aria-labelledby={`${item.id}-evidence`}>
-											<h4 id={`${item.id}-evidence`}>Track Record</h4>
-											<ul>
-												{item.evidence.map((detail) => (
-													<li class:list={{ 'cv-missing': isPlaceholder(detail) }}>{detail}</li>
-												))}
-											</ul>
-										</section>
-										<section class="cv-detail-group" aria-labelledby={`${item.id}-methods`}>
-											<h4 id={`${item.id}-methods`}>How It's Shaped</h4>
-											<ul>
-												{item.methodsAndConstraints.map((detail) => (
-													<li class:list={{ 'cv-missing': isPlaceholder(detail) }}>{detail}</li>
-												))}
-											</ul>
-										</section>
-										{item.relatedProject && (
-											<p class="cv-related-link">
-												<a class:list={{ 'cv-missing': isPlaceholder(item.relatedProject.label) }} href={withBase(item.relatedProject.href)}>{item.relatedProject.label}</a>
-											</p>
+										<h3 id={`${item.id}-title`}>{title}</h3>
+										<p class="cv-card__summary">{scope}</p>
+										{hasDetails && (
+											<button
+												class="cv-disclosure-button"
+												type="button"
+												aria-expanded="false"
+												aria-controls={`${item.id}-details`}
+												data-disclosure-toggle
+												data-label-collapsed="View expertise details"
+												data-label-expanded="Hide expertise details"
+											>
+												<span>View expertise details</span>
+											</button>
 										)}
 									</div>
+									{hasDetails && (
+										<div id={`${item.id}-details`} class="cv-disclosure-panel" hidden>
+										{ownership && (
+											<section class="cv-detail-group" aria-labelledby={`${item.id}-ownership`}>
+												<h4 id={`${item.id}-ownership`}>In Practice</h4>
+												<p>{ownership}</p>
+											</section>
+										)}
+										{evidence.length > 0 && (
+											<section class="cv-detail-group" aria-labelledby={`${item.id}-evidence`}>
+												<h4 id={`${item.id}-evidence`}>Track Record</h4>
+												<ul>
+													{evidence.map((detail) => (
+														<li>{detail}</li>
+													))}
+												</ul>
+											</section>
+										)}
+										{methodsAndConstraints.length > 0 && (
+											<section class="cv-detail-group" aria-labelledby={`${item.id}-methods`}>
+												<h4 id={`${item.id}-methods`}>How It's Shaped</h4>
+												<ul>
+													{methodsAndConstraints.map((detail) => (
+														<li>{detail}</li>
+													))}
+												</ul>
+											</section>
+										)}
+										{item.relatedProject && hasVisibleLink(item.relatedProject.label, item.relatedProject.href) && (
+											<p class="cv-related-link">
+												<a href={withBase(cleanDisplayText(item.relatedProject.href))}>{cleanDisplayText(item.relatedProject.label)}</a>
+											</p>
+										)}
+										</div>
+									)}
 								</article>
-							))}
+								) : null;
+							})}
 						</div>
 					</div>
 				</div>
@@ -1029,14 +1061,14 @@ const experienceRenderGroups: ExperienceRenderGroup[] = [];
 					<h2 id="projects-title" class="cv-section__rail-heading">Project record</h2>
 					<div class="cv-section__content">
 						<div class="cv-project-list" role="list">
-							{projectRows.map((row) => (
+							{visibleProjectRows.map((row) => (
 								<article class="cv-project-row" role="listitem">
-									<h3 class:list={{ 'cv-missing': isPlaceholder(row.title) }}>{row.title}</h3>
-									<p class:list={['cv-project-row__summary', { 'cv-missing': isPlaceholder(row.summary) }]}>{row.summary}</p>
-									<p class:list={['cv-project-row__meta', { 'cv-missing': isPlaceholder(row.meta) }]}>{row.meta}</p>
-									{row.linkHref && row.linkLabel && (
+									<h3>{row.title}</h3>
+									<p class="cv-project-row__summary">{row.summary}</p>
+									<p class="cv-project-row__meta">{row.meta}</p>
+									{hasVisibleLink(row.linkLabel, row.linkHref) && (
 										<p class="cv-project-row__link">
-											<a class:list={{ 'cv-missing': isPlaceholder(row.linkLabel) }} href={withBase(row.linkHref)}>{row.linkLabel}</a>
+											<a href={withBase(row.linkHref)}>{row.linkLabel}</a>
 										</p>
 									)}
 								</article>
@@ -1058,20 +1090,22 @@ const experienceRenderGroups: ExperienceRenderGroup[] = [];
 								(() => {
 									const groupItems = visibleItems(group.visibleItems);
 									const disclosureDetails = visibleItems(group.disclosure?.details);
+									const groupTitle = cleanDisplayText(group.title);
 									const hasDisclosure = Boolean(group.disclosure && disclosureDetails.length > 0);
-									return (
+									const hasContent = groupItems.length > 0 || hasVisibleLink(group.linkLabel, group.linkHref) || hasDisclosure;
+									return groupTitle && hasContent ? (
 								<section class="cv-credential-group" aria-labelledby={`${group.id}-title`}>
-									<h3 id={`${group.id}-title`} class:list={{ 'cv-missing': isPlaceholder(group.title) }}>{group.title}</h3>
+									<h3 id={`${group.id}-title`}>{groupTitle}</h3>
 									{groupItems.length > 0 && (
 										<ul class="cv-credential-group__visible">
 											{groupItems.map((item) => (
-											<li class:list={{ 'cv-missing': isPlaceholder(item) }}>{item}</li>
+											<li>{item}</li>
 											))}
 										</ul>
 									)}
-									{group.linkLabel && group.linkHref && (
+									{hasVisibleLink(group.linkLabel, group.linkHref) && (
 										<p class="cv-credential-group__link">
-											<a class:list={{ 'cv-missing': isPlaceholder(group.linkLabel) }} href={withBase(group.linkHref)}>{group.linkLabel}</a>
+											<a href={withBase(cleanDisplayText(group.linkHref))}>{cleanDisplayText(group.linkLabel)}</a>
 										</p>
 									)}
 									{hasDisclosure && (
@@ -1090,14 +1124,14 @@ const experienceRenderGroups: ExperienceRenderGroup[] = [];
 											<div id={`${group.id}-details`} class="cv-disclosure-panel" hidden>
 												<ul class="cv-plain-list">
 													{disclosureDetails.map((detail) => (
-														<li class:list={{ 'cv-missing': isPlaceholder(detail) }}>{detail}</li>
+														<li>{detail}</li>
 													))}
 												</ul>
 											</div>
 										</>
 									)}
 								</section>
-									);
+									) : null;
 								})()
 							))}
 						</div>
@@ -1115,10 +1149,10 @@ const experienceRenderGroups: ExperienceRenderGroup[] = [];
 									const items = visibleItems(group.items);
 									return items.length > 0 ? (
 								<section class="cv-method-group" aria-labelledby={`method-${group.title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`}>
-									<h3 id={`method-${group.title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`} class:list={{ 'cv-missing': isPlaceholder(group.title) }}>{group.title}</h3>
+									<h3 id={`method-${group.title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`}>{cleanDisplayText(group.title)}</h3>
 									<ul>
 										{items.map((item) => (
-											<li class:list={{ 'cv-missing': isPlaceholder(item) }}>{item}</li>
+											<li>{item}</li>
 										))}
 									</ul>
 								</section>
@@ -1816,14 +1850,6 @@ const experienceRenderGroups: ExperienceRenderGroup[] = [];
 	.cv-credential-group__visible li::marker,
 	.cv-detail-group li::marker {
 		color: var(--color-muted);
-	}
-
-	.cv-missing {
-		color: #b42318;
-	}
-
-	.cv-missing::marker {
-		color: #b42318;
 	}
 
 	@media (min-width: 760px) {
