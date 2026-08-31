@@ -137,7 +137,7 @@ const visibleDetailGroups = (groups?: DetailGroup[]) =>
 
 const actions: CvAction[] = [
 	{ label: 'Download PDF CV', href: '/cv/Carlos_Jorques_CV.pdf', primary: true },
-	{ label: 'Contact', href: '/contact' },
+	{ label: 'Discuss an opportunity', href: '/contact' },
 ];
 
 const sectionNav: SectionNavItem[] = [
@@ -153,7 +153,7 @@ const proofItems: SnapshotItem[] = [
 	{ value: '12+ years', label: 'Embedded controls in automotive systems' },
 	{ value: 'End-to-end scope', label: 'Architecture, control design, embedded software and validation' },
 	{ value: 'Technical leadership', label: 'Team direction, mentoring and cross-functional delivery' },
-	{ value: 'Industrial Ph.D.', label: '5 patents and 15 publications' },
+	{ value: 'Industrial PhD', label: '5 patents and 15+ publications' },
 ];
 
 const overview: OverviewItem = {
@@ -800,8 +800,8 @@ const visibleProjectRows = projectRows
 ---
 
 <Layout
-	title="CV | Carlos Jorques"
-	description="Structural CV page skeleton for Carlos Jorques, aligned with the portfolio’s established layout, spacing, and responsive patterns."
+	title="Carlos Jorques | Embedded Control Systems Architect CV"
+	description="Online CV of Carlos Jorques, Embedded Control Systems Architect and Technical Lead with 12+ years of experience in electric vehicles, autonomous machinery, and production embedded control software."
 >
 	<div class="cv-page">
 		<section id="cv-hero" class="cv-hero" aria-labelledby="cv-title">
@@ -809,7 +809,8 @@ const visibleProjectRows = projectRows
 				<div class="cv-hero__inner">
 					<div class="cv-hero__copy">
 						<p class="section-eyebrow">Online CV</p>
-						<h1 id="cv-title" class="hero-title">Carlos Jorques, Ph.D.</h1>
+						<h1 id="cv-title" class="hero-title">Carlos Jorques</h1>
+						<p class="cv-hero__role">Embedded Control Systems Architect & Technical Lead</p>
 						<p class="cv-hero__positioning">
 							I lead the architecture and delivery of real-time control software for electric and autonomous heavy-duty vehicles, connecting control design, embedded implementation, diagnostics and validation.
 						</p>
@@ -1240,6 +1241,18 @@ const visibleProjectRows = projectRows
 		color: var(--color-text);
 		font-size: 1.08rem;
 		line-height: 1.7;
+	}
+
+	.cv-hero__role {
+		max-width: 52rem;
+		margin: -0.2rem 0 0;
+		color: var(--color-accent-text);
+		font-family: var(--font-mono);
+		font-size: var(--type-meta-size);
+		font-weight: 700;
+		letter-spacing: var(--type-meta-tracking);
+		line-height: var(--type-meta-line);
+		text-transform: uppercase;
 	}
 
 	.cv-hero__actions {
