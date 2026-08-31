@@ -106,8 +106,23 @@ const withBase = (href: string) =>
 const isPlaceholder = (value: string) => /^\[.*\]$/.test(value.trim());
 const hasVisibleText = (value?: string) => Boolean(value && value.trim() && !isPlaceholder(value));
 const visibleItems = (items?: string[]) => (items ?? []).filter((item) => hasVisibleText(item));
+const detailGroupTitleMap: Record<string, string> = {
+	'Selected outcomes': 'Selected contribution and impact',
+	'Validation/production context': 'Validation and delivery',
+	'Related-project links': 'Related selected work',
+};
+const detailGroupOrder = [
+	'Selected contribution and impact',
+	'Technical scope',
+	'Validation and delivery',
+	'Leadership and collaboration',
+	'Related selected work',
+];
 const visibleDetailGroups = (groups?: DetailGroup[]) =>
-	(groups ?? []).map((group) => ({ ...group, items: visibleItems(group.items) })).filter((group) => hasVisibleText(group.title) && group.items.length > 0);
+	(groups ?? [])
+		.map((group) => ({ ...group, title: detailGroupTitleMap[group.title] ?? group.title, items: visibleItems(group.items) }))
+		.filter((group) => detailGroupOrder.includes(group.title) && group.items.length > 0)
+		.sort((a, b) => detailGroupOrder.indexOf(a.title) - detailGroupOrder.indexOf(b.title));
 
 const actions: CvAction[] = [
 	{ label: 'Download PDF CV', href: '/cv/Carlos_Jorques_CV.pdf', primary: true },
@@ -369,12 +384,11 @@ const experienceGroups: ExperienceGroup[] = [
 		title: 'Senior Software Developer / Technical Leader',
 		context: 'Alten Delivery Center',
 		meta: '2023-Present · Valencia, Spain',
-		mandate: 'Provided technical direction across architecture, planning, software quality, mentoring, and cross functional delivery alignment.',
+		mandate: 'Technical lead for a team of embedded software engineers across client delivery assignments.',
 		contributions: [
-			'Provide technical leadership to a team of 3 engineers in embedded software development.',
+			'Provided technical direction for a team of 3 embedded software engineers across architecture, planning, software quality, mentoring, and cross functional delivery alignment.',
 			'Coordinate planning, technical quality, mentoring, and client assignment delivery.',
 		],
-		scope: 'Technical lead for a team of 3 embedded software engineers across client delivery assignments.',
 		details: [
 			{
 				title: 'Responsibilities',
@@ -613,75 +627,48 @@ const experienceGroups: ExperienceGroup[] = [
 			{ title: 'Related-project links', items: ['[Specific related-project link placeholder]'] },
 		],
 	},
-	{
-		id: 'experience-role-08',
-		title: 'Master Thesis Student',
-		context: 'Scania',
-		meta: '2014 · Södertälje',
-		mandate: 'Master thesis on automatic control for a low-pressure fuel system in heavy-duty vehicles.',
-		contributions: [
-			'Built and evaluated a test-rig control strategy using MATLAB/Simulink.',
-			'Contributed to real-time control algorithm and patent-related work.',
-		],
-		details: [
-			{ title: 'Responsibilities', items: ['Master thesis work on automatic control for a low-pressure fuel system in heavy-duty vehicles.'] },
-			{ title: 'Selected outcomes', items: ['[Selected outcomes placeholder]'] },
-			{ title: 'Technical scope', items: ['Built and evaluated a test-rig control strategy using MATLAB/Simulink.'] },
-			{ title: 'Leadership and collaboration', items: ['Contributed to patent-related work.'] },
-			{ title: 'Validation/production context', items: ['Real-time control algorithm evaluation on a test rig.'] },
-			{ title: 'Related-project links', items: ['[Specific related-project link placeholder]'] },
-		],
-	}],
+	],
 	},
 	{
-		id: 'experience-group-arduino',
-		heading: 'Arduino Verkstad',
-		meta: '2014',
-		location: 'Malmö, Sweden',
-		roles: [{
-		id: 'experience-role-09',
-		title: 'Hardware Engineer',
-		context: 'Arduino Verkstad',
-		meta: '2014 · Malmö, Sweden',
-		mandate: 'Short-term hardware engineering work focused on educational electronics platforms and embedded prototyping.',
-		contributions: [
-			'Designed and produced PCB circuits for TinkerKit-based educational projects.',
-			'Created documentation for Arduino courses and maker education materials.',
+		id: 'experience-group-earlier',
+		heading: 'Earlier experience',
+		meta: '2013-2014',
+		location: 'Sweden',
+		roles: [
+			{
+				id: 'experience-role-08',
+				title: 'Master Thesis Student',
+				context: 'Scania',
+				meta: '2014 · Södertälje, Sweden',
+				mandate: 'Master thesis on automatic control for a low-pressure fuel system in heavy-duty vehicles.',
+				contributions: [
+					'Built and evaluated a test-rig control strategy using MATLAB/Simulink.',
+					'Contributed to real-time control algorithm and patent-related work.',
+				],
+			},
+			{
+				id: 'experience-role-09',
+				title: 'Hardware Engineer',
+				context: 'Arduino Verkstad',
+				meta: '2014 · Malmö, Sweden',
+				mandate: 'Short-term hardware engineering work focused on educational electronics platforms and embedded prototyping.',
+				contributions: [
+					'Designed and produced PCB circuits for TinkerKit-based educational projects.',
+					'Created documentation for Arduino courses and maker education materials.',
+				],
+			},
+			{
+				id: 'experience-role-10',
+				title: 'Software Researcher',
+				context: 'Sony Mobile Communications',
+				meta: 'May 2013-August 2013 · Lund, Sweden',
+				mandate: 'Engineering internship in mobile R&D focused on predictive algorithms for reduced touchscreen latency.',
+				contributions: [
+					'Researched predictive screen interaction models for improved responsiveness.',
+					'Implemented selected algorithms at Android kernel level for real-time evaluation.',
+				],
+			},
 		],
-		details: [
-			{ title: 'Responsibilities', items: ['Hardware engineering work for educational electronics platforms and embedded prototyping.'] },
-			{ title: 'Selected outcomes', items: ['[Selected outcomes placeholder]'] },
-			{ title: 'Technical scope', items: ['Designed and produced PCB circuits for TinkerKit-based educational projects.'] },
-			{ title: 'Leadership and collaboration', items: ['Created documentation for Arduino courses and maker education materials.'] },
-			{ title: 'Validation/production context', items: ['[Validation/production context placeholder]'] },
-			{ title: 'Related-project links', items: ['[Specific related-project link placeholder]'] },
-		],
-	}],
-	},
-	{
-		id: 'experience-group-sony',
-		heading: 'Sony Mobile Communications',
-		meta: 'May 2013-August 2013',
-		location: 'Lund, Sweden',
-		roles: [{
-		id: 'experience-role-10',
-		title: 'Software Researcher',
-		context: 'Sony Mobile Communications',
-		meta: 'May 2013-August 2013 · Lund, Sweden',
-		mandate: 'Engineering internship in mobile R&D focused on predictive algorithms for reduced touchscreen latency.',
-		contributions: [
-			'Researched predictive screen interaction models for improved responsiveness.',
-			'Implemented selected algorithms at Android kernel level for real-time evaluation.',
-		],
-		details: [
-			{ title: 'Responsibilities', items: ['Engineering internship in mobile R&D focused on predictive algorithms for reduced touchscreen latency.'] },
-			{ title: 'Selected outcomes', items: ['[Selected outcomes placeholder]'] },
-			{ title: 'Technical scope', items: ['Implemented selected algorithms at Android kernel level for real-time evaluation.'] },
-			{ title: 'Leadership and collaboration', items: ['[Leadership and collaboration placeholder]'] },
-			{ title: 'Validation/production context', items: ['Real-time evaluation of predictive screen interaction models.'] },
-			{ title: 'Related-project links', items: ['[Specific related-project link placeholder]'] },
-		],
-	}],
 	},
 ];
 
@@ -976,7 +963,7 @@ const experienceRenderGroups: ExperienceRenderGroup[] = [];
 															</div>
 															<div class="cv-role__summary-block">
 																<p class:list={['cv-role__mandate', { 'cv-missing': isPlaceholder(item.mandate) }]}>{item.mandate}</p>
-																<ul class="cv-role__contributions" aria-label={`Evidence for ${item.title}`}>
+																<ul class="cv-role__contributions" aria-label={`Selected evidence for ${item.title}`}>
 																	{visibleContributions.map((contribution) => (
 																		<li class:list={{ 'cv-missing': isPlaceholder(contribution) }}>{contribution}</li>
 																	))}
@@ -1849,8 +1836,9 @@ const experienceRenderGroups: ExperienceRenderGroup[] = [];
 	}
 
 	.cv-disclosure-panel--role {
-		grid-template-columns: repeat(2, minmax(0, 1fr));
-		gap: 1rem 1.5rem;
+		width: 100%;
+		grid-template-columns: minmax(0, 1fr);
+		gap: 1rem;
 	}
 
 	.cv-role--extra[hidden] {
@@ -1925,10 +1913,6 @@ const experienceRenderGroups: ExperienceRenderGroup[] = [];
 			position: static;
 			top: auto;
 			padding-bottom: 0;
-		}
-
-		.cv-disclosure-panel--role {
-			grid-template-columns: 1fr;
 		}
 
 	}
