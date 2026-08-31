@@ -914,36 +914,22 @@ const experienceRenderGroups: ExperienceRenderGroup[] = [];
 			</div>
 		</section>
 
-		<div class="cv-section-nav-shell">
-			<div class="page-container">
-				<nav class="cv-section-nav cv-section-nav--desktop" aria-label="CV sections">
-					<ul>
-						{sectionNav.map((item) => (
-							<li>
-								<a class="cv-nav-link" href={`#${item.id}`} data-cv-nav-link data-target={item.id}>
-									{item.label}
-								</a>
-							</li>
-						))}
-					</ul>
-				</nav>
-
-				<details class="cv-section-nav-mobile">
-					<summary>CV sections</summary>
-					<nav aria-label="CV sections">
-						<ul>
-							{sectionNav.map((item) => (
-								<li>
-									<a class="cv-nav-link" href={`#${item.id}`} data-cv-nav-link data-target={item.id}>
-										{item.label}
-									</a>
-								</li>
-							))}
-						</ul>
-					</nav>
-				</details>
-			</div>
-		</div>
+		<nav class="cv-section-nav-float" aria-label="CV sections">
+			<button class="cv-section-nav-float__trigger" type="button" aria-label="Show CV sections" tabindex="-1">
+				<span aria-hidden="true"></span>
+				<span aria-hidden="true"></span>
+				<span aria-hidden="true"></span>
+			</button>
+			<ul>
+				{sectionNav.map((item) => (
+					<li>
+						<a class="cv-nav-link" href={`#${item.id}`} data-cv-nav-link data-target={item.id}>
+							{item.label}
+						</a>
+					</li>
+				))}
+			</ul>
+		</nav>
 
 		<main class="cv-main-flow">
 			<section id="overview" class="cv-section" aria-labelledby="overview-title">
@@ -1340,37 +1326,94 @@ const experienceRenderGroups: ExperienceRenderGroup[] = [];
 		text-transform: uppercase;
 	}
 
-	.cv-section-nav-shell {
+	.cv-section-nav-float {
 		position: sticky;
-		top: 0;
+		top: 50vh;
 		z-index: 30;
-		border-top: 1px solid var(--color-border);
-		border-bottom: 1px solid var(--color-border);
+		display: none;
+		width: 2.75rem;
+		height: 2.75rem;
+		margin: 0 0 -1.375rem -12rem;
+		overflow: hidden;
+		border-radius: 50%;
+		background: var(--color-text);
+		transition:
+			width var(--motion-duration-fast-02) var(--motion-standard-productive),
+			height var(--motion-duration-fast-02) var(--motion-standard-productive),
+			border-radius var(--motion-duration-fast-02) var(--motion-standard-productive);
+	}
+
+	.cv-section-nav-float:hover,
+	.cv-section-nav-float:focus-within {
+		width: 8.75rem;
+		height: 2.75rem;
+		overflow: visible;
+		background: transparent;
+		border-radius: var(--radius);
+	}
+
+	.cv-section-nav-float__trigger {
+		position: absolute;
+		top: 0;
+		left: 0;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		gap: 0.18rem;
+		width: 2.75rem;
+		height: 2.75rem;
+		padding: 0;
+		border: 0;
+		border-radius: var(--radius-pill);
+		background: transparent;
+		pointer-events: none;
+		transition: opacity var(--motion-duration-fast-02) var(--motion-standard-productive);
+	}
+
+	.cv-section-nav-float:hover .cv-section-nav-float__trigger,
+	.cv-section-nav-float:focus-within .cv-section-nav-float__trigger {
+		opacity: 0;
+	}
+
+	.cv-section-nav-float__trigger span {
+		display: block;
+		flex: 0 0 0.3rem;
+		width: 0.3rem;
+		height: 0.3rem;
+		border-radius: 50%;
 		background: var(--color-page);
 	}
 
-	.cv-section-nav-shell .page-container {
+	.cv-section-nav-float ul {
+		position: absolute;
+		top: 0;
+		left: 0;
 		display: grid;
-		grid-template-columns: 1fr;
-		gap: 0.75rem;
-		padding: 0.85rem 0;
+		gap: 0.2rem;
+		width: 8.75rem;
+		margin: 0;
+		padding: 0.65rem 0.8rem;
+		list-style: none;
+		border-radius: var(--radius);
+		background: var(--color-text);
+		opacity: 0;
+		transform: translateX(-0.35rem);
+		transition:
+			opacity var(--motion-duration-fast-02) var(--motion-standard-productive),
+			transform var(--motion-duration-fast-02) var(--motion-standard-productive);
 	}
 
-	.cv-section-nav--desktop ul,
-	.cv-section-nav-mobile ul {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 0.65rem 1rem;
-		margin: 0;
-		padding: 0;
-		list-style: none;
+	.cv-section-nav-float:hover ul,
+	.cv-section-nav-float:focus-within ul {
+		opacity: 1;
+		transform: translateX(0);
 	}
 
 	.cv-nav-link {
 		display: inline-flex;
 		align-items: center;
-		min-height: 40px;
-		color: var(--color-muted);
+		min-height: 1.5rem;
+		color: var(--color-page);
 		font-family: var(--font-mono);
 		font-size: var(--type-nav-size);
 		font-weight: 600;
@@ -1386,43 +1429,10 @@ const experienceRenderGroups: ExperienceRenderGroup[] = [];
 	.cv-nav-link:focus-visible,
 	.cv-nav-link[aria-current='true'] {
 		color: var(--color-accent-text);
-		transform: translateY(-1px);
+		transform: translateX(2px);
 	}
 
-	.cv-section-nav-mobile {
-		display: none;
-	}
-
-	.cv-section-nav-mobile summary {
-		display: inline-flex;
-		align-items: center;
-		justify-content: space-between;
-		width: 100%;
-		min-height: 44px;
-		cursor: pointer;
-		list-style: none;
-		color: var(--color-text);
-		font-family: var(--font-mono);
-		font-size: var(--type-nav-size);
-		font-weight: 600;
-		letter-spacing: 0.04em;
-		text-transform: uppercase;
-	}
-
-	.cv-section-nav-mobile summary::-webkit-details-marker {
-		display: none;
-	}
-
-	.cv-section-nav-mobile nav {
-		padding-top: 0.6rem;
-	}
-
-	.cv-section-nav-mobile ul {
-		display: grid;
-		gap: 0.2rem;
-	}
-
-	.cv-section-nav-mobile li,
+	.cv-section-nav-float li,
 	.cv-scope-list li,
 	.cv-plain-list li {
 		margin: 0;
@@ -1436,10 +1446,6 @@ const experienceRenderGroups: ExperienceRenderGroup[] = [];
 	.cv-section {
 		padding: 2.75rem 0;
 		border-top: 1px solid var(--color-border);
-	}
-
-	#overview {
-		border-top: 0;
 	}
 
 	.cv-section__layout {
@@ -1872,6 +1878,12 @@ const experienceRenderGroups: ExperienceRenderGroup[] = [];
 		}
 	}
 
+	@media (min-width: 1680px) {
+		.cv-section-nav-float {
+			display: block;
+		}
+	}
+
 	@media (max-width: 980px) {
 		.cv-hero__inner,
 		.cv-section__layout,
@@ -1899,14 +1911,6 @@ const experienceRenderGroups: ExperienceRenderGroup[] = [];
 			padding: 3rem 0 2rem;
 		}
 
-		.cv-section-nav--desktop {
-			display: none;
-		}
-
-		.cv-section-nav-mobile {
-			display: block;
-		}
-
 		.cv-card-grid {
 			grid-template-columns: 1fr;
 		}
@@ -1927,7 +1931,7 @@ const experienceRenderGroups: ExperienceRenderGroup[] = [];
 		:global(.site-header),
 		:global(.site-footer),
 		:global(.skip-link),
-		.cv-section-nav-shell,
+		.cv-section-nav-float,
 		.cv-disclosure-button,
 		.cv-see-all-button {
 			display: none !important;
@@ -1973,8 +1977,6 @@ const experienceRenderGroups: ExperienceRenderGroup[] = [];
 		const root = document;
 		const toggles = Array.from(root.querySelectorAll('[data-disclosure-toggle]'));
 		const navLinks = Array.from(root.querySelectorAll('[data-cv-nav-link]'));
-		const mobileNav = root.querySelector('.cv-section-nav-mobile');
-		const stickyNav = root.querySelector('.cv-section-nav-shell');
 		const seeAllRolesButton = root.querySelector('[data-see-all-roles]');
 		const extraRoles = Array.from(root.querySelectorAll('[data-role-visibility="extra"]'));
 
@@ -2039,8 +2041,7 @@ const experienceRenderGroups: ExperienceRenderGroup[] = [];
 			};
 
 			const updateActiveSection = () => {
-				const navHeight = stickyNav instanceof HTMLElement ? stickyNav.getBoundingClientRect().height : 0;
-				const probeLine = navHeight + 24;
+				const probeLine = Math.min(window.innerHeight * 0.35, 240);
 				const sectionOffsets = sections.map((item) => {
 					const rect = item.section.getBoundingClientRect();
 					return {
@@ -2081,11 +2082,7 @@ const experienceRenderGroups: ExperienceRenderGroup[] = [];
 		}
 
 		navLinks.forEach((link) => {
-			link.addEventListener('click', () => {
-				if (mobileNav?.hasAttribute('open')) {
-					mobileNav.removeAttribute('open');
-				}
-			});
+			link.addEventListener('click', () => link.blur());
 		});
 	})();
 </script>
