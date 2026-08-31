@@ -20,7 +20,7 @@ type OverviewItem = {
 
 type DetailGroup = {
 	title: string;
-	items: string[];
+	items?: string[];
 };
 
 type ExpertiseItem = {
@@ -45,7 +45,7 @@ type ExperienceItem = {
 	mandate: string;
 	contributions: string[];
 	ownership: string;
-	details: DetailGroup[];
+	details?: DetailGroup[];
 };
 
 type ExperienceGroup = {
@@ -76,19 +76,19 @@ type ProjectRow = {
 type CredentialGroup = {
 	id: string;
 	title: string;
-	visibleItems: string[];
+	visibleItems?: string[];
 	linkLabel?: string;
 	linkHref?: string;
 	disclosure?: {
 		collapsedLabel: string;
 		expandedLabel: string;
-		details: string[];
+		details?: string[];
 	};
 };
 
 type MethodGroup = {
 	title: string;
-	items: string[];
+	items?: string[];
 };
 
 type SnapshotItem = {
@@ -104,9 +104,13 @@ const withBase = (href: string) =>
 		: `${normalizedBase}${href.replace(/^\//, '')}`;
 
 const isPlaceholder = (value: string) => /^\[.*\]$/.test(value.trim());
+const hasVisibleText = (value?: string) => Boolean(value && value.trim() && !isPlaceholder(value));
+const visibleItems = (items?: string[]) => (items ?? []).filter((item) => hasVisibleText(item));
+const visibleDetailGroups = (groups?: DetailGroup[]) =>
+	(groups ?? []).map((group) => ({ ...group, items: visibleItems(group.items) })).filter((group) => hasVisibleText(group.title) && group.items.length > 0);
 
 const actions: CvAction[] = [
-	{ label: 'Download CV', href: '/cv/Carlos_Jorques_CV.pdf', primary: true },
+	{ label: 'Download PDF CV', href: '/cv/Carlos_Jorques_CV.pdf', primary: true },
 	{ label: 'Contact', href: '/contact' },
 ];
 
@@ -895,9 +899,10 @@ const experienceRenderGroups: ExperienceRenderGroup[] = [];
 								</a>
 							))}
 						</div>
+						<p class="cv-hero__meta">Valencia, Spain · Open to selected opportunities</p>
 					</div>
 					<aside class="cv-proof panel" aria-label="Professional snapshot">
-						<p class="cv-proof__label">Professional snapshot</p>
+						<p class="cv-proof__label">At a glance</p>
 						<ul class="cv-proof__list">
 							{proofItems.map((item) => (
 								<li>
@@ -964,7 +969,9 @@ const experienceRenderGroups: ExperienceRenderGroup[] = [];
 											</div>
 										</header>
 										<ol class="cv-experience-group__roles">
-											{group.roles.map((item) => (
+											{group.roles.map((item) => {
+												const detailGroups = visibleDetailGroups(item.details);
+												return (
 												<li class="cv-role">
 													<article class="cv-role__card cv-disclosure-item" aria-labelledby={`${item.id}-title`}>
 														<div class="cv-role__collapsed">
@@ -986,21 +993,24 @@ const experienceRenderGroups: ExperienceRenderGroup[] = [];
 																	<span>Ownership</span>
 																	{item.ownership}
 																</p>
-																<button
-																	class="cv-disclosure-button"
-																	type="button"
-																	aria-expanded="false"
-																	aria-controls={`${item.id}-details`}
-																	data-disclosure-toggle
-																	data-label-collapsed="View role details"
-																	data-label-expanded="Hide role details"
-																>
-																	<span>View role details</span>
-																</button>
+																{detailGroups.length > 0 && (
+																	<button
+																		class="cv-disclosure-button"
+																		type="button"
+																		aria-expanded="false"
+																		aria-controls={`${item.id}-details`}
+																		data-disclosure-toggle
+																		data-label-collapsed="View role details"
+																		data-label-expanded="Hide role details"
+																	>
+																		<span>View role details</span>
+																	</button>
+																)}
 															</div>
 														</div>
-														<div id={`${item.id}-details`} class="cv-disclosure-panel cv-disclosure-panel--role" hidden>
-															{item.details.map((detailGroup) => (
+														{detailGroups.length > 0 && (
+															<div id={`${item.id}-details`} class="cv-disclosure-panel cv-disclosure-panel--role" hidden>
+																{detailGroups.map((detailGroup) => (
 																<section class="cv-detail-group" aria-labelledby={`${item.id}-${detailGroup.title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`}>
 																	<h5 id={`${item.id}-${detailGroup.title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`}>{detailGroup.title}</h5>
 																	<ul>
@@ -1009,11 +1019,12 @@ const experienceRenderGroups: ExperienceRenderGroup[] = [];
 																		))}
 																	</ul>
 																</section>
-															))}
-														</div>
+																))}
+															</div>
+														)}
 													</article>
 												</li>
-											))}
+											)})}
 										</ol>
 									</section>
 								</li>
@@ -1135,19 +1146,26 @@ const experienceRenderGroups: ExperienceRenderGroup[] = [];
 					<div class="cv-section__content">
 						<div class="cv-credentials-list">
 							{credentialGroups.map((group) => (
+								(() => {
+									const groupItems = visibleItems(group.visibleItems);
+									const disclosureDetails = visibleItems(group.disclosure?.details);
+									const hasDisclosure = Boolean(group.disclosure && disclosureDetails.length > 0);
+									return (
 								<section class="cv-credential-group" aria-labelledby={`${group.id}-title`}>
 									<h3 id={`${group.id}-title`} class:list={{ 'cv-missing': isPlaceholder(group.title) }}>{group.title}</h3>
-									<ul class="cv-credential-group__visible">
-										{group.visibleItems.map((item) => (
+									{groupItems.length > 0 && (
+										<ul class="cv-credential-group__visible">
+											{groupItems.map((item) => (
 											<li class:list={{ 'cv-missing': isPlaceholder(item) }}>{item}</li>
-										))}
-									</ul>
+											))}
+										</ul>
+									)}
 									{group.linkLabel && group.linkHref && (
 										<p class="cv-credential-group__link">
 											<a class:list={{ 'cv-missing': isPlaceholder(group.linkLabel) }} href={withBase(group.linkHref)}>{group.linkLabel}</a>
 										</p>
 									)}
-									{group.disclosure && (
+									{hasDisclosure && (
 										<>
 											<button
 												class="cv-disclosure-button"
@@ -1162,7 +1180,7 @@ const experienceRenderGroups: ExperienceRenderGroup[] = [];
 											</button>
 											<div id={`${group.id}-details`} class="cv-disclosure-panel" hidden>
 												<ul class="cv-plain-list">
-													{group.disclosure.details.map((detail) => (
+													{disclosureDetails.map((detail) => (
 														<li class:list={{ 'cv-missing': isPlaceholder(detail) }}>{detail}</li>
 													))}
 												</ul>
@@ -1170,6 +1188,8 @@ const experienceRenderGroups: ExperienceRenderGroup[] = [];
 										</>
 									)}
 								</section>
+									);
+								})()
 							))}
 						</div>
 					</div>
@@ -1182,14 +1202,19 @@ const experienceRenderGroups: ExperienceRenderGroup[] = [];
 					<div class="cv-section__content">
 						<div class="cv-method-groups">
 							{methodGroups.map((group) => (
+								(() => {
+									const items = visibleItems(group.items);
+									return items.length > 0 ? (
 								<section class="cv-method-group" aria-labelledby={`method-${group.title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`}>
 									<h3 id={`method-${group.title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`} class:list={{ 'cv-missing': isPlaceholder(group.title) }}>{group.title}</h3>
 									<ul>
-										{group.items.map((item) => (
+										{items.map((item) => (
 											<li class:list={{ 'cv-missing': isPlaceholder(item) }}>{item}</li>
 										))}
 									</ul>
 								</section>
+									) : null;
+								})()
 							))}
 						</div>
 					</div>
@@ -1210,7 +1235,7 @@ const experienceRenderGroups: ExperienceRenderGroup[] = [];
 						</div>
 						<div class="button-row">
 							<a class="button primary" href={withBase('/contact')}>Contact</a>
-							<a class="button" href={withBase('/cv/Carlos_Jorques_CV.pdf')}>Download CV</a>
+							<a class="button" href={withBase('/cv/Carlos_Jorques_CV.pdf')}>Download PDF CV</a>
 						</div>
 					</div>
 				</div>
@@ -1276,6 +1301,15 @@ const experienceRenderGroups: ExperienceRenderGroup[] = [];
 
 	.cv-hero__actions {
 		margin-top: 0.5rem;
+	}
+
+	.cv-hero__meta {
+		margin: 0.85rem 0 0;
+		color: var(--color-muted);
+		font-family: var(--font-mono);
+		font-size: 0.82rem;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
 	}
 
 	.cv-proof {
