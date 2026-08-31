@@ -124,16 +124,15 @@ const proofItems: SnapshotItem[] = [
 	{ value: 'Current focus', label: 'EV thermal management, BMS, diagnostics' },
 	{ value: 'Leadership', label: 'Technical lead for embedded software engineers' },
 	{ value: 'Systems', label: 'Electric trucks, autonomous haulers, powertrain controls' },
-	{ value: 'Evidence', label: 'PhD, 5 patents, 15+ publications' },
+	{ value: 'Outcomes', label: 'PhD, 5 patents, 15 publications' },
 	{ value: 'Location', label: 'Valencia, Spain / open to selected opportunities' },
 ];
 
 const overview: OverviewItem = {
-	heading: 'Embedded control software for complex physical systems',
+	heading: 'Embedded Controls Technical Lead · Control Systems Architect · Electric & Autonomous Vehicle Systems',
 	paragraphs: [
-		'I design and lead real-time embedded control software for electrified, autonomous, and heavy-duty physical systems, spanning thermal management, battery systems, diagnostics, safety, validation, and production delivery.',
+		'I am an Embedded Controls Technical Lead with 12+ years of experience developing real time control software for automotive and heavy duty physical systems. My work focuses on EV thermal management, battery systems, autonomous propulsion control, diagnostics, functional safety, validation, and production software delivery.',
 		'I turn control concepts into testable, calibrated, validated software for real machines, spanning control architecture, generated C/C++, MIL/SIL/HIL, diagnostics, supplier coordination, and PhD-trained engineering depth.',
-		'This page brings together the professional scope, role history, project record, credentials, and methods behind that work.',
 	],
 	scopeItems: [
 		'Embedded Controls Technical Lead',
@@ -889,7 +888,7 @@ const experienceRenderGroups: ExperienceRenderGroup[] = [];
 				<div class="cv-hero__inner">
 					<div class="cv-hero__copy">
 						<p class="section-eyebrow">Online CV</p>
-						<h1 id="cv-title" class="hero-title">Carlos Jorques</h1>
+						<h1 id="cv-title" class="hero-title">Carlos Jorques, Ph.D.</h1>
 						<p class="cv-hero__positioning">Embedded Control Systems Architect and Technical Leader. I design and lead real-time embedded control software for electrified, autonomous, and heavy-duty physical systems, spanning thermal management, battery systems, diagnostics, safety, validation, and production delivery.</p>
 						<div class="button-row cv-hero__actions">
 							{actions.map((action) => (
@@ -1261,11 +1260,20 @@ const experienceRenderGroups: ExperienceRenderGroup[] = [];
 		color: var(--color-muted);
 	}
 
+	.cv-hero .hero-title {
+		max-width: none;
+		font-size: clamp(2.6rem, 3.8vw, 3.5rem);
+		font-weight: 800;
+		letter-spacing: -0.05em;
+		line-height: 1.02;
+	}
+
 	.cv-hero__positioning {
-		max-width: 60ch;
-		color: var(--color-muted);
-		font-size: var(--type-reading-size);
-		line-height: var(--type-reading-line);
+		max-width: 52rem;
+		margin: 0;
+		color: var(--color-text);
+		font-size: 1.08rem;
+		line-height: 1.7;
 	}
 
 	.cv-hero__actions {
@@ -1750,7 +1758,7 @@ const experienceRenderGroups: ExperienceRenderGroup[] = [];
 	.cv-project-row,
 	.cv-credential-group,
 	.cv-method-group {
-		padding: 1.25rem;
+		padding: 0;
 		background: var(--color-card-bg);
 	}
 
@@ -1827,7 +1835,7 @@ const experienceRenderGroups: ExperienceRenderGroup[] = [];
 		display: none;
 	}
 
-	.cv-experience-list > .cv-experience-group:first-child .cv-experience-group__roles > .cv-role:first-child .cv-role__card {
+	.cv-experience-group__roles > .cv-role:first-child .cv-role__card {
 		padding-top: 0;
 		margin-top: -0.2rem;
 	}
@@ -1900,6 +1908,7 @@ const experienceRenderGroups: ExperienceRenderGroup[] = [];
 		.cv-disclosure-panel--role {
 			grid-template-columns: 1fr;
 		}
+
 	}
 
 	@media (max-width: 760px) {
@@ -1909,6 +1918,11 @@ const experienceRenderGroups: ExperienceRenderGroup[] = [];
 
 		.cv-hero {
 			padding: 3rem 0 2rem;
+		}
+
+		.cv-hero .hero-title {
+			font-size: clamp(2.15rem, 10vw, 2.45rem);
+			line-height: 1.04;
 		}
 
 		.cv-card-grid {
