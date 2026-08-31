@@ -27,10 +27,9 @@ type ExpertiseItem = {
 	id: string;
 	title: string;
 	scope: string;
+	ownership: string;
+	evidence: string[];
 	methodsAndConstraints: string[];
-	problemsAddressed: string[];
-	ownership: string[];
-	applications: string[];
 	relatedProject?: {
 		label: string;
 		href: string;
@@ -163,138 +162,108 @@ const expertiseItems: ExpertiseItem[] = [
 		id: 'expertise-area-01',
 		title: 'Embedded Controls Architecture',
 		scope: 'System-level definition of embedded control functions, software boundaries, diagnostics, calibration hooks, and release-ready interfaces.',
-		problemsAddressed: [
-			'Control functions become difficult to integrate when sensors, actuators, diagnostics, calibration points, and software ownership are defined separately.',
-			'Advanced algorithms need clear boundaries so they can survive ECU timing, signal quality, physical constraints, and validation requirements.',
-			'System behavior can become fragile when fallback, degradation, and diagnostic responses are added late instead of designed into the architecture.',
-		],
-		ownership: [
+		ownership:
 			'I define how control intent, embedded software structure, diagnostics, calibration, interfaces, and validation evidence fit together before implementation hardens around accidental boundaries.',
+		evidence: [
+			'Defined controller architecture for electric truck thermal management and BMS functionality across batteries, auxiliaries, power electronics, and charging.',
+			'Designed propulsion control architecture for autonomous electric haulers, including speed control, torque allocation, and redundant actuator concepts.',
+			'Connected heavy-duty engine control, diagnostics, generated-code boundaries, and test evidence across production and research contexts.',
 		],
 		methodsAndConstraints: [
 			'Requirements-driven functional design, control function decomposition, and architecture reviews.',
 			'Interface definition across software, sensors, actuators, plant models, diagnostics, calibration, and test environments.',
 			'Architecture choices shaped by timing loops, hardware constraints, release maturity, and traceability needs.',
-		],
-		applications: [
-			'Electric truck thermal management and BMS controller architecture.',
-			'Autonomous electric hauler propulsion, speed control, torque allocation, and redundant actuator concepts.',
-			'Heavy-duty engine control and diagnostic architecture from production and research contexts.',
+			'Fallback, degradation, and diagnostic responses designed as part of the control architecture rather than late additions.',
 		],
 	},
 	{
 		id: 'expertise-area-02',
 		title: 'Control Systems and Estimation',
 		scope: 'Real-time control, virtual sensing, observer design, calibration, model adaptation, and system identification for physical systems.',
-		problemsAddressed: [
-			'Physical systems often need variables that cannot be measured directly, reliably, or cheaply in production hardware.',
-			'Control behavior must remain stable and useful when operating conditions, component behavior, and signal quality change.',
-			'Research-grade control ideas need to be reduced into methods that can run in real time and be calibrated, tested, and explained.',
-		],
-		ownership: [
+		ownership:
 			'I connect models, measurements, calibration, and embedded implementation so estimation and control strategies produce dependable behavior in real machines.',
+		evidence: [
+			'Developed in-cycle closed-loop combustion control methods that reduced controlled-parameter dispersion by 25 to 75% in heavy-duty engine experiments.',
+			'Built cylinder-pressure-based virtual sensing for pilot fuel mass estimation, reducing estimation error by 60% and supporting real-time pilot misfire detection up to 96%.',
+			'Developed and calibrated a virtual PMSM motor temperature model for electric mobility software with approximately 98% accuracy.',
 		],
 		methodsAndConstraints: [
 			'Feedback control, observer design, virtual sensing, system identification, and model adaptation.',
 			'Calibration and signal analysis under physical operating-envelope constraints.',
-			'Stochastic detection, predictive models, and experimentally validated control methods from industrial PhD research.',
-		],
-		applications: [
-			'Battery SOC/SOH/SOP-related estimation and thermal control strategies.',
-			'Closed-loop combustion control, pilot fuel mass estimation, and misfire detection for heavy-duty engines.',
-			'Virtual PMSM motor temperature modeling for electric mobility software.',
+			'Stochastic detection and predictive models reduced to real-time methods that can be calibrated, tested, and explained.',
+			'Experimental validation on engine test benches, prototype systems, and production-oriented embedded workflows.',
 		],
 	},
 	{
 		id: 'expertise-area-03',
 		title: 'Real-Time Embedded Software',
 		scope: 'Production-oriented implementation of embedded control software across generated code, C/C++ integration, calibration, debugging, and CI workflows.',
-		problemsAddressed: [
-			'Control strategies lose value when implementation boundaries, timing behavior, generated code, and integration constraints are not handled explicitly.',
-			'Embedded teams need software that is testable, traceable, debuggable, and maintainable across simulation, bench, and vehicle environments.',
-			'Release work slows down when calibration access, fault handling, issue tracking, and CI feedback are not built into the delivery flow.',
-		],
-		ownership: [
+		ownership:
 			'I turn control concepts and software architecture into embedded software that teams can integrate, validate, calibrate, debug, and release.',
+		evidence: [
+			'Developed thermal-management software for electric truck batteries, auxiliaries, power electronics, and charging systems.',
+			'Implemented traction and speed-control functionality for autonomous electric haulers across manual and autonomous modes.',
+			'Built application-layer software for e-bike motor control, wireless charging, and DC/DC converter functionality.',
 		],
 		methodsAndConstraints: [
 			'Model-based software development, generated C/C++ workflows, application-layer implementation, and ECU integration support.',
 			'Git, GitLab, Jenkins, Jira, CI/CD, code review, debugging, ECU flashing, and issue-resolution workflows.',
 			'Implementation shaped by real-time loops, hardware interfaces, calibration maturity, and production traceability.',
-		],
-		applications: [
-			'Electric truck thermal-management and battery-system control software.',
-			'Autonomous electric hauler traction and speed-control implementation.',
-			'E-bike motor control, wireless charging, and DC/DC converter application software.',
+			'Software structured for testability across simulation, bench, HIL, vehicle, and field-data contexts.',
 		],
 	},
 	{
 		id: 'expertise-area-04',
 		title: 'Diagnostics and Robustness',
 		scope: 'Diagnostic and safety-aware control software for fault detection, controlled degradation, fallback behavior, and reliable physical-system operation.',
-		problemsAddressed: [
-			'Fault symptoms can be misleading when physical causes, signal issues, control effects, and diagnostic reactions are not separated.',
-			'Complex systems need to remain controlled when sensors, actuators, components, or operating conditions degrade.',
-			'Diagnostic logic has to be useful for engineering evidence, not only for setting a fault flag.',
-		],
-		ownership: [
+		ownership:
 			'My diagnostic work separates physical cause, signal symptom, control response, and degraded behavior, then uses evidence to decide what the system can still do safely and reliably.',
+		evidence: [
+			'Supported diagnostics, fallback strategies, and functional-safety analysis for electric truck thermal and battery-related functions.',
+			'Developed safety-related monitoring around autonomous propulsion and speed-control functionality.',
+			'Implemented model-based diagnostics for heavy-duty engine, fuel-system, oil-system, and cooling-system functions.',
 		],
 		methodsAndConstraints: [
 			'Fault detection and isolation, signal-health monitoring, fallback concepts, degradation logic, and diagnostic strategy design.',
 			'Functional-safety-aware development, ISO 26262 context, A-SPICE traceability, and evidence-led diagnostic decisions.',
 			'Use of empirical data, simulation, HIL, bench, vehicle, and field evidence to support robustness decisions.',
-		],
-		applications: [
-			'Diagnostics and fallback strategies for EV thermal systems and battery-related functions.',
-			'Safety-related monitoring for autonomous propulsion and speed-control functionality.',
-			'Heavy-duty engine, fuel-system, oil-system, and cooling-system diagnostics.',
+			'Diagnostic logic designed to support controlled behavior, not only fault reporting.',
 		],
 	},
 	{
 		id: 'expertise-area-05',
 		title: 'Validation and System Integration',
 		scope: 'Validation planning, integration support, calibration maturity, and release evidence across simulation, bench, HIL, vehicle, and field contexts.',
-		problemsAddressed: [
-			'Control software can pass isolated tests while still failing at system level because interfaces, calibration, and real hardware behavior were not exercised together.',
-			'Teams need validation evidence that explains readiness, not just test activity spread across disconnected environments.',
-			'Integration issues become expensive when they surface late in bench, vehicle, or field-data work.',
-		],
-		ownership: [
+		ownership:
 			'I connect requirements, software behavior, calibration, test environments, issue resolution, and system feedback so embedded control functions mature toward release.',
+		evidence: [
+			'Validated electric truck thermal-management and BMS control behavior across MIL, SIL, HIL, test bench, wind tunnel, test track, and vehicle environments.',
+			'Supported autonomous electric hauler propulsion validation through unit tests, integration tests, SIL/HIL, and vehicle evaluation.',
+			'Used experiments, data analysis, calibration, and prototype-system validation for heavy-duty engine control research.',
 		],
 		methodsAndConstraints: [
 			'MIL, SIL, HIL, unit tests, integration tests, test bench, wind tunnel, test track, on-road validation, and field-data analysis.',
 			'Calibration maturity tracking, debugging, issue tracking, ECU flashing, and cross-functional integration support.',
 			'Validation choices shaped by system interfaces, safety-related constraints, hardware availability, and release-readiness evidence.',
-		],
-		applications: [
-			'Electric truck thermal management and BMS validation across simulation, bench, and vehicle contexts.',
-			'Autonomous electric hauler propulsion validation in manual and autonomous operating modes.',
-			'Heavy-duty engine control experiments, data analysis, and prototype-system validation.',
+			'Integration feedback used to refine requirements, interfaces, calibration, and software behavior.',
 		],
 	},
 	{
 		id: 'expertise-area-06',
 		title: 'Technical Leadership',
 		scope: 'Technical direction, mentoring, planning, architecture clarity, and cross-functional delivery support for embedded software teams.',
-		problemsAddressed: [
-			'Ambiguous embedded-control work can stall when assumptions, ownership, risks, validation needs, and integration dependencies are not visible.',
-			'Cross-functional teams need technical translation between system engineering, software, validation, suppliers, and stakeholders.',
-			'Delivery pressure can push teams toward local fixes unless architecture, quality, and release readiness stay connected.',
-		],
-		ownership: [
+		ownership:
 			'I help teams make ambiguous engineering work visible: what is known, what is assumed, what must be validated, and which technical choices affect delivery, quality, and long-term maintainability.',
+		evidence: [
+			'Provided technical leadership for a team of 3 embedded software engineers across client delivery assignments.',
+			'Coordinated planning, technical quality, mentoring, and delivery alignment in automotive embedded software work.',
+			'Supported cross-functional delivery across system engineering, software, validation, suppliers, and stakeholders.',
 		],
 		methodsAndConstraints: [
 			'Team direction, mentoring, planning, architecture reviews, software-quality support, and delivery coordination.',
 			'Practical trade-off framing across technical risk, validation effort, maintainability, and stakeholder expectations.',
 			'Agile, Scrum, Kanban, SAFe, CI/CD, and client-delivery coordination in embedded automotive environments.',
-		],
-		applications: [
-			'Technical leadership of a team of 3 embedded software engineers across client delivery assignments.',
-			'Cross-functional coordination for electric truck, autonomous machine, and embedded control software work.',
-			'Mentoring and technical-quality support for junior developers and delivery teams.',
+			'Architecture and release-readiness discussions translated into concrete team actions.',
 		],
 	},
 ];
@@ -1022,34 +991,22 @@ const experienceRenderGroups: ExperienceRenderGroup[] = [];
 										</button>
 									</div>
 									<div id={`${item.id}-details`} class="cv-disclosure-panel" hidden>
-										<section class="cv-detail-group" aria-labelledby={`${item.id}-problems`}>
-											<h4 id={`${item.id}-problems`}>Problems addressed</h4>
-											<ul>
-												{item.problemsAddressed.map((detail) => (
-													<li class:list={{ 'cv-missing': isPlaceholder(detail) }}>{detail}</li>
-												))}
-											</ul>
-										</section>
 										<section class="cv-detail-group" aria-labelledby={`${item.id}-ownership`}>
-											<h4 id={`${item.id}-ownership`}>Scope of ownership</h4>
+											<h4 id={`${item.id}-ownership`}>In Practice</h4>
+											<p class:list={{ 'cv-missing': isPlaceholder(item.ownership) }}>{item.ownership}</p>
+										</section>
+										<section class="cv-detail-group" aria-labelledby={`${item.id}-evidence`}>
+											<h4 id={`${item.id}-evidence`}>Track Record</h4>
 											<ul>
-												{item.ownership.map((detail) => (
+												{item.evidence.map((detail) => (
 													<li class:list={{ 'cv-missing': isPlaceholder(detail) }}>{detail}</li>
 												))}
 											</ul>
 										</section>
 										<section class="cv-detail-group" aria-labelledby={`${item.id}-methods`}>
-											<h4 id={`${item.id}-methods`}>Methods and constraints</h4>
+											<h4 id={`${item.id}-methods`}>How It's Shaped</h4>
 											<ul>
 												{item.methodsAndConstraints.map((detail) => (
-													<li class:list={{ 'cv-missing': isPlaceholder(detail) }}>{detail}</li>
-												))}
-											</ul>
-										</section>
-										<section class="cv-detail-group" aria-labelledby={`${item.id}-applications`}>
-											<h4 id={`${item.id}-applications`}>Representative applications</h4>
-											<ul>
-												{item.applications.map((detail) => (
 													<li class:list={{ 'cv-missing': isPlaceholder(detail) }}>{detail}</li>
 												))}
 											</ul>
@@ -1618,6 +1575,10 @@ const experienceRenderGroups: ExperienceRenderGroup[] = [];
 	.cv-method-group ul {
 		margin: 0;
 		padding-left: 1.1rem;
+	}
+
+	.cv-detail-group p {
+		margin: 0;
 	}
 
 	.cv-related-link,
