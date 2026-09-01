@@ -856,7 +856,10 @@ const visibleProjectRows = projectRows
 					<div class="cv-section__content cv-section__content--wide">
 						<ol id="experience-list" class="cv-experience-list">
 							{experienceRenderGroups.map((group) => (
-								<li class:list={['cv-experience-group', { 'cv-role--extra': group.isExtra }]} data-role-visibility={group.isExtra ? 'extra' : 'primary'}>
+								<li
+									class:list={['cv-experience-group', { 'cv-role--extra': group.isExtra, 'cv-experience-group--primary': !group.isExtra }]}
+									data-role-visibility={group.isExtra ? 'extra' : 'primary'}
+								>
 									<section class="cv-experience-group__section" aria-labelledby={`${group.id}-title`}>
 										<header class="cv-experience-group__header">
 											<div class="cv-experience-group__header-stick">
@@ -875,7 +878,7 @@ const visibleProjectRows = projectRows
 												const roleMandate = cleanDisplayText(item.mandate);
 												const roleScope = cleanDisplayText(item.scope);
 												return (
-												<li class="cv-role">
+														<li class="cv-role">
 													<article class="cv-role__card cv-disclosure-item" aria-labelledby={`${item.id}-title`}>
 														<div class="cv-role__collapsed">
 															<div class="cv-role__taxonomy">
@@ -1669,13 +1672,24 @@ const visibleProjectRows = projectRows
 	}
 
 	.cv-experience-group__roles {
+		position: relative;
 		display: grid;
 		gap: 1rem;
 		margin: 0;
-		padding: 0;
+		padding: 0 0 0 1rem;
 		list-style: none;
 		min-width: 0;
 		align-content: start;
+	}
+
+	.cv-experience-group--primary .cv-experience-group__roles::before {
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		width: 1px;
+		background: var(--color-border-soft);
+		content: '';
 	}
 
 	.cv-role,
@@ -1835,6 +1849,7 @@ const visibleProjectRows = projectRows
 	@media (max-width: 760px) {
 		.cv-page {
 			width: min(calc(100% - 2rem), var(--content-width));
+			padding-bottom: 5.5rem;
 		}
 
 		.cv-hero {
