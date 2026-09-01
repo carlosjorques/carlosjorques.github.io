@@ -601,11 +601,11 @@ const credentialGroups: CredentialGroup[] = [
 		id: 'credential-education',
 		title: 'Education',
 		visibleItems: [
-			'PhD, Mechanical Engineering · Lund University · 2021. Research focus: real-time control, virtual sensing, diagnostics, and stochastic modeling for heavy-duty physical systems.',
+			'Industrial PhD in Mechanical Engineering · Lund University · 2021',
 			'MSc, Electrical Engineering · Lund University · 2014',
 			'MSc, Industrial Engineering · Polytechnic University of Valencia · 2014',
 		],
-		linkLabel: 'See research and publications',
+		linkLabel: '',
 		linkHref: '#credential-research-title',
 	},
 	{
@@ -656,12 +656,18 @@ const credentialGroups: CredentialGroup[] = [
 		id: 'credential-continuing-learning',
 		title: 'Continuous learning',
 		visibleItems: [
-			'LangChain and LLMs with Python, Alten, 2025',
-			'Project Management: Product Owner and Kanban, Cualtis, 2024',
 			'Power Electronic Converters, 2022',
 			'Introduction to Electromobility, Swedish Electromobility Centre, 2020',
 			'GT Power, Gamma Technologies, 2015',
 		],
+		disclosure: {
+			collapsedLabel: 'See all learning',
+			expandedLabel: 'Hide learning',
+			details: [
+				'LangChain and LLMs with Python, Alten, 2025',
+				'Project Management: Product Owner and Kanban, Cualtis, 2024',
+			],
+		},
 	},
 	{
 		id: 'credential-certifications',
@@ -669,9 +675,15 @@ const credentialGroups: CredentialGroup[] = [
 		visibleItems: [
 			'Scania Innovation Challenge, Scania, 2019',
 			'Outstanding Oral Presentation Award, SAE, 2017',
-			'Double Degree Scholarship, COIICV, 2013',
-			'Best Academic Record for First Year, Polytechnic University of Valencia, 2009',
 		],
+		disclosure: {
+			collapsedLabel: 'See earlier recognition',
+			expandedLabel: 'Hide earlier recognition',
+			details: [
+				'Double Degree Scholarship, COIICV, 2013',
+				'Best Academic Record for First Year, Polytechnic University of Valencia, 2009',
+			],
+		},
 	},
 ];
 
