@@ -729,8 +729,11 @@ const methodGroups: MethodGroup[] = [
 const normalizeRoleContext = (context: string, groupHeading: string) => {
 	if (context === groupHeading) return '';
 	const prefix = `${groupHeading} · `;
-	return context.startsWith(prefix) ? context.slice(prefix.length) : context;
+	const normalized = context.startsWith(prefix) ? context.slice(prefix.length) : context;
+	return normalized.replace(/\s*-\s*Assignment\b/i, ' - Assignment').trim();
 };
+const formatExperienceMeta = (value?: string) =>
+	cleanDisplayText(value).replace(/\s*-\s*/g, '–').replace(/\s*·\s*/g, ' · ');
 const experienceRenderGroups: ExperienceRenderGroup[] = [];
 
 {
@@ -862,7 +865,7 @@ const visibleProjectRows = projectRows
 										<header class="cv-experience-group__header">
 											<div class="cv-experience-group__header-stick">
 												{hasVisibleText(group.heading) && <h3 id={`${group.id}-title`}>{cleanDisplayText(group.heading)}</h3>}
-												{hasVisibleText(group.meta) && <p class="cv-experience-group__meta">{cleanDisplayText(group.meta)}</p>}
+												{hasVisibleText(group.meta) && <p class="cv-experience-group__meta">{formatExperienceMeta(group.meta)}</p>}
 												{hasVisibleText(group.location) && <p class="cv-experience-group__location">{cleanDisplayText(group.location)}</p>}
 											</div>
 										</header>
@@ -871,7 +874,7 @@ const visibleProjectRows = projectRows
 												const detailGroups = visibleDetailGroups(item.details);
 												const visibleContributions = visibleItems(item.contributions).slice(0, 2);
 												const roleTitle = cleanDisplayText(item.title);
-												const roleMeta = cleanDisplayText(item.meta);
+													const roleMeta = formatExperienceMeta(item.meta);
 												const roleContext = cleanDisplayText(item.displayContext);
 												const roleMandate = cleanDisplayText(item.mandate);
 												const roleScope = cleanDisplayText(item.scope);
@@ -879,12 +882,10 @@ const visibleProjectRows = projectRows
 														<li class="cv-role">
 													<article class="cv-role__card cv-disclosure-item" aria-labelledby={`${item.id}-title`}>
 														<div class="cv-role__collapsed">
-															<div class="cv-role__taxonomy">
-																{roleMeta && <p class="cv-role__date">{roleMeta}</p>}
-																{roleContext && (
-																	<p class="cv-role__employer">{roleContext}</p>
-																)}
-																{roleTitle && <h4 id={`${item.id}-title`}>{roleTitle}</h4>}
+											<div class="cv-role__taxonomy">
+												{roleTitle && <h4 id={`${item.id}-title`}>{roleTitle}</h4>}
+												{roleContext && <p class="cv-role__assignment">{roleContext}</p>}
+												{roleMeta && <p class="cv-role__dates">{roleMeta}</p>}
 															</div>
 															<div class="cv-role__summary-block">
 																{roleMandate && <p class="cv-role__mandate">{roleMandate}</p>}
@@ -1745,8 +1746,7 @@ const visibleProjectRows = projectRows
 		align-content: start;
 	}
 
-	.cv-role__meta,
-	.cv-role__date {
+	.cv-role__meta {
 		color: var(--color-accent-text);
 		font-family: var(--font-mono);
 		font-size: var(--type-meta-size);
@@ -1768,7 +1768,8 @@ const visibleProjectRows = projectRows
 	}
 
 	.cv-role__context,
-	.cv-role__employer,
+	.cv-role__assignment,
+	.cv-role__dates,
 	.cv-project-row__meta {
 		color: var(--color-muted);
 		font-family: var(--font-mono);
@@ -1783,10 +1784,14 @@ const visibleProjectRows = projectRows
 		margin: 0;
 	}
 
-	.cv-role__date,
-	.cv-role__employer,
+	.cv-role__dates,
+	.cv-role__assignment,
 	.cv-role__scope {
 		margin: 0;
+	}
+
+	.cv-role__assignment {
+		max-width: 65ch;
 	}
 
 	.cv-role__scope {
