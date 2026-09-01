@@ -179,9 +179,9 @@ const expertiseItems: ExpertiseItem[] = [
 		ownership:
 			'I define how control intent, embedded software structure, diagnostics, calibration, interfaces, and validation evidence fit together before implementation hardens around accidental boundaries.',
 		evidence: [
-			'Defined controller architecture for electric truck thermal management and BMS functionality across batteries, auxiliaries, power electronics, and charging.',
-			'Designed propulsion control architecture for autonomous electric haulers, including speed control, torque allocation, and redundant actuator concepts.',
-			'Connected heavy-duty engine control, diagnostics, generated-code boundaries, and test evidence across production and research contexts.',
+			'Connected thermal control, battery functions, and charging interfaces into a vehicle-level control boundary.',
+			'Extended propulsion architecture to torque allocation and actuator redundancy for autonomous haulers.',
+			'Linked generated-code boundaries, diagnostics, and test evidence under real-time engine-control constraints.',
 		],
 		methodsAndConstraints: [
 			'Requirements-driven functional design, control function decomposition, and architecture reviews.',
@@ -197,9 +197,9 @@ const expertiseItems: ExpertiseItem[] = [
 		ownership:
 			'I connect models, measurements, calibration, and embedded implementation so estimation and control strategies produce dependable behavior in real machines.',
 		evidence: [
-			'Developed in-cycle closed-loop combustion control methods that reduced controlled-parameter dispersion by 25 to 75% in heavy-duty engine experiments.',
-			'Built cylinder-pressure-based virtual sensing for pilot fuel mass estimation, reducing estimation error by 60% and supporting real-time pilot misfire detection up to 96%.',
-			'Developed and calibrated a virtual PMSM motor temperature model for electric mobility software with approximately 98% accuracy.',
+			'Closed-loop combustion work reduced controlled-parameter dispersion by 25 to 75% in heavy-duty engine experiments.',
+			'Pressure-based virtual sensing cut pilot fuel mass estimation error by 60% and enabled up to 96% misfire detection.',
+			'PMSM thermal-model calibration reached approximately 98% accuracy for electric mobility software.',
 		],
 		methodsAndConstraints: [
 			'Feedback control, observer design, virtual sensing, system identification, and model adaptation.',
@@ -215,9 +215,9 @@ const expertiseItems: ExpertiseItem[] = [
 		ownership:
 			'I turn control concepts and software architecture into embedded software that teams can integrate, validate, calibrate, debug, and release.',
 		evidence: [
-			'Developed thermal-management software for electric truck batteries, auxiliaries, power electronics, and charging systems.',
-			'Implemented traction and speed-control functionality for autonomous electric haulers across manual and autonomous modes.',
-			'Built application-layer software for e-bike motor control, wireless charging, and DC/DC converter functionality.',
+			'Turned thermal-control behavior into software spanning batteries, auxiliaries, power electronics, and charging.',
+			'Implemented traction and speed control across manual and autonomous operating modes.',
+			'Bridged e-bike motor-control models with wireless-charging and DC/DC application interfaces.',
 		],
 		methodsAndConstraints: [
 			'Model-based software development, generated C/C++ workflows, application-layer implementation, and ECU integration support.',
@@ -233,9 +233,9 @@ const expertiseItems: ExpertiseItem[] = [
 		ownership:
 			'My diagnostic work separates physical cause, signal symptom, control response, and degraded behavior, then uses evidence to decide what the system can still do safely and reliably.',
 		evidence: [
-			'Supported diagnostics, fallback strategies, and functional-safety analysis for electric truck thermal and battery-related functions.',
-			'Developed safety-related monitoring around autonomous propulsion and speed-control functionality.',
-			'Implemented model-based diagnostics for heavy-duty engine, fuel-system, oil-system, and cooling-system functions.',
+			'Structured fault handling so thermal and battery functions could detect faults and move to defined fallback behavior.',
+			'Applied safety-related monitoring to autonomous propulsion and speed-control functions.',
+			'Used model-based diagnostics to distinguish engine, fuel, oil, and cooling-system faults.',
 		],
 		methodsAndConstraints: [
 			'Fault detection and isolation, signal-health monitoring, fallback concepts, degradation logic, and diagnostic strategy design.',
@@ -251,9 +251,9 @@ const expertiseItems: ExpertiseItem[] = [
 		ownership:
 			'I connect requirements, software behavior, calibration, test environments, issue resolution, and system feedback so embedded control functions mature toward release.',
 		evidence: [
-			'Validated electric truck thermal-management and BMS control behavior across MIL, SIL, HIL, test bench, wind tunnel, test track, and vehicle environments.',
-			'Supported autonomous electric hauler propulsion validation through unit tests, integration tests, SIL/HIL, and vehicle evaluation.',
-			'Used experiments, data analysis, calibration, and prototype-system validation for heavy-duty engine control research.',
+			'Built a validation chain from model behavior to integrated vehicle evidence for electric truck thermal and BMS functions.',
+			'Moved autonomous-hauler propulsion functions through unit, integration, SIL/HIL, and vehicle evaluation.',
+			'Used bench experiments and data analysis to connect engine-control models with physical behavior.',
 		],
 		methodsAndConstraints: [
 			'MIL, SIL, HIL, unit tests, integration tests, test bench, wind tunnel, test track, on-road validation, and field-data analysis.',
@@ -269,9 +269,9 @@ const expertiseItems: ExpertiseItem[] = [
 		ownership:
 			'I help teams make ambiguous engineering work visible: what is known, what is assumed, what must be validated, and which technical choices affect delivery, quality, and long-term maintainability.',
 		evidence: [
-			'Provided technical leadership for a team of 3 embedded software engineers across client delivery assignments.',
-			'Coordinated planning, technical quality, mentoring, and delivery alignment in automotive embedded software work.',
-			'Supported cross-functional delivery across system engineering, software, validation, suppliers, and stakeholders.',
+			'Directed a team of 3 embedded software engineers while aligning architecture, planning, quality, and mentoring.',
+			'Created shared decisions across systems, software, validation, suppliers, and stakeholders.',
+			'Connected technical-risk and release-readiness discussions to concrete delivery actions.',
 		],
 		methodsAndConstraints: [
 			'Team direction, mentoring, planning, architecture reviews, software-quality support, and delivery coordination.',
@@ -971,15 +971,15 @@ const visibleProjectRows = projectRows
 									</div>
 									{hasDetails && (
 										<div id={`${item.id}-details`} class="cv-disclosure-panel" hidden>
-										{ownership && (
-											<section class="cv-detail-group" aria-labelledby={`${item.id}-ownership`}>
-												<h4 id={`${item.id}-ownership`}>In Practice</h4>
+						{ownership && (
+							<section class="cv-detail-group" aria-labelledby={`${item.id}-ownership`}>
+								<h4 id={`${item.id}-ownership`}>What I own</h4>
 												<p>{ownership}</p>
 											</section>
 										)}
-										{evidence.length > 0 && (
-											<section class="cv-detail-group" aria-labelledby={`${item.id}-evidence`}>
-												<h4 id={`${item.id}-evidence`}>Track Record</h4>
+						{evidence.length > 0 && (
+							<section class="cv-detail-group" aria-labelledby={`${item.id}-evidence`}>
+								<h4 id={`${item.id}-evidence`}>Representative evidence</h4>
 												<ul>
 													{evidence.map((detail) => (
 														<li>{detail}</li>
@@ -987,9 +987,9 @@ const visibleProjectRows = projectRows
 												</ul>
 											</section>
 										)}
-										{methodsAndConstraints.length > 0 && (
-											<section class="cv-detail-group" aria-labelledby={`${item.id}-methods`}>
-												<h4 id={`${item.id}-methods`}>How It's Shaped</h4>
+						{methodsAndConstraints.length > 0 && (
+							<section class="cv-detail-group" aria-labelledby={`${item.id}-methods`}>
+								<h4 id={`${item.id}-methods`}>Methods and constraints</h4>
 												<ul>
 													{methodsAndConstraints.map((detail) => (
 														<li>{detail}</li>
