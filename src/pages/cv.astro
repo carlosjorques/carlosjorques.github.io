@@ -58,6 +58,7 @@ type ExperienceGroup = {
 
 type ExperienceRenderRole = ExperienceItem & {
 	displayContext: string;
+	isExtra: boolean;
 };
 
 type ExperienceRenderGroup = ExperienceGroup & {
@@ -145,8 +146,8 @@ const sectionNav: SectionNavItem[] = [
 	{ id: 'experience', label: 'Experience' },
 	{ id: 'expertise', label: 'Expertise' },
 	{ id: 'projects', label: 'Selected work' },
-	{ id: 'credentials', label: 'Credentials' },
-	{ id: 'methods', label: 'Methods' },
+	{ id: 'credentials', label: 'Education and professional record' },
+	{ id: 'methods', label: 'Methods, tools and additional information' },
 ];
 
 const proofItems: SnapshotItem[] = [
@@ -734,17 +735,25 @@ const normalizeRoleContext = (context: string, groupHeading: string) => {
 };
 const formatExperienceMeta = (value?: string) =>
 	cleanDisplayText(value).replace(/\s*-\s*/g, '–').replace(/\s*·\s*/g, ' · ');
+const experienceExpandedThroughRole = 'experience-role-03';
+const experienceRoleOrder = experienceGroups.flatMap((group) => group.roles.map((role) => role.id));
+const experienceExpandedThroughIndex = experienceRoleOrder.indexOf(experienceExpandedThroughRole);
 const experienceRenderGroups: ExperienceRenderGroup[] = [];
 
 {
 	for (const group of experienceGroups) {
+		const roles = group.roles.map((role) => ({
+			...role,
+			isExtra:
+				experienceExpandedThroughIndex >= 0
+					? experienceRoleOrder.indexOf(role.id) > experienceExpandedThroughIndex
+					: group.defaultVisible === false,
+			displayContext: normalizeRoleContext(role.context, group.heading),
+		}));
 		experienceRenderGroups.push({
 			...group,
-			isExtra: group.defaultVisible === false,
-			roles: group.roles.map((role) => ({
-				...role,
-				displayContext: normalizeRoleContext(role.context, group.heading),
-			})),
+			isExtra: roles.every((role) => role.isExtra),
+			roles,
 		});
 	}
 }
@@ -825,6 +834,7 @@ const visibleProjectRows = projectRows
 					</li>
 				))}
 			</ul>
+			<a class="button cv-section-nav-float__contact" href={withBase('/contact')}>Contact</a>
 		</nav>
 
 		<div class="cv-main-flow">
@@ -858,7 +868,7 @@ const visibleProjectRows = projectRows
 						<ol id="experience-list" class="cv-experience-list">
 							{experienceRenderGroups.map((group) => (
 								<li
-									class:list={['cv-experience-group', { 'cv-role--extra': group.isExtra, 'cv-experience-group--primary': !group.isExtra }]}
+									class:list={['cv-experience-group', { 'cv-role--extra': group.isExtra, 'cv-experience-group--primary': !group.isExtra, 'cv-experience-group--with-bar': group.id !== 'experience-group-earlier' }]}
 									data-role-visibility={group.isExtra ? 'extra' : 'primary'}
 								>
 									<section class="cv-experience-group__section" aria-labelledby={`${group.id}-title`}>
@@ -879,7 +889,7 @@ const visibleProjectRows = projectRows
 												const roleMandate = cleanDisplayText(item.mandate);
 												const roleScope = cleanDisplayText(item.scope);
 												return (
-														<li class="cv-role">
+															<li class:list={['cv-role', { 'cv-role--extra': item.isExtra }]} data-role-visibility={item.isExtra ? 'extra' : 'primary'}>
 													<article class="cv-role__card cv-disclosure-item" aria-labelledby={`${item.id}-title`}>
 														<div class="cv-role__collapsed">
 											<div class="cv-role__taxonomy">
@@ -934,18 +944,20 @@ const visibleProjectRows = projectRows
 								</li>
 							))}
 						</ol>
-						{experienceRenderGroups.some((group) => group.isExtra) && (
-							<button
-								class="cv-see-all-button"
-								type="button"
-								aria-expanded="false"
-								aria-controls="experience-list"
-								data-see-all-roles
-								data-label-collapsed="See earlier experience"
-								data-label-expanded="Hide earlier experience"
-							>
-								<span>See earlier experience</span>
-							</button>
+						{experienceRenderGroups.some((group) => group.roles.some((role) => role.isExtra)) && (
+							<div class="cv-experience-more">
+								<button
+									class="cv-see-all-button"
+									type="button"
+									aria-expanded="false"
+									aria-controls="experience-list"
+									data-see-all-roles
+									data-label-collapsed="See Previous Experience"
+									data-label-expanded="Hide Previous Experience"
+								>
+									<span>See Previous Experience</span>
+								</button>
+							</div>
 						)}
 					</div>
 				</div>
@@ -1037,8 +1049,10 @@ const visibleProjectRows = projectRows
 						<div class="cv-project-list" role="list">
 							{visibleProjectRows.map((row) => (
 								<article class="cv-project-row" role="listitem">
-									<h3><a href={withBase(row.linkHref)}>{row.title}</a></h3>
-									<p class="cv-project-row__summary">{row.summary}</p>
+									<h3>{row.title}</h3>
+									<p class="cv-project-row__summary">
+										{row.summary} <a class="cv-project-row__read-more" href={withBase(row.linkHref)}>Read more</a>
+									</p>
 									<p class="cv-project-row__meta">{row.meta}</p>
 								</article>
 							))}
@@ -1054,7 +1068,12 @@ const visibleProjectRows = projectRows
 				<div class="page-container cv-section__layout">
 					<h2 id="credentials-title" class="cv-section__rail-heading">Education and professional record</h2>
 					<div class="cv-section__content">
-						<div class="cv-credentials-list">
+						<details class="cv-secondary-details">
+							<summary>
+								<span>View details on education, research, patents and courses</span>
+							</summary>
+							<div class="cv-secondary-details__body">
+							<div class="cv-credentials-list">
 							{credentialGroups.map((group) => (
 								(() => {
 									const groupItems = visibleItems(group.visibleItems);
@@ -1103,7 +1122,8 @@ const visibleProjectRows = projectRows
 									) : null;
 								})()
 							))}
-						</div>
+							</div>
+						</details>
 					</div>
 				</div>
 			</section>
@@ -1112,7 +1132,12 @@ const visibleProjectRows = projectRows
 				<div class="page-container cv-section__layout">
 					<h2 id="methods-title" class="cv-section__rail-heading">Methods, tools and additional information</h2>
 					<div class="cv-section__content">
-						<div class="cv-method-groups">
+						<details class="cv-secondary-details">
+							<summary>
+								<span>View methods, tools and additional information</span>
+							</summary>
+							<div class="cv-secondary-details__body">
+								<div class="cv-method-groups">
 							{methodGroups.map((group) => (
 								(() => {
 									const items = visibleItems(group.items);
@@ -1128,7 +1153,9 @@ const visibleProjectRows = projectRows
 									) : null;
 								})()
 							))}
-						</div>
+								</div>
+							</div>
+						</details>
 					</div>
 				</div>
 			</section>
@@ -1294,8 +1321,10 @@ const visibleProjectRows = projectRows
 		right: calc(1rem + env(safe-area-inset-right));
 		bottom: calc(1rem + env(safe-area-inset-bottom));
 		z-index: 30;
-		display: block;
-		width: max-content;
+		display: flex;
+		flex-direction: column;
+		align-items: stretch;
+		width: min(11rem, calc(100vw - 2rem - env(safe-area-inset-left) - env(safe-area-inset-right)));
 		max-width: calc(100vw - 2rem - env(safe-area-inset-left) - env(safe-area-inset-right));
 	}
 
@@ -1308,7 +1337,7 @@ const visibleProjectRows = projectRows
 		align-items: center;
 		justify-content: center;
 		gap: 0.5rem;
-		min-width: 6.25rem;
+		width: 100%;
 		min-height: 2.75rem;
 		padding: 0.65rem 0.85rem;
 		border: 1px solid var(--color-border);
@@ -1348,6 +1377,13 @@ const visibleProjectRows = projectRows
 
 	.cv-section-nav-float ul[hidden] {
 		display: none;
+	}
+
+	.cv-section-nav-float__contact.button {
+		width: 100%;
+		margin-top: 0.55rem;
+		font-family: var(--font-mono);
+		background: var(--color-page);
 	}
 
 	.cv-section-nav-float__chevron {
@@ -1643,6 +1679,52 @@ const visibleProjectRows = projectRows
 		margin-top: 0;
 	}
 
+	.cv-secondary-details {
+		margin: 0;
+	}
+
+	.cv-secondary-details > summary {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 1rem;
+		padding: 0.25rem 0;
+		color: var(--color-link);
+		cursor: pointer;
+		font-family: var(--font-body);
+		font-size: var(--type-card-body-size);
+		font-weight: 400;
+		letter-spacing: normal;
+		line-height: 1.5;
+		list-style: none;
+	}
+
+	.cv-secondary-details > summary::-webkit-details-marker {
+		display: none;
+	}
+
+	.cv-secondary-details > summary::after {
+		content: '+';
+		flex: 0 0 auto;
+		font-size: 1.2rem;
+		line-height: 1;
+	}
+
+	.cv-secondary-details[open] > summary::after {
+		content: '−';
+	}
+
+	.cv-secondary-details > summary:hover,
+	.cv-secondary-details > summary:focus-visible {
+		color: var(--color-text);
+	}
+
+	.cv-secondary-details__body {
+		display: grid;
+		gap: 1.5rem;
+		padding-top: 1rem;
+	}
+
 	.cv-experience-group__header-stick {
 		display: grid;
 		gap: 0.35rem;
@@ -1702,7 +1784,7 @@ const visibleProjectRows = projectRows
 		align-content: start;
 	}
 
-	.cv-experience-group--primary .cv-experience-group__roles::before {
+	.cv-experience-group--with-bar .cv-experience-group__roles::before {
 		position: absolute;
 		top: 0;
 		bottom: 0;
@@ -1827,6 +1909,26 @@ const visibleProjectRows = projectRows
 		margin: 0;
 	}
 
+	.cv-project-row__read-more {
+		color: var(--color-muted);
+		font-family: var(--font-mono);
+		font-size: var(--type-card-body-size);
+		font-weight: 600;
+		text-decoration: underline;
+		text-decoration-thickness: 1px;
+		text-underline-offset: 0.18em;
+		white-space: nowrap;
+	}
+
+	.cv-project-row__read-more:hover,
+	.cv-project-row__read-more:focus-visible {
+		color: var(--color-text);
+	}
+
+	.cv-experience-more {
+		margin-top: 0.5rem;
+	}
+
 	.cv-credential-group,
 	.cv-method-group {
 		display: grid;
@@ -1871,6 +1973,25 @@ const visibleProjectRows = projectRows
 	}
 
 	@media (max-width: 760px) {
+		.cv-section-nav-float {
+			opacity: 0;
+			pointer-events: none;
+				transform: translateY(0.5rem);
+				transition:
+					opacity var(--motion-duration-fast-02) var(--motion-standard-productive),
+					transform var(--motion-duration-fast-02) var(--motion-standard-productive);
+			visibility: visible;
+		}
+
+		.cv-section-nav-float:focus-within,
+		.cv-page[data-cv-scrolling='true'] .cv-section-nav-float {
+			opacity: 1;
+			pointer-events: auto;
+			transform: none;
+			visibility: visible;
+			transition-delay: 0s;
+		}
+
 		.cv-page {
 			width: min(calc(100% - 2rem), var(--content-width));
 			padding-bottom: 5.5rem;
@@ -1907,8 +2028,13 @@ const visibleProjectRows = projectRows
 		:global(.skip-link),
 		.cv-section-nav-float,
 		.cv-disclosure-button,
-		.cv-see-all-button {
+		.cv-see-all-button,
+		.cv-secondary-details > summary {
 			display: none !important;
+		}
+
+		.cv-secondary-details > .cv-secondary-details__body {
+			display: grid !important;
 		}
 
 		.cv-page {
@@ -1949,6 +2075,7 @@ const visibleProjectRows = projectRows
 <script is:inline>
 	(() => {
 		const root = document;
+		const cvPage = root.querySelector('.cv-page');
 		const toggles = Array.from(root.querySelectorAll('[data-disclosure-toggle]'));
 		const navLinks = Array.from(root.querySelectorAll('[data-cv-nav-link]'));
 		const sectionNav = root.querySelector('.cv-section-nav-float');
@@ -1993,6 +2120,7 @@ const visibleProjectRows = projectRows
 				const expandedLabel = seeAllRolesButton.getAttribute('data-label-expanded') ?? 'Hide earlier experience';
 				seeAllRolesButton.textContent = expanded ? expandedLabel : collapsedLabel;
 			}
+
 		};
 
 		if (extraRoles.length > 0) {
@@ -2101,5 +2229,21 @@ const visibleProjectRows = projectRows
 				setSectionMenuState(false);
 			});
 		});
+
+		if (cvPage && sectionNav) {
+			let scrollIdleTimer;
+			const showMobileNavWhileScrolling = () => {
+				if (!window.matchMedia('(max-width: 760px)').matches) return;
+				cvPage.setAttribute('data-cv-scrolling', 'true');
+				window.clearTimeout(scrollIdleTimer);
+				scrollIdleTimer = window.setTimeout(() => {
+					if (sectionNavTrigger?.getAttribute('aria-expanded') !== 'true') {
+						cvPage.removeAttribute('data-cv-scrolling');
+					}
+				}, 1200);
+			};
+
+			window.addEventListener('scroll', showMobileNavWhileScrolling, { passive: true });
+		}
 	})();
 </script>
