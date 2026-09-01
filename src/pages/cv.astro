@@ -69,8 +69,7 @@ type ProjectRow = {
 	title: string;
 	summary: string;
 	meta: string;
-	linkLabel?: string;
-	linkHref?: string;
+	linkHref: string;
 };
 
 type CredentialGroup = {
@@ -145,7 +144,7 @@ const sectionNav: SectionNavItem[] = [
 	{ id: 'overview', label: 'Overview' },
 	{ id: 'experience', label: 'Experience' },
 	{ id: 'expertise', label: 'Expertise' },
-	{ id: 'projects', label: 'Projects' },
+	{ id: 'projects', label: 'Selected work' },
 	{ id: 'credentials', label: 'Credentials' },
 	{ id: 'methods', label: 'Methods' },
 ];
@@ -575,28 +574,24 @@ const projectRows: ProjectRow[] = [
 		title: 'Electric Truck Thermal Management and Battery Systems',
 		summary: 'Embedded control software for battery, auxiliary, power electronics, and charging thermal coordination in heavy-duty electric vehicles.',
 		meta: 'EV systems · Senior developer engineer',
-		linkLabel: 'View project detail',
 		linkHref: '/work/electric-truck-thermal-management/',
 	},
 	{
 		title: 'Autonomous Electric Hauler Propulsion Control',
 		summary: 'Propulsion and speed-control software for autonomous electric haulers operating in demanding off-road environments.',
 		meta: 'Autonomous machines · Senior developer engineer / technical lead',
-		linkLabel: 'View project detail',
 		linkHref: '/work/autonomous-hauler-propulsion-control/',
 	},
 	{
 		title: 'E-Bike Motor Control and Power Electronics Software',
 		summary: 'Embedded software for e-bike motor control, wireless charging, DC/DC conversion, and PMSM thermal modeling.',
 		meta: 'Power electronics · Software lead / Scrum Master',
-		linkLabel: 'View project detail',
 		linkHref: '/work/ebike-motor-control-power-electronics/',
 	},
 	{
 		title: 'Heavy-Duty Engine Diagnostics and Control Research',
 		summary: 'Real-time control and diagnostic algorithms for heavy-duty combustion systems with experimental validation.',
 		meta: 'Real-time control research · Industrial PhD researcher',
-		linkLabel: 'View project detail',
 		linkHref: '/work/heavy-duty-engine-diagnostics-control-research/',
 	},
 ];
@@ -748,7 +743,6 @@ const visibleProjectRows = projectRows
 		title: cleanDisplayText(row.title),
 		summary: cleanDisplayText(row.summary),
 		meta: cleanDisplayText(row.meta),
-		linkLabel: cleanDisplayText(row.linkLabel),
 		linkHref: cleanDisplayText(row.linkHref),
 	}))
 	.filter((row) => row.title && row.summary && row.meta);
@@ -1014,24 +1008,19 @@ const visibleProjectRows = projectRows
 
 			<section id="projects" class="cv-section" aria-labelledby="projects-title">
 				<div class="page-container cv-section__layout">
-					<h2 id="projects-title" class="cv-section__rail-heading">Project record</h2>
+						<h2 id="projects-title" class="cv-section__rail-heading">Selected project evidence</h2>
 					<div class="cv-section__content">
 						<div class="cv-project-list" role="list">
 							{visibleProjectRows.map((row) => (
 								<article class="cv-project-row" role="listitem">
-									<h3>{row.title}</h3>
+									<h3><a href={withBase(row.linkHref)}>{row.title}</a></h3>
 									<p class="cv-project-row__summary">{row.summary}</p>
 									<p class="cv-project-row__meta">{row.meta}</p>
-									{hasVisibleLink(row.linkLabel, row.linkHref) && (
-										<p class="cv-project-row__link">
-											<a href={withBase(row.linkHref)}>{row.linkLabel}</a>
-										</p>
-									)}
 								</article>
 							))}
 						</div>
 						<p class="cv-section-cta">
-							<a href={withBase('/work')}>Explore selected work</a>
+							<a href={withBase('/work')}>Explore all selected work</a>
 						</p>
 					</div>
 				</div>
