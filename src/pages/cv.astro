@@ -801,15 +801,16 @@ const visibleProjectRows = projectRows
 			</div>
 		</section>
 
-		<nav class="cv-section-nav-float" aria-label="CV section navigation">
+		<nav class="cv-section-nav-float" aria-label="Jump to CV section">
 			<button
 				id="cv-sections-trigger"
 				class="cv-section-nav-float__trigger"
 				type="button"
+				aria-label="Jump to CV section"
 				aria-expanded="false"
 				aria-controls="cv-sections-menu"
 			>
-				<span>Sections</span>
+				<span>Jump to section</span>
 				<span class="cv-section-nav-float__chevron" aria-hidden="true">▲</span>
 			</button>
 			<ul id="cv-sections-menu" aria-labelledby="cv-sections-trigger" hidden>
@@ -823,7 +824,7 @@ const visibleProjectRows = projectRows
 			</ul>
 		</nav>
 
-		<main class="cv-main-flow">
+		<div class="cv-main-flow">
 			<section id="overview" class="cv-section" aria-labelledby="overview-title">
 				<div class="page-container cv-section__layout">
 					<h2 id="overview-title" class="cv-section__rail-heading">Overview</h2>
@@ -911,7 +912,7 @@ const visibleProjectRows = projectRows
 															</div>
 														</div>
 														{detailGroups.length > 0 && (
-															<div id={`${item.id}-details`} class="cv-disclosure-panel cv-disclosure-panel--role" hidden>
+											<div id={`${item.id}-details`} class="cv-disclosure-panel cv-disclosure-panel--role" hidden inert>
 																{detailGroups.map((detailGroup) => (
 																<section class="cv-detail-group" aria-labelledby={`${item.id}-${detailGroup.title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`}>
 																	<h5 id={`${item.id}-${detailGroup.title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`}>{detailGroup.title}</h5>
@@ -986,7 +987,7 @@ const visibleProjectRows = projectRows
 										)}
 									</div>
 									{hasDetails && (
-										<div id={`${item.id}-details`} class="cv-disclosure-panel" hidden>
+										<div id={`${item.id}-details`} class="cv-disclosure-panel" hidden inert>
 						{ownership && (
 							<section class="cv-detail-group" aria-labelledby={`${item.id}-ownership`}>
 								<h4 id={`${item.id}-ownership`}>What I own</h4>
@@ -1088,7 +1089,7 @@ const visibleProjectRows = projectRows
 											>
 												<span>{group.disclosure.collapsedLabel}</span>
 											</button>
-											<div id={`${group.id}-details`} class="cv-disclosure-panel" hidden>
+											<div id={`${group.id}-details`} class="cv-disclosure-panel" hidden inert>
 												<ul class="cv-plain-list">
 													{disclosureDetails.map((detail) => (
 														<li>{detail}</li>
@@ -1149,7 +1150,7 @@ const visibleProjectRows = projectRows
 					</div>
 				</div>
 			</section>
-		</main>
+		</div>
 	</div>
 </Layout>
 
@@ -1289,12 +1290,16 @@ const visibleProjectRows = projectRows
 
 	.cv-section-nav-float {
 		position: fixed;
-		right: max(1rem, env(safe-area-inset-right));
-		bottom: max(1rem, env(safe-area-inset-bottom));
+		right: calc(1rem + env(safe-area-inset-right));
+		bottom: calc(1rem + env(safe-area-inset-bottom));
 		z-index: 30;
 		display: block;
 		width: max-content;
-		max-width: calc(100vw - 2rem);
+		max-width: calc(100vw - 2rem - env(safe-area-inset-left) - env(safe-area-inset-right));
+	}
+
+	.cv-section-nav-float[data-cv-nav-suppressed] {
+		display: none;
 	}
 
 	.cv-section-nav-float__trigger {
@@ -1315,6 +1320,7 @@ const visibleProjectRows = projectRows
 		font-weight: 600;
 		letter-spacing: 0.04em;
 		text-transform: uppercase;
+		white-space: nowrap;
 	}
 
 	.cv-section-nav-float__trigger:hover,
@@ -1328,8 +1334,8 @@ const visibleProjectRows = projectRows
 		bottom: calc(100% + 0.5rem);
 		display: grid;
 		gap: 0.15rem;
-		width: min(14rem, calc(100vw - 2rem));
-		max-height: min(70vh, 24rem);
+		width: min(14rem, calc(100vw - 2rem - env(safe-area-inset-left) - env(safe-area-inset-right)));
+		max-height: min(70vh, 24rem, calc(100dvh - 2rem - env(safe-area-inset-top) - env(safe-area-inset-bottom)));
 		overflow-y: auto;
 		margin: 0;
 		padding: 0.6rem;
@@ -1346,6 +1352,11 @@ const visibleProjectRows = projectRows
 	.cv-section-nav-float__chevron {
 		font-size: 1rem;
 		line-height: 1;
+		transition: transform var(--motion-duration-fast-02) var(--motion-standard-productive);
+	}
+
+	.cv-section-nav-float__trigger[aria-expanded='true'] .cv-section-nav-float__chevron {
+		transform: rotate(180deg);
 	}
 
 	.cv-nav-link {
@@ -1516,6 +1527,17 @@ const visibleProjectRows = projectRows
 		text-decoration-thickness: 1px;
 		text-underline-offset: 0.2em;
 		text-transform: uppercase;
+	}
+
+	.cv-disclosure-button::after {
+		content: '+';
+		font-size: 1.1em;
+		font-weight: 700;
+		line-height: 1;
+	}
+
+	.cv-disclosure-button[aria-expanded='true']::after {
+		content: '−';
 	}
 
 	.cv-see-all-button {
@@ -1927,6 +1949,7 @@ const visibleProjectRows = projectRows
 		const sectionNav = root.querySelector('.cv-section-nav-float');
 		const sectionNavTrigger = root.getElementById('cv-sections-trigger');
 		const sectionMenu = root.getElementById('cv-sections-menu');
+		const closingSection = root.querySelector('.cv-closing');
 		const seeAllRolesButton = root.querySelector('[data-see-all-roles]');
 		const extraRoles = Array.from(root.querySelectorAll('[data-role-visibility="extra"]'));
 
@@ -1943,6 +1966,7 @@ const visibleProjectRows = projectRows
 			const label = button.querySelector('span');
 			if (label) label.textContent = expanded ? expandedLabel : collapsedLabel;
 			panel.hidden = !expanded;
+			panel.inert = !expanded;
 		};
 
 		toggles.forEach((button) => {
@@ -2057,6 +2081,13 @@ const visibleProjectRows = projectRows
 			requestUpdate();
 			window.addEventListener('scroll', requestUpdate, { passive: true });
 			window.addEventListener('resize', requestUpdate);
+		}
+
+		if (sectionNav && closingSection instanceof HTMLElement && 'IntersectionObserver' in window) {
+			const contactObserver = new IntersectionObserver(([entry]) => {
+				sectionNav.toggleAttribute('data-cv-nav-suppressed', entry.isIntersecting);
+			}, { threshold: 0.15 });
+			contactObserver.observe(closingSection);
 		}
 
 		navLinks.forEach((link) => {
