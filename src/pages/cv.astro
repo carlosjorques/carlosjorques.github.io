@@ -119,12 +119,12 @@ const hasVisibleText = (value?: string) => Boolean(cleanDisplayText(value));
 const visibleItems = (items?: string[]) => (items ?? []).map(cleanDisplayText).filter(Boolean);
 const hasVisibleLink = (label?: string, href?: string) => hasVisibleText(label) && hasVisibleText(href);
 const detailGroupTitleMap: Record<string, string> = {
-	'Selected outcomes': 'Selected contribution and impact',
+	'Selected outcomes': 'Selected impact',
 	'Validation/production context': 'Validation and delivery',
 	'Related-project links': 'Related selected work',
 };
 const detailGroupOrder = [
-	'Selected contribution and impact',
+	'Selected impact',
 	'Technical scope',
 	'Validation and delivery',
 	'Leadership and collaboration',
@@ -301,12 +301,6 @@ const experienceGroups: ExperienceGroup[] = [
 		],
 		details: [
 			{
-				title: 'Responsibilities',
-				items: [
-					'Develop embedded software for electric truck thermal management, battery systems, charger coordination, diagnostics, and controller architecture.',
-				],
-			},
-			{
 				title: 'Technical scope',
 				items: [
 					'Model calibration and validation across MIL, SIL, HIL, test bench, wind tunnel, test track, and vehicle environments.',
@@ -342,12 +336,6 @@ const experienceGroups: ExperienceGroup[] = [
 		],
 		details: [
 			{
-				title: 'Responsibilities',
-				items: [
-					'Provide technical direction across architecture, planning, software quality, mentoring, and delivery coordination.',
-				],
-			},
-			{
 				title: 'Technical scope',
 				items: [
 					'System requirements and architecture design for embedded automotive software assignments.',
@@ -374,12 +362,6 @@ const experienceGroups: ExperienceGroup[] = [
 			'Designed torque-control architecture for dual electric motors and redundant actuator concepts.',
 		],
 		details: [
-			{
-				title: 'Responsibilities',
-				items: [
-					'Develop propulsion control software for autonomous electric haulers, including traction control, speed control, torque allocation, diagnostics, and safety-related monitoring.',
-				],
-			},
 			{
 				title: 'Technical scope',
 				items: [
@@ -415,12 +397,6 @@ const experienceGroups: ExperienceGroup[] = [
 			'Implemented application-layer software for wireless battery charging and DC/DC converter functionality.',
 		],
 		details: [
-			{
-				title: 'Responsibilities',
-				items: [
-					'Develop software for e-bike motor control, wireless battery charging, DC/DC conversion, thermal modeling, and AUTOSAR-oriented architecture.',
-				],
-			},
 			{
 				title: 'Selected outcomes',
 				items: [
@@ -458,12 +434,6 @@ const experienceGroups: ExperienceGroup[] = [
 		],
 		details: [
 			{
-				title: 'Responsibilities',
-				items: [
-					'Develop embedded control software for electric powertrain thermal management and battery management functions.',
-				],
-			},
-			{
 				title: 'Technical scope',
 				items: [
 					'Passive and active cooling control integration across cabin climate, fans, heat pumps, batteries, and electric motors.',
@@ -495,12 +465,6 @@ const experienceGroups: ExperienceGroup[] = [
 			'Achieved up to 96% real-time pilot-misfire detection using model-based diagnostics.',
 		],
 		details: [
-			{
-				title: 'Responsibilities',
-				items: [
-					'Conduct industrial PhD research on real-time diagnostics and in-cycle closed-loop combustion control for heavy-duty diesel engines operating with biofuels.',
-				],
-			},
 			{
 				title: 'Selected outcomes',
 				items: [
@@ -540,12 +504,6 @@ const experienceGroups: ExperienceGroup[] = [
 			'Implemented control and diagnostic functions for oil level, oil pressure, warning handling, and driver display information.',
 		],
 		details: [
-			{
-				title: 'Responsibilities',
-				items: [
-					'Develop embedded control and diagnostic software for heavy-duty engine systems, oil systems, cooling systems, and safety-related functionality.',
-				],
-			},
 			{
 				title: 'Technical scope',
 				items: [
