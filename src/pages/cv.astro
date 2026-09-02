@@ -1724,6 +1724,31 @@ const visibleProjectRows = projectRows
 		content: '−';
 	}
 
+	/* Match the quiet, text-led disclosure treatment used on About. */
+	.cv-disclosure-button {
+		gap: 0.4rem;
+		color: var(--color-link);
+		font-family: var(--font-body);
+		font-size: 0.875rem;
+		font-weight: 400;
+		letter-spacing: normal;
+		line-height: 1.7;
+		text-transform: none;
+		text-underline-offset: 0.2em;
+	}
+
+	.cv-disclosure-button::after {
+		content: '↓';
+		font-size: 1em;
+		font-weight: 400;
+		transition: transform 140ms ease;
+	}
+
+	.cv-disclosure-button[aria-expanded='true']::after {
+		content: '↓';
+		transform: rotate(180deg);
+	}
+
 	.cv-see-all-button {
 		justify-self: start;
 		align-self: start;
@@ -1844,6 +1869,8 @@ const visibleProjectRows = projectRows
 		letter-spacing: normal;
 		line-height: 1.5;
 		list-style: none;
+		text-decoration: underline;
+		text-underline-offset: 0.2em;
 	}
 
 	.cv-secondary-details > summary::-webkit-details-marker {
@@ -1851,14 +1878,16 @@ const visibleProjectRows = projectRows
 	}
 
 	.cv-secondary-details > summary::after {
-		content: '+';
+		content: '↓';
 		flex: 0 0 auto;
-		font-size: 1.2rem;
+		font-size: 1em;
 		line-height: 1;
+		transition: transform 140ms ease;
 	}
 
 	.cv-secondary-details[open] > summary::after {
-		content: '−';
+		content: '↓';
+		transform: rotate(180deg);
 	}
 
 	.cv-secondary-details > summary:hover,
@@ -2058,13 +2087,17 @@ const visibleProjectRows = projectRows
 
 	.cv-project-row__read-more {
 		color: var(--color-muted);
-		font-family: var(--font-mono);
-		font-size: var(--type-card-body-size);
-		font-weight: 600;
+		font-family: var(--font-body);
+		font-size: 0.875rem;
+		font-weight: 400;
 		text-decoration: underline;
 		text-decoration-thickness: 1px;
 		text-underline-offset: 0.18em;
 		white-space: nowrap;
+	}
+
+	.cv-project-row__read-more::after {
+		content: ' →';
 	}
 
 	.cv-project-row__read-more:hover,
