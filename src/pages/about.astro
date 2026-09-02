@@ -1,10 +1,11 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import AboutStoryBlock from '../components/AboutStoryBlock.astro';
+import ContactCTA from '../components/ContactCTA.astro';
+import { LINKEDIN_URL } from '../data/identity';
 const baseUrl = import.meta.env.BASE_URL;
 const normalizedBase = baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`;
 const withBase = (href: string) => href.startsWith('http') || href.startsWith('mailto:') || href.startsWith('#') ? href : `${normalizedBase}${href.replace(/^\//, '')}`;
-const linkedinHref = 'https://www.linkedin.com/in/carlosjorques/';
 const portraitUrl = withBase('/images/carlos-jorques-intro.webp');
 ---
 
@@ -93,13 +94,20 @@ const portraitUrl = withBase('/images/carlos-jorques-intro.webp');
 				"I'm naturally curious, and I like trying things I haven't done before, whether that means picking up a new skill, testing an idea, or occasionally building something — through 3D printing, lamp design, painting, electronics, or home automation. These projects are less about the outcome and more about the habit of staying curious.",
 				"Most importantly, time with my partner, our child, our dog, and friends keeps work in perspective and reminds me to protect space for the people and experiences that matter beyond engineering."
 			]}
+			withBottomBorder
 		/>
 
 
-		<section class="editorial-section about-closing" aria-labelledby="closing-title">
-			<div class="section-rail" aria-hidden="true"></div>
-			<div class="story-block"><h2 id="closing-title">Looking for an Embedded Controls Technical Lead?</h2>
-			<p>If you are developing a product whose behaviour depends on embedded controls—and need someone who can shape technical direction while remaining close to the engineering—I would be glad to hear from you.</p><div class="button-row"><a class="button primary" href={withBase('/contact')}>Get in touch</a><a class="button" href={withBase('/cv')}>View my CV</a><a class="button" href={withBase('/work')}>Explore selected projects</a><a class="button" href={linkedinHref} target="_blank" rel="noopener noreferrer">Connect on LinkedIn</a></div></div>
+		<section class="section about-closing" aria-label="Contact">
+			<ContactCTA
+				title="Have an embedded systems opportunity, technical question, or collaboration in mind?"
+				body="I’m open to related roles, technical leadership opportunities, freelance engineering work, and conversations about embedded controls, electrification, diagnostics, and intelligent physical systems."
+				primaryLabel="Start a conversation"
+				secondaryHref={LINKEDIN_URL}
+				secondaryLabel="Connect on linkedin"
+				tertiaryHref="/work/"
+				tertiaryLabel="Explore selected work"
+			/>
 		</section>
 	</div>
 </Layout>
@@ -137,7 +145,7 @@ const portraitUrl = withBase('/images/carlos-jorques-intro.webp');
 	.story-disclosure__content { display:grid; gap:.65rem; margin-top:.65rem; }
 	.story-disclosure__content p { color:var(--color-muted); font-size:1.08rem; line-height:1.7; }
 	.about-closing { padding:5rem 0; }
-	.about-closing .button.primary,.about-closing .button.primary:hover,.about-closing .button.primary:focus-visible { color:#fff; }
+	:global(#beyond-engineering) { border-bottom:1px solid var(--color-border); }
 	.route-list { grid-column:1 / -1; max-width:none; }
 	.route-list__intro { margin-bottom:.25rem; }
 	.visitor-routes { gap: 0rem; padding-top:0; padding-bottom:4rem; border-top:0; }
