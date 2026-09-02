@@ -15,6 +15,7 @@ const isActive = (href: string) => href === '/' ? currentPath === '/' : currentP
 			<a href={withBase('/work')} aria-current={isActive('/work') ? 'page' : undefined}>Work</a>
 			<a href={withBase('/about')} aria-current={isActive('/about') ? 'page' : undefined}>About</a>
 			<a href={withBase('/cv')} aria-current={isActive('/cv') ? 'page' : undefined}>CV</a>
+			<a href={withBase('/contact')} aria-current={isActive('/contact') ? 'page' : undefined}>Contact</a>
 			<div class="site-header__more">
 				<button class="site-header__more-trigger" type="button" aria-haspopup="true" aria-controls="site-header-more-menu">
 					<span>More</span>
@@ -25,7 +26,6 @@ const isActive = (href: string) => href === '/' ? currentPath === '/' : currentP
 				<div class="site-header__more-panel" id="site-header-more-menu">
 					<a href={withBase('/writing')} aria-current={isActive('/writing') ? 'page' : undefined}>Writing</a>
 					<a href={withBase('/research')} aria-current={isActive('/research') ? 'page' : undefined}>Research</a>
-					<a href={withBase('/contact')} aria-current={isActive('/contact') ? 'page' : undefined}>Contact</a>
 				</div>
 			</div>
 		</nav>
