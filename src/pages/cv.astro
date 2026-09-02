@@ -173,6 +173,12 @@ const overview: OverviewItem = {
 	],
 };
 
+const selectedEvidence = [
+	'Led a team of 3 embedded software engineers across client delivery work.',
+	'Delivered thermal, propulsion, diagnostics, and validation software across vehicle programs.',
+	'Increased indicated efficiency by 1.8% in heavy-duty engine running on biofuels.',
+];
+
 const expertiseItems: ExpertiseItem[] = [
 	{
 		id: 'expertise-area-01',
@@ -765,6 +771,7 @@ const visibleProofItems = proofItems
 	.filter((item) => item.value && item.label);
 const visibleOverviewParagraphs = visibleItems(overview.paragraphs);
 const visibleOverviewScopeItems = visibleItems(overview.scopeItems);
+const visibleSelectedEvidence = visibleItems(selectedEvidence);
 const visibleProjectRows = projectRows
 	.map((row) => ({
 		...row,
@@ -877,6 +884,16 @@ const visibleProjectRows = projectRows
 									<li>{item}</li>
 								))}
 							</ul>
+						)}
+						{visibleSelectedEvidence.length > 0 && (
+							<section class="cv-overview-evidence" aria-labelledby="selected-evidence-title">
+								<h3 id="selected-evidence-title">Highlights</h3>
+								<ul class="cv-overview-evidence__list">
+									{visibleSelectedEvidence.map((item) => (
+										<li>{item}</li>
+									))}
+								</ul>
+							</section>
 						)}
 					</div>
 				</div>
@@ -1528,6 +1545,7 @@ const visibleProjectRows = projectRows
 
 	.cv-prose p,
 	.cv-scope-list li,
+	.cv-overview-evidence__list li,
 	.cv-card__summary,
 	.cv-role__mandate,
 	.cv-role__scope,
@@ -1544,6 +1562,48 @@ const visibleProjectRows = projectRows
 	.cv-role__contributions,
 	.cv-plain-list {
 		padding-left: 1.1rem;
+	}
+
+	.cv-overview-evidence {
+		display: grid;
+		gap: 0.65rem;
+		margin-top: 1.35rem;
+		border-top: 1px solid var(--color-border-soft);
+		padding-top: 1rem;
+	}
+
+	.cv-overview-evidence h3 {
+		margin: 0;
+		font-family: var(--font-mono);
+		font-size: var(--type-meta-size);
+		font-weight: 700;
+		letter-spacing: var(--type-meta-tracking);
+		line-height: var(--type-meta-line);
+		text-transform: uppercase;
+	}
+
+	.cv-overview-evidence__list {
+		display: grid;
+		gap: 0.35rem;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.cv-overview-evidence__list li {
+		position: relative;
+		padding-left: 1rem;
+	}
+
+	.cv-overview-evidence__list li::before {
+		position: absolute;
+		top: 0.72em;
+		left: 0;
+		width: 0.35rem;
+		height: 0.35rem;
+		border-radius: 50%;
+		background: var(--color-accent-text);
+		content: '';
 	}
 
 	.cv-card-grid {
