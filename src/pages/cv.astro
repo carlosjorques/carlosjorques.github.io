@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { LINKEDIN_URL } from '../data/identity';
 
 type CvAction = {
 	label: string;
@@ -138,7 +139,7 @@ const visibleDetailGroups = (groups?: DetailGroup[]) =>
 
 const actions: CvAction[] = [
 	{ label: 'Download PDF CV', href: '/cv/Carlos_Jorques_CV.pdf', primary: true },
-	{ label: 'Discuss an opportunity', href: '/contact' },
+	{ label: 'Discuss an opportunity', href: '/contact?source=cv#message-title' },
 ];
 
 const sectionNav: SectionNavItem[] = [
@@ -154,6 +155,7 @@ const proofItems: SnapshotItem[] = [
 	{ value: '12+ years', label: 'Embedded controls in automotive systems' },
 	{ value: 'End-to-end scope', label: 'Architecture, control design, embedded software and validation' },
 	{ value: 'Technical leadership', label: 'Team direction, mentoring and cross-functional delivery' },
+	{ value: 'Vehicle programs', label: 'Delivered thermal, propulsion, diagnostics and validation work across vehicle programs' },
 	{ value: 'Industrial PhD', label: '5 patents and 15+ publications' },
 ];
 
@@ -791,10 +793,29 @@ const visibleProjectRows = projectRows
 						</p>
 						<div class="button-row cv-hero__actions">
 							{actions.map((action) => (
-								<a class:list={['button', { primary: action.primary }]} href={withBase(action.href)}>
+								<a
+									class:list={['button', { primary: action.primary }]}
+									href={withBase(action.href)}
+									data-source-section="cv-hero"
+								>
 									{action.label}
 								</a>
 							))}
+							<a
+								class="button cv-hero__linkedin"
+								href={LINKEDIN_URL}
+								target="_blank"
+								rel="noopener noreferrer"
+								aria-label="Connect with Carlos Jorques on LinkedIn"
+								data-analytics-event="linkedin_outbound_click"
+								data-cta-id="cv-hero-linkedin"
+								data-cta-placement="cv-hero"
+								data-cta-intent="professional-profile"
+								data-source-section="cv-hero"
+							>
+								<span class="cv-hero__linkedin-mark" aria-hidden="true">in</span>
+								<span>LinkedIn</span>
+							</a>
 						</div>
 						<p class="cv-hero__meta">Valencia, Spain · Open to selected opportunities</p>
 					</div>
@@ -834,7 +855,7 @@ const visibleProjectRows = projectRows
 					</li>
 				))}
 			</ul>
-			<a class="button cv-section-nav-float__contact" href={withBase('/contact')}>Contact</a>
+			<a class="button cv-section-nav-float__contact" href={withBase('/contact?source=cv#message-title')}>Contact</a>
 		</nav>
 
 		<div class="cv-main-flow">
@@ -952,8 +973,8 @@ const visibleProjectRows = projectRows
 									aria-expanded="false"
 									aria-controls="experience-list"
 									data-see-all-roles
-									data-label-collapsed="See Previous Experience"
-									data-label-expanded="Hide Previous Experience"
+									data-label-collapsed="See all experience"
+									data-label-expanded="Hide previous experience"
 								>
 									<span>See Previous Experience</span>
 								</button>
@@ -1171,7 +1192,7 @@ const visibleProjectRows = projectRows
 							</p>
 						</div>
 						<div class="button-row">
-							<a class="button primary" href={withBase('/contact')}>Discuss an opportunity</a>
+							<a class="button primary" href={withBase('/contact?source=cv#message-title')}>Discuss an opportunity</a>
 							<a class="button" href={withBase('/cv/Carlos_Jorques_CV.pdf')}>Download PDF CV</a>
 						</div>
 						<p class="cv-section-cta"><a href={withBase('/work')}>Explore selected work</a></p>
@@ -1251,6 +1272,19 @@ const visibleProjectRows = projectRows
 
 	.cv-hero__actions {
 		margin-top: 0.5rem;
+	}
+
+	.cv-hero__linkedin {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.45rem;
+	}
+
+	.cv-hero__linkedin-mark {
+		font-family: var(--font-mono);
+		font-size: 0.9em;
+		font-weight: 700;
+		line-height: 1;
 	}
 
 	.cv-hero__meta {
