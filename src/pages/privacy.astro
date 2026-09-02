@@ -12,13 +12,9 @@ const withBase = (href: string) => (href === '/' ? normalizedBase : `${normalize
 >
 	<section class="privacy-hero" aria-labelledby="privacy-title">
 		<div class="page-container privacy-hero__inner">
-			<div class="privacy-hero__label">
-				<p class="section-eyebrow">Privacy</p>
-				<h1 id="privacy-title" class="hero-title">Privacy notice</h1>
-			</div>
-			<div class="privacy-hero__mission">
-				<p>This privacy notice explains how I handle personal information submitted through this website.</p>
-			</div>
+			<p class="section-eyebrow">Privacy</p>
+			<h1 id="privacy-title" class="hero-title">Privacy notice</h1>
+			<p class="privacy-hero__mission">This privacy notice explains how I handle personal information submitted through this website.</p>
 		</div>
 	</section>
 
@@ -74,47 +70,33 @@ const withBase = (href: string) => (href === '/' ? normalizedBase : `${normalize
 
 <style>
 	.privacy-hero {
-		padding-block: clamp(3rem, 5vw, 4.6rem) clamp(1.55rem, 3vw, 2.25rem);
-		border-bottom: 1px solid var(--color-border-soft);
-		background: transparent;
+		padding: clamp(3rem, 5vw, 4.6rem) 0 0;
 	}
 
-	.privacy-hero .page-container,
+	.privacy-hero .page-container {
+		width: min(calc(100% - 5rem), var(--content-width));
+		max-width: 100%;
+		padding: 0 0 2.75rem 0;
+		border-bottom: 1px solid var(--color-border);
+	}
+
 	.privacy-content .page-container {
 		width: min(calc(100% - 5rem), var(--content-width));
 		max-width: 100%;
 	}
 
-	.privacy-hero__inner,
-	.privacy-hero__label,
-	.privacy-hero__mission {
-		display: grid;
-	}
-
 	.privacy-hero__inner {
-		grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
-		gap: clamp(1.4rem, 5vw, 4.2rem);
-		align-items: end;
-	}
-
-	.privacy-hero__label {
+		display: grid;
 		gap: 1rem;
-		min-width: 0;
 	}
 
-	.privacy-hero__label .section-eyebrow {
+	.privacy-hero .section-eyebrow {
 		margin: 0;
 		color: var(--color-muted);
 		font-size: .82rem;
 		font-weight: 600;
 		letter-spacing: .08em;
 		line-height: 1.4;
-	}
-
-	.privacy-hero__mission {
-		min-width: 0;
-		border-left: 1px solid var(--color-border-soft);
-		padding-left: clamp(1rem, 3vw, 2rem);
 	}
 
 	.privacy-hero .hero-title {
@@ -128,13 +110,12 @@ const withBase = (href: string) => (href === '/' ? normalizedBase : `${normalize
 		word-break: normal;
 	}
 
-	.privacy-hero__mission p {
-		max-width: 660px;
+	.privacy-hero__mission {
+		max-width: 52rem;
 		margin: 0;
-		color: var(--color-body-text);
-		font-size: clamp(1.1rem, 1.45vw, 1.32rem);
-		font-weight: 400;
-		line-height: 1.5;
+		color: var(--color-text);
+		font-size: 1.08rem;
+		line-height: 1.7;
 		overflow-wrap: anywhere;
 	}
 
@@ -181,7 +162,7 @@ const withBase = (href: string) => (href === '/' ? normalizedBase : `${normalize
 
 	@media (max-width: 640px) {
 		.privacy-hero {
-			padding-block: 3rem 2.75rem;
+			padding-top: 3rem;
 		}
 
 		.privacy-hero .page-container,
@@ -189,26 +170,11 @@ const withBase = (href: string) => (href === '/' ? normalizedBase : `${normalize
 			width: min(calc(100% - 2rem), var(--content-width));
 		}
 
-		.privacy-hero__inner {
-			grid-template-columns: 1fr;
-			align-items: start;
-			gap: 1.1rem;
-		}
-
-		.privacy-hero__mission {
-			border-left: 0;
-			border-top: 1px solid var(--color-border-soft);
-			padding-top: 1rem;
-			padding-left: 0;
-			max-width: 100%;
-		}
-
 		.privacy-hero .hero-title {
 			font-size: clamp(2.15rem, 10vw, 2.45rem);
 			line-height: 1.04;
 		}
 
-		.privacy-hero__label,
 		.privacy-hero__mission {
 			overflow-wrap: anywhere;
 		}
