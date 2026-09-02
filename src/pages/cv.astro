@@ -6,6 +6,9 @@ type CvAction = {
 	label: string;
 	href: string;
 	primary?: boolean;
+	analyticsEvent: string;
+	ctaId: string;
+	ctaIntent: string;
 };
 
 type SectionNavItem = {
@@ -140,8 +143,21 @@ const visibleDetailGroups = (groups?: DetailGroup[]) =>
 		.sort((a, b) => detailGroupOrder.indexOf(a.title) - detailGroupOrder.indexOf(b.title));
 
 const actions: CvAction[] = [
-	{ label: 'Download PDF CV', href: '/cv/Carlos_Jorques_CV.pdf', primary: true },
-	{ label: 'Discuss an opportunity', href: '/contact?source=cv#message-title' },
+	{
+		label: 'Download PDF CV',
+		href: '/cv/Carlos_Jorques_CV.pdf',
+		primary: true,
+		analyticsEvent: 'cv_pdf_download',
+		ctaId: 'cv-hero-pdf',
+		ctaIntent: 'formal-proof',
+	},
+	{
+		label: 'Discuss an opportunity',
+		href: '/contact?context=role&source=cv-hero#message-title',
+		analyticsEvent: 'cta_click',
+		ctaId: 'cv-hero-contact',
+		ctaIntent: 'contact',
+	},
 ];
 
 const sectionNav: SectionNavItem[] = [
@@ -155,7 +171,7 @@ const sectionNav: SectionNavItem[] = [
 
 const proofItems: SnapshotItem[] = [
 	{ value: '12+ years', label: 'Embedded controls in automotive systems' },
-	{ value: 'End-to-end scope', label: 'Architecture, control design, embedded software and validation' },
+	{ value: 'Full lifecycle', label: 'Architecture, implementation, calibration, validation, and release' },
 	{ value: 'Technical leadership', label: 'Team direction, mentoring and cross-functional delivery' },
 	{ value: 'Vehicle programs', label: 'Delivered thermal, propulsion, diagnostics and validation work across vehicle programs' },
 	{ value: 'Industrial PhD', label: '5 patents and 15+ publications' },
@@ -185,8 +201,8 @@ const expertiseItems: ExpertiseItem[] = [
 	{
 		id: 'expertise-area-01',
 		title: 'Embedded controls architecture',
-		summary: 'System-level definition of control functions, software boundaries, diagnostics, calibration, and interfaces.',
-		representativeEvidence: 'Connected thermal, battery, charging, diagnostics, and validation boundaries at vehicle level.',
+		summary: 'System-level definition of control functions, software interfaces, diagnostics, calibration, and validation.',
+		representativeEvidence: 'Connected thermal, battery, charging, diagnostics, and validation functions into a coherent vehicle-level control boundary.',
 		scope: 'System-level definition of embedded control functions, software boundaries, diagnostics, calibration hooks, and release-ready interfaces.',
 		ownership:
 			'I define how control intent, embedded software structure, diagnostics, calibration, interfaces, and validation evidence fit together before implementation hardens around accidental boundaries.',
@@ -205,8 +221,8 @@ const expertiseItems: ExpertiseItem[] = [
 	{
 		id: 'expertise-area-02',
 		title: 'Control systems and estimation',
-		summary: 'Real-time control, virtual sensing, observers, model adaptation, and calibration for physical systems.',
-		representativeEvidence: 'Reduced pilot fuel-mass estimation error by 60% and enabled up to 96% misfire detection.',
+		summary: 'Real-time control, virtual sensing, observers, model adaptation, signal-processing and calibration.',
+		representativeEvidence: 'Reduced pilot fuel-mass estimation error by 60% and enabled up to 96% real-time misfire detection.',
 		scope: 'Real-time control, virtual sensing, observer design, calibration, model adaptation, and system identification for physical systems.',
 		ownership:
 			'I connect models, measurements, calibration, and embedded implementation so estimation and control strategies produce dependable behavior in real machines.',
@@ -226,7 +242,7 @@ const expertiseItems: ExpertiseItem[] = [
 		id: 'expertise-area-03',
 		title: 'Real-time embedded software',
 		summary: 'Production-oriented control software across generated code, C/C++ integration, ECU interfaces, and CI workflows.',
-		representativeEvidence: 'Delivered control software across thermal, propulsion, power-electronics, and charging systems.',
+		representativeEvidence: 'Turned thermal, propulsion, power-electronics, and charging behavior into software that teams could integrate, validate, and calibrate.',
 		scope: 'Production-oriented implementation of embedded control software across generated code, C/C++ integration, calibration, debugging, and CI workflows.',
 		ownership:
 			'I turn control concepts and software architecture into embedded software that teams can integrate, validate, calibrate, debug, and release.',
@@ -246,7 +262,7 @@ const expertiseItems: ExpertiseItem[] = [
 		id: 'expertise-area-04',
 		title: 'Diagnostics and robustness',
 		summary: 'Fault detection, degradation, fallback, and safety-aware responses for physical-system operation.',
-		representativeEvidence: 'Designed diagnostic and fallback behavior for thermal, battery, propulsion, and autonomous vehicle functions.',
+		representativeEvidence: 'Defined diagnostic and fallback behavior that allowed thermal, battery, propulsion, and autonomous functions to respond to faults in a controlled way.',
 		scope: 'Diagnostic and safety-aware control software for fault detection, controlled degradation, fallback behavior, and reliable physical-system operation.',
 		ownership:
 			'My diagnostic work separates physical cause, signal symptom, control response, and degraded behavior, then uses evidence to decide what the system can still do safely and reliably.',
@@ -265,8 +281,8 @@ const expertiseItems: ExpertiseItem[] = [
 	{
 		id: 'expertise-area-05',
 		title: 'Validation and system integration',
-		summary: 'Validation planning and integration from simulation and HIL through bench, vehicle, and field evidence.',
-		representativeEvidence: 'Built validation paths from model behavior to integrated vehicle evidence.',
+		summary: 'Connect requirements, calibration, integration, and test evidence from simulation and HIL through vehicle and field evaluation.',
+		representativeEvidence: 'A-Spice implementation for control functions through unit, SIL/HIL, bench, and vehicle evaluation toward release.',
 		scope: 'Validation planning, integration support, calibration maturity, and release evidence across simulation, bench, HIL, vehicle, and field contexts.',
 		ownership:
 			'I connect requirements, software behavior, calibration, test environments, issue resolution, and system feedback so embedded control functions mature toward release.',
@@ -285,8 +301,8 @@ const expertiseItems: ExpertiseItem[] = [
 	{
 		id: 'expertise-area-06',
 		title: 'Technical leadership',
-		summary: 'Technical direction, mentoring, architecture clarity, and cross-functional delivery.',
-		representativeEvidence: 'Led a team of 3 embedded software engineers while coordinating architecture, quality, mentoring, and delivery.',
+		summary: 'Provide technical direction, mentoring, architecture clarity, and cross-functional delivery support for embedded software teams',
+		representativeEvidence: 'Led a team of 3 embedded software engineers while aligning architecture, quality, mentoring, and delivery.',
 		scope: 'Technical direction, mentoring, planning, architecture clarity, and cross-functional delivery support for embedded software teams.',
 		ownership:
 			'I help teams make ambiguous engineering work visible: what is known, what is assumed, what must be validated, and which technical choices affect delivery, quality, and long-term maintainability.',
@@ -817,7 +833,12 @@ const visibleProjectRows = projectRows
 								<a
 									class:list={['button', { primary: action.primary }]}
 									href={withBase(action.href)}
+									data-analytics-event={action.analyticsEvent}
+									data-cta-id={action.ctaId}
+									data-cta-placement="cv-hero"
+									data-cta-intent={action.ctaIntent}
 									data-source-section="cv-hero"
+									data-destination={withBase(action.href)}
 								>
 									{action.label}
 								</a>
@@ -833,12 +854,13 @@ const visibleProjectRows = projectRows
 								data-cta-placement="cv-hero"
 								data-cta-intent="professional-profile"
 								data-source-section="cv-hero"
+								data-destination={LINKEDIN_URL}
 							>
 								<span class="cv-hero__linkedin-mark" aria-hidden="true">in</span>
 								<span>LinkedIn</span>
 							</a>
 						</div>
-						<p class="cv-hero__meta">Based in Valencia, Spain · Open to related roles & remote</p>
+						<p class="cv-hero__meta">Based in Valencia, Spain · Open to related roles and remote work</p>
 					</div>
 					<aside class="cv-proof panel" aria-label="Professional snapshot">
 						<p class="cv-proof__label">At a glance</p>
