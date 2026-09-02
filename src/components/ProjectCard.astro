@@ -8,41 +8,44 @@ const href = `${import.meta.env.BASE_URL}work/${slug}/`;
 ---
 
 <article class="project-card">
-	<a class="project-card__link" href={href} aria-label={`View project: ${title}`}>
+	<div class="project-card__layout">
 		<figure class="project-card__media"><Image src={image} alt={imageAlt} widths={[480, 720, 960]} sizes="(min-width: 768px) 45vw, 100vw" /></figure>
 		<div class="project-card__body">
-			<header class="project-card__header"><p class="project-card__context">{company} <span aria-hidden="true">·</span> {context}</p><h2>{title}</h2></header>
-			<div class="project-card__summary"><p class="project-card__role">{role}</p><p class="project-card__outcome">{description}</p></div>
-			<ul class="tag-list" aria-label={`${title} tags`}>{tags.slice(0, 2).map((tag) => <li class="tag">{tag}</li>)}</ul>
-			<span class="project-card__read" aria-hidden="true">View project details <span>→</span></span>
+			<header class="project-card__header">
+				<p class="project-card__eyebrow">{company} <span aria-hidden="true">·</span> {context}</p>
+				<h2>{title}</h2>
+			</header>
+			<div class="project-card__summary">
+				<p class="project-card__subtitle">{role}</p>
+				<p class="project-card__content">{description}</p>
+			</div>
+			<ul class="tag-list" aria-label={`${title} labels`}>{tags.slice(0, 2).map((tag) => <li class="tag">{tag}</li>)}</ul>
+			<a class="project-card__read" href={href} aria-label={`View project details for ${title}`}>View project details <span aria-hidden="true">→</span></a>
 		</div>
-	</a>
+	</div>
 </article>
 
 <style>
-	.project-card { min-width: 0; }
-	.project-card__link { display: grid; grid-template-columns: minmax(0, 0.5fr) minmax(0, 0.5fr); width: 100%; min-width: 0; gap: clamp(1.5rem, 4vw, 3rem); height: clamp(20rem, 32vw, 26rem); padding: clamp(.75rem, 1.5vw, 1rem); overflow: hidden; border: 1px solid var(--color-card-border); border-radius: var(--radius); background: var(--color-card-bg); color: inherit; text-decoration: none; transition: transform var(--motion-duration-fast-02) var(--motion-standard-productive), box-shadow var(--motion-duration-fast-02) var(--motion-standard-productive), border-color var(--motion-duration-fast-02) var(--motion-standard-productive); }
-	.project-card__link:hover { transform: translateY(-3px); border-color: var(--color-card-border-hover); box-shadow: 0 12px 30px rgba(23, 23, 23, 0.08); }
-	.project-card__media { grid-column: 2; grid-row: 1; min-width: 0; min-height: 0; height: 100%; margin: 0; overflow: hidden; border-radius: var(--radius); background: var(--color-surface-soft); }
-	.project-card__media img { width: 100%; height: 100%; object-fit: cover; transition: transform var(--motion-duration-fast-02) var(--motion-standard-productive); }
-	.project-card__link:hover .project-card__media img { transform: scale(1.02); }
-	.project-card__body { grid-column: 1; grid-row: 1; display: grid; align-content: center; gap: 1rem; min-width: 0; padding: clamp(.4rem, 1vw, .75rem) 0 clamp(.4rem, 1vw, .75rem) clamp(.25rem, .5vw, .5rem); }
-	.project-card__header { display: grid; gap: .6rem; min-width: 0; }
+	.project-card { min-width: 0; padding: clamp(1.5rem, 3vw, 2.5rem) 0; border-top: 1px solid var(--color-border); }
+	.project-card:first-child { padding-top: 0; border-top: 0; }
+	.project-card__layout { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: clamp(1.5rem, 4vw, 3rem); align-items: start; }
+	.project-card__media { min-width: 0; margin: 0; background: var(--color-surface-soft); }
+	.project-card__media img { display: block; width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: cover; border-radius: var(--radius);}
+	.project-card__body { display: grid; align-content: start; gap: .8rem; min-width: 0; max-width: 52rem; }
+	.project-card__header { display: grid; gap: .55rem; min-width: 0; }
 	.project-card__summary { display: grid; gap: .55rem; min-width: 0; }
-	.project-card__context { color: var(--color-accent-text); font-family: var(--font-mono); font-size: clamp(.75rem, .8vw, .82rem); font-weight: 700; letter-spacing: var(--type-meta-tracking); line-height: 1.4; text-transform: uppercase; }
-	.project-card h2 { max-width: none; font-size: clamp(1.2rem, 1.65vw, 1.5rem); font-weight: 800; line-height: 1.1; text-wrap: balance; }
-	.project-card__role { color: var(--color-text); font-size: .98rem; font-weight: 700; line-height: 1.35; }
-	.project-card__outcome { color: var(--color-muted); }
-	.project-card__outcome { font-size: clamp(.98rem, 1vw, 1.05rem); line-height: 1.55; }
-	.project-card__context, .project-card__role, .project-card__outcome { min-width: 0; overflow-wrap: anywhere; }
+	.project-card__eyebrow { margin: 0; color: var(--color-muted); font-family: var(--font-mono); font-size: var(--type-eyebrow-size); font-weight: var(--type-eyebrow-weight); letter-spacing: var(--type-eyebrow-tracking); line-height: var(--type-eyebrow-line); text-transform: uppercase; }
+	.project-card h2 { max-width: none; margin: 0; font-family: var(--font-display); font-size: clamp(1.2rem, 1.7vw, 1.45rem); font-weight: 700; line-height: 1.12; letter-spacing: -.03em; text-wrap: balance; }
+	.project-card__subtitle { margin: 0; color: var(--color-text); font-size: var(--type-card-body-size); font-weight: 700; line-height: 1.35; }
+	.project-card__content { margin: 0; color: var(--color-body-text); font-size: var(--type-card-body-size); line-height: 1.62; }
+	.project-card__eyebrow, .project-card__subtitle, .project-card__content { min-width: 0; overflow-wrap: anywhere; }
 	.project-card .tag-list { gap: 0; list-style: none; }
 	.project-card .tag { border: 0; background: transparent; padding: 0; color: var(--color-muted); font-size: .8rem; line-height: 1.45; }
 	.project-card .tag + .tag::before { content: '·'; display: inline-block; margin: 0 .55rem; color: var(--color-border-strong); }
-	.project-card__read { display: inline-flex; justify-self: start; align-items: center; justify-content: center; gap: .6rem; min-height: 48px; margin-top: .25rem; padding: .7rem 1rem; border: 1px solid var(--color-card-border); border-radius: var(--radius-pill); color: inherit; font-family: var(--font-mono); font-size: var(--type-nav-size); font-weight: 700; text-decoration: none; text-transform: uppercase; transition: transform var(--motion-duration-fast-02) var(--motion-standard-productive), border-color var(--motion-duration-fast-02) var(--motion-standard-productive), background-color var(--motion-duration-fast-02) var(--motion-standard-productive); }
-	.project-card__link:hover .project-card__read { border-color: var(--color-card-border-hover); background: var(--color-card-bg-hover); color: var(--color-link-hover); transform: translateY(-1px); }
+	.project-card__read { display: inline-flex; justify-self: start; align-items: center; gap: .4rem; margin-top: 0; color: var(--color-link); font-family: var(--font-body); font-size: .875rem; font-weight: 400; line-height: 1.7; text-decoration: underline; text-underline-offset: .2em; }
+	.project-card__read:hover, .project-card__read:focus-visible { color: var(--color-text); }
 	@media (max-width: 700px) {
-		.project-card__link { grid-template-columns: 1fr; grid-template-rows: 13rem 1fr; height: 38rem; gap: 1rem; }
-		.project-card__media { grid-column: 1; grid-row: 1; }
-		.project-card__body { grid-column: 1; grid-row: 2; gap: .85rem; padding: 1rem .25rem .25rem; }
+		.project-card__layout { grid-template-columns: 1fr; gap: 1rem; }
+		.project-card__media img { aspect-ratio: 16 / 9; }
 	}
 </style>
