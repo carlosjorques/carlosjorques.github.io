@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import { LINKEDIN_URL } from '../data/identity';
+import ContactCTA from '../components/ContactCTA.astro';
 
 type CvAction = {
 	label: string;
@@ -1244,31 +1245,9 @@ const visibleProjectRows = projectRows
 				</div>
 			</section>
 
-			<section class="cv-section cv-closing" aria-labelledby="cv-closing-title">
-				<div class="page-container cv-section__layout">
-					<h2 id="cv-closing-title" class="cv-section__rail-heading">Contact</h2>
-					<div class="cv-section__content">
-						<h3>Have an embedded systems opportunity, technical question, or collaboration in mind?</h3>
-						<div class="cv-prose">
-							<p>
-								I’m open to related roles, technical leadership opportunities, freelance engineering work, and conversations about embedded controls, electrification, diagnostics, and intelligent physical systems.
-							</p>
-						</div>
-						<div class="button-row">
-							<a class="button primary" href={withBase('/contact?context=general&source=cv-closing#message-title')}>Start a conversation</a>
-							<a
-								class="button"
-								href={LINKEDIN_URL}
-								target="_blank"
-								rel="noopener noreferrer"
-								aria-label="Connect with Carlos Jorques on LinkedIn"
-							>
-								Connect on LinkedIn
-							</a>
-							<a class="button" href={withBase('/cv/Carlos_Jorques_CV.pdf')}>Download PDF CV</a>
-						</div>
-						<p class="cv-section-cta"><a href={withBase('/work')}>Explore selected work</a></p>
-					</div>
+			<section class="section cv-closing" aria-label="Contact">
+				<div class="page-container">
+					<ContactCTA title="Have an embedded systems opportunity, technical question, or collaboration in mind?" body="I’m open to related roles, technical leadership opportunities, freelance engineering work, and conversations about embedded controls, electrification, diagnostics, and intelligent physical systems." primaryHref="/contact?context=general&source=cv-closing#message-title" primaryLabel="Start a conversation" secondaryHref={LINKEDIN_URL} secondaryLabel="Connect on linkedin" tertiaryHref="/cv/Carlos_Jorques_CV.pdf" tertiaryLabel="Download PDF CV" />
 				</div>
 			</section>
 		</div>
@@ -1542,6 +1521,10 @@ const visibleProjectRows = projectRows
 	.cv-section {
 		padding: 2.75rem 0;
 		border-top: 1px solid var(--color-border);
+	}
+
+	.cv-section#methods {
+		border-bottom: 1px solid var(--color-border);
 	}
 
 	.cv-section__layout {

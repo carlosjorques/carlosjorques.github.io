@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ContactCTA from '../../components/ContactCTA.astro';
 import ProjectCard from '../../components/ProjectCard.astro';
+import { LINKEDIN_URL } from '../../data/identity';
 
 const projectOrder = [
 	'electric-truck-thermal-management',
@@ -16,7 +17,7 @@ const projects = (await getCollection('projects')).sort((a, b) => projectOrder.i
 <BaseLayout title="Work" description="Selected projects across architecture, implementation, and delivery of embedded control software shaped and led by Carlos Jorques.">
 	<section class="work-overview-hero" aria-labelledby="work-title"><div class="page-container"><p class="section-eyebrow">Selected work</p><h1 id="work-title" class="hero-title">Projects that connect embedded control architecture to dependable behavior in real machines.</h1><p class="work-overview-hero__proof">Production embedded controls <span aria-hidden="true">·</span> Electrification <span aria-hidden="true">·</span> Autonomous machines</p></div></section>
 	<section class="section work-projects" aria-labelledby="projects-title"><div class="page-container"><h2 id="projects-title" class="sr-only">Projects</h2><div class="project-grid">{projects.map((project) => <ProjectCard {...project.data} slug={project.id} />)}</div></div></section>
-	<section class="section work-overview-cta" aria-label="Next steps"><div class="page-container"><ContactCTA title="Looking for an embedded controls technical lead?" body="I work across control architecture, real-time embedded software, diagnostics, validation, and production delivery." primaryLabel="Get in touch" secondaryHref="/cv/" secondaryLabel="View CV" /></div></section>
+	<section class="section work-overview-cta" aria-label="Next steps"><div class="page-container"><ContactCTA title="Have an embedded systems opportunity, technical question, or collaboration in mind?" body="I’m open to related roles, technical leadership opportunities, freelance engineering work, and conversations about embedded controls, electrification, diagnostics, and intelligent physical systems." primaryLabel="Start a conversation" secondaryHref={LINKEDIN_URL} secondaryLabel="Connect on linkedin" tertiaryHref="/cv/" tertiaryLabel="View CV" /></div></section>
 </BaseLayout>
 
 <style>

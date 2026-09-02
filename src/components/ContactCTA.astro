@@ -3,16 +3,22 @@ interface Props {
 	title?: string;
 	body?: string;
 	primaryLabel?: string;
+	primaryHref?: string;
 	secondaryHref?: string;
 	secondaryLabel?: string;
+	tertiaryHref?: string;
+	tertiaryLabel?: string;
 }
 
 const {
 	title = 'Interested in embedded control architecture, physical systems, or technical leadership?',
 	body = 'Use the contact page for role conversations, collaboration, project context, or focused technical questions.',
+	primaryHref = 'contact/',
 	primaryLabel = 'Contact me',
 	secondaryHref = 'work/',
 	secondaryLabel = 'View work',
+	tertiaryHref,
+	tertiaryLabel,
 } = Astro.props;
 const baseUrl = import.meta.env.BASE_URL;
 const normalizedBase = baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`;
@@ -20,6 +26,7 @@ const withBase = (href: string) =>
 	href.startsWith('http') || href.startsWith('mailto:') || href.startsWith('#')
 		? href
 		: `${normalizedBase}${href.replace(/^\//, '')}`;
+const isExternal = (href: string) => href.startsWith('http');
 ---
 
 <section class="contact-cta">
@@ -31,7 +38,7 @@ const withBase = (href: string) =>
 	<div class="button-row">
 		<a
 			class="button primary"
-			href={`${normalizedBase}contact/`}
+			href={withBase(primaryHref)}
 			data-analytics-event="cta_click"
 			data-cta-id="contact-cta-primary"
 			data-cta-placement="contact-cta"
@@ -48,9 +55,12 @@ const withBase = (href: string) =>
 			data-cta-placement="contact-cta"
 			data-cta-intent={secondaryHref.startsWith('writing') ? 'authority' : 'proof'}
 			data-source-section="contact-cta"
+			target={isExternal(secondaryHref) ? '_blank' : undefined}
+			rel={isExternal(secondaryHref) ? 'noopener noreferrer' : undefined}
 		>
 			{secondaryLabel}
 		</a>
+		{tertiaryHref && tertiaryLabel && <a class="button" href={withBase(tertiaryHref)} target={isExternal(tertiaryHref) ? '_blank' : undefined} rel={isExternal(tertiaryHref) ? 'noopener noreferrer' : undefined}>{tertiaryLabel}</a>}
 	</div>
 </section>
 
@@ -124,6 +134,7 @@ const withBase = (href: string) =>
 
 		.contact-cta .button-row {
 			min-width: 210px;
+			align-self: center;
 		}
 	}
 </style>

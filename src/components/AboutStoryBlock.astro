@@ -8,12 +8,13 @@ interface Props {
 	expanded: string[];
 	quote?: string;
 	collapsible?: boolean;
+	withBottomBorder?: boolean;
 }
 
-const { id, label, title, intro, disclosureLabel, expanded, quote, collapsible = true } = Astro.props;
+const { id, label, title, intro, disclosureLabel, expanded, quote, collapsible = true, withBottomBorder = false } = Astro.props;
 ---
 
-<section class="editorial-section" id={id} aria-labelledby={`${id}-title`}>
+<section class:list={['editorial-section', { 'editorial-section--with-bottom-border': withBottomBorder }]} id={id} aria-labelledby={`${id}-title`}>
 	<div class="section-rail"><p>{label}</p></div>
 	<div class="story-block">
 		<h2 id={`${id}-title`}>{title}</h2>
@@ -37,6 +38,7 @@ const { id, label, title, intro, disclosureLabel, expanded, quote, collapsible =
 
 <style>
 	.editorial-section { display:grid; grid-template-columns:16rem minmax(0,1fr); gap:0; padding:1rem 0 clamp(3rem,6vw,5rem); border-top:1px solid var(--color-border); scroll-margin-top:2rem; }
+	.editorial-section--with-bottom-border { border-bottom:1px solid var(--color-border); }
 	.section-rail { font-family:var(--font-mono); font-size:.82rem; font-weight:600; letter-spacing:.08em; line-height:1.4; text-transform:uppercase; color:var(--color-muted); }
 	.section-rail p { margin:0; max-width:none; color:inherit; font:inherit; letter-spacing:inherit; text-transform:inherit; }
 	.section-rail { padding-top:.25rem; }
