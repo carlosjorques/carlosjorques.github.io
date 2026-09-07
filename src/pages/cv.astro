@@ -81,6 +81,8 @@ type ProjectRow = {
 	linkHref: string;
 };
 
+type CredentialDetail = string | { text: string; href: string };
+
 type CredentialGroup = {
 	id: string;
 	title: string;
@@ -90,7 +92,7 @@ type CredentialGroup = {
 	disclosure?: {
 		collapsedLabel: string;
 		expandedLabel: string;
-		details?: string[];
+		details?: CredentialDetail[];
 	};
 };
 
@@ -125,6 +127,12 @@ const cleanDisplayText = (value?: string) =>
 		.trim();
 const hasVisibleText = (value?: string) => Boolean(cleanDisplayText(value));
 const visibleItems = (items?: string[]) => (items ?? []).map(cleanDisplayText).filter(Boolean);
+const visibleCredentialDetails = (items?: CredentialDetail[]) =>
+	(items ?? [])
+		.map((detail) =>
+			typeof detail === 'string' ? cleanDisplayText(detail) : { ...detail, text: cleanDisplayText(detail.text) },
+		)
+		.filter((detail) => (typeof detail === 'string' ? Boolean(detail) : Boolean(detail.text && detail.href)));
 const hasVisibleLink = (label?: string, href?: string) => hasVisibleText(label) && hasVisibleText(href);
 const detailGroupTitleMap: Record<string, string> = {
 	'Selected outcomes': 'Selected impact',
@@ -677,16 +685,31 @@ const credentialGroups: CredentialGroup[] = [
 	{
 		id: 'credential-patents',
 		title: 'Patents',
-		visibleItems: ['5 patent records across control, diagnostics, and combustion-related inventions.'],
+		visibleItems: ['5 patents across control, diagnostics, and combustion-related inventions.'],
 		disclosure: {
 			collapsedLabel: 'See all patents',
 			expandedLabel: 'Hide patents',
 			details: [
-				'Method and system for determining in-cycle a pilot injection fuel mass in a combustion chamber of an engine · WO2019045623A1 · 2019-03-07',
-				'Method and system for fuel pump regulation · WO2016043652A1 · 2016-03-24',
-				'System and method for improving heat release evaluation at a reciprocating internal combustion engine · WO2017217912A1 · 2017-12-21',
-				'Method and system for diagnosing a fuel system II · WO2017003366A1 · 2017-01-05',
-				'Method and system for diagnosing a fuel system · WO2017003365A1 · 2017-01-05',
+				{
+					text: 'Method and system for determining in-cycle a pilot injection fuel mass in a combustion chamber of an engine · WO2019045623A1 · 2019-03-07',
+					href: 'https://patents.google.com/patent/WO2019045623A1/en',
+				},
+				{
+					text: 'Method and system for fuel pump regulation · WO2016043652A1 · 2016-03-24',
+					href: 'https://patents.google.com/patent/WO2016043652A1/en',
+				},
+				{
+					text: 'System and method for improving heat release evaluation at a reciprocating internal combustion engine · WO2017217912A1 · 2017-12-21',
+					href: 'https://patents.google.com/patent/WO2017217912A1/en',
+				},
+				{
+					text: 'Method and system for diagnosing a fuel system II · WO2017003366A1 · 2017-01-05',
+					href: 'https://patents.google.com/patent/WO2017003366A1/en',
+				},
+				{
+					text: 'Method and system for diagnosing a fuel system · WO2017003365A1 · 2017-01-05',
+					href: 'https://patents.google.com/patent/WO2017003365A1/en',
+				},
 			],
 		},
 	},
@@ -1172,7 +1195,7 @@ const visibleProjectRows = projectRows
 							{credentialGroups.map((group) => (
 								(() => {
 									const groupItems = visibleItems(group.visibleItems);
-									const disclosureDetails = visibleItems(group.disclosure?.details);
+									const disclosureDetails = visibleCredentialDetails(group.disclosure?.details);
 									const groupTitle = cleanDisplayText(group.title);
 									const hasDisclosure = Boolean(group.disclosure && disclosureDetails.length > 0);
 									const hasContent = groupItems.length > 0 || hasVisibleLink(group.linkLabel, group.linkHref) || hasDisclosure;
@@ -1207,7 +1230,15 @@ const visibleProjectRows = projectRows
 											<div id={`${group.id}-details`} class="cv-disclosure-panel" hidden inert>
 												<ul class="cv-plain-list">
 													{disclosureDetails.map((detail) => (
-														<li>{detail}</li>
+														<li>
+															{typeof detail === 'string' ? (
+																detail
+															) : (
+																<a href={detail.href} target="_blank" rel="noopener noreferrer">
+																	{detail.text}
+																</a>
+															)}
+														</li>
 													))}
 												</ul>
 											</div>
