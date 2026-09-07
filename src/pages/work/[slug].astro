@@ -27,7 +27,7 @@ const withBase = (href: string) => `${import.meta.env.BASE_URL}${href.replace(/^
 				<div class="project-hero__layout">
 					<div class="project-hero__copy">
 						<h1 id="project-title">{data.heroTitle ?? data.title}</h1>
-						<p class="project-hero__lead">{data.objective}</p>
+						<p class="project-hero__lead">{data.overviewDescription ?? data.description}</p>
 						<div class="project-hero__meta" aria-label="Project metadata">
 							<div><span>Company</span><strong>{data.company}</strong></div>
 							<div><span>Role</span><strong>{data.role}</strong></div>
@@ -40,24 +40,22 @@ const withBase = (href: string) => `${import.meta.env.BASE_URL}${href.replace(/^
 				</div>
 			</section>
 
-			<section class="project-overview" aria-labelledby="overview-title">
-				<p class="project-overview__label section-eyebrow">Overview</p>
-				<div class="project-overview__content">
-					<h2 id="overview-title">{data.overviewTitle ?? data.title}</h2>
-					<p>{data.overviewDescription ?? data.description}</p>
-					<p><strong>Focus:</strong> {data.overviewFocus ?? data.tags.join(' · ')}</p>
-					<p><strong>Scope:</strong> {data.overviewScope ?? data.roleScope}</p>
+			<section class="project-brief" aria-labelledby="project-brief-title">
+				<p id="project-brief-title" class="project-brief__label section-eyebrow">At a glance</p>
+				<div class="project-brief__grid">
+					<div><h2>Challenge</h2><p>{data.objective}</p></div>
+					<div><h2>Responsibility</h2><p>{data.roleScope}</p></div>
+					<div><h2>Implementation</h2><p>{data.contribution}</p></div>
+					<div><h2>Evidence</h2><dl class="project-brief__metrics">{data.metrics.map((metric) => <div><dt>{metric.label}</dt><dd>{metric.value}</dd></div>)}</dl></div>
 				</div>
 			</section>
 
 			<div class="project-sections">
 
 				<section class="editorial-section" aria-labelledby="role-scope">
-					<div class="section-rail">Role &amp; scope</div>
+					<div class="section-rail">Methods &amp; collaboration</div>
 					<div class="story-block">
-						<h2 id="role-scope">{data.roleScopeTitle ?? 'Leading control architecture across battery and thermal systems'}</h2>
-						<p>{data.roleScope}</p>
-						<p>{data.contribution}</p>
+						<h2 id="role-scope">Collaboration and engineering methods</h2>
 						{data.collaborators && <p class="story-block__muted"><strong>Collaborators:</strong> {data.collaborators}</p>}
 						<div class="project-subsection">
 							<h3>Tools &amp; methods</h3>
@@ -69,7 +67,7 @@ const withBase = (href: string) => `${import.meta.env.BASE_URL}${href.replace(/^
 				<section class="editorial-section" aria-labelledby="constraints">
 					<div class="section-rail">Constraints</div>
 					<div class="story-block">
-						<h2 id="constraints">{data.constraintsTitle ?? 'Turning physical limits into deterministic software'}</h2>
+						<h2 id="constraints">Engineering constraints</h2>
 						<p>{data.constraints}</p>
 						{data.risks && <p class="story-block__muted"><strong>Risks considered:</strong> {data.risks}</p>}
 					</div>
@@ -78,7 +76,7 @@ const withBase = (href: string) => `${import.meta.env.BASE_URL}${href.replace(/^
 				<section class="editorial-section" aria-labelledby="process-decisions">
 					<div class="section-rail">Process &amp; decisions</div>
 					<div class="story-block">
-						<h2 id="process-decisions">{data.processTitle ?? 'Moving from model-based strategy to vehicle evidence'}</h2>
+						<h2 id="process-decisions">Process and decisions</h2>
 						<div class="project-subsection"><h3>Process</h3><p>{data.process}</p></div>
 						<div class="project-subsection"><h3>Key decisions</h3><p>{data.decisions}</p></div>
 					</div>
@@ -87,28 +85,28 @@ const withBase = (href: string) => `${import.meta.env.BASE_URL}${href.replace(/^
 				<section class="editorial-section" aria-labelledby="deliverables">
 					<div class="section-rail">Deliverables</div>
 					<div class="story-block">
-						<h2 id="deliverables">{data.deliverablesTitle ?? 'Delivering software, diagnostics, and validation evidence'}</h2>
+						<h2 id="deliverables">Technical delivery</h2>
 						<p>{data.deliverables}</p>
 						{data.deliverableVisuals && <div class="project-gallery">{data.deliverableVisuals.map((visual, index) => <Image src={visual} alt={`${data.title} supporting visual ${index + 1}`} widths={[480, 800]} sizes="(min-width: 768px) 40vw, 100vw" />)}</div>}
 					</div>
 				</section>
 
 				<section class="editorial-section" aria-labelledby="outcomes-metrics">
-					<div class="section-rail">Outcomes &amp; metrics</div>
+					<div class="section-rail">Evidence in context</div>
 					<div class="story-block">
-						<h2 id="outcomes-metrics">{data.outcomesTitle ?? 'Evidence of release-ready engineering'}</h2>
+						<h2 id="outcomes-metrics">Measured performance, product context, and delivery evidence</h2>
 						<dl class="project-metrics">{data.metrics.map((metric) => <div><dt>{metric.label}</dt><dd>{metric.value}</dd></div>)}</dl>
 					</div>
 				</section>
 
 				{data.reflection && <section class="editorial-section" aria-labelledby="reflection">
 					<div class="section-rail">What this demonstrates</div>
-					<div class="story-block"><h2 id="reflection">{data.reflectionTitle ?? 'System-level control leadership in a production environment'}</h2><p>{data.reflection}</p></div>
+					<div class="story-block"><h2 id="reflection">What the work demonstrates</h2><p>{data.reflection}</p></div>
 				</section>}
 			</div>
 
 			{data.relatedWritingUrl && <p class="related-writing"><span>Related writing</span><a href={data.relatedWritingUrl}>Read the deeper technical note <span aria-hidden="true">→</span></a></p>}
-			<div class="project-page__closing"><ContactCTA title="Interested in the engineering behind this work?" secondaryHref="/work/" secondaryLabel="View more work" /></div>
+			<div class="project-page__closing"><ContactCTA title={`Interested in ${data.context.toLowerCase()} or a similar engineering problem?`} body="Start a conversation about the role, project context, or technical challenge behind this work." primaryLabel="Discuss this work" secondaryHref="/work/" secondaryLabel="View more work" /></div>
 		</div>
 	</article>
 </BaseLayout>
@@ -131,12 +129,16 @@ const withBase = (href: string) => `${import.meta.env.BASE_URL}${href.replace(/^
 	.project-hero__meta div { display: grid; grid-template-columns: 7rem minmax(0, 1fr); gap: .75rem; align-items: baseline; }
 	.project-hero__meta strong { font-size: .98rem; font-weight: 600; }
 	.project-sections { border-top: 1px solid var(--color-border); }
-	.project-overview { display: grid; grid-template-columns: 1fr; gap: 1rem; padding: 0 0 clamp(2.25rem, 4vw, 3.5rem); border-top: 0; }
-	.project-overview__label { grid-column: 1; margin: 0; }
-	.project-overview__content { grid-column: 1; display: grid; gap: .8rem; width: 100%; max-width: none; }
-	.project-overview__content h2 { max-width: none; margin: 0; font-size: clamp(1.8rem, 3vw, 2.6rem); line-height: 1.08; letter-spacing: -.045em; }
-	.project-overview__content p { max-width: none; margin: 0; font-size: 1.08rem; line-height: 1.7; }
-	.project-overview__content strong { font-weight: 600; }
+	.project-brief { display: grid; gap: 1rem; padding: 0 0 clamp(2.25rem, 4vw, 3.5rem); }
+	.project-brief__label { margin: 0; }
+	.project-brief__grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem 2.5rem; }
+	.project-brief__grid > div { display: grid; gap: .45rem; align-content: start; padding-top: .8rem; border-top: 1px solid var(--color-border); }
+	.project-brief__grid h2 { margin: 0; color: var(--color-accent-text); font-family: var(--font-mono); font-size: .82rem; font-weight: 600; letter-spacing: .08em; line-height: 1.4; text-transform: uppercase; }
+	.project-brief__grid p { margin: 0; font-size: .98rem; line-height: 1.58; }
+	.project-brief__metrics { display: grid; gap: .45rem; margin: 0; }
+	.project-brief__metrics div { display: grid; gap: .12rem; }
+	.project-brief__metrics dt { color: var(--color-muted); font-family: var(--font-mono); font-size: .72rem; letter-spacing: .06em; text-transform: uppercase; }
+	.project-brief__metrics dd { margin: 0; font-size: .98rem; line-height: 1.45; }
 	.editorial-section { display: grid; grid-template-columns: 16rem minmax(0, 1fr); gap: 0; padding: 1rem 0 clamp(3rem, 6vw, 5rem); border-top: 1px solid var(--color-border); scroll-margin-top: 2rem; }
 	.editorial-section:first-child { border-top: 0; }
 	.section-rail { padding-top: .25rem; }
@@ -159,5 +161,5 @@ const withBase = (href: string) => `${import.meta.env.BASE_URL}${href.replace(/^
 	.related-writing a { color: var(--color-link); text-underline-offset: .2em; }
 	.project-page__closing { padding-top: 2rem; }
 	@media (max-width: 1100px) { .project-hero__layout { grid-template-columns: 1fr; } .project-hero__media { order: 0; } }
-	@media (max-width: 720px) { .project-page__container { width: min(calc(100% - 32px), var(--content-width)); } .project-hero { padding-top: 2.8rem; } .project-hero h1 { font-size: clamp(2.15rem, 10vw, 2.45rem); line-height: 1.04; } .project-hero__lead, .story-block p, .project-overview__content p { font-size: 1.05rem; } .editorial-section { grid-template-columns: 1fr; gap: .9rem; } .project-hero__meta div { grid-template-columns: 1fr; gap: .15rem; } .project-metrics { grid-template-columns: 1fr; gap: 1rem; } }
+	@media (max-width: 720px) { .project-page__container { width: min(calc(100% - 32px), var(--content-width)); } .project-hero { padding-top: 2.8rem; } .project-hero h1 { font-size: clamp(2.15rem, 10vw, 2.45rem); line-height: 1.04; } .project-hero__lead, .story-block p { font-size: 1.05rem; } .project-brief__grid { grid-template-columns: 1fr; gap: 1rem; } .editorial-section { grid-template-columns: 1fr; gap: .9rem; } .project-hero__meta div { grid-template-columns: 1fr; gap: .15rem; } .project-metrics { grid-template-columns: 1fr; gap: 1rem; } }
 </style>
