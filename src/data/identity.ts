@@ -1,12 +1,12 @@
 export const IDENTITY = {
 	name: 'Carlos Jorques',
-	primaryTitle: 'Embedded Control Systems Architect',
-	supportingDescriptor: 'Technical Leader',
+	primaryTitle: 'Embedded Controls Technical Lead',
+	supportingDescriptor: 'Senior Control Systems Engineer',
 	umbrella: 'complex physical systems',
 	brandStatement: 'Control intelligence for complex physical systems.',
 	brandLine: 'Making complex machines sense, decide, and act reliably.',
 	professionalSummary:
-		'I lead the design of embedded control software that helps machines sense, decide, and act reliably under real-world constraints.',
+		'I lead control system design and implementation in embedded systems, helping machines sense, decide, and act reliably under real world constraints.',
 	historicalTitles: ['Embedded Controls Technical Lead', 'Control Systems Architect'],
 	years: '12+',
 } as const;

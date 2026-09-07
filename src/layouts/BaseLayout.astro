@@ -11,7 +11,7 @@ interface Props {
 
 const {
 	title = `${IDENTITY.name} · ${IDENTITY.primaryTitle}`,
-	description = `${IDENTITY.primaryTitle}. ${IDENTITY.brandStatement} Embedded control software, diagnostics, validation, and production delivery.`,
+	description = `${IDENTITY.primaryTitle}. ${IDENTITY.professionalSummary} Diagnostics, validation, and production delivery.`,
 } = Astro.props;
 
 const siteTitle = title.includes(IDENTITY.name) ? title : `${title} | ${IDENTITY.name}`;
