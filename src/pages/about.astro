@@ -23,7 +23,9 @@ const portraitUrl = withBase('/images/carlos-jorques-intro.webp');
 						<a href={withBase('/contact')}>Contact</a>
 					</nav>
 				</div>
-				<img class="about-portrait" src={portraitUrl} alt="Carlos Jorques" width="768" height="1024" loading="eager" decoding="async" />
+				<figure class="about-portrait-frame">
+					<img class="about-portrait" src={portraitUrl} alt="Carlos Jorques" width="768" height="1024" loading="eager" decoding="async" />
+				</figure>
 			</div>
 		</section>
 
@@ -112,7 +114,7 @@ const portraitUrl = withBase('/images/carlos-jorques-intro.webp');
 	.about-eyebrow,.section-rail { font-family:var(--font-mono); font-size:.82rem; font-weight:600; letter-spacing:.08em; line-height:1.4; text-transform:uppercase; color:var(--color-muted); }
 	.about-hero { padding:clamp(3rem,5vw,4.6rem) 0 0; }
 	.about-eyebrow { margin:0; }
-	.about-hero__layout { display:grid; grid-template-columns:minmax(0,1.35fr) minmax(15rem,20rem); gap:2.5rem; align-items:start; margin-top:1rem; }
+	.about-hero__layout { display:grid; grid-template-columns:minmax(0,1.35fr) minmax(15rem,20rem); gap:2.5rem; align-items:start; margin:1rem 0 5rem; }
 	.about-hero__copy { display:grid; gap:1rem; align-content:start; }
 	.about-hero h1 { max-width:none; margin:0; font-size:clamp(2.6rem,3.8vw,3.5rem); font-weight:800; letter-spacing:-.05em; line-height:1.02; }
 	.about-hero__lead { max-width:52rem; margin:0; font-size:1.08rem; line-height:1.7; color:var(--color-text); }
@@ -120,7 +122,8 @@ const portraitUrl = withBase('/images/carlos-jorques-intro.webp');
 	.about-hero__actions { display:none; }
 	.about-story { display:grid; gap:1rem; margin:0; max-width:52rem; }
 	.about-story p,.story-block p { margin:0; font-size:1.08rem; line-height:1.7; color:var(--color-text); }
-	.about-portrait { width:min(100%,20rem); height:auto; border-radius:1.5rem; box-shadow:0 18px 40px rgba(23,23,23,.08); }
+	.about-portrait-frame { align-self:start; width:100%; aspect-ratio:3 / 4; margin:0; overflow:hidden; border-radius:1.5rem; }
+	.about-portrait { display:block; width:100%; height:auto; aspect-ratio:3 / 4; border-radius:1.5rem; box-shadow:0 18px 40px rgba(23,23,23,.08); }
 	.editorial-section { display:grid; grid-template-columns:16rem minmax(0,1fr); gap:0rem; padding:1rem 0; border-top:1px solid var(--color-border); scroll-margin-top:2rem; }
 	.section-rail h2,.section-rail p { margin:0; max-width:none; color:inherit; font:inherit; letter-spacing:inherit; text-transform:inherit; }
 	.story-block { display:grid; gap:.65rem; max-width:52rem; }
@@ -144,7 +147,8 @@ const portraitUrl = withBase('/images/carlos-jorques-intro.webp');
 
 	.about-closing .story-block { grid-column:1 / -1; }
 	#approach { margin-top:0; }
-	@media(max-width:1100px){.about-hero__layout{grid-template-columns:1fr}.about-portrait{width:min(100%,16rem)}}
+	#background { padding-top:0; }
+	@media(max-width:1100px){.about-hero__layout{grid-template-columns:1fr}.about-portrait-frame{width:min(100%,16rem)}}
 	@media(max-width:720px){.about-hero{padding:3rem 0 0}.about-hero h1{font-size:clamp(2.15rem,10vw,2.45rem);line-height:1.04}.about-hero__actions{display:flex;flex-wrap:wrap;gap:.45rem 1rem;margin-top:0}.about-hero__actions a{color:var(--color-link);font-size:.92rem;font-weight:600;text-underline-offset:.2em}.editorial-section{grid-template-columns:1fr}.about-hero__lead,.about-story p,.story-block p{font-size:1.05rem}.button{width:100%}}
 	@media(max-width:640px){.about-page{width:min(calc(100% - 32px),var(--content-width))}}
 </style>
