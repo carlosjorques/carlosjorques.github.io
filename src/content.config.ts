@@ -62,6 +62,7 @@ const projects = defineCollection({
 	schema: ({ image }) => z.object({
 		title: z.string(),
 		company: z.string(),
+		deliveryContext: z.string().optional(),
 		context: z.string(),
 		description: z.string(),
 		tags: z.array(z.string()).min(2).max(2),
@@ -94,6 +95,15 @@ const projects = defineCollection({
 		deliverables: z.string(),
 		deliverableVisuals: z.array(image()).optional(),
 		metrics: z.array(z.object({ label: z.string(), value: z.string() })),
+		references: z
+			.array(
+				z.object({
+					label: z.string(),
+					href: z.string().url(),
+					context: z.string(),
+				}),
+			)
+			.optional(),
 		reflection: z.string().optional(),
 		relatedWritingUrl: z.string().url().optional(),
 	}),

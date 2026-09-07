@@ -1,6 +1,7 @@
 ---
 title: Propulsion Control Software for Autonomous Electric Haulers
-company: Volvo Construction Equipment
+company: "Volvo CE"
+deliveryContext: "Delivered through ALTEN"
 context: Autonomous Heavy-Duty Machinery
 description: Developed and integrated traction-control functionality for the TA15 autonomous electric hauler, coordinating dual-motor propulsion and validating predictable speed behaviour from software-in-the-loop through vehicle field testing.
 tags: [Traction control, Torque allocation]

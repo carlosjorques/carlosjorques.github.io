@@ -30,6 +30,7 @@ const withBase = (href: string) => `${import.meta.env.BASE_URL}${href.replace(/^
 						<p class="project-hero__lead">{data.overviewDescription ?? data.description}</p>
 						<div class="project-hero__meta" aria-label="Project metadata">
 							<div><span>Company</span><strong>{data.company}</strong></div>
+							{data.deliveryContext && <div><span>Delivery context</span><strong>{data.deliveryContext}</strong></div>}
 							<div><span>Role</span><strong>{data.role}</strong></div>
 							<div><span>Focus</span><strong>{data.tags.join(' · ')}</strong></div>
 						</div>
@@ -99,6 +100,16 @@ const withBase = (href: string) => `${import.meta.env.BASE_URL}${href.replace(/^
 					</div>
 				</section>
 
+				{data.references && data.references.length > 0 && <section class="editorial-section" aria-labelledby="research-references">
+					<div class="section-rail">Research references</div>
+					<div class="story-block">
+						<h2 id="research-references">Public references for the research context</h2>
+						<ul class="reference-list">
+							{data.references.map((reference) => <li><a href={reference.href} target="_blank" rel="noopener noreferrer">{reference.label}</a><span>{reference.context}</span></li>)}
+						</ul>
+					</div>
+				</section>}
+
 				{data.reflection && <section class="editorial-section" aria-labelledby="reflection">
 					<div class="section-rail">What this demonstrates</div>
 					<div class="story-block"><h2 id="reflection">What the work demonstrates</h2><p>{data.reflection}</p></div>
@@ -157,6 +168,9 @@ const withBase = (href: string) => `${import.meta.env.BASE_URL}${href.replace(/^
 	.project-metrics div { display: grid; gap: .25rem; padding-top: .65rem; border-top: 1px solid var(--color-border); }
 	.project-metrics dt { color: var(--color-muted); font-family: var(--font-mono); font-size: var(--type-meta-size); line-height: 1.35; text-transform: uppercase; }
 	.project-metrics dd { margin: 0; color: var(--color-text); font-family: var(--font-display); font-size: clamp(1.35rem, 2.2vw, 1.8rem); font-weight: 600; letter-spacing: -.04em; line-height: 1.08; }
+	.reference-list { display: grid; gap: .8rem; margin: 0; padding-left: 1.1rem; }
+	.reference-list li { display: grid; gap: .2rem; }
+	.reference-list span { color: var(--color-muted); font-size: .92rem; line-height: 1.5; }
 	.related-writing { display: flex; flex-wrap: wrap; gap: .75rem; align-items: baseline; padding: 1.25rem 0; border-top: 1px solid var(--color-border); color: var(--color-muted); }
 	.related-writing a { color: var(--color-link); text-underline-offset: .2em; }
 	.project-page__closing { padding-top: 2rem; }

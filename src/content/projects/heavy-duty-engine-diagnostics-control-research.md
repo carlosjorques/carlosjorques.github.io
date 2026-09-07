@@ -2,7 +2,7 @@
 title: Real-Time Combustion Control and Virtual Sensing Methods
 company: Lund University / Scania
 context: Heavy-Duty Engine Control Research
-description: Developed and experimentally validated real-time diagnostics, virtual sensing, and closed-loop combustion control for a heavy-duty diesel engine running on changing fuels. The research combined model-based algorithms with FPGA implementation and produced 15+ publications and five patent records.
+description: Developed and experimentally validated real-time diagnostics, virtual sensing, and closed-loop combustion control for a heavy-duty diesel engine running on changing fuels. The research combined model-based algorithms with FPGA implementation and produced 15+ publications and 5 patents.
 tags: [Diagnostics, Virtual sensing]
 image: ../../assets/projects/heavy-duty-engine-diagnostics.webp
 imageAlt: Heavy-duty engine test bench with sensors and measurement cables
@@ -27,7 +27,7 @@ constraints: At 1200 rpm, a 0.2-degree crank-angle sampling window is approximat
 risks: The main risks were model mismatch, weak observability during partial or pilot misfire, fixed thresholds that failed across operating conditions, nonlinear behavior that limited simple controllers, and algorithms that were valuable in theory but too costly or slow for real-time hardware.
 process: Started with engine and combustion modeling, then developed estimation and diagnostic methods from measured cylinder-pressure signals. Validated the methods in simulation and offline analysis before integrating them into FPGA-based real-time control. Experiments on the Scania D13 test bench were used to compare operating points, fuel types, controller structures, detection strategies, and stochastic set-points, with results feeding back into model adaptation and implementation choices.
 decisions: Used feedback and virtual sensing to replace assumptions that could not remain reliable under fuel variation and combustion uncertainty. Chose probabilistic and adaptive diagnostic methods over single fixed thresholds, and used modular state-machine-oriented controller structures so estimation, detection, set-point selection, and actuation could be evaluated independently. FPGA implementation was treated as part of the control design, not as a final translation step.
-deliverables: Delivered experimentally validated methods for in-cycle pilot-mass estimation, pilot-misfire detection, predictive closed-loop combustion control, stochastic set-point optimization, model adaptation, and FPGA resource evaluation. Results included a doctoral thesis, 15+ publications, five patent records, conference contributions, and a research platform that connected advanced algorithms to deterministic embedded execution on a physical heavy-duty engine.
+deliverables: Delivered experimentally validated methods for in-cycle pilot-mass estimation, pilot-misfire detection, predictive closed-loop combustion control, stochastic set-point optimization, model adaptation, and FPGA resource evaluation. Results included a doctoral thesis, 15+ publications, 5 patents, conference contributions, and a research platform that connected advanced algorithms to deterministic embedded execution on a physical heavy-duty engine.
 metrics:
   - label: Experimental platform
     value: 6-cylinder, 12.7 L Scania D13
@@ -37,6 +37,10 @@ metrics:
     value: Up to 96% misfire classification
   - label: Research record
     value: 15+ publications · 5 patents
+references:
+  - label: Indicated efficiency optimization by in-cycle closed-loop combustion control of diesel engines
+    href: https://doi.org/10.1016/j.conengprac.2022.105097
+    context: Control Engineering Practice, 2022. Matches the project’s closed-loop combustion-control and efficiency research context.
 reflection: "The research established a foundation that still matters in production controls: a model is useful only when its uncertainty is visible, a diagnostic is useful only when it can support a decision, and an advanced controller is useful only when it can execute deterministically on real hardware."
 ---
 
