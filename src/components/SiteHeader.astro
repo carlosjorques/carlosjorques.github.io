@@ -1,4 +1,6 @@
 ---
+import { IDENTITY } from '../data/identity';
+
 const baseUrl = import.meta.env.BASE_URL;
 const normalizedBase = baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`;
 const withBase = (href: string) => href === '/' ? normalizedBase : `${normalizedBase}${href.replace(/^\//, '')}`;
@@ -8,7 +10,7 @@ const isActive = (href: string) => href === '/' ? currentPath === '/' : currentP
 ---
 
 <header class="site-header page-container">
-	<a class="site-header__brand" href={withBase('/')} aria-label="Carlos Jorques home">Carlos Jorques</a>
+	<a class="site-header__brand" href={withBase('/')} aria-label={`${IDENTITY.name} home`}>{IDENTITY.name}</a>
 
 	<div class="site-header__actions">
 		<nav class="site-header__nav site-header__nav--desktop" aria-label="Primary navigation">
@@ -38,7 +40,7 @@ const isActive = (href: string) => href === '/' ? currentPath === '/' : currentP
 		<details class="site-header__mobile" data-mobile-menu>
 			<summary aria-label="Open navigation menu"><span></span><span></span><span></span></summary>
 			<nav class="site-header__mobile-panel" aria-label="Mobile navigation">
-				<a class="site-header__mobile-brand" href={withBase('/')}>Carlos Jorques</a>
+				<a class="site-header__mobile-brand" href={withBase('/')}>{IDENTITY.name}</a>
 				<a href={withBase('/work')}>Work</a><a href={withBase('/about')}>About</a><a href={withBase('/cv')}>CV</a>
 				<a href={withBase('/writing')}>Writing</a><a href={withBase('/research')}>Research</a><a href={withBase('/contact')}>Contact</a>
 			</nav>

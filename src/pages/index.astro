@@ -29,16 +29,16 @@ const articles = (await getCollection('writing'))
 ---
 
 <BaseLayout
-	title={`${IDENTITY.name} · ${IDENTITY.title}`}
-	description="Embedded Controls Technical Lead. Control intelligence for complex physical systems — from electrified vehicles and autonomous machines to production embedded software."
+	title={`${IDENTITY.name} · ${IDENTITY.primaryTitle}`}
+	description={`${IDENTITY.primaryTitle}. ${IDENTITY.brandStatement} From electrified vehicles and autonomous machines to production embedded software.`}
 >
 	<section class="hero-area">
 		<div class="page-container">
 			<div class="hero">
 				<div class="hero__copy">
-					<h1 class="hero-statement">Control intelligence for complex physical systems.</h1>
-					<p class="hero-intro">Hi, I&apos;m Carlos Jorques, an <strong>{IDENTITY.title}</strong>.</p>
-					<p class="hero-value">I lead the design of production embedded control software that helps machines sense, decide, and act reliably under real-world constraints.</p>
+					<h1 class="hero-statement">{IDENTITY.brandStatement}</h1>
+					<p class="hero-intro">Hi, I&apos;m {IDENTITY.name}, an <strong>{IDENTITY.primaryTitle}</strong>.</p>
+					<p class="hero-value">{IDENTITY.professionalSummary}</p>
 					<p class="hero-scope">From electrified vehicles and autonomous machines to the broader systems where software controls physical hardware, I connect control strategy, real-time software, diagnostics, validation, and production delivery.</p>
 
 					<div class="hero-links button-row" aria-label="Primary contact links">
@@ -81,7 +81,7 @@ const articles = (await getCollection('writing'))
 				<figure class="hero__portrait">
 					<img
 						src={portraitUrl}
-						alt="Carlos Jorques, Embedded Controls Technical Lead."
+						alt={`${IDENTITY.name}, ${IDENTITY.primaryTitle}.`}
 						width="768"
 						height="1024"
 						loading="eager"

@@ -1,6 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { LINKEDIN_URL } from '../data/identity';
+import { CONTACT_DESTINATIONS, IDENTITY } from '../data/identity';
 import ContactCTA from '../components/ContactCTA.astro';
 
 type CvAction = {
@@ -815,8 +815,8 @@ const visibleProjectRows = projectRows
 ---
 
 <Layout
-	title="Carlos Jorques | Embedded Control Systems Architect CV"
-	description="Online CV of Carlos Jorques, Embedded Control Systems Architect and Technical Lead with 12+ years of experience in electric vehicles, autonomous machinery, and production embedded control software."
+	title={`${IDENTITY.name} | ${IDENTITY.primaryTitle} CV`}
+	description={`Online CV of ${IDENTITY.name}, ${IDENTITY.primaryTitle} and ${IDENTITY.supportingDescriptor} with ${IDENTITY.years} years of experience in electric vehicles, autonomous machinery, and production embedded control software.`}
 >
 	<div class="cv-page">
 		<section id="cv-hero" class="cv-hero" aria-labelledby="cv-title">
@@ -825,7 +825,7 @@ const visibleProjectRows = projectRows
 					<div class="cv-hero__copy">
 						<p class="section-eyebrow">Online CV</p>
 						<h1 id="cv-title" class="hero-title">Carlos Jorques</h1>
-						<p class="cv-hero__role">Embedded Control Systems Architect & Technical Lead</p>
+						<p class="cv-hero__role">{IDENTITY.primaryTitle} &amp; {IDENTITY.supportingDescriptor}</p>
 						<p class="cv-hero__positioning">
 							I lead the architecture and delivery of real-time control software for electric and autonomous heavy-duty vehicles, connecting control design, embedded implementation, diagnostics and validation.
 						</p>
@@ -846,7 +846,7 @@ const visibleProjectRows = projectRows
 							))}
 							<a
 								class="button cv-hero__linkedin"
-								href={LINKEDIN_URL}
+								href={CONTACT_DESTINATIONS.linkedin}
 								target="_blank"
 								rel="noopener noreferrer"
 								aria-label="Connect with Carlos Jorques on LinkedIn"
@@ -855,7 +855,7 @@ const visibleProjectRows = projectRows
 								data-cta-placement="cv-hero"
 								data-cta-intent="professional-profile"
 								data-source-section="cv-hero"
-								data-destination={LINKEDIN_URL}
+								data-destination={CONTACT_DESTINATIONS.linkedin}
 							>
 								<span class="cv-hero__linkedin-mark" aria-hidden="true">in</span>
 								<span>LinkedIn</span>
@@ -1247,7 +1247,7 @@ const visibleProjectRows = projectRows
 
 			<section class="section cv-closing" aria-label="Contact">
 				<div class="page-container">
-					<ContactCTA title="Have an embedded systems opportunity, technical question, or collaboration in mind?" body="I’m open to related roles, technical leadership opportunities, freelance engineering work, and conversations about embedded controls, electrification, diagnostics, and intelligent physical systems." primaryHref="/contact?context=general&source=cv-closing#message-title" primaryLabel="Start a conversation" secondaryHref={LINKEDIN_URL} secondaryLabel="Connect on linkedin" tertiaryHref="/cv/Carlos_Jorques_CV.pdf" tertiaryLabel="Download PDF CV" />
+					<ContactCTA title="Have an embedded systems opportunity, technical question, or collaboration in mind?" body="I’m open to related roles, technical leadership opportunities, freelance engineering work, and conversations about embedded controls, electrification, diagnostics, and intelligent physical systems." primaryHref="/contact?context=general&source=cv-closing#message-title" primaryLabel="Start a conversation" secondaryHref={CONTACT_DESTINATIONS.linkedin} secondaryLabel="Connect on linkedin" tertiaryHref={CONTACT_DESTINATIONS.cv} tertiaryLabel="Download PDF CV" />
 				</div>
 			</section>
 		</div>

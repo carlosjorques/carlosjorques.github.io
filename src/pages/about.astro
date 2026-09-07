@@ -2,21 +2,21 @@
 import Layout from '../layouts/Layout.astro';
 import AboutStoryBlock from '../components/AboutStoryBlock.astro';
 import ContactCTA from '../components/ContactCTA.astro';
-import { LINKEDIN_URL } from '../data/identity';
+import { CONTACT_DESTINATIONS, IDENTITY } from '../data/identity';
 const baseUrl = import.meta.env.BASE_URL;
 const normalizedBase = baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`;
 const withBase = (href: string) => href.startsWith('http') || href.startsWith('mailto:') || href.startsWith('#') ? href : `${normalizedBase}${href.replace(/^\//, '')}`;
 const portraitUrl = withBase('/images/carlos-jorques-intro.webp');
 ---
 
-<Layout title="About Carlos Jorques | Embedded Controls Technical Lead" description="About Carlos Jorques, an Embedded Controls Technical Lead for intelligent machines, production embedded control software, multidisciplinary engineering, and system integration.">
+<Layout title={`About ${IDENTITY.name} | ${IDENTITY.primaryTitle}`} description={`About ${IDENTITY.name}, an ${IDENTITY.primaryTitle} for intelligent machines, production embedded control software, multidisciplinary engineering, and system integration.`}>
 	<div class="about-page">
 		<section class="about-hero" aria-labelledby="about-title">
 			<p class="about-eyebrow">About me</p>
 			<div class="about-hero__layout">
 				<div class="about-hero__copy">
 					<h1 id="about-title">I lead the design of embedded control systems that shape how complex machines sense, decide, and act reliably.</h1>
-					<p class="about-hero__lead">I’m Carlos, an <strong>Embedded Control Systems Architect and Technical Lead</strong> who combines hands-on development with technical direction across control strategy, real-time software, diagnostics, and system integration.</p>
+					<p class="about-hero__lead">I’m Carlos, an <strong>{IDENTITY.primaryTitle} and {IDENTITY.supportingDescriptor}</strong> who combines hands-on development with technical direction across control strategy, real-time software, diagnostics, and system integration.</p>
 					<nav class="about-hero__actions" aria-label="About quick links">
 						<a href={withBase('/cv')}>View CV</a>
 						<a href={withBase('/work')}>Selected work</a>
@@ -103,7 +103,7 @@ const portraitUrl = withBase('/images/carlos-jorques-intro.webp');
 				title="Have an embedded systems opportunity, technical question, or collaboration in mind?"
 				body="I’m open to related roles, technical leadership opportunities, freelance engineering work, and conversations about embedded controls, electrification, diagnostics, and intelligent physical systems."
 				primaryLabel="Start a conversation"
-				secondaryHref={LINKEDIN_URL}
+				secondaryHref={CONTACT_DESTINATIONS.linkedin}
 				secondaryLabel="Connect on linkedin"
 				tertiaryHref="/work/"
 				tertiaryLabel="Explore selected work"

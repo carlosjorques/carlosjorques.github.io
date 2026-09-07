@@ -1,6 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { LINKEDIN_URL } from '../data/identity';
+import { CONTACT_DESTINATIONS, IDENTITY } from '../data/identity';
 
 const baseUrl = import.meta.env.BASE_URL;
 const normalizedBase = baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`;
@@ -9,22 +9,22 @@ const withBase = (href: string) =>
 		? href
 		: `${normalizedBase}${href.replace(/^\//, '')}`;
 
-const cvPdfHref = '/cv/Carlos_Jorques_CV.pdf';
-const linkedinHref = LINKEDIN_URL;
+const cvPdfHref = CONTACT_DESTINATIONS.cv;
+const linkedinHref = CONTACT_DESTINATIONS.linkedin;
 const web3FormsAccessKey = '7f35453b-2e22-4022-bb4b-46573f04453b';
 const contactContext = Astro.url.searchParams.get('context') === 'role' ? 'role' : '';
 const contactSource = Astro.url.searchParams.get('source')?.match(/^[a-z0-9-]+$/i)?.[0] ?? '';
 ---
 
 <Layout
-	title="Contact Carlos Jorques | Embedded Controls Technical Lead"
+	title={`Contact ${IDENTITY.name} | ${IDENTITY.primaryTitle}`}
 	description="Contact Carlos Jorques about embedded controls, electrification, autonomy, diagnostics, safety-critical software, technical leadership, or collaboration."
 >
 	<section class="contact-hero" aria-labelledby="contact-title">
 		<div class="page-container">
 			<p class="section-eyebrow">Contact</p>
 			<h1 id="contact-title" class="hero-title">Let’s talk.</h1>
-			<p class="contact-hero__lead">I’m Carlos, an Embedded Control Systems Architect and Technical Lead. For a quick role-fit overview, <a href={withBase(cvPdfHref)} data-analytics-event="cv_pdf_download" data-cta-id="contact-download-cv" data-cta-placement="contact-hero-copy" data-cta-intent="formal-proof" data-source-section="contact-hero">download my CV (PDF)</a>. For technical conversations or collaboration, <a href={linkedinHref} target="_blank" rel="noopener noreferrer" data-analytics-event="linkedin_outbound_click" data-cta-id="contact-linkedin" data-cta-placement="contact-hero-copy" data-cta-intent="professional-profile" data-source-section="contact-hero">connect on LinkedIn</a> or send a message below.</p>
+			<p class="contact-hero__lead">I’m Carlos, an {IDENTITY.primaryTitle} and {IDENTITY.supportingDescriptor}. For a quick role-fit overview, <a href={withBase(cvPdfHref)} data-analytics-event="cv_pdf_download" data-cta-id="contact-download-cv" data-cta-placement="contact-hero-copy" data-cta-intent="formal-proof" data-source-section="contact-hero" data-destination={withBase(cvPdfHref)}>download my CV (PDF)</a>. For technical conversations or collaboration, <a href={linkedinHref} target="_blank" rel="noopener noreferrer" data-analytics-event="linkedin_outbound_click" data-cta-id="contact-linkedin" data-cta-placement="contact-hero-copy" data-cta-intent="professional-profile" data-source-section="contact-hero" data-destination={linkedinHref}>connect on LinkedIn</a> or send a message below.</p>
 			<p class="contact-hero__proof">Based in Spain <span aria-hidden="true">·</span> Working remotely with international teams</p>
 		</div>
 	</section>

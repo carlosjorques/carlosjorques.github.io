@@ -1,7 +1,7 @@
 ---
 import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
-import { IDENTITY } from '../data/identity';
+import { CONTACT_DESTINATIONS, IDENTITY } from '../data/identity';
 import '../styles/global.css';
 
 interface Props {
@@ -10,11 +10,11 @@ interface Props {
 }
 
 const {
-	title = `${IDENTITY.name} · ${IDENTITY.title}`,
-	description = `${IDENTITY.title}. Control intelligence for ${IDENTITY.umbrella} — embedded control software, diagnostics, validation, and production delivery.`,
+	title = `${IDENTITY.name} · ${IDENTITY.primaryTitle}`,
+	description = `${IDENTITY.primaryTitle}. ${IDENTITY.brandStatement} Embedded control software, diagnostics, validation, and production delivery.`,
 } = Astro.props;
 
-const siteTitle = title.includes('Carlos Jorques') ? title : `${title} | Carlos Jorques`;
+const siteTitle = title.includes(IDENTITY.name) ? title : `${title} | ${IDENTITY.name}`;
 const baseUrl = import.meta.env.BASE_URL;
 const normalizedBase = baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`;
 const basePath = baseUrl.replace(/\/$/, '');
@@ -65,9 +65,9 @@ const pageType = (() => {
 			'@context': 'https://schema.org',
 			'@type': 'Person',
 			name: IDENTITY.name,
-			jobTitle: IDENTITY.title,
+			jobTitle: IDENTITY.primaryTitle,
 			url: canonical.href,
-			sameAs: ['https://www.linkedin.com/in/carlosjorques/'],
+			sameAs: [CONTACT_DESTINATIONS.linkedin],
 		})} />
 	</head>
 	<body data-page-type={pageType}>
