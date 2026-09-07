@@ -30,7 +30,7 @@ const portraitUrl = withBase('/images/carlos-jorques-intro.webp');
 		<section class="editorial-section visitor-routes" aria-label="Visitor routes">
 			<div class="section-rail" aria-hidden="true"></div>
 			<div class="story-block route-list">
-				<div><strong>Hiring or evaluating fit?</strong><p><a href={withBase('/cv')}>View CV</a> · <a href={withBase('/contact')}>Get in touch</a></p></div>
+				<div><strong>Looking for a focused route?</strong><p><a href={withBase('/work')}>See selected work</a> · <a href={withBase('/cv')}>View CV</a> · <a href={withBase('/contact')}>Get in touch</a></p></div>
 			</div>
 		</section>
 
@@ -41,19 +41,20 @@ const portraitUrl = withBase('/images/carlos-jorques-intro.webp');
 			intro="For more than 12 years, I have developed production embedded control software for electric trucks, autonomous machines, power electronics, and other complex vehicle systems."
 			disclosureLabel="See my production background"
 			expanded={[
-				"At Scania, Volvo CE, and MAHLE Electronics, I have worked with international teams across controls, embedded software, electronics, diagnostics, testing, and calibration. Software from this work runs in production vehicles and machines around the world."
+				"At Scania, Volvo CE, and MAHLE Electronics, I have worked with international teams to turn control concepts into software, validation evidence, and production-ready machine behaviour. The work spans electric trucks, autonomous machinery, power electronics, and motor control."
 			]}
-			collapsible={false}
+			collapsible={true}
 		/>
 
 		<AboutStoryBlock
 			id="approach"
-			label="Engineering Scope"
-			title="From control strategy to production delivery"
-			intro="I lead embedded controls from system definition and control strategy through real-time software, diagnostics, validation, calibration, and system integration."
-			disclosureLabel="How I shape engineering decisions"
+			label="Engineering approach"
+			title="Decisions that hold up when software meets hardware"
+			intro="I work from intended machine behaviour: define what the system must do, make responsibilities and interfaces explicit, then stay close enough to the control design and embedded implementation to see whether the behaviour survives real constraints."
+			disclosureLabel="How I turn intent into implementation"
 			expanded={[
-				"I turn product goals, physical behaviour, interfaces, and uncertainty into clear software responsibilities and validation evidence. I favour robust solutions that respect performance, timing, safety-related constraints, and the realities of production delivery."
+				"I turn product goals, physical behaviour, interfaces, and uncertainty into clear control responsibilities, diagnostic decisions, real-time software boundaries, and validation evidence. I favour solutions that are understandable, testable, and maintainable as well as technically sound.",
+				"That means moving between control strategy, embedded code, diagnostics, calibration, and validation rather than treating implementation as a hand-off. Timing, safety-related constraints, limited resources, and production delivery are part of the engineering problem from the beginning."
 			]}
 			collapsible={false}
 		/>
@@ -61,19 +62,20 @@ const portraitUrl = withBase('/images/carlos-jorques-intro.webp');
 		<AboutStoryBlock
 			id="collaboration"
 			label="Technical Leadership"
-			title="Technical direction across multidisciplinary teams"
-			intro="I establish technical direction and align controls, embedded software, electronics, diagnostics, testing, calibration, and supplier interfaces around the intended system behaviour."
+			title="Making difficult engineering work clear enough to deliver"
+			intro="I provide technical direction across disciplines, helping teams connect architecture, implementation, quality, and delivery without taking ownership away from the people doing the work."
 			disclosureLabel="How I help teams deliver"
 			expanded={[
-				"I clarify responsibilities, resolve issues at discipline boundaries, and keep decisions connected to system intent, engineering evidence, and production delivery."
+				"In documented delivery work, I have led a team of three embedded software engineers across client assignments, setting direction across architecture, planning, software quality, mentoring, and cross-functional alignment. I have also acted as Scrum Master for a six-person cross-functional team, helping coordinate priorities, dependencies, and evidence for motor-control software delivery.",
+				"My contribution is practical: clarify responsibilities, make technical risk visible, mentor through decisions, resolve issues at discipline boundaries, and connect release-readiness discussions to concrete actions. This is technical leadership and delivery support, not a claim of formal people management beyond the documented team responsibilities."
 			]}
-			collapsible={false}
+			collapsible={true}
 		/>
 
 		<AboutStoryBlock
 			id="origin"
-			label="My Story"
-			title="From robotics to production embedded controls"
+			label="Personal story"
+			title="Why I care about controllable machines"
 			intro="What makes a machine truly intelligent? I have been fascinated by that question for as long as I can remember."
 			disclosureLabel="Read the story behind my work"
 			expanded={[
