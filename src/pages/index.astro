@@ -1,7 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { IDENTITY } from '../data/identity';
+import { CONTACT_DESTINATIONS, IDENTITY } from '../data/identity';
 
 const baseUrl = import.meta.env.BASE_URL;
 const normalizedBase = baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`;
@@ -10,21 +10,63 @@ const toSlug = (id: string) => id.replace(/\.md$/, '');
 
 const portraitUrl = withBase('/images/carlos-jorques-intro.webp');
 
-const articles = (await getCollection('writing'))
-	.filter((entry) => !entry.data.draft)
-	.sort((a, b) => b.data.publishDate.getTime() - a.data.publishDate.getTime())
-	.slice(0, 3)
-	.map((entry) => ({
-		publishDateIso: entry.data.publishDate.toISOString().slice(0, 10),
-		publishDate: new Intl.DateTimeFormat('en-GB', {
-			day: '2-digit',
-			month: 'short',
-			year: 'numeric',
-		}).format(entry.data.publishDate),
-		title: entry.data.title,
-		description: entry.data.description,
-		href: withBase(`/writing/${toSlug(entry.id)}/`),
-		ctaId: `home-writing-${toSlug(entry.id)}`,
+const writingPillars = [
+	{
+		label: 'Control architecture',
+		category: 'Embedded Controls Architecture',
+		slugs: ['control-architecture-before-software', 'from-model-to-machine'],
+	},
+	{
+		label: 'Algorithms and diagnostics',
+		category: 'Control Algorithms & Diagnostics',
+		slugs: ['debugging-behavior', 'virtual-sensing-in-cycle-combustion-diagnostics'],
+	},
+	{
+		label: 'Technical leadership',
+		category: 'Technical Leadership',
+		slugs: ['ai-will-not-replace-automotive-engineers', 'real-cost-of-automotive-software-speed'],
+	},
+] as const;
+
+const writingEntries = await getCollection('writing', ({ data }) => !data.draft);
+const articles = writingPillars
+	.map((pillar) => {
+		const entry = pillar.slugs
+			.map((slug) => writingEntries.find((candidate) => toSlug(candidate.id) === slug && candidate.data.category === pillar.category))
+			.find(Boolean);
+		if (!entry) return null;
+
+		return {
+			pillar: pillar.label,
+			publishDateIso: entry.data.publishDate.toISOString().slice(0, 10),
+			publishDate: new Intl.DateTimeFormat('en-GB', {
+				day: '2-digit',
+				month: 'short',
+				year: 'numeric',
+			}).format(entry.data.publishDate),
+			title: entry.data.title,
+			description: entry.data.description,
+			href: withBase(`/writing/${toSlug(entry.id)}/`),
+			ctaId: `home-writing-${toSlug(entry.id)}`,
+		};
+	})
+	.filter((article): article is NonNullable<typeof article> => Boolean(article));
+
+const projectSlugs = [
+	'electric-truck-thermal-management',
+	'autonomous-hauler-propulsion-control',
+	'heavy-duty-engine-diagnostics-control-research',
+] as const;
+const projectEntries = await getCollection('projects');
+const selectedProjects = projectSlugs
+	.map((slug) => projectEntries.find((entry) => entry.id === slug))
+	.filter((project): project is (typeof projectEntries)[number] => Boolean(project))
+	.map((project, index) => ({
+		index: String(index + 1).padStart(2, '0'),
+		title: project.data.title,
+		reason: project.data.description,
+		href: withBase(`/work/${project.id}/`),
+		ctaId: `selected-project-${project.id}`,
 	}));
 ---
 
@@ -38,8 +80,7 @@ const articles = (await getCollection('writing'))
 				<div class="hero__copy">
 					<h1 class="hero-statement">{IDENTITY.brandStatement}</h1>
 					<p class="hero-intro">Hi, I&apos;m {IDENTITY.name}, an <strong>{IDENTITY.primaryTitle}</strong>.</p>
-					<p class="hero-value">{IDENTITY.professionalSummary}</p>
-					<p class="hero-scope">From electrified vehicles and autonomous machines to the broader systems where software controls physical hardware, I connect control strategy, real-time software, diagnostics, validation, and production delivery.</p>
+					<p class="hero-value">{IDENTITY.professionalSummary} I provide technical direction across control strategy while staying close to direct control design, real-time embedded implementation, diagnostics, validation, and production delivery.</p>
 
 					<div class="hero-links button-row" aria-label="Primary contact links">
 						<a
@@ -55,25 +96,29 @@ const articles = (await getCollection('writing'))
 						</a>
 						<a
 							class="button"
-							href={withBase('/writing/')}
-							data-analytics-event="cta_click"
-							data-cta-id="hero-writing"
-							data-cta-placement="home-hero"
-							data-cta-intent="proof"
-							data-source-section="hero"
-						>
-							Explore writing
-						</a>
-						<a
-							class="button"
 							href={withBase('/contact')}
 							data-analytics-event="cta_click"
 							data-cta-id="hero-contact"
 							data-cta-placement="home-hero"
 							data-cta-intent="contact"
 							data-source-section="hero"
+							data-destination={withBase('/contact')}
 						>
-							Get in touch
+							Contact
+						</a>
+						<a
+							class="button"
+							href={CONTACT_DESTINATIONS.linkedin}
+							target="_blank"
+							rel="noopener noreferrer"
+							data-analytics-event="linkedin_outbound_click"
+							data-cta-id="hero-linkedin"
+							data-cta-placement="home-hero"
+							data-cta-intent="professional-profile"
+							data-source-section="hero"
+							data-destination={CONTACT_DESTINATIONS.linkedin}
+						>
+							LinkedIn
 						</a>
 					</div>
 				</div>
@@ -125,27 +170,18 @@ const articles = (await getCollection('writing'))
 			</div>
 
 			<div class="selected-work__list">
-				<article class="selected-work__item">
-					<span class="selected-work__index">01</span>
-					<h3>Electric truck thermal management and BMS</h3>
-					<a href={withBase('/work/electric-truck-thermal-management/')} data-analytics-event="cta_click" data-cta-id="selected-project-electric-truck" data-cta-placement="home-selected-projects" data-cta-intent="proof" data-source-section="selected-projects">
-						Read project
-					</a>
-				</article>
-				<article class="selected-work__item">
-					<span class="selected-work__index">02</span>
-					<h3>Autonomous electric hauler propulsion control</h3>
-					<a href={withBase('/work/autonomous-hauler-propulsion-control/')} data-analytics-event="cta_click" data-cta-id="selected-project-autonomous-hauler" data-cta-placement="home-selected-projects" data-cta-intent="proof" data-source-section="selected-projects">
-						Read project
-					</a>
-				</article>
-				<article class="selected-work__item">
-					<span class="selected-work__index">03</span>
-					<h3>Heavy-duty engine diagnostics and control research</h3>
-					<a href={withBase('/work/heavy-duty-engine-diagnostics-control-research/')} data-analytics-event="cta_click" data-cta-id="selected-project-engine-diagnostics" data-cta-placement="home-selected-projects" data-cta-intent="proof" data-source-section="selected-projects">
-						Read project
-					</a>
-				</article>
+				{selectedProjects.map((project) => (
+					<article class="selected-work__item">
+						<span class="selected-work__index">{project.index}</span>
+						<div class="selected-work__copy">
+							<h3>{project.title}</h3>
+							<p>{project.reason}</p>
+						</div>
+						<a href={project.href} data-analytics-event="cta_click" data-cta-id={project.ctaId} data-cta-placement="home-selected-projects" data-cta-intent="proof" data-source-section="selected-projects">
+							Read project
+						</a>
+					</article>
+				))}
 			</div>
 
 			<div class="selected-work__footer">
@@ -185,6 +221,7 @@ const articles = (await getCollection('writing'))
 				>
 					<time class="article-link__date" datetime={article.publishDateIso}>{article.publishDate}</time>
 					<span>
+						<span class="article-link__pillar">{article.pillar}</span>
 						<h3 class="article-link__title">{article.title}</h3>
 						<p class="article-link__description">{article.description}</p>
 					</span>
@@ -496,6 +533,19 @@ const articles = (await getCollection('writing'))
 		font-weight: var(--type-card-title-weight);
 	}
 
+	.selected-work__copy {
+		display: grid;
+		gap: 0.4rem;
+	}
+
+	.selected-work__copy p {
+		margin: 0;
+		max-width: 68ch;
+		color: var(--color-body-text);
+		font-size: 0.9rem;
+		line-height: 1.5;
+	}
+
 	.selected-work__item a,
 	.selected-work__footer a,
 	.latest__footer a,
@@ -578,6 +628,18 @@ const articles = (await getCollection('writing'))
 		text-underline-offset: 0.22em;
 		text-decoration-thickness: 1px;
 		transition: text-decoration-color var(--motion-duration-fast-02) var(--motion-standard-productive);
+	}
+
+	.article-link__pillar {
+		display: block;
+		margin-bottom: 0.3rem;
+		color: var(--color-muted);
+		font-family: var(--font-mono);
+		font-size: var(--type-chip-size);
+		font-weight: var(--type-chip-weight);
+		letter-spacing: var(--type-chip-tracking);
+		line-height: var(--type-chip-line);
+		text-transform: uppercase;
 	}
 
 	.article-link__description {
