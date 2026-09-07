@@ -20,17 +20,10 @@ const portraitUrl = withBase('/images/carlos-jorques-intro.webp');
 					<nav class="about-hero__actions" aria-label="About quick links">
 						<a href={withBase('/cv')}>View CV</a>
 						<a href={withBase('/work')}>Selected work</a>
-						<a href={withBase('/contact')}>Get in touch</a>
+						<a href={withBase('/contact')}>Contact</a>
 					</nav>
 				</div>
 				<img class="about-portrait" src={portraitUrl} alt="Carlos Jorques" width="768" height="1024" loading="eager" decoding="async" />
-			</div>
-		</section>
-
-		<section class="editorial-section visitor-routes" aria-label="Visitor routes">
-			<div class="section-rail" aria-hidden="true"></div>
-			<div class="story-block route-list">
-				<div><strong>Looking for a focused route?</strong><p><a href={withBase('/work')}>See selected work</a> · <a href={withBase('/cv')}>View CV</a> · <a href={withBase('/contact')}>Get in touch</a></p></div>
 			</div>
 		</section>
 
@@ -106,7 +99,7 @@ const portraitUrl = withBase('/images/carlos-jorques-intro.webp');
 				body="I’m open to related roles, technical leadership opportunities, freelance engineering work, and conversations about embedded controls, electrification, diagnostics, and intelligent physical systems."
 				primaryLabel="Start a conversation"
 				secondaryHref={CONTACT_DESTINATIONS.linkedin}
-				secondaryLabel="Connect on linkedin"
+				secondaryLabel="Connect on LinkedIn"
 				tertiaryHref="/work/"
 				tertiaryLabel="Explore selected work"
 			/>
@@ -148,15 +141,10 @@ const portraitUrl = withBase('/images/carlos-jorques-intro.webp');
 	.story-disclosure__content p { color:var(--color-muted); font-size:1.08rem; line-height:1.7; }
 	.about-closing { padding:5rem 0; }
 	:global(#beyond-engineering) { border-bottom:1px solid var(--color-border); }
-	.route-list { grid-column:1 / -1; max-width:none; }
-	.route-list__intro { margin-bottom:.25rem; }
-	.visitor-routes { gap: 0rem; padding-top:0; padding-bottom:4rem; border-top:0; }
-	.route-list > div { display:flex; align-items:baseline; gap:.45rem; padding-bottom:0; border-bottom:0; }
-	.route-list strong { font-size:1.08rem; }
-	.route-list > div p { color:var(--color-muted); }
+
 	.about-closing .story-block { grid-column:1 / -1; }
 	#approach { margin-top:0; }
 	@media(max-width:1100px){.about-hero__layout{grid-template-columns:1fr}.about-portrait{width:min(100%,16rem)}}
-	@media(max-width:720px){.about-hero{padding:3rem 0 0}.about-hero h1{font-size:clamp(2.15rem,10vw,2.45rem);line-height:1.04}.about-hero__actions{display:flex;flex-wrap:wrap;gap:.45rem 1rem;margin-top:0}.about-hero__actions a{color:var(--color-link);font-size:.92rem;font-weight:600;text-underline-offset:.2em}.editorial-section{grid-template-columns:1fr}.about-hero__lead,.about-story p,.story-block p{font-size:1.05rem}.route-list > div{display:block}.route-list > div p{margin-top:.2rem}.button{width:100%}}
+	@media(max-width:720px){.about-hero{padding:3rem 0 0}.about-hero h1{font-size:clamp(2.15rem,10vw,2.45rem);line-height:1.04}.about-hero__actions{display:flex;flex-wrap:wrap;gap:.45rem 1rem;margin-top:0}.about-hero__actions a{color:var(--color-link);font-size:.92rem;font-weight:600;text-underline-offset:.2em}.editorial-section{grid-template-columns:1fr}.about-hero__lead,.about-story p,.story-block p{font-size:1.05rem}.button{width:100%}}
 	@media(max-width:640px){.about-page{width:min(calc(100% - 32px),var(--content-width))}}
 </style>
