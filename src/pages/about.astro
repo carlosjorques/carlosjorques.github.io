@@ -49,14 +49,14 @@ const portraitUrl = withBase('/images/carlos-jorques-intro.webp');
 		<AboutStoryBlock
 			id="approach"
 			label="Engineering approach"
-			title="Decisions that hold up when software meets hardware"
-			intro="I work from intended machine behaviour: define what the system must do, make responsibilities and interfaces explicit, then stay close enough to the control design and embedded implementation to see whether the behaviour survives real constraints."
-			disclosureLabel="How I turn intent into implementation"
+			title="Reliable behaviour guides my decisions"
+			intro="I favour solutions that are clear, robust, and practical to implement. Control performance matters, but so do hardware limits, fault response, and the evidence that the system behaves as intended."
+			disclosureLabel="How I make engineering decisions"
 			expanded={[
-				"I turn product goals, physical behaviour, interfaces, and uncertainty into clear control responsibilities, diagnostic decisions, real-time software boundaries, and validation evidence. I favour solutions that are understandable, testable, and maintainable as well as technically sound.",
-				"That means moving between control strategy, embedded code, diagnostics, calibration, and validation rather than treating implementation as a hand-off. Timing, safety-related constraints, limited resources, and production delivery are part of the engineering problem from the beginning."
+				"I start by clarifying the intended behaviour, the physical limits, and what the available measurements can reliably tell us. That helps me decide what belongs in the control logic, how interfaces should behave, and what should happen when signals or operating conditions are uncertain.",
+				"I use models, software tests, and experiments on hardware to challenge those decisions. When measured behaviour differs from expectations, I investigate the assumptions, implementation, and interfaces before adding complexity. The aim is software that can be understood, validated, and maintained."
 			]}
-			collapsible={false}
+			collapsible={true}
 		/>
 
 		<AboutStoryBlock
