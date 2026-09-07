@@ -203,13 +203,19 @@ const selectedProjects = projectSlugs
 		<div class="page-container">
 			<div class="latest__header">
 				<h2 id="writing-title">Technical insights</h2>
-				<p class="latest__intro">
-					Published notes on control systems, electrification, diagnostics, and real-time embedded software:
-					technical challenges, production constraints, and reliable machine behavior.
-				</p>
+				{articles.length > 0 ? (
+					<p class="latest__intro">
+						Published notes on control systems, electrification, diagnostics, and real-time embedded software:
+						technical challenges, production constraints, and reliable machine behavior.
+					</p>
+				) : (
+					<p class="latest__intro">
+						Writing is in preparation around control architecture, diagnostics, real-time implementation, and reliable machine behavior.
+					</p>
+				)}
 			</div>
 
-			{articles.map((article) => (
+			{articles.length > 0 ? articles.map((article) => (
 				<a
 					href={article.href}
 					class="article-link"
@@ -227,9 +233,14 @@ const selectedProjects = projectSlugs
 					</span>
 					<span class="article-link__arrow" aria-hidden="true">-&gt;</span>
 				</a>
-			))}
+			)) : (
+				<div class="latest__planned">
+					<p>Planned topics include control architecture, diagnostics, and real-time embedded implementation.</p>
+					<a href={withBase('/contact')}>Suggest a topic</a>
+				</div>
+			)}
 
-			<div class="latest__footer">
+			<div class="latest__footer" class:list={{ 'latest__footer--planned': articles.length === 0 }}>
 				<a
 					href={withBase('/writing')}
 					data-analytics-event="cta_click"
@@ -238,7 +249,7 @@ const selectedProjects = projectSlugs
 					data-cta-intent="authority"
 					data-source-section="latest-writing"
 				>
-					View all writing
+					{articles.length > 0 ? 'View all writing' : 'View writing plans'}
 				</a>
 			</div>
 		</div>
@@ -679,8 +690,34 @@ const selectedProjects = projectSlugs
 		outline-offset: 4px;
 	}
 
+	.latest__planned {
+		display: grid;
+		gap: .75rem;
+		border-top: 1px solid var(--color-border);
+		padding: 1.25rem var(--spacing-05);
+	}
+
+	.latest__planned p {
+		margin: 0;
+		max-width: var(--measure-compact);
+		color: var(--color-body-text);
+		font-size: .9rem;
+		line-height: 1.5;
+	}
+
+	.latest__planned a {
+		color: var(--color-link);
+		font-size: .875rem;
+		text-underline-offset: .2em;
+		width: fit-content;
+	}
+
 	.latest__footer {
 		margin-top: clamp(var(--spacing-06), 3vw, var(--spacing-07));
+	}
+
+	.latest__footer--planned {
+		opacity: .8;
 	}
 
 	.home-more {

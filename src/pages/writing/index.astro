@@ -54,68 +54,78 @@ const groupSlug = (group: string) => toTagSlug(group);
 			<div class="page-container writing-container">
 				<h2 id="writing-list-title" class="visually-hidden">Article list</h2>
 
-				<div class="writing-filter-bar">
-					<details class="writing-filter-menu" data-filter-menu>
-						<summary>
-							<span class="filter-summary__label">ALL TOPICS</span>
-							<span class="visually-hidden" data-filter-current aria-live="polite">All topics selected</span>
-						</summary>
-						<div class="filter-chips" role="group" aria-label="Filter articles by macro-topic">
-							<button class="filter-chip filter-chip--all" type="button" data-filter-reset aria-pressed="true">ALL TOPICS</button>
-							{Object.keys(TAG_GROUPS).map((group) => <button class="filter-chip" type="button" data-filter={groupSlug(group)} data-filter-label={group} aria-pressed="false">{group}</button>)}
-						</div>
-					</details>
-				</div>
-
-				<div class="article-list" data-article-list>
-					{
-						articles.map((article) => (
-							<article class="article-card" data-article-card data-tags={[...article.tags.map(toTagSlug), ...article.tags.map((tag) => groupSlug(tagGroupFor(tag)))].join(' ')}>
-								<a
-									class="article-card__link"
-									href={article.href}
-									aria-labelledby={`${article.slug}-title`}
-									data-analytics-event="writing_article_click"
-									data-cta-id={`writing-card-${article.slug}`}
-									data-cta-placement="writing-index"
-									data-cta-intent={article.isDraft ? 'planned-authority' : 'authority'}
-									data-source-section="writing-list"
-								>
-								<div class="article-card__content">
-									<div class="article-card__rail">
-										<p class="article-card__meta">
-											<time datetime={article.dateTime}>{article.date}</time>
-											{article.isDraft && <span>Planned article</span>}
-										</p>
-										<ul class="article-card__tags" aria-label={`${article.title} topics`}>
-											{article.tags.map((tag) => (
-												<li>{tag}</li>
-											))}
-										</ul>
-									</div>
-									<div class="article-card__main">
-										<h3 id={`${article.slug}-title`}>{article.title}</h3>
-										<span class="article-card__cta">Read More <span aria-hidden="true">→</span></span>
-									</div>
+				{articles.length > 0 ? (
+					<>
+						<div class="writing-filter-bar">
+							<details class="writing-filter-menu" data-filter-menu>
+								<summary>
+									<span class="filter-summary__label">ALL TOPICS</span>
+									<span class="visually-hidden" data-filter-current aria-live="polite">All topics selected</span>
+								</summary>
+								<div class="filter-chips" role="group" aria-label="Filter articles by macro-topic">
+									<button class="filter-chip filter-chip--all" type="button" data-filter-reset aria-pressed="true">ALL TOPICS</button>
+									{Object.keys(TAG_GROUPS).map((group) => <button class="filter-chip" type="button" data-filter={groupSlug(group)} data-filter-label={group} aria-pressed="false">{group}</button>)}
 								</div>
-								</a>
-							</article>
-						))
-					}
-				</div>
+							</details>
+						</div>
 
-				<nav class="article-pagination" data-pagination aria-label="Article pages" hidden>
-					<button type="button" data-page-previous>Previous</button>
-					<div class="article-pagination__numbers" data-page-numbers></div>
-					<button type="button" data-page-next>Next</button>
-				</nav>
+						<div class="article-list" data-article-list>
+							{
+								articles.map((article) => (
+									<article class="article-card" data-article-card data-tags={[...article.tags.map(toTagSlug), ...article.tags.map((tag) => groupSlug(tagGroupFor(tag)))].join(' ')}>
+										<a
+											class="article-card__link"
+											href={article.href}
+											aria-labelledby={`${article.slug}-title`}
+											data-analytics-event="writing_article_click"
+											data-cta-id={`writing-card-${article.slug}`}
+											data-cta-placement="writing-index"
+											data-cta-intent="authority"
+											data-source-section="writing-list"
+										>
+										<div class="article-card__content">
+											<div class="article-card__rail">
+												<p class="article-card__meta">
+													<time datetime={article.dateTime}>{article.date}</time>
+												</p>
+												<ul class="article-card__tags" aria-label={`${article.title} topics`}>
+													{article.tags.map((tag) => (
+														<li>{tag}</li>
+													))}
+												</ul>
+											</div>
+											<div class="article-card__main">
+												<h3 id={`${article.slug}-title`}>{article.title}</h3>
+												<span class="article-card__cta">Read More <span aria-hidden="true">→</span></span>
+											</div>
+										</div>
+										</a>
+									</article>
+								))
+							}
+						</div>
 
-				<button class="article-load-more" type="button" data-load-more hidden>Load more</button>
+						<nav class="article-pagination" data-pagination aria-label="Article pages" hidden>
+							<button type="button" data-page-previous>Previous</button>
+							<div class="article-pagination__numbers" data-page-numbers></div>
+							<button type="button" data-page-next>Next</button>
+						</nav>
 
-				<div class="empty-state" data-empty-state hidden>
-					<p>No articles found for this topic yet.</p>
-					<button class="filter-reset" type="button" data-filter-reset>ALL TOPICS</button>
-				</div>
+						<button class="article-load-more" type="button" data-load-more hidden>Load more</button>
+
+						<div class="empty-state" data-empty-state hidden>
+							<p>No articles found for this topic yet.</p>
+							<button class="filter-reset" type="button" data-filter-reset>ALL TOPICS</button>
+						</div>
+					</>
+				) : (
+					<div class="writing-planned" aria-labelledby="writing-planned-title">
+						<p class="section-eyebrow">In preparation</p>
+						<h3 id="writing-planned-title">Practical notes are being prepared.</h3>
+						<p>The planned collection will explore control architecture, diagnostics, real-time implementation, and the engineering decisions that help physical systems behave reliably.</p>
+						<a href={`${normalizedBase}contact/`}>Suggest a topic</a>
+					</div>
+				)}
 			</div>
 		</section>
 	</div>
@@ -499,6 +509,33 @@ const groupSlug = (group: string) => toTagSlug(group);
 		color: var(--color-body-text);
 		font-size: var(--type-reading-size);
 		line-height: var(--type-reading-line);
+	}
+
+	.writing-planned {
+		max-width: 42rem;
+		border-top: 1px solid var(--color-border-soft);
+		padding-top: 1.5rem;
+	}
+
+	.writing-planned h3 {
+		margin: .75rem 0 .6rem;
+		font-size: clamp(1.45rem, 2.6vw, 2rem);
+		line-height: 1.12;
+	}
+
+	.writing-planned > p:not(.section-eyebrow) {
+		margin: 0;
+		color: var(--color-muted);
+		font-size: var(--type-reading-size);
+		line-height: var(--type-reading-line);
+	}
+
+	.writing-planned a {
+		display: inline-block;
+		margin-top: 1rem;
+		color: var(--color-link);
+		font-size: .9rem;
+		text-underline-offset: .2em;
 	}
 
 	.visually-hidden {
