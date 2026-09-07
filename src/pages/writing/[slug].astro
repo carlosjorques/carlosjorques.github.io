@@ -14,6 +14,7 @@ export async function getStaticPaths() {
 
 const { entry } = Astro.props;
 const { Content } = await render(entry);
+const projects = await getCollection('projects');
 const baseUrl = import.meta.env.BASE_URL;
 const normalizedBase = baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`;
 const withBase = (href: string) =>
@@ -30,6 +31,21 @@ const label = entry.data.draft
 
 const publishedDate = entry.data.publishDate.toISOString();
 const metadata = [entry.data.category, entry.data.readingTime].filter(Boolean);
+const relatedProjectSlugs: Record<string, string> = {
+	'controlling-combustion-while-it-happens': 'heavy-duty-engine-diagnostics-control-research',
+	'predictive-in-cycle-combustion-control': 'heavy-duty-engine-diagnostics-control-research',
+	'real-time-combustion-control-implementation': 'heavy-duty-engine-diagnostics-control-research',
+	'stochastic-fault-detection-diagnostic-decision-logic': 'heavy-duty-engine-diagnostics-control-research',
+	'stochastic-set-point-optimization-efficiency': 'heavy-duty-engine-diagnostics-control-research',
+	'virtual-sensing-in-cycle-combustion-diagnostics': 'heavy-duty-engine-diagnostics-control-research',
+	'control-architecture-before-software': 'embedded-control-system-architecture',
+	'from-model-to-machine': 'embedded-control-system-architecture',
+	'requirements-to-actuation': 'embedded-control-system-architecture',
+};
+const relatedProjectSlug = relatedProjectSlugs[entry.id.replace(/\.md$/, '')];
+const relatedProject = relatedProjectSlug
+	? projects.find((project) => project.id === relatedProjectSlug)
+	: undefined;
 ---
 
 <Layout title={entry.data.title} description={entry.data.description}>
@@ -66,9 +82,23 @@ const metadata = [entry.data.category, entry.data.readingTime].filter(Boolean);
 		<section class="writing-post__related" aria-labelledby="article-related-title">
 			<div class="page-container writing-post__container">
 				<h2 id="article-related-title">Related proof</h2>
-				<div class="writing-post__related-links" aria-label="Related article links">
+				<div class="writing-post__related-links" aria-label="Related proof links">
+					{
+						relatedProject && (
+							<a
+								href={withBase(`work/${relatedProject.id}/`)}
+								data-analytics-event="related_proof_click"
+								data-cta-id={`article-related-project-${relatedProject.id}`}
+								data-cta-placement="writing-article"
+								data-cta-intent="proof"
+								data-source-section="article-related-proof"
+							>
+								View related project: {relatedProject.data.title}
+							</a>
+						)
+					}
 					<a
-						href={`${import.meta.env.BASE_URL}work/#selected-projects`}
+						href={withBase('work/')}
 						data-analytics-event="related_proof_click"
 						data-cta-id="article-related-work"
 						data-cta-placement="writing-article"
@@ -87,16 +117,6 @@ const metadata = [entry.data.category, entry.data.readingTime].filter(Boolean);
 					>
 						View CV expertise
 					</a>
-					<a
-						href={`${import.meta.env.BASE_URL}contact/`}
-						data-analytics-event="cta_click"
-						data-cta-id="article-related-contact"
-						data-cta-placement="writing-article"
-						data-cta-intent="contact"
-						data-source-section="article-related-proof"
-					>
-						Start a technical discussion
-					</a>
 				</div>
 			</div>
 		</section>
@@ -104,7 +124,7 @@ const metadata = [entry.data.category, entry.data.readingTime].filter(Boolean);
 		<footer class="writing-post__footer">
 			<div class="page-container writing-post__container">
 				<p class="writing-post__author">{IDENTITY.name} — {IDENTITY.primaryTitle}</p>
-				<nav class="writing-post__footer-links" aria-label="Article footer links"><a href={withBase('writing/')}>More writing</a><a href={withBase('about/')}>About</a><a href={withBase('contact/')}>Working on something similar? Get in touch</a></nav>
+				<nav class="writing-post__footer-links" aria-label="Article footer links"><a href={withBase('writing/')}>More writing</a><a href={withBase('about/')}>About</a></nav>
 				<ContactCTA
 					title="Want to discuss the engineering context behind this article?"
 					body="For roles, collaborations, or technical conversations around embedded controls, diagnostics, validation, and physical-system software, use the contact page."
