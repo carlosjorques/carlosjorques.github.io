@@ -319,7 +319,7 @@ Real-time combustion control implementation is about making advanced combustion 
 
 An offline estimator can use future samples, high-precision arithmetic, and complex computation. An in-cycle controller must act with incomplete information, deterministic timing, and finite hardware resources, inside a per-sample window of about 27 microseconds at 1200 RPM. FPGA implementation makes this possible, but only if the algorithms are simplified, synchronized, and structured for embedded execution from the beginning.
 
-That is the contribution of this part of the thesis: it showed how combustion observers, virtual sensors, diagnostic methods, predictive controllers, and adaptation logic can be implemented as a real-time hardware-constrained control system. In practical terms, this is what turns combustion-control research into something that can intervene during the combustion cycle itself, rather than remaining a set of algorithms that only work offline. Related articles cover [stochastic set-point optimization for efficiency](/writing/stochastic-set-point-optimization-efficiency/) and the wider [combustion control research](/research/) context.
+That is the contribution of this part of the thesis: it showed how combustion observers, virtual sensors, diagnostic methods, predictive controllers, and adaptation logic can be implemented as a real-time hardware-constrained control system. In practical terms, this is what turns combustion-control research into something that can intervene during the combustion cycle itself, rather than remaining a set of algorithms that only work offline. Related articles cover [stochastic set-point optimization for efficiency](/writing/stochastic-set-point-optimization-efficiency/) and the wider [combustion control research](/work/heavy-duty-engine-diagnostics-control-research/) context.
 
 <figure class="article-figure">
 	<img src="/images/blog/real-time-combustion-control/thesis-propagation-delay.svg" alt="Propagation delay of combustion-control modules implemented on Xilinx Virtex-5 FPGA hardware" loading="lazy" />
@@ -351,6 +351,6 @@ This article is based on my PhD thesis and the following thesis papers:
 	<p>I work on combustion control implementation, FPGA-oriented signal processing, virtual sensing, embedded diagnostics, predictive control, and hardware-constrained real-time decision logic.</p>
 	<ul class="article-cta__links">
 		<li><a href="/contact/">Contact me about embedded control</a></li>
-		<li><a href="/research/">Explore related research</a></li>
+		<li><a href="/work/heavy-duty-engine-diagnostics-control-research/">Explore related research project</a></li>
 	</ul>
 </section>

@@ -181,9 +181,9 @@ This article is based on my PhD thesis and the following thesis papers:
 
 <section class="article-cta" aria-labelledby="article-next-title">
 	<h2 id="article-next-title">Continue from here</h2>
-	<p>For related public context, explore the research and work pages, or get in touch about combustion control, virtual sensing, or model-based diagnostics.</p>
+	<p>For related public context, explore the work page, or get in touch about combustion control, virtual sensing, or model-based diagnostics.</p>
 	<ul class="article-cta__links">
-		<li><a href="/research/">Read more about the research context</a></li>
+		<li><a href="/work/heavy-duty-engine-diagnostics-control-research/">Read more about the research project</a></li>
 		<li><a href="/work/">Explore related work</a></li>
 		<li><a href="/contact/">Contact me about model-based diagnostics</a></li>
 	</ul>

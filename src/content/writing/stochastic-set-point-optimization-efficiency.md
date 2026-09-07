@@ -253,6 +253,6 @@ This article is based on my PhD thesis and the following thesis papers:
 	<p>I work on combustion efficiency optimization, stochastic modeling, Monte Carlo simulation, constraint handling, model-based diagnostics, and real-time control strategy design for advanced powertrain systems.</p>
 	<ul class="article-cta__links">
 		<li><a href="/contact/">Contact me about optimization</a></li>
-		<li><a href="/research/">Explore related research</a></li>
+		<li><a href="/work/heavy-duty-engine-diagnostics-control-research/">Explore related research project</a></li>
 	</ul>
 </section>

@@ -225,6 +225,6 @@ Later work by other groups citing the misfire-detection research:
 	<p>I work on combustion control, model-based diagnostics, virtual sensing, and embedded decision logic for advanced powertrain systems.</p>
 	<ul class="article-cta__links">
 		<li><a href="/contact/">Contact me about combustion diagnostics</a></li>
-		<li><a href="/research/">Explore related research</a></li>
+		<li><a href="/work/heavy-duty-engine-diagnostics-control-research/">Explore related research project</a></li>
 	</ul>
 </section>

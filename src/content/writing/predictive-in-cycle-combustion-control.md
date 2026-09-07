@@ -296,7 +296,7 @@ This article is based on my PhD thesis and the following thesis papers:
 	<p>I work on predictive combustion control, virtual sensing, embedded decision logic, model adaptation, and FPGA-oriented control implementation for advanced powertrain systems.</p>
 	<ul class="article-cta__links">
 		<li><a href="/contact/">Contact me about combustion control</a></li>
-		<li><a href="/research/">Explore related research</a></li>
+		<li><a href="/work/heavy-duty-engine-diagnostics-control-research/">Explore related research project</a></li>
 		<li><a href="/work/">View related work context</a></li>
 	</ul>
 </section>

@@ -27,7 +27,6 @@ const isActive = (href: string) => href === '/' ? currentPath === '/' : currentP
 				</button>
 				<div class="site-header__more-panel" id="site-header-more-menu">
 					<a href={withBase('/writing')} aria-current={isActive('/writing') ? 'page' : undefined}>Writing</a>
-					<a href={withBase('/research')} aria-current={isActive('/research') ? 'page' : undefined}>Research</a>
 				</div>
 			</div>
 		</nav>
@@ -42,7 +41,7 @@ const isActive = (href: string) => href === '/' ? currentPath === '/' : currentP
 			<nav class="site-header__mobile-panel" aria-label="Mobile navigation">
 				<a class="site-header__mobile-brand" href={withBase('/')}>{IDENTITY.name}</a>
 				<a href={withBase('/work')}>Work</a><a href={withBase('/about')}>About</a><a href={withBase('/cv')}>CV</a>
-				<a href={withBase('/writing')}>Writing</a><a href={withBase('/research')}>Research</a><a href={withBase('/contact')}>Contact</a>
+				<a href={withBase('/writing')}>Writing</a><a href={withBase('/contact')}>Contact</a>
 			</nav>
 		</details>
 	</div>
