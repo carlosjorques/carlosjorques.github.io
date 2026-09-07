@@ -9,7 +9,6 @@ const withBase = (href: string) =>
 		? href
 		: `${normalizedBase}${href.replace(/^\//, '')}`;
 
-const cvPdfHref = CONTACT_DESTINATIONS.cv;
 const linkedinHref = CONTACT_DESTINATIONS.linkedin;
 const web3FormsAccessKey = '7f35453b-2e22-4022-bb4b-46573f04453b';
 const contactContext = Astro.url.searchParams.get('context') === 'role' ? 'role' : '';
@@ -24,7 +23,7 @@ const contactSource = Astro.url.searchParams.get('source')?.match(/^[a-z0-9-]+$/
 		<div class="page-container">
 			<p class="section-eyebrow">Contact</p>
 			<h1 id="contact-title" class="hero-title">Let’s talk.</h1>
-			<p class="contact-hero__lead">I’m Carlos, an {IDENTITY.primaryTitle} and {IDENTITY.supportingDescriptor}. For a quick role-fit overview, <a href={withBase(cvPdfHref)} data-analytics-event="cv_pdf_download" data-cta-id="contact-download-cv" data-cta-placement="contact-hero-copy" data-cta-intent="formal-proof" data-source-section="contact-hero" data-destination={withBase(cvPdfHref)}>download my CV (PDF)</a>. For technical conversations or collaboration, <a href={linkedinHref} target="_blank" rel="noopener noreferrer" data-analytics-event="linkedin_outbound_click" data-cta-id="contact-linkedin" data-cta-placement="contact-hero-copy" data-cta-intent="professional-profile" data-source-section="contact-hero" data-destination={linkedinHref}>connect on LinkedIn</a> or send a message below.</p>
+			<p class="contact-hero__lead">I’m Carlos, an {IDENTITY.primaryTitle} and {IDENTITY.supportingDescriptor}. For a role, technical question, or collaboration, <a href="#message-title">send a message</a> or <a href={linkedinHref} target="_blank" rel="noopener noreferrer" data-analytics-event="linkedin_outbound_click" data-cta-id="contact-linkedin" data-cta-placement="contact-hero-copy" data-cta-intent="professional-profile" data-source-section="contact-hero" data-destination={linkedinHref}>connect on LinkedIn</a>.</p>
 			<p class="contact-hero__proof">Based in Spain <span aria-hidden="true">·</span> Working remotely with international teams</p>
 		</div>
 	</section>
@@ -38,11 +37,11 @@ const contactSource = Astro.url.searchParams.get('source')?.match(/^[a-z0-9-]+$/
 				aria-labelledby="message-title"
 				aria-describedby="form-status privacy-note"
 				data-contact-form
-				data-analytics-event="contact_form_submit"
-				data-cta-id="contact-web3forms-form"
-				data-cta-placement="contact-form"
-				data-cta-intent="contact"
-				data-source-section="contact-form"
+				data-contact-success-event="contact_form_submit"
+				data-contact-success-cta-id="contact-web3forms-form"
+				data-contact-success-placement="contact-form"
+				data-contact-success-intent="contact"
+				data-contact-success-source-section="contact-form"
 				data-source-page={contactSource || undefined}
 			>
 				<input type="hidden" name="access_key" value={web3FormsAccessKey} />
@@ -68,8 +67,8 @@ const contactSource = Astro.url.searchParams.get('source')?.match(/^[a-z0-9-]+$/
 					<fieldset class="form-field form-fieldset">
 						<legend>What are you reaching out about?</legend>
 						<div class="radio-group">
-							<label><input type="radio" name="context" value="project" /> Project</label>
 							<label><input type="radio" name="context" value="role" checked={contactContext === 'role'} /> Role</label>
+							<label><input type="radio" name="context" value="project" /> Project</label>
 							<label><input type="radio" name="context" value="collaboration" /> Collaboration</label>
 							<label><input type="radio" name="context" value="other" /> Other</label>
 						</div>
@@ -87,6 +86,7 @@ const contactSource = Astro.url.searchParams.get('source')?.match(/^[a-z0-9-]+$/
 				</div>
 
 					<p class="contact-note" id="privacy-note">I&apos;ll use your details only to reply to your message. <a href={withBase('/privacy')}>Read the privacy notice.</a></p>
+					<p class="contact-note contact-fallback" id="contact-fallback" hidden>Submission did not go through. You can <a href={linkedinHref} target="_blank" rel="noopener noreferrer" data-analytics-event="linkedin_outbound_click" data-cta-id="contact-fallback-linkedin" data-cta-placement="contact-form-failure" data-cta-intent="professional-profile" data-source-section="contact-form-failure" data-destination={linkedinHref}>connect on LinkedIn instead</a>.</p>
 					<button class="button primary" type="submit" aria-describedby="privacy-note form-status">Send message</button>
 			</form>
 
@@ -156,6 +156,7 @@ const contactSource = Astro.url.searchParams.get('source')?.match(/^[a-z0-9-]+$/
 	const contactForm = document.querySelector<HTMLFormElement>('[data-contact-form]');
 	const formStatus = document.querySelector<HTMLElement>('#form-status');
 	const submitButton = contactForm?.querySelector<HTMLButtonElement>('button[type="submit"]');
+	const contactFallback = document.querySelector<HTMLElement>('#contact-fallback');
 	const defaultSubmitLabel = submitButton?.textContent?.trim() ?? 'Send message';
 	const roleContextInput = contactForm?.querySelector<HTMLInputElement>('input[name="context"][value="role"]');
 	const queryParams = new URLSearchParams(window.location.search);
@@ -185,6 +186,7 @@ const contactSource = Astro.url.searchParams.get('source')?.match(/^[a-z0-9-]+$/
 		const formData = new FormData(contactForm);
 
 		if (formStatus) formStatus.textContent = 'Sending your message…';
+		if (contactFallback) contactFallback.hidden = true;
 		if (submitButton) {
 			submitButton.disabled = true;
 			submitButton.textContent = 'Sending…';
@@ -206,18 +208,19 @@ const contactSource = Astro.url.searchParams.get('source')?.match(/^[a-z0-9-]+$/
 				submitButton.textContent = 'Message sent!';
 				submitButton.dataset.submissionState = 'sent';
 			}
-			(window as any).trackPortfolioEvent?.(contactForm.dataset.analyticsEvent, {
-				cta_id: contactForm.dataset.ctaId,
+			(window as any).trackPortfolioEvent?.(contactForm.dataset.contactSuccessEvent, {
+				cta_id: contactForm.dataset.contactSuccessCtaId,
 				cta_text: 'Send message',
-				placement: contactForm.dataset.ctaPlacement,
+				placement: contactForm.dataset.contactSuccessPlacement,
 				page_type: document.body?.dataset.pageType ?? 'contact',
 				destination: 'https://api.web3forms.com/submit',
-				intent: contactForm.dataset.ctaIntent,
-				source_section: contactForm.dataset.sourceSection,
+				intent: contactForm.dataset.contactSuccessIntent,
+				source_section: contactForm.dataset.contactSuccessSourceSection,
 				source_page: contactForm.dataset.sourcePage,
 			});
 		} catch (error) {
 			if (formStatus) formStatus.textContent = error instanceof Error ? error.message : 'Message could not be sent. Please try again later.';
+			if (contactFallback) contactFallback.hidden = false;
 			if (submitButton) submitButton.textContent = defaultSubmitLabel;
 		} finally {
 			if (submitButton) submitButton.disabled = false;
