@@ -40,7 +40,7 @@ metrics:
 references:
   - label: Indicated efficiency optimization by in-cycle closed-loop combustion control of diesel engines
     href: https://doi.org/10.1016/j.conengprac.2022.105097
-    context: Control Engineering Practice, 2022. Matches the project’s closed-loop combustion-control and efficiency research context.
+    context: Control Engineering Practice, 2022. Closed-loop combustion control and efficiency optimization in diesel engines.
 reflection: "The research established a foundation that still matters in production controls: a model is useful only when its uncertainty is visible, a diagnostic is useful only when it can support a decision, and an advanced controller is useful only when it can execute deterministically on real hardware."
 ---
 

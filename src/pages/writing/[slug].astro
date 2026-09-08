@@ -22,7 +22,7 @@ const withBase = (href: string) =>
 		? href
 		: `${normalizedBase}${href.replace(/^\//, '')}`;
 const label = entry.data.draft
-	? 'Planned article placeholder'
+	? 'Writing in preparation'
 	: entry.data.publishDate.toLocaleDateString('en', {
 			year: 'numeric',
 			month: 'long',
