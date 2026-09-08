@@ -85,7 +85,7 @@ const contactSource = Astro.url.searchParams.get('source')?.match(/^[a-z0-9-]+$/
 					<input id="contact-botcheck" name="botcheck" type="checkbox" tabindex="-1" autocomplete="off" />
 				</div>
 
-					<p class="contact-note" id="privacy-note">I&apos;ll use your details only to reply to your message. <a href={withBase('/privacy')}>Read the privacy notice.</a></p>
+					<p class="contact-note" id="privacy-note">I&apos;ll use your details only to reply to your message. <a href={withBase('/privacy/')}>Read the privacy notice.</a></p>
 					<p class="contact-note contact-fallback" id="contact-fallback" hidden>Submission did not go through. You can <a href={linkedinHref} target="_blank" rel="noopener noreferrer" data-analytics-event="linkedin_outbound_click" data-cta-id="contact-fallback-linkedin" data-cta-placement="contact-form-failure" data-cta-intent="professional-profile" data-source-section="contact-form-failure" data-destination={linkedinHref}>connect on LinkedIn instead</a>.</p>
 					<button class="button primary" type="submit" aria-describedby="privacy-note form-status">Send message</button>
 			</form>

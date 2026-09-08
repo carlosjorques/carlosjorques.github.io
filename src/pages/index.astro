@@ -96,7 +96,7 @@ const selectedProjects = projectSlugs
 						</a>
 						<a
 							class="button"
-							href={withBase('/contact')}
+							href={withBase('/contact/')}
 							data-analytics-event="cta_click"
 							data-cta-id="hero-contact"
 							data-cta-placement="home-hero"
@@ -241,7 +241,7 @@ const selectedProjects = projectSlugs
 
 			<div class="latest__footer" class:list={{ 'latest__footer--planned': articles.length === 0 }}>
 				<a
-					href={withBase('/writing')}
+					href={withBase('/writing/')}
 					data-analytics-event="cta_click"
 					data-cta-id="home-view-all-writing"
 					data-cta-placement="home-writing"
@@ -256,8 +256,8 @@ const selectedProjects = projectSlugs
 
 	<section class="home-more" aria-label="More about Carlos">
 		<div class="page-container home-more__inner">
-			<a href={withBase('/about')}>More about Carlos</a>
-			<a href={withBase('/cv')}>View CV</a>
+			<a href={withBase('/about/')}>More about Carlos</a>
+			<a href={withBase('/cv/')}>View CV</a>
 		</div>
 	</section>
 </BaseLayout>

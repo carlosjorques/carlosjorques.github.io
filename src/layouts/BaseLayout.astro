@@ -17,13 +17,9 @@ const {
 const siteTitle = title.includes(IDENTITY.name) ? title : `${title} | ${IDENTITY.name}`;
 const baseUrl = import.meta.env.BASE_URL;
 const normalizedBase = baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`;
-const basePath = baseUrl.replace(/\/$/, '');
-const pathname = Astro.url.pathname.startsWith(basePath)
-	? Astro.url.pathname
-	: `${basePath}${Astro.url.pathname}`;
-const canonical = new URL(pathname, Astro.site ?? Astro.url.origin);
+const canonical = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin);
 const pageType = (() => {
-	const firstSegment = Astro.url.pathname.replace(basePath, '').split('/').filter(Boolean)[0];
+	const firstSegment = Astro.url.pathname.split('/').filter(Boolean)[0];
 	return firstSegment || 'home';
 })();
 ---
