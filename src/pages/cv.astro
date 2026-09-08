@@ -154,7 +154,7 @@ const actions: CvAction[] = [
 	},
 	{
 		label: 'Discuss an opportunity',
-		href: '/contact?context=role&source=cv-hero#message-title',
+		href: '/contact/?context=role&source=cv-hero#message-title',
 		analyticsEvent: 'cta_click',
 		ctaId: 'cv-hero-contact',
 		ctaIntent: 'contact',
@@ -899,7 +899,7 @@ const visibleProjectRows = projectRows
 					</li>
 				))}
 			</ul>
-			<a class="button cv-section-nav-float__contact" href={withBase('/contact?source=cv#message-title')}>Contact</a>
+			<a class="button cv-section-nav-float__contact" href={withBase('/contact/?source=cv#message-title')}>Contact</a>
 		</nav>
 
 		<div class="cv-main-flow">
@@ -1143,7 +1143,7 @@ const visibleProjectRows = projectRows
 							))}
 						</div>
 						<p class="cv-section-cta">
-							<a href={withBase('/work')}>Explore all selected work</a>
+							<a href={withBase('/work/')}>Explore all selected work</a>
 						</p>
 					</div>
 				</div>

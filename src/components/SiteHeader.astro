@@ -12,10 +12,10 @@ const isActive = (href: string) => href === '/' ? currentPath === '/' : currentP
 
 	<div class="site-header__actions">
 		<nav class="site-header__nav site-header__nav--desktop" aria-label="Primary navigation">
-			<a href={withBase('/work')} aria-current={isActive('/work') ? 'page' : undefined}>Work</a>
-			<a href={withBase('/about')} aria-current={isActive('/about') ? 'page' : undefined}>About</a>
-			<a href={withBase('/cv')} aria-current={isActive('/cv') ? 'page' : undefined}>CV</a>
-			<a href={withBase('/contact')} aria-current={isActive('/contact') ? 'page' : undefined}>Contact</a>
+			<a href={withBase('/work/')} aria-current={isActive('/work/') ? 'page' : undefined}>Work</a>
+			<a href={withBase('/about/')} aria-current={isActive('/about/') ? 'page' : undefined}>About</a>
+			<a href={withBase('/cv/')} aria-current={isActive('/cv/') ? 'page' : undefined}>CV</a>
+			<a href={withBase('/contact/')} aria-current={isActive('/contact/') ? 'page' : undefined}>Contact</a>
 			<div class="site-header__more">
 				<button class="site-header__more-trigger" type="button" aria-haspopup="true" aria-controls="site-header-more-menu">
 					<span>More</span>
@@ -24,8 +24,8 @@ const isActive = (href: string) => href === '/' ? currentPath === '/' : currentP
 					</svg>
 				</button>
 				<div class="site-header__more-panel" id="site-header-more-menu">
-					<a href={withBase('/writing')} aria-current={isActive('/writing') ? 'page' : undefined}>Writing</a>
-					<a href={withBase('/research')} aria-current={isActive('/research') ? 'page' : undefined}>Research</a>
+					<a href={withBase('/writing/')} aria-current={isActive('/writing/') ? 'page' : undefined}>Writing</a>
+					<a href={withBase('/research/')} aria-current={isActive('/research/') ? 'page' : undefined}>Research</a>
 				</div>
 			</div>
 		</nav>
@@ -39,8 +39,8 @@ const isActive = (href: string) => href === '/' ? currentPath === '/' : currentP
 			<summary aria-label="Open navigation menu"><span></span><span></span><span></span></summary>
 			<nav class="site-header__mobile-panel" aria-label="Mobile navigation">
 				<a class="site-header__mobile-brand" href={withBase('/')}>Carlos Jorques</a>
-				<a href={withBase('/work')}>Work</a><a href={withBase('/about')}>About</a><a href={withBase('/cv')}>CV</a>
-				<a href={withBase('/writing')}>Writing</a><a href={withBase('/research')}>Research</a><a href={withBase('/contact')}>Contact</a>
+				<a href={withBase('/work/')}>Work</a><a href={withBase('/about/')}>About</a><a href={withBase('/cv/')}>CV</a>
+				<a href={withBase('/writing/')}>Writing</a><a href={withBase('/research/')}>Research</a><a href={withBase('/contact/')}>Contact</a>
 			</nav>
 		</details>
 	</div>

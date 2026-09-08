@@ -66,7 +66,7 @@ const articles = (await getCollection('writing'))
 						</a>
 						<a
 							class="button"
-							href={withBase('/contact')}
+							href={withBase('/contact/')}
 							data-analytics-event="cta_click"
 							data-cta-id="hero-contact"
 							data-cta-placement="home-hero"
@@ -194,7 +194,7 @@ const articles = (await getCollection('writing'))
 
 			<div class="latest__footer">
 				<a
-					href={withBase('/writing')}
+					href={withBase('/writing/')}
 					data-analytics-event="cta_click"
 					data-cta-id="home-view-all-writing"
 					data-cta-placement="home-writing"
@@ -209,8 +209,8 @@ const articles = (await getCollection('writing'))
 
 	<section class="home-more" aria-label="More about Carlos">
 		<div class="page-container home-more__inner">
-			<a href={withBase('/about')}>More about Carlos</a>
-			<a href={withBase('/cv')}>View CV</a>
+			<a href={withBase('/about/')}>More about Carlos</a>
+			<a href={withBase('/cv/')}>View CV</a>
 		</div>
 	</section>
 </BaseLayout>

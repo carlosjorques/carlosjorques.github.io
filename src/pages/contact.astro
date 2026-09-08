@@ -86,7 +86,7 @@ const contactSource = Astro.url.searchParams.get('source')?.match(/^[a-z0-9-]+$/
 					<input id="contact-botcheck" name="botcheck" type="checkbox" tabindex="-1" autocomplete="off" />
 				</div>
 
-					<p class="contact-note" id="privacy-note">I&apos;ll use your details only to reply to your message. <a href={withBase('/privacy')}>Read the privacy notice.</a></p>
+					<p class="contact-note" id="privacy-note">I&apos;ll use your details only to reply to your message. <a href={withBase('/privacy/')}>Read the privacy notice.</a></p>
 					<button class="button primary" type="submit" aria-describedby="privacy-note form-status">Send message</button>
 			</form>
 
