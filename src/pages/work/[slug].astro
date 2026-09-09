@@ -109,7 +109,7 @@ const withBase = (href: string) => `${import.meta.env.BASE_URL}${href.replace(/^
 			</div>
 
 			{data.relatedWritingUrl && <p class="related-writing"><span>Related writing</span><a href={data.relatedWritingUrl}>Read the deeper technical note <span aria-hidden="true">→</span></a></p>}
-			<div class="project-page__closing"><ContactCTA title={`Working on a similar ${data.context.toLowerCase()} problem?`} body="Share the system or role you are considering. I can point to the relevant project and compare the constraints with you." primaryHref="/contact/?context=technical&source=project#message-title" primaryLabel="Discuss a similar problem" secondaryHref="/work/" secondaryLabel="Back to project work" /></div>
+			<div class="project-page__closing"><ContactCTA title={`Working on a similar ${data.context.toLowerCase()} problem?`} body="Share the system or role you are considering. I can point to the relevant project and compare the constraints with you." primaryHref="/contact/?context=technical&source=project#message-title" primaryLabel="Discuss a similar problem" secondaryHref="/work/" secondaryLabel="Back to project work" sourceSection="project-closing" ctaIdPrefix="project-closing" /></div>
 		</div>
 	</article>
 </BaseLayout>

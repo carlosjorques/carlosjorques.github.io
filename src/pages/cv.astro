@@ -154,19 +154,19 @@ const visibleDetailGroups = (groups?: DetailGroup[]) =>
 
 const actions: CvAction[] = [
 	{
-		label: 'Download PDF CV',
-		href: '/cv/Carlos_Jorques_CV.pdf',
-		primary: true,
-		analyticsEvent: 'cv_pdf_download',
-		ctaId: 'cv-hero-pdf',
-		ctaIntent: 'formal-proof',
-	},
-	{
 		label: 'Discuss an opportunity',
-		href: '/contact/?context=role&source=cv-hero#message-title',
+		href: '/contact/?context=role&source=cv#message-title',
+		primary: true,
 		analyticsEvent: 'cta_click',
 		ctaId: 'cv-hero-contact',
 		ctaIntent: 'contact',
+	},
+	{
+		label: 'Download PDF CV',
+		href: '/cv/Carlos_Jorques_CV.pdf',
+		analyticsEvent: 'cv_pdf_download',
+		ctaId: 'cv-hero-pdf',
+		ctaIntent: 'formal-proof',
 	},
 ];
 
@@ -871,6 +871,7 @@ const visibleProjectRows = projectRows
 									data-cta-intent={action.ctaIntent}
 									data-source-section="cv-hero"
 									data-destination={withBase(action.href)}
+									download={action.href.toLowerCase().endsWith('.pdf') ? true : undefined}
 								>
 									{action.label}
 								</a>
@@ -930,7 +931,18 @@ const visibleProjectRows = projectRows
 					</li>
 				))}
 			</ul>
-			<a class="button cv-section-nav-float__contact" href={withBase('/contact/?source=cv#message-title')}>Contact</a>
+			<a
+				class="button cv-section-nav-float__contact"
+				href={withBase('/contact/?context=role&source=cv#message-title')}
+				data-analytics-event="cta_click"
+				data-cta-id="cv-float-contact"
+				data-cta-placement="cv-section-nav"
+				data-cta-intent="contact"
+				data-source-section="cv-section-nav"
+				data-destination={withBase('/contact/?context=role&source=cv#message-title')}
+			>
+				Contact
+			</a>
 		</nav>
 
 		<div class="cv-main-flow">
@@ -1287,7 +1299,7 @@ const visibleProjectRows = projectRows
 
 			<section class="section cv-closing" aria-label="Contact">
 				<div class="page-container">
-					<ContactCTA title="Have a similar role that matches my profile, or collaboration in mind?" body="Send a message or connect or connect on LinkedIn. I'll be glad to hear from you." primaryHref="/contact?context=role&source=cv-closing#message-title" primaryLabel="Discuss an opportunity" secondaryHref={CONTACT_DESTINATIONS.linkedin} secondaryLabel="Connect on LinkedIn" tertiaryHref={CONTACT_DESTINATIONS.cv} tertiaryLabel="Download PDF CV" />
+					<ContactCTA title="Have a role, project, or collaboration that fits my background?" body="Send a message to discuss the opportunity, or connect with me on LinkedIn." primaryHref="/contact/?context=role&source=cv#message-title" primaryLabel="Discuss an opportunity" secondaryHref={CONTACT_DESTINATIONS.linkedin} secondaryLabel="Connect on LinkedIn" tertiaryHref={CONTACT_DESTINATIONS.cv} tertiaryLabel="Download PDF CV" sourceSection="cv-closing" ctaIdPrefix="cv-closing" />
 				</div>
 			</section>
 		</div>

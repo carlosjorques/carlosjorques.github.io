@@ -1,7 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { CONTACT_DESTINATIONS, IDENTITY } from '../data/identity';
+import { IDENTITY } from '../data/identity';
 
 const baseUrl = import.meta.env.BASE_URL;
 const normalizedBase = baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`;
@@ -98,29 +98,27 @@ description={`${IDENTITY.primaryTitle}. ${IDENTITY.brandStatement} ${IDENTITY.le
 						</a>
 						<a
 							class="button"
-							href={withBase('/contact/')}
+							href={withBase('/writing/')}
+							data-analytics-event="cta_click"
+							data-cta-id="hero-writing"
+							data-cta-placement="home-hero"
+							data-cta-intent="authority"
+							data-source-section="hero"
+							data-destination={withBase('/writing/')}
+						>
+							Read writing
+						</a>
+						<a
+							class="button"
+							href={withBase('/contact/?source=home#message-title')}
 							data-analytics-event="cta_click"
 							data-cta-id="hero-contact"
 							data-cta-placement="home-hero"
 							data-cta-intent="contact"
 							data-source-section="hero"
-							data-destination={withBase('/contact')}
+							data-destination={withBase('/contact/?source=home#message-title')}
 						>
 							Contact
-						</a>
-						<a
-							class="button"
-							href={CONTACT_DESTINATIONS.linkedin}
-							target="_blank"
-							rel="noopener noreferrer"
-							data-analytics-event="linkedin_outbound_click"
-							data-cta-id="hero-linkedin"
-							data-cta-placement="home-hero"
-							data-cta-intent="professional-profile"
-							data-source-section="hero"
-							data-destination={CONTACT_DESTINATIONS.linkedin}
-						>
-							LinkedIn
 						</a>
 					</div>
 				</div>

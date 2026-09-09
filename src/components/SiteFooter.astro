@@ -21,17 +21,19 @@ const linkedinHref = CONTACT_DESTINATIONS.linkedin;
 				data-cta-placement="footer"
 				data-cta-intent="professional-profile"
 				data-source-section="footer"
+				data-destination={linkedinHref}
 			>
 				LinkedIn
 			</a>
 			<a
 				href={withBase(CONTACT_DESTINATIONS.cv)}
 				download
-				data-analytics-event="cta_click"
+				data-analytics-event="cv_pdf_download"
 				data-cta-id="footer-cv"
 				data-cta-placement="footer"
-				data-cta-intent="proof"
+				data-cta-intent="formal-proof"
 				data-source-section="footer"
+				data-destination={withBase(CONTACT_DESTINATIONS.cv)}
 			>
 				Download PDF CV
 			</a>

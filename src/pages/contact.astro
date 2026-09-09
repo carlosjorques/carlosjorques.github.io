@@ -11,9 +11,9 @@ const withBase = (href: string) =>
 
 const linkedinHref = CONTACT_DESTINATIONS.linkedin;
 const web3FormsAccessKey = '7f35453b-2e22-4022-bb4b-46573f04453b';
-const contactContext = ['role', 'technical', 'collaboration'].includes(Astro.url.searchParams.get('context') ?? '')
-	? Astro.url.searchParams.get('context')
-	: '';
+const validContactContexts = ['role', 'technical', 'collaboration'] as const;
+const requestedContext = Astro.url.searchParams.get('context');
+const contactContext = validContactContexts.find((context) => context === requestedContext);
 const contactSource = Astro.url.searchParams.get('source')?.match(/^[a-z0-9-]+$/i)?.[0] ?? '';
 ---
 
@@ -69,10 +69,9 @@ const contactSource = Astro.url.searchParams.get('source')?.match(/^[a-z0-9-]+$/
 					<fieldset class="form-field form-fieldset">
 						<legend>Choose a conversation path</legend>
 						<div class="radio-group">
-							<label><input type="radio" name="context" value="role" checked={contactContext === 'role'} /> Role</label>
+							<label><input type="radio" name="context" value="role" checked={contactContext === 'role' || !contactContext} /> Role</label>
 							<label><input type="radio" name="context" value="technical" checked={contactContext === 'technical'} /> Technical question</label>
 							<label><input type="radio" name="context" value="collaboration" checked={contactContext === 'collaboration'} /> Collaboration</label>
-							<label><input type="radio" name="context" value="other" /> Other</label>
 						</div>
 					</fieldset>
 
@@ -168,11 +167,13 @@ const contactSource = Astro.url.searchParams.get('source')?.match(/^[a-z0-9-]+$/
 		sourcePageField.value = querySource;
 	}
 	const queryContext = queryParams.get('context');
-	if (queryContext && ['role', 'technical', 'collaboration'].includes(queryContext)) {
+	const initialContext = contextInputs.find((input) => input.value === queryContext)?.value ?? 'role';
+	const restoreInitialContext = () => {
 		contextInputs.forEach((input) => {
-			input.checked = input.value === queryContext;
+			input.checked = input.value === initialContext;
 		});
-	}
+	};
+	restoreInitialContext();
 
 	const restoreSubmitButton = () => {
 		if (submitButton?.dataset.submissionState !== 'sent') return;
@@ -208,6 +209,7 @@ const contactSource = Astro.url.searchParams.get('source')?.match(/^[a-z0-9-]+$/
 			if (!result.ok || body.success !== true) throw new Error('Message could not be sent.');
 
 			contactForm.reset();
+			restoreInitialContext();
 			if (formStatus) formStatus.textContent = 'Thanks — your message has been sent. I’ll reply soon.';
 			if (submitButton) {
 				submitButton.textContent = 'Message sent!';

@@ -15,6 +15,7 @@ export async function getStaticPaths() {
 const { entry } = Astro.props;
 const { Content } = await render(entry);
 const projects = await getCollection('projects');
+const articleSlug = entry.id.replace(/\.md$/, '');
 const baseUrl = import.meta.env.BASE_URL;
 const normalizedBase = baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`;
 const withBase = (href: string) =>
@@ -42,7 +43,7 @@ const relatedProjectSlugs: Record<string, string> = {
 	'from-model-to-machine': 'embedded-control-system-architecture',
 	'requirements-to-actuation': 'embedded-control-system-architecture',
 };
-const relatedProjectSlug = relatedProjectSlugs[entry.id.replace(/\.md$/, '')];
+const relatedProjectSlug = relatedProjectSlugs[articleSlug];
 const relatedProject = relatedProjectSlug
 	? projects.find((project) => project.id === relatedProjectSlug)
 	: undefined;
@@ -83,37 +84,39 @@ const relatedProject = relatedProjectSlug
 			<div class="page-container writing-post__container">
 				<h2 id="article-related-title">Related context</h2>
 				<div class="writing-post__related-links" aria-label="Related context links">
-					{
-						relatedProject && (
-							<a
-								href={withBase(`work/${relatedProject.id}/`)}
-								data-analytics-event="related_proof_click"
-								data-cta-id={`article-related-project-${relatedProject.id}`}
-								data-cta-placement="writing-article"
-								data-cta-intent="proof"
-								data-source-section="article-related-proof"
-							>
-								View related project: {relatedProject.data.title}
-							</a>
-						)
-					}
-					<a
-						href={withBase('work/')}
-						data-analytics-event="related_proof_click"
-						data-cta-id="article-related-work"
-						data-cta-placement="writing-article"
-						data-cta-intent="proof"
-						data-source-section="article-related-proof"
-					>
-						View Work
-					</a>
+					{relatedProject ? (
+						<a
+							href={withBase(`work/${relatedProject.id}/`)}
+							data-analytics-event="related_proof_click"
+							data-cta-id={`article-${articleSlug}-related-project-${relatedProject.id}`}
+							data-cta-placement="writing-article"
+							data-cta-intent="proof"
+							data-source-section="article-related-proof"
+							data-destination={withBase(`work/${relatedProject.id}/`)}
+						>
+							View related project: {relatedProject.data.title}
+						</a>
+					) : (
+						<a
+							href={withBase('work/')}
+							data-analytics-event="related_proof_click"
+							data-cta-id={`article-${articleSlug}-related-work`}
+							data-cta-placement="writing-article"
+							data-cta-intent="proof"
+							data-source-section="article-related-proof"
+							data-destination={withBase('work/')}
+						>
+							View Work
+						</a>
+					)}
 					<a
 						href={`${import.meta.env.BASE_URL}cv/#expertise`}
 						data-analytics-event="related_proof_click"
-						data-cta-id="article-related-cv"
+						data-cta-id={`article-${articleSlug}-related-cv`}
 						data-cta-placement="writing-article"
 						data-cta-intent="formal-proof"
 						data-source-section="article-related-proof"
+						data-destination={`${import.meta.env.BASE_URL}cv/#expertise`}
 					>
 						View CV expertise
 					</a>
@@ -124,24 +127,21 @@ const relatedProject = relatedProjectSlug
 		<footer class="writing-post__footer">
 			<div class="page-container writing-post__container">
 				<p class="writing-post__author">{IDENTITY.name} — {IDENTITY.primaryTitle}</p>
-				<nav class="writing-post__footer-links" aria-label="Article footer links"><a href={withBase('writing/')}>More writing</a><a href={withBase('about/')}>About</a></nav>
+				<nav class="writing-post__footer-links" aria-label="Article footer links"><a href={withBase('about/')}>About</a></nav>
 				<ContactCTA
 					title="Compare notes on the engineering problem?"
 					body="This article focuses on the reasoning behind the implementation. Use Contact for a peer discussion or collaboration, or Work for project examples."
-					primaryHref="/contact/?context=technical&source=writing-article#message-title"
+					primaryHref="/contact/?context=technical&source=writing#message-title"
 					primaryLabel="Start a technical conversation"
 					secondaryHref="writing/"
 					secondaryLabel="Browse more reasoning"
+					sourceSection="writing-article"
+					ctaIdPrefix="writing-article"
 				/>
 			</div>
 		</footer>
 	</article>
 
-	<nav class="writing-post__nav" aria-label="Writing navigation">
-		<div class="page-container writing-post__container">
-			<a href={withBase('writing/')}>Back to latest articles</a>
-		</div>
-	</nav>
 </Layout>
 
 <style>
@@ -605,29 +605,6 @@ const relatedProject = relatedProjectSlug
 	.writing-post__related-links a:focus-visible {
 		outline: 2px solid var(--color-focus);
 		outline-offset: 4px;
-	}
-
-	.writing-post__nav {
-		border-top: 1px solid var(--color-border-soft);
-		padding-block: clamp(1rem, 2vw, 1.35rem);
-	}
-
-	.writing-post__nav a {
-		color: var(--color-text);
-		font-family: var(--font-mono);
-		font-size: var(--type-chip-size);
-		font-weight: 700;
-		letter-spacing: var(--type-chip-tracking);
-		line-height: var(--type-chip-line);
-		text-decoration: underline;
-		text-decoration-thickness: 1px;
-		text-underline-offset: 0.22em;
-		text-transform: uppercase;
-	}
-
-	.writing-post__nav a:hover,
-	.writing-post__nav a:focus-visible {
-		color: var(--color-link-hover);
 	}
 
         @media (max-width: 640px) {

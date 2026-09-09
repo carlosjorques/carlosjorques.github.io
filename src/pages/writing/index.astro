@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
+import ContactCTA from '../../components/ContactCTA.astro';
 import { TAG_GROUPS, tagGroupFor } from '../../data/tagGroups';
 
 const baseUrl = import.meta.env.BASE_URL;
@@ -123,9 +124,24 @@ const groupSlug = (group: string) => toTagSlug(group);
 						<p class="section-eyebrow">In preparation</p>
 						<h3 id="writing-planned-title">Practical notes are being prepared.</h3>
 						<p>The planned collection will explore control architecture, diagnostics, real-time implementation, and the engineering decisions that help physical systems behave reliably.</p>
-						<a href={`${normalizedBase}contact/`}>Suggest a topic</a>
+						<a href={`${normalizedBase}contact/?context=technical&source=writing#message-title`}>Discuss a technical question</a>
 					</div>
 				)}
+			</div>
+		</section>
+
+		<section class="section writing-next-step" aria-label="Continue the conversation">
+			<div class="page-container writing-container">
+				<ContactCTA
+					title="Have a technical question to explore?"
+					body="Contact to discuss any related engineering problem or collaboration."
+					primaryHref="/contact/?context=technical&source=writing#message-title"
+					primaryLabel="Start a technical conversation"
+					secondaryHref="/work/"
+					secondaryLabel="View related work"
+					sourceSection="writing-index"
+					ctaIdPrefix="writing-index"
+				/>
 			</div>
 		</section>
 	</div>

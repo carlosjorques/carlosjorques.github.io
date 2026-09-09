@@ -10,6 +10,7 @@ interface Props {
 	tertiaryHref?: string;
 	tertiaryLabel?: string;
 	sourceSection?: string;
+	ctaIdPrefix?: string;
 }
 
 const {
@@ -23,6 +24,7 @@ const {
 	tertiaryHref,
 	tertiaryLabel,
 	sourceSection = 'contact-cta',
+	ctaIdPrefix = sourceSection,
 } = Astro.props;
 const baseUrl = import.meta.env.BASE_URL;
 const normalizedBase = baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`;
@@ -31,8 +33,12 @@ const withBase = (href: string) =>
 		? href
 		: `${normalizedBase}${href.replace(/^\//, '')}`;
 const isExternal = (href: string) => href.startsWith('http');
-const eventName = (href: string) => href.startsWith('writing') ? 'writing_article_click' : href.startsWith('http') ? 'linkedin_outbound_click' : 'cta_click';
-const intent = (href: string) => href.startsWith('writing') ? 'authority' : href.startsWith('http') ? 'professional-profile' : href.includes('contact') ? 'contact' : 'proof';
+const isPdf = (href: string) => href.toLowerCase().includes('.pdf');
+const isWriting = (href: string) => href.replace(/^\//, '').startsWith('writing');
+const eventName = (href: string) =>
+	isPdf(href) ? 'cv_pdf_download' : isWriting(href) ? 'writing_article_click' : href.startsWith('http') ? 'linkedin_outbound_click' : 'cta_click';
+const intent = (href: string) =>
+	isPdf(href) ? 'formal-proof' : isWriting(href) ? 'authority' : href.startsWith('http') ? 'professional-profile' : href.includes('contact') ? 'contact' : 'proof';
 ---
 
 <section class="contact-cta">
@@ -45,12 +51,15 @@ const intent = (href: string) => href.startsWith('writing') ? 'authority' : href
 		<a
 			class="button primary"
 			href={withBase(primaryHref)}
-			data-analytics-event="cta_click"
-			data-cta-id="contact-cta-primary"
+			data-analytics-event={eventName(primaryHref)}
+			data-cta-id={`${ctaIdPrefix}-primary`}
 			data-cta-placement="contact-cta"
-			data-cta-intent="contact"
+			data-cta-intent={intent(primaryHref)}
 			data-source-section={sourceSection}
 			data-destination={withBase(primaryHref)}
+			download={isPdf(primaryHref) ? true : undefined}
+			target={isExternal(primaryHref) ? '_blank' : undefined}
+			rel={isExternal(primaryHref) ? 'noopener noreferrer' : undefined}
 		>
 			{primaryLabel}
 		</a>
@@ -58,11 +67,12 @@ const intent = (href: string) => href.startsWith('writing') ? 'authority' : href
 			class="button"
 			href={withBase(secondaryHref)}
 			data-analytics-event={eventName(secondaryHref)}
-			data-cta-id="contact-cta-secondary"
+			data-cta-id={`${ctaIdPrefix}-secondary`}
 			data-cta-placement="contact-cta"
 			data-cta-intent={intent(secondaryHref)}
 			data-source-section={sourceSection}
 			data-destination={withBase(secondaryHref)}
+			download={isPdf(secondaryHref) ? true : undefined}
 			target={isExternal(secondaryHref) ? '_blank' : undefined}
 			rel={isExternal(secondaryHref) ? 'noopener noreferrer' : undefined}
 		>
@@ -73,11 +83,12 @@ const intent = (href: string) => href.startsWith('writing') ? 'authority' : href
 				class="button"
 				href={withBase(tertiaryHref)}
 				data-analytics-event={eventName(tertiaryHref)}
-				data-cta-id="contact-cta-tertiary"
+				data-cta-id={`${ctaIdPrefix}-tertiary`}
 				data-cta-placement="contact-cta"
 				data-cta-intent={intent(tertiaryHref)}
 				data-source-section={sourceSection}
 				data-destination={withBase(tertiaryHref)}
+				download={isPdf(tertiaryHref) ? true : undefined}
 				target={isExternal(tertiaryHref) ? '_blank' : undefined}
 				rel={isExternal(tertiaryHref) ? 'noopener noreferrer' : undefined}
 			>
