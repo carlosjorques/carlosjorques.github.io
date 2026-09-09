@@ -2,21 +2,21 @@
 import Layout from '../layouts/Layout.astro';
 import AboutStoryBlock from '../components/AboutStoryBlock.astro';
 import ContactCTA from '../components/ContactCTA.astro';
-import { CONTACT_DESTINATIONS, IDENTITY } from '../data/identity';
+import { IDENTITY } from '../data/identity';
 const baseUrl = import.meta.env.BASE_URL;
 const normalizedBase = baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`;
 const withBase = (href: string) => href.startsWith('http') || href.startsWith('mailto:') || href.startsWith('#') ? href : `${normalizedBase}${href.replace(/^\//, '')}`;
 const portraitUrl = withBase('/images/carlos-jorques-intro.webp');
 ---
 
-<Layout title={`About ${IDENTITY.name} | ${IDENTITY.primaryTitle}`} description={`About ${IDENTITY.name}, an ${IDENTITY.primaryTitle} focused on control system design and implementation in embedded systems, multidisciplinary engineering, and system integration.`}>
+<Layout title={`About ${IDENTITY.name} | ${IDENTITY.primaryTitle}`} description={`The professional through-line, engineering philosophy, and leadership approach of ${IDENTITY.name}, an ${IDENTITY.primaryTitle}.`}>
 	<div class="about-page">
 		<section class="about-hero" aria-labelledby="about-title">
 			<p class="about-eyebrow">About me</p>
 			<div class="about-hero__layout">
 				<div class="about-hero__copy">
 					<h1 id="about-title">I lead the design of embedded control systems that shape how complex machines sense, decide, and act reliably.</h1>
-					<p class="about-hero__lead">I’m Carlos, an <strong>{IDENTITY.primaryTitle} and {IDENTITY.supportingDescriptor}</strong> who combines hands-on control system design and implementation with technical direction across diagnostics and system integration.</p>
+					<p class="about-hero__lead">I’m Carlos, an <strong>{IDENTITY.primaryTitle}</strong>. {IDENTITY.leadershipStatement} I take that work from requirements and architecture through validation and delivery.</p>
 					<nav class="about-hero__actions" aria-label="About quick links">
 						<a href={withBase('/cv/')}>View CV</a>
 						<a href={withBase('/work/')}>Selected work</a>
@@ -33,10 +33,10 @@ const portraitUrl = withBase('/images/carlos-jorques-intro.webp');
 			id="background"
 			label="Background"
 			title="Production embedded controls for complex physical systems"
-			intro="For more than 12 years, I have developed production embedded control software for electric trucks, autonomous machines, power electronics, and other complex vehicle systems."
+			intro="For more than 12 years, I have developed production embedded control software for electric trucks, autonomous machines, power electronics, and other complex vehicle systems. The domains change, but the work keeps returning to state estimation, uncertainty, fault handling, timing, and validation on hardware."
 			disclosureLabel="See my production background"
 			expanded={[
-				"At Scania, Volvo CE, and MAHLE Electronics, I have worked with international teams to turn control concepts into software, validation evidence, and production-ready machine behaviour. The work spans electric trucks, autonomous machinery, power electronics, and motor control."
+				"Across Scania, Volvo CE, and MAHLE Electronics, I have worked with international teams to turn control concepts into software, validation results, and production delivery. The work is not tied to one product. It is about making sensing, decisions, actuation, and diagnostics behave as one system, then checking that result against real constraints."
 			]}
 			collapsible={true}
 		/>
@@ -45,7 +45,7 @@ const portraitUrl = withBase('/images/carlos-jorques-intro.webp');
 			id="approach"
 			label="Engineering approach"
 			title="Reliable behaviour guides my decisions"
-			intro="I favour solutions that are clear, robust, and practical to implement. Control performance matters, but so do hardware limits, fault response, and the evidence that the system behaves as intended."
+			intro="I favour solutions that are clear, robust, and practical to implement. The harder cases involve nonlinear or coupled behaviour, incomplete measurements, and physical limits, so control performance must be judged together with fault response and test results."
 			disclosureLabel="How I make engineering decisions"
 			expanded={[
 				"I start by clarifying the intended behaviour, the physical limits, and what the available measurements can reliably tell us. That helps me decide what belongs in the control logic, how interfaces should behave, and what should happen when signals or operating conditions are uncertain.",
@@ -58,11 +58,11 @@ const portraitUrl = withBase('/images/carlos-jorques-intro.webp');
 			id="collaboration"
 			label="Technical Leadership"
 			title="Making difficult engineering work clear enough to deliver"
-			intro="I set technical direction and help engineers make clear decisions together, keeping system behaviour, software quality, and delivery priorities connected."
-			disclosureLabel="How I help teams deliver"
+			intro="I set technical direction and align engineers around clear decisions, with system behaviour, software quality, and delivery priorities in view."
+			disclosureLabel="How I lead teams through delivery"
 			expanded={[
-				"I have led a team of three embedded software engineers across client assignments, contributing to technical direction, planning, software quality, and mentoring. At MAHLE, I also served as Scrum Master for a six person team.",
-				"I help teams clarify responsibilities, make technical risks visible, and resolve issues where disciplines meet. I connect delivery decisions to the system’s intended behaviour and the available validation evidence."
+				"I have led a team of three embedded software engineers across client assignments, contributing to technical direction, planning, software quality, and mentoring. At MAHLE, I also served as Scrum Master for a six-person team.",
+				"I set responsibilities, make technical risks visible, and resolve issues where disciplines meet. I align delivery decisions with intended system behaviour and the validation results available to the team."
 			]}
 			collapsible={true}
 		/>
@@ -75,7 +75,7 @@ const portraitUrl = withBase('/images/carlos-jorques-intro.webp');
 			disclosureLabel="Read the story behind my work"
 			expanded={[
 				"I started experimenting with electronics at eight, but the moment that set my direction came later, at Campus Party Valencia. I watched a line-following robot I had built wobble and overshoot, while other robots moved smoothly through the same turns. The hardware was capable of more — the difference was in how the system was controlled.",
-				"That gap has shaped how I think about intelligent machines ever since: not sophisticated logic, but the ability to sense what's happening, judge what matters under uncertainty, and act on it reliably. That question took me through Electrical Engineering and into an industrial doctorate. My industrial doctorate focused on automatic control, connecting control theory, embedded implementation, and experimental validation. Later, I moved into the automotive industry, where I learned that a sound idea also has to survive noisy signals, limited resources, and deadlines.",
+				"That gap has shaped how I think about intelligent machines ever since: not sophisticated logic, but the ability to sense what's happening, judge what matters under uncertainty, and act on it reliably. That question took me through Electrical Engineering and into an industrial doctorate. My industrial doctorate focused on automatic control, using control theory in embedded implementation and experimental validation. Later, I moved into the automotive industry, where I learned that a sound idea also has to survive noisy signals, limited resources, and deadlines.",
 				"That combination of curiosity and production experience now shapes how I work. I enjoy exploring difficult problems, but I also know that engineering creates value only when a solution can be understood, maintained, validated, and delivered."
 			]}
 		/>
@@ -97,13 +97,14 @@ const portraitUrl = withBase('/images/carlos-jorques-intro.webp');
 
 		<section class="section about-closing" aria-label="Contact">
 			<ContactCTA
-				title="Have an embedded systems opportunity, technical question, or collaboration in mind?"
-				body="I’m open to related roles, technical leadership opportunities, freelance engineering work, and conversations about embedded controls, electrification, diagnostics, and intelligent physical systems."
-				primaryLabel="Start a conversation"
-				secondaryHref={CONTACT_DESTINATIONS.linkedin}
-				secondaryLabel="Connect on LinkedIn"
-				tertiaryHref="/work/"
-				tertiaryLabel="Explore selected work"
+				title="If the way I work fits the problem, let’s compare context."
+				body="Contact is for a role discussion or peer conversation. Work shows the projects; the CV gives the full career record."
+				primaryHref="/contact/?context=general&source=about#message-title"
+				primaryLabel="Talk about the context"
+				secondaryHref="/work/"
+				secondaryLabel="Review project work"
+				tertiaryHref="/cv/"
+				tertiaryLabel="Review career record"
 			/>
 		</section>
 	</div>

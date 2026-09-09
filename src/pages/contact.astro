@@ -11,7 +11,9 @@ const withBase = (href: string) =>
 
 const linkedinHref = CONTACT_DESTINATIONS.linkedin;
 const web3FormsAccessKey = '7f35453b-2e22-4022-bb4b-46573f04453b';
-const contactContext = Astro.url.searchParams.get('context') === 'role' ? 'role' : '';
+const contactContext = ['role', 'technical', 'collaboration'].includes(Astro.url.searchParams.get('context') ?? '')
+	? Astro.url.searchParams.get('context')
+	: '';
 const contactSource = Astro.url.searchParams.get('source')?.match(/^[a-z0-9-]+$/i)?.[0] ?? '';
 ---
 
@@ -23,7 +25,7 @@ const contactSource = Astro.url.searchParams.get('source')?.match(/^[a-z0-9-]+$/
 		<div class="page-container">
 			<p class="section-eyebrow">Contact</p>
 			<h1 id="contact-title" class="hero-title">Let’s talk.</h1>
-			<p class="contact-hero__lead">I’m Carlos, an {IDENTITY.primaryTitle} and {IDENTITY.supportingDescriptor}. For a role, technical question, or collaboration, <a href="#message-title">send a message</a> or <a href={linkedinHref} target="_blank" rel="noopener noreferrer" data-analytics-event="linkedin_outbound_click" data-cta-id="contact-linkedin" data-cta-placement="contact-hero-copy" data-cta-intent="professional-profile" data-source-section="contact-hero" data-destination={linkedinHref}>connect on LinkedIn</a>.</p>
+			<p class="contact-hero__lead">I’m Carlos, an {IDENTITY.primaryTitle}. Use the form below to <a href="#message-title">send a message</a> for a role discussion, a technical question, or a conversation. You can also <a href={linkedinHref} target="_blank" rel="noopener noreferrer" data-analytics-event="linkedin_outbound_click" data-cta-id="contact-linkedin" data-cta-placement="contact-hero-copy" data-cta-intent="professional-profile" data-source-section="contact-hero" data-destination={linkedinHref}>connect on LinkedIn</a>.</p>
 			<p class="contact-hero__proof">Based in Spain <span aria-hidden="true">·</span> Working remotely with international teams</p>
 		</div>
 	</section>
@@ -65,11 +67,11 @@ const contactSource = Astro.url.searchParams.get('source')?.match(/^[a-z0-9-]+$/
 					</div>
 
 					<fieldset class="form-field form-fieldset">
-						<legend>What are you reaching out about?</legend>
+						<legend>Choose a conversation path</legend>
 						<div class="radio-group">
 							<label><input type="radio" name="context" value="role" checked={contactContext === 'role'} /> Role</label>
-							<label><input type="radio" name="context" value="project" /> Project</label>
-							<label><input type="radio" name="context" value="collaboration" /> Collaboration</label>
+							<label><input type="radio" name="context" value="technical" checked={contactContext === 'technical'} /> Technical question</label>
+							<label><input type="radio" name="context" value="collaboration" checked={contactContext === 'collaboration'} /> Collaboration</label>
 							<label><input type="radio" name="context" value="other" /> Other</label>
 						</div>
 					</fieldset>
@@ -158,15 +160,18 @@ const contactSource = Astro.url.searchParams.get('source')?.match(/^[a-z0-9-]+$/
 	const submitButton = contactForm?.querySelector<HTMLButtonElement>('button[type="submit"]');
 	const contactFallback = document.querySelector<HTMLElement>('#contact-fallback');
 	const defaultSubmitLabel = submitButton?.textContent?.trim() ?? 'Send message';
-	const roleContextInput = contactForm?.querySelector<HTMLInputElement>('input[name="context"][value="role"]');
+	const contextInputs = Array.from(contactForm?.querySelectorAll<HTMLInputElement>('input[name="context"]') ?? []);
 	const queryParams = new URLSearchParams(window.location.search);
 	const querySource = queryParams.get('source');
 	const sourcePageField = contactForm?.querySelector<HTMLInputElement>('[data-source-page-field]');
 	if (querySource && /^[a-z0-9-]+$/i.test(querySource) && sourcePageField) {
 		sourcePageField.value = querySource;
 	}
-	if (queryParams.get('context') === 'role' && roleContextInput) {
-		roleContextInput.checked = true;
+	const queryContext = queryParams.get('context');
+	if (queryContext && ['role', 'technical', 'collaboration'].includes(queryContext)) {
+		contextInputs.forEach((input) => {
+			input.checked = input.value === queryContext;
+		});
 	}
 
 	const restoreSubmitButton = () => {

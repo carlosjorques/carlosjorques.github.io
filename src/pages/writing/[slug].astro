@@ -126,10 +126,12 @@ const relatedProject = relatedProjectSlug
 				<p class="writing-post__author">{IDENTITY.name} — {IDENTITY.primaryTitle}</p>
 				<nav class="writing-post__footer-links" aria-label="Article footer links"><a href={withBase('writing/')}>More writing</a><a href={withBase('about/')}>About</a></nav>
 				<ContactCTA
-					title="Want to discuss the engineering context behind this article?"
-					body="For roles, collaborations, or technical conversations around embedded controls, diagnostics, validation, and physical-system software, use the contact page."
+					title="Compare notes on the engineering problem?"
+					body="This article focuses on the reasoning behind the implementation. Use Contact for a peer discussion or collaboration, or Work for project examples."
+					primaryHref="/contact/?context=technical&source=writing-article#message-title"
+					primaryLabel="Start a technical conversation"
 					secondaryHref="writing/"
-					secondaryLabel="Browse writing"
+					secondaryLabel="Browse more reasoning"
 				/>
 			</div>
 		</footer>

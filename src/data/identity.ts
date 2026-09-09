@@ -2,20 +2,18 @@ export const IDENTITY = {
 	name: 'Carlos Jorques',
 	primaryTitle: 'Embedded Controls Technical Lead',
 	supportingDescriptor: 'Senior Control Systems Engineer',
-	umbrella: 'complex physical systems',
-	brandStatement: 'Control intelligence for complex physical systems.',
+	brandStatement: 'Control intelligence for complex physical systems',
 	brandLine: 'Making complex machines sense, decide, and act reliably.',
+	leadershipStatement: 'I lead the design and delivery of production embedded control systems, setting technical direction and guiding the software teams that build them.',
 	professionalSummary:
-		'I lead control system design and implementation in embedded systems, helping machines sense, decide, and act reliably under real world constraints.',
-	historicalTitles: ['Embedded Controls Technical Lead', 'Control Systems Architect'],
+		'My experience spans electrified vehicles, autonomous machines, and heavy-duty systems. I connect control strategy and architecture with real-time software, diagnostics, and validation wherever software must control physical hardware.',
+	experienceSummary: 'Electrified vehicles, autonomous machinery, and heavy-duty systems.',
 	years: '12+',
 } as const;
 
 export const LINKEDIN_URL = 'https://www.linkedin.com/in/carlosjorques/';
-export const EMAIL_ADDRESS = 'carlosjorques@gmail.com';
 export const CONTACT_DESTINATIONS = {
 	linkedin: LINKEDIN_URL,
-	email: `mailto:${EMAIL_ADDRESS}`,
 	cv: '/cv/Carlos_Jorques_CV.pdf',
 	contact: '/contact',
 } as const;

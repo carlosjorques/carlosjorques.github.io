@@ -188,16 +188,15 @@ const proofItems: SnapshotItem[] = [
 ];
 
 const overview: OverviewItem = {
-	heading: 'Embedded control across the production lifecycle',
+	heading: 'Embedded controls leadership across the production lifecycle',
 	paragraphs: [
-		'I lead the work that turns "this vehicle needs to manage temperature, propulsion, or faults reliably" into software a team can build, test, and trust in production.',
-		'My work spans the systems that keep a vehicle safe and efficient under real operating conditions: thermal management, battery systems, propulsion control, and fault diagnostics. That scope carries through the full lifecycle, from architecture and embedded implementation to calibration and validation on the vehicle.',
-		
+		'I connect advanced control strategy, real-time software, diagnostics, validation, and production delivery, while coordinating embedded software development teams across vehicle programmes.',
+		'My experience spans thermal management, battery systems, propulsion control, and fault diagnostics. My work covers the full lifecycle, from model development through calibration, vehicle testing, and production delivery.',
 		],
 	scopeItems: [
 		'Architecture & control design — defining behavior and requirements before code exists',
 		'Embedded implementation — production C/C++, model-based workflows, ECU integration',
-		'Validation & release — MIL/SIL/HIL through vehicle testing, to production evidence',
+		'Validation & release — MIL/SIL/HIL through vehicle testing and production delivery',
 	],
 };
 
@@ -311,11 +310,11 @@ const expertiseItems: ExpertiseItem[] = [
 	{
 		id: 'expertise-area-06',
 		title: 'Technical leadership',
-		summary: 'Provide technical direction, mentoring, architecture clarity, and cross-functional delivery support for embedded software teams',
+		summary: 'Technical direction, mentoring, architecture clarity, and cross-functional delivery for embedded software teams',
 		representativeEvidence: 'Led a team of 3 embedded software engineers while aligning architecture, quality, mentoring, and delivery.',
-		scope: 'Technical direction, mentoring, planning, architecture clarity, and cross-functional delivery support for embedded software teams.',
+		scope: 'Technical direction, mentoring, planning, architecture clarity, and cross-functional delivery for embedded software teams.',
 		ownership:
-			'I help teams make ambiguous engineering work visible: what is known, what is assumed, what must be validated, and which technical choices affect delivery, quality, and long-term maintainability.',
+			'I lead teams through ambiguous engineering work by clarifying what is known, what is assumed, what must be validated, and which technical choices affect delivery, quality, and long-term maintainability.',
 		evidence: [
 			'Directed a team of 3 embedded software engineers while aligning architecture, planning, quality, and mentoring.',
 			'Created shared decisions across systems, software, validation, suppliers, and stakeholders.',
@@ -848,7 +847,7 @@ const visibleProjectRows = projectRows
 
 <Layout
 	title={`${IDENTITY.name} | ${IDENTITY.primaryTitle} CV`}
-	description={`Online CV of ${IDENTITY.name}, ${IDENTITY.primaryTitle} and ${IDENTITY.supportingDescriptor}, focused on control system design and implementation in embedded systems across electric vehicles and autonomous machinery.`}
+	description={`Formal career record for ${IDENTITY.name}, ${IDENTITY.primaryTitle}, covering embedded controls, real-time implementation, diagnostics, validation, and technical leadership.`}
 >
 	<div class="cv-page">
 		<section id="cv-hero" class="cv-hero" aria-labelledby="cv-title">
@@ -859,7 +858,7 @@ const visibleProjectRows = projectRows
 						<h1 id="cv-title" class="hero-title">Carlos Jorques</h1>
 						<p class="cv-hero__role">{IDENTITY.primaryTitle} &amp; {IDENTITY.supportingDescriptor}</p>
 						<p class="cv-hero__positioning">
-							I lead the architecture and delivery of real-time control software for electric and autonomous heavy-duty vehicles, connecting control design, embedded implementation, diagnostics and validation.
+							{IDENTITY.leadershipStatement} My work focuses on real-time control software for electric and autonomous heavy-duty vehicles, including system and software requirements, architecture, implementation and validation.
 						</p>
 						<div class="button-row cv-hero__actions">
 							{actions.map((action) => (
@@ -1162,7 +1161,7 @@ const visibleProjectRows = projectRows
 
 			<section id="projects" class="cv-section" aria-labelledby="projects-title">
 				<div class="page-container cv-section__layout">
-						<h2 id="projects-title" class="cv-section__rail-heading">Selected project evidence</h2>
+						<h2 id="projects-title" class="cv-section__rail-heading">Selected work</h2>
 					<div class="cv-section__content">
 						<div class="cv-project-list" role="list">
 							{visibleProjectRows.map((row) => (
@@ -1288,7 +1287,7 @@ const visibleProjectRows = projectRows
 
 			<section class="section cv-closing" aria-label="Contact">
 				<div class="page-container">
-					<ContactCTA title="Have an embedded systems opportunity, technical question, or collaboration in mind?" body="I’m open to related roles, technical leadership opportunities, freelance engineering work, and conversations about embedded controls, electrification, diagnostics, and intelligent physical systems." primaryHref="/contact?context=general&source=cv-closing#message-title" primaryLabel="Start a conversation" secondaryHref={CONTACT_DESTINATIONS.linkedin} secondaryLabel="Connect on LinkedIn" tertiaryHref={CONTACT_DESTINATIONS.cv} tertiaryLabel="Download PDF CV" />
+					<ContactCTA title="Have a similar role that matches my profile, or collaboration in mind?" body="Send a message or connect or connect on LinkedIn. I'll be glad to hear from you." primaryHref="/contact?context=role&source=cv-closing#message-title" primaryLabel="Discuss an opportunity" secondaryHref={CONTACT_DESTINATIONS.linkedin} secondaryLabel="Connect on LinkedIn" tertiaryHref={CONTACT_DESTINATIONS.cv} tertiaryLabel="Download PDF CV" />
 				</div>
 			</section>
 		</div>

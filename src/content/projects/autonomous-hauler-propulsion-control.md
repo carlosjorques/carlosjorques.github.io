@@ -10,7 +10,7 @@ imageAlt: Autonomous electric haulers operating in a quarry
 objective: "An autonomous hauler has to keep moving predictably while terrain, load, grip, and propulsion demand change underneath it. This work focused on making dual-motor electric propulsion behave as one controllable system: translating speed demand into coordinated torque, monitoring the behaviour of the propulsion path, and validating the result in harsh off-road conditions."
 heroTitle: Making autonomous electric-hauler propulsion predictable in harsh terrain
 overviewTitle: Coordinating traction and torque so an autonomous hauler can keep moving with confidence
-overviewDescription: The project connected traction-control strategy, dual-motor torque allocation, diagnostics, embedded software integration, and vehicle evidence for Volvo CE's TA15 autonomous electric hauler. The validation path moved from unit tests and SIL/HIL to field testing, where speed-tracking error remained within 5%.
+overviewDescription: The project connected traction-control strategy, dual-motor torque allocation, diagnostics, embedded software integration, and vehicle evidence for Volvo CE's TA15 autonomous electric hauler. The validation path moved from unit tests and SIL/HIL to field testing.
 overviewFocus: Traction control, dual-motor propulsion, and autonomous vehicle behaviour
 overviewScope: Control strategy, torque allocation, diagnostics, integration, and validation
 roleScopeTitle: Owning the control path from propulsion intent to vehicle behaviour

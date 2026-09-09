@@ -42,21 +42,21 @@ const withBase = (href: string) => `${import.meta.env.BASE_URL}${href.replace(/^
 			</section>
 
 			<section class="project-brief" aria-labelledby="project-brief-title">
-				<p id="project-brief-title" class="project-brief__label section-eyebrow">At a glance</p>
+				<p id="project-brief-title" class="project-brief__label section-eyebrow">Project overview</p>
 				<div class="project-brief__grid">
 					<div><h2>Challenge</h2><p>{data.objective}</p></div>
-					<div><h2>Responsibility</h2><p>{data.roleScope}</p></div>
+					<div><h2>Ownership</h2><p>{data.roleScope}</p></div>
 					<div><h2>Implementation</h2><p>{data.contribution}</p></div>
-					<div><h2>Evidence</h2><dl class="project-brief__metrics">{data.metrics.map((metric) => <div><dt>{metric.label}</dt><dd>{metric.value}</dd></div>)}</dl></div>
+					<div><h2>Results</h2><dl class="project-brief__metrics">{data.metrics.map((metric) => <div><dt>{metric.label}</dt><dd>{metric.value}</dd></div>)}</dl></div>
 				</div>
 			</section>
 
 			<div class="project-sections">
 
 				<section class="editorial-section" aria-labelledby="role-scope">
-					<div class="section-rail">Methods &amp; collaboration</div>
+					<div class="section-rail">Implementation</div>
 					<div class="story-block">
-						<h2 id="role-scope">Collaboration and engineering methods</h2>
+						<h2 id="role-scope">{data.roleScopeTitle ?? 'Implementation and collaboration'}</h2>
 						{data.collaborators && <p class="story-block__muted"><strong>Collaborators:</strong> {data.collaborators}</p>}
 						<div class="project-subsection">
 							<h3>Tools &amp; methods</h3>
@@ -66,9 +66,9 @@ const withBase = (href: string) => `${import.meta.env.BASE_URL}${href.replace(/^
 				</section>
 
 				<section class="editorial-section" aria-labelledby="constraints">
-					<div class="section-rail">Constraints</div>
+					<div class="section-rail">Constraints and risk</div>
 					<div class="story-block">
-						<h2 id="constraints">Engineering constraints</h2>
+						<h2 id="constraints">{data.constraintsTitle ?? 'Engineering constraints'}</h2>
 						<p>{data.constraints}</p>
 						{data.risks && <p class="story-block__muted"><strong>Risks considered:</strong> {data.risks}</p>}
 					</div>
@@ -77,26 +77,18 @@ const withBase = (href: string) => `${import.meta.env.BASE_URL}${href.replace(/^
 				<section class="editorial-section" aria-labelledby="process-decisions">
 					<div class="section-rail">Process &amp; decisions</div>
 					<div class="story-block">
-						<h2 id="process-decisions">Process and decisions</h2>
+						<h2 id="process-decisions">{data.processTitle ?? 'Process and decisions'}</h2>
 						<div class="project-subsection"><h3>Process</h3><p>{data.process}</p></div>
 						<div class="project-subsection"><h3>Key decisions</h3><p>{data.decisions}</p></div>
 					</div>
 				</section>
 
 				<section class="editorial-section" aria-labelledby="deliverables">
-					<div class="section-rail">Deliverables</div>
+					<div class="section-rail">Testing and delivery</div>
 					<div class="story-block">
-						<h2 id="deliverables">Technical delivery</h2>
+						<h2 id="deliverables">{data.deliverablesTitle ?? 'Testing and delivery'}</h2>
 						<p>{data.deliverables}</p>
 						{data.deliverableVisuals && <div class="project-gallery">{data.deliverableVisuals.map((visual, index) => <Image src={visual} alt={`${data.title} supporting visual ${index + 1}`} widths={[480, 800]} sizes="(min-width: 768px) 40vw, 100vw" />)}</div>}
-					</div>
-				</section>
-
-				<section class="editorial-section" aria-labelledby="outcomes-metrics">
-					<div class="section-rail">Evidence in context</div>
-					<div class="story-block">
-						<h2 id="outcomes-metrics">Measured performance, product context, and delivery evidence</h2>
-						<dl class="project-metrics">{data.metrics.map((metric) => <div><dt>{metric.label}</dt><dd>{metric.value}</dd></div>)}</dl>
 					</div>
 				</section>
 
@@ -111,13 +103,13 @@ const withBase = (href: string) => `${import.meta.env.BASE_URL}${href.replace(/^
 				</section>}
 
 				{data.reflection && <section class="editorial-section" aria-labelledby="reflection">
-					<div class="section-rail">What this demonstrates</div>
-					<div class="story-block"><h2 id="reflection">What the work demonstrates</h2><p>{data.reflection}</p></div>
+					<div class="section-rail">Takeaway</div>
+					<div class="story-block"><h2 id="reflection">{data.reflectionTitle ?? 'Takeaway'}</h2><p>{data.reflection}</p></div>
 				</section>}
 			</div>
 
 			{data.relatedWritingUrl && <p class="related-writing"><span>Related writing</span><a href={data.relatedWritingUrl}>Read the deeper technical note <span aria-hidden="true">→</span></a></p>}
-			<div class="project-page__closing"><ContactCTA title={`Interested in ${data.context.toLowerCase()} or a similar engineering problem?`} body="Start a conversation about the role, project context, or technical challenge behind this work." primaryLabel="Discuss this work" secondaryHref="/work/" secondaryLabel="View more work" /></div>
+			<div class="project-page__closing"><ContactCTA title={`Working on a similar ${data.context.toLowerCase()} problem?`} body="Share the system or role you are considering. I can point to the relevant project and compare the constraints with you." primaryHref="/contact/?context=technical&source=project#message-title" primaryLabel="Discuss a similar problem" secondaryHref="/work/" secondaryLabel="Back to project work" /></div>
 		</div>
 	</article>
 </BaseLayout>
