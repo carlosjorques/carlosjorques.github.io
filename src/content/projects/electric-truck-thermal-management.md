@@ -2,7 +2,7 @@
 title: Battery and Thermal Control Software for Production Electric Trucks
 company: Scania
 context: Electrified Trucks
-description: Developed production-oriented embedded software for battery, charging, auxiliary, and power-electronics thermal management in heavy-duty electric trucks, within an ISO 26262 ASIL-B and A-SPICE-aligned environment.
+description: Developed production embedded software for battery, charging, auxiliary, and power-electronics thermal management in heavy-duty electric trucks.
 tags: [Adaptive AUTOSAR, ISO 26262 ASIL-B]
 image: ../../assets/projects/electric-truck-thermal-bms.webp
 imageAlt: Electric truck connected to a charger in snowy test conditions
@@ -25,12 +25,12 @@ deliverables: Production-oriented C++ and model-based software; controller archi
 metrics:
   - label: Production context
     value: Heavy-duty EV
-  - label: Safety context
+  - label: Functional Safety
     value: ISO 26262 ASIL-B
   - label: Validation path
     value: MIL / SIL / HIL to vehicle
-  - label: Control scope
-    value: Battery, charging, and thermal systems
+  - label: Controlled systems
+    value: Thermal management
 reflection: "This work demonstrates system-level control leadership: connecting physical limits and uncertain sensor evidence to software architecture, diagnostics, validation, and delivery."
 ---
 

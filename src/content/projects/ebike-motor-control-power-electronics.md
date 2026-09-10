@@ -1,6 +1,6 @@
 ---
 title: E-Bike Motor-Control Software and Delivery Practices
-company: "Employer: MAHLE"
+company: "MAHLE Electronics"
 context: E-Bike Motor Control
 description: Delivered application-layer motor-control software and improved the way embedded teams tested, integrated, and released it. The work combined model integration, power-electronics interfaces, Automotive SPICE practices, and CI/CD across projects involving approximately 12 engineers.
 tags: [Motor control, CI/CD and Automotive SPICE]

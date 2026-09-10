@@ -29,13 +29,15 @@ process: Started with engine and combustion modeling, then developed estimation 
 decisions: Used feedback and virtual sensing to replace assumptions that could not remain reliable under fuel variation and combustion uncertainty. Chose probabilistic and adaptive diagnostic methods over single fixed thresholds, and used modular state-machine-oriented controller structures so estimation, detection, set-point selection, and actuation could be evaluated independently. FPGA implementation was treated as part of the control design, not as a final translation step.
 deliverables: Delivered experimentally validated methods for in-cycle pilot-mass estimation, pilot-misfire detection, predictive closed-loop combustion control, stochastic set-point optimization, model adaptation, and FPGA resource evaluation. Results included a doctoral thesis, 15+ publications, 5 patents, conference contributions, and a research platform that connected advanced algorithms to deterministic embedded execution on a physical heavy-duty engine.
 metrics:
-  - label: Experimental platform
+  - label: Experimental set-up
     value: 6-cylinder, 12.7 L Scania D13
-  - label: Real-time constraint
+  - label: Real-time control
     value: 27 μs crank-angle window
-  - label: Diagnostic evidence
+  - label: Efficiency increase
+    value: +1.8% indicated thermal efficiency
+  - label: Diagnostic results
     value: Up to 96% misfire classification
-  - label: Research record
+  - label: Research outcome
     value: 15+ publications · 5 patents
 references:
   - label: Indicated efficiency optimization by in-cycle closed-loop combustion control of diesel engines

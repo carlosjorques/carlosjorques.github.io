@@ -1,7 +1,6 @@
 ---
 title: Propulsion Control Software for Autonomous Electric Haulers
-company: "Client assignment: Volvo Construction Equipment"
-deliveryContext: "Delivered through ALTEN"
+company: "Volvo Construction Equipment"
 context: Autonomous Heavy-Duty Machinery
 description: Developed and integrated traction-control functionality for the TA15 autonomous electric hauler, coordinating dual-motor propulsion and validating predictable speed behaviour from software-in-the-loop through vehicle field testing.
 tags: [Traction control, Torque allocation]
@@ -31,12 +30,12 @@ decisions: Treated torque allocation and traction behaviour as part of one propu
 deliverables: Delivered integrated traction-control and speed-control functionality for the TA15 autonomous electric hauler, including dual-motor torque-allocation logic, diagnostic monitoring, unit-test coverage, SIL/HIL validation, integration support, and vehicle field-test evidence.
 metrics:
   - label: Vehicle platform
-    value: Volvo CE TA15 autonomous electric hauler
+    value: TA15 autonomous electric hauler
   - label: Propulsion architecture
     value: Dual-motor electric drive
-  - label: Field evidence
-    value: Speed-tracking error within 5%
-  - label: Validation path
+  - label: Controler accuracy
+    value: 5% speed-tracking error 
+  - label: Validation
     value: Unit tests · SIL/HIL · vehicle testing
 reflection: "The work reinforced a practical rule for autonomous machines: autonomy is only as dependable as the low-level control loops that turn its intent into force at the ground. Predictable propulsion requires control logic, diagnostics, software interfaces, and vehicle evidence to be developed as one system."
 ---
