@@ -15,8 +15,9 @@ const portraitUrl = withBase('/images/carlos-jorques-intro.webp');
 			<p class="about-eyebrow">About me</p>
 			<div class="about-hero__layout">
 				<div class="about-hero__copy">
-					<h1 id="about-title">Twelve years designing control algorithms and the software that runs vehicles on the road.</h1>
-					<p class="about-hero__lead">I’m {IDENTITY.name}, an <strong>{IDENTITY.primaryTitle}</strong>. {IDENTITY.leadershipStatement}</p>
+					<h1 id="about-title">I turn control theory into production software that makes complex machines work for the people who use them.</h1>
+					<p class="about-hero__lead">I’m {IDENTITY.name}, an <strong>{IDENTITY.primaryTitle}</strong>. What interests me is the distance between an idea that works in a model and a machine that behaves correctly in the real world, where signals are noisy, hardware is limited, and failure has consequences. Closing that distance is the work, and it is rarely done alone.</p>
+					<p class="about-hero__lead">Automotive is where I work: it solves transportation, and its real difficulty is energy efficiency and reliability. The same control principles run power plants, data centres, thermal systems, batteries, robots, satellites, and rockets, because wherever a physical system has to sense, decide, and act correctly, the engineering is the same. I have been drawn to that since I was a child, and it still decides what I choose to work on.</p>
 					<nav class="about-hero__actions" aria-label="About quick links">
 						<a href={withBase('/cv/')}>View CV</a>
 						<a href={withBase('/work/')}>Selected work</a>
@@ -120,7 +121,8 @@ const portraitUrl = withBase('/images/carlos-jorques-intro.webp');
 	.about-hero__layout { display:grid; grid-template-columns:minmax(0,1.35fr) minmax(15rem,20rem); gap:2.5rem; align-items:start; margin:1rem 0 5rem; }
 	.about-hero__copy { display:grid; gap:1rem; align-content:start; }
 	.about-hero h1 { max-width:none; margin:0; font-size:clamp(2.6rem,3.8vw,3.5rem); font-weight:800; letter-spacing:-.05em; line-height:1.02; }
-	.about-hero__lead { max-width:52rem; margin:0; font-size:1.08rem; line-height:1.7; color:var(--color-text); }
+	.about-hero__lead { max-width:52rem; margin:0 0 1.15rem; font-size:1.08rem; line-height:1.7; color:var(--color-text); }
+	.about-hero__lead:last-of-type { margin-bottom:0; }
 	.about-hero__lead strong { font-weight:700; }
 	.about-hero__actions { display:none; }
 	.about-story { display:grid; gap:1rem; margin:0; max-width:52rem; }
