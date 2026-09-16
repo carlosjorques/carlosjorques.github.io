@@ -74,7 +74,7 @@ const selectedProjects = projectSlugs
 
 <BaseLayout
 	title={`${IDENTITY.name} · ${IDENTITY.primaryTitle}`}
-description={`${IDENTITY.primaryTitle}. ${IDENTITY.brandStatement} ${IDENTITY.leadershipStatement} ${IDENTITY.professionalSummary}`}
+description="Carlos Jorques is an Embedded Controls Technical Lead and Senior Control Systems Engineer designing reliable software for complex physical systems."
 >
 	<section class="hero-area">
 		<div class="page-container">
@@ -82,9 +82,8 @@ description={`${IDENTITY.primaryTitle}. ${IDENTITY.brandStatement} ${IDENTITY.le
 				<div class="hero__copy">
 					<p class="hero-kicker">{IDENTITY.brandStatement}</p>
 					<h1 class="hero-statement">{IDENTITY.brandLine}</h1>
-					<p class="hero-intro">Hi, I’m {IDENTITY.name}, an <strong>{IDENTITY.primaryTitle}</strong>.</p>
-					<p class="hero-value">{IDENTITY.leadershipStatement}</p>
-					<p class="hero-scope">{IDENTITY.professionalSummary}</p>
+					<p class="hero-lead">{IDENTITY.roleScope}</p>
+					<p class="hero-location">Based in {IDENTITY.location}</p>
 
 					<div class="hero-links button-row" aria-label="Primary routes">
 						<a
@@ -304,30 +303,16 @@ description={`${IDENTITY.primaryTitle}. ${IDENTITY.brandStatement} ${IDENTITY.le
 	}
 
 	.hero-kicker,
-	.hero-name,
 	.hero-statement,
-	.hero-value,
-	.hero-scope,
+	.hero-location,
 	.hero-links,
 	.hero__portrait,
 	.home-proof {
 		animation: carbon-enter-up var(--motion-duration-slow-01) var(--motion-entrance-expressive) both;
 	}
 
-	.hero-name {
-		animation-delay: 40ms;
-	}
-
 	.hero-statement {
 		animation-delay: 90ms;
-	}
-
-	.hero-value {
-		animation-delay: 190ms;
-	}
-
-	.hero-scope {
-		animation-delay: 190ms;
 	}
 
 	.hero-links {
@@ -352,15 +337,6 @@ description={`${IDENTITY.primaryTitle}. ${IDENTITY.brandStatement} ${IDENTITY.le
 		color: var(--color-hero-kicker);
 	}
 
-	.hero-name {
-		margin: 0;
-		font-size: var(--type-hero-name-size);
-		line-height: var(--type-hero-name-line);
-		letter-spacing: var(--type-hero-name-tracking);
-		font-weight: var(--type-hero-name-weight);
-		color: var(--color-hero-text);
-	}
-
 	.hero-statement {
 		max-width: 760px;
 		margin: var(--spacing-06) 0 0;
@@ -371,24 +347,16 @@ description={`${IDENTITY.primaryTitle}. ${IDENTITY.brandStatement} ${IDENTITY.le
 		color: var(--color-hero-text);
 	}
 
-	.hero-value {
-		max-width: 690px;
-		margin: var(--spacing-06) 0 0;
-		color: var(--color-hero-text);
-		font-size: var(--type-body-large-size);
-		line-height: var(--type-body-large-line);
-		letter-spacing: var(--type-body-large-tracking);
-		font-weight: 500;
-	}
-
-	.hero-scope {
+	.hero-location {
 		max-width: 690px;
 		margin: var(--spacing-03) 0 0;
 		color: var(--color-hero-text);
-		font-size: var(--type-body-large-size);
-		line-height: var(--type-body-large-line);
-		letter-spacing: var(--type-body-large-tracking);
-		font-weight: 500;
+		opacity: .72;
+		font-family: var(--font-mono);
+		font-size: var(--type-meta-size);
+		line-height: var(--type-meta-line);
+		letter-spacing: var(--type-meta-tracking);
+		text-transform: uppercase;
 	}
 
 	.hero-links {
@@ -884,7 +852,8 @@ description={`${IDENTITY.primaryTitle}. ${IDENTITY.brandStatement} ${IDENTITY.le
 		max-width: 52rem;
 	}
 
-	.hero-intro {
+	.hero-lead {
+		max-width: 690px;
 		margin: var(--spacing-06) 0 0;
 		color: var(--color-hero-text);
 		font-size: 1.2rem;
@@ -899,10 +868,6 @@ description={`${IDENTITY.primaryTitle}. ${IDENTITY.brandStatement} ${IDENTITY.le
 		margin: 0;
 		font-size: clamp(2.65rem, 4.3vw, 4.6rem);
 		line-height: 1.03;
-	}
-
-	.hero-value {
-		margin-top: var(--spacing-04);
 	}
 
 	.hero-links {
@@ -948,8 +913,8 @@ description={`${IDENTITY.primaryTitle}. ${IDENTITY.brandStatement} ${IDENTITY.le
 
 	@media (max-width: 640px) {
 		.hero-statement,
-		.hero-intro,
-		.hero-value,
+		.hero-lead,
+		.hero-location,
 		.hero-links {
 			max-width: 100%;
 			overflow-wrap: anywhere;

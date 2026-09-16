@@ -1,6 +1,6 @@
 # Carlos Jorques Portfolio
 
-Astro static site for Carlos Jorques, positioned as an Embedded Control Systems Architect.
+Astro static site for Carlos Jorques, positioned as an Embedded Controls Technical Lead.
 
 ## Local Development
 

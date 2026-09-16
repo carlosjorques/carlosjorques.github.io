@@ -11,7 +11,7 @@ interface Props {
 
 const {
 	title = `${IDENTITY.name} · ${IDENTITY.primaryTitle}`,
-	description = `${IDENTITY.primaryTitle}. ${IDENTITY.brandStatement} ${IDENTITY.leadershipStatement} ${IDENTITY.professionalSummary}`,
+	description = 'Carlos Jorques is an Embedded Controls Technical Lead and Senior Control Systems Engineer designing reliable software for complex physical systems.',
 } = Astro.props;
 
 const siteTitle = title.includes(IDENTITY.name) ? title : `${title} | ${IDENTITY.name}`;
@@ -62,6 +62,11 @@ const pageType = (() => {
 			'@type': 'Person',
 			name: IDENTITY.name,
 			jobTitle: IDENTITY.primaryTitle,
+			alternateName: IDENTITY.supportingDescriptor,
+			address: {
+				'@type': 'PostalAddress',
+				addressLocality: IDENTITY.location,
+			},
 			url: canonical.href,
 			sameAs: [CONTACT_DESTINATIONS.linkedin],
 		})} />

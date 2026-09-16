@@ -2,7 +2,7 @@
 
 ## Objective
 
-Create a static personal professional website using Astro. The website should position Carlos Jorques as an **Embedded Control Systems Architect** focused on **Control Intelligence for Physical Systems**.
+Create a static personal professional website using Astro. The website should position Carlos Jorques as an **Embedded Controls Technical Lead** focused on **Control Intelligence for Physical Systems**.
 
 The site is not a generic developer portfolio. It is a senior technical leadership profile for embedded control systems, automotive software/control work, physical systems, and production engineering.
 
@@ -18,7 +18,7 @@ A recruiter, engineering manager, or technical peer should understand within one
 
 ## Core positioning
 
-**Embedded Control Systems Architect**
+**Embedded Controls Technical Lead**
 
 **Control Intelligence for Physical Systems**
 
