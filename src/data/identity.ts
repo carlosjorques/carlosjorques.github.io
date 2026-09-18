@@ -7,10 +7,10 @@ export const IDENTITY = {
 	// Homepage hero and footer signature only.
 	brandStatement: 'Control intelligence for complex physical systems',
 	brandLine: 'Making complex machines sense, decide, and act reliably.',
-	// Structured professional evidence data.
-	experienceSummary: 'Electrified vehicles, autonomous machinery, and heavy-duty systems.',
 	// Homepage hero lead only.
-	roleScope: "I'm Carlos Jorques, an Embedded Controls Technical Lead. I design control algorithms and the real-time software that runs them. I lead the teams that take them into production.",
+	roleScope: "I'm Carlos Jorques, an Embedded Controls Technical Lead. I help engineering teams turn difficult physical-system problems into clear control strategies and reliable embedded software. I combine an understanding of system behaviour with the realities of the software lifecycle, setting technical direction across architecture, interfaces, implementation, and validation so teams can deliver effective and efficient solutions for production code.",
+	// About page introduction only.
+	purpose: "Ultimately, I want to develop technology that solves real problems without creating new ones.",
 	// Home, contact, CV, and footer location metadata.
 	location: 'Valencia, Spain',
 	years: '12+',

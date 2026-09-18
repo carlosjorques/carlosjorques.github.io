@@ -9,15 +9,16 @@ const withBase = (href: string) => href.startsWith('http') || href.startsWith('m
 const portraitUrl = withBase('/images/carlos-jorques-intro.webp');
 ---
 
-<Layout title={`About ${IDENTITY.name} | ${IDENTITY.primaryTitle}`} description={`The professional through-line, engineering philosophy, and leadership approach of ${IDENTITY.name}, an ${IDENTITY.primaryTitle}.`}>
+<Layout title={`About ${IDENTITY.name} | ${IDENTITY.primaryTitle}`} description="Meet Carlos Jorques, a curious engineer and technical leader connecting control, embedded software, and teams around intelligent physical systems.">
 	<div class="about-page">
 		<section class="about-hero" aria-labelledby="about-title">
 			<p class="about-eyebrow">About me</p>
 			<div class="about-hero__layout">
 				<div class="about-hero__copy">
-					<h1 id="about-title">I turn control theory into production software that makes complex machines work for the people who use them.</h1>
-					<p class="about-hero__lead">I’m {IDENTITY.name}, an <strong>{IDENTITY.primaryTitle}</strong>. What interests me is the distance between an idea that works in a model and a machine that behaves correctly in the real world, where signals are noisy, hardware is limited, and failure has consequences. Closing that distance is the work, and it is rarely done alone.</p>
-					<p class="about-hero__lead">Automotive is where I work: it solves transportation, and its real difficulty is energy efficiency and reliability. The same control principles run power plants, data centres, thermal systems, batteries, robots, satellites, and rockets, because wherever a physical system has to sense, decide, and act correctly, the engineering is the same. I have been drawn to that since I was a child, and it still decides what I choose to work on.</p>
+					<h1 id="about-title">I’m a curious engineer and technical leader connecting control, embedded software, and teams around intelligent physical systems.</h1>
+					<p class="about-hero__lead">I’m {IDENTITY.name}, an <strong>{IDENTITY.primaryTitle}</strong>. My early curiosity about electronics and robotics kept bringing me back to a simple question with a complicated answer: <strong>how does a robot even know what to do?</strong> That question led me into automatic control research, production embedded systems, and technical leadership.</p>
+					<p class="about-hero__lead">My professional experience is rooted in the automotive industry, working with international teams at Scania, Volvo CE, and MAHLE Electronics across electrified, autonomous, and heavy-duty vehicles. I connect physical behaviour and uncertainty with control algorithms, embedded implementation, and validation. As a technical leader, I turn complex system needs into clear decisions about behaviour, architecture, interfaces, and validation, while helping engineers understand how their work fits into the whole system.</p>
+					<p class="about-hero__lead">Curiosity still shapes how I work: understand the system, explore alternatives, test ideas, be willing to try something new, and keep learning. Along the way, that approach has contributed to patents and scientific publications. Today, I see the answer to that first question as broader than making a machine act intelligently. People and organisations must be able to understand, trust, and rely on what it does. That belief guides how I approach engineering, lead teams, and decide which ideas are worth pursuing. {IDENTITY.purpose}</p>
 					<nav class="about-hero__actions" aria-label="About quick links">
 						<a href={withBase('/cv/')}>View CV</a>
 						<a href={withBase('/work/')}>Selected work</a>
@@ -31,66 +32,41 @@ const portraitUrl = withBase('/images/carlos-jorques-intro.webp');
 		</section>
 
 		<AboutStoryBlock
-			id="background"
-			label="Background"
-			title="Production embedded controls"
-			intro="I’ve built embedded control software for electric trucks, autonomous machines, and power electronics. The domains change; the core problems don’t: estimation, uncertainty, fault handling, timing, and validation on hardware."
-			disclosureLabel="See my production background"
-			expanded={[
-				"Across Scania, Volvo CE, and MAHLE Electronics, I have worked with international teams to turn control concepts into software, validation results, and production delivery. The work is not tied to one product. It is about making sensing, decisions, actuation, and diagnostics behave as one system, then checking that result against real constraints."
-			]}
-			collapsible={true}
-		/>
-
-		<AboutStoryBlock
 			id="approach"
 			label="Engineering approach"
-			title="Reliability over complexity"
-			intro="I favour solutions that are clear, robust, and practical to implement. Control performance only counts when judged together with fault response and test evidence."
-			disclosureLabel="How I make engineering decisions"
+			title="How I approach difficult problems"
+			intro="Most difficult problems are not difficult because the mathematics is hard. They are difficult because the intended behaviour is unclear, the measurements are ambiguous, or nobody has agreed what should happen when conditions fall outside the expected range."
+			disclosureLabel="How I work through a problem"
 			expanded={[
-				"I start by clarifying the intended behaviour, the physical limits, and what the available measurements can reliably tell us. That helps me decide what belongs in the control logic, how interfaces should behave, and what should happen when signals or operating conditions are uncertain.",
-				"I use models, software tests, and experiments on hardware to challenge those decisions. When measured behaviour differs from expectations, I investigate the assumptions, implementation, and interfaces before adding complexity. The aim is software that can be understood, validated, and maintained."
+				"I start by making the target behaviour explicit: what the system should do, which physical limits constrain it, and what the available signals can honestly tell us. That decides what belongs in the control logic, what belongs at an interface, and what has to be handled when conditions are uncertain.",
+				"Then I try to break it. Models, software tests, and experiments on hardware exist to challenge the assumptions rather than confirm them. When measured behaviour disagrees with expectation, I examine the assumptions, the implementation, and the interfaces before anyone adds complexity. Simpler solutions survive contact with production better, and they can still be understood a year later by someone who was not in the room."
 			]}
 			collapsible={true}
 		/>
 
 		<AboutStoryBlock
 			id="collaboration"
-			label="Technical Leadership"
-			title="Turning hard problems into clear decisions"
-			intro="I set technical direction and align engineers around clear decisions about system behaviour, software quality, and delivery."
-			disclosureLabel="How I lead teams through delivery"
+			label="Technical leadership"
+			title="Making difficult things understandable"
+			intro="A technical decision that only one person understands is a risk, not an achievement. Much of my work is making complex system behaviour legible enough that a team can act on it and commit to it."
+			disclosureLabel="How I work with teams"
 			expanded={[
-				"I have led a team of three embedded software engineers across client assignments, contributing to technical direction, planning, software quality, and mentoring. At MAHLE, I also served as Scrum Master for a six-person team.",
-				"I set responsibilities, make technical risks visible, and resolve issues where disciplines meet. I align delivery decisions with intended system behaviour and the validation results available to the team."
+				"That usually means translating: turning physical behaviour into terms a software engineer can implement, turning implementation constraints into terms a system owner can weigh, and making technical risk visible early enough to be a choice rather than a surprise. I would rather spend an hour building shared understanding than a week recovering from a misread interface.",
+				"I have led small embedded software teams and worked as Scrum Master, but the part I care about is mentoring. Engineers do better work when they can see the whole system their component sits in, and when they are trusted to question a decision. I try to leave people with more context than they had, not just a completed task."
 			]}
 			collapsible={true}
 		/>
 
 		<AboutStoryBlock
-			id="origin"
-			label="Personal story"
-			title="Why I care about controllable machines"
-			intro="What makes a machine truly intelligent? I have been fascinated by that question for as long as I can remember."
-			disclosureLabel="Read the story behind my work"
-			expanded={[
-				"I started experimenting with electronics at eight, but the moment that set my direction came later, at Campus Party Valencia. I watched a line-following robot I had built wobble and overshoot, while other robots moved smoothly through the same turns. The hardware was capable of more — the difference was in how the system was controlled.",
-				"That gap has shaped how I think about intelligent machines ever since: not sophisticated logic, but the ability to sense what's happening, judge what matters under uncertainty, and act on it reliably. That question took me through Electrical Engineering and into an industrial doctorate. My industrial doctorate focused on automatic control, using control theory in embedded implementation and experimental validation. Later, I moved into the automotive industry, where I learned that a sound idea also has to survive noisy signals, limited resources, and deadlines.",
-				"That combination of curiosity and production experience now shapes how I work. I enjoy exploring difficult problems, but I also know that engineering creates value only when a solution can be understood, maintained, validated, and delivered."
-			]}
-		/>
-
-		<AboutStoryBlock
 			id="beyond-engineering"
-			label="Beyond Engineering"
-			title="More than what I build"
-			intro="Outside work, I keep learning through basketball, making things, and time with the people who keep work in perspective."
+			label="Personal"
+			title="Away from engineering"
+			intro="Basketball, making things, and the people who keep the work in proportion."
 			disclosureLabel="A little more beyond work"
 			expanded={[
-				"Basketball has been part of my life since childhood, and it still is. I enjoy competing, staying sharp, and helping younger players develop. Being part of a team working toward a shared goal outside of engineering keeps that instinct alive in a different way.",
-				"I'm naturally curious, and I like trying things I haven't done before, whether that means picking up a new skill, testing an idea, or occasionally building something — through 3D printing, lamp design, painting, electronics, or home automation. These projects are less about the outcome and more about the habit of staying curious.",
-				"Most importantly, time with my partner, our child, our dog, and friends keeps work in perspective and reminds me to protect space for the people and experiences that matter beyond engineering."
+				"Basketball has been part of my life since childhood and still is. I enjoy competing, staying sharp, and helping younger players develop. Being part of a team working towards a shared goal outside engineering keeps that instinct alive in a different way.",
+				"I like trying things I have not done before, whether that means a new skill, an untested idea, or building something through 3D printing, lamp design, painting, electronics, or home automation. These projects are less about the result than about the habit.",
+				"Most importantly, time with my partner, our child, our dog, and friends keeps work in proportion and protects space for the people and experiences that matter beyond engineering."
 			]}
 			withBottomBorder
 		/>
