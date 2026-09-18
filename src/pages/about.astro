@@ -1,6 +1,5 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import AboutStoryBlock from '../components/AboutStoryBlock.astro';
 import ContactCTA from '../components/ContactCTA.astro';
 import { IDENTITY } from '../data/identity';
 const baseUrl = import.meta.env.BASE_URL;
@@ -16,9 +15,8 @@ const portraitUrl = withBase('/images/carlos-jorques-intro.webp');
 			<div class="about-hero__layout">
 				<div class="about-hero__copy">
 					<h1 id="about-title">I’m a curious engineer and technical leader connecting control, embedded software, and teams around intelligent physical systems.</h1>
-					<p class="about-hero__lead">I’m {IDENTITY.name}, an <strong>{IDENTITY.primaryTitle}</strong>. My early curiosity about electronics and robotics kept bringing me back to a simple question with a complicated answer: <strong>how does a robot even know what to do?</strong> That question led me into automatic control research, production embedded systems, and technical leadership.</p>
-					<p class="about-hero__lead">My professional experience is rooted in the automotive industry, working with international teams at Scania, Volvo CE, and MAHLE Electronics across electrified, autonomous, and heavy-duty vehicles. I connect physical behaviour and uncertainty with control algorithms, embedded implementation, and validation. As a technical leader, I turn complex system needs into clear decisions about behaviour, architecture, interfaces, and validation, while helping engineers understand how their work fits into the whole system.</p>
-					<p class="about-hero__lead">Curiosity still shapes how I work: understand the system, explore alternatives, test ideas, be willing to try something new, and keep learning. Along the way, that approach has contributed to patents and scientific publications. Today, I see the answer to that first question as broader than making a machine act intelligently. People and organisations must be able to understand, trust, and rely on what it does. That belief guides how I approach engineering, lead teams, and decide which ideas are worth pursuing. {IDENTITY.purpose}</p>
+					<p class="about-hero__lead">I’m {IDENTITY.name}, an <strong>{IDENTITY.primaryTitle}</strong>. My early curiosity about electronics and robotics kept bringing me back to a simple question with a complicated answer: <strong>how does a robot even know what to do?</strong> That question led me into a career in automatic control research, production embedded systems, and technical leadership.</p>
+					<p class="about-hero__lead">Today, I see the answer to that question broader than just making a machine act intelligently. People and organisations must be able to understand, trust, and rely on how it provides solutions. Ultimately, {IDENTITY.purpose} </p>
 					<nav class="about-hero__actions" aria-label="About quick links">
 						<a href={withBase('/cv/')}>View CV</a>
 						<a href={withBase('/work/')}>Selected work</a>
@@ -31,57 +29,48 @@ const portraitUrl = withBase('/images/carlos-jorques-intro.webp');
 			</div>
 		</section>
 
-		<AboutStoryBlock
-			id="approach"
-			label="Engineering approach"
-			title="How I approach difficult problems"
-			intro="Most difficult problems are not difficult because the mathematics is hard. They are difficult because the intended behaviour is unclear, the measurements are ambiguous, or nobody has agreed what should happen when conditions fall outside the expected range."
-			disclosureLabel="How I work through a problem"
-			expanded={[
-				"I start by making the target behaviour explicit: what the system should do, which physical limits constrain it, and what the available signals can honestly tell us. That decides what belongs in the control logic, what belongs at an interface, and what has to be handled when conditions are uncertain.",
-				"Then I try to break it. Models, software tests, and experiments on hardware exist to challenge the assumptions rather than confirm them. When measured behaviour disagrees with expectation, I examine the assumptions, the implementation, and the interfaces before anyone adds complexity. Simpler solutions survive contact with production better, and they can still be understood a year later by someone who was not in the room."
-			]}
-			collapsible={true}
-		/>
+		<section class="editorial-section" id="background" aria-label="Where that question took me">
+			<div class="section-rail"><p>Where that question took me</p></div>
+			<div class="story-block">
+				<p>My professional experience is rooted in the automotive industry, working with international teams at Scania, Volvo CE, and MAHLE Electronics across electrified, autonomous, and heavy-duty vehicles. I connect physical behaviour and uncertainty with control algorithms, embedded implementation, and validation. As a technical leader, I turn complex system needs into clear decisions about behaviour, architecture, interfaces, and validation, while helping engineers understand how their work fits into the whole system.</p>
+				<p>Curiosity still shapes how I work: understand the system, explore alternatives, test ideas, be willing to try something new, and keep learning. Along the way, that approach has contributed to patents and scientific publications.That belief guides how I approach engineering, lead teams, and decide which ideas are worth pursuing. </p>
+			</div>
+		</section>
 
-		<AboutStoryBlock
-			id="collaboration"
-			label="Technical leadership"
-			title="Making difficult things understandable"
-			intro="A technical decision that only one person understands is a risk, not an achievement. Much of my work is making complex system behaviour legible enough that a team can act on it and commit to it."
-			disclosureLabel="How I work with teams"
-			expanded={[
-				"That usually means translating: turning physical behaviour into terms a software engineer can implement, turning implementation constraints into terms a system owner can weigh, and making technical risk visible early enough to be a choice rather than a surprise. I would rather spend an hour building shared understanding than a week recovering from a misread interface.",
-				"I have led small embedded software teams and worked as Scrum Master, but the part I care about is mentoring. Engineers do better work when they can see the whole system their component sits in, and when they are trusted to question a decision. I try to leave people with more context than they had, not just a completed task."
-			]}
-			collapsible={true}
-		/>
+		<section class="editorial-section" id="approach" aria-label="How I approach difficult problems">
+			<div class="section-rail"><p>How I approach difficult problems</p></div>
+			<div class="story-block">
+				<p>I like difficult problems, but I do not assume they need complicated solutions. I start by asking what the system must do, what the physics allow, what the measurements can actually tell us, and what happens when something goes wrong. Models, simulations, software tests, and experiments help me challenge the answer.</p>
+				<p>Testing on hardware is good at exposing assumptions. When results differ from expectations, I would rather revisit the model, implementation, and interfaces before adding complexity. A solution is only good if the team can understand it, validate it, and maintain it.</p>
+			</div>
+		</section>
 
-		<AboutStoryBlock
-			id="beyond-engineering"
-			label="Personal"
-			title="Away from engineering"
-			intro="Basketball, making things, and the people who keep the work in proportion."
-			disclosureLabel="A little more beyond work"
-			expanded={[
-				"Basketball has been part of my life since childhood and still is. I enjoy competing, staying sharp, and helping younger players develop. Being part of a team working towards a shared goal outside engineering keeps that instinct alive in a different way.",
-				"I like trying things I have not done before, whether that means a new skill, an untested idea, or building something through 3D printing, lamp design, painting, electronics, or home automation. These projects are less about the result than about the habit.",
-				"Most importantly, time with my partner, our child, our dog, and friends keeps work in proportion and protects space for the people and experiences that matter beyond engineering."
-			]}
-			withBottomBorder
-		/>
+		<section class="editorial-section" id="collaboration" aria-label="Making difficult things understandable">
+			<div class="section-rail"><p>Making difficult things understandable</p></div>
+			<div class="story-block">
+				<p>When a technical problem becomes tangled, I often start by drawing it. Diagrams, plots, and concrete examples make behaviour, interfaces, and unknowns easier to see. That habit comes partly from years of teaching and mentoring, and it has become central to how I lead.</p>
+				<p>I do not think technical leadership means having every answer. It means asking useful questions, giving people enough context, making decisions when needed, and helping engineers take ownership of their work. I want people to understand why a decision was made and feel able to challenge it with better evidence.</p>
+			</div>
+		</section>
+
+		<section class="editorial-section" id="beyond-engineering" aria-label="Away from engineering">
+			<div class="section-rail"><p>Away from engineering</p></div>
+			<div class="story-block">
+				<p>Outside work, basketball gives me a different kind of team challenge and a way to switch off. I also enjoy making things, from electronics and home automation to 3D printing, lamps, and painting. Time with my partner, our child, our dog, and friends keeps work in perspective. Not every experiment needs a business case; sometimes making something for fun and curiosity is enough.</p>
+			</div>
+		</section>
 
 
 		<section class="section about-closing" aria-label="Contact">
 			<ContactCTA
-				title="If the way I work fits the problem, let’s compare context."
-				body="Contact is for a role discussion or peer conversation. Work shows the projects; the CV gives the full career record."
-				primaryHref="/contact/?source=about#message-title"
-				primaryLabel="Talk about the context"
-				secondaryHref="/work/"
-				secondaryLabel="Review project work"
-				tertiaryHref="/cv/"
-				tertiaryLabel="Review career record"
+				title="See how this thinking shows up in practice."
+				body="If you want to discuss a project, a role, or a technical challenge, I’d be happy to talk."
+				primaryHref="/work/"
+				primaryLabel="View Selected Work"
+				secondaryHref="/cv/"
+				secondaryLabel="View CV"
+				tertiaryHref="/contact/?source=about#message-title"
+				tertiaryLabel="Contact"
 				sourceSection="about-closing"
 				ctaIdPrefix="about-closing"
 			/>
@@ -91,7 +80,7 @@ const portraitUrl = withBase('/images/carlos-jorques-intro.webp');
 
 <style>
 	.about-page { width:min(calc(100% - 5rem),var(--content-width)); margin:0 auto; padding:0; }
-	.about-eyebrow,.section-rail { font-family:var(--font-mono); font-size:.82rem; font-weight:600; letter-spacing:.08em; line-height:1.4; text-transform:uppercase; color:var(--color-muted); }
+	.about-eyebrow { font-family:var(--font-mono); font-size:.82rem; font-weight:600; letter-spacing:.08em; line-height:1.4; text-transform:uppercase; color:var(--color-muted); }
 	.about-hero { padding:clamp(3rem,5vw,4.6rem) 0 0; }
 	.about-eyebrow { margin:0; }
 	.about-hero__layout { display:grid; grid-template-columns:minmax(0,1.35fr) minmax(15rem,20rem); gap:2.5rem; align-items:start; margin:1rem 0 5rem; }
@@ -105,30 +94,17 @@ const portraitUrl = withBase('/images/carlos-jorques-intro.webp');
 	.about-story p,.story-block p { margin:0; font-size:1.08rem; line-height:1.7; color:var(--color-text); }
 	.about-portrait-frame { align-self:start; width:100%; aspect-ratio:3 / 4; margin:0; overflow:hidden; border-radius:1.5rem; }
 	.about-portrait { display:block; width:100%; height:auto; aspect-ratio:3 / 4; border-radius:1.5rem; box-shadow:0 18px 40px rgba(23,23,23,.08); }
-	.editorial-section { display:grid; grid-template-columns:16rem minmax(0,1fr); gap:0rem; padding:1rem 0; border-top:1px solid var(--color-border); scroll-margin-top:2rem; }
-	.section-rail h2,.section-rail p { margin:0; max-width:none; color:inherit; font:inherit; letter-spacing:inherit; text-transform:inherit; }
-	.story-block { display:grid; gap:.65rem; max-width:52rem; }
-	.story-block h2 { max-width:none; width:100%; margin:0; font-size:1.1625rem; line-height:1.16; letter-spacing:-.035em; font-weight:600; }
-	.story-block .intro { color:var(--color-muted); }
-	.story-block blockquote { margin:.5rem 0 0; padding-left:1rem; border-left:2px solid var(--color-border-strong); }
+	.editorial-section { display:grid; grid-template-columns:16rem minmax(0,1fr); gap:0; padding:1rem 0 clamp(3rem,6vw,5rem); border-top:1px solid var(--color-border); scroll-margin-top:2rem; }
+	.editorial-section--with-bottom-border { border-bottom:1px solid var(--color-border); }
+	.section-rail { font-family:var(--font-mono); font-size:.82rem; font-weight:600; letter-spacing:.08em; line-height:1.4; text-transform:uppercase; color:var(--color-muted); padding-top:.25rem; }
+	.section-rail p { margin:0; max-width:none; color:inherit; font:inherit; letter-spacing:inherit; text-transform:inherit; }
+	.story-block { display:grid; gap:.8rem; max-width:52rem; }
+	.story-block p { max-width:none; margin:0; font-size:1.08rem; line-height:1.7; color:var(--color-text); }
 	.story-block a { color:var(--color-link); text-underline-offset:.2em; }
-	.story-disclosure { margin-top:0; }
-	.story-disclosure summary { width:fit-content; display:inline-flex; align-items:center; gap:.4rem; padding:0; border:0; color:var(--color-link); cursor:pointer; font-family:var(--font-body); font-size:.875rem; font-weight:400; line-height:1.7; list-style:none; text-decoration:underline; text-underline-offset:.2em; }
-	.story-disclosure summary::-webkit-details-marker { display:none; }
-	.story-disclosure summary:hover { color:var(--color-text); }
-	.story-disclosure__open { display:none; }
-	.story-disclosure__arrow { transition:transform 140ms ease; }
-	.story-disclosure[open] .story-disclosure__closed { display:none; }
-	.story-disclosure[open] .story-disclosure__open { display:inline; }
-	.story-disclosure[open] .story-disclosure__arrow { transform:rotate(180deg); }
-	.story-disclosure__content { display:grid; gap:.65rem; margin-top:.65rem; }
-	.story-disclosure__content p { color:var(--color-muted); font-size:1.08rem; line-height:1.7; }
 	.about-closing { padding:5rem 0; }
-	:global(#beyond-engineering) { border-bottom:1px solid var(--color-border); }
 
 	.about-closing .story-block { grid-column:1 / -1; }
 	#approach { margin-top:0; }
-	#background { padding-top:0; }
 	@media(max-width:1100px){.about-hero__layout{grid-template-columns:1fr}.about-portrait-frame{width:min(100%,16rem)}}
 	@media(max-width:720px){.about-hero{padding:3rem 0 0}.about-hero h1{font-size:clamp(2.15rem,10vw,2.45rem);line-height:1.04}.about-hero__actions{display:flex;flex-wrap:wrap;gap:.45rem 1rem;margin-top:0}.about-hero__actions a{color:var(--color-link);font-size:.92rem;font-weight:600;text-underline-offset:.2em}.editorial-section{grid-template-columns:1fr}.about-hero__lead,.about-story p,.story-block p{font-size:1.05rem}.button{width:100%}}
 	@media(max-width:640px){.about-page{width:min(calc(100% - 32px),var(--content-width))}}
