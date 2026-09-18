@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 import ContactCTA from '../../components/ContactCTA.astro';
 import { TAG_GROUPS, tagGroupFor } from '../../data/tagGroups';
+import { isVisibleWriting } from '../../data/writing';
 
 const baseUrl = import.meta.env.BASE_URL;
 const normalizedBase = baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`;
@@ -21,7 +22,7 @@ const formatDate = (date: Date) =>
 		day: 'numeric',
 	});
 
-const entries = (await getCollection('writing', ({ data }) => !data.draft)).sort(
+const entries = (await getCollection('writing', ({ data }) => isVisibleWriting(data))).sort(
 	(a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf(),
 );
 

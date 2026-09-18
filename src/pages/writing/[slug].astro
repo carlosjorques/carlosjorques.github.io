@@ -3,9 +3,10 @@ import { getCollection, render } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 import ContactCTA from '../../components/ContactCTA.astro';
 import { IDENTITY } from '../../data/identity';
+import { SHOW_DRAFT_WRITING, isVisibleWriting } from '../../data/writing';
 
 export async function getStaticPaths() {
-	const entries = await getCollection('writing', ({ data }) => !data.draft);
+	const entries = await getCollection('writing', ({ data }) => isVisibleWriting(data));
 	return entries.map((entry) => ({
 		params: { slug: entry.id.replace(/\.md$/, '') },
 		props: { entry },
@@ -22,7 +23,7 @@ const withBase = (href: string) =>
 	href.startsWith('http') || href.startsWith('mailto:') || href.startsWith('#')
 		? href
 		: `${normalizedBase}${href.replace(/^\//, '')}`;
-const label = entry.data.draft
+const label = entry.data.draft && !SHOW_DRAFT_WRITING
 	? 'Writing in preparation'
 	: entry.data.publishDate.toLocaleDateString('en', {
 			year: 'numeric',
