@@ -30,7 +30,7 @@ metrics:
     value: TA15 autonomous electric hauler
   - label: Propulsion architecture
     value: Dual-motor electric drive
-  - label: Controler accuracy
+  - label: Controller accuracy
     value: 5% speed-tracking error in vehicle validation
   - label: Validation
     value: Unit tests · SIL/HIL · vehicle testing

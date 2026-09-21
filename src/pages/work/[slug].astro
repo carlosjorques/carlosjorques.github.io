@@ -14,7 +14,6 @@ const { data } = project;
 const projectSource = `project-${project.id}`;
 const contactHref = `/contact/?context=technical&source=${projectSource}#message-title`;
 const withBase = (href: string) => `${import.meta.env.BASE_URL}${href.replace(/^\//, '')}`;
-const displayMetricLabel = (label: string) => (label === 'Controler accuracy' ? 'Controller accuracy' : label);
 ---
 
 <BaseLayout title={`${data.title} | Work`} description={data.description}>
@@ -54,7 +53,7 @@ const displayMetricLabel = (label: string) => (label === 'Controler accuracy' ? 
 					<div>
 						<h3>Selected context</h3>
 						<dl class="project-brief__metrics">
-							{data.metrics.map((metric) => <div><dt>{displayMetricLabel(metric.label)}</dt><dd>{metric.value}</dd></div>)}
+							{data.metrics.map((metric) => <div><dt>{metric.label}</dt><dd>{metric.value}</dd></div>)}
 						</dl>
 					</div>
 				</div>
