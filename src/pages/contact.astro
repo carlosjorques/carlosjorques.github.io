@@ -19,13 +19,13 @@ const contactSource = Astro.url.searchParams.get('source')?.match(/^[a-z0-9-]+$/
 
 <Layout
 	title={`Contact ${IDENTITY.name} | ${IDENTITY.primaryTitle}`}
-	description="Contact Carlos Jorques, an Embedded Controls Technical Lead focused on control system design and implementation in embedded systems, electrification, autonomy, diagnostics, safety-critical software, or collaboration."
+	description="Contact Carlos Jorques, an Embedded Control Systems Architect focused on control system design and implementation in embedded systems, electrification, autonomy, diagnostics, safety-related development, or collaboration."
 >
 	<section class="contact-hero" aria-labelledby="contact-title">
 		<div class="page-container">
 			<p class="section-eyebrow">Contact</p>
 			<h1 id="contact-title" class="hero-title">Let’s talk.</h1>
-			<p class="contact-hero__lead">I’m {IDENTITY.name}, an {IDENTITY.primaryTitle}. Use the form below to <a href="#message-title">send a message</a> for a role discussion, a technical question, or a conversation. You can also <a href={linkedinHref} target="_blank" rel="noopener noreferrer" data-analytics-event="linkedin_outbound_click" data-cta-id="contact-linkedin" data-cta-placement="contact-hero-copy" data-cta-intent="professional-profile" data-source-section="contact-hero" data-destination={linkedinHref}>connect on LinkedIn</a>.</p>
+			<p class="contact-hero__lead">I’m {IDENTITY.name}, an {IDENTITY.primaryTitle}. Use the form below to <a href="#message-title">send a message</a> for a role discussion, a technical question, or a potential collaboration. You can also <a href={linkedinHref} target="_blank" rel="noopener noreferrer" data-analytics-event="linkedin_outbound_click" data-cta-id="contact-linkedin" data-cta-placement="contact-hero-copy" data-cta-intent="professional-profile" data-source-section="contact-hero" data-destination={linkedinHref}>connect on LinkedIn</a>.</p>
 			<p class="contact-hero__proof">Based in {IDENTITY.location} <span aria-hidden="true">·</span> Working remotely with international teams</p>
 		</div>
 	</section>
