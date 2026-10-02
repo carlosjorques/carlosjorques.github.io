@@ -60,14 +60,10 @@ const research = defineCollection({
 const projects = defineCollection({
 	loader: glob({ pattern: '**/*.md', base: './src/content/projects' }),
 	schema: ({ image }) => z.object({
+		// Kept for the frozen homepage's selected-work projection.
 		title: z.string(),
-		company: z.string(),
-		deliveryContext: z.string().optional(),
 		context: z.string(),
-		description: z.string(),
 		tags: z.array(z.string()).min(2).max(2),
-		image: image(),
-		imageAlt: z.string(),
 		objective: z.string(),
 		heroTitle: z.string().optional(),
 		overviewDescription: z.string().optional(),

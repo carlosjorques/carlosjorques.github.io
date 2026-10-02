@@ -1,11 +1,7 @@
 ---
 title: Battery and Thermal Control Software for Production Electric Trucks
-company: Scania
 context: Electrified Trucks
-description: Developed production embedded software for battery, charging, auxiliary, and power-electronics thermal management in heavy-duty electric trucks.
 tags: [Adaptive AUTOSAR, ISO 26262 ASIL-B]
-image: ../../assets/projects/electric-truck-thermal-bms.webp
-imageAlt: Electric truck connected to a charger in snowy test conditions
 objective: "Electric-truck thermal management is a cross-system control problem: batteries, power electronics, charging, cabin climate, and auxiliary actuators must stay within physical limits while the vehicle remains usable. The work translated those strategies into production-oriented embedded software and validation results."
 heroTitle: Making thermal behavior production-ready in an electric truck
 overviewDescription: The work connected battery, charging, auxiliary, and power-electronics functions through model-based embedded control. It linked system requirements to real-time software, diagnostics, calibration, and test data from simulation through vehicle testing.

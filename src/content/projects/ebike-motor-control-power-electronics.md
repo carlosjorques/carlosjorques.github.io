@@ -1,11 +1,7 @@
 ---
 title: E-Bike Motor-Control Software and Delivery Practices
-company: "MAHLE Electronics"
 context: E-Bike Motor Control
-description: Delivered application-layer motor-control software and improved the way embedded teams tested, integrated, and released it. The work combined model integration, power-electronics interfaces, Automotive SPICE practices, and CI/CD across projects involving approximately 12 engineers.
 tags: [Motor control, CI/CD and Automotive SPICE]
-image: ../../assets/projects/ebike-motor-control.webp
-imageAlt: E-bike motor and crank area after off-road use
 objective: "An e-bike motor is a physical system experienced directly by the rider: torque must feel responsive and consistent while the software works within converter, battery, sensor, thermal, and communication limits. This work focused on turning model behavior into maintainable application software, while making the surrounding development process more testable, traceable, and production-ready."
 heroTitle: Making e-bike motor control consistent from model to product
 overviewDescription: The project combined application-layer motor-control development with the engineering practices needed to integrate and release embedded software consistently. It covered model integration, interfaces to the motor-control and power-electronics stack, bench validation, unit testing, Automotive SPICE-oriented development, and CI/CD across several participating projects.

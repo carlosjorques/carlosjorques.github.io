@@ -1,11 +1,7 @@
 ---
 title: Real-Time Combustion Control and Virtual Sensing Methods
-company: Lund University / Scania
 context: Heavy-Duty Engine Control Research
-description: Developed and experimentally validated real-time diagnostics, virtual sensing, and closed-loop combustion control for a heavy-duty diesel engine running on changing fuels. The research combined model-based algorithms with FPGA implementation and produced 15+ publications and 5 patents.
 tags: [Diagnostics, Virtual sensing]
-image: ../../assets/projects/heavy-duty-engine-diagnostics.webp
-imageAlt: Heavy-duty engine test bench with sensors and measurement cables
 objective: "Open-loop engine maps assume that the fuel, sensors, and combustion response will behave as expected. This research investigated how a heavy-duty engine could measure combustion inside each cycle, detect uncertainty and misfire, and adjust control decisions in real time so it could operate closer to efficient limits across changing fuels and operating conditions."
 heroTitle: Making combustion control measurable, adaptive, and real-time
 overviewDescription: The industrial PhD connected combustion modeling, pressure-based virtual sensing, stochastic diagnostics, predictive control, and deterministic FPGA implementation. The work was demonstrated on a running six-cylinder, 12.7 L Scania D13 engine rather than remaining a simulation-only study.
