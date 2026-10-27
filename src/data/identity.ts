@@ -1,8 +1,8 @@
 export const IDENTITY = {
 	name: 'Carlos Jorques',
 	// Canonical visible title across all rendered pages.
-	primaryTitle: 'Embedded Control Systems Architect',
-	secondaryDescriptors: ['Technical Leader', 'Senior Control Systems Engineer'],
+	primaryTitle: 'Control Systems Technical Lead',
+	secondaryDescriptors: ['Control Systems Architect', 'Senior Control Systems Engineer'],
 	// Homepage hero and footer signature only.
 	brandStatement: 'Control intelligence for complex physical systems',
 	brandLine: 'Embedded control systems for complex physical machines.',

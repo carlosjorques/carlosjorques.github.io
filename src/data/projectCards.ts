@@ -4,76 +4,98 @@ import ebikeMotorControlImage from '../assets/projects/ebike-motor-control.webp'
 import electricTruckImage from '../assets/projects/electric-truck-thermal-bms.webp';
 import heavyDutyEngineImage from '../assets/projects/heavy-duty-engine-diagnostics.webp';
 
+export interface ProjectOutcome {
+	readonly value: string;
+	readonly label: string;
+}
+
 export interface ProjectCard {
 	readonly slug: string;
 	readonly title: string;
 	readonly company: string;
 	readonly deliveryContext?: string;
 	readonly context: string;
+	/** My role on the project, shown in the card eyebrow. */
+	readonly role: string;
+	/** Meta description and lead on the detail page. */
 	readonly description: string;
-	readonly ownership: string;
-	readonly evidence: readonly [readonly [string, string], readonly [string, string]];
+	/** Card text on the Work index: the problem and what the reader finds on the page. */
+	readonly hook: string;
+	readonly outcomes: readonly ProjectOutcome[];
 	readonly image: ImageMetadata;
 	readonly imageAlt: string;
 }
 
+// Newest first: the order matches the next-project links on the detail pages.
 export const projectCards = [
 	{
 		slug: 'electric-truck-thermal-management',
-		title: 'Battery and thermal control for electric trucks',
+		title: 'Thermal management control for Scania’s electric trucks',
 		company: 'Scania',
-		context: 'Electrified trucks',
-		description: 'I define control behaviour and software architecture for battery, charging, power electronics, and auxiliary thermal functions with competing heat and energy demands.',
-		ownership: 'I own the control architecture and system models',
-		evidence: [
-			['Validation path', 'MIL / SIL / HIL to vehicle'],
-			['Evidence', 'Model gaps found in hardware and vehicle tests'],
+		deliveryContext: 'Client assignment through ALTEN',
+		context: 'Electric trucks',
+		role: 'Predictive control lead',
+		description:
+			'Predictive control uses the route ahead to decide when to heat or cool the batteries, and a control allocator picks the pumps, fans and heaters that do it with the least electricity.',
+		hook: 'Hauliers choose trucks by cost per tonne-kilometre, and the battery is about a third of the price of an electric truck. However, part of every charge is spent on keeping the batteries and the cabin at the right temperature. The predictive controller I lead uses the route ahead to decide when to heat or cool, and which pumps, fans and heaters to use. In truck tests, the saving was large enough to allow for a smaller battery with the same range.',
+		outcomes: [
+			{ value: '2–4%', label: 'less vehicle energy' },
+			{ value: 'up to 4.6×', label: 'battery saving over energy saving' },
+			{ value: 'up to 21500\u00a0€', label: 'saved per truck in 8 years' },
 		],
 		image: electricTruckImage,
 		imageAlt: 'Electric truck connected to a charger in snowy test conditions',
 	},
 	{
 		slug: 'autonomous-hauler-propulsion-control',
-		title: 'Propulsion control for an autonomous electric hauler',
-		company: 'Volvo Construction Equipment',
-		deliveryContext: 'Client assignment: Volvo Construction Equipment · Delivered through ALTEN',
-		context: 'Autonomous heavy duty machinery',
-		description: 'I replaced individually regulated axles with layered speed and torque control that coordinates both motors through changing terrain, load, and grip.',
-		ownership: 'I designed, implemented, and tested the propulsion control',
-		evidence: [
-			['Reference measurement', 'About 5% speed error on the R&D circuit'],
-			['Validation', 'Manual and autonomous vehicle testing'],
+		title: 'Speed control for Volvo’s autonomous TA15 electric hauler',
+		company: 'Volvo CE',
+		deliveryContext: 'Client assignment through ALTEN',
+		context: 'Autonomous haulers',
+		role: 'Technical lead',
+		description:
+			'The two electric axles of the hauler worked against each other and made it tremble. I redesigned the speed and torque control so that the hauler holds the speed its autonomy system requests.',
+		hook: 'The value of a driverless hauler is the material it moves per hour, so it has to hold the speed that its autonomy system plans. On the TA15, the two electric axles worked against each other and made the hauler tremble. I redesigned its speed and torque control, and every change was tested on the machine and in autonomous runs. The hauler now holds the requested speed and can therefore be planned closer to its limits on mud, gravel and slopes.',
+		outcomes: [
+			{ value: '< 1 km/h', label: 'speed error' },
+			{ value: 'No', label: 'oscillation between the axles' },
+			{ value: '≈ 3%', label: 'more loads per hour per km/h' },
 		],
 		image: autonomousHaulerImage,
 		imageAlt: 'Autonomous electric haulers operating in a quarry',
 	},
 	{
 		slug: 'ebike-motor-control-power-electronics',
-		title: 'Motor control and software setup for an E bike',
-		company: 'MAHLE Electronics',
-		context: 'E bike motor control',
-		description: 'I worked on thermal modelling and motor torque software while helping establish the modular platform, testing practices, and software planning for early E bike development.',
-		ownership: 'I contributed as developer and Scrum Master',
-		evidence: [
-			['Development stage', 'Early research and platform pre development'],
-			['Engineering practice', 'Automotive SPICE, testing, and software planning'],
+		title: 'Software processes and a motor temperature model for MAHLE',
+		company: 'MAHLE',
+		context: 'E-bike drives',
+		role: 'Technical lead and Scrum Master',
+		description:
+			'I helped an advanced engineering team prepare its software development for A-SPICE, and co-developed a real-time model that estimates the hottest temperature inside an electric motor, where no sensor measures.',
+		hook: 'Vehicle makers expect A-SPICE from their software suppliers, and an e-bike motor without a sensor in its windings has to keep a wide temperature margin. As Scrum Master, I helped set the first steps towards A-SPICE level 2, and as technical lead of the e-bike software, I co-developed a real-time model of the hottest point in the motor.',
+		outcomes: [
+			{ value: 'A-SPICE', label: 'first steps to level 2 adopted' },
+			{ value: '< 2%', label: 'motor temperature error' },
 		],
 		image: ebikeMotorControlImage,
-		imageAlt: 'E bike motor and crank area after off road use',
+		imageAlt: 'E-bike motor and crank area after off-road use',
 	},
 	{
 		slug: 'heavy-duty-engine-diagnostics-control-research',
-		title: 'Real time combustion control on a heavy duty engine',
-		company: 'Lund University / Scania',
-		context: 'Heavy duty engine control research',
-		description: 'I designed closed loop combustion control, virtual sensing, and diagnostic methods, then implemented and validated them on a running heavy duty engine test bench.',
-		ownership: 'I led the control design, implementation, and test bench validation',
-		evidence: [
-			['Experimental result', 'Up to 1.8 percentage points more indicated efficiency at low load'],
-			['Implementation', 'LabVIEW FPGA and running engine validation'],
+		title: 'Combustion control that corrects a diesel engine within each cycle',
+		company: 'Scania and Lund University',
+		context: 'Diesel engines',
+		role: 'Industrial PhD researcher',
+		description:
+			'Software on an FPGA measures combustion inside a running Scania engine and corrects the fuel injection before the cycle ends, so that renewable fuels burn efficiently within the limits of the engine.',
+		hook: 'Renewable fuels cut the CO₂ of trucks without new infrastructure. However, they ignite differently from diesel, so engines keep wide safety margins that cost fuel in every cycle. In my PhD, I developed software on an FPGA that measures each combustion and corrects the fuel injection before the cycle ends. On a Scania engine running diesel and two renewable fuels, it halved the variation between cycles and raised the efficiency.',
+		outcomes: [
+			{ value: '50%', label: 'less variation between cycles' },
+			{ value: '+1.8 points', label: 'engine efficiency' },
+			{ value: '96%', label: 'misfires detected in time' },
 		],
 		image: heavyDutyEngineImage,
-		imageAlt: 'Heavy duty engine test bench with sensors and measurement cables',
+		imageAlt: 'Six-cylinder Scania D13 engine in a test cell, with pressure sensors and measurement cables',
 	},
 ] as const satisfies readonly ProjectCard[];
 

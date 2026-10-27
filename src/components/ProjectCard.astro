@@ -1,80 +1,89 @@
 ---
 import { Image } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
+import type { ProjectOutcome } from '../data/projectCards';
 
 interface Props {
 	title: string;
 	company: string;
-	deliveryContext?: string;
 	context: string;
-	description: string;
-	ownership: string;
-	evidence: readonly [readonly [string, string], readonly [string, string]];
+	role: string;
+	hook: string;
+	outcomes: readonly ProjectOutcome[];
 	image: ImageMetadata;
 	imageAlt: string;
 	slug: string;
+	headingLevel?: 2 | 3;
+	eager?: boolean;
 }
-const { title, company, deliveryContext, context, description, ownership, evidence, image, imageAlt, slug } = Astro.props;
+const { title, company, context, role, hook, outcomes, image, imageAlt, slug, headingLevel = 2, eager = false } = Astro.props;
 const href = `${import.meta.env.BASE_URL}work/${slug}/`;
+const Heading = `h${headingLevel}` as 'h2' | 'h3';
 ---
 
 <article class="project-card">
-	<a
-		class="project-card__link"
-		href={href}
-		aria-label={`Open project: ${title}`}
-		data-analytics-event="cta_click"
-		data-cta-id={`work-project-${slug}`}
-		data-cta-placement="work-projects"
-		data-cta-intent="proof"
-		data-source-section="work-projects"
-		data-destination={href}
-	>
-		<div class="project-card__body">
-			<header class="project-card__header">
-				<p class="project-card__eyebrow">{company} <span aria-hidden="true">·</span> {context}</p>
-				{deliveryContext && <p class="project-card__delivery">{deliveryContext}</p>}
-				<h2>{title}</h2>
-			</header>
-			<p class="project-card__ownership">{ownership}</p>
-			<p class="project-card__summary">{description}</p>
-			<div class="project-card__evidence" aria-label={`${title} selected facts`}>
-				<dl>
-					{evidence.map(([label, value]) => <div><dt>{label}</dt><dd>{value}</dd></div>)}
-				</dl>
-			</div>
-			<span class="project-card__read">Open project <span aria-hidden="true">→</span></span>
-		</div>
-		<figure class="project-card__media"><Image src={image} alt={imageAlt} widths={[480, 720, 960]} sizes="(min-width: 768px) 45vw, 100vw" /></figure>
-	</a>
+	<div class="project-card__body">
+		<p class="project-card__eyebrow">{company} <span aria-hidden="true">·</span> {context} <span aria-hidden="true">·</span> <span class="project-card__role">{role}</span></p>
+		<Heading class="project-card__title">
+			<a
+				class="project-card__link"
+				href={href}
+				data-analytics-event="cta_click"
+				data-cta-id={`work-project-${slug}`}
+				data-cta-placement="work-projects"
+				data-cta-intent="proof"
+				data-source-section="work-projects"
+				data-destination={href}>{title}</a
+			>
+		</Heading>
+		<p class="project-card__hook">{hook}</p>
+		<dl class="project-card__outcomes">
+			{
+				outcomes.map(({ value, label }) => (
+					<div>
+						<dt>{value}</dt>
+						<dd>{label}</dd>
+					</div>
+				))
+			}
+		</dl>
+		<span class="project-card__read" aria-hidden="true">Read the project →</span>
+	</div>
+	<figure class="project-card__media">
+		<Image src={image} alt={imageAlt} widths={[480, 720, 960, 1280]} sizes="(min-width: 900px) 50vw, 100vw" loading={eager ? 'eager' : 'lazy'} fetchpriority={eager ? 'high' : 'auto'} />
+	</figure>
 </article>
 
 <style>
-	.project-card { min-width: 0; padding: clamp(1.25rem, 3vw, 2.25rem) 0; border-top: 1px solid var(--color-border); }
-	.project-card:first-child { padding-top: 0; }
-	.project-card__link { display: grid; grid-template-columns: minmax(0, 1fr) minmax(18rem, .95fr); gap: clamp(1.5rem, 4vw, 3rem); align-items: stretch; min-width: 0; background: var(--color-card-bg); padding: clamp(1.25rem, 3vw, 2rem); color: inherit; text-decoration: none; transition: background-color var(--motion-duration-fast-02) var(--motion-standard-productive); }
-	.project-card__link:hover, .project-card__link:focus-visible { background: var(--color-card-bg-hover); }
-	.project-card__media { order: 2; min-width: 0; min-height: 16rem; height: 100%; margin: 0; overflow: hidden; background: var(--color-surface-soft); border-radius: var(--radius); }
-	.project-card__media img { display: block; width: 100%; height: 100%; object-fit: cover; }
-	.project-card__body { display: grid; align-content: center; gap: .85rem; min-width: 0; max-width: 52rem; }
-	.project-card__header { display: grid; gap: .5rem; min-width: 0; }
+	.project-card { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(1.5rem, 4vw, 3.5rem); align-items: center; padding-block: clamp(2rem, 4vw, 3rem); border-top: 1px solid var(--color-border); }
+	.project-card__body { display: grid; gap: 1rem; min-width: 0; }
 	.project-card__eyebrow { margin: 0; color: var(--color-accent-text); font-family: var(--font-mono); font-size: var(--type-eyebrow-size); font-weight: var(--type-eyebrow-weight); letter-spacing: var(--type-eyebrow-tracking); line-height: var(--type-eyebrow-line); text-transform: uppercase; }
-	.project-card h2 { max-width: none; margin: 0; font-family: var(--font-display); font-size: clamp(1.45rem, 2.2vw, 2.15rem); font-weight: 700; line-height: 1.06; letter-spacing: -.045em; text-wrap: balance; }
-	.project-card__delivery { margin: -.25rem 0 0; color: var(--color-muted); font-size: .82rem; line-height: 1.45; }
-	.project-card__ownership { margin: 0; color: var(--color-text); font-size: var(--type-card-body-size); font-weight: 700; line-height: 1.4; }
-	.project-card__summary { margin: 0; color: var(--color-muted); font-size: var(--type-card-body-size); line-height: 1.6; }
-	.project-card__eyebrow, .project-card__ownership, .project-card__summary { min-width: 0; overflow-wrap: anywhere; }
-	.project-card__evidence { padding-top: .75rem; }
-	.project-card__evidence dl { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .75rem 1rem; margin: 0; }
-	.project-card__evidence div { display: grid; gap: .2rem; min-width: 0; }
-	.project-card__evidence dt { color: var(--color-accent-text); font-family: var(--font-mono); font-size: .7rem; font-weight: 600; letter-spacing: .07em; line-height: 1.35; text-transform: uppercase; }
-	.project-card__evidence dd { margin: 0; color: var(--color-text); font-size: .86rem; line-height: 1.45; overflow-wrap: anywhere; }
-	.project-card__read { display: inline-flex; justify-self: start; align-items: center; gap: .4rem; margin-top: .15rem; color: var(--color-link); font-family: var(--font-mono); font-size: var(--type-button-size); font-weight: var(--type-button-weight); letter-spacing: var(--type-button-tracking); line-height: 1.4; text-transform: uppercase; text-decoration: underline; text-underline-offset: .2em; }
-	.project-card__link:hover .project-card__read, .project-card__link:focus-visible .project-card__read { color: var(--color-link-hover); }
-	@media (max-width: 700px) {
-		.project-card__link { grid-template-columns: 1fr; gap: 1.25rem; }
-		.project-card__body { order: 1; }
-		.project-card__media { order: 2; min-height: 0; height: auto; aspect-ratio: 16 / 9; }
+		.project-card__role { color: var(--color-text); white-space: nowrap; }
+	.project-card__title { max-width: none; margin: 0; font-family: var(--font-display); font-size: clamp(1.45rem, 2.2vw, 2rem); font-weight: 700; line-height: 1.1; letter-spacing: -.04em; text-wrap: balance; }
+	.project-card__link { color: var(--color-text); text-decoration: none; }
+	/* The title link covers the whole project block, so the block is clickable with a short accessible name. */
+	.project-card__link::after { content: ''; position: absolute; inset: 0; z-index: 1; }
+	.project-card__link:focus-visible { outline: none; }
+	.project-card:has(.project-card__link:focus-visible) { outline: 2px solid var(--color-link); outline-offset: 4px; }
+	.project-card__hook { margin: 0; color: var(--color-body-text, var(--color-text)); font-size: var(--type-card-body-size); line-height: 1.65; }
+	.project-card__outcomes { display: flex; gap: 1rem 1.5rem; margin: .25rem 0 0; }
+	.project-card__outcomes div { display: grid; flex: 1 1 0; align-content: start; gap: .15rem; min-width: max-content; }
+	.project-card__outcomes dt { color: var(--color-text); font-family: var(--font-display); font-size: clamp(1.3rem, 1.8vw, 1.6rem); font-weight: 700; letter-spacing: -.03em; line-height: 1.1; white-space: nowrap; }
+	.project-card__outcomes dd { width: 0; min-width: 100%; margin: 0; color: var(--color-muted); font-size: .86rem; line-height: 1.4; }
+	.project-card__read { justify-self: start; margin-top: .25rem; color: var(--color-link); font-family: var(--font-mono); font-size: var(--type-button-size); font-weight: var(--type-button-weight); letter-spacing: var(--type-button-tracking); line-height: 1.4; text-transform: uppercase; text-decoration: underline; text-underline-offset: .2em; }
+	.project-card:hover .project-card__read { color: var(--color-link-hover); }
+	.project-card:hover .project-card__link { color: var(--color-link-hover); }
+	.project-card__media { min-width: 0; margin: 0; overflow: hidden; border-radius: 1.5rem; aspect-ratio: 4 / 3; background: var(--color-surface-soft); }
+	.project-card__media img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform var(--motion-duration-moderate-01) var(--motion-standard-productive); }
+	.project-card:hover .project-card__media img { transform: scale(1.02); }
+	@media (prefers-reduced-motion: reduce) { .project-card__media img { transition: none; } .project-card:hover .project-card__media img { transform: none; } }
+	@media (max-width: 900px) {
+		.project-card { grid-template-columns: 1fr; gap: 1rem; }
+		/* On one column, the eyebrow and title come before the image, so each project starts with its name. */
+		.project-card__body { display: contents; }
+		.project-card__eyebrow, .project-card__title { order: -2; }
+		.project-card__media { order: -1; aspect-ratio: 16 / 9; }
+		.project-card__read { margin-top: 0; }
 	}
-	@media (max-width: 420px) { .project-card__evidence dl { grid-template-columns: 1fr; } }
+	@media (max-width: 520px) { .project-card__outcomes { flex-direction: column; } }
 </style>
