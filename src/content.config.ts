@@ -59,44 +59,34 @@ const research = defineCollection({
 
 const projects = defineCollection({
 	loader: glob({ pattern: '**/*.md', base: './src/content/projects' }),
-	schema: ({ image }) => z.object({
-		// Kept for the frozen homepage's selected-work projection.
+	schema: z.object({
+		/** H1 of the detail page; also used by the homepage and writing posts. */
 		title: z.string(),
+		/** Title tag before " | Carlos Jorques" (about 60 characters in total). */
+		seoTitle: z.string(),
+		description: z.string(),
+		/** Short domain label, used by the homepage selected-work list. */
 		context: z.string(),
-		tags: z.array(z.string()).min(2).max(2),
-		objective: z.string(),
-		heroTitle: z.string().optional(),
-		overviewDescription: z.string().optional(),
-		roleScopeTitle: z.string().optional(),
-		constraintsTitle: z.string().optional(),
-		processTitle: z.string().optional(),
-		deliverablesTitle: z.string().optional(),
-		reflectionTitle: z.string().optional(),
-		role: z.string().refine((value) => {
-			const wordCount = value.trim().split(/\s+/).filter(Boolean).length;
-			return wordCount >= 3 && wordCount <= 6;
-		}, 'Card role must contain 3–6 words.'),
-		roleScope: z.string(),
-		contribution: z.string(),
-		collaborators: z.string().optional(),
-		toolsAndMethods: z.array(z.string()),
-		constraints: z.string(),
-		risks: z.string().optional(),
-		process: z.string(),
-		decisions: z.string(),
-		deliverables: z.string(),
-		deliverableVisuals: z.array(image()).optional(),
-		metrics: z.array(z.object({ label: z.string(), value: z.string() })),
-		references: z
-			.array(
+		eyebrow: z.string(),
+		intro: z.string(),
+		facts: z.array(z.object({ label: z.string(), value: z.string() })).min(1),
+		updated: z.coerce.date(),
+		metrics: z.array(z.object({ value: z.string(), label: z.string() })).min(1),
+		metricsNote: z.string(),
+		glance: z.array(z.object({ label: z.string(), text: z.string() })).min(1),
+		/** Values for the page JSON-LD; every value must be visible on the page. */
+		schema: z.object({
+			keywords: z.string(),
+			about: z.array(z.object({ name: z.string(), sameAs: z.string().url().optional() })),
+			mentions: z.array(
 				z.object({
-					label: z.string(),
-					href: z.string().url(),
-					context: z.string(),
+					type: z.string(),
+					name: z.string(),
+					sameAs: z.string().url().optional(),
+					url: z.string().url().optional(),
 				}),
-			)
-			.optional(),
-		reflection: z.string().optional(),
+			),
+		}),
 	}),
 });
 

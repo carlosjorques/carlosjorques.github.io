@@ -4,7 +4,7 @@
 
 This is the personal professional website of Carlos Jorques.
 
-The site positions Carlos as an **Embedded Controls Technical Lead** focused on **Control Intelligence for Complex Physical Systems**.
+The site positions Carlos as a **Control Systems Technical Lead** focused on **Control Intelligence for Complex Physical Systems**.
 
 Primary goal: recruiters, engineering managers, and technical peers should quickly understand Carlos's expertise, evidence of work, and contact paths.
 
@@ -29,11 +29,12 @@ The website should function as:
 
 Primary title:
 
-**Embedded Controls Technical Lead**
+**Control Systems Technical Lead**
 
 Secondary descriptors:
 
 - Technical Leader
+- Embedded Controls Technical Lead
 - Control Systems Architect
 - Control Systems Engineer
 - Real-Time Embedded Software / Controls Specialist
@@ -613,7 +614,7 @@ Use variables such as:
 ## SEO focus
 
 Target concepts:
-- Embedded Controls Technical Lead
+- Control Systems Technical Lead
 - Senior Control Systems Engineer
 - Control intelligence for complex physical systems
 - embedded control systems

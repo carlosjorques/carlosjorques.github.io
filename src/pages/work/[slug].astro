@@ -1,9 +1,9 @@
 ---
-import { getCollection } from 'astro:content';
-import { Image } from 'astro:assets';
+import { getCollection, render } from 'astro:content';
+import { Image, getImage } from 'astro:assets';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ContactCTA from '../../components/ContactCTA.astro';
-import { getProjectCard, validateProjectCardSlugs } from '../../data/projectCards';
+import { getProjectCard, projectCards, validateProjectCardSlugs } from '../../data/projectCards';
 
 export async function getStaticPaths() {
 	const projects = await getCollection('projects');
@@ -13,115 +13,116 @@ export async function getStaticPaths() {
 
 const { project, card } = Astro.props;
 const { data } = project;
+const { Content } = await render(project);
+
+const site = Astro.site ?? new URL(Astro.url.origin);
+const withBase = (href: string) => `${import.meta.env.BASE_URL}${href.replace(/^\//, '')}`;
+const pageUrl = new URL(withBase(`/work/${project.id}/`), site);
+
+const cardIndex = projectCards.findIndex((projectCard) => projectCard.slug === project.id);
+const nextCard = projectCards[(cardIndex + 1) % projectCards.length];
+
+const ogImage = await getImage({ src: card.image, width: 1200, format: 'jpg' });
+const updatedIso = data.updated.toISOString().slice(0, 10);
+
 const projectSource = `project-${project.id}`;
 const contactHref = `/contact/?context=technical&source=${projectSource}#message-title`;
-const withBase = (href: string) => `${import.meta.env.BASE_URL}${href.replace(/^\//, '')}`;
+
+// Keep a number and its unit on the same line.
+const nb = (text: string) => text.replace(/(\d) (?=(?:t|L|kg|kWh|rpm|bar|mg|Hz|°C|km\/h|K|€)(?!\p{L}))/gu, '$1\u00a0');
+// Escape frontmatter text and turn **highlights** into <strong> for recruiter scanning.
+const escapeHtml = (text: string) => text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+const rich = (text: string) => escapeHtml(nb(text)).replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+const plain = (text: string) => text.replace(/\*\*/g, '');
+
+const jsonLd = {
+	'@context': 'https://schema.org',
+	'@graph': [
+		{
+			'@type': 'CreativeWork',
+			'@id': `${pageUrl.href}#work`,
+			name: data.title,
+			headline: data.title,
+			description: data.description,
+			url: pageUrl.href,
+			image: new URL(ogImage.src, site).href,
+			inLanguage: 'en',
+			dateModified: updatedIso,
+			author: { '@id': new URL('/#person', site).href },
+			keywords: data.schema.keywords,
+			about: data.schema.about.map((item) => ({ '@type': 'Thing', name: item.name, ...(item.sameAs && { sameAs: item.sameAs }) })),
+			mentions: data.schema.mentions.map((item) => ({
+				'@type': item.type,
+				name: item.name,
+				...(item.sameAs && { sameAs: item.sameAs }),
+				...(item.url && { url: item.url }),
+			})),
+		},
+		{
+			'@type': 'BreadcrumbList',
+			itemListElement: [
+				{ '@type': 'ListItem', position: 1, name: 'Home', item: new URL(withBase('/'), site).href },
+				{ '@type': 'ListItem', position: 2, name: 'Work', item: new URL(withBase('/work/'), site).href },
+				{ '@type': 'ListItem', position: 3, name: data.title, item: pageUrl.href },
+			],
+		},
+	],
+};
 ---
 
-<BaseLayout title={`${card.title} | Work`} description={card.description}>
+<BaseLayout title={data.seoTitle} description={data.description} ogType="article" ogImage={ogImage.src} ogImageAlt={card.imageAlt}>
+	<script slot="head" type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
 	<article class="project-page">
 		<div class="project-page__container">
 			<nav class="project-breadcrumb section-eyebrow" aria-label="Breadcrumb">
 				<a href={withBase('/work/')}>Work</a>
 				<span aria-hidden="true">/</span>
-				<span aria-current="page">{card.context}</span>
+				<span aria-current="page">{data.context}</span>
 			</nav>
 
-			<section class="project-hero" aria-labelledby="project-title">
-				<div class="project-hero__layout">
-					<div class="project-hero__copy">
-						<p class="project-hero__project">{card.title}</p>
-						<h1 id="project-title">{data.heroTitle ?? card.title}</h1>
-						<p class="project-hero__lead">{data.overviewDescription ?? card.description}</p>
-						<dl class="project-hero__meta">
-							<div><dt>Organization</dt><dd>{card.company}</dd></div>
-							{card.deliveryContext && <div><dt>Delivery</dt><dd>{card.deliveryContext}</dd></div>}
-							<div><dt>Carlos's role</dt><dd>{data.role}</dd></div>
-							<div><dt>Focus</dt><dd>{data.tags.join(' · ')}</dd></div>
-						</dl>
-					</div>
-					<figure class="project-hero__media">
-						<Image src={card.image} alt={card.imageAlt} widths={[720, 1080, 1440]} sizes="(min-width: 900px) 34vw, 100vw" />
-					</figure>
+			<header class="project-hero">
+				<div class="project-hero__copy">
+					<p class="project-hero__eyebrow">{data.eyebrow}</p>
+					<h1>{data.title}</h1>
+					<p class="project-hero__lead" set:html={rich(data.intro)} />
 				</div>
+				<figure class="project-hero__media">
+					<Image src={card.image} alt={card.imageAlt} widths={[640, 960, 1280]} sizes="(min-width: 1000px) 30rem, 100vw" loading="eager" />
+				</figure>
+			</header>
+
+			<dl class="project-facts">
+				{data.facts.map((fact) => <div><dt>{fact.label}</dt><dd set:html={rich(fact.value)} /></div>)}
+			</dl>
+
+			<section class="project-numbers" aria-labelledby="project-numbers-title">
+				<h2 id="project-numbers-title">Key numbers</h2>
+				<ul class="project-numbers__grid">
+					{data.metrics.map((metric) => (
+						<li>
+							<span class="project-numbers__value">{nb(metric.value)}</span>
+							<span class="project-numbers__label" set:html={rich(metric.label)} />
+						</li>
+					))}
+				</ul>
+				{data.metricsNote && <p class="project-numbers__note">{plain(nb(data.metricsNote))}</p>}
 			</section>
 
-			<section class="project-brief" aria-labelledby="project-brief-title">
-				<h2 id="project-brief-title" class="project-brief__label section-eyebrow">At a glance</h2>
-				<div class="project-brief__grid">
-					<div><h3>Challenge</h3><p>{data.objective}</p></div>
-					<div><h3>Responsibility</h3><p>{data.roleScope}</p></div>
-					<div><h3>Implementation scope</h3><p>{data.contribution}</p></div>
-					<div>
-						<h3>Selected context</h3>
-						<dl class="project-brief__metrics">
-							{data.metrics.map((metric) => <div><dt>{metric.label}</dt><dd>{metric.value}</dd></div>)}
-						</dl>
-					</div>
-				</div>
+			<section class="project-glance" aria-labelledby="project-glance-title">
+				<h2 id="project-glance-title">At a glance</h2>
+				<dl>
+					{data.glance.map((item) => <div><dt>{item.label}</dt><dd set:html={rich(item.text)} /></div>)}
+				</dl>
 			</section>
 
-			<div class="project-sections">
-				<section class="editorial-section" aria-labelledby="project-context">
-					<div class="section-rail">Context</div>
-					<div class="story-block">
-						<h2 id="project-context">{data.constraintsTitle ?? 'Engineering context and constraints'}</h2>
-						<p>{data.constraints}</p>
-						{data.risks && <p class="story-block__muted"><strong>Failure modes to manage:</strong> {data.risks}</p>}
-					</div>
-				</section>
-
-				<section class="editorial-section" aria-labelledby="project-ownership">
-					<div class="section-rail">Ownership</div>
-					<div class="story-block">
-						<h2 id="project-ownership">{data.roleScopeTitle ?? 'Ownership and collaboration'}</h2>
-						{data.collaborators && <p><strong>Collaboration:</strong> {data.collaborators}</p>}
-						<div class="project-subsection">
-							<h3>Methods in scope</h3>
-							<ul class="tag-list" aria-label="Methods and technologies">{data.toolsAndMethods.map((tool) => <li class="tag">{tool}</li>)}</ul>
-						</div>
-					</div>
-				</section>
-
-				<section class="editorial-section" aria-labelledby="project-decisions">
-					<div class="section-rail">Decisions</div>
-					<div class="story-block">
-						<h2 id="project-decisions">{data.processTitle ?? 'Approach and key decisions'}</h2>
-						<div class="project-subsection">
-							<h3>How the work progressed</h3>
-							<p>{data.process}</p>
-						</div>
-						<div class="project-subsection">
-							<h3>Decisions that shaped the work</h3>
-							<p>{data.decisions}</p>
-						</div>
-					</div>
-				</section>
-
-				<section class="editorial-section" aria-labelledby="project-implementation">
-					<div class="section-rail">Implementation</div>
-					<div class="story-block">
-						<h2 id="project-implementation">{data.deliverablesTitle ?? 'Implementation and validation'}</h2>
-						<p>{data.deliverables}</p>
-						{data.deliverableVisuals && <div class="project-gallery">{data.deliverableVisuals.map((visual, index) => <Image src={visual} alt={`${card.title} supporting visual ${index + 1}`} widths={[480, 800]} sizes="(min-width: 768px) 40vw, 100vw" />)}</div>}
-					</div>
-				</section>
-
-				{data.references && data.references.length > 0 && <section class="editorial-section" aria-labelledby="research-references">
-					<div class="section-rail">References</div>
-					<div class="story-block">
-						<h2 id="research-references">Public references for the research context</h2>
-						<ul class="reference-list">
-							{data.references.map((reference) => <li><a href={reference.href} target="_blank" rel="noopener noreferrer">{reference.label}</a><span>{reference.context}</span></li>)}
-						</ul>
-					</div>
-				</section>}
-
-				{data.reflection && <section class="editorial-section" aria-labelledby="project-takeaway">
-					<div class="section-rail">Takeaway</div>
-					<div class="story-block"><h2 id="project-takeaway">{data.reflectionTitle ?? 'Engineering takeaway'}</h2><p>{data.reflection}</p></div>
-				</section>}
+			<div class="project-prose">
+				<Content />
 			</div>
+
+			<nav class="project-next" aria-label="Next project">
+				<span class="project-next__label">Next project</span>
+				<a href={withBase(`/work/${nextCard.slug}/`)}>{nextCard.title}<span aria-hidden="true"> →</span></a>
+			</nav>
 
 			<div class="project-page__closing">
 				<ContactCTA
@@ -130,7 +131,7 @@ const withBase = (href: string) => `${import.meta.env.BASE_URL}${href.replace(/^
 					primaryHref={contactHref}
 					primaryLabel="Discuss your challenge"
 					secondaryHref="/work/"
-					secondaryLabel="Explore more work"
+					secondaryLabel="All selected work"
 					sourceSection={`${projectSource}-closing`}
 					ctaIdPrefix={`${projectSource}-closing`}
 				/>
@@ -145,47 +146,75 @@ const withBase = (href: string) => `${import.meta.env.BASE_URL}${href.replace(/^
 	.project-breadcrumb { display: flex; flex-wrap: wrap; gap: .45rem; padding: clamp(2rem, 4vw, 3rem) 0 0; color: var(--color-muted); }
 	.project-breadcrumb a { color: var(--color-text); text-decoration: none; }
 	.project-breadcrumb a:hover, .project-breadcrumb a:focus-visible { color: var(--color-link); text-decoration: underline; text-underline-offset: .2em; }
-	.project-hero { padding: 1rem 0 clamp(3.5rem, 7vw, 6rem); }
-	.project-hero__layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(16rem, 24rem); gap: clamp(2rem, 5vw, 4rem); align-items: start; }
+
+	.project-hero { display: grid; grid-template-columns: minmax(0, 1fr) clamp(14rem, 38%, 28rem); gap: clamp(1.5rem, 4vw, 4rem); align-items: start; padding: 1.25rem 0 clamp(1.75rem, 3vw, 2.25rem); }
 	.project-hero__copy { display: grid; gap: 1rem; align-content: start; }
-	.project-hero__project { margin: 0; color: var(--color-accent-text); font-family: var(--font-mono); font-size: var(--type-eyebrow-size); font-weight: var(--type-eyebrow-weight); letter-spacing: var(--type-eyebrow-tracking); line-height: var(--type-eyebrow-line); text-transform: uppercase; }
-	.project-hero h1 { max-width: 18ch; margin: 0; font-size: clamp(2.55rem, 4vw, 3.7rem); font-weight: 800; letter-spacing: -.05em; line-height: 1.02; text-wrap: balance; }
-	.project-hero__lead { max-width: 62ch; margin: 0; color: var(--color-text); font-size: 1.08rem; line-height: 1.7; }
-	.project-hero__media { order: 2; width: 100%; aspect-ratio: 4 / 3; margin: 0; overflow: hidden; border: 1px solid var(--color-border); border-radius: var(--radius); background: var(--color-surface-soft); }
+	.project-hero__eyebrow { margin: 0; color: var(--color-accent-text); font-family: var(--font-mono); font-size: var(--type-eyebrow-size); font-weight: var(--type-eyebrow-weight); letter-spacing: var(--type-eyebrow-tracking); line-height: var(--type-eyebrow-line); text-transform: uppercase; }
+	.project-hero h1 { max-width: 22ch; margin: 0; font-size: clamp(2.2rem, 3.6vw, 3.3rem); font-weight: 800; letter-spacing: -.045em; line-height: 1.05; text-wrap: balance; }
+	.project-hero__lead { max-width: 62ch; margin: 0; font-size: 1.1rem; line-height: 1.7; }
+	.project-hero__media { width: 100%; aspect-ratio: 4 / 3; margin: 0; overflow: hidden; border-radius: var(--radius); background: var(--color-surface-soft); }
 	.project-hero__media img { display: block; width: 100%; height: 100%; object-fit: cover; }
-	.project-hero__meta { display: grid; gap: .8rem; max-width: 62ch; margin: .35rem 0 0; }
-	.project-hero__meta div { display: grid; grid-template-columns: 7rem minmax(0, 1fr); gap: .75rem; align-items: baseline; }
-	.project-hero__meta dt, .project-brief__grid h3, .section-rail, .project-subsection h3 { color: var(--color-muted); font-family: var(--font-mono); font-size: .78rem; font-weight: 600; letter-spacing: .08em; line-height: 1.4; text-transform: uppercase; }
-	.project-hero__meta dd { margin: 0; font-size: .98rem; font-weight: 600; line-height: 1.45; }
-	.project-brief { display: grid; gap: 1rem; padding: 0 0 clamp(2.25rem, 4vw, 3.5rem); }
-	.project-brief__label { margin: 0; }
-	.project-brief__grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem 2.5rem; }
-	.project-brief__grid > div { display: grid; gap: .45rem; align-content: start; padding-top: .8rem; border-top: 1px solid var(--color-border); }
-	.project-brief__grid h3 { margin: 0; color: var(--color-accent-text); }
-	.project-brief__grid p { margin: 0; font-size: .98rem; line-height: 1.58; }
-	.project-brief__metrics { display: grid; gap: .5rem; margin: 0; }
-	.project-brief__metrics div { display: grid; gap: .12rem; }
-	.project-brief__metrics dt { color: var(--color-muted); font-family: var(--font-mono); font-size: .7rem; letter-spacing: .06em; line-height: 1.35; text-transform: uppercase; }
-	.project-brief__metrics dd { margin: 0; font-size: .98rem; line-height: 1.45; }
-	.project-sections { border-top: 1px solid var(--color-border); }
-	.editorial-section { display: grid; grid-template-columns: 16rem minmax(0, 1fr); gap: 0; padding: 1rem 0 clamp(3rem, 6vw, 5rem); border-top: 1px solid var(--color-border); scroll-margin-top: 2rem; }
-	.editorial-section:first-child { border-top: 0; }
-	.section-rail { padding-top: .25rem; }
-	.story-block { display: grid; gap: .8rem; max-width: 62rem; }
-	.story-block h2 { max-width: 28ch; margin: 0; font-size: clamp(1.25rem, 1.7vw, 1.55rem); font-weight: 800; line-height: 1.1; letter-spacing: -.035em; text-wrap: balance; }
-	.story-block p { max-width: 68ch; margin: 0; font-size: 1.06rem; line-height: 1.7; }
-	.story-block strong { color: var(--color-text); }
-	.story-block__muted { color: var(--color-muted); }
-	.project-subsection { display: grid; gap: .65rem; margin-top: .35rem; }
-	.project-subsection h3 { margin: 0; }
-	.tag-list { display: flex; flex-wrap: wrap; gap: .55rem; margin: 0; padding: 0; list-style: none; }
-	.tag { display: inline-flex; align-items: center; border: 1px solid var(--color-border-soft); border-radius: var(--radius-pill); background: var(--color-surface-soft); padding: .18rem .45rem; color: var(--color-tag-text); font-family: var(--font-mono); font-size: var(--type-chip-size); line-height: var(--type-chip-line); }
-	.project-gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; margin-top: .5rem; }
-	.project-gallery img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border: 1px solid var(--color-border); border-radius: var(--radius); }
-	.reference-list { display: grid; gap: .8rem; margin: 0; padding-left: 1.1rem; }
-	.reference-list li { display: grid; gap: .2rem; }
-	.reference-list span { color: var(--color-muted); font-size: .92rem; line-height: 1.5; }
-	.project-page__closing { padding-top: 2rem; }
-	@media (max-width: 1000px) { .project-hero__layout { grid-template-columns: 1fr; } .project-hero__media { order: 0; max-width: 34rem; } }
-	@media (max-width: 720px) { .project-page__container { width: min(calc(100% - 32px), var(--content-width)); } .project-hero { padding-top: 2.8rem; } .project-hero h1 { max-width: 20ch; font-size: clamp(2.15rem, 10vw, 2.55rem); line-height: 1.04; } .project-hero__lead, .story-block p { font-size: 1.04rem; } .project-brief__grid { grid-template-columns: 1fr; gap: 1rem; } .editorial-section { grid-template-columns: 1fr; gap: .9rem; } .project-hero__meta div { grid-template-columns: 1fr; gap: .15rem; } }
+	.project-page :global(strong) { color: var(--color-text); font-weight: 700; }
+
+	/* Lines only between the main sections: header and overview, key numbers, at a glance, body. */
+	.project-facts { display: grid; gap: .55rem; margin: 0 0 clamp(2.5rem, 5vw, 3.5rem); }
+	.project-facts div { display: grid; grid-template-columns: 8rem minmax(0, 1fr); gap: 1rem; }
+	.project-facts dt, .project-glance dt, .project-next__label { color: var(--color-muted); font-family: var(--font-mono); font-size: .76rem; font-weight: 600; letter-spacing: .08em; line-height: 1.5; text-transform: uppercase; }
+	.project-facts dt { padding-top: .2rem; }
+	.project-facts dd { max-width: 75ch; margin: 0; font-size: .98rem; line-height: 1.55; }
+
+	.project-numbers, .project-glance, .project-prose { padding-top: clamp(2rem, 4vw, 2.75rem); border-top: 1px solid var(--color-border); }
+	.project-numbers, .project-glance { display: grid; gap: 1.25rem; margin-bottom: clamp(2.5rem, 5vw, 3.5rem); }
+	.project-numbers h2, .project-glance h2, .project-prose :global(h2) { max-width: 30ch; font-size: clamp(1.35rem, 2vw, 1.7rem); font-weight: 800; letter-spacing: -.03em; line-height: 1.15; text-wrap: balance; }
+	.project-numbers h2, .project-glance h2 { margin: 0; }
+	.project-numbers__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr)); gap: 1.5rem 2rem; margin: 0; padding: 0; list-style: none; }
+	.project-numbers__grid li { display: grid; grid-template-rows: auto 1fr; gap: .35rem; }
+	.project-numbers__value { font-size: clamp(1.6rem, 2.4vw, 2.1rem); font-weight: 800; letter-spacing: -.03em; line-height: 1.1; }
+	.project-numbers__label { font-size: .95rem; line-height: 1.5; }
+	.project-numbers__note { max-width: 75ch; margin: 0; color: var(--color-muted); font-size: .9rem; font-style: italic; line-height: 1.6; }
+
+	.project-glance dl { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.75rem 3rem; margin: 0; }
+	.project-glance dl div { display: grid; gap: .4rem; align-content: start; }
+	.project-glance dt { color: var(--color-accent-text); }
+	.project-glance dd { margin: 0; font-size: 1rem; line-height: 1.6; }
+
+	/* Centred reading column, as in an article; figures and tables share its width. Full width on mobile. */
+	.project-prose { --prose-width: 80%; display: grid; grid-template-columns: minmax(0, var(--prose-width)); justify-content: center; }
+	.project-prose > :global(h2:first-child) { margin-top: 0; }
+	.project-prose :global(h2) { margin: clamp(2.5rem, 5vw, 3.5rem) 0 1rem; }
+	@media (min-width: 861px) { .project-prose :global(h2) { max-width: none; text-wrap: pretty; } }
+	.project-prose :global(h3) { margin: 2rem 0 .75rem; font-size: 1.15rem; font-weight: 800; line-height: 1.3; }
+	.project-prose :global(p), .project-prose :global(li) { font-size: 1.06rem; line-height: 1.72; }
+	.project-prose :global(p) { margin: 0 0 1.1rem; }
+	.project-prose :global(ul), .project-prose :global(ol) { display: grid; gap: .6rem; margin: 0 0 1.25rem; padding-left: 1.2rem; }
+	.project-prose :global(a) { color: var(--color-link); text-underline-offset: .18em; }
+	.project-prose :global(a:hover), .project-prose :global(a:focus-visible) { color: var(--color-link-hover); }
+	.project-prose :global(figure), .project-prose :global(table) { width: 100%; }
+	.project-prose :global(figure) { margin: 2rem 0; }
+	.project-prose :global(figure img) { display: block; width: 100%; height: auto; background: #fff; }
+	.project-prose :global(figcaption) { margin: .75rem 0 0; color: var(--color-muted); font-size: .9rem; line-height: 1.55; }
+	.project-prose :global(table) { margin: 0 0 1.5rem; border-collapse: collapse; font-size: .95rem; }
+	.project-prose :global(th), .project-prose :global(td) { padding: .55rem .75rem .55rem 0; border-bottom: 1px solid var(--color-border-soft); text-align: left; vertical-align: top; }
+	.project-prose :global(th) { font-weight: 700; }
+	.project-prose :global(p:last-child em:only-child) { color: var(--color-muted); font-size: .92rem; }
+
+	.project-next { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: center; gap: .35rem .75rem; margin-top: clamp(2rem, 4vw, 3rem); font-size: .95rem; }
+	.project-next a { color: var(--color-link); font-weight: 600; text-underline-offset: .2em; }
+	.project-next a:hover, .project-next a:focus-visible { color: var(--color-link-hover); }
+	.project-page__closing { padding-top: clamp(1.75rem, 3vw, 2.5rem); }
+
+	@media (max-width: 860px) {
+		.project-hero { grid-template-columns: 1fr; }
+		.project-hero__media { max-width: 34rem; }
+	}
+	@media (max-width: 720px) {
+		.project-page__container { width: min(calc(100% - 32px), var(--content-width)); }
+		.project-hero h1 { font-size: clamp(1.9rem, 8.5vw, 2.3rem); }
+		.project-hero__lead, .project-prose :global(p), .project-prose :global(li) { font-size: 1.02rem; }
+		.project-facts div { grid-template-columns: 1fr; gap: .1rem; }
+		.project-facts { gap: .8rem; }
+		.project-glance dl { grid-template-columns: 1fr; gap: 1.25rem; }
+		.project-numbers__grid { grid-template-columns: 1fr; gap: 1rem; }
+		.project-prose { --prose-width: 100%; }
+	}
 </style>

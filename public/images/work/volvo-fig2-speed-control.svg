@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 510" width="1000" height="510" font-family="Calibri, Carlito, Arial, sans-serif">
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#4d4d4d"/></marker></defs>
+<rect width="1000" height="510" fill="#ffffff"/>
+<rect x="20" y="195" width="115" height="70" fill="#d6e3f0"/>
+<text x="77.5" y="217.0" text-anchor="middle" font-size="16px" fill="#1f4f78">Speed request</text>
+<text x="77.5" y="235.0" text-anchor="middle" font-size="12.5px" fill="#4d4d4d">from the</text>
+<text x="77.5" y="253.0" text-anchor="middle" font-size="12.5px" fill="#4d4d4d">autonomy system</text>
+<polyline fill="none" stroke="#4d4d4d" stroke-width="1.5" points="135,230 165,230"/>
+<polyline fill="none" stroke="#4d4d4d" stroke-width="1.5" points="165,125 165,305"/>
+<polyline fill="none" stroke="#4d4d4d" stroke-width="1.5" points="165,125 208,125" marker-end="url(#ah)"/>
+<polyline fill="none" stroke="#4d4d4d" stroke-width="1.5" points="165,305 208,305" marker-end="url(#ah)"/>
+<rect x="210" y="108.0" width="190" height="64" fill="#eeeeee"/>
+<text x="305.0" y="127.0" text-anchor="middle" font-size="16px" fill="#1a1a1a">PI controller, axle 1</text>
+<text x="305.0" y="145.0" text-anchor="middle" font-size="12.5px" fill="#b36b12">+ derivative action</text>
+<text x="305.0" y="163.0" text-anchor="middle" font-size="12.5px" fill="#b36b12">+ gains scheduled with speed</text>
+<polyline fill="none" stroke="#4d4d4d" stroke-width="1.5" points="400,140 442,140" marker-end="url(#ah)"/>
+<circle cx="455" cy="140" r="11" fill="#ffffff" stroke="#4d4d4d" stroke-width="1.5"/>
+<text x="455" y="145" text-anchor="middle" font-size="15px" fill="#1a1a1a">+</text>
+<polyline fill="none" stroke="#4d4d4d" stroke-width="1.5" points="466,140 503,140" marker-end="url(#ah)"/>
+<rect x="505" y="110" width="120" height="60" fill="#eeeeee"/>
+<text x="565.0" y="136.0" text-anchor="middle" font-size="16px" fill="#1a1a1a">Axle 1</text>
+<text x="565.0" y="154.0" text-anchor="middle" font-size="12.5px" fill="#4d4d4d">electric drive</text>
+<rect x="210" y="288.0" width="190" height="64" fill="#eeeeee"/>
+<text x="305.0" y="307.0" text-anchor="middle" font-size="16px" fill="#1a1a1a">PI controller, axle 2</text>
+<text x="305.0" y="325.0" text-anchor="middle" font-size="12.5px" fill="#b36b12">+ derivative action</text>
+<text x="305.0" y="343.0" text-anchor="middle" font-size="12.5px" fill="#b36b12">+ gains scheduled with speed</text>
+<polyline fill="none" stroke="#4d4d4d" stroke-width="1.5" points="400,320 442,320" marker-end="url(#ah)"/>
+<circle cx="455" cy="320" r="11" fill="#ffffff" stroke="#4d4d4d" stroke-width="1.5"/>
+<text x="455" y="325" text-anchor="middle" font-size="15px" fill="#1a1a1a">+</text>
+<polyline fill="none" stroke="#4d4d4d" stroke-width="1.5" points="466,320 503,320" marker-end="url(#ah)"/>
+<rect x="505" y="290" width="120" height="60" fill="#eeeeee"/>
+<text x="565.0" y="316.0" text-anchor="middle" font-size="16px" fill="#1a1a1a">Axle 2</text>
+<text x="565.0" y="334.0" text-anchor="middle" font-size="12.5px" fill="#4d4d4d">electric drive</text>
+<rect x="230" y="203" width="150" height="54" fill="#f2e3d4"/>
+<text x="305.0" y="226.0" text-anchor="middle" font-size="16px" fill="#b36b12">Decoupling</text>
+<text x="305.0" y="244.0" text-anchor="middle" font-size="12.5px" fill="#4d4d4d">compensates the other axle</text>
+<polyline fill="none" stroke="#4d4d4d" stroke-width="1.5" points="305.0,173.0 305.0,201" marker-end="url(#ah)" marker-start="url(#ah)"/>
+<polyline fill="none" stroke="#4d4d4d" stroke-width="1.5" points="305.0,259 305.0,287.0" marker-end="url(#ah)" marker-start="url(#ah)"/>
+<rect x="390" y="30" width="130" height="52" fill="#f2e3d4"/>
+<text x="455.0" y="52.0" text-anchor="middle" font-size="16px" fill="#b36b12">Feed-forward</text>
+<text x="455.0" y="70.0" text-anchor="middle" font-size="12.5px" fill="#4d4d4d">torque for the request</text>
+<polyline fill="none" stroke="#4d4d4d" stroke-width="1.5" points="455,82 455,127" marker-end="url(#ah)"/>
+<rect x="390" y="372" width="130" height="52" fill="#f2e3d4"/>
+<text x="455.0" y="394.0" text-anchor="middle" font-size="16px" fill="#b36b12">Feed-forward</text>
+<text x="455.0" y="412.0" text-anchor="middle" font-size="12.5px" fill="#4d4d4d">torque for the request</text>
+<polyline fill="none" stroke="#4d4d4d" stroke-width="1.5" points="455,372 455,333" marker-end="url(#ah)"/>
+<text x="463" y="122" text-anchor="start" font-size="12.5px" fill="#4d4d4d">torque</text>
+<rect x="690" y="170" width="120" height="120" fill="#eeeeee"/>
+<text x="750.0" y="217.0" text-anchor="middle" font-size="16px" fill="#1a1a1a">Hauler body</text>
+<text x="750.0" y="235.0" text-anchor="middle" font-size="12.5px" fill="#4d4d4d">one motion,</text>
+<text x="750.0" y="253.0" text-anchor="middle" font-size="12.5px" fill="#4d4d4d">slope, grip, load</text>
+<polyline fill="none" stroke="#4d4d4d" stroke-width="1.5" points="625,140 655,140 655,200 688,200" marker-end="url(#ah)"/>
+<polyline fill="none" stroke="#4d4d4d" stroke-width="1.5" points="625,320 655,320 655,260 688,260" marker-end="url(#ah)"/>
+<rect x="860" y="200" width="120" height="60" fill="#d6e3f0"/>
+<text x="920.0" y="226.0" text-anchor="middle" font-size="16px" fill="#1f4f78">Speed sensor</text>
+<text x="920.0" y="244.0" text-anchor="middle" font-size="12.5px" fill="#4d4d4d">one, measured</text>
+<polyline fill="none" stroke="#4d4d4d" stroke-width="1.5" points="810,230 858,230" marker-end="url(#ah)"/>
+<rect x="650" y="440" width="220" height="52" fill="#f2e3d4"/>
+<text x="760.0" y="462.0" text-anchor="middle" font-size="16px" fill="#b36b12">Kalman filter</text>
+<text x="760.0" y="480.0" text-anchor="middle" font-size="12.5px" fill="#4d4d4d">model of the two axles</text>
+<polyline fill="none" stroke="#4d4d4d" stroke-width="1.5" points="920,260 920,466.0 872,466.0" marker-end="url(#ah)"/>
+<polyline fill="none" stroke="#4d4d4d" stroke-width="1.5" points="650,466.0 185,466.0 185,155 208,155" marker-end="url(#ah)"/>
+<polyline fill="none" stroke="#4d4d4d" stroke-width="1.5" points="185,335 208,335" marker-end="url(#ah)"/>
+<text x="300" y="458.0" text-anchor="start" font-size="12.5px" fill="#4d4d4d">estimated speed of each axle (inner feedback)</text>
+<rect x="20" y="22" width="22" height="16" fill="#f2e3d4"/>
+<text x="50" y="35" text-anchor="start" font-size="12.5px" fill="#4d4d4d">added in the TA15 work</text>
+<rect x="20" y="46" width="22" height="16" fill="#eeeeee"/>
+<text x="50" y="59" text-anchor="start" font-size="12.5px" fill="#4d4d4d">existing structure and hardware</text>
+<rect x="20" y="70" width="22" height="16" fill="#d6e3f0"/>
+<text x="50" y="83" text-anchor="start" font-size="12.5px" fill="#4d4d4d">input and measurement</text>
+<text x="980" y="504" text-anchor="end" font-size="11px" font-weight="bold" fill="#999999">carlosjorques.com</text>
+</svg>

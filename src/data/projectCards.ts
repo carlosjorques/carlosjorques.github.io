@@ -13,12 +13,9 @@ export interface ProjectCard {
 	readonly slug: string;
 	readonly title: string;
 	readonly company: string;
-	readonly deliveryContext?: string;
 	readonly context: string;
 	/** My role on the project, shown in the card eyebrow. */
 	readonly role: string;
-	/** Meta description and lead on the detail page. */
-	readonly description: string;
 	/** Card text on the Work index: the problem and what the reader finds on the page. */
 	readonly hook: string;
 	readonly outcomes: readonly ProjectOutcome[];
@@ -32,16 +29,14 @@ export const projectCards = [
 		slug: 'electric-truck-thermal-management',
 		title: 'Thermal management control for Scania’s electric trucks',
 		company: 'Scania',
-		deliveryContext: 'Client assignment through ALTEN',
 		context: 'Electric trucks',
 		role: 'Predictive control lead',
-		description:
-			'Predictive control uses the route ahead to decide when to heat or cool the batteries, and a control allocator picks the pumps, fans and heaters that do it with the least electricity.',
-		hook: 'Hauliers choose trucks by cost per tonne-kilometre, and the battery is about a third of the price of an electric truck. However, part of every charge is spent on keeping the batteries and the cabin at the right temperature. The predictive controller I lead uses the route ahead to decide when to heat or cool, and which pumps, fans and heaters to use. In truck tests, the saving was large enough to allow for a smaller battery with the same range.',
+		hook:
+			'The battery is about a third of the price of an electric truck, and part of every charge goes into heating and cooling it. The predictive controller I lead uses the route ahead to decide when to heat or cool, and with which pumps, fans and heaters. In truck tests, it saved enough energy for a smaller battery with the same range.',
 		outcomes: [
 			{ value: '2–4%', label: 'less vehicle energy' },
 			{ value: 'up to 4.6×', label: 'battery saving over energy saving' },
-			{ value: 'up to 21500\u00a0€', label: 'saved per truck in 8 years' },
+			{ value: 'up to 21,500\u00a0€', label: 'saved per truck in 8 years' },
 		],
 		image: electricTruckImage,
 		imageAlt: 'Electric truck connected to a charger in snowy test conditions',
@@ -50,12 +45,10 @@ export const projectCards = [
 		slug: 'autonomous-hauler-propulsion-control',
 		title: 'Speed control for Volvo’s autonomous TA15 electric hauler',
 		company: 'Volvo CE',
-		deliveryContext: 'Client assignment through ALTEN',
 		context: 'Autonomous haulers',
 		role: 'Technical lead',
-		description:
-			'The two electric axles of the hauler worked against each other and made it tremble. I redesigned the speed and torque control so that the hauler holds the speed its autonomy system requests.',
-		hook: 'The value of a driverless hauler is the material it moves per hour, so it has to hold the speed that its autonomy system plans. On the TA15, the two electric axles worked against each other and made the hauler tremble. I redesigned its speed and torque control, and every change was tested on the machine and in autonomous runs. The hauler now holds the requested speed and can therefore be planned closer to its limits on mud, gravel and slopes.',
+		hook:
+			'The value of a driverless hauler is the material it moves per hour, so it has to hold the speed its autonomy system plans. On the TA15, the two electric axles worked against each other and made the hauler tremble. I redesigned its speed and torque control, and it now holds the requested speed on mud, gravel and slopes.',
 		outcomes: [
 			{ value: '< 1 km/h', label: 'speed error' },
 			{ value: 'No', label: 'oscillation between the axles' },
@@ -65,14 +58,13 @@ export const projectCards = [
 		imageAlt: 'Autonomous electric haulers operating in a quarry',
 	},
 	{
-		slug: 'ebike-motor-control-power-electronics',
-		title: 'Software processes and a motor temperature model for MAHLE',
+		slug: 'mahle-aspice-motor-thermal-model',
+		title: 'Software processes and a motor temperature model for MAHLE’s advanced engineering',
 		company: 'MAHLE',
-		context: 'E-bike drives',
+		context: 'Electric drives',
 		role: 'Technical lead and Scrum Master',
-		description:
-			'I helped an advanced engineering team prepare its software development for A-SPICE, and co-developed a real-time model that estimates the hottest temperature inside an electric motor, where no sensor measures.',
-		hook: 'Vehicle makers expect A-SPICE from their software suppliers, and an e-bike motor without a sensor in its windings has to keep a wide temperature margin. As Scrum Master, I helped set the first steps towards A-SPICE level 2, and as technical lead of the e-bike software, I co-developed a real-time model of the hottest point in the motor.',
+		hook:
+			'Vehicle makers assess how their suppliers develop software, and a motor without a sensor in its windings keeps a wide safety margin. As Scrum Master, I helped MAHLE’s advanced engineering team take its first steps towards A-SPICE level 2. I also led the e-bike software and co-developed a real-time model of the hottest point in the motor.',
 		outcomes: [
 			{ value: 'A-SPICE', label: 'first steps to level 2 adopted' },
 			{ value: '< 2%', label: 'motor temperature error' },
@@ -86,12 +78,11 @@ export const projectCards = [
 		company: 'Scania and Lund University',
 		context: 'Diesel engines',
 		role: 'Industrial PhD researcher',
-		description:
-			'Software on an FPGA measures combustion inside a running Scania engine and corrects the fuel injection before the cycle ends, so that renewable fuels burn efficiently within the limits of the engine.',
-		hook: 'Renewable fuels cut the CO₂ of trucks without new infrastructure. However, they ignite differently from diesel, so engines keep wide safety margins that cost fuel in every cycle. In my PhD, I developed software on an FPGA that measures each combustion and corrects the fuel injection before the cycle ends. On a Scania engine running diesel and two renewable fuels, it halved the variation between cycles and raised the efficiency.',
+		hook:
+			'Renewable fuels cut the CO₂ of trucks without new infrastructure. However, they ignite differently from diesel, so engines keep safety margins that cost fuel in every cycle. In my PhD, I developed software on an FPGA that measures each combustion and corrects the fuel injection before the cycle ends.',
 		outcomes: [
 			{ value: '50%', label: 'less variation between cycles' },
-			{ value: '+1.8 points', label: 'engine efficiency' },
+			{ value: 'up to +1.8%', label: 'indicated efficiency' },
 			{ value: '96%', label: 'misfires detected in time' },
 		],
 		image: heavyDutyEngineImage,

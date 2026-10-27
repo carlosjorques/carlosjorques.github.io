@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1050" height="450" viewBox="0 0 1050 450" font-family="Calibri, Arial, Helvetica, sans-serif">
+  <!-- DRAFT v1: Scania work page, Figure 2. Two-layer predictive thermal control, generic. Orange = predictive control software. -->
+  <defs>
+    <marker id="ag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#4d4d4d"/></marker>
+  </defs>
+  <rect width="1050" height="450" fill="#ffffff"/>
+
+  <!-- Software zone -->
+  <rect x="265" y="10" width="537" height="340" fill="none" stroke="#999999" stroke-width="1" stroke-dasharray="5 4"/>
+  <text x="277" y="30" font-size="12.5px" font-style="italic" fill="#4d4d4d">Thermal control software</text>
+
+  <!-- Route forecast -->
+  <rect x="20" y="45" width="210" height="95" fill="#eeeeee"/>
+  <text x="125" y="75" text-anchor="middle" font-size="14px" font-weight="bold" fill="#1a1a1a">Route forecast</text>
+  <text x="125" y="95" text-anchor="middle" font-size="12.5px" fill="#4d4d4d">gradient, speed, ambient</text>
+  <text x="125" y="111" text-anchor="middle" font-size="12.5px" fill="#4d4d4d">temperature, next</text>
+  <text x="125" y="127" text-anchor="middle" font-size="12.5px" fill="#4d4d4d">charging stop</text>
+
+  <!-- Measurements and estimates -->
+  <rect x="20" y="235" width="210" height="95" fill="#eeeeee"/>
+  <text x="125" y="265" text-anchor="middle" font-size="14px" font-weight="bold" fill="#1a1a1a">Measurements and estimates</text>
+  <text x="125" y="285" text-anchor="middle" font-size="12.5px" fill="#4d4d4d">temperatures, pressures,</text>
+  <text x="125" y="301" text-anchor="middle" font-size="12.5px" fill="#4d4d4d">battery state of charge</text>
+  <text x="125" y="317" text-anchor="middle" font-size="12.5px" fill="#4d4d4d">and state of health</text>
+
+  <!-- Upper layer: predictive -->
+  <rect x="290" y="45" width="240" height="115" fill="#f2e3d4"/>
+  <text x="410" y="73" text-anchor="middle" font-size="14px" font-weight="bold" fill="#1a1a1a">Upper layer: predictive</text>
+  <text x="410" y="93" text-anchor="middle" font-size="12.5px" fill="#4d4d4d">how much heating or cooling</text>
+  <text x="410" y="109" text-anchor="middle" font-size="12.5px" fill="#4d4d4d">each component needs, planned</text>
+  <text x="410" y="125" text-anchor="middle" font-size="12.5px" fill="#4d4d4d">over the route ahead and</text>
+  <text x="410" y="141" text-anchor="middle" font-size="12.5px" fill="#4d4d4d">recomputed at every step</text>
+
+  <!-- Fall-back -->
+  <rect x="290" y="235" width="240" height="95" fill="#eeeeee"/>
+  <text x="410" y="263" text-anchor="middle" font-size="14px" font-weight="bold" fill="#1a1a1a">Fall-back without route data</text>
+  <text x="410" y="283" text-anchor="middle" font-size="12.5px" fill="#4d4d4d">temperature set-points,</text>
+  <text x="410" y="299" text-anchor="middle" font-size="12.5px" fill="#4d4d4d">as in feedback control</text>
+
+  <!-- Lower layer: allocator -->
+  <rect x="575" y="120" width="215" height="115" fill="#f2e3d4"/>
+  <text x="682" y="150" text-anchor="middle" font-size="14px" font-weight="bold" fill="#1a1a1a">Lower layer: allocator</text>
+  <text x="682" y="170" text-anchor="middle" font-size="12.5px" fill="#4d4d4d">which actuators deliver</text>
+  <text x="682" y="186" text-anchor="middle" font-size="12.5px" fill="#4d4d4d">that heating or cooling with</text>
+  <text x="682" y="202" text-anchor="middle" font-size="12.5px" fill="#4d4d4d">the least electrical power</text>
+
+  <!-- Thermal system -->
+  <rect x="870" y="120" width="165" height="115" fill="#eeeeee"/>
+  <text x="952" y="150" text-anchor="middle" font-size="14px" font-weight="bold" fill="#1a1a1a">Thermal system</text>
+  <text x="952" y="170" text-anchor="middle" font-size="12.5px" fill="#4d4d4d">pumps, valves, fans,</text>
+  <text x="952" y="186" text-anchor="middle" font-size="12.5px" fill="#4d4d4d">compressor, heat pump,</text>
+  <text x="952" y="202" text-anchor="middle" font-size="12.5px" fill="#4d4d4d">chiller, heaters</text>
+
+  <!-- Forecast to upper layer -->
+  <line x1="230" y1="85" x2="288" y2="85" stroke="#4d4d4d" stroke-width="2" marker-end="url(#ag)"/>
+  <!-- Measurements to fall-back and upper layer -->
+  <line x1="230" y1="282" x2="288" y2="282" stroke="#4d4d4d" stroke-width="2" marker-end="url(#ag)"/>
+  <polyline points="255,282 255,130 288,130" fill="none" stroke="#4d4d4d" stroke-width="2" marker-end="url(#ag)"/>
+  <circle cx="255" cy="282" r="3.5" fill="#4d4d4d"/>
+
+  <!-- Upper layer to allocator -->
+  <polyline points="530,102 553,102 553,160 573,160" fill="none" stroke="#4d4d4d" stroke-width="2" marker-end="url(#ag)"/>
+  <!-- Fall-back to allocator (dashed) -->
+  <polyline points="530,282 553,282 553,200 573,200" fill="none" stroke="#4d4d4d" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#ag)"/>
+
+  <!-- Allocator to thermal system -->
+  <line x1="790" y1="177" x2="868" y2="177" stroke="#4d4d4d" stroke-width="2" marker-end="url(#ag)"/>
+  <text x="835" y="152" text-anchor="middle" font-size="12.5px" fill="#4d4d4d">actuator</text>
+  <text x="835" y="168" text-anchor="middle" font-size="12.5px" fill="#4d4d4d">commands</text>
+
+  <!-- Feedback from thermal system to measurements -->
+  <polyline points="952,235 952,385 125,385 125,332" fill="none" stroke="#4d4d4d" stroke-width="2" marker-end="url(#ag)"/>
+  <text x="535" y="377" text-anchor="middle" font-size="12.5px" fill="#4d4d4d">sensor signals</text>
+
+  <!-- Line legend -->
+  <line x1="20" y1="420" x2="50" y2="420" stroke="#4d4d4d" stroke-width="2"/>
+  <text x="58" y="424" font-size="11px" fill="#4d4d4d">normal operation</text>
+  <line x1="170" y1="420" x2="200" y2="420" stroke="#4d4d4d" stroke-width="2" stroke-dasharray="6 4"/>
+  <text x="208" y="424" font-size="11px" fill="#4d4d4d">fall-back path</text>
+
+  <text x="1030" y="440" text-anchor="end" font-size="11px" font-weight="bold" fill="#999999">carlosjorques.com</text>
+</svg>

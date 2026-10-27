@@ -12,6 +12,7 @@ export default defineConfig({
     '/cases/embedded-control-system-architecture/': { status: 301, destination: '/work/' },
     '/cases/control-algorithms-and-diagnostics/': { status: 301, destination: '/work/' },
     '/cases/cross-functional-technical-delivery/': { status: 301, destination: '/work/' },
+    '/work/ebike-motor-control-power-electronics/': { status: 301, destination: '/work/mahle-aspice-motor-thermal-model/' },
   },
   devToolbar: {
     enabled: false,

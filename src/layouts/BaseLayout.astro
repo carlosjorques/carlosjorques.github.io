@@ -7,11 +7,17 @@ import '../styles/global.css';
 interface Props {
 	title?: string;
 	description?: string;
+	ogType?: 'website' | 'article';
+	ogImage?: string;
+	ogImageAlt?: string;
 }
 
 const {
 	title = `${IDENTITY.name} · ${IDENTITY.primaryTitle}`,
 	description = 'Carlos Jorques is a Control Systems Technical Lead who leads the design and delivery of real-time control software for complex physical systems.',
+	ogType = 'website',
+	ogImage,
+	ogImageAlt,
 } = Astro.props;
 
 const siteTitle = title.includes(IDENTITY.name) ? title : `${title} | ${IDENTITY.name}`;
@@ -55,11 +61,14 @@ const pageType = (() => {
 		<meta name="description" content={description} />
 		<meta property="og:title" content={siteTitle} />
 		<meta property="og:description" content={description} />
-		<meta property="og:type" content="website" />
+		<meta property="og:type" content={ogType} />
 		<meta property="og:url" content={canonical} />
+		{ogImage && <meta property="og:image" content={new URL(ogImage, Astro.site ?? Astro.url.origin)} />}
+		{ogImage && ogImageAlt && <meta property="og:image:alt" content={ogImageAlt} />}
 		<script type="application/ld+json" set:html={JSON.stringify({
 			'@context': 'https://schema.org',
 			'@type': 'Person',
+			'@id': new URL('/#person', Astro.site ?? Astro.url.origin).href,
 			name: IDENTITY.name,
 			jobTitle: IDENTITY.primaryTitle,
 			alternateName: IDENTITY.secondaryDescriptors,
@@ -70,6 +79,7 @@ const pageType = (() => {
 			url: canonical.href,
 			sameAs: [CONTACT_DESTINATIONS.linkedin],
 		})} />
+		<slot name="head" />
 	</head>
 	<body data-page-type={pageType}>
 		<a class="skip-link" href="#main-content">Skip to content</a>
