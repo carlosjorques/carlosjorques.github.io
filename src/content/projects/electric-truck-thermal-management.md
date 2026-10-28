@@ -7,7 +7,7 @@ eyebrow: "Scania · Electric heavy-duty trucks · 2025–present"
 intro: "**I lead the predictive control concept and its architecture** in the software that heats and cools Scania's electric trucks, keeping the batteries and electronics at the temperatures where they run efficiently and safely. With a project team of three, I take the concept to truck tests together with the battery, autonomous-driving and supplier teams, and I **mentor the students** who join the project."
 facts:
   - label: "Role"
-    value: "**Senior Control Software Engineer, thermal management �**"
+    value: "**Senior Control Software Engineer, thermal management**"
   - label: "Delivery"
     value: "Client assignment for Scania through ALTEN, where I am a **Technical Leader**; fully remote from Spain with teams in Sweden"
   - label: "Team"
@@ -71,7 +71,7 @@ Heat can usually reach a component by more than one path, at very different cost
 The predictive strategies are designed to run in real time on a production control unit, next to safety functions under ISO 26262 (the functional-safety standard for road vehicles), which led to three decisions:
 
 - **Two layers:** an upper layer decides how much heating or cooling each component needs, and a control allocator picks the actuators that deliver it with the least electrical power. One large optimisation would miss the real-time deadlines. Two layers are harder to calibrate, but a new actuator or platform change touches one layer only.
-- **Route prediction:** the upper layer (*model predictive control*, a controller that plans ahead with a model of the system) uses the route, gradient, speed, ambient temperature and next charging stop. Forecasts can be wrong, so the plan is recomputed at every step with new measurements.
+- **Route prediction:** the upper layer (*model predictive control*, a controller that plans ahead with a model of the system) uses the route, gradient, speed, ambient temperature and next charging stop. Forecasts can be wrong, so the plan is recomputed at every step with new measurements. The quality of the plan depends on how well the battery temperature is predicted; the prediction model I developed for it stays within ±0.6 °C of the measured temperature, at −20 to 40 °C ambient.
 - **Fall-back for protection:** without navigation data, the upper layer returns to temperature set-points, as in feedback control, whilst the allocator keeps picking the cheapest actuators. Part of the saving remains, and the design stays certifiable.
 
 The two layers and the fall-back path are illustrated in Figure 1.

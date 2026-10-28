@@ -22,7 +22,7 @@ metrics:
     label: "of pilot misfires detected before the main injection"
   - value: "up to +1.8%"
     label: "indicated efficiency at low load, against open loop"
-  - value: "15 · 4"
+  - value: "15 · 2"
     label: "published articles · granted patents"
 metricsNote: "Research results on a six-cylinder 12.7 L Scania D13 engine with diesel, HVO and RME; the pressure sensor is not in production engines. The efficiency gain comes from a set-point optimisation built on the reduction in variation, within the limit on the pressure-rise rate. Indicated efficiency is the share of fuel energy that the gas delivers to the piston, and the gain is absolute."
 glance:
@@ -93,7 +93,7 @@ Lower variation also lets the set-point move closer to the limits. A stochastic 
 
 ## Models and methods Scania uses beyond the research
 
-Production engines do not carry a pressure sensor in every cylinder, so in-cycle control is not in trucks today. Still, **parts of my models are used in calibration and optimisation**, a virtual pressure sensor for safety was developed partly from this research, and the way misfire is handled today is partly based on it. Scania also got a hardware specification for in-cycle control and **four granted patents**.
+Production engines do not carry a pressure sensor in every cylinder, so in-cycle control is not in trucks today. Still, **parts of my models are used in calibration and optimisation**, a virtual pressure sensor for safety was developed partly from this research, and the way misfire is handled today is partly based on it. Scania also got a hardware specification for in-cycle control and **two granted patents**.
 
 The predictive models have had the widest use. A model that predicts what the process will do next, and adapts online when it drifts, is the idea I now use in the [predictive thermal control for Scania's electric trucks](/work/electric-truck-thermal-management/); only the time scale changed, from microseconds to minutes. The articles are cited by research at [TU Eindhoven](https://doi.org/10.1016/j.ifacol.2023.10.1011), [Oak Ridge National Laboratory](https://doi.org/10.1177/14680874241226580) and [TU Wien](https://doi.org/10.4271/2026-01-5028).
 

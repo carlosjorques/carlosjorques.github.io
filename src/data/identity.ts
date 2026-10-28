@@ -10,7 +10,7 @@ export const IDENTITY = {
 	roleScope: 'I lead the architecture, implementation, and validation of real-time control software for complex physical systems, including electrified vehicles and autonomous machines.',
 	// Home, contact, CV, and footer location metadata.
 	location: 'Valencia, Spain',
-	years: '15',
+	years: '12+',
 } as const;
 
 export const LINKEDIN_URL = 'https://www.linkedin.com/in/carlosjorques/';
