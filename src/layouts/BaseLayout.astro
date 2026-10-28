@@ -74,10 +74,23 @@ const pageType = (() => {
 			alternateName: IDENTITY.secondaryDescriptors,
 			address: {
 				'@type': 'PostalAddress',
-				addressLocality: IDENTITY.location,
+				addressLocality: 'Valencia',
+				addressCountry: 'ES',
 			},
-			url: canonical.href,
+			url: new URL('/', Astro.site ?? Astro.url.origin).href,
 			sameAs: [CONTACT_DESTINATIONS.linkedin],
+			worksFor: { '@type': 'Organization', name: 'ALTEN', url: 'https://www.alten.com/' },
+			alumniOf: [
+				{ '@type': 'CollegeOrUniversity', name: 'Lund University', url: 'https://www.lu.se/' },
+				{ '@type': 'CollegeOrUniversity', name: 'Universitat Politècnica de València', url: 'https://www.upv.es/' },
+			],
+			hasCredential: [
+				{ '@type': 'EducationalOccupationalCredential', credentialCategory: 'degree', name: 'PhD in Mechanical Engineering', recognizedBy: { '@type': 'CollegeOrUniversity', name: 'Lund University' } },
+				{ '@type': 'EducationalOccupationalCredential', credentialCategory: 'degree', name: 'MSc in Electrical Engineering', recognizedBy: { '@type': 'CollegeOrUniversity', name: 'Lund University' } },
+				{ '@type': 'EducationalOccupationalCredential', credentialCategory: 'degree', name: 'MSc in Industrial Engineering', recognizedBy: { '@type': 'CollegeOrUniversity', name: 'Universitat Politècnica de València' } },
+			],
+			knowsAbout: ['Embedded control systems', 'Model predictive control', 'State estimation', 'Thermal management of electric vehicles', 'Electric powertrain control', 'Diagnostics and fault handling', 'ISO 26262', 'AUTOSAR', 'MIL/SIL/HIL validation', 'Technical leadership'],
+			knowsLanguage: ['en', 'es', 'sv', 'ca'],
 		})} />
 		<slot name="head" />
 	</head>

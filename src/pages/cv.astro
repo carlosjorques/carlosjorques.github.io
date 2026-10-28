@@ -12,6 +12,7 @@ interface Role {
 	summary: string;
 	results?: string[];
 	keyResult?: string;
+	keyLabel?: string;
 	bullets?: string[];
 	skills?: string[];
 	slug?: string;
@@ -37,11 +38,11 @@ const facts = [IDENTITY.location, 'EU citizen', 'Remote with international teams
 
 const profile = [
 	[
-		{ label: 'Current role', href: '#role-scania-thermal', items: ['Technical Leader at ALTEN', 'Assignment: Scania'] },
+		{ label: 'Current role', href: '#role-scania-thermal', items: ['Technical Leader at ALTEN', 'Scania assignment'] },
 		{ label: 'Experience', href: '#experience', items: [`${IDENTITY.years} years in embedded control software`] },
 	],
 	[
-		{ label: 'Expertise', href: '#skills', items: ['Control architecture', 'Predictive control and estimation', 'Diagnostics and safety-related software (ISO 26262)', 'MIL/SIL/HIL validation', 'Technical leadership'] },
+		{ label: 'Expertise', href: '#skills', items: ['Control architecture', 'Predictive control and estimation', 'Diagnostics and safety-related software (ISO\u00a026262)', 'MIL/SIL/HIL validation', 'Technical leadership'] },
 		{ label: 'Systems', href: withBase('/work/'), items: ['Electric trucks', 'Autonomous haulers', 'Electric motors', 'Diesel engines'] },
 		{ label: 'Tools', href: '#tools', items: ['MATLAB/Simulink', 'C and C++', 'AUTOSAR', 'CI/CD'] },
 	],
@@ -52,8 +53,8 @@ const profile = [
 ];
 const results = [
 	{ type: 'Business', prefix: 'up to', value: '21,500 €', text: 'lower TCO per truck, modelled', href: work('electric-truck-thermal-management') },
-	{ type: 'Leadership', value: '3–12', text: 'engineers in the teams I led', href: '#role-volvo' },
-	{ type: 'Innovation', value: '5 · 15', text: 'patents · published articles', href: '#record' },
+	{ type: 'Leadership', value: '3–12', text: 'engineers led or coached as Scrum Master', href: '#role-volvo' },
+	{ type: 'Innovation', value: '5 patents', text: 'and 15 published articles', href: '#record' },
 	{ type: 'Control', value: '< 1 km/h', text: 'speed error, autonomous hauler', href: work('autonomous-hauler-propulsion-control') },
 	{ type: 'Estimation', value: '±0.6 °C', text: 'battery temperature prediction', href: '#role-scania-thermal' },
 	{ type: 'Optimisation', value: '2–4%', text: 'less truck energy in tests', href: work('electric-truck-thermal-management') },
@@ -78,14 +79,15 @@ const groups: Group[] = [
 				id: 'alten-lead',
 				title: 'Technical Leader',
 				org: 'ALTEN delivery centre',
-				location: 'Valencia, Spain',
 				period: 'Apr 2023–present',
-				summary: 'Team leadership and follow-up of ALTEN’s client projects, next to the client assignments.',
+				summary: 'Technical lead of ALTEN’s engineers on the client assignments below, and follow-up of ALTEN’s Scania projects.',
+				keyLabel: 'Scope',
+				keyResult: 'Teams of 1–3 engineers, one of 4 Scania team leaders',
 				bullets: [
-					'Lead a team of 3 embedded software engineers and set its technical direction: requirements, architecture, planning and software quality.',
-					'Responsible, in ALTEN’s Key People programme, for teams working on different client assignments.',
+					'Lead ALTEN’s embedded software engineers on the client assignments (3 at Volvo CE, 1 at Scania) and set their technical direction: requirements, architecture, planning and software quality.',
+					'Follow up the Scania-related projects as one of ALTEN’s 4 team leaders for them, within the Key People programme.',
 					'Review the status of ALTEN’s projects every month with the other members of the programme, and decide corrective actions.',
-					'Take part in workshops on projects and project organisation, and share knowledge on Agile ways of working and CI/CD.',
+					'Share knowledge on Agile ways of working and CI/CD in internal workshops on project organisation.',
 				],
 				skills: ['Technical leadership', 'Project follow-up', 'Software architecture', 'Planning', 'Agile', 'CI/CD'],
 			},
@@ -102,8 +104,8 @@ const groups: Group[] = [
 					'<strong>±0.6 °C error</strong> in the battery temperature prediction, at −20 to 40 °C ambient.',
 				],
 				bullets: [
-					'Lead the predictive control concept and its architecture in a project team of 3, within the thermal management team of Scania’s electric vehicle section, from the first models and truck tests to the implementation of the optimisation, which is under way now.',
-					'Developed the battery temperature prediction that the control plans with.',
+					'Lead the concept and architecture of the predictive thermal control in a 3-person Scania project team, from the first models and truck tests to the optimisation, which is being implemented now.',
+					'Developed the battery temperature prediction that the predictive control uses to plan.',
 					'Deliver production thermal software for batteries, power electronics and charging (ASIL-B under ISO 26262), and functions for the next platform in C++ on Adaptive AUTOSAR.',
 					'Validate the software from MIL, SIL and HIL to climate wind tunnel, test track and truck, with GitLab CI/CD in a SAFe process.',
 					'Work with the battery, autonomous-driving and supplier teams, support purchasing with coolant-pump A-samples and mentor the students in the project.',
@@ -117,8 +119,8 @@ const groups: Group[] = [
 				org: 'Volvo CE assignment',
 				location: 'Remote from Valencia',
 				period: 'Apr 2023–Dec 2024',
-				summary: 'Led the powertrain control team of 3 for Volvo CE’s autonomous electric haulers.',
-				keyResult: 'speed error below 1 km/h',
+				summary: 'Powertrain control for Volvo CE’s autonomous electric haulers, as lead of a team of 3.',
+				keyResult: 'Speed error below 1 km/h',
 				results: ['<strong>Speed error below 1 km/h without oscillation</strong> on the autonomous TA15 hauler, against oscillations of up to 1 km/h before.'],
 				bullets: [
 					'Led the team of 3 ALTEN engineers in Spain, within a 10-person work package across Spain and Sweden.',
@@ -144,14 +146,14 @@ const groups: Group[] = [
 				title: 'Development Software Engineer',
 				period: 'Jan 2022–Mar 2023',
 				summary: 'Scrum Master for 12 engineers and technical lead of the 6-person e-bike motor-control software.',
-				keyResult: 'motor temperature model within 2%',
+				keyResult: 'Motor temperature model within 2%',
 				results: [
 					'<strong>Less than 2% error</strong> in a real-time motor temperature model, from 0 to 6000 rpm and without added sensors.',
 					'<strong>First steps to A-SPICE level 2</strong> adopted: a requirements template and versioned baselines.',
 				],
 				bullets: [
 					'Led the software planning of the e-bike motor-control project: roadmap, ticket priorities and estimates, and integration from the first sprints.',
-					'In a separate project, co-developed a real-time temperature model of a permanent-magnet synchronous motor (PMSM), against the measured winding temperature.',
+					'Co-developed, in a separate project, a real-time temperature model of a permanent-magnet synchronous motor (PMSM), checked against the measured winding temperature.',
 					'Developed application software for wireless battery charging and DC/DC converters, and a model-based software strategy for an adaptive platform.',
 					'Analysed the software processes against A-SPICE (SWE.1 to SWE.6) and proposed the steps to level 2.',
 				],
@@ -172,11 +174,11 @@ const groups: Group[] = [
 				title: 'Senior Development Engineer, thermal management',
 				period: 'May–Dec 2021',
 				summary: 'Control and diagnostics for the thermal management and batteries of electrified trucks.',
-				keyResult: 'up to 1–2% less energy',
+				keyResult: 'Up to 1–2% less energy',
 				results: ['<strong>Up to 1–2% less energy</strong> from the optimised active and passive cooling, depending on the operating conditions.'],
 				bullets: [
 					'Developed control and diagnostics concepts for the thermal management of electric trucks, with passive and active cooling of cabin climate, fans, heat pumps, batteries and electric motors.',
-					'Developed estimation of battery state of charge, power and health for mild-hybrid trucks.',
+					'Developed the estimation of battery state of charge, power and health for mild-hybrid trucks.',
 					'Validated the software from MIL, SIL and HIL to bench, wind tunnel, test track and road, tracked the calibration maturity and coordinated with suppliers.',
 				],
 				skills: ['Thermal management control', 'Battery state estimation', 'Diagnostics', 'MIL/SIL/HIL', 'Calibration', 'Supplier coordination'],
@@ -196,9 +198,9 @@ const groups: Group[] = [
 				bullets: [
 					'Defined the system architecture and led the research from the problem definition to the engine tests.',
 					'Built in-cycle combustion control on an FPGA and tested it on a Scania D13 engine.',
-					'Built virtual sensors with online adaptation, with 60% lower error in the estimated pilot fuel mass.',
+					'Built virtual sensors with online adaptation, which cut the error in the estimated pilot fuel mass by 60%.',
 					'Optimised the combustion set-points with stochastic methods.',
-					'Lead author of 14 of the 15 articles, presented at international conferences and mentored 8 students.',
+					'Wrote 14 of the 15 articles as lead author, presented the work at international conferences and mentored 8 students.',
 				],
 				skills: ['Virtual sensing', 'Stochastic optimisation', 'Predictive control', 'Diagnostics', 'FPGA (LabVIEW)', 'MATLAB/Simulink', 'Research leadership', 'Mentoring'],
 				slug: 'heavy-duty-engine-diagnostics-control-research',
@@ -252,7 +254,7 @@ const groups: Group[] = [
 
 const skillGroups = [
 	{ group: 'Control and estimation', items: ['Model predictive control', 'Control allocation', 'Feed-forward, decoupling and gain scheduling', 'Kalman filtering and state estimation', 'Battery state estimation', 'Prediction models for control', 'Virtual sensing', 'Stochastic optimisation'] },
-	{ group: 'Embedded software', items: ['Control and software architecture', 'Requirements', 'MATLAB/Simulink with C code generation', 'C++ on Adaptive AUTOSAR', 'Classic AUTOSAR on AURIX', 'Real-time control on FPGA with LabVIEW'] },
+	{ group: 'Embedded software', items: ['Control and software architecture', 'Requirements', 'Model-based design with C code generation', 'C++ on Adaptive AUTOSAR', 'Classic AUTOSAR on AURIX', 'Real-time control on FPGA with LabVIEW'] },
 	{ group: 'Safety, diagnostics and process', items: ['ISO 26262, ASIL-B software', 'Safety functions and monitoring', 'Diagnostics and fault handling', 'A-SPICE process improvement'] },
 	{ group: 'Validation', items: ['MIL, SIL and HIL', 'Vehicle, test track and climate tests', 'Calibration', 'Unit tests and CI/CD'] },
 	{ group: 'Leadership', items: ['Technical leadership', 'Planning and estimation', 'Scrum Master', 'Supplier and cross-team coordination', 'Mentoring'] },
@@ -260,10 +262,9 @@ const skillGroups = [
 ];
 
 const tools = [
-	{ group: 'Modelling, code and AI', items: 'MATLAB/Simulink · Stateflow · Embedded Coder · TargetLink · C · C++ · Python · LabVIEW FPGA · OpenAI Codex · GitHub Copilot · Claude · ChatGPT' },
-	{ group: 'Platforms', items: 'Classic and Adaptive AUTOSAR · AURIX · CAN, J1939' },
-	{ group: 'Test and data analysis', items: 'CANalyzer · CANoe · CAPL · ETAS INCA · ATI Vision · GT-Power · Snowflake · Grafana' },
-	{ group: 'Requirements and delivery', items: 'Polarion · 3DEXPERIENCE · LaTeX · Git · GitLab CI/CD · Jenkins · JFrog · Docker · Jira · SAFe · Scrum · Kanban' },
+	{ group: 'Modelling, code and AI', items: ['MATLAB/Simulink', 'Stateflow', 'Embedded Coder', 'TargetLink', 'C', 'C++', 'Python', 'LabVIEW FPGA', 'OpenAI Codex', 'GitHub Copilot', 'Claude', 'ChatGPT'] },
+	{ group: 'Test, buses and data analysis', items: ['CAN, J1939', 'CANalyzer', 'CANoe', 'CAPL', 'ETAS INCA', 'ATI Vision', 'GT-Power', 'Snowflake', 'Grafana'] },
+	{ group: 'Lifecycle and delivery', items: ['Polarion', '3DEXPERIENCE', 'LaTeX', 'Git', 'GitLab CI/CD', 'Jenkins', 'JFrog', 'Docker', 'Jira', 'SAFe', 'Scrum', 'Kanban'] },
 ];
 
 const education = [
@@ -298,13 +299,12 @@ const patents = [
 	{ title: 'Method and system for fuel pump regulation', id: 'WO2016043652A1', year: '2016' },
 ];
 
-const awards = ['Scania Innovation Challenge, project selected · Scania · 2019', 'Outstanding Oral Presentation Award · SAE · 2017'];
+const awards = ['Scania Innovation Challenge, project selected · Scania · 2019', 'Outstanding Oral Presentation Award · SAE · 2017', 'Double degree scholarship · COIICV · 2013'];
 const courses = [
-	'LangChain and LLMs with Python · ALTEN · 2025',
-	'Product Owner and Kanban · Cualtis · 2024',
-	'Power electronic converters · 2022',
-	'Introduction to electromobility · Swedish Electromobility Centre · 2020',
-	'Double degree scholarship · COIICV · 2013',
+	{ name: 'LangChain and LLMs with Python', place: 'ALTEN', year: '2025' },
+	{ name: 'Product Owner and Kanban', place: 'Cualtis', year: '2024' },
+	{ name: 'Power electronic converters', year: '2022' },
+	{ name: 'Introduction to electromobility', place: 'Swedish Electromobility Centre', year: '2020' },
 ];
 
 const jumpLinks = [
@@ -312,7 +312,7 @@ const jumpLinks = [
 	{ id: 'glance', label: 'At a glance' },
 	{ id: 'experience', label: 'Experience' },
 	{ id: 'skills', label: 'Skills and tools' },
-	{ id: 'education', label: 'Education and languages' },
+	{ id: 'education', label: 'Education, courses and languages' },
 	{ id: 'record', label: 'Patents, publications and awards' },
 ];
 ---
@@ -323,6 +323,7 @@ const jumpLinks = [
 >
 	<div class="cv-page">
 		<section class="cv-hero" aria-labelledby="cv-title">
+			<p class="cv-hero__eyebrow">Online CV</p>
 			<h1 id="cv-title">{IDENTITY.name}</h1>
 			<p class="cv-hero__title">{IDENTITY.primaryTitle}</p>
 			<p class="cv-hero__lead">I lead the development of <strong>embedded control software</strong> for physical machines, from the first concept to production. In <strong>{IDENTITY.years} years</strong> I have done it for electric trucks, autonomous haulers, electric motors and diesel engines, and software I developed <strong>runs in trucks on the road today</strong>. I combine a <strong>PhD and 5 patents</strong> in control with hands-on technical leadership, and I weigh every technical decision against its value for the business.</p>
@@ -365,7 +366,7 @@ const jumpLinks = [
 								<a href={result.href}>
 									<span class="cv-results__type">{result.type}</span>
 									<strong class="cv-results__value">{result.prefix && <small>{result.prefix} </small>}{result.value}</strong>
-									<span class="cv-results__text">{result.text}</span>
+									<span class="cv-results__text">{result.text}<span class="cv-results__cue" aria-hidden="true">{'\u00a0→'}</span></span>
 								</a>
 							</li>
 						))}
@@ -388,11 +389,14 @@ const jumpLinks = [
 								<span class="cv-group__meta">{[group.note, group.location, group.period].filter(Boolean).join(' · ')}</span>
 							</h3>
 							{group.roles.map((role) => {
+								const showPeriod = group.roles.length > 1;
+								const meta = [role.org, role.location, showPeriod ? role.period : undefined].filter(Boolean).join(' · ');
 								const head = (
 									<span class="cv-role__main">
 										<span class="cv-role__title">{role.title}</span>
-										<span class="cv-role__meta">{role.org && <span class="cv-role__org">{role.org}</span>}{role.org && ' · '}{role.location && `${role.location} · `}{role.period}</span>
-										<span class="cv-role__summary">{role.summary}{role.keyResult && <span class="cv-role__key"> Key result: <strong>{role.keyResult}</strong>.</span>}</span>
+										{meta && <span class="cv-role__meta">{meta}</span>}
+										<span class="cv-role__summary">{role.summary}</span>
+										{role.keyResult && <span class="cv-role__key"><span class="cv-role__key-label">{role.keyLabel ?? 'Key result'}</span> <strong>{role.keyResult}</strong></span>}
 									</span>
 								);
 								return role.bullets ? (
@@ -440,7 +444,7 @@ const jumpLinks = [
 					{skillGroups.map((group) => (
 						<div class="cv-skills__group">
 							<h3>{group.group}</h3>
-							<p>{group.items.join(' · ')}</p>
+							<ul class="cv-stack">{group.items.map((item) => <li>{item}</li>)}</ul>
 						</div>
 					))}
 				</div>
@@ -449,7 +453,7 @@ const jumpLinks = [
 					{tools.map((group) => (
 						<div class="cv-skills__group">
 							<h3>{group.group}</h3>
-							<p>{group.items}</p>
+							<ul class="cv-dots">{group.items.map((item) => <li>{item}</li>)}</ul>
 						</div>
 					))}
 				</div>
@@ -457,11 +461,17 @@ const jumpLinks = [
 		</section>
 
 		<section class="cv-section" id="education" aria-labelledby="education-title">
-			<div class="cv-rail"><h2 id="education-title">Education and languages</h2></div>
+			<div class="cv-rail"><h2 id="education-title">Education, courses and languages</h2></div>
 			<div class="cv-body">
 				<ul class="cv-list">
 					{education.map((item) => (
-						<li><strong>{item.degree}</strong><span>{item.place} · {item.year}{item.href && <> · <a href={item.href} target="_blank" rel="noopener noreferrer">{item.linkText}</a></>}</span></li>
+						<li><strong>{item.degree}</strong><span class="cv-list__meta">{item.place} · <span class="cv-date">{item.year}</span></span>{item.href && <a class="cv-list__link" href={item.href} target="_blank" rel="noopener noreferrer">{item.linkText}</a>}</li>
+					))}
+				</ul>
+				<p class="cv-courses__label" id="courses">Courses</p>
+				<ul class="cv-courses" aria-labelledby="courses">
+					{courses.map((item) => (
+						<li><span>{item.name}</span><span class="cv-list__meta">{[item.place, item.year].filter(Boolean).join(' · ')}</span></li>
 					))}
 				</ul>
 				<ul class="cv-languages" id="languages" aria-label="Languages">
@@ -472,12 +482,12 @@ const jumpLinks = [
 		<section class="cv-section" id="record" aria-labelledby="record-title">
 			<div class="cv-rail"><h2 id="record-title">Patents, publications and awards</h2></div>
 			<div class="cv-body">
-				<p>Ideas from my master’s thesis and PhD research became five granted international patents, filed with Scania, on fuel-system diagnostics, fuel-pump regulation and in-cycle combustion sensing. My control methods ran in real time on heavy-duty engines and were published in Control Engineering Practice, IFAC, ACC and SAE, where one of my talks received the Outstanding Oral Presentation Award.</p>
+				<p>Ideas from my master’s thesis and PhD research became five granted international patents, filed with Scania, on fuel-system diagnostics, fuel-pump regulation and in-cycle combustion sensing. My control methods ran in real-time on heavy-duty engines and were published in Control Engineering Practice and at IFAC, ACC and SAE conferences. One of my SAE talks received the Outstanding Oral Presentation Award.</p>
 				<details class="cv-details">
 					<summary>Patents (5)</summary>
 					<ul class="cv-plain">
 						{patents.map((patent) => (
-							<li><a href={`https://patents.google.com/patent/${patent.id}/en`} target="_blank" rel="noopener noreferrer">{patent.title}</a> · {patent.id} · {patent.year}</li>
+							<li><a href={`https://patents.google.com/patent/${patent.id}/en`} target="_blank" rel="noopener noreferrer">{patent.title}</a> <span class="cv-plain__meta">· {patent.id} · {patent.year}</span></li>
 						))}
 					</ul>
 				</details>
@@ -485,14 +495,14 @@ const jumpLinks = [
 					<summary>Published articles (15)</summary>
 					<ul class="cv-plain">
 						{publications.map((item) => (
-							<li>{item.doi || item.href ? <a href={item.href ?? `https://doi.org/${item.doi}`} target="_blank" rel="noopener noreferrer">{item.title}</a> : item.title} · {item.venue} · {item.year}</li>
+							<li>{item.doi || item.href ? <a href={item.href ?? `https://doi.org/${item.doi}`} target="_blank" rel="noopener noreferrer">{item.title}</a> : item.title} <span class="cv-plain__meta">· {item.venue} · {item.year}</span></li>
 						))}
 					</ul>
 				</details>
 				<details class="cv-details">
-					<summary>Awards, courses and scholarships</summary>
+					<summary>Awards and scholarships</summary>
 					<ul class="cv-plain">
-						{[...awards, ...courses].map((item) => <li>{item}</li>)}
+						{awards.map((item) => <li>{item}</li>)}
 					</ul>
 				</details>
 			</div>
@@ -611,19 +621,21 @@ const jumpLinks = [
 </script>
 
 <style>
-	.cv-page { --cv-signal:color-mix(in srgb, var(--color-accent-text) 82%, var(--color-text)); width:min(calc(100% - 5rem),var(--content-width)); margin:0 auto; }
-	.cv-rail h2 { margin:0; font-size:clamp(1.35rem,2vw,1.6rem); font-weight:800; letter-spacing:-.03em; line-height:1.2; color:var(--color-text); }
-	.cv-results__type { margin:0; font-family:var(--font-mono); font-size:.8rem; font-weight:600; letter-spacing:.08em; line-height:1.4; text-transform:uppercase; color:var(--color-muted); }
-	.cv-glance dt { margin:0; font-size:.95rem; font-weight:600; line-height:1.4; color:var(--color-muted); }
+	.cv-page { width:min(calc(100% - 5rem),var(--content-width)); margin:0 auto; }
+	.cv-rail h2 { margin:0; max-width:none; font-family:var(--font-mono); font-size:.82rem; font-weight:600; letter-spacing:.08em; line-height:1.4; text-transform:uppercase; color:var(--color-muted); }
+	.cv-results__type, .cv-glance dt, .cv-role__label, .cv-skills__label, .cv-group__meta, .cv-role__meta { font-family:var(--font-mono); font-size:var(--type-meta-size); letter-spacing:var(--type-meta-tracking); line-height:1.4; text-transform:uppercase; }
+	.cv-results__type, .cv-glance dt { margin:0; font-weight:600; color:var(--color-muted); }
+	.cv-date { color:inherit; }
 
 	.cv-hero { display:grid; gap:.7rem; padding:clamp(3rem,5vw,4.6rem) 0 3rem; }
+	.cv-hero__eyebrow { margin:0; font-family:var(--font-mono); font-size:.82rem; font-weight:600; letter-spacing:.08em; line-height:1.4; text-transform:uppercase; color:var(--color-muted); }
 	.cv-hero h1 { margin:0; font-size:clamp(2.6rem,4.2vw,3.6rem); font-weight:800; letter-spacing:-.05em; line-height:1.02; }
 	.cv-hero__title { margin:0; font-size:clamp(1.3rem,2vw,1.6rem); font-weight:700; letter-spacing:-.02em; color:var(--color-text); }
 	.cv-hero__lead { max-width:44rem; margin:.3rem 0 0; font-size:1.12rem; line-height:1.6; color:var(--color-body-text); }
 	.cv-hero__lead strong { font-weight:700; color:var(--color-text); }
 	.cv-facts { display:flex; flex-wrap:wrap; margin:.2rem 0 0; padding:0; list-style:none; }
 	.cv-facts li { font-size:.98rem; color:var(--color-muted); }
-	.cv-facts li:not(:last-child)::after { content:'\00a0·'; margin-right:.5rem; }
+	.cv-facts li:not(:last-child)::after { content:'·'; margin:0 .55rem; }
 	.cv-hero__actions { margin-top:.9rem; }
 
 	.cv-section { display:grid; grid-template-columns:16rem minmax(0,1fr); gap:0 2rem; padding:1rem 0 clamp(2.5rem,5vw,4rem); border-top:1px solid var(--color-border); scroll-margin-top:2rem; }
@@ -634,24 +646,26 @@ const jumpLinks = [
 	.cv-body p, .cv-body li, .cv-body dd { margin:0; font-size:1.02rem; line-height:1.6; color:var(--color-text); }
 	.cv-body a { color:var(--color-link); text-underline-offset:.2em; }
 
-	.cv-glance-grid { display:grid; grid-template-columns:minmax(0,1.25fr) minmax(0,1fr); gap:2.5rem 4rem; }
+	.cv-glance-grid { display:grid; grid-template-columns:minmax(0,1.4fr) minmax(0,1fr); gap:2.5rem 3.5rem; }
 	.cv-glance-col { display:grid; align-content:start; gap:.4rem; }
-	.cv-subhead { margin:0 0 .3rem; padding-bottom:.5rem; border-bottom:2px solid var(--color-text); font-size:1.08rem; font-weight:750; letter-spacing:-.01em; color:var(--color-text); }
+	.cv-subhead { margin:0 0 .3rem; padding-bottom:.5rem; border-bottom:2px solid var(--color-text); font-family:var(--font-mono); font-size:var(--type-meta-size); font-weight:700; letter-spacing:var(--type-meta-tracking); line-height:1.4; text-transform:uppercase; color:var(--color-text); }
 
 	.cv-glance { display:grid; gap:.5rem; margin:0; padding:.9rem 0; }
 	.cv-glance + .cv-glance { border-top:1px solid var(--color-border); }
 	.cv-glance div { display:grid; grid-template-columns:7.5rem minmax(0,1fr); gap:1rem; }
-	.cv-glance dt { padding-top:.05rem; }
-	.cv-glance dt a { color:var(--cv-signal); text-decoration:underline dotted; text-underline-offset:.3em; }
-	.cv-glance dt a:hover, .cv-glance dt a:focus-visible { color:var(--color-text); text-decoration-style:solid; }
+	.cv-glance dt { padding-top:.2rem; }
+	.cv-glance dt a { color:inherit; text-decoration:none; }
+	.cv-glance dt a:hover, .cv-glance dt a:focus-visible { color:var(--color-text); text-decoration:underline; text-underline-offset:.3em; }
 	.cv-glance dd { margin:0; }
-	.cv-glance ul { margin:0; padding:0; list-style:none; }
-	.cv-glance li { display:inline-block; margin:0; font-size:1rem; line-height:1.55; color:var(--color-text); }
-	.cv-glance li:not(:last-child)::after { content:'\00a0·'; margin-right:.45rem; color:var(--color-muted); }
+	/* Separators sit before each item; the one starting a wrapped line falls outside the list and is clipped. */
+	.cv-glance ul { display:flex; flex-wrap:wrap; column-gap:1.1rem; margin:0; padding:0; list-style:none; overflow:hidden; }
+	.cv-glance li { position:relative; margin:0; font-size:1rem; line-height:1.55; color:var(--color-text); }
+	.cv-glance li::before { content:'·'; position:absolute; left:-.75rem; color:var(--color-muted); }
 
-	.cv-results { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1.5rem 1.75rem; margin:.5rem 0 0; padding:0; list-style:none; }
+	.cv-results { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:2.4rem 1.75rem; margin:.5rem 0 0; padding:0; list-style:none; }
 	.cv-results a { display:grid; align-content:start; gap:.15rem; color:inherit; text-decoration:none; }
-	.cv-results__type { font-size:.7rem !important; color:var(--cv-signal) !important; }
+	.cv-results__type { font-size:.72rem !important; }
+	.cv-results__cue { color:var(--color-muted); }
 	.cv-results__value { font-size:1.75rem; font-weight:800; letter-spacing:-.03em; line-height:1.1; color:var(--color-text); white-space:nowrap; }
 	.cv-results__value small { font-size:.8rem; font-weight:600; letter-spacing:0; color:var(--color-muted); }
 	.cv-results__text { font-size:.86rem; line-height:1.4; color:var(--color-muted); }
@@ -661,55 +675,74 @@ const jumpLinks = [
 	.cv-languages span { color:var(--color-muted); }
 
 
-	.cv-groups { display:grid; gap:2.2rem; }
+	.cv-groups { display:grid; gap:2.6rem; }
 	.cv-group { display:grid; scroll-margin-top:1.5rem; }
-	.cv-group__head { display:flex; flex-wrap:wrap; align-items:baseline; gap:.2rem .8rem; margin:0; padding-bottom:.5rem; border-bottom:1px solid var(--color-border-strong); }
-	.cv-group__name { font-size:1.2rem; font-weight:700; letter-spacing:-.02em; line-height:1.25; color:var(--cv-signal); }
-	.cv-group__meta { font-size:.88rem; font-weight:400; letter-spacing:0; color:var(--color-muted); }
+	.cv-group__head { display:grid; gap:.3rem; margin:0; padding-bottom:.6rem; border-bottom:1px solid var(--color-border-strong); }
+	.cv-group__name { font-family:var(--font-mono); font-size:1.3rem; font-weight:700; letter-spacing:var(--type-meta-tracking); line-height:1.3; text-transform:uppercase; color:var(--color-accent-text); }
+	.cv-group__meta { font-weight:400; color:var(--color-muted); }
 	.cv-role { border-bottom:1px solid var(--color-border-soft); scroll-margin-top:1.5rem; }
 	.cv-role:last-child { border-bottom:0; }
-	.cv-role > summary, .cv-role--static { display:grid; grid-template-columns:minmax(0,1fr) 1.2rem; gap:1rem; padding:.85rem 0; list-style:none; }
+	.cv-role > summary, .cv-role--static { display:grid; grid-template-columns:minmax(0,1fr) 1.2rem; gap:1rem; padding:1.1rem 0; list-style:none; }
 	.cv-role > summary { cursor:pointer; }
 	.cv-role > summary::-webkit-details-marker { display:none; }
-	.cv-role > summary::after { content:'+'; font-family:var(--font-mono); font-size:1.1rem; color:var(--cv-signal); }
+	.cv-role > summary::after { content:'+'; font-family:var(--font-mono); font-size:1.1rem; color:var(--color-muted); }
 	.cv-role[open] > summary::after { content:'\2212'; }
 	.cv-role > summary:hover .cv-role__title { text-decoration:underline; text-underline-offset:.2em; }
-	.cv-role__main { display:grid; gap:.1rem; }
-	.cv-role__title { font-size:1.02rem; font-weight:600; line-height:1.35; color:var(--color-text); }
-	.cv-role__meta { font-size:.86rem; color:var(--color-muted); }
-	.cv-role__org { color:var(--color-body-text); }
-	.cv-role__summary { margin-top:.25rem; font-size:.98rem; line-height:1.55; color:var(--color-body-text); }
-	.cv-role__key { color:var(--color-muted); }
-	.cv-role__key strong { font-weight:600; color:var(--color-text); }
+	.cv-role__main { display:grid; gap:.3rem; }
+	.cv-role__title { font-size:1.08rem; font-weight:700; letter-spacing:-.01em; line-height:1.35; color:var(--color-text); }
+	.cv-role__meta { color:var(--color-muted); }
+	.cv-role__org { color:var(--color-muted); }
+	.cv-role__summary { margin-top:.2rem; font-size:.98rem; line-height:1.55; color:var(--color-body-text); }
+	.cv-role__key { display:block; margin-top:.15rem; color:var(--color-text); }
+	.cv-role__key-label { margin-right:.5rem; font-family:var(--font-mono); font-size:var(--type-meta-size); letter-spacing:var(--type-meta-tracking); text-transform:uppercase; color:var(--color-muted); }
+	.cv-role__key strong { font-weight:600; }
 	.cv-role[open] .cv-role__key { display:none; }
-	.cv-expand { justify-self:start; margin-top:.4rem; padding:0; border:0; background:none; font:inherit; font-size:.95rem; font-weight:600; color:var(--color-link); text-decoration:underline; text-underline-offset:.2em; cursor:pointer; }
+	.cv-expand { justify-self:start; margin-top:.5rem; padding:0; border:0; background:none; font:inherit; font-size:.9rem; font-weight:400; color:var(--color-link); text-decoration:underline; text-underline-offset:.2em; cursor:pointer; }
 	.cv-expand:hover { color:var(--color-text); }
 	.cv-expand:focus-visible { outline:3px solid var(--color-focus); outline-offset:3px; }
 	.cv-expand[hidden] { display:none; }
-	.cv-role__body { display:grid; gap:.4rem; padding:0 2.2rem 1.2rem 0; }
-	.cv-role__label { margin-top:.7rem !important; font-size:.8rem !important; font-weight:600; letter-spacing:.04em; text-transform:uppercase; color:var(--cv-signal) !important; }
-	.cv-role__results, .cv-role__tasks { display:grid; gap:.3rem; margin:0; padding-left:1.15rem; }
+	.cv-role__body { display:grid; gap:.45rem; padding:0 2.2rem 1.5rem 0; }
+	.cv-role__label { margin-top:1rem !important; font-size:var(--type-meta-size) !important; font-weight:700; color:var(--color-text) !important; }
+	.cv-role__label:first-child { margin-top:.2rem !important; }
+	.cv-role__results, .cv-role__tasks { display:grid; gap:.35rem; margin:0; padding-left:1.15rem; }
 	.cv-role__results strong { font-weight:600; }
 	.cv-role__skills { font-family:var(--font-mono); font-size:.92rem !important; line-height:1.7 !important; color:var(--color-muted) !important; }
 	.cv-role__link { justify-self:start; margin-top:.9rem; font-weight:600; }
 
 	.cv-skills { gap:.6rem; }
-	.cv-skills__label { margin:0 !important; font-size:.8rem !important; font-weight:600; letter-spacing:.04em; text-transform:uppercase; color:var(--cv-signal) !important; scroll-margin-top:1.5rem; }
+	.cv-skills__label { margin:0 !important; font-size:var(--type-meta-size) !important; font-weight:700; color:var(--color-text) !important; scroll-margin-top:1.5rem; }
 	.cv-skills__label + .cv-skills__grid { border-top:1px solid var(--color-border-soft); }
 	.cv-skills__grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1.1rem 2rem; padding-top:.9rem; margin-bottom:1.4rem; }
 	.cv-skills__group { display:grid; align-content:start; gap:.25rem; }
 	.cv-skills h3 { margin:0; font-size:1rem; font-weight:600; }
 	.cv-skills__group p { margin:0; font-size:.95rem; line-height:1.6; color:var(--color-body-text); }
+	.cv-dots { display:flex; flex-wrap:wrap; column-gap:1.1rem; margin:0; padding:0; list-style:none; overflow:hidden; }
+	.cv-dots li { position:relative; margin:0; font-size:.95rem; line-height:1.6; color:var(--color-body-text); }
+	.cv-dots li::before { content:'·'; position:absolute; left:-.75rem; color:var(--color-muted); }
+	.cv-stack { display:grid; gap:.45rem; margin:0; padding:0; list-style:none; }
+	.cv-stack li { margin:0; font-size:.95rem; line-height:1.3; color:var(--color-body-text); }
 
 	.cv-list, .cv-plain { margin:0; padding:0; list-style:none; }
-	.cv-list li { display:grid; gap:.1rem; }
-	.cv-list span { color:var(--color-muted); }
+	.cv-list { display:grid; gap:1.1rem; }
+	.cv-list li { display:grid; gap:.2rem; }
+	.cv-list__meta { font-family:var(--font-mono); font-size:var(--type-meta-size); letter-spacing:var(--type-meta-tracking); line-height:1.4; text-transform:uppercase; color:var(--color-muted); }
+	.cv-list__link { justify-self:start; font-size:.95rem; }
+	.cv-courses__label { margin:.6rem 0 0; padding-bottom:.5rem; border-bottom:1px solid var(--color-border-soft); font-family:var(--font-mono); font-size:var(--type-meta-size); font-weight:700; letter-spacing:var(--type-meta-tracking); line-height:1.4; text-transform:uppercase; color:var(--color-text); scroll-margin-top:6rem; }
+	.cv-courses { display:grid; grid-template-columns:repeat(auto-fit, minmax(16rem, 1fr)); gap:.8rem 1.5rem; margin:0; padding:0; list-style:none; font-size:.95rem; }
+	.cv-courses li { display:grid; align-content:start; gap:.15rem; }
 	.cv-plain { display:grid; gap:.45rem; padding-top:.6rem; }
 
 	.cv-details { padding-top:.2rem; }
+	.cv-details + .cv-details { margin-top:.4rem; }
 	.cv-details .cv-plain { list-style:disc; padding-left:1.25rem; }
-	.cv-details .cv-plain li::marker { color:var(--cv-signal); }
-	.cv-details summary { cursor:pointer; font-weight:600; color:var(--color-text); }
+	.cv-details .cv-plain li::marker { color:var(--color-muted); }
+	.cv-plain__meta { color:var(--color-muted); }
+	.cv-details summary { display:flex; justify-content:space-between; gap:1rem; padding:.2rem 0 .5rem; border-bottom:1px solid var(--color-border-soft); cursor:pointer; list-style:none; font-family:var(--font-mono); font-size:var(--type-meta-size); font-weight:700; letter-spacing:var(--type-meta-tracking); line-height:1.4; text-transform:uppercase; color:var(--color-text); }
+	.cv-details summary::-webkit-details-marker { display:none; }
+	.cv-details summary::after { content:'+'; font-size:1.1rem; font-weight:400; line-height:1; color:var(--color-muted); }
+	.cv-details[open] summary::after { content:'\2212'; }
+	.cv-details summary:hover { text-decoration:underline; text-underline-offset:.3em; }
+	.cv-details summary:focus-visible { outline:3px solid var(--color-focus); outline-offset:3px; }
 	.cv-closing { padding-top:0; }
 
 	.cv-jump { position:fixed; right:1.5rem; bottom:1.5rem; z-index:20; transition:opacity .2s ease, visibility .2s; }
@@ -729,11 +762,12 @@ const jumpLinks = [
 	@media (max-width: 900px) {
 		.cv-section { grid-template-columns:1fr; gap:.9rem; }
 		.cv-glance-grid { grid-template-columns:1fr; }
+		.cv-results { row-gap:1.6rem; }
 		.cv-skills__grid { grid-template-columns:1fr; }
 	}
 
 	@media (max-width: 640px) {
-		.cv-page { --cv-signal:color-mix(in srgb, var(--color-accent-text) 82%, var(--color-text)); width:min(calc(100% - 2rem),var(--content-width)); }
+		.cv-page { width:min(calc(100% - 2rem),var(--content-width)); }
 		.cv-hero .button-row { display:grid; }
 		.cv-glance div { grid-template-columns:1fr; gap:.1rem; }
 			.cv-role__body { padding-right:0; }
@@ -742,7 +776,7 @@ const jumpLinks = [
 	@media print {
 		@page { margin:14mm 14mm 16mm; }
 		:global(html) { font-size:12px; }
-		:global(header), :global(footer), :global(.skip-link), .cv-hero__actions, .cv-closing, .cv-role__link, .cv-jump, .cv-expand, .cv-role__key { display:none !important; }
+		:global(header), :global(footer), :global(.skip-link), .cv-hero__actions, .cv-closing, .cv-role__link, .cv-jump, .cv-expand, .cv-role__key, .cv-results__cue { display:none !important; }
 		.cv-print-contact { display:flex; flex-wrap:wrap; gap:.2rem 1.2rem; margin:0; padding:0; list-style:none; font-size:1rem; color:var(--color-text); }
 		:global(body) { background:#fff; }
 		.cv-page { width:100%; }
@@ -750,14 +784,15 @@ const jumpLinks = [
 		.cv-section { grid-template-columns:10rem minmax(0,1fr); padding:.8rem 0 1.2rem; border-top:1px solid #bbb; }
 		.cv-section--band { grid-template-columns:1fr; box-shadow:none; clip-path:none; background:none; }
 		.cv-glance-grid { grid-template-columns:1fr 1fr; gap:1rem 2rem; }
+		.cv-skills__grid { grid-template-columns:repeat(3,minmax(0,1fr)); gap:.8rem 1.5rem; }
 		.cv-results__value { font-size:1.4rem; }
-		.cv-role > summary::after, .cv-role[open] > summary::after { display:none; }
+		.cv-role > summary::after, .cv-role[open] > summary::after, .cv-details summary::after { display:none; }
 		.cv-role > summary, .cv-role--static { grid-template-columns:1fr; padding:.5rem 0; }
 		.cv-role__body { padding:0 0 .6rem; }
 		.cv-body, .cv-list { display:block; }
 		.cv-body > * + *, .cv-list li + li { margin-top:.8rem !important; }
-		.cv-group__head, .cv-role__label, .cv-skills__label, .cv-details summary { break-after:avoid; }
-		.cv-role > summary, .cv-role__results li, .cv-role__tasks li, .cv-skills__group, .cv-list li, .cv-languages, .cv-plain li { break-inside:avoid; }
+		.cv-group__head, .cv-role__label, .cv-skills__label, .cv-courses__label, .cv-details summary { break-after:avoid; }
+		.cv-role > summary, .cv-role__results li, .cv-role__tasks li, .cv-skills__group, .cv-list li, .cv-courses li, .cv-languages, .cv-plain li { break-inside:avoid; }
 		a { color:inherit !important; text-decoration:none !important; }
 	}
 </style>
