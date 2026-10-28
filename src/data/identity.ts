@@ -8,11 +8,9 @@ export const IDENTITY = {
 	brandLine: 'Embedded control systems for complex physical machines.',
 	// Homepage hero lead only.
 	roleScope: 'I lead the architecture, implementation, and validation of real-time control software for complex physical systems, including electrified vehicles and autonomous machines.',
-	// About page introduction only.
-	purpose: 'support teams with the technical direction they need to develop reliable, efficient, and responsible control solutions for the physical systems people depend on every day.',
 	// Home, contact, CV, and footer location metadata.
 	location: 'Valencia, Spain',
-	years: '12+',
+	years: '15',
 } as const;
 
 export const LINKEDIN_URL = 'https://www.linkedin.com/in/carlosjorques/';

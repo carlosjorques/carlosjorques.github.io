@@ -1,77 +1,96 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import ContactCTA from '../components/ContactCTA.astro';
-import { IDENTITY } from '../data/identity';
+import { IDENTITY, LINKEDIN_URL } from '../data/identity';
 const baseUrl = import.meta.env.BASE_URL;
 const normalizedBase = baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`;
 const withBase = (href: string) => href.startsWith('http') || href.startsWith('mailto:') || href.startsWith('#') ? href : `${normalizedBase}${href.replace(/^\//, '')}`;
 const portraitUrl = withBase('/images/carlos-jorques-intro.webp');
+const work = (slug: string) => withBase(`/work/${slug}/`);
 ---
 
-<Layout title={`About ${IDENTITY.name} | ${IDENTITY.primaryTitle}`} description="Meet Carlos Jorques, a Control Systems Technical Lead designing real-time control software for complex physical systems.">
+<Layout title={`About ${IDENTITY.name} | ${IDENTITY.primaryTitle}`} description={`${IDENTITY.name} is a ${IDENTITY.primaryTitle} in ${IDENTITY.location}, with ${IDENTITY.years} years designing the software that helps machines sense, decide and act.`}>
 	<div class="about-page">
 		<section class="about-hero" aria-labelledby="about-title">
 			<p class="about-eyebrow">About me</p>
 			<div class="about-hero__layout">
 				<div class="about-hero__copy">
-					<h1 id="about-title">I connect control, embedded software, and teams so complex machines can sense, decide, and act reliably.</h1>
-					<p class="about-hero__lead">I’m {IDENTITY.name}, a <strong>{IDENTITY.primaryTitle}</strong>. My early curiosity about electronics and robotics kept bringing me back to a simple question with a complicated answer: <strong>how does a robot even know what to do?</strong>  That question led me into embedded control systems, real-time software, and technical leadership.</p>
+					<h1 id="about-title">I design the software that helps machines <i>sense</i>, <i>decide</i> and <i>act</i>, leading the teams that build it.</h1>
+					<p class="about-hero__lead">Hi, I'm Carlos. I'm a <strong>{IDENTITY.primaryTitle}</strong> with <strong>{IDENTITY.years} years of experience developing</strong> the software that operates a machine reliably and efficiently in the real-world, from electric trucks and autonomous haulers to motors and engines. Today I lead client projects at ALTEN, working remotely from <strong>{IDENTITY.location}</strong> with international teams.</p>
 					<nav class="about-hero__actions" aria-label="About quick links">
-						<a href={withBase('/cv/')}>View CV</a>
 						<a href={withBase('/work/')}>Selected work</a>
+						<a href={withBase('/cv/')}>View CV</a>
 						<a href={withBase('/contact/')}>Contact</a>
 					</nav>
 				</div>
 				<figure class="about-portrait-frame">
-					<img class="about-portrait" src={portraitUrl} alt="Carlos Jorques" width="768" height="1024" loading="eager" decoding="async" />
+					<img class="about-portrait" src={portraitUrl} alt={`Black-and-white portrait of ${IDENTITY.name} standing in front of a truck`} width="768" height="1024" loading="eager" decoding="async" />
 				</figure>
 			</div>
 		</section>
 
-		<section class="editorial-section" id="expertise" aria-label="Where that question took me">
-			<div class="section-rail"><p>Where that question took me</p></div>
+		<section class="editorial-section" id="origin" aria-labelledby="origin-title">
+			<div class="section-rail"><h2 id="origin-title">My story</h2></div>
 			<div class="story-block">
-				<p>My expertise lies in designing embedded control systems. At the centre of these systems is control engineering. It is the algorithms, and everything around them, that helps these systems behave under real-world conditions in ways that are useful, efficient, and trustworthy for the people and organisations that rely on them.</p>
-				<p>Today, I work on transportation systems that shape how people move, build, and use energy. My experience is grounded in the automotive industry, working with international teams at Scania, Volvo CE, and MAHLE Electronics across electrified, autonomous, and heavy-duty vehicles.</p>
-				<p>My curiosity is now directed towards practical leadership, clarifying uncertain system needs, guiding teams toward decisions they can implement and validate, and pushing promising ideas far enough to test their value. That approach has contributed to several patents and scientific publications.</p>
+				<p>It all grew from a childhood interest. I took my toys apart to see how they worked, started learning electronics at eight and soon wanted to build a robot and become an inventor. That led me to <strong>automatic control</strong>, the field behind the algorithms that let a machine interact with its surroundings. I studied industrial engineering at UPV in Valencia (Spain) and electrical engineering at LTH in Lund (Sweden).</p>
+				<p>My master's thesis took me to Scania and gave me my first patent, so I became an inventor after all. I stayed at Scania for about ten years, which included an <strong>industrial PhD</strong> with LTH. In 2022 I moved back to Valencia, and since 2023 I've worked as a <strong>technical lead at ALTEN</strong> for different projects.</p>
 			</div>
 		</section>
 
-		<section class="editorial-section" id="approach" aria-label="How I approach difficult problems">
-			<div class="section-rail"><p>How I approach difficult problems</p></div>
+		<section class="editorial-section" id="motivation" aria-labelledby="motivation-title">
+			<div class="section-rail"><h2 id="motivation-title">My motivation</h2></div>
 			<div class="story-block">
-				<p>In complex engineering work, the first responsibility is to make the problem clear before making the solution complicated. I start by studying what the system must do, what the physics allow, what the measurements can actually tell us, and what happens when something goes wrong. Models, simulations, software tests, and experiments help me challenge the answer.</p>
-				<p>Testing on hardware is especially effective at challenging assumptions. When results differ from expectations, I would rather revisit the model, implementation, and interfaces than add complexity too soon. A solution is only effective if the team can understand it, validate it, and maintain it.</p>
+				<p>We rely on machines for most of our daily tasks, from moving people and goods to heating our homes. Automatic control makes many of them possible; without it, an airplane couldn't fly steadily and a rocket couldn't land back on its pad. My work focuses on control that stays reliable when conditions change, so that a machine can run with tighter margins and use less energy. Some of the projects behind that:</p>
+				<ul class="about-examples">
+					<li>At <a href={work('electric-truck-thermal-management')}>Scania</a>, electric trucks that plan their heating and cooling ahead and use <strong>2–4% less energy</strong>.</li>
+					<li>At <a href={work('autonomous-hauler-propulsion-control')}>Volvo CE</a>, an autonomous hauler that keeps its speed within <strong>1 km/h</strong> of the target.</li>
+					<li>At <a href={work('mahle-aspice-motor-thermal-model')}>MAHLE</a>, an electric motor that knows its own temperature without an extra sensor.</li>
+					<li>In my <a href={work('heavy-duty-engine-diagnostics-control-research')}>PhD</a>, an engine that corrects each combustion in real-time, so it runs <strong>twice as steadily</strong>.</li>
+				</ul>
+				<p>The same kind of control makes heat pumps, batteries and mobile robots cheaper to run and less likely to fail, and that has kept me in this field.</p>
 			</div>
 		</section>
 
-		<section class="editorial-section" id="collaboration" aria-label="Making difficult things understandable">
-			<div class="section-rail"><p>Making difficult things understandable</p></div>
+		<section class="editorial-section" id="approach" aria-labelledby="approach-title">
+			<div class="section-rail"><h2 id="approach-title">My approach</h2></div>
 			<div class="story-block">
-				<p>When a technical problem becomes tangled, I often start by drawing it. Diagrams, plots, and concrete examples make behaviour, interfaces, and unknowns easier to see. That habit comes partly from years of teaching and mentoring, and it has become central to how I lead.</p>
-				<p>I do not think technical leadership means having every answer. It means asking useful questions, giving people enough context, making decisions when needed, and helping engineers take ownership of their work. I want people to understand why a decision was made and feel able to challenge it with better evidence.</p>
+				<p>As a technical lead, I set the direction of the control software and write part of it. I organise the team with agile methods, following the technical and business plan. I first look at the needs, goals, milestones and constraints of the project, then plan the solutions it requires. When the hardware is still open, for example the choice of sensors or actuators, I take part in those decisions too.</p>
+				<p>In my team, I want the engineers to understand the system they control, so they work close to the machine and test their own software on it. Iterations get shorter that way, and so does the time it takes to learn. Each person gets a clear goal, support and room to propose their own solution, and I'm always open to discussions and new ideas.</p>
+				<p>My teams work across countries, mostly in <strong>English</strong>, but also in <strong>Spanish and Swedish</strong>. In the <a href={withBase('/work/')}>Work</a> pages, you can find how this approach is applied in selected projects.</p>
 			</div>
 		</section>
 
-		<section class="editorial-section" id="beyond-engineering" aria-label="Away from engineering">
-			<div class="section-rail"><p>Away from engineering</p></div>
+		<section class="editorial-section" id="now" aria-labelledby="now-title">
+			<div class="section-rail"><h2 id="now-title">Right now</h2><p class="section-rail__note">Updated October 2026</p></div>
 			<div class="story-block">
-				<p>Outside work, basketball gives me a different kind of team challenge and a way to switch off. I also enjoy making things, from electronics and home automation to 3D printing, lamps, and painting. Time with my partner, our child, our dog, and friends keeps work in perspective. Not every experiment needs a business case; sometimes fun and curiosity are enough.</p>
+				<ul class="about-now">
+					<li>Leading a <a href={work('electric-truck-thermal-management')}>predictive control concept</a> for the heating and cooling of electric trucks at Scania.</li>
+					<li>Writing an article series on the value of control software in electric heavy-duty trucks.</li>
+					<li>Supporting <a href="https://altamadera.com" rel="noopener">AltaMadera</a> now and then, a lamp project with 3D-printed parts that I started with a friend.</li>
+					<li>Building this website.</li>
+				</ul>
 			</div>
 		</section>
 
+		<section class="editorial-section" id="beyond-engineering" aria-labelledby="beyond-title">
+			<div class="section-rail"><h2 id="beyond-title">Away from engineering</h2></div>
+			<div class="story-block">
+				<p>I like sports, both team sports and others such as running or skiing. But basketball is the one I love the most. I started playing at eight, and I still play in a team. Now I'm getting our son into it. I also like making things myself, from electronics and home automation to 3D printing, lamps and painting.</p>
+				<p>I'm always learning something new. I've tried bouldering and lindy hop, and right now it's Serbian, as our son speaks more and more. Otherwise, my life centres around my partner, our son and our dog, and when we travel these days, it's mostly to visit family in Serbia and Slovenia.</p>
+			</div>
+		</section>
 
 		<section class="section about-closing" aria-label="Contact">
 			<ContactCTA
 				eyebrow="Contact"
-				title="Have a role, system, or technical challenge in mind?"
-				body="If my experience and approach align with what you are working on, share a little context and I’ll get back to you."
-				primaryHref="/contact/?source=about#message-title"
-				primaryLabel="Start a conversation"
-				secondaryHref="/work/"
-				secondaryLabel="View work"
-				tertiaryHref="/cv/"
-				tertiaryLabel="View CV"
+				title="Let's talk"
+				body="Whether you have a role in mind or a machine that needs better control, send me a few lines and I'll get back to you."
+				primaryHref="/contact/?context=role&source=about#message-title"
+				primaryLabel="Talk about a role"
+				secondaryHref="/contact/?context=technical&source=about#message-title"
+				secondaryLabel="Talk about your challenge"
+				tertiaryHref={LINKEDIN_URL}
+				tertiaryLabel="LinkedIn"
 				sourceSection="about-closing"
 				ctaIdPrefix="about-closing"
 			/>
@@ -81,32 +100,27 @@ const portraitUrl = withBase('/images/carlos-jorques-intro.webp');
 
 <style>
 	.about-page { width:min(calc(100% - 5rem),var(--content-width)); margin:0 auto; padding:0; }
-	.about-eyebrow { font-family:var(--font-mono); font-size:.82rem; font-weight:600; letter-spacing:.08em; line-height:1.4; text-transform:uppercase; color:var(--color-muted); }
+	.about-eyebrow { margin:0; font-family:var(--font-mono); font-size:.82rem; font-weight:600; letter-spacing:.08em; line-height:1.4; text-transform:uppercase; color:var(--color-muted); }
 	.about-hero { padding:clamp(3rem,5vw,4.6rem) 0 0; }
-	.about-eyebrow { margin:0; }
 	.about-hero__layout { display:grid; grid-template-columns:minmax(0,1.35fr) minmax(15rem,20rem); gap:2.5rem; align-items:start; margin:1rem 0 5rem; }
 	.about-hero__copy { display:grid; gap:1rem; align-content:start; }
 	.about-hero h1 { max-width:none; margin:0; font-size:clamp(2.6rem,3.8vw,3.5rem); font-weight:800; letter-spacing:-.05em; line-height:1.02; }
-	.about-hero__lead { max-width:52rem; margin:0 0 1.15rem; font-size:1.08rem; line-height:1.7; color:var(--color-text); }
-	.about-hero__lead:last-of-type { margin-bottom:0; }
+	.about-hero__lead { max-width:52rem; margin:0 0 .4rem; font-size:1.08rem; line-height:1.7; color:var(--color-text); }
 	.about-hero__lead strong { font-weight:700; }
-	.about-hero__actions { display:none; }
-	.about-story { display:grid; gap:1rem; margin:0; max-width:52rem; }
-	.about-story p,.story-block p { margin:0; font-size:1.08rem; line-height:1.7; color:var(--color-text); }
+	.about-hero__actions { display:flex; flex-wrap:wrap; gap:.45rem 1.25rem; }
+	.about-hero__actions a { color:var(--color-link); font-size:.95rem; font-weight:600; text-underline-offset:.2em; }
 	.about-portrait-frame { align-self:start; width:100%; aspect-ratio:3 / 4; margin:0; overflow:hidden; border-radius:1.5rem; }
 	.about-portrait { display:block; width:100%; height:auto; aspect-ratio:3 / 4; border-radius:1.5rem; box-shadow:0 18px 40px rgba(23,23,23,.08); }
-	.editorial-section { display:grid; grid-template-columns:16rem minmax(0,1fr); gap:0; padding:1rem 0 clamp(3rem,6vw,5rem); border-top:1px solid var(--color-border); scroll-margin-top:2rem; }
-	.editorial-section--with-bottom-border { border-bottom:1px solid var(--color-border); }
-	.section-rail { font-family:var(--font-mono); font-size:.82rem; font-weight:600; letter-spacing:.08em; line-height:1.4; text-transform:uppercase; color:var(--color-muted); padding-top:.25rem; }
-	.section-rail p { margin:0; max-width:none; color:inherit; font:inherit; letter-spacing:inherit; text-transform:inherit; }
+	.editorial-section { display:grid; grid-template-columns:16rem minmax(0,1fr); gap:0 2rem; padding:1rem 0 clamp(3rem,6vw,5rem); border-top:1px solid var(--color-border); scroll-margin-top:2rem; }
+	.section-rail { padding-top:.25rem; }
+	.section-rail h2 { margin:0; max-width:none; font-family:var(--font-mono); font-size:.82rem; font-weight:600; letter-spacing:.08em; line-height:1.4; text-transform:uppercase; color:var(--color-muted); }
+	.section-rail__note { margin:.4rem 0 0; font-size:.85rem; color:var(--color-muted); }
 	.story-block { display:grid; gap:.8rem; max-width:52rem; }
-	.story-block p { max-width:none; margin:0; font-size:1.08rem; line-height:1.7; color:var(--color-text); }
+	.story-block p, .story-block li { max-width:none; margin:0; font-size:1.08rem; line-height:1.7; color:var(--color-text); }
+	.story-block ul { display:grid; gap:.45rem; margin:0; padding-left:1.25rem; }
 	.story-block a { color:var(--color-link); text-underline-offset:.2em; }
 	.about-closing { padding:5rem 0; }
-
-	.about-closing .story-block { grid-column:1 / -1; }
-	#approach { margin-top:0; }
 	@media(max-width:1100px){.about-hero__layout{grid-template-columns:1fr}.about-portrait-frame{width:min(100%,16rem)}}
-	@media(max-width:720px){.about-hero{padding:3rem 0 0}.about-hero h1{font-size:clamp(2.15rem,10vw,2.45rem);line-height:1.04}.about-hero__actions{display:flex;flex-wrap:wrap;gap:.45rem 1rem;margin-top:0}.about-hero__actions a{color:var(--color-link);font-size:.92rem;font-weight:600;text-underline-offset:.2em}.editorial-section{grid-template-columns:1fr}.about-hero__lead,.about-story p,.story-block p{font-size:1.08rem}.button{width:100%}}
+	@media(max-width:720px){.about-hero{padding:3rem 0 0}.about-hero h1{font-size:clamp(2.15rem,10vw,2.45rem);line-height:1.04}.about-hero__actions a{font-size:.92rem}.editorial-section{grid-template-columns:1fr}.section-rail{margin-bottom:.75rem}.button{width:100%}}
 	@media(max-width:640px){.about-page{width:min(calc(100% - 32px),var(--content-width))}}
 </style>
