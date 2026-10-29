@@ -18,6 +18,8 @@ export interface ProjectCard {
 	readonly role: string;
 	/** Card text on the Work index: the problem and what the reader finds on the page. */
 	readonly hook: string;
+	/** One plain-language line for non-specialists, shown on the homepage tiles. */
+	readonly plain: string;
 	readonly outcomes: readonly ProjectOutcome[];
 	readonly image: ImageMetadata;
 	readonly imageAlt: string;
@@ -31,6 +33,7 @@ export const projectCards = [
 		company: 'Scania',
 		context: 'Electric trucks',
 		role: 'Predictive control lead',
+		plain: 'Keeps the battery at the right temperature with less energy, using the route ahead.',
 		hook:
 			'The battery is about a third of the price of an electric truck, and part of every charge goes into heating and cooling it. The predictive controller I lead uses the route ahead to decide when to heat or cool, and with which pumps, fans and heaters. In truck tests, it saved enough energy for a smaller battery with the same range.',
 		outcomes: [
@@ -47,6 +50,7 @@ export const projectCards = [
 		company: 'Volvo CE',
 		context: 'Autonomous haulers',
 		role: 'Technical lead',
+		plain: 'Makes a driverless hauler hold its planned speed on mud, gravel and slopes.',
 		hook:
 			'The value of a driverless hauler is the material it moves per hour, so it has to hold the speed its autonomy system plans. On the TA15, the two electric axles worked against each other and made the hauler tremble. I redesigned its speed and torque control, and it now holds the requested speed on mud, gravel and slopes.',
 		outcomes: [
@@ -63,6 +67,7 @@ export const projectCards = [
 		company: 'MAHLE',
 		context: 'Electric drives',
 		role: 'Technical lead and Scrum Master',
+		plain: 'Estimates the hottest point inside an e-bike motor that has no sensor there.',
 		hook:
 			'Vehicle makers assess how their suppliers develop software, and a motor without a sensor in its windings keeps a wide safety margin. As Scrum Master, I helped MAHLE’s advanced engineering team take its first steps towards A-SPICE level 2. I also led the e-bike software and co-developed a real-time model of the hottest point in the motor.',
 		outcomes: [
@@ -78,6 +83,7 @@ export const projectCards = [
 		company: 'Scania and Lund University',
 		context: 'Diesel engines',
 		role: 'Industrial PhD researcher',
+		plain: 'Measures each combustion as it happens and corrects the fuel injection before the cycle ends.',
 		hook:
 			'Renewable fuels cut the CO₂ of trucks without new infrastructure. However, they ignite differently from diesel, so engines keep safety margins that cost fuel in every cycle. In my PhD, I developed software on an FPGA that measures each combustion and corrects the fuel injection before the cycle ends.',
 		outcomes: [

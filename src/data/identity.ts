@@ -4,10 +4,8 @@ export const IDENTITY = {
 	primaryTitle: 'Control Systems Technical Lead',
 	secondaryDescriptors: ['Control Systems Architect', 'Senior Control Systems Engineer'],
 	// Homepage hero and footer signature only.
-	brandStatement: 'Control intelligence for complex physical systems',
-	brandLine: 'Embedded control systems for complex physical machines.',
-	// Homepage hero lead only.
-	roleScope: 'I lead the architecture, implementation, and validation of real-time control software for complex physical systems, including electrified vehicles and autonomous machines.',
+	brandStatement: 'Embedded control for complex dynamic systems',
+	brandLine: 'Embedded control for complex dynamic systems.',
 	// Home, contact, CV, and footer location metadata.
 	location: 'Valencia, Spain',
 	years: '12+',

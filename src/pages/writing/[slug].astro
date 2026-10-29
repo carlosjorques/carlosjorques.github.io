@@ -4,6 +4,7 @@ import Layout from '../../layouts/Layout.astro';
 import ContactCTA from '../../components/ContactCTA.astro';
 import { IDENTITY } from '../../data/identity';
 import { SHOW_DRAFT_WRITING, isVisibleWriting } from '../../data/writing';
+import 'katex/dist/katex.min.css';
 
 export async function getStaticPaths() {
 	const entries = await getCollection('writing', ({ data }) => isVisibleWriting(data));
@@ -146,6 +147,12 @@ const relatedProject = relatedProjectSlug
 </Layout>
 
 <style>
+	.writing-post :global(.katex-display) {
+		overflow-x: auto;
+		overflow-y: hidden;
+		padding-block: .25rem;
+	}
+
 	.writing-post {
 		background: var(--color-page);
 		overflow-x: clip;

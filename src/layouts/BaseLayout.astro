@@ -65,6 +65,7 @@ const pageType = (() => {
 		<meta property="og:url" content={canonical} />
 		{ogImage && <meta property="og:image" content={new URL(ogImage, Astro.site ?? Astro.url.origin)} />}
 		{ogImage && ogImageAlt && <meta property="og:image:alt" content={ogImageAlt} />}
+		{ogImage && <meta name="twitter:card" content="summary_large_image" />}
 		<script type="application/ld+json" set:html={JSON.stringify({
 			'@context': 'https://schema.org',
 			'@type': 'Person',
