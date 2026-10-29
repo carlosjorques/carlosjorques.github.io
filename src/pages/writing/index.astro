@@ -1,736 +1,190 @@
 ---
-import { getCollection } from 'astro:content';
-import Layout from '../../layouts/Layout.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
 import ContactCTA from '../../components/ContactCTA.astro';
-import { TAG_GROUPS, tagGroupFor } from '../../data/tagGroups';
-import { isVisibleWriting } from '../../data/writing';
+import WritingList from '../../components/writing/WritingList.astro';
+import WritingPublicationList from '../../components/writing/WritingPublicationList.astro';
+import WritingTopicFilter from '../../components/writing/WritingTopicFilter.astro';
+import { IDENTITY } from '../../data/identity';
+import { getWritingArticles, groupWriting, seriesHref } from '../../data/writing';
 
-const baseUrl = import.meta.env.BASE_URL;
-const normalizedBase = baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`;
-const toSlug = (id: string) => id.replace(/\.md$/, '');
-const toTagSlug = (value: string) =>
-	value
-		.toLowerCase()
-		.replaceAll('/', '-')
-		.replace(/[^a-z0-9]+/g, '-')
-		.replace(/^-|-$/g, '');
+// The filter only earns its space once the list is long enough to need it.
+const FILTER_THRESHOLD = 8;
+// Previous articles beyond this count stay behind "Show all" (with JavaScript only).
+const PREVIOUS_VISIBLE = 10;
 
-const formatDate = (date: Date) =>
-	date.toLocaleDateString('en', {
-		year: 'numeric',
-		month: 'short',
-		day: 'numeric',
-	});
+const withBase = (href: string) => `${import.meta.env.BASE_URL}${href.replace(/^\//, '')}`;
+const articles = await getWritingArticles();
+const { latest, years } = groupWriting(articles);
+const showFilter = articles.length >= FILTER_THRESHOLD;
+const previousCount = years.reduce((sum, group) => sum + group.articles.length, 0);
 
-const entries = (await getCollection('writing', ({ data }) => isVisibleWriting(data))).sort(
-	(a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf(),
-);
-
-const articles = entries.map((entry) => ({
-	title: entry.data.title,
-	excerpt: entry.data.description,
-	date: formatDate(entry.data.publishDate),
-	dateTime: entry.data.publishDate.toISOString(),
-	tags: entry.data.tags,
-	slug: toSlug(entry.id),
-	href: `${normalizedBase}writing/${toSlug(entry.id)}/`,
-	isDraft: entry.data.draft,
-}));
-
-const groupSlug = (group: string) => toTagSlug(group);
+const pageTitle = 'Writing on control software for complex dynamic systems';
+const pageDescription = 'Articles by Carlos Jorques on how control software for machines is designed and tested, and what it changes for the companies that build and operate them.';
+const site = Astro.site ?? new URL(Astro.url.origin);
+const absolute = (href: string) => new URL(href, site).toString();
+const structuredData = {
+	'@context': 'https://schema.org',
+	'@type': 'CollectionPage',
+	'@id': absolute(withBase('/writing/')),
+	url: absolute(withBase('/writing/')),
+	name: pageTitle,
+	description: pageDescription,
+	author: { '@id': absolute('/#person') },
+	inLanguage: 'en',
+	mainEntity: {
+		'@type': 'ItemList',
+		itemListElement: articles.filter((article) => !article.isDraft).map((article, index) => ({
+			'@type': 'ListItem',
+			position: index + 1,
+			item: {
+				'@type': 'BlogPosting',
+				'@id': absolute(article.href),
+				url: absolute(article.href),
+				headline: article.fullTitle,
+				description: article.description,
+				datePublished: article.dateIso,
+				author: { '@id': absolute('/#person') },
+				...(article.series ? { isPartOf: { '@type': 'CreativeWorkSeries', name: article.series.definition.title, url: absolute(seriesHref(article.series.id)) } } : {}),
+			},
+		})),
+	},
+};
 ---
 
-<Layout
-	title="Writing | Carlos Jorques"
-	description="Notes by Carlos Jorques on control system design and implementation in embedded systems, diagnostics, validation, physical systems, software architecture, and technical leadership."
->
+
+<BaseLayout title={pageTitle} description={pageDescription} ogImage="/images/og-writing.png" ogImageAlt="Writing by Carlos Jorques: notes on control software for complex dynamic systems.">
+	<script slot="head" type="application/ld+json" set:html={JSON.stringify(structuredData)} />
 	<div class="writing-page">
 		<section class="writing-hero" aria-labelledby="writing-title">
-			<div class="page-container">
-				<p class="section-eyebrow">Writing</p>
-				<h1 id="writing-title" class="hero-title">Notes on the engineering decisions behind reliable control systems.</h1>
+			<div class="writing-hero__top">
+				<p class="writing-eyebrow">Writing</p>
+				<a class="writing-rss" href={withBase('/rss.xml')}>RSS feed</a>
+			</div>
+			<div class="writing-hero__copy">
+				<h1 id="writing-title">Notes on control software for complex dynamic systems.</h1>
+				<p class="writing-hero__lead">Control software decides how a machine uses its energy and how it reacts when something goes wrong. In these articles I explain how that software is designed and tested, and what it changes for the companies that build and operate the machines.</p>
+				<p class="writing-hero__author">By {IDENTITY.name}, {IDENTITY.primaryTitle}. The articles build on {IDENTITY.years} years of <a href={withBase('/cv/')} data-analytics-event="related_proof_click" data-cta-id="writing-hero-cv" data-cta-placement="writing-index" data-cta-intent="proof" data-source-section="writing-hero">vehicle control software for Scania, Volvo CE and MAHLE</a> and a PhD on engine control systems. <a href={withBase('/about/')}>About me</a></p>
 			</div>
 		</section>
 
-		<section class="writing-list-section" aria-labelledby="writing-list-title">
-			<div class="page-container writing-container">
-				<h2 id="writing-list-title" class="visually-hidden">Article list</h2>
+		{showFilter && <WritingTopicFilter articles={articles} />}
 
-				{articles.length > 0 ? (
-					<>
-						<div class="writing-filter-bar">
-							<details class="writing-filter-menu" data-filter-menu>
-								<summary>
-									<span class="filter-summary__label">ALL TOPICS</span>
-									<span class="visually-hidden" data-filter-current aria-live="polite">All topics selected</span>
-								</summary>
-								<div class="filter-chips" role="group" aria-label="Filter articles by macro-topic">
-									<button class="filter-chip filter-chip--all" type="button" data-filter-reset aria-pressed="true">ALL TOPICS</button>
-									{Object.keys(TAG_GROUPS).map((group) => <button class="filter-chip" type="button" data-filter={groupSlug(group)} data-filter-label={group} aria-pressed="false">{group}</button>)}
-								</div>
-							</details>
+		{articles.length === 0 && <p class="writing-empty">The first articles are in preparation.</p>}
+
+		{latest.length > 0 && (
+			<section class="writing-section" aria-labelledby="latest-title" data-filter-group>
+				<h2 id="latest-title" class="writing-section__title">Latest publications</h2>
+				<WritingPublicationList publications={latest} />
+			</section>
+		)}
+
+		{years.length > 0 && (
+			<section class="writing-section" aria-labelledby="previous-title" data-filter-group data-show-all-scope>
+				<h2 id="previous-title" class="writing-section__title">{latest.length > 0 ? 'Previous articles' : 'Articles'}</h2>
+				<div id="previous-list">
+					{years.map((group) => (
+						<div class="writing-year" data-filter-group>
+							<h3 class="writing-year__label">{group.year}</h3>
+							<WritingList articles={group.articles} label="date" variant="compact" headingLevel={4} sourceSection="writing-previous" />
 						</div>
-
-						<div class="article-list" data-article-list>
-							{
-								articles.map((article) => (
-									<article class="article-card" data-article-card data-tags={[...article.tags.map(toTagSlug), ...article.tags.map((tag) => groupSlug(tagGroupFor(tag)))].join(' ')}>
-										<a
-											class="article-card__link"
-											href={article.href}
-											aria-labelledby={`${article.slug}-title`}
-											data-analytics-event="writing_article_click"
-											data-cta-id={`writing-card-${article.slug}`}
-											data-cta-placement="writing-index"
-											data-cta-intent="authority"
-											data-source-section="writing-list"
-										>
-										<div class="article-card__content">
-											<div class="article-card__rail">
-												<p class="article-card__meta">
-													<time datetime={article.dateTime}>{article.date}</time>
-												</p>
-												<ul class="article-card__tags" aria-label={`${article.title} topics`}>
-													{article.tags.map((tag) => (
-														<li>{tag}</li>
-													))}
-												</ul>
-											</div>
-											<div class="article-card__main">
-												<h3 id={`${article.slug}-title`}>{article.title}</h3>
-												<span class="article-card__cta">Read More <span aria-hidden="true">→</span></span>
-											</div>
-										</div>
-										</a>
-									</article>
-								))
-							}
-						</div>
-
-						<nav class="article-pagination" data-pagination aria-label="Article pages" hidden>
-							<button type="button" data-page-previous>Previous</button>
-							<div class="article-pagination__numbers" data-page-numbers></div>
-							<button type="button" data-page-next>Next</button>
-						</nav>
-
-						<button class="article-load-more" type="button" data-load-more hidden>Load more</button>
-
-						<div class="empty-state" data-empty-state hidden>
-							<p>No articles found for this topic yet.</p>
-							<button class="filter-reset" type="button" data-filter-reset>ALL TOPICS</button>
-						</div>
-					</>
-				) : (
-					<div class="writing-planned" aria-labelledby="writing-planned-title">
-						<p class="section-eyebrow">In preparation</p>
-						<h3 id="writing-planned-title">Practical notes are being prepared.</h3>
-						<p>The planned collection will explore control architecture, diagnostics, real-time implementation, and the engineering decisions that help physical systems behave reliably.</p>
-						<a href={`${normalizedBase}contact/?context=technical&source=writing#message-title`}>Discuss a technical question</a>
-					</div>
+					))}
+				</div>
+				{previousCount > PREVIOUS_VISIBLE && (
+					<button class="writing-more" type="button" aria-controls="previous-list" aria-expanded="false" data-show-all={PREVIOUS_VISIBLE} hidden>
+						Show all {previousCount} articles
+					</button>
 				)}
-			</div>
-		</section>
+			</section>
+		)}
 
-		<section class="section writing-next-step" aria-label="Continue the conversation">
-			<div class="page-container writing-container">
-				<ContactCTA
-					title="Want to explore one of these ideas further?"
-					body="If a topic connects with a system or engineering question you are working on, I’d be glad to compare perspectives."
-					primaryHref="/contact/?context=technical&source=writing#message-title"
-					primaryLabel="Discuss a technical question"
-					secondaryHref="/work/"
-					secondaryLabel="View applied work"
-					sourceSection="writing-index"
-					ctaIdPrefix="writing-index"
-				/>
-			</div>
-		</section>
+		<p class="writing-empty" data-filter-empty hidden>No articles on this topic yet.</p>
 	</div>
-</Layout>
 
-<style>
-	.writing-page {
-		background: var(--color-page);
-		overflow-x: clip;
-	}
-
-	.writing-container {
-		width: min(calc(100% - 5rem), var(--content-width));
-		max-width: 100%;
-	}
-
-	.writing-hero {
-		overflow-x: clip;
-		background: transparent;
-		padding: clamp(3rem, 5vw, 4.6rem) 0 0;
-	}
-
-	.writing-hero .page-container,
-	.writing-list-section .page-container {
-		width: min(calc(100% - 5rem), var(--content-width));
-		max-width: 100%;
-	}
-
-	.writing-hero .page-container {
-		display: grid;
-		gap: 1rem;
-	}
-
-	.writing-hero .section-eyebrow {
-		margin: 0;
-		color: var(--color-muted);
-		font-size: .82rem;
-		font-weight: 600;
-		letter-spacing: .08em;
-		line-height: 1.4;
-	}
-
-	.writing-hero h1.hero-title {
-		max-width: none;
-		margin: 0;
-		font-size: clamp(2.6rem, 3.8vw, 3.5rem);
-		font-weight: 800;
-		letter-spacing: -0.05em;
-		line-height: 1.02;
-		overflow-wrap: normal;
-		word-break: normal;
-	}
-
-	.writing-hero__proof {
-		margin: 0;
-		color: var(--color-accent-text);
-		font-family: var(--font-mono);
-		font-size: var(--type-meta-size);
-		font-weight: var(--type-meta-weight);
-		letter-spacing: var(--type-meta-tracking);
-		text-transform: uppercase;
-	}
-
-	.writing-filter-bar {
-		position: relative;
-		margin-bottom: clamp(1rem, 2.4vw, 1.35rem);
-	}
-	@media (max-width: 720px) { .writing-hero { padding-top: 3rem; } .writing-hero .hero-title { font-size: clamp(2.15rem, 10vw, 2.45rem); line-height: 1.04; } }
-
-	.writing-filter-menu {
-		margin-inline: auto;
-		box-sizing: border-box;
-		width: 100%;
-		max-width: 100%;
-		background: transparent;
-	}
-
-	.writing-filter-menu summary {
-		display: grid;
-		grid-template-columns: minmax(0, 1fr) auto;
-		gap: 0.75rem;
-		align-items: start;
-		cursor: pointer;
-		list-style: none;
-		padding: clamp(0.9rem, 2.2vw, 1.15rem) 0;
-	}
-
-	.writing-filter-menu summary::-webkit-details-marker {
-		display: none;
-	}
-
-	.writing-filter-menu summary::after {
-		content: '+';
-		display: inline-grid;
-		place-items: center;
-		justify-self: end;
-		align-self: start;
-		width: 1.55rem;
-		height: 1.55rem;
-		border: 1px solid var(--color-border);
-		border-radius: calc(var(--radius) * 0.45);
-		color: var(--color-muted);
-		font-family: var(--font-mono);
-		font-size: var(--type-chip-size);
-		font-weight: 750;
-		line-height: 1;
-	}
-
-	.writing-filter-menu[open] summary::after {
-		content: '-';
-	}
-
-	.writing-filter-menu summary:focus-visible {
-		outline: 2px solid var(--color-focus);
-		outline-offset: 4px;
-	}
-
-	.filter-summary__label {
-		color: var(--color-text);
-		font-size: clamp(1rem, 1.25vw, 1.12rem);
-		font-weight: 650;
-		letter-spacing: -0.015em;
-		line-height: 1.25;
-	}
-
-	.filter-chips {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 0.5rem;
-		min-width: 0;
-		padding: clamp(1rem, 2.5vw, 1.35rem) 0;
-	}
-
-	.filter-chip,
-	.filter-reset {
-		border: 1px solid var(--color-border);
-		border-radius: var(--radius-pill);
-		background: transparent;
-		color: var(--color-muted);
-		cursor: pointer;
-		font: inherit;
-		font-family: var(--font-mono);
-		font-size: var(--type-chip-size);
-		font-weight: 650;
-		letter-spacing: 0;
-		line-height: var(--type-chip-line);
-		max-width: 100%;
-		padding: 0.45rem 0.68rem;
-		text-align: left;
-		white-space: normal;
-		overflow-wrap: anywhere;
-		transition:
-			background-color var(--motion-duration-fast-02) var(--motion-standard-productive),
-			border-color var(--motion-duration-fast-02) var(--motion-standard-productive),
-			color var(--motion-duration-fast-02) var(--motion-standard-productive);
-	}
-
-	.filter-chip:hover,
-	.filter-chip:focus-visible,
-	.filter-reset:hover,
-	.filter-reset:focus-visible {
-		border-color: var(--color-card-border-hover);
-		background: var(--color-card-bg-hover);
-		color: var(--color-text);
-	}
-
-	.filter-chip:focus-visible,
-	.filter-reset:focus-visible {
-		outline: 2px solid var(--color-focus);
-		outline-offset: 3px;
-	}
-
-	.filter-chip.is-active {
-		border-color: var(--color-border-strong);
-		background: var(--color-surface-soft);
-		color: var(--color-text);
-		font-weight: 750;
-	}
-
-	.filter-chip--all {
-		font-weight: 750;
-		text-transform: uppercase;
-	}
-
-	.writing-list-section {
-		padding-block: clamp(3rem, 5vw, 5rem) clamp(3.6rem, 7vw, 5.2rem);
-	}
-
-	.article-list {
-		display: grid;
-		gap: 0;
-		width: 100%;
-		max-width: 100%;
-		margin-inline: auto;
-		border-top: 1px solid var(--color-border-soft);
-	}
-
-	.article-card {
-		margin: 0;
-		min-width: 0;
-		border-bottom: 1px solid var(--color-border-soft);
-	}
-
-	.article-card[hidden] {
-		display: none;
-	}
-
-	.article-card__link {
-		display: block;
-		box-sizing: border-box;
-		min-width: 0;
-		max-width: 100%;
-		border: 0;
-		border-radius: 0;
-		background: transparent;
-		color: inherit;
-		text-decoration: none;
-		transition: background-color var(--motion-duration-fast-02) var(--motion-standard-productive);
-	}
-
-	.article-card__link:hover,
-	.article-card__link:focus-visible {
-		background: var(--color-card-bg-hover);
-	}
-
-	.article-card__link:focus-visible {
-		outline: 2px solid var(--color-focus);
-		outline-offset: 4px;
-	}
-
-	.article-card__content {
-		display: grid;
-		grid-template-columns: minmax(10rem, 15rem) minmax(0, 1fr);
-		gap: clamp(1.5rem, 4vw, 3rem);
-		padding: clamp(1.45rem, 3vw, 2.25rem) clamp(0.25rem, 1.5vw, 1rem);
-	}
-
-	.article-card__rail,
-	.article-card__main {
-		display: grid;
-		align-content: start;
-		gap: 0.8rem;
-	}
-
-	.article-card h3 {
-		max-width: 32ch;
-		color: var(--color-text);
-		font-size: clamp(1.4rem, 2.4vw, 2rem);
-		font-weight: 650;
-		letter-spacing: -0.035em;
-		line-height: 1.12;
-		overflow-wrap: anywhere;
-	}
-
-	.article-card__meta {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 0.35rem 0.6rem;
-		align-items: center;
-		color: var(--color-muted);
-		font-family: var(--font-mono);
-		font-size: var(--type-meta-size);
-		font-weight: var(--type-meta-weight);
-		letter-spacing: var(--type-meta-tracking);
-		line-height: var(--type-meta-line);
-		text-transform: uppercase;
-	}
-
-	.article-card__meta span::before {
-		content: '/';
-		margin-right: 0.6rem;
-		color: var(--color-border);
-	}
-
-	.article-card__tags {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 0.2rem 0.45rem;
-		margin: 0;
-		padding: 0;
-		list-style: none;
-	}
-
-	.article-card__tags li {
-		margin: 0;
-		border: 0;
-		background: transparent;
-		color: var(--color-muted);
-		font-family: var(--font-mono);
-		font-size: var(--type-chip-size);
-		font-weight: var(--type-chip-weight);
-		letter-spacing: 0;
-		line-height: var(--type-chip-line);
-		padding: 0;
-		overflow-wrap: anywhere;
-	}
-
-	.article-card__tags li:not(:last-child)::after {
-		content: ',';
-	}
-
-	.article-card__cta {
-		width: fit-content;
-		color: var(--color-link);
-		font-family: var(--font-mono);
-		font-size: var(--type-chip-size);
-		font-weight: 650;
-		letter-spacing: var(--type-chip-tracking);
-		text-transform: uppercase;
-		text-decoration: underline;
-		text-underline-offset: 0.25em;
-	}
-
-	.article-pagination {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		gap: 0.5rem;
-		margin-top: 2rem;
-	}
-
-	.article-pagination[hidden],
-	.article-load-more[hidden] {
-		display: none;
-	}
-
-	.article-pagination__numbers {
-		display: flex;
-		gap: 0.35rem;
-	}
-
-	.article-pagination button,
-	.article-load-more {
-		min-height: 2.75rem;
-		border: 1px solid var(--color-border);
-		border-radius: var(--radius-pill);
-		background: transparent;
-		color: var(--color-text);
-		cursor: pointer;
-		font-family: var(--font-mono);
-		font-size: var(--type-chip-size);
-		font-weight: 650;
-		padding: 0.55rem 0.85rem;
-	}
-
-	.article-pagination button:hover,
-	.article-pagination button:focus-visible,
-	.article-load-more:hover,
-	.article-load-more:focus-visible,
-	.article-pagination button[aria-current='page'] {
-		border-color: var(--color-border-strong);
-		background: var(--color-surface-soft);
-	}
-
-	.article-pagination button:disabled {
-		cursor: default;
-		opacity: 0.4;
-	}
-
-	.article-load-more {
-		display: none;
-		margin: 1.5rem auto 0;
-	}
-
-	.empty-state {
-		margin-top: 1rem;
-		margin-inline: auto;
-		max-width: 820px;
-		border: 1px solid var(--color-border-soft);
-		border-radius: var(--radius);
-		background: var(--color-card-bg);
-		padding: clamp(1.1rem, 3vw, 1.5rem);
-	}
-
-	.empty-state[hidden] {
-		display: none;
-	}
-
-	.empty-state p {
-		margin: 0 0 0.8rem;
-		color: var(--color-body-text);
-		font-size: var(--type-reading-size);
-		line-height: var(--type-reading-line);
-	}
-
-	.writing-planned {
-		max-width: 42rem;
-		border-top: 1px solid var(--color-border-soft);
-		padding-top: 1.5rem;
-	}
-
-	.writing-planned h3 {
-		margin: .75rem 0 .6rem;
-		font-size: clamp(1.45rem, 2.6vw, 2rem);
-		line-height: 1.12;
-	}
-
-	.writing-planned > p:not(.section-eyebrow) {
-		margin: 0;
-		color: var(--color-muted);
-		font-size: var(--type-reading-size);
-		line-height: var(--type-reading-line);
-	}
-
-	.writing-planned a {
-		display: inline-block;
-		margin-top: 1rem;
-		color: var(--color-link);
-		font-size: .9rem;
-		text-underline-offset: .2em;
-	}
-
-	.visually-hidden {
-		position: absolute;
-		width: 1px;
-		height: 1px;
-		margin: -1px;
-		overflow: hidden;
-		clip: rect(0 0 0 0);
-		white-space: nowrap;
-		border: 0;
-		padding: 0;
-	}
-
-	@media (max-width: 640px) {
-		.writing-hero .page-container,
-		.writing-list-section .page-container {
-			width: min(calc(100% - 2rem), var(--content-width));
-		}
-
-		.writing-hero .page-container,
-		.article-card__content {
-			overflow-wrap: anywhere;
-		}
-
-		.writing-hero .hero-title {
-			font-size: clamp(2.15rem, 10vw, 2.45rem);
-			line-height: 1.04;
-		}
-
-		.article-card__content {
-			grid-template-columns: 1fr;
-			gap: 1rem;
-		}
-
-		.article-card__main {
-			gap: 0.7rem;
-		}
-
-		.article-pagination {
-			display: none;
-		}
-
-		.article-load-more:not([hidden]) {
-			display: flex;
-		}
-
-		.article-card__meta span::before {
-			margin-right: 0.45rem;
-		}
-	}
-</style>
-
-<script>
-	const filterButtons = Array.from(document.querySelectorAll<HTMLButtonElement>('[data-filter]'));
-	const articleCards = Array.from(document.querySelectorAll<HTMLElement>('[data-article-card]'));
-	const emptyState = document.querySelector<HTMLElement>('[data-empty-state]');
-	const resetButtons = Array.from(document.querySelectorAll<HTMLButtonElement>('[data-filter-reset]'));
-	const filterCurrent = document.querySelector<HTMLElement>('[data-filter-current]');
-	const pagination = document.querySelector<HTMLElement>('[data-pagination]');
-	const pageNumbers = document.querySelector<HTMLElement>('[data-page-numbers]');
-	const previousButton = document.querySelector<HTMLButtonElement>('[data-page-previous]');
-	const nextButton = document.querySelector<HTMLButtonElement>('[data-page-next]');
-	const loadMoreButton = document.querySelector<HTMLButtonElement>('[data-load-more]');
-	const phoneQuery = window.matchMedia('(max-width: 640px)');
-	const selectedTopics = new Set<string>();
-	const pageSize = 8;
-	let currentPage = 1;
-	let phoneVisibleCount = pageSize;
-
-	const matchingCards = () => articleCards.filter((card) => {
-		if (selectedTopics.size === 0) return true;
-		const tags = card.dataset.tags?.split(' ') ?? [];
-		return Array.from(selectedTopics).some((topic) => tags.includes(topic));
-	});
-
-	const renderPageNumbers = (pageCount: number) => {
-		if (!pageNumbers) return;
-		pageNumbers.replaceChildren();
-
-		for (let page = 1; page <= pageCount; page += 1) {
-			const button = document.createElement('button');
-			button.type = 'button';
-			button.textContent = String(page);
-			button.setAttribute('aria-label', `Go to article page ${page}`);
-			if (page === currentPage) button.setAttribute('aria-current', 'page');
+	<section class="section writing-closing" aria-label="Next steps">
+		<div class="page-container">
+			<ContactCTA
+				title="Working on a similar control problem?"
+				body="If an article touches a system you are working on, send a message about it and I will reply with my view and the most relevant experience."
+				primaryHref="/contact/?context=technical&source=writing#message-title"
+				primaryLabel="Discuss a technical question"
+				secondaryHref="/work/"
+				secondaryLabel="View work"
+				sourceSection="writing-closing"
+				ctaIdPrefix="writing-closing"
+			/>
+		</div>
+	</section>
+
+	<script>
+		// "Show all": without JavaScript every previous article stays visible.
+		const scope = document.querySelector<HTMLElement>('[data-show-all-scope]');
+		const button = scope?.querySelector<HTMLButtonElement>('[data-show-all]');
+		if (scope && button) {
+			const limit = Number(button.dataset.showAll);
+			const items = Array.from(scope.querySelectorAll<HTMLElement>('[data-filter-item]'));
+			const years = Array.from(scope.querySelectorAll<HTMLElement>('.writing-year'));
+			const label = button.textContent?.trim() ?? 'Show all';
+			items.slice(limit).forEach((item) => item.setAttribute('data-overflow', ''));
+			years.forEach((year) => year.toggleAttribute('data-overflow', !year.querySelector('[data-filter-item]:not([data-overflow])')));
+
+			let expanded = false;
+			let filtered = false;
+			const render = () => {
+				scope.classList.toggle('is-collapsed', !expanded && !filtered);
+				button.hidden = filtered;
+				button.setAttribute('aria-expanded', String(expanded));
+				button.textContent = expanded ? 'Show fewer' : label;
+			};
 			button.addEventListener('click', () => {
-				currentPage = page;
+				expanded = !expanded;
+				render();
+				if (!expanded) button.scrollIntoView({ block: 'nearest' });
+			});
+			// While a topic is selected, every matching article is shown.
+			document.addEventListener('writing-filter', (event) => {
+				filtered = Boolean((event as CustomEvent<{ topic: string }>).detail.topic);
 				render();
 			});
-			pageNumbers.append(button);
-		}
-	};
-
-	const render = () => {
-		const matches = matchingCards();
-		const pageCount = Math.max(1, Math.ceil(matches.length / pageSize));
-		currentPage = Math.min(currentPage, pageCount);
-		const firstDesktopIndex = (currentPage - 1) * pageSize;
-
-		articleCards.forEach((card) => {
-			const matchIndex = matches.indexOf(card);
-			const isMatch = matchIndex >= 0;
-			const isVisible = phoneQuery.matches
-				? isMatch && matchIndex < phoneVisibleCount
-				: isMatch && matchIndex >= firstDesktopIndex && matchIndex < firstDesktopIndex + pageSize;
-			card.hidden = !isVisible;
-		});
-
-		filterButtons.forEach((button) => {
-			const filter = button.dataset.filter ?? '';
-			const isActive = selectedTopics.has(filter);
-			button.classList.toggle('is-active', isActive);
-			button.setAttribute('aria-pressed', String(isActive));
-		});
-
-		resetButtons.forEach((button) => {
-			const isActive = selectedTopics.size === 0;
-			button.classList.toggle('is-active', isActive);
-			button.setAttribute('aria-pressed', String(isActive));
-		});
-
-		if (filterCurrent) {
-			const labels = filterButtons
-				.filter((button) => selectedTopics.has(button.dataset.filter ?? ''))
-				.map((button) => button.dataset.filterLabel ?? button.textContent?.trim())
-				.filter(Boolean);
-			filterCurrent.textContent = labels.length > 0 ? `${labels.join(', ')} selected` : 'All topics selected';
-		}
-
-		if (emptyState) emptyState.hidden = matches.length > 0;
-		if (pagination) pagination.hidden = phoneQuery.matches || matches.length === 0 || pageCount <= 1;
-		if (previousButton) previousButton.disabled = currentPage === 1;
-		if (nextButton) nextButton.disabled = currentPage === pageCount;
-		if (loadMoreButton) loadMoreButton.hidden = !phoneQuery.matches || matches.length <= phoneVisibleCount;
-		renderPageNumbers(pageCount);
-	};
-
-	filterButtons.forEach((button) => {
-		button.addEventListener('click', () => {
-			const filter = button.dataset.filter;
-			if (!filter) return;
-			if (selectedTopics.has(filter)) selectedTopics.delete(filter);
-			else selectedTopics.add(filter);
-			currentPage = 1;
-			phoneVisibleCount = pageSize;
 			render();
-		});
-	});
+		}
+	</script>
+</BaseLayout>
 
-	resetButtons.forEach((button) => button.addEventListener('click', () => {
-		selectedTopics.clear();
-		currentPage = 1;
-		phoneVisibleCount = pageSize;
-		render();
-	}));
+<style>
+	.writing-page { width: min(calc(100% - 5rem), var(--content-width)); margin: 0 auto; padding: 0; }
+	.writing-hero { padding: clamp(3rem, 5vw, 4.6rem) 0 0; border-bottom: 1px solid var(--color-border); }
+	.writing-hero + :global(*) { margin-top: clamp(2rem, 4vw, 2.75rem); }
+	.writing-hero__top { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; }
+	.writing-eyebrow,
+	.writing-rss { margin: 0; color: var(--color-muted); font-family: var(--font-mono); font-size: .82rem; font-weight: 600; letter-spacing: .08em; line-height: 1.4; text-transform: uppercase; }
+	.writing-rss { font-weight: 400; text-decoration: none; }
+	.writing-rss:hover,
+	.writing-rss:focus-visible { color: var(--color-link); text-decoration: underline; text-underline-offset: .2em; }
+	.writing-hero__copy { display: grid; gap: 1rem; align-content: start; margin: 1rem 0 4rem; }
+	.writing-hero h1 { max-width: none; margin: 0; font-size: clamp(2.6rem, 3.8vw, 3.5rem); font-weight: 800; letter-spacing: -.05em; line-height: 1.02; }
+	.writing-hero__lead { max-width: 52rem; margin: 0; color: var(--color-text); font-size: 1.08rem; line-height: 1.7; }
+	.writing-hero__author { max-width: 52rem; margin: 0; color: var(--color-muted); font-size: .92rem; line-height: 1.55; }
+	.writing-hero__author a { color: var(--color-link); text-decoration-thickness: 1px; text-underline-offset: .2em; }
+	.writing-hero__author a:hover,
+	.writing-hero__author a:focus-visible { color: var(--color-link-hover); }
 
-	previousButton?.addEventListener('click', () => {
-		if (currentPage > 1) currentPage -= 1;
-		render();
-	});
+	.writing-section + .writing-section { margin-top: clamp(3.5rem, 7vw, 5rem); }
+	.writing-section__title { max-width: none; margin: 0 0 1.5rem; color: var(--color-text); font-family: var(--font-display); font-size: clamp(1.6rem, 2.6vw, 2.1rem); font-weight: var(--type-section-title-weight); letter-spacing: -.035em; line-height: 1.1; }
+	.writing-year__label { max-width: none; margin: 0; color: var(--color-muted); font-family: var(--font-mono); font-size: var(--type-chip-size); font-weight: 400; letter-spacing: var(--type-chip-tracking); line-height: 1.4; text-transform: uppercase; }
+	.writing-year + .writing-year { margin-top: 2rem; }
+	.writing-year__label { margin-bottom: .5rem; }
 
-	nextButton?.addEventListener('click', () => {
-		const pageCount = Math.max(1, Math.ceil(matchingCards().length / pageSize));
-		if (currentPage < pageCount) currentPage += 1;
-		render();
-	});
+	.writing-empty { margin: 0; color: var(--color-body-text); }
+	.writing-more { margin-top: 1.5rem; border: 1px solid var(--color-border-soft); border-radius: 999px; background: transparent; padding: .5rem 1rem; color: var(--color-text); font-family: var(--font-mono); font-size: var(--type-chip-size); letter-spacing: var(--type-chip-tracking); line-height: 1.4; text-transform: uppercase; cursor: pointer; }
+	.writing-more:hover { border-color: var(--color-border-strong); }
+	.writing-more:focus-visible { outline: 2px solid var(--color-link); outline-offset: 3px; }
+	.is-collapsed :global([data-overflow]) { display: none; }
+	.writing-closing { padding-top: clamp(3rem, 6vw, 5rem); }
 
-	loadMoreButton?.addEventListener('click', () => {
-		phoneVisibleCount += pageSize;
-		render();
-	});
-
-	phoneQuery.addEventListener('change', () => {
-		currentPage = 1;
-		phoneVisibleCount = pageSize;
-		render();
-	});
-
-	render();
-</script>
+	@media (max-width: 720px) {
+		.writing-hero { padding-top: 3rem; }
+		.writing-hero__copy { margin-bottom: 2.5rem; }
+		.writing-hero h1 { font-size: clamp(2.15rem, 10vw, 2.45rem); line-height: 1.04; }
+	}
+	@media (max-width: 640px) { .writing-page { width: min(calc(100% - 32px), var(--content-width)); } }
+</style>

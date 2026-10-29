@@ -1,23 +1,25 @@
 ---
-import { getCollection, render } from 'astro:content';
+import { getCollection, getEntry, render } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 import ContactCTA from '../../components/ContactCTA.astro';
-import { IDENTITY } from '../../data/identity';
-import { SHOW_DRAFT_WRITING, isVisibleWriting } from '../../data/writing';
+import { SHOW_DRAFT_WRITING, getWritingArticles, seriesHref } from '../../data/writing';
 import 'katex/dist/katex.min.css';
 
 export async function getStaticPaths() {
-	const entries = await getCollection('writing', ({ data }) => isVisibleWriting(data));
-	return entries.map((entry) => ({
-		params: { slug: entry.id.replace(/\.md$/, '') },
-		props: { entry },
+	const articles = await getWritingArticles();
+	const entries = await getCollection('writing');
+	return articles.map((article) => ({
+		params: { slug: article.slug },
+		props: { entry: entries.find((entry) => entry.id.replace(/\.md$/, '') === article.slug)!, article },
 	}));
 }
 
-const { entry } = Astro.props;
-const { Content } = await render(entry);
-const projects = await getCollection('projects');
-const articleSlug = entry.id.replace(/\.md$/, '');
+const { entry, article } = Astro.props;
+const { Content, remarkPluginFrontmatter } = await render(entry);
+// Set by src/plugins/rehype-split-references.mjs, which takes the section out of the body.
+const references = remarkPluginFrontmatter.references as { title: string; html: string } | undefined;
+const shortDate = new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+const articleSlug = article.slug;
 const baseUrl = import.meta.env.BASE_URL;
 const normalizedBase = baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`;
 const withBase = (href: string) =>
@@ -34,21 +36,34 @@ const label = entry.data.draft && !SHOW_DRAFT_WRITING
 
 const publishedDate = entry.data.publishDate.toISOString();
 const metadata = [entry.data.category, entry.data.readingTime].filter(Boolean);
-const relatedProjectSlugs: Record<string, string> = {
-	'controlling-combustion-while-it-happens': 'heavy-duty-engine-diagnostics-control-research',
-	'predictive-in-cycle-combustion-control': 'heavy-duty-engine-diagnostics-control-research',
-	'real-time-combustion-control-implementation': 'heavy-duty-engine-diagnostics-control-research',
-	'stochastic-fault-detection-diagnostic-decision-logic': 'heavy-duty-engine-diagnostics-control-research',
-	'stochastic-set-point-optimization-efficiency': 'heavy-duty-engine-diagnostics-control-research',
-	'virtual-sensing-in-cycle-combustion-diagnostics': 'heavy-duty-engine-diagnostics-control-research',
-	'control-architecture-before-software': 'embedded-control-system-architecture',
-	'from-model-to-machine': 'embedded-control-system-architecture',
-	'requirements-to-actuation': 'embedded-control-system-architecture',
-};
-const relatedProjectSlug = relatedProjectSlugs[articleSlug];
-const relatedProject = relatedProjectSlug
-	? projects.find((project) => project.id === relatedProjectSlug)
-	: undefined;
+const relatedProject = article.relatedProject ? await getEntry('projects', article.relatedProject) : undefined;
+
+const allArticles = await getWritingArticles();
+const seriesParts = article.series
+	? allArticles.filter((other) => other.series?.id === article.series!.id).sort((a, b) => a.series!.part - b.series!.part)
+	: [];
+const partIndex = seriesParts.findIndex((part) => part.slug === article.slug);
+const previousPart = partIndex > 0 ? seriesParts[partIndex - 1] : undefined;
+const nextPart = partIndex >= 0 ? seriesParts[partIndex + 1] : undefined;
+
+// Related articles: shared topics count most, then the same project, then recency. Parts of the
+// same series are left out, since the series navigation already links them.
+const RELATED_MAX = 3;
+const RELATED_FALLBACK = 2;
+const isSeriesEntry = (other: (typeof allArticles)[number]) =>
+	!other.series || !allArticles.some((part) => part.series?.id === other.series!.id && part.series.part < other.series!.part);
+const relatedCandidates = allArticles
+	.filter((other) => other.slug !== article.slug && (!article.series || other.series?.id !== article.series.id) && isSeriesEntry(other))
+	.map((other) => ({
+		other,
+		score: other.topics.filter((topic) => article.topics.includes(topic)).length * 2
+			+ (article.relatedProject && other.relatedProject === article.relatedProject ? 1 : 0),
+	}))
+	.sort((a, b) => b.score - a.score || b.other.date.valueOf() - a.other.date.valueOf());
+const matched = relatedCandidates.filter(({ score }) => score > 0);
+// Without a topic match, the newest articles are shown instead, so every article links onwards.
+const relatedArticles = (matched.length > 0 ? matched.slice(0, RELATED_MAX) : relatedCandidates.slice(0, RELATED_FALLBACK))
+	.map(({ other }) => other);
 ---
 
 <Layout title={entry.data.title} description={entry.data.description}>
@@ -56,6 +71,11 @@ const relatedProject = relatedProjectSlug
 		<header class="writing-post__hero" aria-labelledby="article-title">
 			<div class="page-container writing-post__container">
 				<p class="writing-post__category">{entry.data.category}</p>
+				{article.series && (
+					<p class="writing-post__series">
+						Part {article.series.part} of <a href={seriesHref(article.series.id)}>{article.series.definition.title}</a>
+					</p>
+				)}
 				<h1 id="article-title" class="hero-title">{entry.data.title}</h1>
 				{entry.data.subtitle && <p class="writing-post__subtitle">{entry.data.subtitle}</p>}
 				<p class="writing-post__lead">{entry.data.description}</p>
@@ -82,57 +102,35 @@ const relatedProject = relatedProjectSlug
 			</div>
 		</section>
 
-		<section class="writing-post__related" aria-labelledby="article-related-title">
-			<div class="page-container writing-post__container">
-				<h2 id="article-related-title">Related context</h2>
-				<div class="writing-post__related-links" aria-label="Related context links">
-					{relatedProject ? (
-						<a
-							href={withBase(`work/${relatedProject.id}/`)}
-							data-analytics-event="related_proof_click"
-							data-cta-id={`article-${articleSlug}-related-project-${relatedProject.id}`}
-							data-cta-placement="writing-article"
-							data-cta-intent="proof"
-							data-source-section="article-related-proof"
-							data-destination={withBase(`work/${relatedProject.id}/`)}
-						>
-							View related project: {relatedProject.data.title}
-						</a>
-					) : (
-						<a
-							href={withBase('work/')}
-							data-analytics-event="related_proof_click"
-							data-cta-id={`article-${articleSlug}-related-work`}
-							data-cta-placement="writing-article"
-							data-cta-intent="proof"
-							data-source-section="article-related-proof"
-							data-destination={withBase('work/')}
-						>
-							View Work
-						</a>
-					)}
-					<a
-						href={`${import.meta.env.BASE_URL}cv/#skills`}
-						data-analytics-event="related_proof_click"
-						data-cta-id={`article-${articleSlug}-related-cv`}
-						data-cta-placement="writing-article"
-						data-cta-intent="formal-proof"
-						data-source-section="article-related-proof"
-						data-destination={`${import.meta.env.BASE_URL}cv/#skills`}
-					>
-						View CV skills
-					</a>
+		{article.series && seriesParts.length > 1 && (
+			<nav class="writing-post__series-nav" aria-label={`${article.series.definition.title}: other parts`}>
+				<div class="page-container writing-post__container">
+					<p class="writing-post__series-nav-head">
+						Part {article.series.part} of {seriesParts.length} <span aria-hidden="true">&middot;</span> <a href={seriesHref(article.series.id)}>All parts of the series</a>
+					</p>
+					<div class="writing-post__series-nav-links">
+						{previousPart ? (
+							<a class="series-step series-step--prev" href={previousPart.href} rel="prev" data-analytics-event="writing_article_click" data-cta-id={`article-${articleSlug}-previous-part`} data-cta-placement="writing-article" data-cta-intent="authority" data-source-section="article-series-nav">
+								<span class="series-step__label"><span aria-hidden="true">←&nbsp;</span>Previous: Part {previousPart.series?.part}</span>
+								<span class="series-step__title">{previousPart.title}</span>
+							</a>
+						) : <span />}
+						{nextPart && (
+							<a class="series-step series-step--next" href={nextPart.href} rel="next" data-analytics-event="writing_article_click" data-cta-id={`article-${articleSlug}-next-part`} data-cta-placement="writing-article" data-cta-intent="authority" data-source-section="article-series-nav">
+								<span class="series-step__label">Next: Part {nextPart.series?.part}<span aria-hidden="true">&nbsp;→</span></span>
+								<span class="series-step__title">{nextPart.title}</span>
+							</a>
+						)}
+					</div>
 				</div>
-			</div>
-		</section>
+			</nav>
+		)}
 
 		<footer class="writing-post__footer">
 			<div class="page-container writing-post__container">
-				<p class="writing-post__author">{IDENTITY.name} — {IDENTITY.primaryTitle}</p>
-				<nav class="writing-post__footer-links" aria-label="Article footer links"><a href={withBase('about/')}>About</a></nav>
 				<ContactCTA
 					title="Want to compare notes?"
-					body="If this article connects with a problem you are working through, I’d be glad to discuss the reasoning and trade-offs."
+					body="If this article connects with a problem you are working on, send a message and I will reply with my view on the reasoning and the trade-offs."
 					primaryHref="/contact/?context=technical&source=writing#message-title"
 					primaryLabel="Discuss this topic"
 					secondaryHref="writing/"
@@ -142,6 +140,52 @@ const relatedProject = relatedProjectSlug
 				/>
 			</div>
 		</footer>
+
+		{(relatedProject || relatedArticles.length > 0) && (
+			<section class="writing-post__related" aria-labelledby="article-related-title">
+				<div class="page-container writing-post__container">
+					<h2 id="article-related-title">Related content</h2>
+					<ul class="writing-post__related-list" role="list">
+						{relatedProject && (
+							<li>
+								<a
+									href={withBase(`work/${relatedProject.id}/`)}
+									data-analytics-event="related_proof_click"
+									data-cta-id={`article-${articleSlug}-related-project-${relatedProject.id}`}
+									data-cta-placement="writing-article"
+									data-cta-intent="proof"
+									data-source-section="article-related-content"
+									data-destination={withBase(`work/${relatedProject.id}/`)}
+								>{relatedProject.data.title}</a>
+								<span class="writing-post__related-meta">Project</span>
+							</li>
+						)}
+						{relatedArticles.map((other) => (
+							<li>
+								<a
+									href={other.href}
+									data-analytics-event="writing_article_click"
+									data-cta-id={`article-${articleSlug}-related-${other.slug}`}
+									data-cta-placement="writing-article"
+									data-cta-intent="authority"
+									data-source-section="article-related-content"
+								>{other.title}{other.series && <span class="writing-post__related-context"> · Part {other.series.part} of {other.series.definition.title}</span>}</a>
+								<time class="writing-post__related-meta" datetime={other.dateIso}>{shortDate.format(other.date)}</time>
+							</li>
+						))}
+					</ul>
+				</div>
+			</section>
+		)}
+
+		{references && (
+			<section class="writing-post__related writing-post__references" aria-labelledby="article-references-title">
+				<div class="page-container writing-post__container">
+					<h2 id="article-references-title">{references.title}</h2>
+					<div class="writing-post__references-body" set:html={references.html} />
+				</div>
+			</section>
+		)}
 	</article>
 
 </Layout>
@@ -192,6 +236,28 @@ const relatedProject = relatedProjectSlug
 			letter-spacing: .08em;
 			line-height: 1.4;
         }
+
+	.writing-post__series-nav { padding-top: clamp(2.5rem, 5vw, 3.5rem); }
+	.writing-post__series-nav-head { margin: 0 0 1rem; color: var(--color-muted); font-family: var(--font-mono); font-size: var(--type-chip-size); letter-spacing: var(--type-chip-tracking); line-height: 1.4; text-transform: uppercase; }
+	.writing-post__series-nav-head a { color: var(--color-link); text-underline-offset: .2em; }
+	.writing-post__series-nav-links { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem; }
+	.series-step { display: grid; gap: .3rem; align-content: start; color: inherit; text-decoration: none; }
+	.series-step--next { grid-column: 2; text-align: right; }
+	.series-step__label { color: var(--color-muted); font-family: var(--font-mono); font-size: var(--type-chip-size); letter-spacing: var(--type-chip-tracking); text-transform: uppercase; }
+	.series-step__title { color: var(--color-text); font-weight: 600; line-height: 1.35; }
+	.series-step:hover .series-step__title,
+	.series-step:focus-visible .series-step__title { color: var(--color-link); text-decoration: underline; text-underline-offset: .2em; }
+	.series-step:focus-visible { outline: 2px solid var(--color-link); outline-offset: 4px; }
+	@media (max-width: 640px) {
+		.writing-post__series-nav-links { grid-template-columns: 1fr; gap: .75rem; }
+		.series-step--next { grid-column: 1; }
+		.writing-post__series-nav-links > span:empty { display: none; }
+	}
+
+	.writing-post__series { max-width: 100%; margin: 0; color: var(--color-muted); font-size: .95rem; line-height: 1.5; }
+	.writing-post__series a { color: var(--color-link); text-decoration-thickness: 1px; text-underline-offset: .2em; }
+	.writing-post__series a:hover,
+	.writing-post__series a:focus-visible { color: var(--color-link-hover); }
 
 	.writing-post .hero-title {
 		max-width: min(100%, 20ch);
@@ -565,14 +631,15 @@ const relatedProject = relatedProjectSlug
 	}
 
 	.writing-post__footer {
-		padding-block: 0 clamp(2.6rem, 5vw, 4rem);
+		padding-block: clamp(2.5rem, 5vw, 3.5rem) clamp(2rem, 4vw, 3rem);
 	}
 
 	.writing-post__related {
-		padding-block: 0 clamp(2rem, 4vw, 3rem);
+		padding-block: 0 clamp(2.6rem, 5vw, 4rem);
 	}
 
 	.writing-post__related h2 {
+		max-width: none;
 		margin: 0 0 0.85rem;
 		color: var(--color-accent-text);
 		font-family: var(--font-mono);
@@ -583,38 +650,27 @@ const relatedProject = relatedProjectSlug
 		text-transform: uppercase;
 	}
 
-	.writing-post__related-links {
-		display: flex;
-		gap: 0.75rem 1rem;
-		flex-wrap: wrap;
-	}
+	.writing-post__related-list { display: grid; gap: .55rem; margin: 0; padding: 0; list-style: none; }
+	.writing-post__related-list li { display: flex; flex-wrap: wrap; align-items: baseline; gap: .15rem .75rem; }
+	.writing-post__related-meta { color: var(--color-muted); font-family: var(--font-mono); font-size: var(--type-chip-size); letter-spacing: var(--type-chip-tracking); line-height: 1.4; text-transform: uppercase; white-space: nowrap; }
+	.writing-post__related-list a { color: var(--color-body-text); font-size: .95rem; line-height: 1.45; text-decoration: none; }
+	.writing-post__related-context { color: var(--color-muted); }
+	.writing-post__related-list a:hover,
+	.writing-post__related-list a:focus-visible { color: var(--color-link); text-decoration: underline; text-underline-offset: .2em; }
+	.writing-post__related-list a:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 4px; }
 
-	.writing-post__related-links a {
-		color: var(--color-link);
-		font-family: var(--font-mono);
-		font-size: var(--type-chip-size);
-		font-weight: var(--type-chip-weight);
-		letter-spacing: var(--type-chip-tracking);
-		line-height: var(--type-chip-line);
-		text-decoration: none;
-		text-transform: uppercase;
-		border-bottom: 1px solid transparent;
-		transition:
-			border-color var(--motion-duration-fast-02) var(--motion-standard-productive),
-			color var(--motion-duration-fast-02) var(--motion-standard-productive);
+	.writing-post__references-body { max-width: 52rem; color: var(--color-muted); font-size: .86rem; line-height: 1.55; overflow-wrap: anywhere; }
+	.writing-post__references-body :global(ol),
+	.writing-post__references-body :global(ul) { display: grid; gap: .4rem; margin: 0 0 1rem; padding-left: 1.6rem; }
+	.writing-post__references-body :global(p) { margin: 0 0 .6rem; }
+	.writing-post__references-body :global(p:last-child) { margin-bottom: 0; }
+	.writing-post__references-body :global(strong) { color: var(--color-text); font-weight: 600; }
+	.writing-post__references-body :global(a) { color: var(--color-body-text); text-decoration-thickness: 1px; text-underline-offset: .2em; }
+	.writing-post__references-body :global(a:hover),
+	.writing-post__references-body :global(a:focus-visible) { color: var(--color-link); }
+	@media (max-width: 640px) {
+		.writing-post__related-list { gap: .85rem; }
 	}
-
-	.writing-post__related-links a:hover,
-	.writing-post__related-links a:focus-visible {
-		color: var(--color-link-hover);
-		border-bottom-color: var(--color-link-hover);
-	}
-
-	.writing-post__related-links a:focus-visible {
-		outline: 2px solid var(--color-focus);
-		outline-offset: 4px;
-	}
-
         @media (max-width: 640px) {
                 .writing-post .writing-post__container {
                         width: min(calc(100% - 32px), var(--content-width));

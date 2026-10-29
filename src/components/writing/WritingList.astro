@@ -1,0 +1,96 @@
+---
+import { toTopicSlug, type WritingArticle } from '../../data/writing';
+
+/**
+ * One list of article rows.
+ * - `full`: label, title, description and reading time (latest publication).
+ * - `compact`: date, title, a one-line teaser and reading time (previous articles).
+ * Series parts are labelled "Part N" in an ordered list, with "Start here" on Part 1.
+ */
+interface Props {
+	articles: readonly WritingArticle[];
+	label: 'part' | 'date';
+	variant?: 'full' | 'compact';
+	/** Heading level of each article title, so the outline follows the section it sits in. */
+	headingLevel: 3 | 4;
+	sourceSection: string;
+}
+
+const { articles, label, variant = 'full', headingLevel, sourceSection } = Astro.props;
+const List = label === 'part' ? 'ol' : 'ul';
+const Heading = `h${headingLevel}` as 'h3' | 'h4';
+const dateFormat = new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'short' });
+const compact = variant === 'compact';
+---
+
+<List class:list={['writing-list', { 'writing-list--compact': compact }]} role="list">
+	{articles.map((article) => {
+		const id = `wr-${article.slug}`;
+		const startHere = label === 'part' && article.series?.part === 1 && articles.length > 1;
+		const describedBy = [startHere && `${id}-start`, `${id}-desc`].filter(Boolean).join(' ');
+		return (
+			<li data-filter-item data-topics={article.topics.map(toTopicSlug).join(' ')}>
+				<a
+					class="writing-row"
+					href={article.href}
+					aria-labelledby={id}
+					aria-describedby={describedBy}
+					data-analytics-event="writing_article_click"
+					data-cta-id={`writing-index-${article.slug}`}
+					data-cta-placement="writing-index"
+					data-cta-intent="authority"
+					data-source-section={sourceSection}
+				>
+					{label === 'part'
+						? (
+							<span class="writing-row__label">
+								Part {article.series?.part}
+								{startHere && <span id={`${id}-start`} class="writing-row__start">Start here</span>}
+							</span>
+						)
+						: <time class="writing-row__label" datetime={article.dateIso}>{dateFormat.format(article.date)}</time>}
+					<div class="writing-row__main">
+						<Heading id={id} class="writing-row__title">
+							{article.title}
+							{compact && article.series && <span class="writing-row__context"> · Part {article.series.part} of {article.series.definition.title}</span>}
+							{article.isDraft && <span class="writing-row__draft"> Draft</span>}
+						</Heading>
+						{compact
+							? <span id={`${id}-desc`} class="writing-row__description writing-row__teaser">{article.teaser ?? article.description}</span>
+							: <span id={`${id}-desc`} class="writing-row__description">{article.description}</span>}
+					</div>
+					{article.minutes > 0 && <span class="writing-row__time">{article.minutes} min</span>}
+				</a>
+			</li>
+		);
+	})}
+</List>
+
+<style>
+	.writing-list { margin: 0; padding: 0; list-style: none; }
+	.writing-row { display: grid; grid-template-columns: 5rem minmax(0, 1fr) auto; gap: 1.25rem; align-items: baseline; padding: .85rem 0; color: inherit; text-decoration: none; }
+	.writing-row__label,
+	.writing-row__time { color: var(--color-muted); font-family: var(--font-mono); font-size: var(--type-chip-size); letter-spacing: var(--type-chip-tracking); line-height: 1.4; text-transform: uppercase; white-space: nowrap; }
+	.writing-row__start { display: block; margin-top: .3rem; color: var(--color-accent-text); font-weight: 600; }
+	.writing-row__main { display: grid; gap: .3rem; max-width: 46rem; }
+	.writing-row__title { max-width: none; margin: 0; color: var(--color-text); font-family: var(--font-body); font-size: 1.12rem; font-weight: 600; letter-spacing: -.01em; line-height: 1.35; }
+	.writing-row__description { color: var(--color-muted); font-size: .95rem; line-height: 1.5; }
+	.writing-row__context { color: var(--color-muted); font-size: .88rem; font-weight: 400; }
+	.writing-row__draft { margin-left: .4rem; color: var(--color-muted); font-family: var(--font-mono); font-size: .68rem; font-weight: 400; letter-spacing: .08em; text-transform: uppercase; vertical-align: middle; }
+	.writing-row:hover .writing-row__title,
+	.writing-row:focus-visible .writing-row__title { color: var(--color-link); text-decoration: underline; text-underline-offset: .2em; }
+	.writing-row:focus-visible { outline: 2px solid var(--color-link); outline-offset: 4px; }
+
+	.writing-list--compact .writing-row { padding-block: .5rem; }
+	.writing-list--compact .writing-row__title { font-size: 1rem; font-weight: 500; }
+	.writing-row__teaser { font-size: .88rem; }
+
+	@media (max-width: 720px) {
+		.writing-row { grid-template-columns: minmax(0, 1fr) auto; gap: .35rem 1rem; }
+		.writing-row__label { grid-column: 1; grid-row: 1; }
+		.writing-row__start { display: inline; margin: 0 0 0 .6rem; }
+		.writing-row__time { grid-column: 2; grid-row: 1; }
+		.writing-row__main { grid-column: 1 / -1; }
+		.writing-list--compact .writing-row { gap: .15rem 1rem; }
+	}
+</style>

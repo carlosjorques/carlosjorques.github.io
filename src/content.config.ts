@@ -22,6 +22,8 @@ const writing = defineCollection({
 		title: z.string(),
 		subtitle: z.string().optional(),
 		description: z.string(),
+		/** Short summary (100 characters at most) for compact lists such as "Previous articles" and the landing page. Without it, the full description is shown. */
+		teaser: z.string().max(100).optional(),
 		publishDate: z.date(),
 		readingTime: z.string().optional(),
 		heroImage: z
@@ -40,6 +42,12 @@ const writing = defineCollection({
 			'Physical Systems Engineering',
 		]),
 		tags: z.array(z.string()),
+		/** Series membership; the series itself is defined in src/data/writingSeries.ts. */
+		series: z.object({ id: z.string(), part: z.number().int().positive() }).optional(),
+		/** Slug of a Work project (src/content/projects) that this article draws on. Series parts inherit it from the series. */
+		relatedProject: z.string().optional(),
+		/** One headline number shown with the article in the Writing index, for example { value: 'Up to 4%', label: 'less energy' }. */
+		keyFigure: z.object({ value: z.string(), label: z.string() }).optional(),
 		featured: z.boolean(),
 		draft: z.boolean(),
 	}),

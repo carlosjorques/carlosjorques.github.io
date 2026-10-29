@@ -57,6 +57,7 @@ const pageType = (() => {
 		<link rel="icon" href={`${normalizedBase}favicon.ico`} />
 		<meta name="generator" content={Astro.generator} />
 		<link rel="canonical" href={canonical} />
+		<link rel="alternate" type="application/rss+xml" title={`Writing by ${IDENTITY.name}`} href={`${normalizedBase}rss.xml`} />
 		<title>{siteTitle}</title>
 		<meta name="description" content={description} />
 		<meta property="og:title" content={siteTitle} />
