@@ -1,7 +1,7 @@
 ---
-title: "The Value of Control Software in Electric Heavy-Duty Trucks, Part 1"
-subtitle: "Electrifying Heavy Freight: The Thermal Bottleneck"
-description: "How thermal management fits into the electrification of heavy trucks, why the battery is sized for the worst-case scenario, and where control engineering makes the difference."
+title: "The value of control software in electric heavy-duty trucks, Part 1"
+subtitle: "Electrifying heavy freight: the thermal bottleneck"
+description: "How thermal management fits into the electrification of heavy trucks, why the battery is sized for the worst case, and where control makes the difference."
 teaser: "Why the battery of an electric truck is sized for the worst case, and where control comes in."
 publishDate: 2026-11-02
 readingTime: 26 min read
@@ -53,7 +53,7 @@ The thermal management of the truck (the control of the temperatures of its batt
 The four challenges named above share one cause. Each of them is quantified below in mass, price or time, and each is linked to the battery:
 
 - **Mass:** a long-haul truck battery of 600–800 kWh weighs 4–5 tonnes. To compensate, the EU allows zero-emission trucks up to 2 extra tonnes of gross weight [7]. However, on weight-limited routes, every kilogram of battery is still a kilogram less of payload.
-- **Cost:** the battery is the largest single cost item of an electric truck. Pack prices have fallen to an average of about $108/kWh across all applications [2]; commercial-vehicle packs cost more, around €150–220/kWh [8].
+- **Cost:** the battery is the largest single cost item of an electric truck. Pack prices have fallen to an average of about $108/kWh across all applications [2]; commercial-vehicle packs cost more, around 150–220 €/kWh [8].
 - **Range and charging:** a long-haul truck must cover its daily route with the charging opportunities available, typically during the legal breaks of the driver (45 minutes after 4.5 hours of driving [13]). Current trucks accept up to about 750 kW on a megawatt charger [5], so about 30 minutes of charging fits within the break [14]. Nevertheless, charging time competes with driving time, and charger availability is still limited on many routes. [Part 3](/writing/control-software-electric-trucks-part-3-business-case/) shows how a smaller battery shortens the charging stop, and under which conditions.
 - **Variability:** the energy a truck needs is a function of the load, the topography, the speed, the traffic and the weather. The weather is the effect studied in this series.
 
@@ -62,11 +62,11 @@ A larger battery solves the range and variability challenges, and makes mass and
 To quantify the price of this trade-off, the pack mass and the pack cost are plotted in Figure 2 as a function of the battery capacity. The bounds of each band correspond to the pack energy densities of LFP and NMC811 (section 3.1) and to the range of commercial-vehicle pack prices [8].
 
 <figure class="article-figure">
-	<img src="/images/blog/control-software-electric-trucks/part1-fig2-mass-cost-vs-capacity.png" alt="Line plot: pack mass rises from about 2.3–2.8 t at 400 kWh to 4.6–5.5 t at 800 kWh, and pack cost from €60,000–88,000 to €120,000–176,000." loading="lazy" />
+	<img src="/images/blog/control-software-electric-trucks/part1-fig2-mass-cost-vs-capacity.png" alt="Line plot: pack mass rises from about 2.3–2.8 t at 400 kWh to 4.6–5.5 t at 800 kWh, and pack cost from 60,000–88,000 € to 120,000–176,000 €." loading="lazy" />
 	<figcaption>Figure 2. Pack mass (a) and pack cost (b) as a function of the battery capacity. The bands are bounded by the pack energy densities of LFP (145 Wh/kg, solid line) and NMC811 (175 Wh/kg, dashed line), and by pack prices of 220 €/kWh (solid line) and 150 €/kWh (dashed line) [8]. The shaded area indicates the capacity range of long-haul trucks; the dotted line indicates the 2 t gross-weight allowance for zero-emission trucks [7].</figcaption>
 </figure>
 
-Both the mass and the cost grow linearly with the capacity. Each kilowatt-hour adds 5.7–6.9 kg and €150–220, so that a long-haul pack of 600–800 kWh weighs 3.4–5.5 t and costs €90,000–176,000. However, the 2 t allowance covers only 36–58% of that mass, and the rest is taken from the payload on weight-limited routes. Therefore, every kilowatt-hour that the truck does not need to carry is saved twice, once in the purchase price and once in the cargo. Since this price is set by the cells, the properties of the battery itself are examined next.
+Both the mass and the cost grow linearly with the capacity. Each kilowatt-hour adds 5.7–6.9 kg and 150–220 €, so that a long-haul pack of 600–800 kWh weighs 3.4–5.5 t and costs 90,000–176,000 €. However, the 2 t allowance covers only 36–58% of that mass, and the rest is taken from the payload on weight-limited routes. Therefore, every kilowatt-hour that the truck does not need to carry is saved twice, once in the purchase price and once in the cargo. Since this price is set by the cells, the properties of the battery itself are examined next.
 
 ## 3. The battery: the central component
 
@@ -218,7 +218,7 @@ The effect of the factor of 1.5 on the battery size is listed in Table 3, compar
 
 For the same annual improvement, sizing on the winter saving removes about half as much battery again as sizing on the average. Therefore, the value of thermal control depends on whether its winter saving is taken into account when the battery is sized.
 
-I also assume that keeping the cells closer to their ideal temperature slows their degradation. With this effect, a 4% improvement leaves the battery with about 1.6 percentage points more health after eight years. Together, the winter sizing and the slower ageing raise the value of a 4% improvement for mixed freight from about €16,100 to €21,300 per truck. The main figures in [Part 3](/writing/control-software-electric-trucks-part-3-business-case/) do not include these effects. [Part 4](/writing/control-software-electric-trucks-part-4-design/) analyses them in detail, together with the shorter charging stops obtained by preconditioning.
+I also assume that keeping the cells closer to their ideal temperature slows their degradation. With this effect, a 4% improvement leaves the battery with about 1.6 percentage points more health after eight years. Together, the winter sizing and the slower ageing raise the value of a 4% improvement for mixed freight from about 16,100 € to 21,300 € per truck. The main figures in [Part 3](/writing/control-software-electric-trucks-part-3-business-case/) do not include these effects. [Part 4](/writing/control-software-electric-trucks-part-4-design/) analyses them in detail, together with the shorter charging stops obtained by preconditioning.
 
 ## 6. Bringing it together: how an efficiency gain compounds
 
@@ -249,7 +249,7 @@ The same thermal management methods save energy in passenger cars. However, the 
 | Battery | 60–100 kWh | 500–800 kWh |
 | Battery mass vs payload | Not monetised | Every kilogram competes with cargo |
 | Purchase decision | Range, comfort, price | Cost per tonne-kilometre, TCO, return on investment |
-| Value of a few per cent efficiency | A few more kilometres of range | €5,000–20,000 per truck; operating profit up by a quarter or more |
+| Value of a few per cent efficiency | A few more kilometres of range | 5,000–20,000 € per truck; operating profit up by a quarter or more |
 
 The truck drives several times further each year with a battery several times larger, and its battery mass is priced in lost cargo. Therefore, the same percentage saving that gives a car a few kilometres of range is worth thousands of euros per truck.
 
@@ -257,7 +257,7 @@ The truck drives several times further each year with a battery several times la
 
 An electric long-haul truck carries 4–5 tonnes of battery, and that battery sets its mass, its price, its range and its charging time. Since road freight runs on margins of about 2%, every kilogram and every euro of battery competes with the haulier's profit. The battery is sized for the worst-case scenario the truck must handle: a Nordic winter or a southern summer, with a battery aged eight years, on the required daily range. In these conditions, the battery temperature decides how much power the battery can deliver and accept, and keeping it within its window costs energy taken from the same battery.
 
-Thermal control software therefore acts on the quantity that sizes the battery. **Predictive and optimisation-based control reduces the energy consumption of the truck by 2–4%** against well-tuned conventional control, and the saving is largest in cold weather, i.e. in the scenario the battery is sized for; [Part 2](/writing/control-software-electric-trucks-part-2-engineering/) explains how these methods decide how and when the thermal energy is spent. The saving then compounds through channels of very different size. The lighter truck adds only about 7% to it, because the battery is an eighth of the operating mass. However, through the battery cost, the payload and the charging time, **it raises its value to 1.2–2.5 times the electricity saved**, and [Part 3](/writing/control-software-electric-trucks-part-3-business-case/) follows this value channel by channel. Using the saving to size the battery raises the value of a 3% gain to 3.3–4.6 times, i.e. from 0.6% to 2.0–2.8% of the total cost of ownership (TCO) of the truck, as [Part 4](/writing/control-software-electric-trucks-part-4-design/) shows for trucks and buses. In a passenger car, the same percentage gives a few kilometres of range; **in a truck, it is worth €5,500–21,500 per vehicle and raises operating profit by between a quarter and almost double.**
+Thermal control software therefore acts on the quantity that sizes the battery. **Predictive and optimisation-based control reduces the energy consumption of the truck by 2–4%** against well-tuned conventional control, and the saving is largest in cold weather, i.e. in the scenario the battery is sized for; [Part 2](/writing/control-software-electric-trucks-part-2-engineering/) explains how these methods decide how and when the thermal energy is spent. The saving then compounds through channels of very different size. The lighter truck adds only about 7% to it, because the battery is an eighth of the operating mass. However, through the battery cost, the payload and the charging time, **it raises its value to 1.2–2.5 times the electricity saved**, and [Part 3](/writing/control-software-electric-trucks-part-3-business-case/) follows this value channel by channel. Using the saving to size the battery raises the value of a 3% gain to 3.3–4.6 times, i.e. from 0.6% to 2.0–2.8% of the total cost of ownership (TCO) of the truck, as [Part 4](/writing/control-software-electric-trucks-part-4-design/) shows for trucks and buses. In a passenger car, the same percentage gives a few kilometres of range; **in a truck, it is worth 5,500–21,500 € per vehicle and raises operating profit by between a quarter and almost double.**
 
 Hence, the value of a few percent of efficiency in a heavy vehicle depends on three questions: whether the saving occurs in the conditions that size the hardware, through which channels it reaches the cost of the vehicle, and whether it is known before the hardware is fixed. The first and the last questions are answered in the design of the control software: by what it optimises in the worst-case scenario, and by how early and how reliably its performance is validated. In my work, I develop the control strategies that achieve this efficiency increase of 2–4%, already tested on production trucks.
 

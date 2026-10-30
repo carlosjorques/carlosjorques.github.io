@@ -36,7 +36,7 @@ ogImageAlt="Carlos Jorques, Control Systems Technical Lead: embedded control for
 				<div class="hero__copy">
 					<p class="hero-kicker">Sense · decide · act</p>
 					<h1 class="hero-statement">{IDENTITY.brandLine}</h1>
-					<p class="hero-lead">I am Carlos, a <strong>{IDENTITY.primaryTitle}</strong>. I design embedded control software that makes machines use less energy, detect faults early and behave predictably. I have done this for electric trucks, autonomous haulers, motors and engines, and today I lead international teams that take it from the first concept to production.</p>
+					<p class="hero-lead">I am Carlos, a <strong>{IDENTITY.primaryTitle}</strong>. I design embedded control software that makes machines use less energy, detect faults early and behave predictably. I have done this for electric trucks, autonomous haulers, motors and engines. Today I lead international teams that develop it and take it into production.</p>
 					<p class="hero-location">Based in {IDENTITY.location}</p>
 
 					<div class="hero-links button-row" aria-label="Primary routes">
@@ -165,6 +165,7 @@ ogImageAlt="Carlos Jorques, Control Systems Technical Lead: embedded control for
 		</div>
 	</section>
 
+	{latestWriting.length > 0 && (
 	<section class="home-section latest" aria-labelledby="writing-title">
 		<div class="page-container home-section__grid">
 			<div class="section-head">
@@ -183,16 +184,11 @@ ogImageAlt="Carlos Jorques, Control Systems Technical Lead: embedded control for
 			</div>
 
 			<div class="home-section__body">
-				{latestWriting.length > 0 ? (
-					<WritingPublicationList publications={latestWriting} variant="compact" placement="home-writing" sourceSection="latest-writing" />
-				) : (
-					<div class="latest__planned">
-						<p>Articles will appear here as they are ready.</p>
-					</div>
-				)}
+				<WritingPublicationList publications={latestWriting} variant="compact" placement="home-writing" sourceSection="latest-writing" />
 			</div>
 		</div>
 	</section>
+	)}
 
 	<section class="home-closing" aria-label="Contact">
 		<div class="page-container">
@@ -544,13 +540,6 @@ ogImageAlt="Carlos Jorques, Control Systems Technical Lead: embedded control for
 	.selected-work__link:focus-visible {
 		outline: 2px solid var(--color-focus);
 		outline-offset: 4px;
-	}
-
-	.latest__planned p {
-		margin: 0;
-		color: var(--color-body-text);
-		font-size: .92rem;
-		line-height: 1.5;
 	}
 
 	.home-closing {

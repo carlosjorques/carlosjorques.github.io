@@ -1,10 +1,10 @@
 ---
-title: "Speed control for Volvo's autonomous TA15 electric hauler"
+title: "Speed control for Volvo’s autonomous TA15 electric hauler"
 seoTitle: "Volvo TA15 autonomous hauler speed control"
-description: "Carlos Jorques led the speed-control design of Volvo's autonomous TA15 electric hauler, whose speed then stayed within 1 km/h, without oscillation."
+description: "Carlos Jorques led the speed-control design of Volvo’s autonomous TA15 electric hauler, whose speed then stayed within 1 km/h, without oscillation."
 context: "Autonomous electric haulers"
 eyebrow: "Volvo Construction Equipment · Autonomous electric haulers · 2023–2024"
-intro: "**I led a team of three ALTEN engineers** in Spain working on the powertrain software of Volvo's autonomous electric haulers. On the TA15, **I designed the changes to the speed and torque control** that made the hauler hold the speed requested by its autonomy system, with two electric axles that no longer work against each other."
+intro: "**I led a team of three ALTEN engineers** in Spain working on the powertrain software of Volvo’s autonomous electric haulers. On the TA15, **I designed the changes to the speed and torque control** that made the hauler hold the speed requested by its autonomy system, with two electric axles that no longer work against each other."
 facts:
   - label: "Role"
     value: "**Team lead of 3 ALTEN engineers** · powertrain control engineer for Volvo CE"
@@ -29,7 +29,7 @@ glance:
   - label: "The need"
     text: "Quarries, mines and other closed sites struggle to find drivers, and diesel exhaust harms health in tunnels. An autonomous electric hauler removes both problems, but without a driver its software has to hold the requested speed by itself, on slopes, gravel and mud and with a changing load."
   - label: "My role"
-    text: "**Technical leader of 3 ALTEN engineers in Spain**, working remotely inside Volvo CE's process. I coordinated the verification of a larger hauler concept, then designed the TA15 speed and torque control with Volvo CE and Volvo Autonomous Solutions."
+    text: "**Technical leader of 3 ALTEN engineers in Spain**, working remotely inside Volvo CE’s process. I coordinated the verification of a larger hauler concept, then designed the TA15 speed and torque control with Volvo CE and Volvo Autonomous Solutions."
   - label: "Key work"
     text: "The two axles had two independent controllers that excited each other through the hauler body. I added feed-forward, decoupling, derivative action, gain scheduling and a Kalman filter that estimates the speed of each axle from one sensor. The same coupling appears in any machine with several drives on one motion, such as mobile robots."
   - label: "Result"

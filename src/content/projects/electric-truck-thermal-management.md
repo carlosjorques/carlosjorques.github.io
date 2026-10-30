@@ -1,10 +1,10 @@
 ---
-title: "Thermal management control for Scania's electric trucks"
+title: "Thermal management control for Scania’s electric trucks"
 seoTitle: "Scania electric truck thermal control"
-description: "Carlos Jorques leads predictive thermal control for Scania's electric trucks. In truck tests, it used 2–4% less energy than the production control."
+description: "Carlos Jorques leads predictive thermal control for Scania’s electric trucks. In truck tests, it used 2–4% less energy than the production control."
 context: "Electric heavy-duty trucks"
 eyebrow: "Scania · Electric heavy-duty trucks · 2025–present"
-intro: "**I lead the predictive control concept and its architecture** in the software that heats and cools Scania's electric trucks, keeping the batteries and electronics at the temperatures where they run efficiently and safely. With a project team of three, I take the concept to truck tests together with the battery, autonomous-driving and supplier teams, and I **mentor the students** who join the project."
+intro: "**I lead the predictive control concept and its architecture** in the software that heats and cools Scania’s electric trucks, keeping the batteries and electronics at the temperatures where they run efficiently and safely. With a project team of three, I take the concept to truck tests together with the battery, autonomous-driving and supplier teams, and I **mentor the students** who join the project."
 facts:
   - label: "Role"
     value: "**Senior Control Software Engineer, thermal management**"
@@ -27,7 +27,7 @@ metrics:
 metricsNote: "Pre-development (concept stage) results of the predictive control, from winter and summer truck tests at −30 to 40 °C ambient, with equal start and end battery temperature. The battery capacity is for the same range, and the value comes from my life-cycle cost model of a 40 t long-haul truck over 8 years. ASIL-B is the second of four safety integrity levels."
 glance:
   - label: "The need"
-    text: "Scania's electric trucks compete with diesel on cost per tonne-kilometre, and part of every battery charge goes into heating and cooling the truck itself."
+    text: "Scania’s electric trucks compete with diesel on cost per tonne-kilometre, and part of every battery charge goes into heating and cooling the truck itself."
   - label: "My role"
     text: "**I lead the research and pre-development** of predictive thermal control, control allocation and their architecture in a project team of three. **I also deliver production thermal software** for the current trucks and functions for the next platform, and support purchasing with the coolant-pump A-samples. Through ALTEN since June 2025."
   - label: "Key work"
@@ -90,11 +90,11 @@ Figure 2 illustrates the route prediction on a road with a long climb.
 
 With feedback control, the cooling power peaks on the climb (panel c), when the battery is hottest and cooling costs most. The predictive control cools the battery a little on the flat, where the airflow from driving helps, and lets it warm up within its window during the climb (panel b).
 
-The software is built in MATLAB/Simulink with C code generation, and every release passes model- and software-in-the-loop tests (MIL/SIL), CI/CD pipelines and peer reviews before hardware-in-the-loop (HIL) rigs, test benches, the wind tunnel and trucks. On the trucks, **I designed the experiments and analysed the logs**, comparing controllers between equal start and end battery temperatures, so that none could look better by leaving a hot battery for the next trip. In winter and summer tests from −30 to 40 °C ambient, **the saving was 2–4%**, around 3% on average. In simulation, cooling the battery before a charging stop also shortens it. [Part 2 of my article series](/writing/control-software-electric-trucks-part-2-engineering/) explains the structure in detail.
+The software is built in MATLAB/Simulink with C code generation, and every release passes model- and software-in-the-loop tests (MIL/SIL), CI/CD pipelines and peer reviews before hardware-in-the-loop (HIL) rigs, test benches, the wind tunnel and trucks. On the trucks, **I designed the experiments and analysed the logs**, comparing controllers between equal start and end battery temperatures, so that none could look better by leaving a hot battery for the next trip. In winter and summer tests from −30 to 40 °C ambient, **the saving was 2–4%**, around 3% on average. In simulation, cooling the battery before a charging stop also shortens it. ([Part 2 of the series: the control structure](/writing/control-software-electric-trucks-part-2-engineering/))
 
 ## A 3% energy saving can be worth up to 4.6 times the electricity it saves
 
-The saving reaches the haulier through the electricity bill, a smaller battery, more payload and shorter charging. In my life-cycle cost model of a 40-tonne long-haul truck over 8 years, **2–4% is worth 5,500–21,500 € per truck**, which raises the haulier's operating profit by 24–96%. If the battery is sized for the gain from the start, **a 3% gain is worth up to 4.6 times the electricity saved**. These are my estimates, not Scania figures, and they do not deduct the development cost. [Part 3 (the business case)](/writing/control-software-electric-trucks-part-3-business-case/) and [Part 4 (vehicle design)](/writing/control-software-electric-trucks-part-4-design/) of the series give the full model.
+The saving reaches the haulier through the electricity bill, a smaller battery, more payload and shorter charging. In my life-cycle cost model of a 40-tonne long-haul truck over 8 years, **2–4% is worth 5,500–21,500 € per truck**, which raises the haulier's operating profit by 24–96%. If the battery is sized for the gain from the start, **a 3% gain is worth up to 4.6 times the electricity saved**. These are my estimates, not Scania figures, and they do not deduct the development cost. ([Part 3: the business case](/writing/control-software-electric-trucks-part-3-business-case/) · [Part 4: vehicle design](/writing/control-software-electric-trucks-part-4-design/))
 
 ## What the Scania project taught me about designing thermal control
 

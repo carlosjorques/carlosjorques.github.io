@@ -22,7 +22,7 @@ const withBase = (path: string) => `${import.meta.env.BASE_URL}${path.replace(/^
 const project = definition.relatedProject ? await getEntry('projects', definition.relatedProject) : undefined;
 const monthYear = new Intl.DateTimeFormat('en-GB', { month: 'long', year: 'numeric' });
 
-const pageTitle = `${definition.title} | A series of ${parts.length} articles`;
+const pageTitle = definition.seoTitle ?? definition.title;
 const site = Astro.site ?? new URL(Astro.url.origin);
 const absolute = (path: string) => new URL(path, site).toString();
 const structuredData = {
@@ -83,9 +83,9 @@ const structuredData = {
 		<div class="page-container">
 			<ContactCTA
 				title="Working on a similar control problem?"
-				body="If this series touches a system you are working on, send a message about it and I will reply with my view and the most relevant experience."
+				body="Describe the system you are working on in a short message. I will reply with my view and where I have solved similar problems."
 				primaryHref={`/contact/?context=technical&source=series-${definition.id}#message-title`}
-				primaryLabel="Discuss a technical question"
+				primaryLabel="Discuss a technical problem"
 				secondaryHref="/writing/"
 				secondaryLabel="All writing"
 				sourceSection="series-closing"

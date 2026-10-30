@@ -16,7 +16,7 @@ const work = (slug: string) => withBase(`/work/${slug}/`);
 			<div class="about-hero__layout">
 				<div class="about-hero__copy">
 					<h1 id="about-title">I design the software that helps machines <i>sense</i>, <i>decide</i> and <i>act</i>, leading the teams that build it.</h1>
-					<p class="about-hero__lead">Hi, I'm Carlos. I'm a <strong>{IDENTITY.primaryTitle}</strong> with <strong>{IDENTITY.years} years of experience developing</strong> the software that operates a machine reliably and efficiently in the real-world, from electric trucks and autonomous haulers to motors and engines. Today I lead client projects at ALTEN, working remotely from <strong>{IDENTITY.location}</strong> with international teams.</p>
+					<p class="about-hero__lead">Hi, I’m Carlos. I’m a <strong>{IDENTITY.primaryTitle}</strong> with <strong>{IDENTITY.years} years of experience developing</strong> the software that operates a machine reliably and efficiently in the real-world, from electric trucks and autonomous haulers to motors and engines. Today I lead client projects at ALTEN, working remotely from <strong>{IDENTITY.location}</strong> with international teams.</p>
 					<nav class="about-hero__actions" aria-label="About quick links">
 						<a href={withBase('/work/')}>Selected work</a>
 						<a href={withBase('/cv/')}>View CV</a>
@@ -33,14 +33,14 @@ const work = (slug: string) => withBase(`/work/${slug}/`);
 			<div class="section-rail"><h2 id="origin-title">My story</h2></div>
 			<div class="story-block">
 				<p>It all grew from a childhood interest. I took my toys apart to see how they worked, started learning electronics at eight and soon wanted to build a robot and become an inventor. That led me to <strong>automatic control</strong>, the field behind the algorithms that let a machine interact with its surroundings. I studied industrial engineering at UPV in Valencia (Spain) and electrical engineering at LTH in Lund (Sweden).</p>
-				<p>My master's thesis took me to Scania and gave me my first three patents, so I became an inventor after all. I stayed at Scania for about ten years, which included an <strong>industrial PhD</strong> with LTH. In 2022 I moved back to Valencia, and since 2023 I've worked as a <strong>technical lead at ALTEN</strong> for different projects.</p>
+				<p>My master’s thesis took me to Scania and gave me my first three patents, so I became an inventor after all. I stayed at Scania for about ten years, which included an <strong>industrial PhD</strong> with LTH. In 2022 I moved back to Valencia, and since 2023 I’ve worked as a <strong>technical lead at ALTEN</strong> for different projects.</p>
 			</div>
 		</section>
 
 		<section class="editorial-section" id="motivation" aria-labelledby="motivation-title">
 			<div class="section-rail"><h2 id="motivation-title">My motivation</h2></div>
 			<div class="story-block">
-				<p>We rely on machines for most of our daily tasks, from moving people and goods to heating our homes. Automatic control makes many of them possible; without it, an airplane couldn't fly steadily and a rocket couldn't land back on its pad. My work focuses on control that stays reliable when conditions change, so that a machine can run with tighter margins and use less energy. Some of the projects behind that:</p>
+				<p>We rely on machines for most of our daily tasks, from moving people and goods to heating our homes. Automatic control makes many of them possible; without it, an airplane couldn’t fly steadily and a rocket couldn’t land back on its pad. My work focuses on control that stays reliable when conditions change, so that a machine can run with tighter margins and use less energy. Some of the projects behind that:</p>
 				<ul class="about-examples">
 					<li>At <a href={work('electric-truck-thermal-management')}>Scania</a>, electric trucks that plan their heating and cooling ahead and use <strong>2–4% less energy</strong>.</li>
 					<li>At <a href={work('autonomous-hauler-propulsion-control')}>Volvo CE</a>, an autonomous hauler that keeps its speed within <strong>1 km/h</strong> of the target.</li>
@@ -55,7 +55,7 @@ const work = (slug: string) => withBase(`/work/${slug}/`);
 			<div class="section-rail"><h2 id="approach-title">My approach</h2></div>
 			<div class="story-block">
 				<p>As a technical lead, I set the direction of the control software and write part of it. I organise the team with agile methods, following the technical and business plan. I first look at the needs, goals, milestones and constraints of the project, then plan the solutions it requires. When the hardware is still open, for example the choice of sensors or actuators, I take part in those decisions too.</p>
-				<p>In my team, I want the engineers to understand the system they control, so they work close to the machine and test their own software on it. Iterations get shorter that way, and so does the time it takes to learn. Each person gets a clear goal, support and room to propose their own solution, and I'm always open to discussions and new ideas.</p>
+				<p>In my team, I want the engineers to understand the system they control, so they work close to the machine and test their own software on it. Iterations get shorter that way, and so does the time it takes to learn. Each person gets a clear goal, support and room to propose their own solution, and I’m always open to discussions and new ideas.</p>
 				<p>My teams work across countries, mostly in <strong>English</strong>, but also in <strong>Spanish and Swedish</strong>. In the <a href={withBase('/work/')}>Work</a> pages, you can find how this approach is applied in selected projects.</p>
 			</div>
 		</section>
@@ -75,20 +75,20 @@ const work = (slug: string) => withBase(`/work/${slug}/`);
 		<section class="editorial-section" id="beyond-engineering" aria-labelledby="beyond-title">
 			<div class="section-rail"><h2 id="beyond-title">Away from engineering</h2></div>
 			<div class="story-block">
-				<p>I like sports, both team sports and others such as running or skiing. But basketball is the one I love the most. I started playing at eight, and I still play in a team. Now I'm getting our son into it. I also like making things myself, from electronics and home automation to 3D printing, lamps and painting.</p>
-				<p>I'm always learning something new. I've tried bouldering and lindy hop, and right now it's Serbian, as our son speaks more and more. Otherwise, my life centres around my partner, our son and our dog, and when we travel these days, it's mostly to visit family in Serbia and Slovenia.</p>
+				<p>I like sports, both team sports and others such as running or skiing. But basketball is the one I love the most. I started playing at eight, and I still play in a team. Now I’m getting our son into it. I also like making things myself, from electronics and home automation to 3D printing, lamps and painting.</p>
+				<p>I’m always learning something new. I’ve tried bouldering and lindy hop, and right now it’s Serbian, as our son speaks more and more. Otherwise, my life centres around my partner, our son and our dog, and when we travel these days, it’s mostly to visit family in Serbia and Slovenia.</p>
 			</div>
 		</section>
 
 		<section class="section about-closing" aria-label="Contact">
 			<ContactCTA
 				eyebrow="Contact"
-				title="Let's talk"
-				body="Whether you have a role in mind or a machine that needs better control, send me a few lines and I'll get back to you."
+				title="Let’s talk"
+				body="Whether you have a role in mind or a machine that needs better control, send me a few lines and I’ll get back to you."
 				primaryHref="/contact/?context=role&source=about#message-title"
-				primaryLabel="Talk about a role"
+				primaryLabel="Discuss a role"
 				secondaryHref="/contact/?context=technical&source=about#message-title"
-				secondaryLabel="Talk about your challenge"
+				secondaryLabel="Discuss a technical problem"
 				tertiaryHref={LINKEDIN_URL}
 				tertiaryLabel="LinkedIn"
 				sourceSection="about-closing"

@@ -12,12 +12,12 @@ const projects = projectCards.map((card) => getProjectCard(card.slug));
 const withBase = (href: string) => `${import.meta.env.BASE_URL}${href.replace(/^\//, '')}`;
 ---
 
-<BaseLayout title="Control software for physical machines" description="Selected projects by Carlos Jorques, Control Systems Technical Lead, in predictive thermal control, autonomous haulers, electric motors and engine control.">
+<BaseLayout title="Control software for complex dynamic systems" description="Selected projects by Carlos Jorques, Control Systems Technical Lead, in predictive thermal control, autonomous haulers, electric motors and engine control.">
 	<div class="work-page">
 		<section class="work-hero" aria-labelledby="work-title">
 			<p class="work-eyebrow">Selected work</p>
 			<div class="work-hero__copy">
-				<h1 id="work-title">Projects in control software for complex physical machines.</h1>
+				<h1 id="work-title">Projects in control software for complex dynamic systems.</h1>
 				<p class="work-hero__lead">These four projects are selected from <strong>{IDENTITY.years} years of control software development</strong> for electric trucks, autonomous machines, electric motors and engines. As a <strong>{IDENTITY.primaryTitle}</strong>, I set the technical direction of the control software, take part in its development and organise the team, so that the work reaches the machine and serves the business plan.</p>
 			</div>
 		</section>
@@ -28,7 +28,7 @@ const withBase = (href: string) => `${import.meta.env.BASE_URL}${href.replace(/^
 	</div>
 	<section class="section work-overview-cta" aria-label="Next steps">
 		<div class="page-container">
-			<ContactCTA title="Hiring, or working on a similar control problem?" body="Send a message about a role or about the system and constraints you are working with, and I will reply with the most relevant experience." primaryHref="/contact/?context=role&source=work#message-title" primaryLabel="Discuss a role" secondaryHref="/contact/?context=technical&source=work#message-title" secondaryLabel="Discuss your challenge" tertiaryHref="/cv/" tertiaryLabel="View CV" sourceSection="work-closing" ctaIdPrefix="work-closing">
+			<ContactCTA title="Hiring, or working on a similar control problem?" body="Send a message about a role or about the system you are working on, and I will reply with where I have solved similar problems." primaryHref="/contact/?context=role&source=work#message-title" primaryLabel="Discuss a role" secondaryHref="/contact/?context=technical&source=work#message-title" secondaryLabel="Discuss a technical problem" tertiaryHref="/cv/" tertiaryLabel="View CV" sourceSection="work-closing" ctaIdPrefix="work-closing">
 				<p class="work-more">More evidence: <a href={withBase('/cv/#record')}>publications and patents</a><span aria-hidden="true"> · </span><a href={withBase('/cv/#experience')}>roles and career</a><span aria-hidden="true"> · </span><a href={withBase('/writing/')}>technical writing</a></p>
 			</ContactCTA>
 		</div>

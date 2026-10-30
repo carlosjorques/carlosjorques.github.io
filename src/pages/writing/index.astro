@@ -18,7 +18,7 @@ const { latest, years } = groupWriting(articles, await getUpcomingParts(articles
 const showFilter = articles.length >= FILTER_THRESHOLD;
 const previousCount = years.reduce((sum, group) => sum + group.articles.length, 0);
 
-const pageTitle = 'Writing on control software for complex dynamic systems';
+const pageTitle = 'Writing on control for complex dynamic systems';
 const pageDescription = 'Articles by Carlos Jorques on how control software for machines is designed and tested, and what it changes for the companies that build and operate them.';
 const site = Astro.site ?? new URL(Astro.url.origin);
 const absolute = (href: string) => new URL(href, site).toString();
@@ -104,9 +104,9 @@ const structuredData = {
 		<div class="page-container">
 			<ContactCTA
 				title="Working on a similar control problem?"
-				body="If an article touches a system you are working on, send a message about it and I will reply with my view and the most relevant experience."
+				body="Describe the system you are working on in a short message. I will reply with my view and where I have solved similar problems."
 				primaryHref="/contact/?context=technical&source=writing#message-title"
-				primaryLabel="Discuss a technical question"
+				primaryLabel="Discuss a technical problem"
 				secondaryHref="/work/"
 				secondaryLabel="View work"
 				sourceSection="writing-closing"

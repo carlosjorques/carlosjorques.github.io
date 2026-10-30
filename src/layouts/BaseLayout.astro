@@ -14,10 +14,10 @@ interface Props {
 
 const {
 	title = `${IDENTITY.name} · ${IDENTITY.primaryTitle}`,
-	description = 'Carlos Jorques is a Control Systems Technical Lead who leads the design and delivery of real-time control software for complex physical systems.',
+	description = 'Carlos Jorques is a Control Systems Technical Lead who leads the design and delivery of embedded control software for complex dynamic systems.',
 	ogType = 'website',
-	ogImage,
-	ogImageAlt,
+	ogImage = `${(import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`)}images/og-carlos-jorques.png`,
+	ogImageAlt = `${IDENTITY.name}, ${IDENTITY.primaryTitle}: embedded control for complex dynamic systems.`,
 } = Astro.props;
 
 const siteTitle = title.includes(IDENTITY.name) ? title : `${title} | ${IDENTITY.name}`;

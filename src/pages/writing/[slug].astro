@@ -34,7 +34,7 @@ const label = entry.data.draft && !SHOW_DRAFT_WRITING
 
 const publishedDate = entry.data.publishDate.toISOString();
 const updatedDate = entry.data.updatedDate && entry.data.updatedDate > entry.data.publishDate ? entry.data.updatedDate : undefined;
-const pageTitle = article.series ? `${article.title} | ${entry.data.title}` : entry.data.title;
+const pageTitle = article.title;
 // Contents index: the h2 sections of the body, then the sections split out after the CTA.
 const contents = [
 	...headings.filter((heading) => heading.depth === 2).map((heading) => ({ id: heading.slug, label: heading.text })),
@@ -227,7 +227,7 @@ const relatedArticles = (matched.length > 0 ? matched.slice(0, RELATED_MAX) : re
 						title="Working on a similar control problem?"
 						body="Describe the system you are working on in a short message. I will reply with how this approach could apply to it and where I have solved similar problems."
 						primaryHref="/contact/?context=technical&source=writing#message-title"
-						primaryLabel="Discuss a technical question"
+						primaryLabel="Discuss a technical problem"
 						secondaryHref={relatedProject ? `work/${relatedProject.id}/` : 'work/'}
 						secondaryLabel={relatedProject ? 'View the related project' : 'View work'}
 						sourceSection="writing-article"

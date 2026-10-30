@@ -8,6 +8,8 @@ export interface WritingSeries {
 	/** Matches `series.id` in the frontmatter of each part. */
 	readonly id: string;
 	readonly title: string;
+	/** Shorter title for the browser tab and search results, so that it stays within 70 characters with the name. */
+	readonly seoTitle?: string;
 	/** One sentence on what the series answers, so a reader can decide whether to start. */
 	readonly summary: string;
 	/** Shorter summary for compact lists (landing page), 100 characters at most. */
@@ -35,13 +37,14 @@ export interface WritingSeries {
 export const WRITING_SERIES: readonly WritingSeries[] = [
 	{
 		id: 'control-software-electric-trucks',
-		title: 'The Value of Control Software in Electric Heavy-Duty Trucks',
+		title: 'The value of control software in electric heavy-duty trucks',
+		seoTitle: 'The value of control software in electric trucks',
 		summary:
-			'What the energy saving of thermal control software is worth in an electric truck, in battery size, in cost per tonne-kilometre, in the profit of the haulier and in the design of the vehicle.',
+			'What the energy saving of thermal control software is worth in an electric truck: in battery size, cost per tonne-kilometre, haulier profit and vehicle design.',
 		teaser: 'What the energy saving of thermal control software is worth in an electric truck.',
 		partContext: 'on what thermal control software is worth in an electric truck',
 		overview: [
-			'An electric long-haul truck carries a battery sized for the worst-case scenario, and in the reference truck of this series that battery is about 32% of the purchase price. Predictive thermal control saves 2–4% of the energy of the truck. Used for a smaller battery, more freight or shorter charging, that saving is worth 1.2–2.5 times the electricity alone, and a 3% gain reaches €21,600–30,500 per truck over 8 years when the vehicle is designed around the software.',
+			'An electric long-haul truck carries a battery sized for the worst-case scenario, and in the reference truck of this series that battery is about 32% of the purchase price. Predictive thermal control saves 2⁠–⁠4% of the energy of the truck. Used for a smaller battery, more freight or shorter charging, that saving is worth 1.2–2.5 times the electricity alone, and a 3% gain reaches 21,600–30,500 € per truck over 8 years when the vehicle is designed around the software.',
 		],
 		thesis:
 			'Thermal control software is usually valued only for the electricity it saves. How it is designed also decides how large the battery must be, how long it lasts and how fast it charges, and that gives it as much weight in the business case as the price of electricity itself.',

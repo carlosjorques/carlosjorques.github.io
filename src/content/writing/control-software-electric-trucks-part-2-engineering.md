@@ -1,7 +1,7 @@
 ---
-title: "The Value of Control Software in Electric Heavy-Duty Trucks, Part 2"
-subtitle: "Predictive Thermal Management of the Battery"
-description: "How the thermal management of an electric truck is controlled, and how control that plans ahead along the route (predictive control) can reduce its energy consumption."
+title: "The value of control software in electric heavy-duty trucks, Part 2"
+subtitle: "Predictive thermal management of the battery"
+description: "How the thermal management of an electric truck is controlled, and how predictive control, which plans ahead along the route, reduces its energy use."
 teaser: "How predictive control along the route reduces the energy used to keep the battery at temperature."
 publishDate: 2026-11-02
 readingTime: 31 min read
@@ -314,7 +314,7 @@ To size this virtual battery, a typical European 40-tonne long-haul truck is use
 - 1.08 kWh/km energy consumption;
 - 90% of the capacity usable.
 
-[Part 3](/writing/control-software-electric-trucks-part-3-business-case/) describes this reference truck in full. I define an efficiency improvement *g* as a change in consumption from *c*₀ to *c*₀/(1+*g*). For the same range, the battery capacity that is no longer needed is then 12.5, 18.6 and 24.6 kWh for improvements of 2, 3 and 4%. Hence, the 2–4% saving of section 6 is equivalent to a battery between 80 kg and 156 kg lighter, and between €1,900 and €3,800 cheaper in hardware at €154/kWh, for the same range.
+[Part 3](/writing/control-software-electric-trucks-part-3-business-case/) describes this reference truck in full. I define an efficiency improvement *g* as a change in consumption from *c*₀ to *c*₀/(1+*g*). For the same range, the battery capacity that is no longer needed is then 12.5, 18.6 and 24.6 kWh for improvements of 2, 3 and 4%. Hence, the 2–4% saving of section 6 is equivalent to a battery between 80 kg and 156 kg lighter, and between 1,900 € and 3,800 € cheaper in hardware at 154 €/kWh, for the same range.
 
 ### The battery mass reduction feedback
 
@@ -347,7 +347,7 @@ Nevertheless, if the mass saved is used for payload instead, this feedback is ex
 
 The thermal management system of an electric truck keeps the battery, the power electronics and the cab within their temperature ranges, with energy taken from the same traction battery that, as [Part 1](/writing/control-software-electric-trucks-part-1-context/) describes, is sized for the worst-case scenario. Its control is difficult because the circuits are coupled, the efficiency is nonlinear, the system switches between discrete modes, its dynamics span seconds to tens of minutes, and the road gradient disturbs it constantly. Feedback control keeps it safe; however, it corrects deviations after they occur, one loop at a time, and energy is not part of its decision.
 
-Two additional decisions reduce the energy. Optimisation-based control allocation decides *how*: it delivers each heating or cooling demand with the cheapest combination of the redundant actuators at the current operating point. Model predictive control decides *when*: it uses the route, the speed, the ambient temperature and the next charging stop to shift thermal work to cheaper moments, with the battery (about 1 kWh of heat per kelvin) as a thermal store. **Implemented with control-oriented models, state estimation, real-time solvers, a feedback fallback and staged validation, these methods reduced the total energy consumption of a production truck by 2–4% against well-tuned feedback control. For the same range, this is 12–25 kWh of battery, or 13–26 kWh including the lighter truck.** In economic terms, this saving is worth €5,500–21,500 per truck, as derived in [Part 3](/writing/control-software-electric-trucks-part-3-business-case/), and almost twice as much when it is known before the battery is sized ([Part 4](/writing/control-software-electric-trucks-part-4-design/)).
+Two additional decisions reduce the energy. Optimisation-based control allocation decides *how*: it delivers each heating or cooling demand with the cheapest combination of the redundant actuators at the current operating point. Model predictive control decides *when*: it uses the route, the speed, the ambient temperature and the next charging stop to shift thermal work to cheaper moments, with the battery (about 1 kWh of heat per kelvin) as a thermal store. **Implemented with control-oriented models, state estimation, real-time solvers, a feedback fallback and staged validation, these methods reduced the total energy consumption of a production truck by 2–4% against well-tuned feedback control. For the same range, this is 12–25 kWh of battery, or 13–26 kWh including the lighter truck.** In economic terms, this saving is worth 5,500–21,500 € per truck, as derived in [Part 3](/writing/control-software-electric-trucks-part-3-business-case/), and almost twice as much when it is known before the battery is sized ([Part 4](/writing/control-software-electric-trucks-part-4-design/)).
 
 For a similar thermal control problem, the two decisions are worth separating, since each removes a different limitation of feedback control. Controllers should only be compared between equal initial and final thermal states, and the saving is best expressed in terms of the hardware it replaces. Its size depends on the climate, the route, the hardware and, above all, on the quality of the baseline. The 2–4% is the result of my own work: I am responsible for these strategies in electric trucks, building on 15 years of control software development, and they were measured on trucks against production feedback control, within the functional safety and software quality processes of the automotive industry.
 

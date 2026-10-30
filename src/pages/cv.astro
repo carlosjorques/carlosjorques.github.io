@@ -319,15 +319,15 @@ const jumpLinks = [
 ---
 
 <Layout
-	title={`${IDENTITY.name} | ${IDENTITY.primaryTitle} | CV`}
-	description={`CV of ${IDENTITY.name}, ${IDENTITY.primaryTitle} with ${IDENTITY.years} years of embedded control software for electric trucks, autonomous haulers, electric motors and engines.`}
+	title={`${IDENTITY.name} CV | ${IDENTITY.primaryTitle}`}
+	description={`CV of ${IDENTITY.name}, ${IDENTITY.primaryTitle}: ${IDENTITY.years} years of embedded control for electric trucks, autonomous haulers, motors and engines.`}
 >
 	<div class="cv-page">
 		<section class="cv-hero" aria-labelledby="cv-title">
 			<p class="cv-hero__eyebrow">Online CV</p>
 			<h1 id="cv-title">{IDENTITY.name}</h1>
 			<p class="cv-hero__title">{IDENTITY.primaryTitle}</p>
-			<p class="cv-hero__lead">I lead the design of <strong>embedded control software</strong> for physical machines, from concept to production. In <strong>{IDENTITY.years} years</strong> I have done it for electric trucks, autonomous haulers, electric motors and diesel engines, and my software <strong>runs in trucks on the road today</strong>. I combine a <strong>PhD and 5 patents</strong> in control with hands-on technical leadership.</p>
+			<p class="cv-hero__lead">I lead the design of <strong>embedded control software</strong> for complex dynamic systems and take it into production. In <strong>{IDENTITY.years} years</strong> I have done it for electric trucks, autonomous haulers, electric motors and diesel engines, and my software <strong>runs in trucks on the road today</strong>. I combine a <strong>PhD and 5 patents</strong> in control with hands-on technical leadership.</p>
 			<ul class="cv-facts" aria-label="Location, work setup and availability">
 				{facts.map((fact) => <li>{fact}</li>)}
 				<li class="cv-facts__open">Open to technical lead roles, freelance and collaborations</li>
@@ -516,7 +516,7 @@ const jumpLinks = [
 				title="Tell me about your role or technical challenge"
 				body="Send a few lines about the system and the team behind it, and I will reply with the part of my experience that fits them."
 				primaryHref="/contact/?context=role&source=cv#message-title"
-				primaryLabel="Discuss an opportunity"
+				primaryLabel="Discuss a role"
 				secondaryHref={LINKEDIN_URL}
 				secondaryLabel="Connect on LinkedIn"
 				tertiaryHref={CONTACT_DESTINATIONS.cv}

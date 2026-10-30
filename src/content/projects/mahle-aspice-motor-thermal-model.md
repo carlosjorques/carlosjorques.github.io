@@ -1,10 +1,10 @@
 ---
-title: "Software processes and a motor temperature model for MAHLE's advanced engineering"
+title: "Software processes and a motor temperature model for MAHLE’s advanced engineering"
 seoTitle: "MAHLE motor temperature model and A-SPICE"
 description: "Carlos Jorques helped MAHLE adopt its first A-SPICE practices, led its e-bike software and co-developed a motor temperature model with under 2% error."
 context: "Electric drives"
 eyebrow: "MAHLE Electronics · Electric drives · 2022–2023"
-intro: "I helped MAHLE Electronics' advanced engineering team consolidate how it develops software, so that its concepts reach the product departments ready for what vehicle makers demand. **As Scrum Master**, I facilitated the team's sprints; I also **led the software planning of an e-bike motor-control project** and **co-developed a real-time model** that estimates the temperature inside an electric motor."
+intro: "I helped MAHLE Electronics' advanced engineering team consolidate how it develops software, so that its concepts reach the product departments ready for what vehicle makers demand. **As Scrum Master**, I facilitated the team’s sprints; I also **led the software planning of an e-bike motor-control project** and **co-developed a real-time model** that estimates the temperature inside an electric motor."
 facts:
   - label: "Role"
     value: "Development Software Engineer · **Scrum Master · technical lead of the e-bike software**"

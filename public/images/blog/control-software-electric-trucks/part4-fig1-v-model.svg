@@ -83,14 +83,14 @@
   <text x="48" y="486" font-size="12.5px" fill="#4d4d4d">Battery and thermal hardware sized with conventional control;</text>
   <text x="48" y="503" font-size="12.5px" fill="#4d4d4d">the software is credited for its average gain only.</text>
   <text x="48" y="532" font-size="12.5px" fill="#1a1a1a"><tspan font-size="16px" font-weight="bold" fill="#1f4f78">1.8–2.5×</tspan> the electricity saved</text>
-  <text x="492" y="532" font-size="14px" fill="#4d4d4d" text-anchor="end">€12,200–16,300 per truck</text>
+  <text x="492" y="532" font-size="14px" fill="#4d4d4d" text-anchor="end">12,200–16,300 € per truck</text>
 
   <rect x="540" y="442" width="480" height="104" fill="#f2e3d4"/>
   <text x="558" y="466" font-size="14px" font-weight="bold" fill="#1a1a1a">Designed in: software as a sizing input</text>
   <text x="558" y="486" font-size="12.5px" fill="#4d4d4d">Smaller battery, end-of-life margin, faster charging and smaller</text>
   <text x="558" y="503" font-size="12.5px" fill="#4d4d4d">thermal hardware, with the same software.</text>
   <text x="558" y="532" font-size="12.5px" fill="#1a1a1a"><tspan font-size="16px" font-weight="bold" fill="#b36b12">3.3–4.6×</tspan> the electricity saved</text>
-  <text x="1002" y="532" font-size="14px" fill="#4d4d4d" text-anchor="end">€21,600–30,500 per truck</text>
+  <text x="1002" y="532" font-size="14px" fill="#4d4d4d" text-anchor="end">21,600–30,500 € per truck</text>
 
   <!-- Watermark -->
   <text x="1030" y="570" text-anchor="end" font-size="11px" font-weight="bold" fill="#999999">carlosjorques.com</text>

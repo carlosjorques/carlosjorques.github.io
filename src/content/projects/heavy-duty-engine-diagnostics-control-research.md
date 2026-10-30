@@ -106,6 +106,6 @@ The PhD moved me from solving the problem in front of me to filling gaps in what
 - **Share early, learn faster:** as an industrial PhD student, I had Scania's engine experts next to me, and the greatest benefit came from sharing results early and hearing what was useful to them. I still ask for feedback early, and I encourage my team to do the same.
 - **Give people room to grow:** my supervisors often pointed out a direction and left the answer to me, which taught me to think further. In my teams, that means clear goals, the support each person needs and space to propose their own solutions.
 
-More detail is in the [article series on in-cycle combustion control](/writing/controlling-combustion-while-it-happens/), the [open-access thesis](https://lup.lub.lu.se/search/files/96902493/PhD_Thesis_Open.pdf) and the [journal summary](https://doi.org/10.1016/j.conengprac.2022.105097).
+More detail is in the [open-access thesis](https://lup.lub.lu.se/search/files/96902493/PhD_Thesis_Open.pdf) and the [journal summary](https://doi.org/10.1016/j.conengprac.2022.105097). ([Article series on in-cycle combustion control](/writing/controlling-combustion-while-it-happens/))
 
 *All results on this page are public in the thesis and articles. Scania's later use is described in general terms, and the patents are mentioned by count only.*
