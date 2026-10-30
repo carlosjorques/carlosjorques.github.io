@@ -8,61 +8,67 @@ const withBase = (href: string) => (href === '/' ? normalizedBase : `${normalize
 
 <Layout
 	title="Privacy notice | Carlos Jorques"
-	description="How personal information submitted through this website is handled."
+	description="What personal information this website handles, which services process it, how long it is kept and how to exercise your rights."
 >
 	<section class="privacy-hero" aria-labelledby="privacy-title">
 		<div class="page-container privacy-hero__inner">
 			<p class="section-eyebrow">Privacy</p>
 			<h1 id="privacy-title" class="hero-title">Privacy notice</h1>
-			<p class="privacy-hero__mission">This privacy notice explains how I handle personal information submitted through this website.</p>
+			<p class="privacy-hero__mission">This notice explains what personal information this website handles when you visit it or send me a message, and who else processes it.</p>
 		</div>
 	</section>
 
 	<section class="section privacy-content" aria-label="Privacy notice details">
 		<div class="page-container privacy-prose">
 			<section aria-labelledby="privacy-owner-title">
-				<h2 id="privacy-owner-title">Who is responsible for this website</h2>
-				<p>This website is operated by Carlos Jorques. You can contact me through the <a href={withBase('/contact/')}>contact page</a>.</p>
+				<h2 id="privacy-owner-title">Who is responsible</h2>
+				<p>This website is run by Carlos Jorques, based in Valencia, Spain. I am responsible for the personal information described here. You can reach me through the <a href={withBase('/contact/')}>contact page</a>.</p>
 			</section>
 
 			<section aria-labelledby="privacy-collected-title">
 				<h2 id="privacy-collected-title">What information is collected</h2>
-				<p>If you send a message through the contact form, I may collect your name, email address, the topic of your message, and the message content you provide.</p>
+				<p>If you send a message through the contact form, I receive your name, your email address, the topic you chose, your message and the page of this website you came from. The form service also receives your IP address when you submit the form.</p>
+				<p>When you visit any page, your browser connects to the website host and to Google Fonts, and both receive your IP address and basic browser information as part of a normal web request.</p>
 			</section>
 
 			<section aria-labelledby="privacy-used-title">
 				<h2 id="privacy-used-title">How the information is used</h2>
-				<p>I use this information only to read your message and reply to you. I do not use contact messages for newsletters, advertising, or automated profiling.</p>
+				<p>I use the information from the form only to read your message and reply to you. I do not use it for newsletters, advertising or automated profiling.</p>
 			</section>
 
 			<section aria-labelledby="privacy-basis-title">
 				<h2 id="privacy-basis-title">Legal basis</h2>
-				<p>The information is processed because you asked me to respond to your message, or because there is a legitimate interest in handling professional enquiries sent through this website.</p>
+				<p>Under the EU General Data Protection Regulation (GDPR), I process your message because you asked me to reply to it, and because I have a legitimate interest in answering professional enquiries sent through this website (Article 6(1)(b) and (f)).</p>
 			</section>
 
 			<section aria-labelledby="privacy-retention-title">
 				<h2 id="privacy-retention-title">How long the information is kept</h2>
-				<p>I keep messages only as long as needed to respond and maintain a relevant professional conversation. Messages that are no longer useful are deleted periodically.</p>
+				<p>I keep messages only as long as they are useful for the conversation, and I delete the ones that are no longer needed. Web3Forms keeps a copy of each submission for up to three years, unless it is deleted earlier.</p>
 			</section>
 
 			<section aria-labelledby="privacy-sharing-title">
-				<h2 id="privacy-sharing-title">Sharing</h2>
-				<p>I do not sell your personal information. The contact form is processed by Web3Forms, which receives the information you submit in order to deliver your message to me. Web3Forms may process that information according to its own privacy terms.</p>
+				<h2 id="privacy-sharing-title">Services that process your information</h2>
+				<p>I do not sell or share your personal information. Three services are involved in running the website:</p>
+				<ul>
+					<li><strong>Web3Forms</strong> delivers the contact form to my email inbox. It acts on my behalf as a data processor, operates from India and uses infrastructure in several regions. It may check your IP address and email address with spam filters. Transfers from the EU are covered by Standard Contractual Clauses. See the <a href="https://web3forms.com/privacy" target="_blank" rel="noopener noreferrer">Web3Forms privacy policy</a>.</li>
+					<li><strong>GitHub Pages</strong> hosts the website and logs visitor IP addresses for security. See the <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener noreferrer">GitHub privacy statement</a>.</li>
+					<li><strong>Google Fonts</strong> serves the typeface used on the site. See the <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Google privacy policy</a>.</li>
+				</ul>
 			</section>
 
 			<section aria-labelledby="privacy-rights-title">
 				<h2 id="privacy-rights-title">Your rights</h2>
-				<p>Depending on where you live, you may have rights to access, correct, delete, or restrict the use of your personal information. You can contact me through the <a href={withBase('/contact/')}>contact page</a> if you want to exercise these rights.</p>
+				<p>You can ask me to access, correct or delete your personal information, to restrict its use, or you can object to it being processed. Send your request through the <a href={withBase('/contact/')}>contact page</a>. You can also file a complaint with the Spanish data protection authority, the <a href="https://www.aepd.es/" target="_blank" rel="noopener noreferrer">AEPD</a>, or with the authority in your own country.</p>
 			</section>
 
 			<section aria-labelledby="privacy-cookies-title">
 				<h2 id="privacy-cookies-title">Cookies and analytics</h2>
-				<p>I do not use analytics cookies on this website. The site stores your light or dark theme preference in your browser so the interface can keep your chosen display mode.</p>
+				<p>This website sets no cookies and uses no analytics or tracking service. It only stores your light or dark theme choice in your browser’s local storage, and that value never leaves your device.</p>
 			</section>
 
 			<section aria-labelledby="privacy-updated-title">
 				<h2 id="privacy-updated-title">Last updated</h2>
-				<p>June 2026</p>
+				<p>October 2026</p>
 			</section>
 		</div>
 	</section>
@@ -141,7 +147,15 @@ const withBase = (href: string) => (href === '/' ? normalizedBase : `${normalize
 		line-height: 1.08;
 	}
 
-	.privacy-prose p {
+	.privacy-prose ul {
+		display: grid;
+		gap: 0.55rem;
+		margin: 0;
+		padding-left: 1.2rem;
+	}
+
+	.privacy-prose p,
+	.privacy-prose li {
 		color: var(--color-body-text);
 		font-size: var(--type-reading-size);
 		line-height: var(--type-reading-line);

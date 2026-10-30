@@ -121,6 +121,7 @@
 	--ux-signal: #5869d8;
 	--ux-signal-wash: #f7f7f7;
 	--ux-focus: var(--ux-signal);
+	--ux-error: #b42318;
 
 	/* Mediterranean center-glow: same canvas, warm accent in the middle. */
 	--ux-immersive-canvas: var(--ux-canvas);
@@ -158,6 +159,7 @@
 	--color-action: var(--ux-action);
 	--color-action-hover: var(--ux-action-hover);
 	--color-accent-text: var(--ux-signal);
+	--color-error: var(--ux-error);
 	--color-accent-wash: var(--ux-signal-wash);
 	--color-focus: var(--ux-focus);
 
@@ -263,6 +265,7 @@
 	--ux-signal: #9dacff;
 	--ux-signal-wash: #171b22;
 	--ux-focus: var(--ux-signal);
+	--ux-error: #ff9b8f;
 	--ux-card-subtext: #d7d0c8;
 
 	--ux-immersive-canvas:
@@ -303,6 +306,7 @@
 	--color-action: var(--ux-action);
 	--color-action-hover: var(--ux-action-hover);
 	--color-accent-text: var(--ux-signal);
+	--color-error: var(--ux-error);
 	--color-accent-wash: var(--ux-signal-wash);
 	--color-focus: var(--ux-focus);
 
