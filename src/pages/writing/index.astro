@@ -5,7 +5,7 @@ import WritingList from '../../components/writing/WritingList.astro';
 import WritingPublicationList from '../../components/writing/WritingPublicationList.astro';
 import WritingTopicFilter from '../../components/writing/WritingTopicFilter.astro';
 import { IDENTITY } from '../../data/identity';
-import { getWritingArticles, groupWriting, seriesHref } from '../../data/writing';
+import { getUpcomingParts, getWritingArticles, groupWriting, seriesHref } from '../../data/writing';
 
 // The filter only earns its space once the list is long enough to need it.
 const FILTER_THRESHOLD = 8;
@@ -14,7 +14,7 @@ const PREVIOUS_VISIBLE = 10;
 
 const withBase = (href: string) => `${import.meta.env.BASE_URL}${href.replace(/^\//, '')}`;
 const articles = await getWritingArticles();
-const { latest, years } = groupWriting(articles);
+const { latest, years } = groupWriting(articles, await getUpcomingParts(articles));
 const showFilter = articles.length >= FILTER_THRESHOLD;
 const previousCount = years.reduce((sum, group) => sum + group.articles.length, 0);
 
@@ -63,7 +63,7 @@ const structuredData = {
 			<div class="writing-hero__copy">
 				<h1 id="writing-title">Notes on control software for complex dynamic systems.</h1>
 				<p class="writing-hero__lead">Control software decides how a machine uses its energy and how it reacts when something goes wrong. In these articles I explain how that software is designed and tested, and what it changes for the companies that build and operate the machines.</p>
-				<p class="writing-hero__author">By {IDENTITY.name}, {IDENTITY.primaryTitle}. The articles build on {IDENTITY.years} years of <a href={withBase('/cv/')} data-analytics-event="related_proof_click" data-cta-id="writing-hero-cv" data-cta-placement="writing-index" data-cta-intent="proof" data-source-section="writing-hero">vehicle control software for Scania, Volvo CE and MAHLE</a> and a PhD on engine control systems. <a href={withBase('/about/')}>About me</a></p>
+				<p class="writing-hero__author">By {IDENTITY.name}, {IDENTITY.primaryTitle}, with {IDENTITY.years} years of <a href={withBase('/cv/')} data-analytics-event="related_proof_click" data-cta-id="writing-hero-cv" data-cta-placement="writing-index" data-cta-intent="proof" data-source-section="writing-hero">experience</a>. More <a href={withBase('/about/')}>about me</a></p>
 			</div>
 		</section>
 

@@ -12,11 +12,22 @@ export interface WritingSeries {
 	readonly summary: string;
 	/** Shorter summary for compact lists (landing page), 100 characters at most. */
 	readonly teaser?: string;
+	/**
+	 * Completes "Part of a series …" under the lead of each part, so a reader who lands on one part
+	 * sees what the whole series covers. About ten words, no numbers (the hook carries those), no
+	 * full stop. Hidden on phones.
+	 */
+	readonly partContext?: string;
+	/** Paragraphs shown under the summary on the series page: the context and the main results. */
+	readonly overview?: readonly string[];
+	/** The claim the series argues, shown after the overview on the series page. */
+	readonly thesis?: string;
 	/** Slug of the Work project the series draws on (src/content/projects). */
 	readonly relatedProject?: string;
 	/**
-	 * Total number of parts when the series is published part by part. While fewer parts are
-	 * published, the series reads "2 of 4 articles". Leave it out once every part is out.
+	 * Total number of parts when the series is published part by part. Draft parts already count
+	 * as coming, so this is only needed for parts that do not exist yet. Leave it out once every
+	 * part is out.
 	 */
 	readonly plannedParts?: number;
 }
@@ -28,6 +39,12 @@ export const WRITING_SERIES: readonly WritingSeries[] = [
 		summary:
 			'What the energy saving of thermal control software is worth in an electric truck, in battery size, in cost per tonne-kilometre, in the profit of the haulier and in the design of the vehicle.',
 		teaser: 'What the energy saving of thermal control software is worth in an electric truck.',
+		partContext: 'on what thermal control software is worth in an electric truck',
+		overview: [
+			'An electric long-haul truck carries a battery sized for the worst-case scenario, and in the reference truck of this series that battery is about 32% of the purchase price. Predictive thermal control saves 2–4% of the energy of the truck. Used for a smaller battery, more freight or shorter charging, that saving is worth 1.2–2.5 times the electricity alone, and a 3% gain reaches €21,600–30,500 per truck over 8 years when the vehicle is designed around the software.',
+		],
+		thesis:
+			'Thermal control software is usually valued only for the electricity it saves. How it is designed also decides how large the battery must be, how long it lasts and how fast it charges, and that gives it as much weight in the business case as the price of electricity itself.',
 		relatedProject: 'electric-truck-thermal-management',
 	},
 ];

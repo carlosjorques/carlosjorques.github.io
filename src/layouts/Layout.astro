@@ -13,5 +13,6 @@ const { title, description, ogType, ogImage, ogImageAlt } = Astro.props;
 ---
 
 <BaseLayout title={title} description={description} ogType={ogType} ogImage={ogImage} ogImageAlt={ogImageAlt}>
+	<slot name="head" slot="head" />
 	<slot />
 </BaseLayout>

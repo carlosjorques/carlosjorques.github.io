@@ -29,7 +29,7 @@ export interface WritingArticle {
 	readonly description: string;
 	/** Optional one-line version of the description for compact lists. */
 	readonly teaser?: string;
-	readonly keyFigure?: { readonly value: string; readonly label: string };
+	readonly keyFigure?: { readonly value: string; readonly label: string; readonly frame?: 'In short' | 'Why it matters' };
 	readonly date: Date;
 	readonly dateIso: string;
 	readonly minutes: number;
@@ -46,6 +46,8 @@ export interface WritingSeriesGroup {
 	/** Page that presents the whole series, for sharing. */
 	readonly href: string;
 	readonly parts: readonly WritingArticle[];
+	/** Draft parts of the series that are not published yet, in part order. Shown without a link. */
+	readonly upcoming: readonly WritingArticle[];
 	readonly started: Date;
 	readonly startedIso: string;
 	readonly totalMinutes: number;
@@ -117,13 +119,25 @@ export async function getWritingArticles({ includeDrafts = SHOW_DRAFT_WRITING } 
 
 export const seriesHref = (id: string) => withBase(`/writing/series/${id}/`);
 
-export const toSeriesGroup = (articles: readonly WritingArticle[], id: string): WritingSeriesGroup => {
-	const parts = articles.filter((article) => article.series?.id === id).sort((a, b) => (a.series?.part ?? 0) - (b.series?.part ?? 0));
+/**
+ * Series parts that are still drafts and are not in `visible`. A series published part by part
+ * lists them as "coming", with the month of their planned publishDate.
+ */
+export async function getUpcomingParts(visible: readonly WritingArticle[]) {
+	const shown = new Set(visible.map((article) => article.slug));
+	return (await getWritingArticles({ includeDrafts: true })).filter((article) => article.isDraft && article.series && !shown.has(article.slug));
+}
+
+const byPart = (a: WritingArticle, b: WritingArticle) => (a.series?.part ?? 0) - (b.series?.part ?? 0);
+
+export const toSeriesGroup = (articles: readonly WritingArticle[], id: string, upcoming: readonly WritingArticle[] = []): WritingSeriesGroup => {
+	const parts = articles.filter((article) => article.series?.id === id).sort(byPart);
 	const first = parts.reduce((earliest, part) => (part.date < earliest.date ? part : earliest), parts[0]);
 	return {
 		definition: parts[0].series!.definition,
 		href: seriesHref(id),
 		parts,
+		upcoming: upcoming.filter((article) => article.series?.id === id && !parts.some((part) => part.slug === article.slug)).sort(byPart),
 		started: first.date,
 		startedIso: first.dateIso,
 		totalMinutes: parts.reduce((sum, part) => sum + part.minutes, 0),
@@ -131,14 +145,14 @@ export const toSeriesGroup = (articles: readonly WritingArticle[], id: string): 
 };
 
 /** Every series that has at least one visible part, newest first. */
-export const getSeriesGroups = (articles: readonly WritingArticle[]) =>
-	[...new Set(articles.flatMap((article) => (article.series ? [article.series.id] : [])))].map((id) => toSeriesGroup(articles, id));
+export const getSeriesGroups = (articles: readonly WritingArticle[], upcoming: readonly WritingArticle[] = []) =>
+	[...new Set(articles.flatMap((article) => (article.series ? [article.series.id] : [])))].map((id) => toSeriesGroup(articles, id, upcoming));
 
-/** "4 articles", or "2 of 4 articles" while later parts of a planned series are still unpublished. */
-export const seriesCountLabel = ({ definition, parts }: WritingSeriesGroup) =>
-	definition.plannedParts && definition.plannedParts > parts.length
-		? `${parts.length} of ${definition.plannedParts} articles`
-		: `${parts.length} articles`;
+/** "4 articles", or "2 of 4 articles" while later parts of the series are still unpublished. */
+export const seriesCountLabel = ({ definition, parts, upcoming }: WritingSeriesGroup) => {
+	const total = Math.max(parts.length + upcoming.length, definition.plannedParts ?? 0);
+	return total > parts.length ? `${parts.length} of ${total} articles` : `${parts.length} articles`;
+};
 
 /** True when the parts of a series were published on different days, so each part shows its own date. */
 export const partsHaveOwnDates = (parts: readonly WritingArticle[]) => new Set(parts.map((part) => part.dateIso)).size > 1;
@@ -149,7 +163,7 @@ export const partsHaveOwnDates = (parts: readonly WritingArticle[]) => new Set(p
  * publication is always latest; up to LATEST_MAX_ITEMS publications join it if published within
  * LATEST_WINDOW_MONTHS of it. The rest is grouped by year as individual articles.
  */
-export function groupWriting(articles: readonly WritingArticle[]) {
+export function groupWriting(articles: readonly WritingArticle[], upcoming: readonly WritingArticle[] = []) {
 	type Item = { readonly date: Date; readonly articles: readonly WritingArticle[]; readonly seriesId?: string };
 	const items: Item[] = [];
 	const seen = new Set<string>();
@@ -169,7 +183,7 @@ export function groupWriting(articles: readonly WritingArticle[]) {
 	const latestItems = items.filter((item, index) => index === 0 || (index < LATEST_MAX_ITEMS && cutoff && item.date >= cutoff));
 
 	const latest: WritingPublication[] = latestItems.map((item) => item.seriesId
-		? { kind: 'series', group: toSeriesGroup(articles, item.seriesId) }
+		? { kind: 'series', group: toSeriesGroup(articles, item.seriesId, upcoming) }
 		: { kind: 'article', article: item.articles[0] });
 
 	const latestSlugs = new Set(latestItems.flatMap((item) => item.articles.map((article) => article.slug)));

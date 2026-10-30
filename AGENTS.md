@@ -703,6 +703,7 @@ Project skills (`.agents/skills/`):
 | Task | Skills |
 | --- | --- |
 | Work index, cards, project pages | work-entry-authoring |
+| Assess, rate or re-assess any page (consistent KPIs, score log) | portfolio-page-review |
 | New page, section or layout | site-identity-guidelines, frontend-implementation-skill, astro-architecture-skill |
 | Content collections and routes | astro-content-collections, astro-architecture-skill |
 | Recruiter and SEO audits | recruiter-scan-audit, seo-accessibility-performance |

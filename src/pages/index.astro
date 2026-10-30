@@ -3,7 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import { Image } from 'astro:assets';
 import { IDENTITY, LINKEDIN_URL } from '../data/identity';
 import { projectCards } from '../data/projectCards';
-import { getWritingArticles, groupWriting } from '../data/writing';
+import { getUpcomingParts, getWritingArticles, groupWriting } from '../data/writing';
 import WritingPublicationList from '../components/writing/WritingPublicationList.astro';
 import portrait from '../assets/carlos-jorques-intro.webp';
 
@@ -12,7 +12,8 @@ const normalizedBase = baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`;
 const withBase = (href: string) => (href === '/' ? normalizedBase : `${normalizedBase}${href.replace(/^\//, '')}`);
 
 // Same publications as "Latest publications" on /writing/: a series counts as one entry.
-const latestWriting = groupWriting(await getWritingArticles({ includeDrafts: false })).latest;
+const publishedWriting = await getWritingArticles({ includeDrafts: false });
+const latestWriting = groupWriting(publishedWriting, await getUpcomingParts(publishedWriting)).latest;
 const selectedProjects = projectCards.map((card) => ({
 	title: card.title,
 	plain: card.plain,

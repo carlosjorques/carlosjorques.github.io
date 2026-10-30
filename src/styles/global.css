@@ -205,6 +205,8 @@
 
 	/* Layout */
 	--content-width: 1248px;
+	/* Label column of the writing lists: fits a full date ("29 Oct 2026") with room before the title. */
+	--writing-label-width: 7.5rem;
 	--content-narrow: 760px;
 	--measure-reading: 760px;
 	--measure-compact: 620px;

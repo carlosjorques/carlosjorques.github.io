@@ -5,7 +5,7 @@ import { toTopicSlug, type WritingArticle } from '../../data/writing';
  * One list of article rows.
  * - `full`: label, title, description and reading time (latest publication).
  * - `compact`: date, title, a one-line teaser and reading time (previous articles).
- * Series parts are labelled "Part N" in an ordered list, with "Start here" on Part 1.
+ * Series parts are labelled "Part N" in an ordered list.
  */
 interface Props {
 	articles: readonly WritingArticle[];
@@ -19,22 +19,20 @@ interface Props {
 const { articles, label, variant = 'full', headingLevel, sourceSection } = Astro.props;
 const List = label === 'part' ? 'ol' : 'ul';
 const Heading = `h${headingLevel}` as 'h3' | 'h4';
-const dateFormat = new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'short' });
+const dateFormat = new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
 const compact = variant === 'compact';
 ---
 
 <List class:list={['writing-list', { 'writing-list--compact': compact }]} role="list">
 	{articles.map((article) => {
 		const id = `wr-${article.slug}`;
-		const startHere = label === 'part' && article.series?.part === 1 && articles.length > 1;
-		const describedBy = [startHere && `${id}-start`, `${id}-desc`].filter(Boolean).join(' ');
 		return (
 			<li data-filter-item data-topics={article.topics.map(toTopicSlug).join(' ')}>
 				<a
 					class="writing-row"
 					href={article.href}
 					aria-labelledby={id}
-					aria-describedby={describedBy}
+					aria-describedby={`${id}-desc`}
 					data-analytics-event="writing_article_click"
 					data-cta-id={`writing-index-${article.slug}`}
 					data-cta-placement="writing-index"
@@ -45,7 +43,6 @@ const compact = variant === 'compact';
 						? (
 							<span class="writing-row__label">
 								Part {article.series?.part}
-								{startHere && <span id={`${id}-start`} class="writing-row__start">Start here</span>}
 							</span>
 						)
 						: <time class="writing-row__label" datetime={article.dateIso}>{dateFormat.format(article.date)}</time>}
@@ -68,10 +65,9 @@ const compact = variant === 'compact';
 
 <style>
 	.writing-list { margin: 0; padding: 0; list-style: none; }
-	.writing-row { display: grid; grid-template-columns: 5rem minmax(0, 1fr) auto; gap: 1.25rem; align-items: baseline; padding: .85rem 0; color: inherit; text-decoration: none; }
+	.writing-row { display: grid; grid-template-columns: var(--writing-label-width) minmax(0, 1fr) auto; gap: 1.25rem; align-items: baseline; padding: .85rem 0; color: inherit; text-decoration: none; }
 	.writing-row__label,
 	.writing-row__time { color: var(--color-muted); font-family: var(--font-mono); font-size: var(--type-chip-size); letter-spacing: var(--type-chip-tracking); line-height: 1.4; text-transform: uppercase; white-space: nowrap; }
-	.writing-row__start { display: block; margin-top: .3rem; color: var(--color-accent-text); font-weight: 600; }
 	.writing-row__main { display: grid; gap: .3rem; max-width: 46rem; }
 	.writing-row__title { max-width: none; margin: 0; color: var(--color-text); font-family: var(--font-body); font-size: 1.12rem; font-weight: 600; letter-spacing: -.01em; line-height: 1.35; }
 	.writing-row__description { color: var(--color-muted); font-size: .95rem; line-height: 1.5; }
@@ -88,7 +84,6 @@ const compact = variant === 'compact';
 	@media (max-width: 720px) {
 		.writing-row { grid-template-columns: minmax(0, 1fr) auto; gap: .35rem 1rem; }
 		.writing-row__label { grid-column: 1; grid-row: 1; }
-		.writing-row__start { display: inline; margin: 0 0 0 .6rem; }
 		.writing-row__time { grid-column: 2; grid-row: 1; }
 		.writing-row__main { grid-column: 1 / -1; }
 		.writing-list--compact .writing-row { gap: .15rem 1rem; }

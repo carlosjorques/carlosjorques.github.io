@@ -3,6 +3,9 @@ import { defineConfig } from 'astro/config';
 import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
 import rehypeSplitReferences from './src/plugins/rehype-split-references.mjs';
+import rehypeWrapTables from './src/plugins/rehype-wrap-tables.mjs';
+import rehypeMidArticleNote from './src/plugins/rehype-mid-article-note.mjs';
+import rehypeImageSize from './src/plugins/rehype-image-size.mjs';
 
 // https://astro.build/config
 export default defineConfig({
@@ -18,7 +21,7 @@ export default defineConfig({
   },
   markdown: {
     remarkPlugins: [remarkMath],
-    rehypePlugins: [rehypeKatex, rehypeSplitReferences],
+    rehypePlugins: [rehypeKatex, rehypeWrapTables, rehypeSplitReferences, rehypeMidArticleNote, rehypeImageSize],
   },
   devToolbar: {
     enabled: false,

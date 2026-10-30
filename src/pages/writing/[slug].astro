@@ -2,7 +2,8 @@
 import { getCollection, getEntry, render } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 import ContactCTA from '../../components/ContactCTA.astro';
-import { SHOW_DRAFT_WRITING, getWritingArticles, seriesHref } from '../../data/writing';
+import { SHOW_DRAFT_WRITING, getUpcomingParts, getWritingArticles, seriesHref } from '../../data/writing';
+import { IDENTITY } from '../../data/identity';
 import 'katex/dist/katex.min.css';
 
 export async function getStaticPaths() {
@@ -15,9 +16,10 @@ export async function getStaticPaths() {
 }
 
 const { entry, article } = Astro.props;
-const { Content, remarkPluginFrontmatter } = await render(entry);
-// Set by src/plugins/rehype-split-references.mjs, which takes the section out of the body.
+const { Content, headings, remarkPluginFrontmatter } = await render(entry);
+// Set by src/plugins/rehype-split-references.mjs, which takes these sections out of the body.
 const references = remarkPluginFrontmatter.references as { title: string; html: string } | undefined;
+const appendix = remarkPluginFrontmatter.appendix as { title: string; html: string } | undefined;
 const shortDate = new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
 const articleSlug = article.slug;
 const baseUrl = import.meta.env.BASE_URL;
@@ -28,14 +30,48 @@ const withBase = (href: string) =>
 		: `${normalizedBase}${href.replace(/^\//, '')}`;
 const label = entry.data.draft && !SHOW_DRAFT_WRITING
 	? 'Writing in preparation'
-	: entry.data.publishDate.toLocaleDateString('en', {
-			year: 'numeric',
-			month: 'long',
-			day: 'numeric',
-		});
+	: shortDate.format(entry.data.publishDate);
 
 const publishedDate = entry.data.publishDate.toISOString();
-const metadata = [entry.data.category, entry.data.readingTime].filter(Boolean);
+const updatedDate = entry.data.updatedDate && entry.data.updatedDate > entry.data.publishDate ? entry.data.updatedDate : undefined;
+const pageTitle = article.series ? `${article.title} | ${entry.data.title}` : entry.data.title;
+// Contents index: the h2 sections of the body, then the sections split out after the CTA.
+const contents = [
+	...headings.filter((heading) => heading.depth === 2).map((heading) => ({ id: heading.slug, label: heading.text })),
+	...(appendix ? [{ id: 'article-appendix-title', label: appendix.title }] : []),
+	...(references ? [{ id: 'article-references-title', label: references.title }] : []),
+];
+const showContents = contents.length >= 4;
+// Long articles get a shortcut from the header to their closing section, so a reader can see the
+// result before deciding to read the whole piece.
+const summaryHeading = headings.find((heading) => heading.depth === 2 && /summary|conclusion/i.test(heading.text));
+const summaryMinutes = parseInt(entry.data.readingTime ?? '', 10);
+const showSummaryLink = Boolean(summaryHeading) && (Number.isNaN(summaryMinutes) || summaryMinutes >= 10);
+// The key figure closes the lead as a bold hook sentence.
+const keyFigure = entry.data.keyFigure;
+const socialImage = entry.data.socialImage;
+const site = Astro.site ?? Astro.url.origin;
+const absolute = (path: string) => new URL(path, site).toString();
+const structuredData = {
+	'@context': 'https://schema.org',
+	'@type': 'BlogPosting',
+	headline: article.title,
+	description: entry.data.description,
+	datePublished: entry.data.publishDate.toISOString().slice(0, 10),
+	...(updatedDate ? { dateModified: updatedDate.toISOString().slice(0, 10) } : {}),
+	inLanguage: 'en',
+	url: absolute(Astro.url.pathname),
+	mainEntityOfPage: absolute(Astro.url.pathname),
+	keywords: entry.data.tags.join(', '),
+	...(entry.data.readingTime ? { timeRequired: `PT${parseInt(entry.data.readingTime, 10)}M` } : {}),
+	...(socialImage ? { image: absolute(socialImage.src) } : {}),
+	author: { '@type': 'Person', '@id': absolute('/#person'), name: IDENTITY.name, url: absolute('/about/') },
+	publisher: { '@id': absolute('/#person') },
+	...(article.series ? {
+		isPartOf: { '@type': 'CreativeWorkSeries', name: article.series.definition.title, url: absolute(seriesHref(article.series.id)) },
+		position: article.series.part,
+	} : {}),
+};
 const relatedProject = article.relatedProject ? await getEntry('projects', article.relatedProject) : undefined;
 
 const allArticles = await getWritingArticles();
@@ -45,6 +81,14 @@ const seriesParts = article.series
 const partIndex = seriesParts.findIndex((part) => part.slug === article.slug);
 const previousPart = partIndex > 0 ? seriesParts[partIndex - 1] : undefined;
 const nextPart = partIndex >= 0 ? seriesParts[partIndex + 1] : undefined;
+// Unpublished parts count in "Part X/N", and the first of them is announced after the last
+// published part, without a link.
+const upcomingParts = article.series
+	? (await getUpcomingParts(allArticles)).filter((other) => other.series?.id === article.series!.id).sort((a, b) => a.series!.part - b.series!.part)
+	: [];
+const seriesTotal = seriesParts.length + upcomingParts.length;
+const comingPart = !nextPart && partIndex === seriesParts.length - 1 ? upcomingParts[0] : undefined;
+const monthYear = new Intl.DateTimeFormat('en-GB', { month: 'short', year: 'numeric' });
 
 // Related articles: shared topics count most, then the same project, then recency. Parts of the
 // same series are left out, since the series navigation already links them.
@@ -66,129 +110,325 @@ const relatedArticles = (matched.length > 0 ? matched.slice(0, RELATED_MAX) : re
 	.map(({ other }) => other);
 ---
 
-<Layout title={entry.data.title} description={entry.data.description}>
-	<article class="writing-post">
-		<header class="writing-post__hero" aria-labelledby="article-title">
-			<div class="page-container writing-post__container">
-				<p class="writing-post__category">{entry.data.category}</p>
-				{article.series && (
-					<p class="writing-post__series">
-						Part {article.series.part} of <a href={seriesHref(article.series.id)}>{article.series.definition.title}</a>
+<Layout title={pageTitle} description={entry.data.description} ogType="article" ogImage={socialImage ? withBase(socialImage.src) : undefined} ogImageAlt={socialImage?.alt}>
+	<script type="application/ld+json" slot="head" set:html={JSON.stringify(structuredData)} />
+	<article class="writing-post" id="article-top">
+		<header class="page-container writing-post__container writing-post__hero" aria-labelledby="article-title">
+			<div class="writing-post__top">
+				<p class="writing-post__eyebrow-line">
+					<time datetime={publishedDate}>{label}</time>
+					{updatedDate && <><span aria-hidden="true">·</span><span>Updated <time datetime={updatedDate.toISOString()}>{shortDate.format(updatedDate)}</time></span></>}
+					{entry.data.readingTime && <><span aria-hidden="true">·</span><span>{entry.data.readingTime}</span></>}
+					{article.series && <><span class="writing-post__sep-series" aria-hidden="true">·</span><span class="writing-post__eyebrow-series">Part {article.series.part}/{seriesTotal} of <a class="writing-post__eyebrow" href={seriesHref(article.series.id)} aria-label={`series: ${article.series.definition.title}`}>series</a></span></>}
+				</p>
+				{(previousPart || nextPart) ? (
+					<span class="writing-post__series-top">
+						{previousPart && <a href={previousPart.href} rel="prev" data-analytics-event="writing_article_click" data-cta-id={`article-${articleSlug}-top-previous-part`} data-cta-placement="writing-article" data-cta-intent="authority" data-source-section="article-series-top"><span aria-hidden="true">←&nbsp;</span>Part {previousPart.series?.part}</a>}
+						{nextPart && <a href={nextPart.href} rel="next" data-analytics-event="writing_article_click" data-cta-id={`article-${articleSlug}-top-next-part`} data-cta-placement="writing-article" data-cta-intent="authority" data-source-section="article-series-top">Part {nextPart.series?.part}<span aria-hidden="true">&nbsp;→</span></a>}
+					</span>
+				) : (
+					<a class="writing-post__all-top" href={withBase('writing/')} data-analytics-event="writing_article_click" data-cta-id={`article-${articleSlug}-top-all-writing`} data-cta-placement="writing-article" data-cta-intent="authority" data-source-section="article-header"><span aria-hidden="true">←&nbsp;</span>All writing</a>
+				)}
+			</div>
+			<div class="writing-post__copy">
+				<h1 id="article-title">{article.title}</h1>
+				<p class="writing-post__lead">
+					{entry.data.description}
+					{article.series?.definition.partContext && (
+						<span class="writing-post__lead-series"> Part of a <a href={seriesHref(article.series.id)} data-analytics-event="writing_article_click" data-cta-id={`article-${articleSlug}-lead-series`} data-cta-placement="writing-article" data-cta-intent="authority" data-source-section="article-header">series</a> {article.series.definition.partContext}.</span>
+					)}
+				</p>
+				{keyFigure && (
+					<p class="writing-post__hook">
+						<span class="writing-post__hook-frame">{keyFigure.frame ?? 'In short'}</span>
+						<strong>{keyFigure.value} {keyFigure.label}.</strong>
+						{showSummaryLink && (
+							<>&ensp;<a class="writing-post__hook-link" href={`#${summaryHeading!.slug}`} data-analytics-event="writing_article_click" data-cta-id={`article-${articleSlug}-summary-shortcut`} data-cta-placement="writing-article" data-cta-intent="authority" data-source-section="article-header">Skip to the {/summary/i.test(summaryHeading!.text) ? 'summary' : 'conclusion'} <span aria-hidden="true">↓</span></a></>
+						)}
 					</p>
 				)}
-				<h1 id="article-title" class="hero-title">{entry.data.title}</h1>
-				{entry.data.subtitle && <p class="writing-post__subtitle">{entry.data.subtitle}</p>}
-				<p class="writing-post__lead">{entry.data.description}</p>
-				<p class="writing-post__meta">
-					<time datetime={publishedDate}>{label}</time>
-					{metadata.map((item) => <span>{item}</span>)}
+				{showSummaryLink && !keyFigure && (
+					<p class="writing-post__summary-link">
+						<a href={`#${summaryHeading!.slug}`} data-analytics-event="writing_article_click" data-cta-id={`article-${articleSlug}-summary-shortcut`} data-cta-placement="writing-article" data-cta-intent="authority" data-source-section="article-header">Go to the {summaryHeading!.text.replace(/^\d+\.\s*/, '').toLowerCase()} <span aria-hidden="true">↓</span></a>
+					</p>
+				)}
+				<p class="writing-post__author">
+					By {IDENTITY.name}, {IDENTITY.primaryTitle}, with {IDENTITY.years} years of <a href={withBase('cv/')} data-analytics-event="related_proof_click" data-cta-id={`article-${articleSlug}-author-cv`} data-cta-placement="writing-article" data-cta-intent="proof" data-source-section="article-author">experience</a>. More <a href={withBase('about/')}>about me</a>
 				</p>
 				<ul class="tag-list writing-post__tags" aria-label="Article tags">
 					{entry.data.tags.map((tag) => <li class="tag">{tag}</li>)}
 				</ul>
-				{
-					entry.data.heroImage && (
-						<figure class="writing-post__hero-figure">
-							<img src={withBase(entry.data.heroImage.src)} alt={entry.data.heroImage.alt} />
-						</figure>
-					)
-				}
 			</div>
+			{
+				entry.data.heroImage && (
+					<figure class="writing-post__hero-figure">
+						<img src={withBase(entry.data.heroImage.src)} alt={entry.data.heroImage.alt} />
+					</figure>
+				)
+			}
 		</header>
 
-		<section class="writing-post__body" aria-label="Article content">
-			<div class="page-container writing-post__container prose">
-				<Content />
-			</div>
-		</section>
-
-		{article.series && seriesParts.length > 1 && (
-			<nav class="writing-post__series-nav" aria-label={`${article.series.definition.title}: other parts`}>
-				<div class="page-container writing-post__container">
-					<p class="writing-post__series-nav-head">
-						Part {article.series.part} of {seriesParts.length} <span aria-hidden="true">&middot;</span> <a href={seriesHref(article.series.id)}>All parts of the series</a>
+		<div class="page-container writing-post__container writing-post__grid">
+			{showContents && (
+				<div class="article-toc-col">
+				<nav class="article-toc" aria-labelledby="article-toc-title" data-article-toc>
+					<p id="article-toc-title" class="article-toc__title">Contents</p>
+					<ol class="article-toc__list">
+						{contents.map((item) => <li><a href={`#${item.id}`}>{item.label}</a></li>)}
+					</ol>
+					<p class="article-toc__nav">
+						{previousPart && <a href={previousPart.href} rel="prev" aria-label={`Previous: Part ${previousPart.series?.part}, ${previousPart.title}`} data-analytics-event="writing_article_click" data-cta-id={`article-${articleSlug}-toc-previous-part`} data-cta-placement="writing-article" data-cta-intent="authority" data-source-section="article-toc"><span aria-hidden="true">←&nbsp;</span>Part {previousPart.series?.part}</a>}
+						<a href="#top">Top <span aria-hidden="true">↑</span></a>
+						{nextPart && <a href={nextPart.href} rel="next" aria-label={`Next: Part ${nextPart.series?.part}, ${nextPart.title}`} data-analytics-event="writing_article_click" data-cta-id={`article-${articleSlug}-toc-next-part`} data-cta-placement="writing-article" data-cta-intent="authority" data-source-section="article-toc">Part {nextPart.series?.part}<span aria-hidden="true">&nbsp;→</span></a>}
 					</p>
-					<div class="writing-post__series-nav-links">
-						{previousPart ? (
-							<a class="series-step series-step--prev" href={previousPart.href} rel="prev" data-analytics-event="writing_article_click" data-cta-id={`article-${articleSlug}-previous-part`} data-cta-placement="writing-article" data-cta-intent="authority" data-source-section="article-series-nav">
-								<span class="series-step__label"><span aria-hidden="true">←&nbsp;</span>Previous: Part {previousPart.series?.part}</span>
-								<span class="series-step__title">{previousPart.title}</span>
-							</a>
-						) : <span />}
-						{nextPart && (
-							<a class="series-step series-step--next" href={nextPart.href} rel="next" data-analytics-event="writing_article_click" data-cta-id={`article-${articleSlug}-next-part`} data-cta-placement="writing-article" data-cta-intent="authority" data-source-section="article-series-nav">
-								<span class="series-step__label">Next: Part {nextPart.series?.part}<span aria-hidden="true">&nbsp;→</span></span>
-								<span class="series-step__title">{nextPart.title}</span>
-							</a>
-						)}
-					</div>
+				</nav>
 				</div>
-			</nav>
-		)}
+			)}
 
-		<footer class="writing-post__footer">
-			<div class="page-container writing-post__container">
-				<ContactCTA
-					title="Want to compare notes?"
-					body="If this article connects with a problem you are working on, send a message and I will reply with my view on the reasoning and the trade-offs."
-					primaryHref="/contact/?context=technical&source=writing#message-title"
-					primaryLabel="Discuss this topic"
-					secondaryHref="writing/"
-					secondaryLabel="Read more writing"
-					sourceSection="writing-article"
-					ctaIdPrefix="writing-article"
-				/>
+			<div class="writing-post__main">
+				<section class="writing-post__body" aria-label="Article content">
+					<div class="prose">
+						<Content />
+					</div>
+				</section>
 			</div>
+
+				{article.series && seriesTotal > 1 && (
+					<nav class="writing-post__series-nav" aria-label={`${article.series.definition.title}: other parts`}>
+						<p class="writing-post__series-nav-head">
+							Part {article.series.part} of {seriesTotal} <span aria-hidden="true">&middot;</span> <a href={seriesHref(article.series.id)}>All parts of the series</a>
+						</p>
+						<div class="writing-post__series-nav-links">
+							{previousPart && (
+								<a class="series-step series-step--prev" href={previousPart.href} rel="prev" data-analytics-event="writing_article_click" data-cta-id={`article-${articleSlug}-previous-part`} data-cta-placement="writing-article" data-cta-intent="authority" data-source-section="article-series-nav">
+									<span class="series-step__label"><span aria-hidden="true">←&nbsp;</span>Previous: Part {previousPart.series?.part}</span>
+									<span class="series-step__title">{previousPart.title}</span>
+								</a>
+							)}
+							{nextPart && (
+								<a class="series-step series-step--next" href={nextPart.href} rel="next" data-analytics-event="writing_article_click" data-cta-id={`article-${articleSlug}-next-part`} data-cta-placement="writing-article" data-cta-intent="authority" data-source-section="article-series-nav">
+									<span class="series-step__label">Next: Part {nextPart.series?.part}<span aria-hidden="true">&nbsp;→</span></span>
+									<span class="series-step__title">{nextPart.title}</span>
+								</a>
+							)}
+							{comingPart && (
+								<p class:list={['series-step', 'series-step--next', 'series-step--coming']}>
+									<span class="series-step__label">Next: Part {comingPart.series?.part}, coming <time datetime={comingPart.dateIso.slice(0, 7)}>{monthYear.format(comingPart.date)}</time></span>
+									<span class="series-step__title">{comingPart.title}</span>
+								</p>
+							)}
+						</div>
+					</nav>
+				)}
+		</div>
+
+		<footer class="page-container writing-post__container writing-post__footer" data-article-end>
+					<ContactCTA
+						title="Working on a similar control problem?"
+						body="Describe the system you are working on in a short message. I will reply with how this approach could apply to it and where I have solved similar problems."
+						primaryHref="/contact/?context=technical&source=writing#message-title"
+						primaryLabel="Discuss a technical question"
+						secondaryHref={relatedProject ? `work/${relatedProject.id}/` : 'work/'}
+						secondaryLabel={relatedProject ? 'View the related project' : 'View work'}
+						sourceSection="writing-article"
+						ctaIdPrefix="writing-article"
+					/>
 		</footer>
 
-		{(relatedProject || relatedArticles.length > 0) && (
-			<section class="writing-post__related" aria-labelledby="article-related-title">
-				<div class="page-container writing-post__container">
-					<h2 id="article-related-title">Related content</h2>
-					<ul class="writing-post__related-list" role="list">
-						{relatedProject && (
-							<li>
-								<a
-									href={withBase(`work/${relatedProject.id}/`)}
-									data-analytics-event="related_proof_click"
-									data-cta-id={`article-${articleSlug}-related-project-${relatedProject.id}`}
-									data-cta-placement="writing-article"
-									data-cta-intent="proof"
-									data-source-section="article-related-content"
-									data-destination={withBase(`work/${relatedProject.id}/`)}
-								>{relatedProject.data.title}</a>
-								<span class="writing-post__related-meta">Project</span>
-							</li>
-						)}
-						{relatedArticles.map((other) => (
-							<li>
-								<a
-									href={other.href}
-									data-analytics-event="writing_article_click"
-									data-cta-id={`article-${articleSlug}-related-${other.slug}`}
-									data-cta-placement="writing-article"
-									data-cta-intent="authority"
-									data-source-section="article-related-content"
-								>{other.title}{other.series && <span class="writing-post__related-context"> · Part {other.series.part} of {other.series.definition.title}</span>}</a>
-								<time class="writing-post__related-meta" datetime={other.dateIso}>{shortDate.format(other.date)}</time>
-							</li>
-						))}
-					</ul>
-				</div>
-			</section>
-		)}
+		<div class="page-container writing-post__container writing-post__grid writing-post__after">
+			<div class="writing-post__main">
+				{(relatedProject || relatedArticles.length > 0) && (
+					<section class="writing-post__related" aria-labelledby="article-related-title">
+						<div class="writing-post__related-head">
+							<h2 id="article-related-title">Related content</h2>
+							<a class="writing-post__all" href={withBase('writing/')} data-analytics-event="writing_article_click" data-cta-id={`article-${articleSlug}-all-writing`} data-cta-placement="writing-article" data-cta-intent="authority" data-source-section="article-related-content">All articles <span aria-hidden="true">→</span></a>
+						</div>
+						<ul class="writing-post__related-list" role="list">
+							{relatedProject && (
+								<li>
+									<a
+										href={withBase(`work/${relatedProject.id}/`)}
+										data-analytics-event="related_proof_click"
+										data-cta-id={`article-${articleSlug}-related-project-${relatedProject.id}`}
+										data-cta-placement="writing-article"
+										data-cta-intent="proof"
+										data-source-section="article-related-content"
+										data-destination={withBase(`work/${relatedProject.id}/`)}
+									>{relatedProject.data.title}</a>
+									<span class="writing-post__related-meta">Project</span>
+								</li>
+							)}
+							{relatedArticles.map((other) => (
+								<li>
+									<a
+										href={other.href}
+										data-analytics-event="writing_article_click"
+										data-cta-id={`article-${articleSlug}-related-${other.slug}`}
+										data-cta-placement="writing-article"
+										data-cta-intent="authority"
+										data-source-section="article-related-content"
+									>{other.title}{other.series && <span class="writing-post__related-context"> · Part {other.series.part} of {other.series.definition.title}</span>}</a>
+									<time class="writing-post__related-meta" datetime={other.dateIso}>{shortDate.format(other.date)}</time>
+								</li>
+							))}
+						</ul>
+					</section>
+				)}
 
-		{references && (
-			<section class="writing-post__related writing-post__references" aria-labelledby="article-references-title">
-				<div class="page-container writing-post__container">
-					<h2 id="article-references-title">{references.title}</h2>
-					<div class="writing-post__references-body" set:html={references.html} />
-				</div>
-			</section>
+				{appendix && (
+					<section class="writing-post__body writing-post__appendix" aria-labelledby="article-appendix-title">
+						<div class="prose">
+							<h2 id="article-appendix-title">{appendix.title}</h2>
+							<Fragment set:html={appendix.html} />
+						</div>
+					</section>
+				)}
+
+				{references && (
+					<section class="writing-post__related writing-post__references" aria-labelledby="article-references-title">
+						<h2 id="article-references-title">{references.title}</h2>
+						<div class="writing-post__references-body" set:html={references.html} />
+					</section>
+				)}
+
+				<p class="writing-post__back"><a href="#top">Back to top <span aria-hidden="true">↑</span></a></p>
+			</div>
+		</div>
+
+		<dialog class="figure-viewer" aria-label="Enlarged figure" data-figure-viewer>
+			<button class="figure-viewer__close" type="button" data-figure-viewer-close>Close <span aria-hidden="true">✕</span></button>
+			<div class="figure-viewer__frame"><img alt="" data-figure-viewer-img /></div>
+			<p class="figure-viewer__caption" data-figure-viewer-caption></p>
+		</dialog>
+
+		{showContents && (
+			<nav class="article-jump" aria-label="Article contents" data-article-jump>
+				<details>
+					<summary>Contents</summary>
+					<div class="article-jump__panel">
+						<ol>
+							{contents.map((item) => <li><a href={`#${item.id}`}>{item.label}</a></li>)}
+						</ol>
+						<p class="article-jump__nav">
+							{previousPart && <a href={previousPart.href} rel="prev" aria-label={`Previous: Part ${previousPart.series?.part}, ${previousPart.title}`} data-analytics-event="writing_article_click" data-cta-id={`article-${articleSlug}-jump-previous-part`} data-cta-placement="writing-article" data-cta-intent="authority" data-source-section="article-jump"><span aria-hidden="true">←&nbsp;</span>Part {previousPart.series?.part}</a>}
+							<a href="#top">Top <span aria-hidden="true">↑</span></a>
+							{nextPart && <a href={nextPart.href} rel="next" aria-label={`Next: Part ${nextPart.series?.part}, ${nextPart.title}`} data-analytics-event="writing_article_click" data-cta-id={`article-${articleSlug}-jump-next-part`} data-cta-placement="writing-article" data-cta-intent="authority" data-source-section="article-jump">Part {nextPart.series?.part}<span aria-hidden="true">&nbsp;→</span></a>}
+						</p>
+					</div>
+				</details>
+			</nav>
 		)}
 	</article>
-
 </Layout>
+
+<script>
+	// Contents index: highlights the current section; the floating menu (narrow screens) stays
+	// hidden while the article header is visible and closes on link click, outside click or Escape.
+	const indexes = [...document.querySelectorAll<HTMLElement>('[data-article-toc], [data-article-jump]')];
+	const links = indexes.flatMap((index) => [...index.querySelectorAll<HTMLAnchorElement>('ol a')]);
+	const targets = [...new Set(links.map((link) => link.hash))]
+		.map((hash) => document.getElementById(decodeURIComponent(hash.slice(1))))
+		.filter((el): el is HTMLElement => el !== null);
+
+	if (targets.length) {
+		const setActive = () => {
+			const line = innerHeight * 0.3;
+			let current = '';
+			targets.forEach((target) => {
+				if (target.getBoundingClientRect().top <= line) current = `#${target.id}`;
+			});
+			links.forEach((link) => {
+				if (current && link.hash === current) link.setAttribute('aria-current', 'location');
+				else link.removeAttribute('aria-current');
+			});
+		};
+		let ticking = false;
+		addEventListener('scroll', () => {
+			if (ticking) return;
+			ticking = true;
+			requestAnimationFrame(() => {
+				setActive();
+				ticking = false;
+			});
+		}, { passive: true });
+		setActive();
+	}
+
+	const jump = document.querySelector<HTMLElement>('[data-article-jump]');
+	const jumpMenu = jump?.querySelector('details');
+	const hero = document.querySelector('.writing-post__hero');
+	const end = document.querySelector('[data-article-end]');
+	if (jump && jumpMenu && hero) {
+		// Hidden while the header is visible, and again from the contact block onwards.
+		let heroVisible = true;
+		let endReached = false;
+		const update = () => {
+			const hidden = heroVisible || endReached;
+			jump.classList.toggle('is-hidden', hidden);
+			if (hidden) jumpMenu.open = false;
+		};
+		update();
+		new IntersectionObserver(([entry]) => {
+			heroVisible = entry.isIntersecting;
+			update();
+		}).observe(hero);
+		if (end) {
+			new IntersectionObserver(([entry]) => {
+				endReached = entry.isIntersecting || entry.boundingClientRect.top < 0;
+				update();
+			}).observe(end);
+		}
+		jump.addEventListener('click', (event) => {
+			if ((event.target as HTMLElement).closest('a')) jumpMenu.open = false;
+		});
+		document.addEventListener('click', (event) => {
+			if (jumpMenu.open && !jump.contains(event.target as Node)) jumpMenu.open = false;
+		});
+		document.addEventListener('keydown', (event) => {
+			if (event.key === 'Escape' && jumpMenu.open) {
+				jumpMenu.open = false;
+				jumpMenu.querySelector('summary')?.focus();
+			}
+		});
+	}
+
+	// Figure viewer: each article image opens full size in a dialog, with its caption below it.
+	// Escape, the close button or a click outside the image closes it, and focus returns to the figure.
+	const viewer = document.querySelector<HTMLDialogElement>('[data-figure-viewer]');
+	const viewerImg = viewer?.querySelector<HTMLImageElement>('[data-figure-viewer-img]');
+	const viewerCaption = viewer?.querySelector<HTMLElement>('[data-figure-viewer-caption]');
+	if (viewer && viewerImg && viewerCaption && typeof viewer.showModal === 'function') {
+		let opener: HTMLElement | undefined;
+		document.querySelectorAll<HTMLImageElement>('.writing-post__body .article-figure img').forEach((img) => {
+			const figure = img.closest('figure');
+			const caption = figure?.querySelector('figcaption')?.textContent?.trim() ?? '';
+			const number = caption.match(/^(Figure\s+\d+)/)?.[1];
+			const button = document.createElement('button');
+			button.type = 'button';
+			button.className = 'figure-zoom';
+			button.setAttribute('aria-label', `Enlarge ${number ?? 'figure'}`);
+			img.replaceWith(button);
+			button.append(img);
+			button.addEventListener('click', () => {
+				viewerImg.src = img.currentSrc || img.src;
+				viewerImg.alt = img.alt;
+				viewerCaption.textContent = caption;
+				viewerCaption.hidden = !caption;
+				viewer.showModal();
+				opener = button;
+			});
+		});
+		const close = () => viewer.close();
+		viewer.querySelector('[data-figure-viewer-close]')?.addEventListener('click', close);
+		viewer.addEventListener('click', (event) => {
+			if (event.target !== viewerImg && !viewerCaption.contains(event.target as Node)) close();
+		});
+		viewer.addEventListener('close', () => {
+			opener?.focus();
+			viewerImg.removeAttribute('src');
+		});
+	}
+</script>
 
 <style>
 	.writing-post :global(.katex-display) {
@@ -209,119 +449,208 @@ const relatedArticles = (matched.length > 0 ? matched.slice(0, RELATED_MAX) : re
 		margin-inline: auto;
 	}
 
-	.writing-post__hero {
-		border-bottom: 1px solid var(--color-border-soft);
-		padding-block: clamp(3rem, 5vw, 4.6rem) clamp(1.55rem, 3vw, 2.25rem);
+	/* Same header as the Writing, Work and About pages: eyebrow row, H1, lead, author line, and a
+	   rule under the header within the page width. */
+	.writing-post__hero { padding-top: clamp(3rem, 5vw, 4.6rem); border-bottom: 1px solid var(--color-border); }
+	.writing-post__top { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: .5rem 1rem; }
+	.writing-post__eyebrow-line { display: flex; flex-wrap: wrap; align-items: baseline; gap: .2rem .6rem; margin: 0; color: var(--color-muted); font-family: var(--font-mono); font-size: .82rem; font-weight: 400; letter-spacing: .08em; line-height: 1.4; text-transform: uppercase; }
+	.writing-post__eyebrow { color: var(--color-muted); font-family: var(--font-mono); font-size: .82rem; font-weight: 600; letter-spacing: .08em; line-height: 1.4; text-decoration: none; text-transform: uppercase; }
+	.writing-post__eyebrow-line span .writing-post__eyebrow { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: .2em; }
+	.writing-post__eyebrow:hover,
+	.writing-post__eyebrow:focus-visible { color: var(--color-link); text-decoration: underline; text-underline-offset: .2em; }
+	.writing-post__copy { display: grid; gap: 1rem; align-content: start; margin: 1rem 0 3rem; }
+	.writing-post__hero h1 { max-width: none; margin: 0; font-size: clamp(2.6rem, 3.8vw, 3.5rem); font-weight: 800; letter-spacing: -.05em; line-height: 1.02; overflow-wrap: normal; word-break: normal; }
+	.writing-post__author { max-width: 52rem; margin: 0; color: var(--color-muted); font-size: .92rem; line-height: 1.55; }
+	.writing-post__author a { color: var(--color-link); text-decoration-thickness: 1px; text-underline-offset: .2em; }
+	.writing-post__author a:hover,
+	.writing-post__author a:focus-visible { color: var(--color-link-hover); }
+	.writing-post__hook { max-width: 52rem; margin: 0; color: var(--color-text); font-size: 1rem; line-height: 1.6; }
+	.writing-post__hook-frame { margin-right: .6rem; color: var(--color-muted); font-family: var(--font-mono); font-size: .78rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; }
+	.writing-post__hook strong { font-weight: 650; }
+	.writing-post__lead-series a { color: var(--color-link); text-decoration-thickness: 1px; text-underline-offset: .2em; }
+	.writing-post__lead-series a:hover,
+	.writing-post__lead-series a:focus-visible { color: var(--color-link-hover); }
+	.writing-post__hook-link { color: var(--color-link); font-size: .92rem; white-space: nowrap; text-decoration-thickness: 1px; text-underline-offset: .2em; }
+	.writing-post__hook-link:hover,
+	.writing-post__hook-link:focus-visible { color: var(--color-link-hover); }
+	@media print { .writing-post__hook-link { display: none; } }
+	.writing-post__tags { margin-top: .6rem; }
+	.writing-post__summary-link { margin: -.4rem 0 0; font-size: .92rem; line-height: 1.5; }
+	.writing-post__summary-link a { color: var(--color-link); text-decoration-thickness: 1px; text-underline-offset: .2em; }
+	.writing-post__summary-link a:hover,
+	.writing-post__summary-link a:focus-visible { color: var(--color-link-hover); }
+	@media print { .writing-post__summary-link { display: none; } }
+	@media (max-width: 560px) {
+		.writing-post__sep-series { display: none; }
+		.writing-post__eyebrow-series { flex-basis: 100%; }
+		/* On phones the floating menu and the end of the article already link the other parts. */
+		.writing-post__top .writing-post__series-top { display: none; }
+		.writing-post__lead .writing-post__lead-series { display: none; }
 	}
 
-	.writing-post__hero .writing-post__container {
+	/* Contact line half-way through long articles (src/plugins/rehype-mid-article-note.mjs). */
+	.writing-post__body :global(.article-note) { margin: 2.75rem 0; padding: clamp(1.1rem, 2.6vw, 1.4rem) clamp(1.15rem, 3vw, 1.6rem); background: var(--color-surface-soft); border-radius: 0; }
+	.writing-post__body :global(.article-note p) { margin: 0; }
+	.writing-post__body :global(.article-note p.article-note__label) { font-family: var(--font-mono); font-size: .72rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--color-muted); }
+	.writing-post__body :global(.article-note p.article-note__text) { margin-top: .45rem; color: var(--color-text); font-size: 1.02rem; line-height: 1.55; }
+	.writing-post__body :global(.article-note p.article-note__action) { margin-top: .6rem; font-size: .95rem; }
+	.writing-post__body :global(.article-note p a) { color: var(--color-link); font-weight: 400; text-decoration-thickness: 1px; text-underline-offset: .2em; }
+	.writing-post__body :global(.article-note p a:hover),
+	.writing-post__body :global(.article-note p a:focus-visible) { color: var(--color-link-hover); }
+	@media print { .writing-post__body :global(.article-note) { display: none; } }
+
+	/* Text, figures and tables share one column width. */
+	.writing-post {
+		--article-measure: 50rem;
+		--article-wide: 50rem;
+		--article-toc-width: 13rem;
+	}
+
+	.writing-post__grid {
 		display: grid;
-		gap: 1rem;
+		grid-template-columns: minmax(0, var(--article-wide));
 	}
 
-        .writing-post__category {
-                max-width: 100%;
-                margin: 0;
-                color: var(--color-accent-text);
-		font-family: var(--font-mono);
-		font-size: var(--type-eyebrow-size);
-		font-weight: var(--type-eyebrow-weight);
-		letter-spacing: var(--type-eyebrow-tracking);
-                line-height: var(--type-eyebrow-line);
-                text-transform: uppercase;
-                overflow-wrap: anywhere;
-			color: var(--color-muted);
-			font-size: .82rem;
-			font-weight: 600;
-			letter-spacing: .08em;
-			line-height: 1.4;
-        }
+	.writing-post__body :global(.prose > *) {
+		max-width: var(--article-measure);
+	}
 
-	.writing-post__series-nav { padding-top: clamp(2.5rem, 5vw, 3.5rem); }
+	.writing-post__main {
+		min-width: 0;
+	}
+
+	.article-toc,
+	.article-toc-col { display: none; }
+
+	@media (min-width: 1120px) {
+		.writing-post__grid {
+			grid-template-columns: var(--article-toc-width) minmax(0, var(--article-wide)) minmax(0, 1fr);
+			column-gap: clamp(3rem, 5vw, 5rem);
+		}
+		.writing-post__main { grid-column: 2; grid-row: 1; }
+		.writing-post__series-nav { grid-column: 2; grid-row: 2; }
+		/* The column spans only the body row, so the sticky contents stop at the end of the text. */
+		.article-toc-col { display: block; grid-column: 1; grid-row: 1; padding-bottom: clamp(2.4rem, 5vw, 3.6rem); }
+		.article-toc {
+			display: block;
+			position: sticky;
+			top: 2rem;
+			max-height: calc(100vh - 4rem);
+			overflow-y: auto;
+			padding-block: clamp(2.4rem, 5vw, 3.6rem) 0;
+		}
+		.article-jump { display: none; }
+	}
+
+	.article-toc__title {
+		margin: 0 0 .75rem;
+		color: var(--color-muted);
+		font-family: var(--font-mono);
+		font-size: var(--type-chip-size);
+		letter-spacing: var(--type-chip-tracking);
+		line-height: 1.4;
+		text-transform: uppercase;
+	}
+	.article-toc__list { display: grid; gap: .55rem; margin: 0; padding: 0; list-style: none; }
+	.article-toc__list a { display: block; color: var(--color-muted); font-size: .86rem; line-height: 1.35; text-decoration: none; }
+	.article-toc__list a:hover,
+	.article-toc__list a:focus-visible { color: var(--color-link); text-decoration: underline; text-underline-offset: .2em; }
+	.article-toc__list a:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 3px; }
+	.article-toc__list a[aria-current] { color: var(--color-text); font-weight: 650; }
+	.article-toc__nav a,
+	.writing-post__back a { color: var(--color-muted); font-family: var(--font-mono); font-size: var(--type-chip-size); letter-spacing: var(--type-chip-tracking); line-height: 1.4; text-decoration: none; text-transform: uppercase; }
+	.article-toc__nav { display: flex; flex-wrap: wrap; gap: .3rem 1rem; margin: 1.25rem 0 0; padding-top: .9rem; border-top: 1px solid var(--color-border); }
+	.article-toc__nav a { white-space: nowrap; }
+	.article-toc__nav a:hover,
+	.article-toc__nav a:focus-visible,
+	.writing-post__back a:hover,
+	.writing-post__back a:focus-visible { color: var(--color-link); text-decoration: underline; text-underline-offset: .2em; }
+	.writing-post__back { margin: 0 0 clamp(2.6rem, 5vw, 4rem); }
+
+	.article-jump { position: fixed; right: 1.25rem; bottom: 1.25rem; z-index: 20; transition: opacity .2s ease, visibility .2s; }
+	.article-jump.is-hidden { opacity: 0; visibility: hidden; }
+	.article-jump summary { padding: .6rem 1.1rem; border-radius: 999px; background: var(--color-text); color: var(--color-page); font-size: .92rem; font-weight: 600; cursor: pointer; list-style: none; box-shadow: 0 4px 14px color-mix(in srgb, var(--color-text) 22%, transparent); }
+	.article-jump summary::-webkit-details-marker { display: none; }
+	.article-jump summary::after { content: '\25B4'; margin-left: .5rem; }
+	.article-jump details[open] summary::after { content: '\25BE'; }
+	.article-jump summary:focus-visible { outline: 3px solid var(--color-focus); outline-offset: 3px; }
+	.article-jump__panel { position: absolute; right: 0; bottom: calc(100% + .5rem); display: grid; width: min(22rem, calc(100vw - 2.5rem)); max-height: 65vh; overflow-y: auto; padding: .35rem; background: var(--color-page); border: 1px solid var(--color-border-strong); border-radius: .75rem; box-shadow: 0 8px 24px color-mix(in srgb, var(--color-text) 14%, transparent); }
+	.article-jump ol { display: grid; margin: 0; padding: 0; list-style: none; }
+	.article-jump .article-jump__nav { display: flex; justify-content: space-between; gap: .5rem; margin: .35rem 0 0; padding-top: .35rem; border-top: 1px solid var(--color-border); }
+	.article-jump .article-jump__nav a { color: var(--color-muted); font-family: var(--font-mono); font-size: var(--type-chip-size); letter-spacing: var(--type-chip-tracking); text-transform: uppercase; white-space: nowrap; }
+	.article-jump a { display: block; padding: .45rem .75rem; border-radius: .45rem; color: var(--color-text); font-size: .92rem; line-height: 1.35; text-decoration: none; }
+	.article-jump a:hover,
+	.article-jump a:focus-visible { background: var(--color-surface-soft); text-decoration: underline; text-underline-offset: .2em; }
+	.article-jump a[aria-current] { font-weight: 700; }
+	@media (prefers-reduced-motion: reduce) { .article-jump { transition: none; } }
+	@media print {
+		:global(.site-header),
+		:global(.site-footer),
+		:global(.skip-link),
+		.article-toc,
+		.article-jump,
+		.writing-post__series-top,
+		.writing-post__series-nav,
+		.writing-post__footer,
+		.writing-post__related:not(.writing-post__references),
+		.writing-post__back,
+		.figure-viewer { display: none !important; }
+		.writing-post .writing-post__container { width: 100%; }
+		.writing-post__grid { display: block; }
+		.writing-post__hero { padding-top: 0; }
+		.writing-post__copy { margin-bottom: 1.5rem; }
+		.writing-post__hero h1 { font-size: 24pt; }
+		.writing-post__body { padding-block: 1.5rem 0; }
+		.writing-post__body :global(.prose p),
+		.writing-post__body :global(.prose li) { font-size: 10.5pt; line-height: 1.5; color: #000; }
+		.writing-post__body :global(.prose h2),
+		.writing-post__body :global(.prose h3) { break-after: avoid; }
+		.writing-post__body :global(.article-figure),
+		.writing-post__body :global(.article-table),
+		.writing-post__body :global(.katex-display) { break-inside: avoid; }
+		.writing-post__body :global(.figure-zoom::after) { display: none; }
+		.writing-post__body :global(.comparison-table) { overflow: visible; }
+		.writing-post__body :global(.comparison-table table) { min-width: 0; }
+		.writing-post__body :global(.prose a[href^='http']::after) { content: ' (' attr(href) ')'; font-weight: 400; font-size: 8.5pt; overflow-wrap: anywhere; }
+		.writing-post__references { break-before: page; }
+	}
+
+	.writing-post__series-top { display: inline-flex; gap: 1rem; }
+	/* Same back link as the series page. */
+	.writing-post__all-top { color: var(--color-muted); font-family: var(--font-mono); font-size: .82rem; font-weight: 600; letter-spacing: .08em; line-height: 1.4; text-decoration: none; text-transform: uppercase; white-space: nowrap; }
+	.writing-post__all-top:hover,
+	.writing-post__all-top:focus-visible { color: var(--color-link); text-decoration: underline; text-underline-offset: .2em; }
+	@media print { .writing-post__all-top { display: none; } }
+	.writing-post__series-top a { color: var(--color-muted); font-family: var(--font-mono); font-size: .82rem; font-weight: 600; letter-spacing: .08em; line-height: 1.4; text-decoration: none; text-transform: uppercase; white-space: nowrap; }
+	.writing-post__series-top a:hover,
+	.writing-post__series-top a:focus-visible { color: var(--color-link); text-decoration: underline; text-underline-offset: .2em; }
+
+	/* The body already ends with its own padding, so the series links follow it directly. */
+	.writing-post__series-nav { padding-top: 0; }
 	.writing-post__series-nav-head { margin: 0 0 1rem; color: var(--color-muted); font-family: var(--font-mono); font-size: var(--type-chip-size); letter-spacing: var(--type-chip-tracking); line-height: 1.4; text-transform: uppercase; }
 	.writing-post__series-nav-head a { color: var(--color-link); text-underline-offset: .2em; }
 	.writing-post__series-nav-links { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem; }
 	.series-step { display: grid; gap: .3rem; align-content: start; color: inherit; text-decoration: none; }
-	.series-step--next { grid-column: 2; text-align: right; }
+	/* With no previous part (Part 1), Next stays on the left, where the reader looks first. */
+	.series-step--prev + .series-step--next { grid-column: 2; text-align: right; }
 	.series-step__label { color: var(--color-muted); font-family: var(--font-mono); font-size: var(--type-chip-size); letter-spacing: var(--type-chip-tracking); text-transform: uppercase; }
 	.series-step__title { color: var(--color-text); font-weight: 600; line-height: 1.35; }
 	.series-step:hover .series-step__title,
 	.series-step:focus-visible .series-step__title { color: var(--color-link); text-decoration: underline; text-underline-offset: .2em; }
 	.series-step:focus-visible { outline: 2px solid var(--color-link); outline-offset: 4px; }
+	.series-step--coming { margin: 0; }
+	.series-step--coming .series-step__title { color: var(--color-muted); font-weight: 500; }
 	@media (max-width: 640px) {
 		.writing-post__series-nav-links { grid-template-columns: 1fr; gap: .75rem; }
-		.series-step--next { grid-column: 1; }
-		.writing-post__series-nav-links > span:empty { display: none; }
-	}
-
-	.writing-post__series { max-width: 100%; margin: 0; color: var(--color-muted); font-size: .95rem; line-height: 1.5; }
-	.writing-post__series a { color: var(--color-link); text-decoration-thickness: 1px; text-underline-offset: .2em; }
-	.writing-post__series a:hover,
-	.writing-post__series a:focus-visible { color: var(--color-link-hover); }
-
-	.writing-post .hero-title {
-		max-width: min(100%, 20ch);
-		margin: 0;
-		font-size: clamp(2.6rem, 3.8vw, 3.5rem);
-		font-weight: 800;
-		line-height: 1.02;
-		letter-spacing: -0.05em;
-		hyphens: auto;
-		overflow-wrap: normal;
-		word-break: normal;
+		.series-step--prev + .series-step--next { grid-column: 1; text-align: left; }
 	}
 
 	.writing-post__lead {
-		max-width: 820px;
-		width: 100%;
-		color: var(--color-body-text);
-		font-size: clamp(1rem, 1.15vw, 1.12rem);
-		font-weight: 400;
-		letter-spacing: var(--type-body-tracking);
-		line-height: 1.55;
-		overflow-wrap: anywhere;
-	}
-
-	.writing-post__subtitle {
-		max-width: 760px;
-		width: 100%;
-		color: var(--color-text);
-		font-family: var(--font-display);
-		font-size: clamp(1.55rem, 2.4vw, 2.2rem);
-		font-weight: 500;
-		letter-spacing: -0.035em;
-		line-height: 1.08;
-		overflow-wrap: anywhere;
-	}
-
-	.writing-post__meta {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 0.35rem 0.7rem;
-		min-width: 0;
-		max-width: 100%;
+		max-width: 52rem;
 		margin: 0;
-		color: var(--color-muted);
-		font-family: var(--font-mono);
-		font-size: var(--type-meta-size);
-		font-weight: var(--type-meta-weight);
-		letter-spacing: var(--type-meta-tracking);
-		line-height: var(--type-meta-line);
-		text-transform: uppercase;
-		overflow-wrap: anywhere;
-	}
-
-	.writing-post__meta time,
-	.writing-post__meta span {
-		min-width: 0;
-		max-width: 100%;
-		overflow-wrap: anywhere;
-	}
-
-	.writing-post__meta span::before {
-		content: '/';
-		margin-right: 0.7rem;
-		color: var(--color-border);
+		color: var(--color-text);
+		font-size: 1.08rem;
+		line-height: 1.7;
 	}
 
         .writing-post__tags {
@@ -339,10 +668,6 @@ const relatedArticles = (matched.length > 0 ? matched.slice(0, RELATED_MAX) : re
 
 	.writing-post__hero-figure {
 		margin: clamp(1.3rem, 3vw, 2rem) 0 0;
-		overflow: hidden;
-		border: 1px solid var(--color-border-soft);
-		border-radius: var(--radius);
-		background: var(--color-card-bg);
 	}
 
         .writing-post__hero-figure img {
@@ -356,6 +681,10 @@ const relatedArticles = (matched.length > 0 ? matched.slice(0, RELATED_MAX) : re
 		padding-block: clamp(2.4rem, 5vw, 3.6rem);
 	}
 
+	.writing-post__appendix {
+		padding-top: 0;
+	}
+
 	.writing-post__body :global(.prose) {
 		max-width: 100%;
 		width: 100%;
@@ -364,6 +693,10 @@ const relatedArticles = (matched.length > 0 ? matched.slice(0, RELATED_MAX) : re
 
 	.writing-post__body :global(.prose > * + *) {
 		margin-top: 1.1rem;
+	}
+
+	.writing-post__body :global(.prose > :first-child) {
+		margin-top: 0;
 	}
 
 	.writing-post__body :global(.prose h2) {
@@ -389,16 +722,23 @@ const relatedArticles = (matched.length > 0 ? matched.slice(0, RELATED_MAX) : re
 	.writing-post__body :global(.prose p),
 	.writing-post__body :global(.prose li) {
 		color: var(--color-body-text);
-		font-size: clamp(0.95rem, 0.92vw, 1.02rem);
-		line-height: 1.65;
+		font-size: 1.0625rem;
+		line-height: 1.7;
 		overflow-wrap: anywhere;
 	}
 
 	.writing-post__body :global(.prose a) {
 		color: var(--color-link);
-		font-weight: 700;
+		font-weight: 500;
 		text-decoration-thickness: 1px;
 		text-underline-offset: 0.2em;
+	}
+
+	/* Body emphasis stays a step lighter than the header hook, so the hook remains the strongest
+	   signal on the page. */
+	.writing-post__body :global(.prose strong) {
+		color: var(--color-text);
+		font-weight: 600;
 	}
 
 	.writing-post__body :global(.prose a:hover),
@@ -408,7 +748,6 @@ const relatedArticles = (matched.length > 0 ? matched.slice(0, RELATED_MAX) : re
 
         .writing-post__body :global(.article-callout),
         .writing-post__body :global(.metric-card),
-        .writing-post__body :global(.article-figure),
         .writing-post__body :global(.article-cta) {
                 box-sizing: border-box;
                 min-width: 0;
@@ -521,64 +860,122 @@ const relatedArticles = (matched.length > 0 ? matched.slice(0, RELATED_MAX) : re
 	.writing-post__body :global(.comparison-table) {
 		margin-block: clamp(1.4rem, 3vw, 2rem);
 		overflow-x: auto;
-		border: 1px solid var(--color-border-soft);
-		border-radius: var(--radius);
-		background: var(--color-card-bg);
 	}
 
 	.writing-post__body :global(.comparison-table table) {
 		width: 100%;
-		min-width: 680px;
+		min-width: 34rem;
+		border: 1px solid var(--color-border);
 		border-collapse: collapse;
 	}
 
 	.writing-post__body :global(.comparison-table th),
 	.writing-post__body :global(.comparison-table td) {
-		border-bottom: 1px solid var(--color-border-soft);
-		padding: 0.85rem 1rem;
+		border: 1px solid var(--color-border);
+		padding: 0.55rem 0.7rem;
+		overflow-wrap: normal;
+		word-break: normal;
 		text-align: left;
 		vertical-align: top;
 	}
 
 	.writing-post__body :global(.comparison-table th) {
+		background: var(--color-surface-soft);
 		color: var(--color-text);
-		font-family: var(--font-mono);
-		font-size: var(--type-chip-size);
-		font-weight: 750;
-		letter-spacing: 0;
-		line-height: var(--type-chip-line);
-		text-transform: uppercase;
+		font-size: 0.9rem;
+		font-weight: 700;
+		letter-spacing: -0.005em;
+		line-height: 1.3;
 	}
 
 	.writing-post__body :global(.comparison-table td) {
 		color: var(--color-body-text);
-		font-size: var(--type-compact-size);
-		line-height: var(--type-compact-line);
+		font-size: 0.84rem;
+		line-height: 1.45;
 	}
 
-	.writing-post__body :global(.comparison-table tr:last-child th),
-	.writing-post__body :global(.comparison-table tr:last-child td) {
-		border-bottom: 0;
+	.writing-post__body :global(.article-table) {
+		margin: clamp(1.6rem, 4vw, 2.4rem) 0;
+	}
+
+	.writing-post__body :global(.article-table .comparison-table) {
+		margin: 0;
 	}
 
 	.writing-post__body :global(.article-figure) {
-		margin-block: clamp(1.5rem, 4vw, 2.4rem);
-		overflow: hidden;
+		box-sizing: border-box;
+		min-width: 0;
+		max-width: 100%;
+		margin: clamp(1.6rem, 4vw, 2.4rem) 0;
 	}
 
-        .writing-post__body :global(.article-figure img) {
-                display: block;
-                width: 100%;
-                background: var(--color-surface-soft);
+	.writing-post__body :global(.article-figure img),
+	.writing-post__body :global(.article-figure video) {
+		display: block;
+		width: 100%;
+		max-width: 100%;
+		height: auto;
 	}
 
-	.writing-post__body :global(.article-figure figcaption) {
-		border-top: 1px solid var(--color-border-soft);
+	/* Figure captions sit below the figure, table captions above the table, in the same style. */
+	.writing-post__body :global(.article-figure figcaption),
+	.writing-post__body :global(.article-table figcaption) {
 		color: var(--color-muted);
 		font-size: var(--type-compact-size);
 		line-height: var(--type-compact-line);
-		padding: 0.85rem 1rem 1rem;
 	}
+	.writing-post__body :global(.article-figure figcaption) { margin-top: 0.75rem; }
+	.writing-post__body :global(.article-table figcaption) { margin-bottom: 0.75rem; }
+
+	.writing-post__body :global(.figure-zoom) {
+		position: relative;
+		display: block;
+		width: 100%;
+		padding: 0;
+		border: 0;
+		background: none;
+		cursor: zoom-in;
+	}
+	.writing-post__body :global(.figure-zoom::after) {
+		content: 'Enlarge';
+		position: absolute;
+		top: .5rem;
+		right: .5rem;
+		padding: .2rem .5rem;
+		background: color-mix(in srgb, var(--color-page) 90%, transparent);
+		color: var(--color-muted);
+		font-family: var(--font-mono);
+		font-size: var(--type-chip-size);
+		letter-spacing: var(--type-chip-tracking);
+		text-transform: uppercase;
+		opacity: 0;
+		transition: opacity .15s ease;
+	}
+	.writing-post__body :global(.figure-zoom:hover::after),
+	.writing-post__body :global(.figure-zoom:focus-visible::after) { opacity: 1; }
+	.writing-post__body :global(.figure-zoom:focus-visible) { outline: 2px solid var(--color-focus); outline-offset: 4px; }
+
+	.figure-viewer {
+		box-sizing: border-box;
+		width: min(96vw, 1600px);
+		max-width: none;
+		height: 94vh;
+		max-height: none;
+		margin: auto;
+		padding: 0 clamp(.75rem, 2vw, 1.5rem) clamp(.75rem, 2vw, 1.25rem);
+		border: 0;
+		background: var(--color-page);
+		color: var(--color-text);
+	}
+	.figure-viewer[open] { display: grid; grid-template-rows: auto minmax(0, 1fr) auto; }
+	.figure-viewer::backdrop { background: color-mix(in srgb, #000 72%, transparent); }
+	.figure-viewer__close { justify-self: end; margin: .5rem -.25rem .25rem 0; padding: .45rem .6rem; border: 0; background: none; color: var(--color-muted); font-family: var(--font-mono); font-size: var(--type-chip-size); letter-spacing: var(--type-chip-tracking); text-transform: uppercase; cursor: pointer; }
+	.figure-viewer__close:hover,
+	.figure-viewer__close:focus-visible { color: var(--color-link); }
+	.figure-viewer__close:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; }
+	.figure-viewer__frame { position: relative; min-height: 0; }
+	.figure-viewer__frame img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
+	.figure-viewer__caption { max-width: 60rem; max-height: 25vh; margin: .9rem auto 0; overflow-y: auto; color: var(--color-muted); font-size: var(--type-compact-size); line-height: var(--type-compact-line); }
 
 	.writing-post__body :global(.image-placeholder__frame) {
 		display: grid;
@@ -631,8 +1028,16 @@ const relatedArticles = (matched.length > 0 ? matched.slice(0, RELATED_MAX) : re
 	}
 
 	.writing-post__footer {
-		padding-block: clamp(2.5rem, 5vw, 3.5rem) clamp(2rem, 4vw, 3rem);
+		padding-block: clamp(2.5rem, 5vw, 3.5rem);
 	}
+
+
+	.writing-post__related-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: .5rem 1.5rem; margin-bottom: .85rem; }
+	.writing-post__related-head h2 { margin: 0 !important; }
+	.writing-post__all { color: var(--color-text); font-family: var(--font-mono); font-size: var(--type-chip-size); letter-spacing: var(--type-chip-tracking); line-height: 1.4; text-decoration: none; text-transform: uppercase; white-space: nowrap; }
+	.writing-post__all:hover,
+	.writing-post__all:focus-visible { color: var(--color-link); text-decoration: underline; text-underline-offset: .2em; }
+	.writing-post__all:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 3px; }
 
 	.writing-post__related {
 		padding-block: 0 clamp(2.6rem, 5vw, 4rem);
@@ -677,17 +1082,13 @@ const relatedArticles = (matched.length > 0 ? matched.slice(0, RELATED_MAX) : re
                         max-width: 100%;
                 }
 
-		.writing-post .hero-title {
-			max-width: 100%;
-			font-size: clamp(2.15rem, 10vw, 2.45rem);
-			line-height: 1.04;
-			letter-spacing: -0.05em;
-			overflow-wrap: normal;
-			word-break: normal;
-		}
+		.writing-post__hero { padding-top: 3rem; }
+		.writing-post__copy { margin-bottom: 2.5rem; }
+		.writing-post__hero h1 { font-size: clamp(2.15rem, 10vw, 2.45rem); line-height: 1.04; }
 
-		.writing-post__meta span::before {
-			margin-right: 0.45rem;
+		.writing-post__body :global(.prose p),
+		.writing-post__body :global(.prose li) {
+			font-size: 1rem;
 		}
 	}
 	.writing-post__container {
@@ -706,8 +1107,6 @@ const relatedArticles = (matched.length > 0 ? matched.slice(0, RELATED_MAX) : re
                 }
 
 		.writing-post__lead,
-		.writing-post__subtitle,
-		.writing-post__meta,
 		.writing-post__tags,
 		.writing-post__hero-figure,
 		.writing-post__body :global(.prose),

@@ -25,6 +25,8 @@ const writing = defineCollection({
 		/** Short summary (100 characters at most) for compact lists such as "Previous articles" and the landing page. Without it, the full description is shown. */
 		teaser: z.string().max(100).optional(),
 		publishDate: z.date(),
+		/** Date of the last substantive revision. Shown next to the publish date and sent as dateModified. */
+		updatedDate: z.date().optional(),
 		readingTime: z.string().optional(),
 		heroImage: z
 			.object({
@@ -32,6 +34,8 @@ const writing = defineCollection({
 				alt: z.string(),
 			})
 			.optional(),
+		/** Preview image for link sharing (Open Graph, 1200 x 630 px). Not shown on the page. */
+		socialImage: z.object({ src: z.string(), alt: z.string() }).optional(),
 		category: z.enum([
 			'Embedded Controls Architecture',
 			'Sensing & Signal Processing',
@@ -46,8 +50,12 @@ const writing = defineCollection({
 		series: z.object({ id: z.string(), part: z.number().int().positive() }).optional(),
 		/** Slug of a Work project (src/content/projects) that this article draws on. Series parts inherit it from the series. */
 		relatedProject: z.string().optional(),
-		/** One headline number shown with the article in the Writing index, for example { value: 'Up to 4%', label: 'less energy' }. */
-		keyFigure: z.object({ value: z.string(), label: z.string() }).optional(),
+		/**
+		 * One headline number shown with the article in the Writing index, for example { value: 'Up to 4%', label: 'less energy' }.
+		 * On the article page it closes the lead as a hook. `frame` labels it: "In short" (default) when the number is the
+		 * result of the article, "Why it matters" when it is the context that motivates it.
+		 */
+		keyFigure: z.object({ value: z.string(), label: z.string(), frame: z.enum(['In short', 'Why it matters']).optional() }).optional(),
 		featured: z.boolean(),
 		draft: z.boolean(),
 	}),
