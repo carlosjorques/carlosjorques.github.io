@@ -2,6 +2,7 @@
 title: Stochastic Set-Point Optimization for Efficiency
 subtitle: Optimizing combustion when every cycle is slightly different
 description: How stochastic combustion models and Monte Carlo simulation can optimize combustion-control set-points while balancing efficiency, pressure-rise constraints, and pilot misfire risk.
+teaser: "Choosing combustion set-points with stochastic models, trading efficiency against misfire risk."
 publishDate: 2026-06-25
 updatedDate: 2026-07-07
 readingTime: 12 min read
@@ -13,6 +14,7 @@ tags:
   - Set-point optimization
   - Constraint handling
   - Combustion control
+relatedProject: heavy-duty-engine-diagnostics-control-research
 featured: true
 draft: true
 heroImage:

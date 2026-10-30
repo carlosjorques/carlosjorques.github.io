@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1050" height="610" viewBox="0 0 1050 610" font-family="Calibri, Arial, Helvetica, sans-serif">
+  <defs>
+    <marker id="ak" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#4d4d4d"/></marker>
+    <marker id="ao" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#d98c2b"/></marker>
+  </defs>
+  <rect width="1050" height="610" fill="#ffffff"/>
+  <rect x="200" y="12" width="650" height="74" fill="#f5f5f5"/>
+  <text x="218" y="54" font-size="14px" font-weight="bold" fill="#1a1a1a">Legend</text>
+  <rect x="287" y="21" width="214" height="56" fill="#ffffff"/>
+  <text x="299" y="39" font-size="14px" font-weight="bold" fill="#1a1a1a">Engineering parameter</text>
+  <text x="299" y="55" font-size="12.5px" fill="#4d4d4d">control function that sets it</text>
+  <text x="299" y="70" font-size="12.5px" font-style="italic" fill="#4d4d4d">business effect</text>
+  <rect x="525" y="25" width="34" height="20" fill="#f2e3d4"/>
+  <text x="569" y="40" font-size="12.5px" fill="#1a1a1a">set by the control software, designed in</text>
+  <rect x="525" y="53" width="34" height="20" fill="#ffffff"/>
+  <text x="569" y="68" font-size="12.5px" fill="#1a1a1a">set by the vehicle and its use</text>
+  <g font-size="16px" font-weight="bold" fill="#1a1a1a">
+    <text x="164" y="114" text-anchor="middle">Development level (V model)</text>
+    <text x="292" y="114">Parameters fixed at this level</text>
+  </g>
+  <rect x="40" y="124" width="996" height="86" fill="#f5f5f5"/>
+  <rect x="40" y="218" width="996" height="162" fill="#f5f5f5"/>
+  <rect x="40" y="388" width="996" height="86" fill="#f5f5f5"/>
+  <rect x="40" y="482" width="996" height="86" fill="#f5f5f5"/>
+  <rect x="52" y="134" width="180" height="66" fill="#dddddd"/>
+  <text x="142" y="165" text-anchor="middle" font-size="14px" font-weight="bold" fill="#1a1a1a">Vehicle requirements</text>
+  <text x="142" y="183" text-anchor="middle" font-size="12.5px" fill="#4d4d4d">route, payload, climate</text>
+  <rect x="67" y="228" width="180" height="142" fill="#dddddd"/>
+  <text x="157" y="297" text-anchor="middle" font-size="14px" font-weight="bold" fill="#1a1a1a">System design and sizing</text>
+  <text x="157" y="315" text-anchor="middle" font-size="12.5px" fill="#4d4d4d">battery, charging</text>
+  <rect x="82" y="398" width="180" height="66" fill="#dddddd"/>
+  <text x="172" y="429" text-anchor="middle" font-size="14px" font-weight="bold" fill="#1a1a1a">Thermal system design</text>
+  <text x="172" y="447" text-anchor="middle" font-size="12.5px" fill="#4d4d4d">circuits, components</text>
+  <rect x="97" y="492" width="180" height="66" fill="#dddddd"/>
+  <text x="187" y="523" text-anchor="middle" font-size="14px" font-weight="bold" fill="#1a1a1a">Control software design</text>
+  <text x="187" y="541" text-anchor="middle" font-size="12.5px" fill="#4d4d4d">strategies, models</text>
+  <g stroke="#4d4d4d" stroke-width="1.5" marker-end="url(#ak)">
+    <line x1="150" y1="200" x2="150" y2="226"/>
+    <line x1="172" y1="370" x2="172" y2="396"/>
+    <line x1="187" y1="464" x2="187" y2="490"/>
+  </g>
+  <g stroke="#d98c2b" stroke-width="2" fill="none" marker-end="url(#ao)">
+    <path d="M97,525 L24,525 L24,299 L65,299"/>
+    <path d="M24,431 L80,431"/>
+  </g>
+  <text x="16" y="415" font-size="12.5px" font-weight="bold" fill="#b36b12" text-anchor="middle" transform="rotate(-90 16 415)">designed in</text>
+  <rect x="292" y="134" width="238" height="66" fill="#ffffff"/>
+  <text x="304" y="154" font-size="14px" font-weight="bold" fill="#1a1a1a">Climate and duty cycle</text>
+  <text x="304" y="172" font-size="12.5px" fill="#4d4d4d">set the thermal demand</text>
+  <text x="304" y="190" font-size="12.5px" font-style="italic" fill="#4d4d4d">larger gain in buses, cold climates</text>
+  <rect x="540" y="134" width="238" height="66" fill="#ffffff"/>
+  <text x="552" y="154" font-size="14px" font-weight="bold" fill="#1a1a1a">Payload constraint</text>
+  <text x="552" y="172" font-size="12.5px" fill="#4d4d4d">weight-limited or not</text>
+  <text x="552" y="190" font-size="12.5px" font-style="italic" fill="#4d4d4d">more freight per kilogram saved</text>
+  <rect x="788" y="134" width="238" height="66" fill="#ffffff"/>
+  <text x="800" y="154" font-size="14px" font-weight="bold" fill="#1a1a1a">Charger power</text>
+  <text x="800" y="172" font-size="12.5px" fill="#4d4d4d">charger or battery sets the limit</text>
+  <text x="800" y="190" font-size="12.5px" font-style="italic" fill="#4d4d4d">battery limits megawatt charging</text>
+  <rect x="292" y="228" width="238" height="66" fill="#f2e3d4"/>
+  <text x="304" y="248" font-size="14px" font-weight="bold" fill="#1a1a1a">Worst-case consumption</text>
+  <text x="304" y="266" font-size="12.5px" fill="#4d4d4d">predictive heating, waste heat</text>
+  <text x="304" y="284" font-size="12.5px" font-style="italic" fill="#4d4d4d">smaller battery, lower cost</text>
+  <rect x="540" y="228" width="238" height="66" fill="#f2e3d4"/>
+  <text x="552" y="248" font-size="14px" font-weight="bold" fill="#1a1a1a">Battery temperature over life</text>
+  <text x="552" y="266" font-size="12.5px" fill="#4d4d4d">no hot soaks, no cold charging</text>
+  <text x="552" y="284" font-size="12.5px" font-style="italic" fill="#4d4d4d">slower ageing, higher resale</text>
+  <rect x="788" y="228" width="238" height="66" fill="#f2e3d4"/>
+  <text x="800" y="248" font-size="14px" font-weight="bold" fill="#1a1a1a">Charging power acceptance</text>
+  <text x="800" y="266" font-size="12.5px" fill="#4d4d4d">preconditioning before charging</text>
+  <text x="800" y="284" font-size="12.5px" font-style="italic" fill="#4d4d4d">shorter charging time</text>
+  <rect x="292" y="304" width="238" height="66" fill="#f2e3d4"/>
+  <text x="304" y="324" font-size="14px" font-weight="bold" fill="#1a1a1a">Usable battery window</text>
+  <text x="304" y="342" font-size="12.5px" fill="#4d4d4d">temperature-aware limits</text>
+  <text x="304" y="360" font-size="12.5px" font-style="italic" fill="#4d4d4d">more usable kWh per installed kWh</text>
+  <rect x="540" y="304" width="238" height="66" fill="#ffffff"/>
+  <text x="552" y="324" font-size="14px" font-weight="bold" fill="#1a1a1a">Chemistry and energy density</text>
+  <text x="552" y="342" font-size="12.5px" fill="#4d4d4d">LFP needs more heating in the cold</text>
+  <text x="552" y="360" font-size="12.5px" font-style="italic" fill="#4d4d4d">more kilograms saved per kWh</text>
+  <rect x="292" y="398" width="238" height="66" fill="#f2e3d4"/>
+  <text x="304" y="418" font-size="14px" font-weight="bold" fill="#1a1a1a">Heating and cooling demand</text>
+  <text x="304" y="436" font-size="12.5px" fill="#4d4d4d">heat buffering, heat reuse</text>
+  <text x="304" y="454" font-size="12.5px" font-style="italic" fill="#4d4d4d">lower demand, 2–4% gain</text>
+  <rect x="540" y="398" width="238" height="66" fill="#f2e3d4"/>
+  <text x="552" y="418" font-size="14px" font-weight="bold" fill="#1a1a1a">Thermal component sizing</text>
+  <text x="552" y="436" font-size="12.5px" fill="#4d4d4d">peak reduction, control allocation</text>
+  <text x="552" y="454" font-size="12.5px" font-style="italic" fill="#4d4d4d">smaller, cheaper, lighter parts</text>
+  <rect x="292" y="492" width="734" height="66" fill="#f2e3d4"/>
+  <text x="659" y="520" font-size="14px" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Worst-case control performance, predicted with models and validated with a stated confidence</text>
+  <text x="659" y="540" font-size="12.5px" fill="#4d4d4d" text-anchor="middle">needed at the levels above, where the shaded parameters are fixed</text>
+  <text x="1030" y="600" text-anchor="end" font-size="11px" font-weight="bold" fill="#999999">carlosjorques.com</text>
+</svg>

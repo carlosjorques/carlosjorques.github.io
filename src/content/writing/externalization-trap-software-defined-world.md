@@ -2,6 +2,7 @@
 title: "The Externalization Trap in Automotive Software"
 subtitle: Why outsourcing the learning loop can cost more than it saves.
 description: A technical leadership article on why traditional supplier models and externalized development can create dangerous organizational latency in software-defined vehicles.
+teaser: "How outsourced development slows the decisions of a software-defined vehicle company."
 publishDate: 2026-07-03
 updatedDate: 2026-07-07
 readingTime: 11 min read

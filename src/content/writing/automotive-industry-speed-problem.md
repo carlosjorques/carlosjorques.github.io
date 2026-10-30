@@ -2,6 +2,7 @@
 title: "The Automotive Industry Has a Speed Problem, and Software Is Where It Shows"
 subtitle: "Twelve years inside vehicle control units taught me the crisis is not electrification, tariffs, or China. Those are symptoms."
 description: The overview article of the Software-Defined Physical Systems series. How European automotive companies organized software development, why that organization stopped working, what the popular escape routes actually deliver, and what a competitive engineering organization looks like now.
+teaser: "How European carmakers organised software development, and why that organisation stopped working."
 publishDate: 2026-07-07
 readingTime: 15 min read
 category: Technical Leadership

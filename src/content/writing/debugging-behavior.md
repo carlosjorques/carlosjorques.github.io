@@ -1,6 +1,7 @@
 ---
-title: Debugging behavior
+title: Debugging Behavior
 description: A first-principles approach to diagnosing embedded control systems.
+teaser: "A first-principles method to diagnose an embedded control system that misbehaves."
 publishDate: 2026-05-18
 category: Control Algorithms & Diagnostics
 tags:

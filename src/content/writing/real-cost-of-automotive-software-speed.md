@@ -2,6 +2,7 @@
 title: "The Real Cost of Automotive Software Is Learning Speed"
 subtitle: Why software-defined vehicle competitiveness lives close to the machine.
 description: A practical article on why software-defined vehicle competitiveness depends on physical learning speed, engineering proximity, embedded control competence, and disciplined validation.
+teaser: "Why software speed in vehicles depends on how fast the company learns from the physical system."
 publishDate: 2026-07-03
 updatedDate: 2026-07-07
 readingTime: 11 min read

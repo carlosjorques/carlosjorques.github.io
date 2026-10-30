@@ -2,6 +2,7 @@
 title: Virtual Sensing for In-Cycle Combustion Diagnostics
 subtitle: Seeing combustion early enough to control it
 description: How model-based virtual sensors estimate hidden combustion states early enough to support in-cycle closed-loop combustion control.
+teaser: "Virtual sensors that estimate hidden combustion states early enough to act in the same cycle."
 publishDate: 2026-06-25
 updatedDate: 2026-07-07
 readingTime: 12 min read
@@ -12,6 +13,7 @@ tags:
   - Diesel engines
   - In-cycle diagnostics
   - Model-based estimation
+relatedProject: heavy-duty-engine-diagnostics-control-research
 featured: true
 draft: true
 heroImage:

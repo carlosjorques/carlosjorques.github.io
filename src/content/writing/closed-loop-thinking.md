@@ -1,6 +1,7 @@
 ---
-title: Closed-loop thinking
+title: Closed-Loop Thinking
 description: Why feedback remains the central idea behind reliable physical systems.
+teaser: "Why feedback is still the central idea behind physical systems that behave reliably."
 publishDate: 2026-05-18
 category: Control Algorithms & Diagnostics
 tags:

@@ -2,6 +2,7 @@
 title: Real-Time Combustion Control Implementation
 subtitle: Turning combustion algorithms into hardware-executable control systems
 description: How combustion observers, virtual sensors, diagnostic logic, and predictive controllers can be implemented under real-time FPGA hardware constraints for in-cycle combustion control.
+teaser: "How observers, virtual sensors and controllers fit the timing limits of an FPGA."
 publishDate: 2026-06-25
 updatedDate: 2026-07-07
 readingTime: 12 min read
@@ -13,6 +14,7 @@ tags:
   - Combustion control
   - Signal processing
   - Hardware-constrained systems
+relatedProject: heavy-duty-engine-diagnostics-control-research
 featured: true
 draft: true
 heroImage:

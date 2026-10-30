@@ -1,0 +1,506 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   viewBox="0 0 1050.0504 560"
+   width="1050.0504"
+   height="560"
+   font-family="Calibri, Arial, Helvetica, sans-serif"
+   version="1.1"
+   id="svg767"
+   sodipodi:docname="part1_Fig1_battery_dimensioning.svg.2026_10_17_22_59_09.1.svg"
+   inkscape:version="1.2.1 (9c6d41e410, 2022-07-14)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview769"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false"
+     inkscape:zoom="0.85913474"
+     inkscape:cx="513.88913"
+     inkscape:cy="330.56515"
+     inkscape:window-width="1920"
+     inkscape:window-height="1009"
+     inkscape:window-x="1912"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg767" />
+  <defs
+     id="defs623">
+    <marker
+       id="ak"
+       viewBox="0 0 10 10"
+       refX="9"
+       refY="5"
+       markerWidth="7"
+       markerHeight="7"
+       orient="auto-start-reverse">
+      <path
+         d="M 0,0 10,5 0,10 Z"
+         fill="#4d4d4d"
+         id="path617" />
+    </marker>
+    <marker
+       id="ao"
+       viewBox="0 0 10 10"
+       refX="9"
+       refY="5"
+       markerWidth="6"
+       markerHeight="6"
+       orient="auto-start-reverse">
+      <path
+         d="M 0,0 10,5 0,10 Z"
+         fill="#d98c2b"
+         id="path620" />
+    </marker>
+  </defs>
+  <rect
+     width="1050.0504"
+     height="560"
+     fill="#ffffff"
+     id="rect625"
+     x="0"
+     y="0"
+     style="stroke-width:1" />
+  <!-- Challenges panel -->
+  <rect
+     x="20"
+     y="40"
+     width="230"
+     height="430"
+     fill="#f5f5f5"
+     id="rect627" />
+  <text
+     x="135"
+     y="72"
+     text-anchor="middle"
+     font-size="16px"
+     font-weight="bold"
+     fill="#1a1a1a"
+     id="text629"
+     style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Calibri;-inkscape-font-specification:'Calibri Bold'">Challenges</text>
+  <g
+     text-anchor="middle"
+     fill="#1a1a1a"
+     id="g659">
+    <rect
+       x="35"
+       y="90"
+       width="200"
+       height="80"
+       fill="#ffffff"
+       id="rect633" />
+    <text
+       x="135"
+       y="124"
+       font-size="14px"
+       font-weight="bold"
+       id="text635">Mass</text>
+    <text
+       x="135"
+       y="144"
+       font-size="12.5px"
+       id="text637">(payload lost)</text>
+    <rect
+       x="35"
+       y="183"
+       width="200"
+       height="80"
+       fill="#ffffff"
+       id="rect639" />
+    <text
+       x="135"
+       y="217"
+       font-size="14px"
+       font-weight="bold"
+       id="text641">Cost</text>
+    <text
+       x="135"
+       y="237"
+       font-size="12.5px"
+       id="text643">(purchase price)</text>
+    <rect
+       x="35"
+       y="276"
+       width="200"
+       height="80"
+       fill="#ffffff"
+       id="rect645" />
+    <text
+       x="135"
+       y="310"
+       font-size="14px"
+       font-weight="bold"
+       id="text647">Range and charging</text>
+    <text
+       x="135"
+       y="330"
+       font-size="12.5px"
+       id="text649">(route vs driver breaks)</text>
+    <rect
+       x="35"
+       y="369"
+       width="200"
+       height="80"
+       fill="#ffffff"
+       id="rect651" />
+    <text
+       x="135"
+       y="395"
+       font-size="14px"
+       font-weight="bold"
+       id="text653">Variability of</text>
+    <text
+       x="135"
+       y="413"
+       font-size="14px"
+       font-weight="bold"
+       id="text655">energy demand</text>
+    <text
+       x="135"
+       y="433"
+       font-size="12.5px"
+       id="text657">(load, route profile, weather)</text>
+  </g>
+  <!-- Trade-off block arrow (double-headed) -->
+  <path
+     d="m 249.23868,245 30.87889,-30 v 15 h 24.70312 v -15 l 30.87889,30 -30.87889,30 v -15 h -24.70312 v 15 z"
+     fill="#dddddd"
+     id="path661"
+     style="stroke-width:0.999999" />
+  <text
+     x="290"
+     y="205"
+     text-anchor="middle"
+     font-size="11px"
+     fill="#4d4d4d"
+     id="text663"
+     style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-family:Calibri;-inkscape-font-specification:'Calibri Light'">trade-off</text>
+  <!-- Worst-case scenarios -->
+  <rect
+     x="335"
+     y="40"
+     width="210"
+     height="100"
+     fill="#eeeeee"
+     id="rect667" />
+  <g
+     text-anchor="middle"
+     fill="#1a1a1a"
+     id="g677">
+    <text
+       x="440"
+       y="64"
+       font-size="14px"
+       font-weight="bold"
+       id="text669">Worst-case scenarios</text>
+    <text
+       x="440"
+       y="84"
+       font-size="12.5px"
+       id="text671">Nordic winter, southern summer</text>
+    <text
+       x="440"
+       y="103"
+       font-size="12.5px"
+       id="text673">Aged battery (8 years)</text>
+    <text
+       x="440"
+       y="122"
+       font-size="12.5px"
+       id="text675">Required daily range</text>
+  </g>
+  <line
+     x1="440"
+     y1="140"
+     x2="440"
+     y2="188"
+     stroke="#4d4d4d"
+     stroke-width="1.5"
+     marker-end="url(#ak)"
+     id="line679" />
+  <text
+     x="450"
+     y="168"
+     font-size="11px"
+     fill="#4d4d4d"
+     id="text681"
+     style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-family:Calibri;-inkscape-font-specification:'Calibri Light'">sets the size</text>
+  <!-- Battery dimensioning -->
+  <rect
+     x="335"
+     y="190"
+     width="210"
+     height="110"
+     fill="#d6e3f0"
+     id="rect685" />
+  <g
+     text-anchor="middle"
+     fill="#1a1a1a"
+     id="g695">
+    <text
+       x="440"
+       y="216"
+       font-size="14px"
+       font-weight="bold"
+       id="text687">Battery dimensioning</text>
+    <text
+       x="440"
+       y="238"
+       font-size="12.5px"
+       id="text689">kWh → range</text>
+    <text
+       x="440"
+       y="258"
+       font-size="12.5px"
+       id="text691">kg → payload</text>
+    <text
+       x="440"
+       y="278"
+       font-size="12.5px"
+       id="text693">€ → cost</text>
+  </g>
+  <line
+     x1="440"
+     y1="300"
+     x2="440"
+     y2="358"
+     stroke="#4d4d4d"
+     stroke-width="1.5"
+     marker-end="url(#ak)"
+     id="line697" />
+  <text
+     x="450.82306"
+     y="332.76956"
+     font-size="11px"
+     fill="#4d4d4d"
+     id="text701"
+     style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-family:Calibri;-inkscape-font-specification:'Calibri Light'">operating temperature</text>
+  <!-- Thermal system (hardware) -->
+  <rect
+     x="335"
+     y="360"
+     width="210"
+     height="110"
+     fill="#eeeeee"
+     id="rect703" />
+  <g
+     text-anchor="middle"
+     fill="#1a1a1a"
+     id="g713">
+    <text
+       x="440"
+       y="386"
+       font-size="14px"
+       font-weight="bold"
+       id="text705">Thermal system</text>
+    <text
+       x="440"
+       y="404"
+       font-size="12.5px"
+       id="text707">(hardware)</text>
+    <text
+       x="440"
+       y="428"
+       font-size="12.5px"
+       id="text709"
+       style="white-space:pre;inline-size:131.641;display:inline"
+       xml:space="preserve"><tspan
+         x="440"
+         y="428"
+         id="tspan1298">Pumps, valves,<tspan
+   y="428"
+   id="tspan1300"> </tspan></tspan><tspan
+         x="440"
+         y="443.625"
+         id="tspan1302">fans, heaters, HVAC...</tspan></text>
+  </g>
+  <!-- Thermal system -> Battery operation -->
+  <line
+     x1="545"
+     y1="415"
+     x2="617.16278"
+     y2="415"
+     stroke="#4d4d4d"
+     stroke-width="2.28026"
+     marker-end="url(#ak)"
+     id="line715" />
+  <text
+     x="581.55719"
+     y="407"
+     text-anchor="middle"
+     font-size="11px"
+     fill="#4d4d4d"
+     id="text717"
+     style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-family:Calibri;-inkscape-font-specification:'Calibri Light'">heat</text>
+  <!-- Battery operation -->
+  <g
+     id="g2035"
+     transform="translate(23.5)">
+    <rect
+       x="595"
+       y="360"
+       width="150"
+       height="110"
+       fill="#eeeeee"
+     id="rect719" />
+    <g
+       text-anchor="middle"
+       fill="#1a1a1a"
+       id="g731">
+      <text
+         x="670"
+         y="384"
+         font-size="14px"
+         font-weight="bold"
+         id="text721">Battery operation</text>
+      <text
+         x="670"
+         y="404"
+         font-size="12.5px"
+         id="text723">Temperature</text>
+      <text
+         x="670"
+         y="421"
+         font-size="12.5px"
+         id="text725">State of charge</text>
+      <text
+         x="670"
+         y="438"
+         font-size="12.5px"
+         id="text727">State of health</text>
+      <text
+         x="670"
+         y="455"
+         font-size="12.5px"
+         id="text729">Available power</text>
+    </g>
+  </g>
+  <!-- Battery operation -> Control software -->
+  <line
+     x1="767.22229"
+     y1="415.00003"
+     x2="865.52509"
+     y2="415.00003"
+     stroke="#4d4d4d"
+     stroke-width="2.31211"
+     marker-end="url(#ak)"
+     id="line733" />
+  <text
+     x="817.03253"
+     y="393"
+     text-anchor="middle"
+     font-size="11px"
+     fill="#4d4d4d"
+     id="text735"
+     style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-family:Calibri;-inkscape-font-specification:'Calibri Light'"><tspan
+       sodipodi:role="line"
+       id="tspan1980"
+       x="817.03253"
+       y="393">measurements</tspan><tspan
+       sodipodi:role="line"
+       id="tspan1982"
+       x="817.03253"
+       y="406.75">and forecasts</tspan></text>
+  <!-- Control software (thermal management) -->
+  <g
+     id="g2014">
+    <rect
+       x="867"
+       y="360"
+       width="160"
+       height="110"
+       fill="#f2e3d4"
+       id="rect741" />
+    <g
+       text-anchor="middle"
+       fill="#1a1a1a"
+       id="g751"
+       transform="translate(42)">
+      <text
+         x="905"
+         y="384"
+         font-size="14px"
+         font-weight="bold"
+         id="text743">Control software</text>
+      <text
+         x="905"
+         y="402"
+         font-size="12.5px"
+         id="text745">(thermal management)</text>
+      <text
+         x="905"
+         y="426"
+         font-size="12.5px"
+         id="text747">Temperature of battery,</text>
+      <text
+         x="905"
+         y="445"
+         font-size="12.5px"
+         id="text749">drivetrain and cab</text>
+    </g>
+  </g>
+  <!-- Control software -> Thermal system (commands, closes the loop) -->
+  <polyline
+     points="905,470 905,500 440,500 440,472"
+     fill="none"
+     stroke="#4d4d4d"
+     stroke-width="1.50121"
+     marker-end="url(#ak)"
+     id="polyline753"
+     style="stroke-dasharray:2.8718, 1.43589;stroke-dashoffset:0"
+     transform="matrix(1.0912784,0,0,1,-39.780199,0)" />
+  <text
+     x="672"
+     y="518"
+     text-anchor="middle"
+     font-size="11px"
+     fill="#4d4d4d"
+     id="text755"
+     style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-family:Calibri;-inkscape-font-specification:'Calibri Light'">comm<tspan
+   style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-family:Calibri;-inkscape-font-specification:'Calibri Light'"
+   id="tspan496">ands: mode, fl</tspan>ows, timing</text>
+  <!-- Feedback: software effect on battery size -->
+  <polyline
+     points="905,360 905,245 547,245"
+     fill="none"
+     stroke="#d98c2b"
+     stroke-width="2.5"
+     marker-end="url(#ao)"
+     id="polyline757"
+     transform="matrix(1.1178391,0,0,1,-64.548836,0)" />
+  <text
+     x="753"
+     y="235"
+     text-anchor="middle"
+     font-size="12.5px"
+     font-weight="bold"
+     fill="#b36b12"
+     id="text759"
+     style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Calibri;-inkscape-font-specification:'Calibri Bold'"><tspan
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Calibri;-inkscape-font-specification:'Calibri Bold'"
+       id="tspan2049">Increased energy efficiency</tspan></text>
+  <text
+     x="753"
+     y="264"
+     text-anchor="middle"
+     font-size="12.5px"
+     fill="#1a1a1a"
+     id="text761"
+     style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Calibri;-inkscape-font-specification:'Calibri Bold'">Smaller battery | slower ageing | shorter charging stops</text>
+  <!-- Watermark -->
+  <text
+     x="1030"
+     y="550"
+     text-anchor="end"
+     font-size="11px"
+     fill="#999999"
+     id="text765"
+     style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Calibri;-inkscape-font-specification:'Calibri Bold'">carlosjorques.com</text>
+</svg>
