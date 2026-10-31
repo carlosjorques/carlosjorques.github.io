@@ -38,8 +38,8 @@ export const projectCards = [
 			'The battery is about a third of the price of an electric truck, and part of every charge goes into heating and cooling it. The predictive controller I lead uses the route ahead to decide when to heat or cool, and with which pumps, fans and heaters. In truck tests, it saved enough energy for a smaller battery with the same range.',
 		outcomes: [
 			{ value: '2–4%', label: 'less vehicle energy' },
-			{ value: 'up to 4.6×', label: 'battery saving over energy saving' },
-			{ value: 'up to 21,500\u00a0€', label: 'saved per truck in 8 years' },
+			{ value: 'up to 4.6×', label: 'the value of the electricity saved' },
+			{ value: '12–25\u00a0kWh', label: 'less battery for the same range' },
 		],
 		image: electricTruckImage,
 		imageAlt: 'Electric truck connected to a charger in snowy test conditions',

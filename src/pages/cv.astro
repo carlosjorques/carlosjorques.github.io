@@ -53,11 +53,11 @@ const profile = [
 	],
 ];
 const results = [
-	{ type: 'Business', prefix: 'up to', value: '21,500 €', text: 'lower TCO per truck, modelled', href: work('electric-truck-thermal-management') },
-	{ type: 'Leadership', value: '3–12', text: 'engineers led or coached as Scrum Master', href: '#role-volvo' },
+	{ type: 'Business', prefix: 'up to', 	value: '30,500 €', text: 'per truck, designed in, modelled', href: work('electric-truck-thermal-management') },
+	{ type: 'Leadership', value: '3–12', text: 'engineers led or coached', href: '#role-volvo' },
 	{ type: 'Innovation', value: '5 patents', text: 'and 15 published articles', href: '#record' },
-	{ type: 'Control', value: '< 1 km/h', text: 'speed error, autonomous hauler', href: work('autonomous-hauler-propulsion-control') },
-	{ type: 'Estimation', value: '±0.6 °C', text: 'battery temperature prediction', href: '#role-scania-thermal' },
+	{ type: 'Control', value: '< 1 km/h', text: 'speed error, driverless hauler', href: work('autonomous-hauler-propulsion-control') },
+	{ type: 'Estimation', value: '±0.6 °C', text: 'predicted battery temperature', href: '#role-scania-thermal' },
 	{ type: 'Optimisation', value: '2–4%', text: 'less truck energy in tests', href: work('electric-truck-thermal-management') },
 ];
 
@@ -347,19 +347,6 @@ const jumpLinks = [
 		<section class="cv-section cv-section--band" id="glance" aria-labelledby="glance-title">
 			<div class="cv-rail"><h2 id="glance-title">At a glance</h2></div>
 			<div class="cv-glance-grid">
-				<div class="cv-glance-col">
-					<h3 class="cv-sr-only">Profile</h3>
-					{profile.map((group) => (
-						<dl class="cv-glance">
-							{group.map((item) => (
-								<div>
-									<dt><a href={item.href}>{item.label}</a></dt>
-									<dd><ul>{item.items.map((entry) => <li>{entry}</li>)}</ul></dd>
-								</div>
-							))}
-						</dl>
-					))}
-				</div>
 				<div class="cv-glance-col cv-results-panel">
 					<h3 class="cv-sr-only">Key results</h3>
 					<ul class="cv-results">
@@ -373,6 +360,19 @@ const jumpLinks = [
 							</li>
 						))}
 					</ul>
+				</div>
+				<div class="cv-glance-col">
+					<h3 class="cv-sr-only">Profile</h3>
+					{profile.map((group) => (
+						<dl class="cv-glance">
+							{group.map((item) => (
+								<div>
+									<dt><a href={item.href}>{item.label}</a></dt>
+									<dd><ul>{item.items.map((entry) => <li>{entry}</li>)}</ul></dd>
+								</div>
+							))}
+						</dl>
+					))}
 				</div>
 			</div>
 		</section>
@@ -631,15 +631,15 @@ const jumpLinks = [
 
 <style>
 	.cv-page { width:min(calc(100% - 5rem),var(--content-width)); margin:0 auto; }
-	.cv-rail h2 { margin:0; max-width:none; font-family:var(--font-mono); font-size:.82rem; font-weight:600; letter-spacing:.08em; line-height:1.4; text-transform:uppercase; color:var(--color-muted); }
-	.cv-results__type, .cv-role__label, .cv-skills__label, .cv-group__meta, .cv-role__meta { font-family:var(--font-mono); font-size:var(--type-meta-size); letter-spacing:var(--type-meta-tracking); line-height:1.4; text-transform:uppercase; }
+	.cv-rail h2 { margin:0; max-width:none; font-family:var(--font-mono); font-size: .9rem; font-weight:600; letter-spacing: 0; line-height:1.4; text-transform: none; color:var(--color-muted); }
+	.cv-results__type, .cv-role__label, .cv-skills__label, .cv-group__meta, .cv-role__meta { font-family:var(--font-mono); font-size:var(--type-meta-size); letter-spacing:var(--type-meta-tracking); line-height:1.4; text-transform: none; }
 	.cv-results__type { margin:0; font-weight:600; color:var(--color-muted); }
 	.cv-date { color:inherit; }
 
 	.cv-hero { display:grid; gap:.7rem; padding:clamp(3rem,5vw,4.6rem) 0 3rem; }
-	.cv-hero__eyebrow { margin:0; font-family:var(--font-mono); font-size:.82rem; font-weight:600; letter-spacing:.08em; line-height:1.4; text-transform:uppercase; color:var(--color-muted); }
-	.cv-hero h1 { margin:0; font-size:clamp(2.6rem,4.2vw,3.6rem); font-weight:800; letter-spacing:-.05em; line-height:1.02; }
-	.cv-hero__title { margin:0; font-size:clamp(1.3rem,2vw,1.6rem); font-weight:700; letter-spacing:-.02em; color:var(--color-text); }
+	.cv-hero__eyebrow { margin:0; font-family:var(--font-mono); font-size: .9rem; font-weight:600; letter-spacing: 0; line-height:1.4; text-transform: none; color:var(--color-muted); }
+	.cv-hero h1 { margin:0; font-size: clamp(2.2rem, 4.6vw, 3.3rem); font-weight: 600; letter-spacing: -.03em; line-height: 1.08; }
+	.cv-hero__title { margin:0; font-family:var(--font-sans); font-size:clamp(1.3rem,2vw,1.6rem); font-weight:500; letter-spacing:-.01em; color:var(--color-text); }
 	.cv-hero__lead { max-width:45rem; margin:.3rem 0 0; font-size:1.12rem; line-height:1.6; color:var(--color-body-text); }
 	.cv-hero__lead strong { font-weight:700; color:var(--color-text); }
 	.cv-facts { display:flex; flex-wrap:wrap; margin:.2rem 0 0; padding:0; list-style:none; }
@@ -648,7 +648,7 @@ const jumpLinks = [
 	.cv-facts li.cv-facts__open { color:var(--color-body-text); }
 	.cv-hero__actions { margin-top:.9rem; }
 
-	.cv-section { display:grid; grid-template-columns:16rem minmax(0,1fr); gap:0 2rem; padding:1rem 0 clamp(2.5rem,5vw,4rem); border-top:1px solid var(--color-border); scroll-margin-top:2rem; }
+	.cv-section { display:grid; grid-template-columns:9.5rem minmax(0,1fr); gap:0 2.5rem; padding:1rem 0 clamp(2.5rem,5vw,4rem); border-top:1px solid var(--color-border); scroll-margin-top:2rem; }
 	.cv-rail { display:grid; align-content:start; gap:.5rem; padding-top:.25rem; }
 	.cv-section--band { grid-template-columns:1fr; gap:1.4rem; padding:2.6rem 0 3rem; border-top:0; background:var(--color-surface-soft); box-shadow:0 0 0 100vmax var(--color-surface-soft); clip-path:inset(0 -100vmax); }
 	.cv-section--band + .cv-section { border-top:0; padding-top:2.6rem; }
@@ -656,18 +656,24 @@ const jumpLinks = [
 	.cv-body p, .cv-body li, .cv-body dd { margin:0; font-size:1.02rem; line-height:1.6; color:var(--color-text); }
 	.cv-body a { color:var(--color-link); text-underline-offset:.2em; }
 
-	.cv-glance-grid { display:grid; grid-template-columns:minmax(0,1.4fr) minmax(0,1fr); gap:2.5rem 3.5rem; }
+	/* Results first, then the profile, both at full width so the profile items flow inline. */
+	.cv-glance-grid { display:grid; grid-template-columns:minmax(0,1fr); gap:1.5rem; }
 	.cv-glance-col { display:grid; align-content:start; gap:.4rem; }
 	.cv-sr-only { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
 	/* The only container on the page: groups the results apart from the profile without labels. */
 	.cv-results-panel { align-self:start; padding:1.5rem 1.6rem 1.6rem; border:1px solid var(--color-card-border); border-radius:calc(var(--radius) * .6); background:var(--color-page); }
-	.cv-results-panel .cv-results { margin:0; row-gap:1.75rem; }
+	.cv-results-panel .cv-results { margin:0; grid-template-columns:repeat(3,minmax(0,1fr)); row-gap:1.75rem; }
+	@media (min-width: 1100px) {
+		.cv-results-panel { padding:1.25rem 1.4rem; }
+		.cv-results-panel .cv-results { grid-template-columns:repeat(6,minmax(0,1fr)); column-gap:1.25rem; }
+		.cv-results-panel .cv-results__value { font-size:1.4rem; }
+	}
 
 	.cv-glance { display:grid; gap:.5rem; margin:0; padding:.9rem 0; }
 	.cv-glance + .cv-glance { border-top:1px solid var(--color-border); }
 	.cv-glance div { display:grid; grid-template-columns:7.5rem minmax(0,1fr); gap:1rem; }
 	/* Sans semibold labels match the Skills group headings; mono caps stay reserved for section titles. */
-	.cv-glance dt { margin:0; font-size:1rem; font-weight:600; line-height:1.55; color:var(--color-text); }
+	.cv-glance dt { margin:0; font-family:var(--font-sans); font-size:.95rem; font-weight:600; line-height:1.55; color:var(--color-text); }
 	.cv-glance dt a { color:inherit; text-decoration:none; }
 	.cv-glance dt a:hover, .cv-glance dt a:focus-visible { color:var(--color-text); text-decoration:underline; text-underline-offset:.3em; }
 	.cv-glance dd { margin:0; }
@@ -680,7 +686,7 @@ const jumpLinks = [
 	.cv-results a { display:grid; align-content:start; gap:.15rem; color:inherit; text-decoration:none; }
 	.cv-results__type { font-size:.72rem !important; }
 	.cv-results__cue { color:var(--color-muted); }
-	.cv-results__value { font-size:1.75rem; font-weight:800; letter-spacing:-.03em; line-height:1.1; color:var(--color-text); white-space:nowrap; }
+	.cv-results__value { font-family:var(--font-sans); font-size:1.6rem; font-weight: 600; letter-spacing:-.02em; line-height:1.1; color:var(--color-text); white-space:nowrap; }
 	.cv-results__value small { font-size:.8rem; font-weight:600; letter-spacing:0; color:var(--color-muted); }
 	.cv-results__text { font-size:.86rem; line-height:1.4; color:var(--color-muted); }
 	.cv-results a:hover .cv-results__text, .cv-results a:focus-visible .cv-results__text { color:var(--color-text); text-decoration:underline; text-underline-offset:.2em; }
@@ -692,7 +698,7 @@ const jumpLinks = [
 	.cv-groups { display:grid; gap:2.6rem; }
 	.cv-group { display:grid; scroll-margin-top:1.5rem; }
 	.cv-group__head { display:grid; gap:.3rem; margin:0; padding-bottom:.6rem; border-bottom:1px solid var(--color-border-strong); }
-	.cv-group__name { font-family:var(--font-mono); font-size:1.3rem; font-weight:700; letter-spacing:var(--type-meta-tracking); line-height:1.3; text-transform:uppercase; color:var(--color-accent-text); }
+	.cv-group__name { justify-self:start; width:fit-content; font-family:var(--font-sans); font-size:1.3rem; font-weight:600; letter-spacing:-.01em; line-height:1.3; text-transform: none; color:var(--color-text); background: var(--mark-band); }
 	.cv-group__meta { font-weight:400; color:var(--color-muted); }
 	.cv-role { border-bottom:1px solid var(--color-border-soft); scroll-margin-top:1.5rem; }
 	.cv-role:last-child { border-bottom:0; }
@@ -703,15 +709,15 @@ const jumpLinks = [
 	.cv-role[open] > summary::after { content:'\2212'; }
 	.cv-role > summary:hover .cv-role__title { text-decoration:underline; text-underline-offset:.2em; }
 	.cv-role__main { display:grid; gap:.3rem; }
-	.cv-role__title { font-size:1.08rem; font-weight:700; letter-spacing:-.01em; line-height:1.35; color:var(--color-text); }
+	.cv-role__title { font-family:var(--font-sans); font-size:1.08rem; font-weight:600; letter-spacing:-.01em; line-height:1.35; color:var(--color-text); }
 	.cv-role__meta { color:var(--color-muted); }
 	.cv-role__org { color:var(--color-muted); }
 	.cv-role__summary { margin-top:.2rem; font-size:.98rem; line-height:1.55; color:var(--color-body-text); }
 	.cv-role__key { display:block; margin-top:.15rem; color:var(--color-text); }
-	.cv-role__key-label { margin-right:.5rem; font-family:var(--font-mono); font-size:var(--type-meta-size); letter-spacing:var(--type-meta-tracking); text-transform:uppercase; color:var(--color-muted); }
+	.cv-role__key-label { margin-right:.5rem; font-family:var(--font-mono); font-size:var(--type-meta-size); letter-spacing:var(--type-meta-tracking); text-transform: none; color:var(--color-muted); }
 	.cv-role__key strong { font-weight:600; }
 	.cv-role[open] .cv-role__key { display:none; }
-	.cv-expand { justify-self:start; margin-top:.5rem; padding:0; border:0; background:none; font:inherit; font-size:.9rem; font-weight:400; color:var(--color-link); text-decoration:underline; text-underline-offset:.2em; cursor:pointer; }
+	.cv-expand { justify-self:start; margin-top:.5rem; padding:0; border:0; background:none; font:inherit; font-size:.9rem; font-weight:400; color:var(--color-link); text-decoration:underline; text-decoration-color:color-mix(in srgb, currentColor var(--link-underline-mix, 35%), transparent); text-decoration-thickness:1px; text-underline-offset:.2em; cursor:pointer; }
 	.cv-expand:hover { color:var(--color-text); }
 	.cv-expand:focus-visible { outline:3px solid var(--color-focus); outline-offset:3px; }
 	.cv-expand[hidden] { display:none; }
@@ -740,9 +746,9 @@ const jumpLinks = [
 	.cv-list, .cv-plain { margin:0; padding:0; list-style:none; }
 	.cv-list { display:grid; gap:1.1rem; }
 	.cv-list li { display:grid; gap:.2rem; }
-	.cv-list__meta { font-family:var(--font-mono); font-size:var(--type-meta-size); letter-spacing:var(--type-meta-tracking); line-height:1.4; text-transform:uppercase; color:var(--color-muted); }
+	.cv-list__meta { font-family:var(--font-mono); font-size:var(--type-meta-size); letter-spacing:var(--type-meta-tracking); line-height:1.4; text-transform: none; color:var(--color-muted); }
 	.cv-list__link { justify-self:start; font-size:.95rem; }
-	.cv-courses__label { margin:.6rem 0 0; padding-bottom:.5rem; border-bottom:1px solid var(--color-border-soft); font-family:var(--font-mono); font-size:var(--type-meta-size); font-weight:700; letter-spacing:var(--type-meta-tracking); line-height:1.4; text-transform:uppercase; color:var(--color-text); scroll-margin-top:6rem; }
+	.cv-courses__label { margin:.6rem 0 0; padding-bottom:.5rem; border-bottom:1px solid var(--color-border-soft); font-family:var(--font-mono); font-size:var(--type-meta-size); font-weight:700; letter-spacing:var(--type-meta-tracking); line-height:1.4; text-transform: none; color:var(--color-text); scroll-margin-top:6rem; }
 	.cv-courses { display:grid; grid-template-columns:repeat(auto-fit, minmax(16rem, 1fr)); gap:.8rem 1.5rem; margin:0; padding:0; list-style:none; font-size:.95rem; }
 	.cv-courses li { display:grid; align-content:start; gap:.15rem; }
 	.cv-plain { display:grid; gap:.45rem; padding-top:.6rem; }
@@ -752,7 +758,7 @@ const jumpLinks = [
 	.cv-details .cv-plain { list-style:disc; padding-left:1.25rem; }
 	.cv-details .cv-plain li::marker { color:var(--color-muted); }
 	.cv-plain__meta { color:var(--color-muted); }
-	.cv-details summary { display:flex; justify-content:space-between; gap:1rem; padding:.2rem 0 .5rem; border-bottom:1px solid var(--color-border-soft); cursor:pointer; list-style:none; font-family:var(--font-mono); font-size:var(--type-meta-size); font-weight:700; letter-spacing:var(--type-meta-tracking); line-height:1.4; text-transform:uppercase; color:var(--color-text); }
+	.cv-details summary { display:flex; justify-content:space-between; gap:1rem; padding:.2rem 0 .5rem; border-bottom:1px solid var(--color-border-soft); cursor:pointer; list-style:none; font-family:var(--font-mono); font-size:var(--type-meta-size); font-weight:700; letter-spacing:var(--type-meta-tracking); line-height:1.4; text-transform: none; color:var(--color-text); }
 	.cv-details summary::-webkit-details-marker { display:none; }
 	.cv-details summary::after { content:'+'; font-size:1.1rem; font-weight:400; line-height:1; color:var(--color-muted); }
 	.cv-details[open] summary::after { content:'\2212'; }
@@ -760,12 +766,12 @@ const jumpLinks = [
 	.cv-details summary:focus-visible { outline:3px solid var(--color-focus); outline-offset:3px; }
 	.cv-closing { padding-top:0; }
 	.cv-open { display:grid; gap:.35rem; margin-top:.35rem; padding-top:.75rem; border-top:1px solid var(--color-border-soft); }
-	.cv-open__label { margin:0; font-family:var(--font-mono); font-size:var(--type-meta-size); font-weight:600; letter-spacing:var(--type-meta-tracking); line-height:1.4; text-transform:uppercase; color:var(--color-muted); }
+	.cv-open__label { margin:0; font-family:var(--font-mono); font-size:var(--type-meta-size); font-weight:600; letter-spacing:var(--type-meta-tracking); line-height:1.4; text-transform: none; color:var(--color-muted); }
 	.cv-open .cv-dots li { color:var(--color-text); }
 
 	.cv-jump { position:fixed; right:1.5rem; bottom:1.5rem; z-index:20; transition:opacity .2s ease, visibility .2s; }
 	.cv-jump.is-hidden { opacity:0; visibility:hidden; }
-	.cv-jump summary { padding:.6rem 1.1rem; border-radius:999px; background:var(--color-text); color:var(--color-page); font-size:.92rem; font-weight:600; cursor:pointer; list-style:none; box-shadow:0 4px 14px color-mix(in srgb, var(--color-text) 22%, transparent); }
+	.cv-jump summary { padding:.6rem 1.1rem; border-radius:var(--radius); background:var(--color-text); color:var(--color-page); font-size:.92rem; font-weight:600; cursor:pointer; list-style:none; box-shadow:0 4px 14px color-mix(in srgb, var(--color-text) 22%, transparent); }
 	.cv-jump summary::-webkit-details-marker { display:none; }
 	.cv-jump summary::after { content:'\25B4'; margin-left:.5rem; }
 	.cv-jump details[open] summary::after { content:'\25BE'; }
@@ -788,6 +794,7 @@ const jumpLinks = [
 		.cv-page { width:min(calc(100% - 2rem),var(--content-width)); }
 		.cv-hero .button-row { display:grid; }
 		.cv-glance div { grid-template-columns:1fr; gap:.1rem; }
+		.cv-results-panel .cv-results { grid-template-columns:repeat(2,minmax(0,1fr)); }
 			.cv-role__body { padding-right:0; }
 	}
 

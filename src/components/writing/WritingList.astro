@@ -67,12 +67,12 @@ const compact = variant === 'compact';
 	.writing-list { margin: 0; padding: 0; list-style: none; }
 	.writing-row { display: grid; grid-template-columns: var(--writing-label-width) minmax(0, 1fr) auto; gap: 1.25rem; align-items: baseline; padding: .85rem 0; color: inherit; text-decoration: none; }
 	.writing-row__label,
-	.writing-row__time { color: var(--color-muted); font-family: var(--font-mono); font-size: var(--type-chip-size); letter-spacing: var(--type-chip-tracking); line-height: 1.4; text-transform: uppercase; white-space: nowrap; }
+	.writing-row__time { color: var(--color-muted); font-family: var(--font-mono); font-size: var(--type-chip-size); letter-spacing: var(--type-chip-tracking); line-height: 1.4; text-transform: none; white-space: nowrap; }
 	.writing-row__main { display: grid; gap: .3rem; max-width: 46rem; }
-	.writing-row__title { max-width: none; margin: 0; color: var(--color-text); font-family: var(--font-body); font-size: 1.12rem; font-weight: 600; letter-spacing: -.01em; line-height: 1.35; }
+	.writing-row__title { max-width: none; margin: 0; color: var(--color-text); font-family: var(--font-sans); font-size: 1.12rem; font-weight: 600; letter-spacing: -.01em; line-height: 1.35; }
 	.writing-row__description { color: var(--color-muted); font-size: .95rem; line-height: 1.5; }
 	.writing-row__context { color: var(--color-muted); font-size: .88rem; font-weight: 400; }
-	.writing-row__draft { margin-left: .4rem; color: var(--color-muted); font-family: var(--font-mono); font-size: .68rem; font-weight: 400; letter-spacing: .08em; text-transform: uppercase; vertical-align: middle; }
+	.writing-row__draft { margin-left: .4rem; color: var(--color-muted); font-family: var(--font-mono); font-size: .82rem; font-weight: 400; letter-spacing: 0; text-transform: none; vertical-align: middle; }
 	.writing-row:hover .writing-row__title,
 	.writing-row:focus-visible .writing-row__title { color: var(--color-link); text-decoration: underline; text-underline-offset: .2em; }
 	.writing-row:focus-visible { outline: 2px solid var(--color-link); outline-offset: 4px; }

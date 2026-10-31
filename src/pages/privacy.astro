@@ -101,17 +101,17 @@ const withBase = (href: string) => (href === '/' ? normalizedBase : `${normalize
 		color: var(--color-muted);
 		font-size: .82rem;
 		font-weight: 600;
-		letter-spacing: .08em;
+		letter-spacing: 0;
 		line-height: 1.4;
 	}
 
 	.privacy-hero .hero-title {
 		max-width: none;
 		margin: 0;
-		font-size: clamp(2.6rem, 3.8vw, 3.5rem);
-		font-weight: 800;
-		letter-spacing: -.05em;
-		line-height: 1.02;
+		font-size: clamp(2.2rem, 4.6vw, 3.3rem);
+		font-weight: 600;
+		letter-spacing: -.03em;
+		line-height: 1.08;
 		overflow-wrap: normal;
 		word-break: normal;
 	}
@@ -165,6 +165,7 @@ const withBase = (href: string) => (href === '/' ? normalizedBase : `${normalize
 		color: var(--color-link);
 		font-weight: 700;
 		text-decoration: underline;
+		text-decoration-color: color-mix(in srgb, currentColor var(--link-underline-mix, 35%), transparent);
 		text-decoration-thickness: 1px;
 		text-underline-offset: 0.2em;
 	}

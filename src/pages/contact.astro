@@ -47,7 +47,7 @@ const contactPageLd = {
 			<h1 id="contact-title" class="hero-title">Let’s talk.</h1>
 			<p class="contact-hero__lead">I lead the development of embedded control software for complex dynamic systems, such as electric vehicles and autonomous machines. Send me a message below about a role, a control problem in your system or a collaboration, or connect on <a href={linkedinHref} target="_blank" rel="noopener noreferrer" data-analytics-event="linkedin_outbound_click" data-cta-id="contact-linkedin" data-cta-placement="contact-hero-copy" data-cta-intent="professional-profile" data-source-section="contact-hero" data-destination={linkedinHref}>LinkedIn</a>. My <a href={withBase(CONTACT_DESTINATIONS.cv)} download data-analytics-event="cv_pdf_download" data-cta-id="contact-hero-cv" data-cta-placement="contact-hero-copy" data-cta-intent="formal-proof" data-source-section="contact-hero" data-destination={withBase(CONTACT_DESTINATIONS.cv)}>CV</a> is also available as a PDF.</p>
 			<p class="contact-hero__work">Recent work: thermal management control for <a href={withBase('/work/electric-truck-thermal-management/')} data-analytics-event="cta_click" data-cta-id="contact-hero-work-scania" data-cta-placement="contact-hero-copy" data-cta-intent="proof" data-source-section="contact-hero">Scania’s electric trucks</a> and speed control for <a href={withBase('/work/autonomous-hauler-propulsion-control/')} data-analytics-event="cta_click" data-cta-id="contact-hero-work-volvo" data-cta-placement="contact-hero-copy" data-cta-intent="proof" data-source-section="contact-hero">Volvo’s autonomous electric hauler</a>.</p>
-			<p class="contact-hero__proof"><span class="contact-hero__proof-items"><span>{IDENTITY.years} years in vehicle control software</span><span>Based in {IDENTITY.location}</span><span class="contact-hero__proof-remote">Working remotely with international teams</span></span></p>
+			<p class="contact-hero__proof"><span class="contact-hero__proof-items"><span>{IDENTITY.years} years in embedded control software</span><span>Based in {IDENTITY.location}</span><span class="contact-hero__proof-remote">Working remotely with international teams</span></span></p>
 		</div>
 	</section>
 
@@ -123,28 +123,28 @@ const contactPageLd = {
 	.contact-hero .page-container,
 	.contact-content .page-container { width:min(calc(100% - 5rem),var(--content-width)); }
 	.contact-hero .page-container { display:grid; gap:1rem; }
-	.contact-hero .section-eyebrow { margin:0; color:var(--color-muted); font-size:.82rem; font-weight:600; letter-spacing:.08em; line-height:1.4; }
-	.contact-hero .hero-title { max-width:none; margin:0; font-size:clamp(2.6rem,3.8vw,3.5rem); font-weight:800; letter-spacing:-.05em; line-height:1.02; }
+	.contact-hero .section-eyebrow { margin:0; color:var(--color-muted); font-size:.82rem; font-weight:600; letter-spacing: 0; line-height:1.4; }
+	.contact-hero .hero-title { max-width:none; margin:0; font-size: clamp(2.2rem, 4.6vw, 3.3rem); font-weight: 600; letter-spacing: -.03em; line-height: 1.08; }
 	.contact-hero__lead { max-width:52rem; margin:0; color:var(--color-text); font-size:1.08rem; line-height:1.7; }
-	.contact-hero__lead a { color:var(--color-link); font-weight:700; text-decoration:underline; text-underline-offset:.2em; }
+	.contact-hero__lead a { color:var(--color-link); text-decoration:underline; text-decoration-color:color-mix(in srgb, currentColor var(--link-underline-mix, 35%), transparent); text-decoration-thickness:1px; text-underline-offset:.2em; }
 	.contact-hero__lead a:hover,
 	.contact-hero__lead a:focus-visible { color:var(--color-link-hover); }
 	.contact-hero__proof,
 	.form-field > label,
-	.form-fieldset legend { color:var(--color-muted); font-family:var(--font-mono); font-size:.82rem; font-weight:600; letter-spacing:.08em; line-height:1.4; text-transform:uppercase; }
+	.form-fieldset legend { color:var(--color-muted); font-family:var(--font-mono); font-size: .9rem; font-weight:600; letter-spacing: 0; line-height:1.4; text-transform: none; }
 	.contact-hero__proof { margin:0; overflow:hidden; }
 	.contact-hero__proof-items { display:flex; flex-wrap:wrap; row-gap:.2rem; margin-left:-1.6em; }
 	.contact-hero__proof-items > span { white-space:nowrap; }
 	/* Every item carries its own separator; the one at the start of a line falls into the clipped negative margin. */
 	.contact-hero__proof-items > span::before { content:'·'; content:'·' / ''; display:inline-block; width:1.6em; text-align:center; }
 	.contact-hero__work { max-width:52rem; margin:0; color:var(--color-body-text); font-size:var(--type-card-body-size); line-height:var(--type-card-body-line); }
-	.contact-hero__work a { color:var(--color-link); font-weight:700; text-decoration:underline; text-underline-offset:.2em; }
+	.contact-hero__work a { color:var(--color-link); text-decoration:underline; text-decoration-color:color-mix(in srgb, currentColor var(--link-underline-mix, 35%), transparent); text-decoration-thickness:1px; text-underline-offset:.2em; }
 	.contact-hero__work a:hover,
 	.contact-hero__work a:focus-visible { color:var(--color-link-hover); }
 	.contact-content { padding-block:clamp(3rem,5vw,5rem); }
 	.contact-content__inner { display:grid; gap:1.5rem; border-top:1px solid var(--color-border); padding-top:clamp(2rem,4vw,3rem); }
 	.contact-form { display:grid; gap:1rem; min-width:0; }
-	.contact-form h2 { max-width:100%; margin:0; font-size:clamp(1.7rem,3vw,2.4rem); font-weight:800; letter-spacing:-.04em; line-height:1.08; }
+	.contact-form h2 { max-width:100%; margin:0; font-size:clamp(1.7rem,3vw,2.4rem); font-weight: 600; letter-spacing: -.03em; line-height:1.08; }
 	#message-title { scroll-margin-top:2rem; }
 	.contact-form__header p,
 	.contact-note { max-width:40rem; margin:0; color:var(--color-body-text); font-size:var(--type-card-body-size); line-height:var(--type-card-body-line); }
@@ -168,7 +168,7 @@ const contactPageLd = {
 	.field-error { display:none; margin:0; color:var(--color-error); font-size:var(--type-meta-size); line-height:var(--type-meta-line); }
 	.form-field input:user-invalid + .field-error,
 	.form-field textarea:user-invalid ~ .field-error { display:block; }
-	.contact-note a { color:var(--color-link); font-weight:700; text-decoration:underline; text-underline-offset:.2em; }
+	.contact-note a { color:var(--color-link); text-decoration:underline; text-decoration-color:color-mix(in srgb, currentColor var(--link-underline-mix, 35%), transparent); text-decoration-thickness:1px; text-underline-offset:.2em; }
 	.contact-note a:hover,
 	.contact-note a:focus-visible { color:var(--color-link-hover); }
 	.contact-status { font-weight:600; }

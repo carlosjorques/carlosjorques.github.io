@@ -29,7 +29,7 @@ glance:
   - label: "The need"
     text: "Renewable diesel fuels ignite differently from fossil diesel, so engines calibrated in advance keep wide safety margins, and those margins cost fuel in every cycle."
   - label: "My role"
-    text: "**I defined the system architecture and led the research** from the problem definition to the engine tests. I was lead author on 14 of the 15 articles and presented each one at an international conference, where one talk received an **SAE award for best oral presentation**."
+    text: "**I defined the system architecture and led the research** from the problem definition to the engine tests. I was lead author on 14 of the 15 articles and presented each one at an international conference, where one talk received the **SAE Outstanding Oral Presentation Award**."
   - label: "Key work"
     text: "Software that estimates the combustion from the cylinder pressure and corrects the injection of the same cycle within microseconds, on an FPGA. A fast estimate that feeds a correction within a hard deadline is the same problem in power electronics and robotics."
   - label: "Result"
@@ -63,6 +63,7 @@ Closing the loop lets the engine react to what actually burns, and the faster it
 - **Control and real-time implementation:** predictive controllers with online model adaptation, coded on an FPGA, and the hardware a product would need.
 - **Experiments:** test plans and runs in the Lund University test cell, coordinating the technicians for every engine change.
 - **People:** mentoring six master's thesis students and two summer workers.
+- **Publications:** lead author on 14 of the 15 articles, each presented at an international conference.
 
 ## In-cycle control that makes combustion repeatable and efficient
 

@@ -22,7 +22,7 @@ socialImage:
   src: "/images/blog/control-software-electric-trucks/part2-social.png"
   alt: "Part 2 of 4 of the series on control software in electric heavy-duty trucks: Predictive thermal management of the battery. Up to 25 kWh less battery for the same range, with predictive thermal control."
 featured: false
-draft: true
+draft: false
 ---
 
 ## The role of the control software
@@ -38,7 +38,7 @@ In my work, I am responsible for the design of thermal management strategies for
 To compare control approaches, the problem they solve has to be defined first, starting from the system that is controlled. A generic thermal management system of an electric truck, generalized from published integrated architectures [1–3], is illustrated in Figure 1. The components are placed from left to right in the order they have in the truck: the front-end module with the fan behind the grille, then the cab, the battery with the heat pump, and the power electronics.
 
 <figure class="article-figure">
-	<img src="/images/blog/control-software-electric-trucks/part2-fig1-thermal-topology.svg" alt="Circuit diagram of a thermal management system, from the front of the truck on the left to the rear on the right. A single fan blows ambient air through a front-end module with a front condenser, a cab AC condenser, a battery radiator and a power electronics radiator. A cab AC refrigerant circuit cools the cab evaporator. A heat-pump refrigerant circuit with compressor, chiller, liquid-cooled condenser, expansion valve and a 2-way bypass of the front condenser connects the battery coolant to the cab coolant. The cab coolant circuit has a pump, the liquid-cooled condenser, a PTC heater, a 3-way valve and the heater core. The battery coolant circuit has a pump, a PTC heater, three battery packs in parallel, 3-way valves to the radiator, the chiller or the power electronics circuit, and a 2-way valve to the cab circuit. The power electronics coolant circuit has a pump, the power electronics, an oil cooler and a 3-way valve to the radiator or a bypass; a small oil circuit with its own pump cools the electric motor." loading="lazy" />
+	<img src="/images/blog/control-software-electric-trucks/part2-fig1-thermal-topology.png" alt="Circuit diagram of a thermal management system, from the front of the truck on the left to the rear on the right. A single fan blows ambient air through a front-end module with a front condenser, a cab AC condenser, a battery radiator and a power electronics radiator. A cab AC refrigerant circuit cools the cab evaporator. A heat-pump refrigerant circuit with compressor, chiller, liquid-cooled condenser, expansion valve and a 2-way bypass of the front condenser connects the battery coolant to the cab coolant. The cab coolant circuit has a pump, the liquid-cooled condenser, a PTC heater, a 3-way valve and the heater core. The battery coolant circuit has a pump, a PTC heater, three battery packs in parallel, 3-way valves to the radiator, the chiller or the power electronics circuit, and a 2-way valve to the cab circuit. The power electronics coolant circuit has a pump, the power electronics, an oil cooler and a 3-way valve to the radiator or a bypass; a small oil circuit with its own pump cools the electric motor." loading="lazy" />
 	<figcaption>Figure 1. Generic thermal management system of an electric truck, generalized from published integrated architectures [1–3]. The components are placed from the front of the truck (left) to the rear (right). Dashed purple lines: refrigerant; orange: cab coolant; green: battery coolant; blue: power electronics coolant; brown: motor oil. The arrows indicate the flow direction; the symbols are defined in the legend.</figcaption>
 </figure>
 
@@ -90,7 +90,7 @@ Some of these states are measured directly. Others, such as the temperature insi
 These elements, and the way they are connected, are summarised in Figure 2.
 
 <figure class="article-figure">
-	<img src="/images/blog/control-software-electric-trucks/part2-fig2-control-problem.svg" alt="Block diagram: the controller sends the inputs (u) to the thermal system, the disturbances (d) act on the thermal system, and sensors and a state estimator return the states (x) to the controller. A dashed path carries the predicted disturbances (route and gradient, speed, ambient, next charging stop) to the controller." loading="lazy" />
+	<img src="/images/blog/control-software-electric-trucks/part2-fig2-control-problem.png" alt="Block diagram: the controller sends the inputs (u) to the thermal system, the disturbances (d) act on the thermal system, and sensors and a state estimator return the states (x) to the controller. A dashed path carries the predicted disturbances (route and gradient, speed, ambient, next charging stop) to the controller." loading="lazy" />
 	<figcaption>Figure 2. The thermal control problem as a block diagram. The controller sets the inputs (u) of the thermal system, whose states (x) are affected by the disturbances (d); sensors and a state estimator return the states to the controller. The dashed path indicates the predicted disturbances, which are used by predictive control (section 4).</figcaption>
 </figure>
 

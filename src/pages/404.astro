@@ -45,7 +45,7 @@ const withBase = (href: string) => (href === '/' ? normalizedBase : `${normalize
 		color: var(--color-muted);
 		font-size: .82rem;
 		font-weight: 600;
-		letter-spacing: .08em;
+		letter-spacing: 0;
 		line-height: 1.4;
 	}
 
@@ -53,8 +53,8 @@ const withBase = (href: string) => (href === '/' ? normalizedBase : `${normalize
 		max-width: none;
 		margin: 0;
 		font-size: clamp(2.2rem, 3.8vw, 3.5rem);
-		font-weight: 800;
-		letter-spacing: -.05em;
+		font-weight: 600;
+		letter-spacing: -.03em;
 		line-height: 1.05;
 	}
 
@@ -74,9 +74,12 @@ const withBase = (href: string) => (href === '/' ? normalizedBase : `${normalize
 	}
 
 	.not-found__links a {
-		color: var(--color-accent);
-		font-weight: 700;
+		color: var(--color-text);
+		font-family: var(--font-sans);
+		font-weight: 500;
 		text-decoration: underline;
+		text-decoration-color: color-mix(in srgb, currentColor var(--link-underline-mix, 35%), transparent);
+		text-decoration-thickness: 1px;
 		text-underline-offset: .2em;
 	}
 

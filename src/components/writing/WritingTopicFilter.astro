@@ -24,8 +24,8 @@ const topics = Object.keys(TAG_GROUPS).filter((topic) => articles.some((article)
 
 <style>
 	.writing-filter { display: flex; flex-wrap: wrap; align-items: baseline; gap: .35rem 1.1rem; margin: 0 0 2.5rem; }
-	.writing-filter__label { color: var(--color-muted); font-family: var(--font-mono); font-size: var(--type-chip-size); letter-spacing: var(--type-chip-tracking); line-height: 1.4; text-transform: uppercase; }
-	.writing-filter__chip { border: 0; background: transparent; padding: 0; color: var(--color-muted); font-family: var(--font-body); font-size: .9rem; line-height: 1.5; text-decoration: none; cursor: pointer; }
+	.writing-filter__label { color: var(--color-muted); font-family: var(--font-mono); font-size: var(--type-chip-size); letter-spacing: var(--type-chip-tracking); line-height: 1.4; text-transform: none; }
+	.writing-filter__chip { border: 0; background: transparent; padding: 0; color: var(--color-muted); font-family: var(--font-sans); font-size: .9rem; line-height: 1.5; text-decoration: none; cursor: pointer; }
 	.writing-filter__chip:hover { color: var(--color-link); text-decoration: underline; text-underline-offset: .2em; }
 	.writing-filter__chip[aria-pressed='true'] { color: var(--color-text); font-weight: 600; text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: .3em; }
 	.writing-filter__chip:focus-visible { outline: 2px solid var(--color-link); outline-offset: 3px; }

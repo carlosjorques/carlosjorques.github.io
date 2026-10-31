@@ -34,7 +34,6 @@ Primary title:
 Secondary descriptors:
 
 - Technical Leader
-- Embedded Controls Technical Lead
 - Control Systems Architect
 - Control Systems Engineer
 - Real-Time Embedded Software / Controls Specialist
@@ -711,4 +710,4 @@ Project skills (`.agents/skills/`):
 | Deployment | astro-static-deployment |
 | Visual exploration | frontend-design |
 
-Skills marked "SUPERSEDED" in `.agents/skills/` are kept as history only; do not use them. Where an older rule in this file or in a skill conflicts with `carlos-profile`, `carlos-voice` or `work-entry-authoring`, those win.
+The superseded skills were removed in October 2026. `.agents/` is git-ignored, so the project skills exist only in the main checkout (not in other worktrees). Where an older rule in this file or in a skill conflicts with `carlos-profile`, `carlos-voice` or `work-entry-authoring`, those win.

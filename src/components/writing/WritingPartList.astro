@@ -84,14 +84,14 @@ const keepRanges = (text: string) => text.replace(/(\d)–(\d)/g, '$1–\u2060$2
 	.parts { margin: 0; padding: 0; list-style: none; }
 	.part { display: grid; grid-template-columns: var(--writing-label-width) minmax(0, 1fr) auto; gap: 1.25rem; align-items: baseline; padding: .35rem 0; color: inherit; text-decoration: none; }
 	.part__label,
-	.part__time { color: var(--color-muted); font-family: var(--font-mono); font-size: var(--type-chip-size); letter-spacing: var(--type-chip-tracking); line-height: 1.4; text-transform: uppercase; white-space: nowrap; }
+	.part__time { color: var(--color-muted); font-family: var(--font-mono); font-size: var(--type-chip-size); letter-spacing: var(--type-chip-tracking); line-height: 1.4; text-transform: none; white-space: nowrap; }
 	.part__label { display: grid; gap: .3rem; }
 	.part__main { display: grid; gap: .3rem; max-width: 46rem; }
-	.part__title { max-width: none; margin: 0; color: var(--color-text); font-family: var(--font-body); font-size: 1rem; font-weight: 600; letter-spacing: -.01em; line-height: 1.35; }
+	.part__title { max-width: none; margin: 0; color: var(--color-text); font-family: var(--font-sans); font-size: 1rem; font-weight: 600; letter-spacing: -.01em; line-height: 1.35; }
 	.part__summary { color: var(--color-muted); font-size: .9rem; line-height: 1.5; }
 	.part__figure { color: var(--color-muted); font-size: .9rem; line-height: 1.5; }
 	.part__figure strong { color: var(--color-muted); font-weight: 700; white-space: nowrap; }
-	.part__draft { margin-left: .4rem; color: var(--color-muted); font-family: var(--font-mono); font-size: .68rem; font-weight: 400; letter-spacing: .08em; text-transform: uppercase; vertical-align: middle; }
+	.part__draft { margin-left: .4rem; color: var(--color-muted); font-family: var(--font-mono); font-size: .82rem; font-weight: 400; letter-spacing: 0; text-transform: none; vertical-align: middle; }
 	.part:hover .part__title,
 	.part:focus-visible .part__title { color: var(--color-link); text-decoration: underline; text-underline-offset: .2em; }
 	.part:focus-visible { outline: 2px solid var(--color-link); outline-offset: 4px; }

@@ -22,7 +22,7 @@ socialImage:
   src: "/images/blog/control-software-electric-trucks/part1-social.png"
   alt: "Part 1 of 4 of the series on control software in electric heavy-duty trucks: Electrifying heavy freight, the thermal bottleneck. About 32% of the price of the reference truck is the battery."
 featured: false
-draft: true
+draft: false
 ---
 
 ## The battery sets the limits of the truck
@@ -44,7 +44,7 @@ Consequently, the barrier to adoption has moved from the technology to the cost 
 The thermal management of the truck (the control of the temperatures of its battery, drivetrain and cab), and the control software that runs it, act directly on that sizing compromise. The argument follows the physical chain from the challenges to the battery, from the battery to its temperature and the system that regulates it, and from that system to the worst-case scenarios that size the battery. This chain is illustrated in Figure 1.
 
 <figure class="article-figure">
-	<img src="/images/blog/control-software-electric-trucks/part1-fig1-battery-dimensioning.svg" alt="Diagram of the argument of Part 1. Four challenges (mass, cost, range and charging, and the variability of the energy demand) are in a trade-off with the battery dimensioning, which links kWh to range, kg to payload and euros to cost. The worst-case scenarios (Nordic winter, southern summer, an aged battery after 8 years and the required daily range) set the battery size. The battery sets the operating temperature handled by the thermal system hardware (pumps, valves, fans, heaters, HVAC), which delivers heat to the battery in operation (temperature, state of charge, state of health, available power). Measurements and forecasts go to the control software, which commands the thermal system (mode, flows, timing). An orange arrow returns from the control software to the battery dimensioning: increased energy efficiency, which gives a smaller battery, slower ageing and shorter charging stops." loading="lazy" />
+	<img src="/images/blog/control-software-electric-trucks/part1-fig1-battery-dimensioning.png" alt="Diagram of the argument of Part 1. Four challenges (mass, cost, range and charging, and the variability of the energy demand) are in a trade-off with the battery dimensioning, which links kWh to range, kg to payload and euros to cost. The worst-case scenarios (Nordic winter, southern summer, an aged battery after 8 years and the required daily range) set the battery size. The battery sets the operating temperature handled by the thermal system hardware (pumps, valves, fans, heaters, HVAC), which delivers heat to the battery in operation (temperature, state of charge, state of health, available power). Measurements and forecasts go to the control software, which commands the thermal system (mode, flows, timing). An orange arrow returns from the control software to the battery dimensioning: increased energy efficiency, which gives a smaller battery, slower ageing and shorter charging stops." loading="lazy" />
 	<figcaption>Figure 1. The argumentation of Part 1: the challenges and the worst-case scenarios that set the battery size, and the dimensioning feedback loop formed by the thermal system, the battery in operation and the control software. The dashed arrow indicates the commands of the control software; the orange arrow indicates its effect on the battery dimensioning.</figcaption>
 </figure>
 

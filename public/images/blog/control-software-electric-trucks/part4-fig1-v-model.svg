@@ -1,97 +1,532 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1050" height="580" viewBox="0 0 1050 580" font-family="Calibri, Arial, Helvetica, sans-serif">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="1086.0326"
+   height="599.90375"
+   viewBox="0 0 1086.0326 599.90375"
+   font-family="Calibri, Arial, Helvetica, sans-serif"
+   version="1.1"
+   id="svg132848"
+   sodipodi:docname="part4_Fig1_v_model_draft.svg"
+   inkscape:version="1.2.1 (9c6d41e410, 2022-07-14)"
+   inkscape:export-filename="part4_Fig1_v_model_draft.png"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview132850"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false"
+     inkscape:zoom="0.81822356"
+     inkscape:cx="355.64852"
+     inkscape:cy="285.98541"
+     inkscape:window-width="1920"
+     inkscape:window-height="1009"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="g133646" />
+  <rect
+     width="1086.0326"
+     height="599.90375"
+     fill="#ffffff"
+     id="rect132720"
+     x="0"
+     y="0"
+     style="stroke-width:1" />
+  <text
+     x="535.43121"
+     y="518.3266"
+     font-size="14px"
+     font-weight="bold"
+     fill="#1a1a1a"
+     id="text132820-6-4">VS</text>
   <!-- DRAFT: Part 4, Figure 1. Thermal control software in the V model of vehicle development. -->
-  <defs>
-    <marker id="ak" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#4d4d4d"/></marker>
-    <marker id="ab" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f4f78"/></marker>
-    <marker id="ao" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#d98c2b"/></marker>
+  <g
+     id="g133132-5"
+     transform="translate(-527.95821,19.903746)">
+    <rect
+       x="540"
+       y="442"
+       width="480"
+       height="104"
+       fill="#f2e3d4"
+       id="rect132832-7"
+       ry="14.665918" />
+    <text
+       x="558"
+       y="466"
+       font-size="14px"
+       font-weight="bold"
+       fill="#1a1a1a"
+       id="text132834-3">Designed in: software as a sizing input</text>
+    <text
+       x="558"
+       y="486"
+       font-size="12.5px"
+       fill="#4d4d4d"
+       id="text132836-3">Smaller battery, end-of-life margin, faster charging and smaller</text>
+    <text
+       x="558"
+       y="503"
+       font-size="12.5px"
+       fill="#4d4d4d"
+       id="text132838-5">thermal hardware, with the same software.</text>
+    <text
+       x="558"
+       y="532"
+       font-size="12.5px"
+       fill="#1a1a1a"
+       id="text132842-2"><tspan
+   font-size="16px"
+   font-weight="bold"
+   fill="#b36b12"
+   id="tspan132840-8">3.3–4.6×</tspan> the electricity saved</text>
+    <text
+       x="1002"
+       y="532"
+       font-size="14px"
+       fill="#4d4d4d"
+       text-anchor="end"
+       id="text132844-5">€21,600–30,500 per truck</text>
+  </g>
+  <defs
+     id="defs132718">
+    <marker
+       id="ak"
+       viewBox="0 0 10 10"
+       refX="9"
+       refY="5"
+       markerWidth="7"
+       markerHeight="7"
+       orient="auto-start-reverse"
+       preserveAspectRatio="xMidYMid">
+      <path
+         d="M 0,0 10,5 0,10 Z"
+         fill="#4d4d4d"
+         id="path132709" />
+    </marker>
+    <marker
+       id="ab"
+       viewBox="0 0 10 10"
+       refX="9"
+       refY="5"
+       markerWidth="6"
+       markerHeight="6"
+       orient="auto-start-reverse">
+      <path
+         d="M 0,0 10,5 0,10 Z"
+         fill="#1f4f78"
+         id="path132712" />
+    </marker>
+    <marker
+       id="ao"
+       viewBox="0 0 10 10"
+       refX="8"
+       refY="5"
+       markerWidth="6"
+       markerHeight="6"
+       orient="auto-start-reverse"
+       preserveAspectRatio="xMidYMid">
+      <path
+         d="M 0,0 10,5 0,10 Z"
+         fill="#d98c2b"
+         id="path132715" />
+    </marker>
   </defs>
-  <rect width="1050" height="580" fill="#ffffff"/>
-
   <!-- Branch labels -->
-  <text x="30" y="14" font-size="12.5px" font-style="italic" fill="#4d4d4d">Specification and design</text>
-  <text x="1020" y="14" font-size="12.5px" font-style="italic" fill="#4d4d4d" text-anchor="end">Integration and verification</text>
-
-  <g text-anchor="middle" fill="#1a1a1a">
-    <!-- Left branch -->
-    <rect x="30" y="20" width="220" height="60" fill="#eeeeee"/>
-    <text x="140" y="45" font-size="14px" font-weight="bold">Vehicle requirements</text>
-    <text x="140" y="65" font-size="12.5px" fill="#4d4d4d">route, payload, climate, service life</text>
-
-    <rect x="115" y="105" width="220" height="60" fill="#eeeeee"/>
-    <text x="225" y="130" font-size="14px" font-weight="bold">System design and sizing</text>
-    <text x="225" y="150" font-size="12.5px" fill="#4d4d4d">battery, thermal hardware, charging</text>
-
-    <rect x="200" y="190" width="220" height="60" fill="#eeeeee"/>
-    <text x="310" y="215" font-size="14px" font-weight="bold">Thermal system design</text>
-    <text x="310" y="235" font-size="12.5px" fill="#4d4d4d">circuits, components, modes</text>
-
-    <rect x="285" y="275" width="220" height="60" fill="#f2e3d4"/>
-    <text x="395" y="300" font-size="14px" font-weight="bold">Control software design</text>
-    <text x="395" y="320" font-size="12.5px" fill="#4d4d4d">strategies, models, functions</text>
-
-    <!-- Bottom of the V -->
-    <rect x="415" y="360" width="220" height="60" fill="#eeeeee"/>
-    <text x="525" y="385" font-size="14px" font-weight="bold">Implementation</text>
-    <text x="525" y="405" font-size="12.5px" fill="#4d4d4d">code, control unit integration</text>
-
-    <!-- Right branch -->
-    <rect x="545" y="275" width="220" height="60" fill="#eeeeee"/>
-    <text x="655" y="300" font-size="14px" font-weight="bold">Software verification</text>
-    <text x="655" y="320" font-size="12.5px" fill="#4d4d4d">model- and software-in-the-loop</text>
-
-    <rect x="630" y="190" width="220" height="60" fill="#eeeeee"/>
-    <text x="740" y="215" font-size="14px" font-weight="bold">Thermal system integration</text>
-    <text x="740" y="235" font-size="12.5px" fill="#4d4d4d">hardware-in-the-loop, test rig</text>
-
-    <rect x="715" y="105" width="220" height="60" fill="#d6e3f0"/>
-    <text x="825" y="130" font-size="14px" font-weight="bold">System verification</text>
-    <text x="825" y="150" font-size="12.5px" fill="#4d4d4d">vehicle tests, worst-case conditions</text>
-
-    <rect x="800" y="20" width="220" height="60" fill="#eeeeee"/>
-    <text x="910" y="45" font-size="14px" font-weight="bold">Vehicle validation</text>
-    <text x="910" y="65" font-size="12.5px" fill="#4d4d4d">customer operation, fleet</text>
-  </g>
-
   <!-- V flow -->
-  <g stroke="#4d4d4d" stroke-width="1.5" marker-end="url(#ak)">
-    <line x1="170" y1="80" x2="195" y2="103"/>
-    <line x1="255" y1="165" x2="280" y2="188"/>
-    <line x1="340" y1="250" x2="365" y2="273"/>
-    <line x1="425" y1="335" x2="450" y2="358"/>
-    <line x1="600" y1="358" x2="625" y2="337"/>
-    <line x1="685" y1="273" x2="710" y2="252"/>
-    <line x1="770" y1="188" x2="795" y2="167"/>
-    <line x1="855" y1="103" x2="880" y2="82"/>
-  </g>
-
   <!-- Today: performance first measured on the vehicle, after sizing -->
-  <text x="525" y="122" font-size="14px" font-weight="bold" fill="#1f4f78" text-anchor="middle">Today</text>
-  <text x="525" y="140" font-size="12.5px" fill="#1f4f78" text-anchor="middle">control performance first measured</text>
-  <text x="525" y="156" font-size="12.5px" fill="#1f4f78" text-anchor="middle">here, after the hardware is sized</text>
-  <line x1="640" y1="135" x2="710" y2="135" stroke="#1f4f78" stroke-width="1.5" stroke-dasharray="5 3" marker-end="url(#ab)"/>
-
+  <text
+     x="60.097351"
+     y="33.903748"
+     font-size="12.5px"
+     font-style="italic"
+     fill="#4d4d4d"
+     id="text132722">Specification and design</text>
+  <text
+     x="1028.0973"
+     y="33.903748"
+     font-size="12.5px"
+     font-style="italic"
+     fill="#4d4d4d"
+     text-anchor="end"
+     id="text132724">Integration and verification</text>
+  <path
+     id="rect132726"
+     style="text-anchor:middle;fill:#eeeeee"
+     d="M 12.041792,39.903746 H 230.09735 l 58.35813,60 H 70.832025 Z"
+     sodipodi:nodetypes="ccccc" />
+  <text
+     x="156.09734"
+     y="64.903748"
+     font-size="14px"
+     font-weight="bold"
+     id="text132728"
+     style="text-anchor:middle;fill:#1a1a1a">Vehicle requirements</text>
+  <text
+     x="156.09734"
+     y="84.903748"
+     font-size="12.5px"
+     fill="#4d4d4d"
+     id="text132730"
+     style="text-anchor:middle">route, payload, climate, service life</text>
+  <path
+     id="rect132732"
+     style="text-anchor:middle;fill:#eeeeee"
+     d="M 96.393651,124.90375 H 315.09735 l 58.66367,60 H 155.70546 Z"
+     sodipodi:nodetypes="ccccc" />
+  <text
+     x="241.09734"
+     y="149.90375"
+     font-size="14px"
+     font-weight="bold"
+     id="text132734"
+     style="text-anchor:middle;fill:#1a1a1a">System design and sizing</text>
+  <text
+     x="241.09734"
+     y="169.90375"
+     font-size="12.5px"
+     fill="#4d4d4d"
+     id="text132736"
+     style="text-anchor:middle">battery, thermal hardware, charging</text>
+  <path
+     id="rect132738"
+     style="text-anchor:middle;fill:#eeeeee"
+     d="m 180.09735,209.90375 h 220 l 58.66367,60 H 240.70546 Z"
+     sodipodi:nodetypes="ccccc" />
+  <text
+     x="326.09735"
+     y="234.90375"
+     font-size="14px"
+     font-weight="bold"
+     id="text132740"
+     style="text-anchor:middle;fill:#1a1a1a">Thermal system design</text>
+  <text
+     x="326.09735"
+     y="254.90375"
+     font-size="12.5px"
+     fill="#4d4d4d"
+     id="text132742"
+     style="text-anchor:middle">circuits, components, modes</text>
+  <path
+     id="rect132744"
+     style="text-anchor:middle;fill:#f2e3d4"
+     d="m 265.09735,294.90375 h 220 l 58.05259,60 H 324.98318 Z"
+     sodipodi:nodetypes="ccccc" />
+  <text
+     x="411.09735"
+     y="319.90375"
+     font-size="14px"
+     font-weight="bold"
+     id="text132746"
+     style="text-anchor:middle;fill:#1a1a1a">Control software design</text>
+  <text
+     x="411.09735"
+     y="339.90375"
+     font-size="12.5px"
+     fill="#4d4d4d"
+     id="text132748"
+     style="text-anchor:middle">strategies, models, functions</text>
+  <path
+     id="rect132750"
+     style="text-anchor:middle;fill:#eeeeee"
+     d="m 347.93452,379.90375 h 397.97703 l -58.81645,60 H 408.43143 Z"
+     sodipodi:nodetypes="ccccc" />
+  <text
+     x="533.09735"
+     y="404.90375"
+     font-size="14px"
+     font-weight="bold"
+     id="text132752"
+     style="text-anchor:middle;fill:#1a1a1a">Implementation</text>
+  <text
+     x="533.09735"
+     y="424.90375"
+     font-size="12.5px"
+     fill="#4d4d4d"
+     id="text132754"
+     style="text-anchor:middle">code, control unit integration</text>
+  <path
+     id="rect132756"
+     style="text-anchor:middle;fill:#eeeeee"
+     d="m 609.59426,294.90375 h 220 l -60.49691,60 h -220 z"
+     sodipodi:nodetypes="ccccc" />
+  <text
+     x="685.09735"
+     y="319.90375"
+     font-size="14px"
+     font-weight="bold"
+     id="text132758"
+     style="text-anchor:middle;fill:#1a1a1a">Software verification</text>
+  <text
+     x="685.09735"
+     y="339.90375"
+     font-size="12.5px"
+     fill="#4d4d4d"
+     id="text132760"
+     style="text-anchor:middle">model- and software-in-the-loop</text>
+  <path
+     id="rect132762"
+     style="text-anchor:middle;fill:#eeeeee"
+     d="m 693.98318,209.90375 h 220 l -59.88583,60 h -220 z"
+     sodipodi:nodetypes="ccccc" />
+  <path
+     id="rect132762-0"
+     style="text-anchor:middle;fill:#eeeeee"
+     d="m 853.99089,43.483989 h 219.99991 l -59.8857,60.000001 H 794.10506 Z"
+     sodipodi:nodetypes="ccccc" />
+  <text
+     x="770.09735"
+     y="234.90375"
+     font-size="14px"
+     font-weight="bold"
+     id="text132764"
+     style="text-anchor:middle;fill:#1a1a1a">Thermal system integration</text>
+  <text
+     x="770.09735"
+     y="254.90375"
+     font-size="12.5px"
+     fill="#4d4d4d"
+     id="text132766"
+     style="text-anchor:middle">hardware-in-the-loop, test rig</text>
+  <path
+     id="rect132768"
+     style="text-anchor:middle;fill:#d6e3f0"
+     d="M 779.59118,124.90375 H 994.7026 l -58.66065,60 h -216.9446 z"
+     sodipodi:nodetypes="ccccc" />
+  <text
+     x="855.09735"
+     y="149.90375"
+     font-size="14px"
+     font-weight="bold"
+     id="text132770"
+     style="text-anchor:middle;fill:#1a1a1a">System verification</text>
+  <text
+     x="855.09735"
+     y="169.90375"
+     font-size="12.5px"
+     fill="#4d4d4d"
+     id="text132772"
+     style="text-anchor:middle">vehicle tests, worst-case conditions</text>
+  <text
+     x="940.09735"
+     y="64.903748"
+     font-size="14px"
+     font-weight="bold"
+     id="text132776"
+     style="text-anchor:middle;fill:#1a1a1a">Vehicle validation</text>
+  <text
+     x="940.09735"
+     y="84.903748"
+     font-size="12.5px"
+     fill="#4d4d4d"
+     id="text132778"
+     style="text-anchor:middle">customer operation, fleet</text>
+  <line
+     x1="178.09734"
+     y1="99.903748"
+     x2="203.09734"
+     y2="122.90375"
+     id="line132782"
+     style="stroke:#4d4d4d;stroke-width:1.5;marker-end:url(#ak)" />
+  <line
+     x1="263.09735"
+     y1="184.90375"
+     x2="288.09735"
+     y2="207.90375"
+     id="line132784"
+     style="stroke:#4d4d4d;stroke-width:1.5;marker-end:url(#ak)" />
+  <line
+     x1="348.09735"
+     y1="269.90375"
+     x2="373.09735"
+     y2="292.90375"
+     id="line132786"
+     style="stroke:#4d4d4d;stroke-width:1.5;marker-end:url(#ak)" />
+  <line
+     x1="433.09735"
+     y1="354.90375"
+     x2="458.09735"
+     y2="377.90375"
+     id="line132788"
+     style="stroke:#4d4d4d;stroke-width:1.5;marker-end:url(#ak)" />
+  <line
+     x1="630.09735"
+     y1="377.90375"
+     x2="655.09735"
+     y2="356.90375"
+     id="line132790"
+     style="stroke:#4d4d4d;stroke-width:1.5;marker-end:url(#ak)" />
+  <line
+     x1="715.09735"
+     y1="292.90375"
+     x2="740.09735"
+     y2="271.90375"
+     id="line132792"
+     style="stroke:#4d4d4d;stroke-width:1.5;marker-end:url(#ak)" />
+  <line
+     x1="800.09735"
+     y1="207.90375"
+     x2="825.09735"
+     y2="186.90375"
+     id="line132794"
+     style="stroke:#4d4d4d;stroke-width:1.5;marker-end:url(#ak)" />
+  <line
+     x1="885.09735"
+     y1="122.90375"
+     x2="910.09735"
+     y2="101.90375"
+     id="line132796"
+     style="stroke:#4d4d4d;stroke-width:1.5;marker-end:url(#ak)" />
+  <g
+     id="g135378"
+     transform="translate(30.097348,19.903746)">
+    <text
+       x="525"
+       y="122"
+       font-size="14px"
+       font-weight="bold"
+       fill="#1f4f78"
+       text-anchor="middle"
+       id="text132800"
+       style="white-space:pre;inline-size:141.616;display:inline"
+       xml:space="preserve"><tspan
+         x="525"
+         y="122"
+         id="tspan148942">Current approach</tspan></text>
+    <text
+       x="525"
+       y="140"
+       font-size="12.5px"
+       fill="#1f4f78"
+       text-anchor="middle"
+       id="text132802">control performance first measured</text>
+    <text
+       x="525"
+       y="156"
+       font-size="12.5px"
+       fill="#1f4f78"
+       text-anchor="middle"
+       id="text132804">here, after the hardware is sized</text>
+  </g>
+  <line
+     x1="670.09735"
+     y1="154.90375"
+     x2="740.09735"
+     y2="154.90375"
+     stroke="#1f4f78"
+     stroke-width="1.5"
+     stroke-dasharray="5, 3"
+     marker-end="url(#ab)"
+     id="line132806" />
   <!-- Designed in: worst-case performance from models feeds the sizing -->
-  <path d="M440,275 C455,225 420,180 340,158" fill="none" stroke="#d98c2b" stroke-width="2.5" marker-end="url(#ao)"/>
-  <text x="458" y="200" font-size="14px" font-weight="bold" fill="#b36b12">Designed in</text>
-  <text x="458" y="218" font-size="12.5px" fill="#b36b12">worst-case control performance,</text>
-  <text x="458" y="234" font-size="12.5px" fill="#b36b12">predicted with models and</text>
-  <text x="458" y="250" font-size="12.5px" fill="#b36b12">simulation, as a sizing input</text>
-
+  <g
+     id="g133646"
+     transform="translate(-331.57328,118.70391)">
+    <text
+       x="458"
+       y="200"
+       font-size="14px"
+       font-weight="bold"
+       fill="#b36b12"
+       id="text132810">Designed in</text>
+    <text
+       x="458"
+       y="218"
+       font-size="12.5px"
+       fill="#b36b12"
+       id="text132812">worst-case control performance,</text>
+    <text
+       x="458"
+       y="234"
+       font-size="12.5px"
+       fill="#b36b12"
+       id="text132814">predicted with models and</text>
+    <text
+       x="458"
+       y="250"
+       font-size="12.5px"
+       fill="#b36b12"
+       id="text132816">simulation, as a sizing input</text>
+  </g>
   <!-- Value comparison, per long-haul truck over 8 years, 3% average gain -->
-  <rect x="30" y="442" width="480" height="104" fill="#d6e3f0"/>
-  <text x="48" y="466" font-size="14px" font-weight="bold" fill="#1a1a1a">Today: software added after the sizing</text>
-  <text x="48" y="486" font-size="12.5px" fill="#4d4d4d">Battery and thermal hardware sized with conventional control;</text>
-  <text x="48" y="503" font-size="12.5px" fill="#4d4d4d">the software is credited for its average gain only.</text>
-  <text x="48" y="532" font-size="12.5px" fill="#1a1a1a"><tspan font-size="16px" font-weight="bold" fill="#1f4f78">1.8–2.5×</tspan> the electricity saved</text>
-  <text x="492" y="532" font-size="14px" fill="#4d4d4d" text-anchor="end">12,200–16,300 € per truck</text>
-
-  <rect x="540" y="442" width="480" height="104" fill="#f2e3d4"/>
-  <text x="558" y="466" font-size="14px" font-weight="bold" fill="#1a1a1a">Designed in: software as a sizing input</text>
-  <text x="558" y="486" font-size="12.5px" fill="#4d4d4d">Smaller battery, end-of-life margin, faster charging and smaller</text>
-  <text x="558" y="503" font-size="12.5px" fill="#4d4d4d">thermal hardware, with the same software.</text>
-  <text x="558" y="532" font-size="12.5px" fill="#1a1a1a"><tspan font-size="16px" font-weight="bold" fill="#b36b12">3.3–4.6×</tspan> the electricity saved</text>
-  <text x="1002" y="532" font-size="14px" fill="#4d4d4d" text-anchor="end">21,600–30,500 € per truck</text>
-
+  <g
+     id="g132994-0"
+     transform="translate(563.9908,19.903746)">
+    <rect
+       x="30"
+       y="442"
+       width="480"
+       height="104"
+       fill="#d6e3f0"
+       id="rect132818-3"
+       ry="14.665918" />
+    <text
+       x="48"
+       y="466"
+       font-size="14px"
+       font-weight="bold"
+       fill="#1a1a1a"
+       id="text132820-6">Current approach: software added after the sizing</text>
+    <text
+       x="48"
+       y="486"
+       font-size="12.5px"
+       fill="#4d4d4d"
+       id="text132822-8">Battery and thermal hardware sized with conventional control;</text>
+    <text
+       x="48"
+       y="503"
+       font-size="12.5px"
+       fill="#4d4d4d"
+       id="text132824-9">the software is credited for its average gain only.</text>
+    <text
+       x="48"
+       y="532"
+       font-size="12.5px"
+       fill="#1a1a1a"
+       id="text132828-1"><tspan
+   font-size="16px"
+   font-weight="bold"
+   fill="#1f4f78"
+   id="tspan132826-6">1.8–2.5×</tspan> the electricity saved</text>
+    <text
+       x="492"
+       y="532"
+       font-size="14px"
+       fill="#4d4d4d"
+       text-anchor="end"
+       id="text132830-4">€12,200–16,300 per truck</text>
+  </g>
   <!-- Watermark -->
-  <text x="1030" y="570" text-anchor="end" font-size="11px" font-weight="bold" fill="#999999">carlosjorques.com</text>
+  <text
+     x="1074.6407"
+     y="589.90375"
+     text-anchor="end"
+     font-size="11px"
+     font-weight="bold"
+     fill="#999999"
+     id="text132846">carlosjorques.com</text>
+  <path
+     style="fill:none;stroke:#d98c2b;stroke-width:1.5;stroke-linecap:butt;stroke-linejoin:bevel;stroke-opacity:1;marker-end:url(#ao);paint-order:markers stroke fill"
+     id="path133718"
+     sodipodi:type="arc"
+     sodipodi:cx="214.30518"
+     sodipodi:cy="269.64429"
+     sodipodi:rx="139.44446"
+     sodipodi:ry="135.98767"
+     sodipodi:start="0.66396905"
+     sodipodi:end="4.0766524"
+     sodipodi:open="true"
+     sodipodi:arc-type="arc"
+     d="M 324.12501,353.44635 A 139.44446,135.98767 0 0 1 182.41535,402.02813 139.44446,135.98767 0 0 1 77.710047,296.99416 139.44446,135.98767 0 0 1 131.50719,160.22391" />
 </svg>

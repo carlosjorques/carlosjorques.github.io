@@ -5,7 +5,7 @@ import WritingPartList from './WritingPartList.astro';
 
 /**
  * "Latest publications": one list in which every entry is a publication.
- * A single article is one row. A series is one row as well, labelled "Series", with its parts
+ * A single article is one row. A series is one row as well, with its parts
  * listed below it on the same grid, so every article title starts on the same vertical line.
  * - `full`: description, key figures, project link and reading time (writing page).
  * - `compact`: one-line summaries only (landing page).
@@ -55,7 +55,6 @@ const newest = (dates: readonly Date[]) => new Date(Math.max(...dates.map((date)
 					>
 						<span class="pub__label">
 							<time datetime={article.dateIso}>{dayMonth.format(article.date)}</time>
-							<span class="pub__kind">Article</span>
 						</span>
 						<span class="pub__main">
 							<h3 id={id} class="pub__title">
@@ -80,7 +79,6 @@ const newest = (dates: readonly Date[]) => new Date(Math.max(...dates.map((date)
 				<div class="pub__row pub__row--head">
 					<span class="pub__label">
 						<time datetime={latestPart.toISOString().slice(0, 10)}>{dayMonth.format(latestPart)}</time>
-						<span class="pub__kind">Series</span>
 					</span>
 					<div class="pub__main">
 						<h3 id={id} class="pub__title"><a class="pub__series-link" href={href} data-analytics-event="writing_series_click" data-cta-id={`${placement}-series-${definition.id}`} data-cta-placement={placement} data-cta-intent="authority" data-source-section={sourceSection}>{definition.title}</a><span class="pub__count">{seriesCountLabel(entry.group)}</span></h3>
@@ -105,19 +103,18 @@ const newest = (dates: readonly Date[]) => new Date(Math.max(...dates.map((date)
 	.pub__row--head { padding-bottom: 1.25rem; }
 
 	.pub__label,
-	.pub__time { color: var(--color-muted); font-family: var(--font-mono); font-size: var(--type-chip-size); letter-spacing: var(--type-chip-tracking); line-height: 1.4; text-transform: uppercase; white-space: nowrap; }
+	.pub__time { color: var(--color-muted); font-family: var(--font-mono); font-size: var(--type-chip-size); letter-spacing: var(--type-chip-tracking); line-height: 1.4; text-transform: none; white-space: nowrap; }
 	.pub__label { display: grid; gap: .3rem; }
-	.pub__kind { color: var(--color-text); font-weight: 600; }
 
 	.pub__main { display: grid; gap: .3rem; max-width: 46rem; }
-	.pub__title { max-width: none; margin: 0; color: var(--color-text); font-family: var(--font-body); font-size: 1.12rem; font-weight: 600; letter-spacing: -.01em; line-height: 1.35; }
+	.pub__title { max-width: none; margin: 0; color: var(--color-text); font-family: var(--font-sans); font-size: 1.12rem; font-weight: 600; letter-spacing: -.01em; line-height: 1.35; }
 	.pub__summary { margin: 0; color: var(--color-muted); font-size: .95rem; line-height: 1.5; }
 	/* The key figure reads as part of the summary: same size and font, the value only in the accent
 	   colour, so it does not compete with the title. */
 	.pub__figure { color: var(--color-muted); font-size: .9rem; line-height: 1.5; }
 	.pub__figure strong { color: var(--color-muted); font-weight: 700; white-space: nowrap; }
-	.pub__count { margin-left: .6rem; color: var(--color-muted); font-family: var(--font-mono); font-size: .68rem; font-weight: 400; letter-spacing: .08em; text-transform: uppercase; vertical-align: middle; white-space: nowrap; }
-	.pub__draft { margin-left: .4rem; color: var(--color-muted); font-family: var(--font-mono); font-size: .68rem; font-weight: 400; letter-spacing: .08em; text-transform: uppercase; vertical-align: middle; }
+	.pub__count { margin-left: .6rem; color: var(--color-muted); font-family: var(--font-mono); font-size: .82rem; font-weight: 400; letter-spacing: 0; text-transform: none; vertical-align: middle; white-space: nowrap; }
+	.pub__draft { margin-left: .4rem; color: var(--color-muted); font-family: var(--font-mono); font-size: .82rem; font-weight: 400; letter-spacing: 0; text-transform: none; vertical-align: middle; }
 	.pub__row--link:hover .pub__title,
 	.pub__row--link:focus-visible .pub__title { color: var(--color-link); text-decoration: underline; text-underline-offset: .2em; }
 	.pub__row--link:focus-visible { outline: 2px solid var(--color-link); outline-offset: 4px; }

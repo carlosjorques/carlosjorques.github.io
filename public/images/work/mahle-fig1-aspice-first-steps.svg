@@ -43,7 +43,7 @@
 <text x="732" y="261" text-anchor="start" font-size="12.5px" fill="#b36b12">linked to each requirement</text>
 <text x="732" y="281" text-anchor="start" font-size="12.5px" fill="#1f4f78">Simulation against new bench</text>
 <text x="732" y="296" text-anchor="start" font-size="12.5px" fill="#1f4f78">data: error about 2 °C</text>
-<text x="772" y="160" text-anchor="start" font-size="12.5px" fill="#1f4f78">Integrated on MAP, in real</text>
+<text x="772" y="160" text-anchor="start" font-size="12.5px" fill="#1f4f78">Runs on the platform, in real</text>
 <text x="772" y="175" text-anchor="start" font-size="12.5px" fill="#1f4f78">time with the motor controller</text>
 <rect x="200" y="335" width="600" height="46" fill="#f2e3d4"/>
 <text x="500" y="355" text-anchor="middle" font-size="14px" font-weight="bold" fill="#b36b12">All processes</text>

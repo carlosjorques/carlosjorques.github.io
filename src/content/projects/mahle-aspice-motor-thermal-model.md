@@ -4,14 +4,14 @@ seoTitle: "MAHLE motor temperature model and A-SPICE"
 description: "Carlos Jorques helped MAHLE adopt its first A-SPICE practices, led its e-bike software and co-developed a motor temperature model with under 2% error."
 context: "Electric drives"
 eyebrow: "MAHLE Electronics · Electric drives · 2022–2023"
-intro: "I helped MAHLE Electronics' advanced engineering team consolidate how it develops software, so that its concepts reach the product departments ready for what vehicle makers demand. **As Scrum Master**, I facilitated the team’s sprints; I also **led the software planning of an e-bike motor-control project** and **co-developed a real-time model** that estimates the temperature inside an electric motor."
+intro: "I helped MAHLE Electronics' advanced engineering team consolidate how it develops software, so that its concepts reach the product departments ready for what vehicle makers demand. **As Scrum Master**, I ran the team’s sprints; I also **led the software planning of an e-bike motor-control project** and **co-developed a real-time model** that estimates the temperature inside an electric motor."
 facts:
   - label: "Role"
     value: "Development Software Engineer · **Scrum Master · technical lead of the e-bike software**"
   - label: "Delivery"
     value: "Employed by MAHLE Electronics in Valencia, Spain"
   - label: "Team"
-    value: "12 engineers in the sprints I facilitated and 6 in the e-bike project, within a department of 16 engineers across Spain and Germany"
+    value: "12 engineers in the sprints I ran and 6 in the e-bike project, within a department of 16 engineers across Spain and Germany"
   - label: "Skills"
     value: "A-SPICE · ISO 26262 · Scrum · virtual sensing and thermal modelling · MATLAB/Simulink with TargetLink · Classic AUTOSAR on AURIX · CAN and Vector tools (CANalyzer, CAPL) · DC/DC converter software"
 updated: 2026-10-27
@@ -52,7 +52,7 @@ schema:
 
 MAHLE builds electric drives and power electronics for vehicle makers and e-bike brands, such as [e-motors](https://www.mahle.com/en/products-and-services/emobility/electric-drive-systems/), [inverters, on-board chargers and DC/DC converters](https://www.mahle.com/en/products-and-services/emobility/electronics/) and [e-bike drive systems](https://mahle-smartbike.com/). Before buying them, vehicle makers ask for an A-SPICE capability level, a measure of how mature the software development process is, and for compliance with ISO 26262, the functional-safety standard for road vehicles.
 
-The advanced engineering department of MAHLE Electronics took early concepts through pre-development (the concept stage) and handed them over to the product departments. We were 8 engineers in Valencia and 8 in Germany. Most concepts ran on the MAHLE Adaptive Platform (MAP), a shared platform on an Infineon AURIX board with Classic AUTOSAR, the standard software architecture for automotive control units. However, many of the department's processes were still to be consolidated. A concept developed without traceable requirements and tests has to be rebuilt by the product department before release, which loses part of the time gained in pre-development.
+The advanced engineering department of MAHLE Electronics took early concepts through pre-development (the concept stage) and handed them over to the product departments. We were 8 engineers in Valencia and 8 in Germany. Most concepts ran on a shared in-house platform on an Infineon AURIX board with Classic AUTOSAR, the standard software architecture for automotive control units. However, many of the department's processes were still to be consolidated. A concept developed without traceable requirements and tests has to be rebuilt by the product department before release, which loses part of the time gained in pre-development.
 
 ## In a small team, each engineer covers several areas
 
@@ -60,7 +60,7 @@ Mine were:
 
 - **Development processes:** in the working group preparing for A-SPICE level 2, I analysed the requirements against our practices, assessed the risk of each gap and built the roadmap for the first steps.
 - **Scrum Master:** sprint planning and task breakdown for 12 engineers working on several projects at once.
-- **E-bike motor control:** technical lead of the 6-person software team developing e-bike motor control on MAP. I drafted the roadmap, prioritised and estimated the tickets, and planned the integration from the first sprints, when integration problems are still cheap to fix.
+- **E-bike motor control:** technical lead of the 6-person software team developing e-bike motor control on the shared platform. I drafted the roadmap, prioritised and estimated the tickets, and planned the integration from the first sprints, when integration problems are still cheap to fix.
 - **Motor temperature model:** co-developed with a PhD student in Germany, who ran the test-bench experiments. My part was the model structure, the data analysis, the calibration and the evaluation.
 - **DC/DC converter software:** the CAN layer and functions such as reporting the maximum available power, so that the vehicle limits its demand before the converter derates.
 
@@ -69,12 +69,12 @@ Mine were:
 A-SPICE describes software development as a V: requirements and design down the left side, and the tests that check each of them up the right side. The working group analysed each process from SWE.1 (software requirements) to SWE.6 (software qualification testing), with the focus on the left side and unit verification, where an early concept takes its shape. We also analysed how ISO 26262 could be deployed alongside A-SPICE. Two decisions shaped our proposals:
 
 - **Systematic work with room to explore:** advanced engineering changes direction often, and a full process for every concept would slow it down. We therefore started with small practices that make the work systematic, at the cost of a slower path to level 2.
-- **One maintained version of the platform:** each project on MAP kept its own copy of the platform software, so a fix in one project never reached the others. We proposed one maintained version that each project configures, at the cost of testing every change for all the projects.
+- **One maintained version of the platform:** each project on the platform kept its own copy of the platform software, so a fix in one project never reached the others. We proposed one maintained version that each project configures, at the cost of testing every change for all the projects.
 
 The proposed first steps, and the path of the motor temperature model through the same processes, are illustrated in Figure 1. The department adopted **a common requirements template and versioned baselines** as its first practices, so that a product department can take over a model such as this one without rebuilding it.
 
 <figure>
-  <img src="/images/work/mahle-fig1-aspice-first-steps.svg" alt="A-SPICE software processes drawn as a V: SWE.1 software requirements, SWE.2 architecture and SWE.3 detailed design on the left, SWE.4 unit verification, SWE.5 integration and SWE.6 qualification on the right. SWE.1 to SWE.4 are marked as the focus of the gap analysis. First steps: a common requirements template with IDs and traceability (adopted), Simulink guidelines and MISRA C checks, model-in-the-loop tests linked to each requirement, and all models and code in SVN with tagged baselines (adopted). The motor temperature model is mapped onto the same processes, from its outputs for derating to its integration on MAP." width="1000" height="495" loading="lazy" />
+  <img src="/images/work/mahle-fig1-aspice-first-steps.svg" alt="A-SPICE software processes drawn as a V: SWE.1 software requirements, SWE.2 architecture and SWE.3 detailed design on the left, SWE.4 unit verification, SWE.5 integration and SWE.6 qualification on the right. SWE.1 to SWE.4 are marked as the focus of the gap analysis. First steps: a common requirements template with IDs and traceability (adopted), Simulink guidelines and MISRA C checks, model-in-the-loop tests linked to each requirement, and all models and code in SVN with tagged baselines (adopted). The motor temperature model is mapped onto the same processes, from its outputs for derating to its integration on the platform." width="1000" height="495" loading="lazy" />
   <figcaption>Figure 1. The A-SPICE software processes (SWE.1 to SWE.6) as a V model. Orange boxes: focus of the gap analysis; orange text: first steps proposed, marked where adopted; blue text: the motor temperature model in each process.</figcaption>
 </figure>
 
@@ -94,7 +94,7 @@ The estimate had to run on the motor control unit and follow fast load changes, 
 
 In Figure 2, the losses heat the windings, stator and magnets, and the heat flows through the chain of resistances to the housing and the coolant. The hot spots (orange) sit deepest in that chain, where only the test-bench motor had thermocouples.
 
-I calibrated the parameters on one set of test-bench measurements and validated the model on new ones, against thermocouples in the stator and rotor windings, from 0 to 6000 rpm. **The estimation error stayed below 2% of the winding temperature**, with a 98% confidence interval. The model was generated as C code with dSPACE TargetLink and ran in real time on MAP next to the motor controller, so the virtual sensor adds no hardware. It was intended for torque derating close to the real limit, which gives a vehicle maker **more power from the same motor**, and MAHLE **the same power from a smaller motor**.
+I calibrated the parameters on one set of test-bench measurements and validated the model on new ones, against thermocouples in the stator and rotor windings, from 0 to 6000 rpm. **The estimation error stayed below 2% of the winding temperature**, with a 98% confidence interval. The model was generated as C code with dSPACE TargetLink and ran in real time on the platform next to the motor controller, so the virtual sensor adds no hardware. It was intended for torque derating close to the real limit, which gives a vehicle maker **more power from the same motor**, and MAHLE **the same power from a smaller motor**.
 
 ## What MAHLE taught me about the basics of a development team
 

@@ -1,10 +1,11 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { Image } from 'astro:assets';
-import { IDENTITY, LINKEDIN_URL } from '../data/identity';
+import { CONTACT_DESTINATIONS, IDENTITY, LINKEDIN_URL } from '../data/identity';
 import { projectCards } from '../data/projectCards';
 import { getUpcomingParts, getWritingArticles, groupWriting } from '../data/writing';
 import WritingPublicationList from '../components/writing/WritingPublicationList.astro';
+import TruckTuneGame from '../components/TruckTuneGame.astro';
 import portrait from '../assets/carlos-jorques-intro.webp';
 
 const baseUrl = import.meta.env.BASE_URL;
@@ -14,726 +15,210 @@ const withBase = (href: string) => (href === '/' ? normalizedBase : `${normalize
 // Same publications as "Latest publications" on /writing/: a series counts as one entry.
 const publishedWriting = await getWritingArticles({ includeDrafts: false });
 const latestWriting = groupWriting(publishedWriting, await getUpcomingParts(publishedWriting)).latest;
-const selectedProjects = projectCards.map((card) => ({
+const series = latestWriting.find((item) => item.kind === 'series');
+const otherWriting = latestWriting.filter((item) => item.kind !== 'series');
+
+const projects = projectCards.map((card) => ({
 	title: card.title,
+	company: card.company,
 	plain: card.plain,
 	result: card.outcomes.find((outcome) => /\d/.test(outcome.value)),
 	image: card.image,
 	href: withBase(`/work/${card.slug}/`),
 	ctaId: `selected-project-${card.slug}`,
 }));
+const [featured, ...otherProjects] = projects;
+
+const proof = [
+	{ value: `${IDENTITY.years} years`, label: 'designing embedded control software' },
+	{ value: 'In production', label: 'my control software runs in Scania trucks on the road' },
+	{ value: 'PhD\u00a0· 5\u00a0patents', label: 'industrial PhD on engine control systems and 15 published articles' },
+	{ value: 'Up to 4.6×', label: 'the value of the electricity saved, battery sized for it' },
+];
+
+const links = {
+	work: withBase('/work/'),
+	cv: withBase('/cv/'),
+	about: withBase('/about/'),
+	writing: withBase('/writing/'),
+	contact: withBase('/contact/?source=home-closing#message-title'),
+};
 ---
 
 <BaseLayout
-title={`${IDENTITY.name} | ${IDENTITY.primaryTitle}`}
-description="Carlos Jorques, Control Systems Technical Lead. Embedded control software for complex dynamic systems, from concept to production: selected work and writing."
-ogImage={withBase('/images/og-carlos-jorques.png')}
-ogImageAlt="Carlos Jorques, Control Systems Technical Lead: embedded control for complex dynamic systems."
+	title={`${IDENTITY.name} | ${IDENTITY.primaryTitle}`}
+	description="Carlos Jorques, Control Systems Technical Lead. Embedded control software for complex dynamic systems, from concept to production: selected work and writing."
+	ogImage={withBase('/images/og-carlos-jorques.png')}
+	ogImageAlt="Carlos Jorques, Control Systems Technical Lead: embedded control for complex dynamic systems."
 >
-	<section class="hero-area">
-		<div class="page-container">
-			<div class="hero">
-				<div class="hero__copy">
-					<p class="hero-kicker">Sense · decide · act</p>
-					<h1 class="hero-statement">{IDENTITY.brandLine}</h1>
-					<p class="hero-lead">I am Carlos, a <strong>{IDENTITY.primaryTitle}</strong>. I design embedded control software that makes machines use less energy, detect faults early and behave predictably. I have done this for electric trucks, autonomous haulers, motors and engines. Today I lead international teams that develop it and take it into production.</p>
-					<p class="hero-location">Based in {IDENTITY.location}</p>
+	<div class="page-container home">
+		<section class="home-hero" aria-labelledby="home-title">
+			<div class="home-hero__text">
+				<p class="home-eyebrow">{IDENTITY.primaryTitle} · {IDENTITY.location}</p>
+				<h1 id="home-title">{IDENTITY.brandLine}</h1>
+				<p class="home-lead">I am Carlos, a <strong>{IDENTITY.primaryTitle}</strong>. I design embedded control software that makes machines use less energy, detect faults early and behave predictably. I have done this for electric trucks, autonomous haulers, motors and engines. Today I lead international teams that develop it and take it into production.</p>
+				<p class="home-actions">
+					<a href={links.work} data-analytics-event="cta_click" data-cta-id="hero-work" data-cta-placement="hero" data-cta-intent="evidence" data-source-section="hero" data-destination={links.work}>See my work</a>
+					<a href={links.cv} data-analytics-event="cta_click" data-cta-id="hero-cv" data-cta-placement="hero" data-cta-intent="formal-proof" data-source-section="hero" data-destination={links.cv}>Read my CV</a>
+					<a href={links.about} data-analytics-event="cta_click" data-cta-id="hero-about" data-cta-placement="hero" data-cta-intent="background" data-source-section="hero" data-destination={links.about}>More about me</a>
+				</p>
+			</div>
+			<Image class="home-portrait" src={portrait} alt="Portrait of Carlos Jorques" widths={[320, 640]} sizes="(max-width: 760px) 4.5rem, 15rem" loading="eager" fetchpriority="high" />
+			<a class="home-now" href={featured.href} data-analytics-event="cta_click" data-cta-id={featured.ctaId} data-cta-placement="hero" data-cta-intent="evidence" data-source-section="hero-now" data-destination={featured.href}>
+				<span class="home-now__text">
+					<span class="home-now__kick"><span class="led" aria-hidden="true"></span>Now · ALTEN for Scania</span>
+					<span class="home-now__title">Leading predictive thermal control for Scania’s electric trucks<span aria-hidden="true">&nbsp;&rarr;</span></span>
+				</span>
+				{featured.result && <span class="home-num"><b>{featured.result.value}</b><span>{featured.result.label}</span></span>}
+			</a>
+		</section>
 
-					<div class="hero-links button-row" aria-label="Primary routes">
-						<a
-							class="button primary"
-							href={withBase('/work/')}
-							data-analytics-event="cta_click"
-							data-cta-id="hero-work"
-							data-cta-placement="home-hero"
-							data-cta-intent="proof"
-							data-source-section="hero"
-						>
-							View work
+		<section class="home-proof" aria-labelledby="proof-title">
+			<h2 id="proof-title" class="sr-only">In short</h2>
+			<dl>{proof.map((item) => <div><dt>{item.value}</dt><dd>{item.label}</dd></div>)}</dl>
+		</section>
+
+		<section class="home-section" aria-labelledby="work-title">
+			<div class="home-head"><h2 id="work-title">Selected work</h2><a href={links.work}>All work</a></div>
+			<ol class="home-work" role="list">
+				{otherProjects.map((project) => (
+					<li>
+						<a href={project.href} data-analytics-event="cta_click" data-cta-id={project.ctaId} data-cta-placement="selected-work" data-cta-intent="evidence" data-source-section="selected-work" data-destination={project.href}>
+							<span class="home-work__img"><Image src={project.image} alt="" widths={[200, 400]} sizes="144px" loading="lazy" /></span>
+							<span class="home-work__text">
+								<span class="home-work__co">{project.company}</span>
+								<span class="home-work__title">{project.title}</span>
+								<span class="home-work__plain">{project.plain}</span>
+							</span>
+							{project.result && <span class="home-num"><b>{project.result.value}</b><span>{project.result.label}</span></span>}
 						</a>
-						<a
-							class="button"
-							href={withBase('/writing/')}
-							data-analytics-event="cta_click"
-							data-cta-id="hero-writing"
-							data-cta-placement="home-hero"
-							data-cta-intent="authority"
-							data-source-section="hero"
-							data-destination={withBase('/writing/')}
-						>
-							Read writing
-						</a>
-						<a
-							class="hero-text-link"
-							href={withBase('/about/')}
-							data-analytics-event="cta_click"
-							data-cta-id="hero-about"
-							data-cta-placement="home-hero"
-							data-cta-intent="context"
-							data-source-section="hero"
-							data-destination={withBase('/about/')}
-						>
-							About me
-						</a>
-					</div>
-				</div>
+					</li>
+				))}
+			</ol>
+		</section>
 
-				<figure class="hero__portrait">
-					<Image
-						src={portrait}
-						alt={`${IDENTITY.name}, ${IDENTITY.primaryTitle}.`}
-						widths={[240, 320, 480, 640]}
-						sizes="(max-width: 899px) 9rem, 20rem"
-						loading="eager"
-						decoding="async"
-						fetchpriority="high"
-					/>
-				</figure>
+		<section class="home-section home-bench" aria-labelledby="bench-title">
+			<div class="home-bench__intro">
+				<h2 id="bench-title">Try tuning a truck controller</h2>
+				<p>The damping sets how the controller approaches its target. With too little, the response overshoots; with too much, it arrives late. To pass the truck test, the response must overshoot less than 2% and settle in less than 1.5 s.</p>
 			</div>
-		</div>
-	</section>
+			<TruckTuneGame id="home-game" prizeHref={featured.href} />
+		</section>
 
-	<section class="home-proof" aria-label="Professional snapshot">
-		<div class="page-container">
-			<dl class="home-proof__grid">
-				<div class="home-proof__item">
-					<dt class="home-proof__value">{IDENTITY.years} years</dt>
-					<dd class="home-proof__label">designing embedded control software</dd>
-				</div>
-				<div class="home-proof__item">
-					<dt class="home-proof__value">In production</dt>
-					<dd class="home-proof__label">runs in Scania trucks; also built for Volvo CE and MAHLE</dd>
-				</div>
-				<div class="home-proof__item">
-					<dt class="home-proof__value">PhD&nbsp;· 5&nbsp;patents</dt>
-					<dd class="home-proof__label">industrial PhD on engine control systems and 15 published articles</dd>
-				</div>
-				<div class="home-proof__item">
-					<dt class="home-proof__value">Up to 21,500&nbsp;€</dt>
-					<dd class="home-proof__label">saved per electric truck in 8 years by one control function</dd>
-				</div>
-			</dl>
-		</div>
-	</section>
+		{latestWriting.length > 0 && (
+			<section class="home-section" aria-labelledby="writing-title">
+				<div class="home-head"><h2 id="writing-title">Writing</h2><a href={links.writing}>All writing</a></div>
+				{series && series.kind === 'series' && (
+					<article class="home-series">
+						<p class="home-series__kick">Series · {series.group.parts.length} parts · {series.group.totalMinutes} min</p>
+						<h3><a href={series.group.href}>{series.group.definition.title}</a></h3>
+						<p class="home-series__text">{series.group.definition.teaser ?? series.group.definition.summary}</p>
+						<ol class="home-parts" role="list">
+							{series.group.parts.map((part, i) => (
+								<li><span class="home-parts__n">Part {i + 1}</span><span class="home-parts__body"><a href={part.href}>{part.title}</a><span class="home-parts__text">{part.teaser ?? part.description}</span></span><span class="home-parts__min">{part.minutes} min</span></li>
+							))}
+						</ol>
+					</article>
+				)}
+				{otherWriting.length > 0 && <WritingPublicationList publications={otherWriting} variant="compact" placement="home-writing" sourceSection="latest-writing" />}
+			</section>
+		)}
 
-	<section class="home-section selected-work" aria-labelledby="selected-work-title">
-		<div class="page-container home-section__grid">
-			<div class="section-head">
-				<h2 id="selected-work-title">Selected work</h2>
-				<a
-					class="section-head__link"
-					href={withBase('/work/')}
-					data-analytics-event="cta_click"
-					data-cta-id="selected-projects-all"
-					data-cta-placement="home-selected-projects"
-					data-cta-intent="proof"
-					data-source-section="selected-projects"
-				>
-					All work<span aria-hidden="true">&nbsp;→</span>
-				</a>
+		<section class="home-close" aria-labelledby="close-title">
+			<Image class="home-close__face" src={portrait} alt="" widths={[160, 320]} sizes="128px" />
+			<div>
+				<h2 id="close-title">Looking for someone to lead your control software?</h2>
+				<p>I am open to technical lead roles and to collaborations. Read my <a href={links.cv} data-analytics-event="cta_click" data-cta-id="closing-cv" data-cta-placement="closing" data-cta-intent="formal-proof" data-source-section="closing" data-destination={links.cv}>CV</a>, connect on <a href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer" data-analytics-event="linkedin_outbound_click" data-cta-id="closing-linkedin" data-cta-placement="closing" data-cta-intent="professional-profile" data-source-section="closing" data-destination={LINKEDIN_URL}>LinkedIn</a> or <a href={links.contact} data-analytics-event="cta_click" data-cta-id="closing-contact" data-cta-placement="closing" data-cta-intent="contact" data-source-section="closing" data-destination={links.contact}>write to me</a>.</p>
 			</div>
-
-			<div class="home-section__body">
-				<ul class="selected-work__list" role="list">
-					{selectedProjects.map((project) => (
-						<li class="selected-work__item">
-							<a
-								class="selected-work__link"
-								href={project.href}
-								data-analytics-event="cta_click"
-								data-cta-id={project.ctaId}
-								data-cta-placement="home-selected-projects"
-								data-cta-intent="proof"
-								data-source-section="selected-projects"
-								data-destination={project.href}
-							>
-								<span class="selected-work__art">
-									<Image src={project.image} alt="" widths={[480, 720, 960]} sizes="(max-width: 560px) 100vw, (max-width: 1100px) 50vw, 540px" loading="lazy" decoding="async" />
-								</span>
-								<div class="selected-work__copy">
-									{project.result && (
-										<p class="selected-work__result"><b>{project.result.value}</b> {project.result.label}</p>
-									)}
-									<h3 class="selected-work__title">{project.title}</h3>
-									<p class="selected-work__plain">{project.plain}</p>
-								</div>
-							</a>
-						</li>
-					))}
-				</ul>
-			</div>
-		</div>
-	</section>
-
-	{latestWriting.length > 0 && (
-	<section class="home-section latest" aria-labelledby="writing-title">
-		<div class="page-container home-section__grid">
-			<div class="section-head">
-				<h2 id="writing-title">Latest articles</h2>
-				<a
-					class="section-head__link"
-					href={withBase('/writing/')}
-					data-analytics-event="cta_click"
-					data-cta-id="home-view-all-writing"
-					data-cta-placement="home-writing"
-					data-cta-intent="authority"
-					data-source-section="latest-writing"
-				>
-					All writing<span aria-hidden="true">&nbsp;→</span>
-				</a>
-			</div>
-
-			<div class="home-section__body">
-				<WritingPublicationList publications={latestWriting} variant="compact" placement="home-writing" sourceSection="latest-writing" />
-			</div>
-		</div>
-	</section>
-	)}
-
-	<section class="home-closing" aria-label="Contact">
-		<div class="page-container">
-			<p class="home-closing__open">Open to technical lead roles, freelance and collaborations</p>
-			<p class="home-closing__text">
-				Read my
-				<a
-					href={withBase('/cv/')}
-					data-analytics-event="cta_click"
-					data-cta-id="home-closing-cv"
-					data-cta-placement="home-closing"
-					data-cta-intent="evaluate"
-					data-source-section="home-closing"
-				>CV</a>,
-				connect on
-				<a
-					href={LINKEDIN_URL}
-					rel="me noopener"
-					data-analytics-event="linkedin_outbound_click"
-					data-cta-id="home-closing-linkedin"
-					data-cta-placement="home-closing"
-					data-cta-intent="professional-profile"
-					data-source-section="home-closing"
-				>LinkedIn</a>
-				or
-				<a
-					href={withBase('/contact/?source=home-closing#message-title')}
-					data-analytics-event="cta_click"
-					data-cta-id="home-closing-contact"
-					data-cta-placement="home-closing"
-					data-cta-intent="contact"
-					data-source-section="home-closing"
-					data-destination={withBase('/contact/?source=home-closing#message-title')}
-				>start a conversation</a>.
-			</p>
-		</div>
-	</section>
+		</section>
+	</div>
 </BaseLayout>
 
 <style>
-	.hero-area {
-		position: relative;
-		overflow: hidden;
-		background: var(--color-page);
-		color: var(--color-hero-text);
-		padding-block: clamp(4.5rem, 8vw, 7rem) clamp(4rem, 6vw, 6rem);
-	}
-
-	.hero-area .page-container {
-		position: relative;
-		z-index: 2;
-	}
-
-	.hero {
-		position: relative;
-		z-index: 1;
-		display: grid;
-		grid-template-columns: minmax(0, 1fr);
-		gap: clamp(2.5rem, 6vw, 5rem);
-		align-items: center;
-	}
-
-	.hero__copy {
-		max-width: 760px;
-		text-align: left;
-	}
-
-	.hero-kicker,
-	.hero-statement,
-	.hero-location,
-	.hero-links,
-	.hero__portrait,
-	.home-proof {
-		animation: carbon-enter-up var(--motion-duration-slow-01) var(--motion-entrance-expressive) both;
-	}
-
-	.hero-statement {
-		animation-delay: 90ms;
-	}
-
-	.hero-links {
-		animation-delay: 240ms;
-	}
-
-	.hero__portrait {
-		animation-delay: 290ms;
-	}
-
-	.home-proof {
-		animation-delay: 340ms;
-	}
-
-	.hero-kicker {
-		margin: 0 0 var(--spacing-05);
-		font-family: var(--font-mono);
-		font-size: var(--type-eyebrow-size);
-		font-weight: var(--type-eyebrow-weight);
-		letter-spacing: var(--type-eyebrow-tracking);
-		text-transform: uppercase;
-		color: var(--color-hero-kicker);
-	}
-
-	.hero-statement {
-		max-width: 760px;
-		margin: var(--spacing-06) 0 0;
-		font-size: clamp(2rem, 3.4vw, 3.5rem);
-		line-height: 1.08;
-		letter-spacing: -.05em;
-		font-weight: 800;
-		color: var(--color-hero-text);
-	}
-
-	.hero-location {
-		max-width: 690px;
-		margin: var(--spacing-03) 0 0;
-		color: var(--color-hero-text);
-		opacity: .72;
-		font-family: var(--font-mono);
-		font-size: var(--type-meta-size);
-		line-height: var(--type-meta-line);
-		letter-spacing: var(--type-meta-tracking);
-		text-transform: uppercase;
-	}
-
-	.hero-links {
-		margin-top: var(--spacing-07);
-		display: flex;
-		justify-content: flex-start;
-		gap: 0.75rem;
-		flex-wrap: wrap;
-	}
-
-	.hero__portrait {
-		margin: 0;
-		width: 100%;
-		aspect-ratio: 4 / 3;
-		justify-self: center;
-		overflow: hidden;
-		border: 1px solid var(--color-border-soft);
-		border-radius: var(--radius);
-		background: var(--color-surface-soft);
-	}
-
-	.hero__portrait img {
-		width: 100%;
-		height: 100%;
-		object-fit: cover;
-		object-position: 50% 30%;
-	}
-
-	.home-proof {
-		padding-block: clamp(1.75rem, 3vw, 2.25rem);
-		background: var(--color-surface-soft);
-		animation: carbon-enter-up var(--motion-duration-slow-01) var(--motion-entrance-expressive) 340ms both;
-	}
-
-	.home-proof__grid {
-		display: grid;
-		grid-template-columns: repeat(4, minmax(0, 1fr));
-		gap: 1.5rem 2rem;
-		margin: 0;
-	}
-
-	.home-proof__item {
-		display: grid;
-		align-content: start;
-		gap: .3rem;
-	}
-
-	.home-proof__value {
-		margin: 0;
-		color: var(--color-text);
-		font-family: var(--font-display);
-		font-size: clamp(1.2rem, 1.8vw, 1.45rem);
-		font-weight: 800;
-		letter-spacing: -.03em;
-		line-height: 1.15;
-	}
-
-	.home-proof__label {
-		margin: 0;
-		max-width: 16rem;
-		color: var(--color-muted);
-		font-family: var(--font-body);
-		font-size: .86rem;
-		letter-spacing: 0;
-		line-height: 1.45;
-		text-transform: none;
-	}
-
-	.home-section {
-		background: var(--color-section-bg);
-		padding-block: clamp(3rem, 6vw, 5rem);
-	}
-
-	.home-section__grid {
-		display: grid;
-		gap: clamp(1.5rem, 3vw, 2.25rem);
-		padding-top: 1.25rem;
-		border-top: 1px solid var(--color-border);
-	}
-
-	.selected-work .home-section__grid {
-		padding-top: 0;
-		border-top: 0;
-	}
-
-	.section-head {
-		display: flex;
-		flex-wrap: wrap;
-		align-items: baseline;
-		justify-content: space-between;
-		gap: .5rem 1.5rem;
-	}
-
-	.section-head h2 {
-		max-width: none;
-		margin: 0;
-		color: var(--color-text);
-		font-family: var(--font-display);
-		font-size: clamp(1.6rem, 2.6vw, 2.1rem);
-		font-weight: var(--type-section-title-weight);
-		letter-spacing: -0.035em;
-		line-height: 1.1;
-	}
-
-	.section-head__link {
-		display: inline-flex;
-		min-height: 44px;
-		align-items: center;
-		color: var(--color-link);
-		font-family: var(--font-mono);
-		font-size: var(--type-chip-size);
-		font-weight: var(--type-chip-weight);
-		letter-spacing: var(--type-chip-tracking);
-		line-height: var(--type-chip-line);
-		text-decoration: none;
-		text-transform: uppercase;
-		border-bottom: 1px solid transparent;
-		transition: border-color var(--motion-duration-fast-02) var(--motion-standard-productive);
-	}
-
-	.section-head__link:hover,
-	.section-head__link:focus-visible {
-		color: var(--color-link-hover);
-		border-bottom-color: var(--color-link-hover);
-	}
-
-	.selected-work__list {
-		margin: 0;
-		padding: 0;
-		list-style: none;
-	}
-
-	.selected-work__list {
-		display: grid;
-		grid-template-columns: repeat(2, minmax(0, 1fr));
-		gap: clamp(1.75rem, 3vw, 2.5rem) clamp(1.25rem, 2.5vw, 2rem);
-	}
-
-	@media (max-width: 560px) {
-		.selected-work__list {
-			grid-template-columns: 1fr;
-		}
-	}
-
-	.selected-work__link {
-		display: grid;
-		gap: .85rem;
-		align-content: start;
-		height: 100%;
-		color: inherit;
-		text-decoration: none;
-	}
-
-	.selected-work__art {
-		display: block;
-		overflow: hidden;
-		aspect-ratio: 16 / 10;
-		border-radius: 4px;
-		background: var(--color-surface-soft);
-	}
-
-	.selected-work__art img {
-		display: block;
-		width: 100%;
-		height: 100%;
-		object-fit: cover;
-		transition: transform var(--motion-duration-moderate-01) var(--motion-standard-productive);
-	}
-
-	.selected-work__copy {
-		display: grid;
-		gap: .35rem;
-		min-width: 0;
-	}
-
-	.selected-work__copy .selected-work__title {
-		margin: 0;
-		color: var(--color-body-text);
-		font-family: var(--font-body);
-		font-size: clamp(1rem, 1.3vw, 1.08rem);
-		font-weight: 600;
-		letter-spacing: 0;
-		line-height: 1.35;
-		text-decoration: underline;
-		text-decoration-color: transparent;
-		text-decoration-thickness: 1px;
-		text-underline-offset: .22em;
-		transition: text-decoration-color var(--motion-duration-fast-02) var(--motion-standard-productive);
-	}
-
-	.selected-work__plain {
-		margin: 0;
-		color: var(--color-muted);
-		font-size: .95rem;
-		line-height: 1.5;
-	}
-
-	.selected-work__result {
-		margin: 0;
-		display: flex;
-		flex-wrap: wrap;
-		align-items: baseline;
-		gap: 0 .55rem;
-		color: var(--color-text);
-		font-size: 1.02rem;
-		line-height: 1.3;
-	}
-
-	.selected-work__result b {
-		font-family: var(--font-display);
-		font-size: clamp(1.9rem, 3vw, 2.4rem);
-		font-weight: 800;
-		letter-spacing: -0.04em;
-		line-height: 1.05;
-	}
-
-	.selected-work__link:hover .selected-work__title,
-	.selected-work__link:focus-visible .selected-work__title {
-		text-decoration-color: var(--color-border-strong);
-	}
-
-	.selected-work__link:hover .selected-work__art img,
-	.selected-work__link:focus-visible .selected-work__art img {
-		transform: scale(1.04);
-	}
-
-	.selected-work__link:focus-visible {
-		outline: 2px solid var(--color-focus);
-		outline-offset: 4px;
-	}
-
-	.home-closing {
-		padding-block: var(--spacing-06);
-		background-color: var(--color-surface-soft);
-	}
-
-	.home-closing__open {
-		margin: 0 0 .5rem;
-		color: var(--color-muted);
-		font-family: var(--font-mono);
-		font-size: var(--type-meta-size);
-		letter-spacing: var(--type-meta-tracking);
-		line-height: var(--type-meta-line);
-		text-transform: uppercase;
-	}
-
-	.home-closing__text {
-		margin: 0;
-		color: var(--color-text);
-		font-family: var(--font-display);
-		font-size: var(--type-hero-role-size);
-		font-weight: var(--type-hero-role-weight);
-		letter-spacing: var(--type-hero-role-tracking);
-		line-height: var(--type-hero-role-line);
-	}
-
-	.home-closing__text a {
-		color: var(--color-link);
-		text-decoration: underline;
-		text-decoration-thickness: 1px;
-		text-underline-offset: .2em;
-		white-space: nowrap;
-	}
-
-	.home-closing__text a:hover,
-	.home-closing__text a:focus-visible {
-		color: var(--color-link-hover);
-	}
-
-	.hero-text-link {
-		display: inline-flex;
-		min-height: 44px;
-		align-items: center;
-		margin-left: .5rem;
-		color: var(--color-link);
-		font-size: .95rem;
-		text-decoration: underline;
-		text-decoration-color: var(--color-border-strong);
-		text-decoration-thickness: 1px;
-		text-underline-offset: .22em;
-		white-space: nowrap;
-	}
-
-	.hero-text-link:hover,
-	.hero-text-link:focus-visible {
-		color: var(--color-link-hover);
-		text-decoration-color: currentColor;
-	}
-	:global(footer.site-footer .site-footer__inner) {
-		border-top: 0;
-	}
-
-	@media (min-width: 900px) {
-		.hero {
-			grid-template-columns: minmax(0, 0.78fr) minmax(420px, 1.22fr);
-		}
-
-		.hero__portrait {
-			justify-self: end;
-		}
-	}
-
-	@media (max-width: 900px) {
-		.hero-area::after {
-			opacity: 1;
-		}
-
-		.home-proof__grid {
-			grid-template-columns: repeat(2, minmax(0, 1fr));
-		}
-	}
-
-	@media (max-width: 720px) {
-		.hero-links {
-			flex-wrap: wrap;
-		}
-
-		.hero-text-link {
-			margin-left: 0;
-		}
-	}
-
-	/* Compact Maria-style hero refinements from the visual review. */
-	.hero-area {
-		padding-block: clamp(3.25rem, 5vw, 4rem) clamp(2.5rem, 4vw, 3.25rem);
-	}
-
-	.hero {
-		gap: clamp(2rem, 4vw, 3rem);
-		align-items: start;
-	}
-
-	.hero__copy {
-		max-width: 52rem;
-	}
-
-	.hero-lead {
-		max-width: 690px;
-		margin: var(--spacing-06) 0 0;
-		color: var(--color-hero-text);
-		font-size: 1.08rem;
-		font-weight: 400;
-		line-height: 1.7;
-		animation: carbon-enter-up var(--motion-duration-slow-01) var(--motion-entrance-expressive) 90ms both;
-	}
-
-	.hero-statement {
-		max-width: 17ch;
-		margin: 0;
-		font-size: clamp(2.65rem, 4.3vw, 4.6rem);
-		line-height: 1.03;
-	}
-
-	.hero-links {
-		margin-top: var(--spacing-06);
-		flex-wrap: nowrap;
-	}
-
-	.hero-links .button {
-		width: auto;
-		white-space: nowrap;
-	}
-
-	.hero__portrait {
-		width: min(100%, 20rem);
-		aspect-ratio: 1;
-		justify-self: end;
-		border-radius: 50%;
-	}
-
-	.home-proof {
-		margin-top: clamp(2rem, 3vw, 2.5rem);
-	}
-
-	@media (min-width: 900px) {
-		.hero {
-			grid-template-columns: minmax(0, 1.35fr) minmax(15rem, 20rem);
-		}
-	}
-
-	@media (max-width: 899px) {
-		.hero-area {
-			padding-top: 1.5rem;
-		}
-
-		.hero {
-			gap: 1.5rem;
-		}
-
-		.hero__portrait {
-			order: -1;
-			width: 9rem;
-			justify-self: start;
-		}
-	}
-
-	@media (max-width: 640px) {
-		.hero-statement,
-		.hero-lead,
-		.hero-location,
-		.hero-links {
-			max-width: 100%;
-			overflow-wrap: anywhere;
-		}
-
-		.hero__portrait {
-			order: -1;
-			width: 7.5rem;
-			justify-self: start;
-		}
-
-		.hero-links {
-			flex-wrap: wrap;
-		}
-
-		.hero-links .button {
-			flex: 1 1 0;
-			width: auto;
-			padding-inline: .75rem;
-		}
-
-		.hero-text-link {
-			flex-basis: 100%;
-		}
+	.home h2 { margin: 0; font-size: 1.6rem; }
+	.home-hero { display: grid; grid-template-columns: minmax(0, 1fr) 15rem; gap: 2rem 3rem; align-items: center; padding: 3.5rem 0 2rem; }
+	.home-eyebrow { margin: 0 0 .9rem; color: var(--color-muted); font-family: var(--font-sans); font-size: .92rem; font-weight: 500; }
+	.home-hero h1 { margin: 0 0 1.4rem; max-width: none; font-size: clamp(2.2rem, 6vw, 3.3rem); line-height: 1.08; letter-spacing: -.03em; }
+	.home-lead { margin: 0 0 1.25rem; font-size: 1.2rem; line-height: 1.65; color: var(--color-body-text); }
+	.home-lead strong { color: var(--color-text); font-weight: 600; }
+	.home-actions { display: flex; flex-wrap: wrap; gap: .5rem 1.6rem; margin: 0; font-family: var(--font-sans); }
+	.home-actions a { color: var(--color-text); font-weight: 500; }
+	.home-actions a::after { content: ' \2192'; }
+	.home-actions a:hover { color: var(--color-link-hover); }
+	:global(.home-portrait) { display: block; width: 15rem; height: 15rem; border-radius: 50%; object-fit: cover; }
+	.home-now { grid-column: 1 / -1; min-width: 0; display: grid; grid-template-columns: minmax(0, 1fr) 8.5rem; gap: 1.5rem; align-items: center; margin-top: .75rem; padding: 1.1rem 1.4rem; border-radius: .6rem; background: var(--color-surface-soft); font-family: var(--font-sans); text-decoration: none; }
+	.home-now:hover { background: color-mix(in srgb, var(--color-accent-bright) 14%, var(--color-surface-soft)); }
+	.home-now__text { display: grid; gap: .2rem; }
+	.home-now__kick { display: inline-flex; align-items: center; gap: .45rem; color: var(--color-muted); font-size: .85rem; }
+	.home-now__title { color: var(--color-text); font-size: 1.15rem; font-weight: 600; line-height: 1.3; }
+	.home-now:hover .home-now__title { color: var(--color-link-hover); }
+
+	.home-num { display: grid; gap: .1rem; text-align: right; font-family: var(--font-sans); }
+	.home-num b { justify-self: end; color: var(--color-text); font-size: 1.45rem; font-weight: 600; line-height: 1.15; white-space: nowrap; background: var(--mark-band); }
+	.home-num span { color: var(--color-muted); font-size: .84rem; line-height: 1.35; }
+
+	.home-proof { padding: 1.5rem 0 1rem; }
+	.home-proof dl { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.75rem; margin: 0; padding: 1.25rem 0; border-block: 1px solid var(--color-border); }
+	.home-proof dt { color: var(--color-text); font-family: var(--font-sans); font-size: 1.02rem; font-weight: 600; }
+	.home-proof dd { margin: .15rem 0 0; color: var(--color-muted); font-family: var(--font-sans); font-size: .86rem; line-height: 1.45; }
+
+	.home-section { padding: 3rem 0; }
+	.home-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 1rem; }
+	.home-head a { color: var(--color-text); font-family: var(--font-sans); font-size: .95rem; font-weight: 500; }
+
+	.home-work { margin: 0; padding: 0; list-style: none; }
+	.home-work li { border-top: 1px solid var(--color-border); }
+	.home-work a { display: grid; grid-template-columns: 9rem 1fr 8.5rem; gap: 1.5rem; align-items: center; padding: 1.25rem 0; text-decoration: none; }
+	.home-work__img { display: block; aspect-ratio: 4 / 3; overflow: hidden; border-radius: .4rem; background: var(--color-border); }
+	.home-work__img :global(img) { width: 100%; height: 100%; object-fit: cover; transition: transform .4s ease; }
+	.home-work a:hover :global(img) { transform: scale(1.04); }
+	.home-work__text { display: grid; gap: .15rem; }
+	.home-work__co { color: var(--color-muted); font-family: var(--font-sans); font-size: .85rem; }
+	.home-work__title { color: var(--color-text); font-family: var(--font-sans); font-size: 1.1rem; font-weight: 600; line-height: 1.3; }
+	.home-work a:hover .home-work__title { color: var(--color-link-hover); }
+	.home-work__plain { color: var(--color-body-text); font-size: .98rem; line-height: 1.5; }
+
+	.home-bench { border-top: 1px solid var(--color-border); }
+	.home-bench__intro { max-width: 40rem; margin-bottom: 1.75rem; }
+	.home-bench__intro p { margin: .6rem 0 0; }
+
+	.home-series { padding-top: 1.1rem; border-top: 1px solid var(--color-border); }
+	.home-series__kick { margin: 0 0 .3rem; color: var(--color-muted); font-family: var(--font-sans); font-size: .92rem; }
+	.home-series h3 { margin: 0; font-size: 1.25rem; line-height: 1.3; letter-spacing: -.01em; }
+	.home-series h3 a { color: var(--color-text); text-decoration: none; }
+	.home-series h3 a:hover { color: var(--color-link-hover); text-decoration: underline; }
+	.home-series__text { margin: .3rem 0 .9rem; }
+	.home-parts { margin: 0; padding: 0; list-style: none; }
+	.home-parts li { display: grid; grid-template-columns: 4.5rem 1fr auto; gap: 1rem; align-items: baseline; padding: .8rem 0; border-top: 1px solid var(--color-border); }
+	.home-parts__n, .home-parts__min { color: var(--color-muted); font-family: var(--font-sans); font-size: .88rem; white-space: nowrap; }
+	.home-parts__body { display: grid; gap: .15rem; }
+	.home-parts a { color: var(--color-text); font-family: var(--font-sans); font-weight: 500; text-decoration: none; }
+	.home-parts a:hover { color: var(--color-link-hover); text-decoration: underline; }
+	.home-parts__text { color: var(--color-body-text); font-size: .95rem; line-height: 1.5; }
+
+	.home-close { display: flex; gap: 2rem; align-items: center; padding: 4rem 0 5rem; }
+	:global(.home-close__face) { flex: none; width: 8rem; height: 8rem; border-radius: 50%; object-fit: cover; }
+	.home-close p { max-width: 36rem; margin: .6rem 0 0; }
+	.home-close a { color: var(--color-text); }
+
+	@media (max-width: 760px) {
+		/* The portrait sits beside the eyebrow, so the "Now" project fits in the first mobile screen. */
+		.home-hero { grid-template-columns: 4.5rem minmax(0, 1fr); gap: 0 1rem; align-items: center; padding-top: 1.5rem; }
+		.home-hero__text { display: contents; }
+		:global(.home-portrait) { grid-row: 1; grid-column: 1; width: 4.5rem; height: 4.5rem; }
+		.home-eyebrow { grid-row: 1; grid-column: 2; margin: 0; font-size: .84rem; }
+		.home-hero h1, .home-lead, .home-actions, .home-now { grid-column: 1 / -1; }
+		.home-hero h1 { margin: 1rem 0 .85rem; }
+		.home-lead { margin-bottom: 1rem; font-size: 1.06rem; line-height: 1.6; }
+		.home-now { margin-top: 1rem; }
+		.home-now { grid-template-columns: 1fr; gap: .6rem; }
+		.home-num { text-align: left; }
+		.home-num b { justify-self: start; }
+		.home-proof dl { grid-template-columns: repeat(2, 1fr); }
+		.home-work a { grid-template-columns: 5.5rem 1fr; gap: .4rem 1rem; align-items: start; }
+		.home-work .home-num { grid-column: 2; }
+		.home-parts li { grid-template-columns: 1fr auto; gap: .1rem 1rem; }
+		.home-parts__n { grid-column: 1 / -1; }
+		.home-close { flex-direction: column; align-items: flex-start; }
 	}
 </style>

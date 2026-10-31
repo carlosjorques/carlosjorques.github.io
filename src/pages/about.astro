@@ -100,20 +100,20 @@ const work = (slug: string) => withBase(`/work/${slug}/`);
 
 <style>
 	.about-page { width:min(calc(100% - 5rem),var(--content-width)); margin:0 auto; padding:0; }
-	.about-eyebrow { margin:0; font-family:var(--font-mono); font-size:.82rem; font-weight:600; letter-spacing:.08em; line-height:1.4; text-transform:uppercase; color:var(--color-muted); }
+	.about-eyebrow { margin:0; font-family:var(--font-mono); font-size: .9rem; font-weight:600; letter-spacing: 0; line-height:1.4; text-transform: none; color:var(--color-muted); }
 	.about-hero { padding:clamp(3rem,5vw,4.6rem) 0 0; }
 	.about-hero__layout { display:grid; grid-template-columns:minmax(0,1.35fr) minmax(15rem,20rem); gap:2.5rem; align-items:start; margin:1rem 0 5rem; }
 	.about-hero__copy { display:grid; gap:1rem; align-content:start; }
-	.about-hero h1 { max-width:none; margin:0; font-size:clamp(2.6rem,3.8vw,3.5rem); font-weight:800; letter-spacing:-.05em; line-height:1.02; }
+	.about-hero h1 { max-width:none; margin:0; font-size: clamp(2.2rem, 4.6vw, 3.3rem); font-weight: 600; letter-spacing: -.03em; line-height: 1.08; }
 	.about-hero__lead { max-width:52rem; margin:0 0 .4rem; font-size:1.08rem; line-height:1.7; color:var(--color-text); }
 	.about-hero__lead strong { font-weight:700; }
 	.about-hero__actions { display:flex; flex-wrap:wrap; gap:.45rem 1.25rem; }
-	.about-hero__actions a { color:var(--color-link); font-size:.95rem; font-weight:600; text-underline-offset:.2em; }
+	.about-hero__actions a { color:var(--color-text); font-family:var(--font-sans); font-size:.95rem; font-weight:500; text-underline-offset:.2em; }
 	.about-portrait-frame { align-self:start; width:100%; aspect-ratio:3 / 4; margin:0; overflow:hidden; border-radius:1.5rem; }
 	.about-portrait { display:block; width:100%; height:auto; aspect-ratio:3 / 4; border-radius:1.5rem; box-shadow:0 18px 40px rgba(23,23,23,.08); }
-	.editorial-section { display:grid; grid-template-columns:16rem minmax(0,1fr); gap:0 2rem; padding:1rem 0 clamp(3rem,6vw,5rem); border-top:1px solid var(--color-border); scroll-margin-top:2rem; }
+	.editorial-section { display:grid; grid-template-columns:9.5rem minmax(0,1fr); gap:0 2.5rem; padding:1rem 0 clamp(3rem,6vw,5rem); border-top:1px solid var(--color-border); scroll-margin-top:2rem; }
 	.section-rail { padding-top:.25rem; }
-	.section-rail h2 { margin:0; max-width:none; font-family:var(--font-mono); font-size:.82rem; font-weight:600; letter-spacing:.08em; line-height:1.4; text-transform:uppercase; color:var(--color-muted); }
+	.section-rail h2 { margin:0; max-width:none; font-family:var(--font-mono); font-size: .9rem; font-weight:600; letter-spacing: 0; line-height:1.4; text-transform: none; color:var(--color-muted); }
 	.section-rail__note { margin:.4rem 0 0; font-size:.85rem; color:var(--color-muted); }
 	.story-block { display:grid; gap:.8rem; max-width:52rem; }
 	.story-block p, .story-block li { max-width:none; margin:0; font-size:1.08rem; line-height:1.7; color:var(--color-text); }

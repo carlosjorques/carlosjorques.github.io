@@ -1,0 +1,261 @@
+---
+// One-knob tuning challenge. The model curve follows the knob live; "Test on the truck" runs the same tuning on a
+// truck with about 7% less damping, so a tuning at the nervous edge of the model fails. Moving the knob resets the test.
+interface Props {
+	id: string;
+	prizeHref: string;
+	prizeLabel?: string;
+}
+const { id, prizeHref, prizeLabel = 'See how it worked on a Scania truck' } = Astro.props;
+const W = 820;
+const H = 230;
+const top = 12;
+const base = H - 22;
+const vmax = 1.5;
+const y = (v: number) => base - ((base - top) * v) / vmax;
+---
+
+<div class="tg tg--one" data-tune data-presets={import.meta.env.DEV ? '' : undefined} data-w={W} data-top={top} data-base={base} data-vmax={vmax}>
+	<svg viewBox={`0 0 ${W} ${H}`} data-h={H} role="img" aria-label="Response of the controller to a step in its target, with the target band of plus or minus 2% and the 1.5 s deadline. No truck test yet.">
+		<defs><clipPath id={`${id}-clip`}><rect data-w x="0" y="0" width={W} height={base} /></clipPath></defs>
+		<rect class="tg__band" data-w x="0" y={y(1.02)} width={W} height={y(0.98) - y(1.02)} />
+		<line class="tg__sp" data-x2 x1="0" y1={y(1)} x2={W} y2={y(1)} />
+		<text class="tg__tag" data-right x={W - 4} y={y(1.02) - 8} text-anchor="end">target ± 2%</text>
+		<line class="tg__deadline" data-deadline x1="0" y1={top} x2="0" y2={base} />
+		<text class="tg__tag" data-deadline-tag x="0" y={top + 12} text-anchor="start">settle in &lt; 1.5 s</text>
+		<line class="tg__axis" data-x2 x1="0" y1={base} x2={W} y2={base} />
+		<g clip-path={`url(#${id}-clip)`}>
+			<g data-ghosts></g>
+			<path class="tg__mine" data-mine d="" />
+			<path class="tg__model" data-model d="" />
+			<path class="tg__truck" data-truck d="" pathLength="1" />
+		</g>
+		<g data-marks></g>
+	</svg>
+	<p class="tg__legend"><span><span class="tg__key"></span>Model</span><span><span class="tg__key tg__key--truck"></span>Truck test</span><span data-ghost-key><span class="tg__key tg__key--ghost"></span>Earlier tests</span><span data-mine-key><span class="tg__key tg__key--mine"></span>My tuning</span></p>
+
+	<div class="tg__knob">
+		<label for={`${id}-damp`}>Damping <output for={`${id}-damp`} data-out>0.50</output></label>
+		<input id={`${id}-damp`} type="range" min="0.3" max="1.4" step="0.02" value="0.5" aria-describedby={`${id}-ends`} />
+		<span class="tg__ends" id={`${id}-ends`}><span>Nervous</span><span>Sluggish</span></span>
+	</div>
+
+	<div class="tg__bar">
+		<button type="button" data-run>Test on the truck</button>
+		<p class="tg__msg" data-msg aria-live="polite">Set the damping, then run the test.</p>
+	</div>
+
+	<div class="tg__prize" data-prize hidden>
+		<span class="tg__stamp" aria-hidden="true"><span>Ready for production</span></span>
+		<p>The dotted line is the damping I would choose, 0.88. The truck has about 7% less damping than the model; hence, a tuning at the nervous edge of the model fails on the truck, and I keep a margin. On the Scania trucks, the same trade-off includes the battery, the heat pump and the road ahead.</p>
+		<a href={prizeHref}>{prizeLabel}</a>
+	</div>
+</div>
+
+<script is:inline>
+	(() => {
+		const w = 3.2, delay = 0.4, span = 4, n = 240, truckFactor = 0.93, mineZ = 0.88, overMax = 2, timeMax = 1.5;
+		const step = (z, t) => {
+			if (t < delay) return 0;
+			const s = t - delay;
+			if (Math.abs(z - 1) < 0.02) return 1 - Math.exp(-w * s) * (1 + w * s);
+			if (z < 1) {
+				const r = Math.sqrt(1 - z * z), wd = w * r;
+				return 1 - Math.exp(-z * w * s) * (Math.cos(wd * s) + (z / r) * Math.sin(wd * s));
+			}
+			const r = Math.sqrt(z * z - 1), wd = w * r;
+			return 1 - Math.exp(-z * w * s) * (Math.cosh(wd * s) + (z / r) * Math.sinh(wd * s));
+		};
+		const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+		document.querySelectorAll('[data-tune]:not([data-ready])').forEach((game) => {
+			game.setAttribute('data-ready', '');
+			let Wd = +game.dataset.w;
+			const top = +game.dataset.top, base = +game.dataset.base, vmax = +game.dataset.vmax;
+			const X = (t) => (t / span) * Wd, Y = (v) => base - ((base - top) * Math.min(v, vmax + 0.05)) / vmax;
+			const q = (s) => game.querySelector(s);
+			const svg = q('svg'), ghosts = q('[data-ghosts]'), baseLabel = svg.getAttribute('aria-label').replace(' No truck test yet.', '');
+			const input = q('input'), model = q('[data-model]'), truck = q('[data-truck]'), msg = q('[data-msg]');
+			const sim = (z) => {
+				let peak = 0, peakT = 0, settle = 0;
+				const pts = [];
+				for (let i = 0; i <= n; i += 1) {
+					const t = (i * span) / n, v = step(z, t);
+					if (v > peak) { peak = v; peakT = t; }
+					if (Math.abs(v - 1) > 0.02) settle = t;
+					pts.push(`${X(t).toFixed(1)} ${Y(v).toFixed(1)}`);
+				}
+				const over = Math.max(0, (peak - 1) * 100), time = settle >= span - 0.02 ? Infinity : settle - delay;
+				return { d: `M${pts.join(' L')}`, z, over, time, peak, peakT, okO: over < overMax, okT: time <= timeMax };
+			};
+			const fmtT = (t) => (Number.isFinite(t) ? `${t.toFixed(2)} s` : 'never');
+			const marks = q('[data-marks]');
+			const svgEl = (tag, attrs, text) => {
+				const el = document.createElementNS('http://www.w3.org/2000/svg', tag);
+				Object.entries(attrs).forEach(([k, v]) => el.setAttribute(k, v));
+				if (text) el.textContent = text;
+				return el;
+			};
+			const drawMarks = (r) => {
+				if (!r) { marks.replaceChildren(); return; }
+				const clampX = (x, pad) => Math.min(Math.max(x, pad), Wd - pad);
+				const out = [];
+				const oc = `tg__mark ${r.okO ? 'is-ok' : 'is-bad'}`, tc = `tg__mark ${r.okT ? 'is-ok' : 'is-bad'}`;
+				if (r.over >= 0.05) {
+					const px = X(r.peakT), py = Y(r.peak);
+					out.push(svgEl('circle', { class: oc, cx: px.toFixed(1), cy: py.toFixed(1), r: 4 }));
+					out.push(svgEl('text', { class: `${oc} tg__mark-tag`, x: clampX(px, 70).toFixed(1), y: (py - 12).toFixed(1), 'text-anchor': 'middle' }, `overshoot ${r.over.toFixed(1)}%`));
+				} else {
+					out.push(svgEl('text', { class: `${oc} tg__mark-tag`, x: X(delay + 2.2).toFixed(1), y: (Y(1.02) - 12).toFixed(1), 'text-anchor': 'middle' }, 'no overshoot'));
+				}
+				if (Number.isFinite(r.time)) {
+					const sx = X(r.time + delay);
+					out.push(svgEl('line', { class: `${tc} tg__mark-line`, x1: sx.toFixed(1), x2: sx.toFixed(1), y1: Y(1).toFixed(1), y2: base }));
+					out.push(svgEl('circle', { class: tc, cx: sx.toFixed(1), cy: Y(step(r.z, r.time + delay)).toFixed(1), r: 4 }));
+					out.push(svgEl('text', { class: `${tc} tg__mark-tag`, x: clampX(sx, 60).toFixed(1), y: base + 17, 'text-anchor': 'middle' }, `settled ${fmtT(r.time)}`));
+				} else {
+					out.push(svgEl('text', { class: `${tc} tg__mark-tag`, x: Wd - 4, y: base + 17, 'text-anchor': 'end' }, 'not settled'));
+				}
+				marks.replaceChildren(...out);
+			};
+			let last = null;
+			let tests = 0, fails = 0;
+			const runs = [];
+			const drawGhosts = () => {
+				const shown = (game.hasAttribute('data-tested') ? runs.slice(0, -1) : runs).slice(-4);
+				ghosts.replaceChildren(...shown.map((run) => {
+					const p = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+					p.setAttribute('class', 'tg__ghost');
+					p.setAttribute('d', sim(run.z * truckFactor).d);
+					return p;
+				}));
+				game.toggleAttribute('data-ghosts', shown.length > 0);
+			};
+			const describe = () => {
+				if (!runs.length) { svg.setAttribute('aria-label', `${baseLabel} No truck test yet.`); return; }
+				const say = (run) => `damping ${run.z.toFixed(2)}, overshoot ${run.over.toFixed(1)}%, settled ${fmtT(run.time)}, ${run.ok ? 'passed' : 'failed'}`;
+				const last = runs[runs.length - 1], earlier = runs.slice(0, -1).slice(-4);
+				svg.setAttribute('aria-label', `${baseLabel} Truck test ${runs.length}: ${say(last)}.${earlier.length ? ` Earlier tests: ${earlier.map(say).join('; ')}.` : ''}`);
+			};
+			const layout = () => {
+				const next = game.clientWidth < 560 ? 440 : +game.dataset.w;
+				if (next === Wd && svg.dataset.laid) return;
+				Wd = next;
+				svg.dataset.laid = '1';
+				svg.setAttribute('viewBox', `0 0 ${Wd} ${svg.dataset.h}`);
+				game.querySelectorAll('[data-w]').forEach((el) => el.setAttribute('width', Wd));
+				game.querySelectorAll('[data-x2]').forEach((el) => el.setAttribute('x2', Wd));
+				q('[data-right]').setAttribute('x', Wd - 4);
+				const dx = X(delay + timeMax).toFixed(1);
+				['x1', 'x2'].forEach((a) => q('[data-deadline]').setAttribute(a, dx));
+				q('[data-deadline-tag]').setAttribute('x', (+dx + 6).toFixed(1));
+				q('[data-mine]').setAttribute('d', sim(mineZ).d);
+				model.setAttribute('d', sim(Number(input.value)).d);
+				if (runs.length) truck.setAttribute('d', sim(runs[runs.length - 1].z * truckFactor).d);
+				if (last) { last = sim(last.z); drawMarks(last); }
+				drawGhosts();
+			};
+			const reset = () => {
+				game.removeAttribute('data-tested');
+				game.removeAttribute('data-win');
+				q('[data-prize]').hidden = true;
+				last = null;
+				drawMarks(null);
+				msg.textContent = 'Set the damping, then run the test.';
+				drawGhosts();
+			};
+			const update = () => {
+				const z = Number(input.value);
+				q('[data-out]').textContent = z.toFixed(2);
+				model.setAttribute('d', sim(z).d);
+				if (game.hasAttribute('data-tested')) reset();
+			};
+			const run = () => {
+				const z = Number(input.value), r = sim(z * truckFactor);
+				tests += 1;
+				runs.push({ z, over: r.over, time: r.time, ok: r.okO && r.okT });
+				truck.setAttribute('d', r.d);
+				game.setAttribute('data-tested', '');
+				drawGhosts();
+				describe();
+				if (!still) { truck.classList.remove('is-drawing'); void truck.getBoundingClientRect(); truck.classList.add('is-drawing'); }
+				last = r;
+				drawMarks(r);
+				const label = `Truck test ${tests}: `;
+				const vals = `: overshoot ${r.over.toFixed(1)}%, ${Number.isFinite(r.time) ? `settled in ${fmtT(r.time)}` : 'not settled'}.`;
+				if (r.okO && r.okT) {
+					msg.textContent = `${label}passed${vals}`;
+					game.setAttribute('data-win', '');
+					q('[data-prize]').hidden = false;
+					return;
+				}
+				fails += 1;
+				const hint = fails >= 3 ? ' The truck has a little less damping than the model.' : '';
+				msg.textContent = !r.okO
+					? `${label}failed, too nervous${vals}${hint}`
+					: `${label}failed, too sluggish${vals}${hint}`;
+			};
+			input.addEventListener('input', update);
+			q('[data-run]').addEventListener('click', run);
+			layout();
+			new ResizeObserver(layout).observe(game);
+			update();
+			// Dev only: #edge and #tuned replay a test, for screenshots.
+			const preset = game.hasAttribute('data-presets') ? { '#edge': [0.8], '#tuned': [0.88] }[location.hash] : undefined;
+			if (preset) preset.forEach((z) => { input.value = String(z); update(); run(); });
+		});
+	})();
+</script>
+
+<style is:global>
+	.tg { --lg-trace: var(--color-text); --lg-truck: var(--color-accent-text); --lg-sp: var(--color-text); --lg-limit: var(--color-border-strong); --lg-axis: var(--color-border); --lg-band: color-mix(in srgb, var(--color-accent-bright) 30%, transparent); --lg-mine: var(--color-text); --lg-muted: var(--color-muted); --lg-text: var(--color-text); --lg-ok: var(--color-accent-bright); --lg-stamp: var(--color-accent-text); --lg-page: var(--color-page); --lg-bad: var(--color-error); --lg-label: var(--font-sans); font-family: var(--font-sans); }
+	.tg__prize p { font-family: var(--font-body); }
+	.tg svg { display: block; width: 100%; height: auto; }
+	.tg__band { fill: var(--lg-band, rgba(191, 255, 3, .25)); }
+	.tg__sp { stroke: var(--lg-sp, #555); stroke-width: 1; stroke-dasharray: 5 6; }
+	.tg__deadline { stroke: var(--lg-limit, #999); stroke-width: 1; stroke-dasharray: 2 4; }
+	.tg__tag { fill: var(--lg-muted, #777); font: 13px var(--lg-label, sans-serif); }
+	.tg__axis { stroke: var(--lg-axis, #ddd); stroke-width: 1; }
+	.tg__model { fill: none; stroke: var(--lg-trace, #222); stroke-width: 2.5; stroke-linejoin: round; stroke-linecap: round; }
+	.tg[data-tested] .tg__model { stroke: var(--lg-limit, #bbb); stroke-width: 2; }
+	.tg__truck { fill: none; stroke: var(--lg-truck, #2f6fb0); stroke-width: 2.5; stroke-linejoin: round; stroke-linecap: round; opacity: 0; }
+	.tg[data-tested] .tg__truck { opacity: 1; }
+	.tg__truck.is-drawing { stroke-dasharray: 1; animation: tg-draw .9s ease-out both; }
+	@keyframes tg-draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+	.tg__mine { fill: none; stroke: var(--lg-mine, #3b6a00); stroke-width: 2; stroke-dasharray: 1 5; stroke-linecap: round; opacity: 0; transition: opacity .4s ease; }
+	.tg[data-win] .tg__mine { opacity: 1; }
+	.tg__legend { display: flex; flex-wrap: wrap; align-items: center; gap: .3rem 1.1rem; margin: .4rem 0 0; color: var(--lg-muted, #777); font-size: .85rem; }
+	.tg__legend > span { display: inline-flex; align-items: center; gap: .45rem; white-space: nowrap; }
+	.tg__key { display: inline-block; flex: none; width: 1.2rem; height: 0; border-top: 2.5px solid var(--lg-trace, #222); }
+	.tg__key--truck { border-color: var(--lg-truck, #2f6fb0); }
+	.tg__key--mine { border-top: 2.5px dotted var(--lg-mine, #3b6a00); }
+	.tg:not([data-win]) [data-mine-key] { display: none; }
+	.tg__knob { display: grid; gap: .3rem; margin-top: 1.1rem; }
+	.tg__knob label { color: var(--lg-text, #222); font-weight: 600; font-size: .95rem; display: flex; justify-content: space-between; }
+	.tg__knob output { font-weight: 400; color: var(--lg-muted, #777); font-variant-numeric: tabular-nums; }
+	.tg__knob input { width: 100%; accent-color: var(--lg-trace, #222); }
+	.tg__ends { display: flex; justify-content: space-between; color: var(--lg-muted, #777); font-size: .82rem; }
+	.tg__bar { display: flex; flex-wrap: wrap; align-items: center; gap: .75rem 1rem; margin-top: 1.1rem; }
+	.tg__bar button { font: inherit; font-weight: 600; font-size: 1rem; color: var(--color-text, #1d2124); background: transparent; border: 1px solid var(--color-border-strong, #c9cbc5); transition: background-color .18s ease, border-color .18s ease, color .18s ease; border-radius: .35rem; padding: .6rem 1.15rem; cursor: pointer; }
+	.tg__bar button:hover { border-color: var(--color-signal-fill, #d9ff68); background: var(--color-signal-fill, #d9ff68); color: var(--color-on-signal, #1d2124); }
+	.tg__bar button:focus-visible { outline: 2px solid var(--lg-text, #222); outline-offset: 3px; }
+	.tg__msg { flex: 1 1 16rem; margin: 0; color: var(--lg-text, #222); font-size: .92rem; line-height: 1.45; }
+	.tg--one .tg__prize { position: relative; margin-top: 1.75rem; padding: 1.4rem 1.25rem 1.1rem; border: 1.5px solid var(--lg-text, #222); border-radius: .35rem; background: var(--lg-page, #fff); }
+	.tg--one .tg__prize p { margin: 0 0 .5rem; font-size: .98rem; }
+	.tg--one .tg__prize a { color: var(--lg-text, #222); font-weight: 600; }
+	.tg--one .tg__stamp { position: absolute; left: 1rem; right: auto; top: -.8rem; border: 0; border-radius: 0; transform: none; text-transform: none; letter-spacing: 0; display: inline-flex; align-items: center; gap: .45rem; padding: .1rem .5rem; background: var(--lg-page, #fff); color: var(--lg-text, #222); font-weight: 600; font-size: .85rem; animation: tg-stamp-one .4s ease-out; }
+	.tg--one .tg__stamp span { background: linear-gradient(transparent 55%, var(--lg-ok, #bfff03) 55%, var(--lg-ok, #bfff03) 92%, transparent 92%); }
+	@keyframes tg-stamp-one { from { opacity: 0; transform: translateY(.3rem); } to { opacity: 1; transform: none; } }
+	@media (prefers-reduced-motion: reduce) { .tg--one .tg__stamp, .tg__truck.is-drawing { animation: none; } .tg__mine { transition: none; } }
+	.tg__ghost { fill: none; stroke: var(--lg-truck, #2f6fb0); stroke-width: 1.5; opacity: .28; }
+	.tg__mark { fill: var(--lg-text, #222); stroke: none; animation: tg-mark .4s .6s ease-out both; }
+	.tg__mark.is-bad { fill: var(--lg-bad, #b3261e); }
+	circle.tg__mark { stroke: var(--lg-page, #fff); stroke-width: 1.5; }
+	.tg__mark-line { fill: none; stroke: var(--lg-text, #222); stroke-width: 1; stroke-dasharray: 3 3; }
+	.tg__mark-line.is-bad { stroke: var(--lg-bad, #b3261e); }
+	.tg__mark-tag { font: 600 13px var(--lg-label, sans-serif); paint-order: stroke; stroke: var(--lg-page, #fff); stroke-width: 4px; stroke-linejoin: round; }
+	@keyframes tg-mark { from { opacity: 0; } to { opacity: 1; } }
+	@media (prefers-reduced-motion: reduce) { .tg__mark { animation: none; } }
+	.tg__key--ghost { border-top: 1.5px solid var(--lg-truck, #2f6fb0); opacity: .45; }
+	.tg:not([data-ghosts]) [data-ghost-key] { display: none; }
+	@media (max-width: 640px) { .tg__tag, .tg__mark-tag { font-size: 16px; } .tg__legend { font-size: .8rem; } }
+</style>

@@ -34,6 +34,8 @@ const nb = (text: string) => text.replace(/(\d) (?=(?:t|L|kg|kWh|rpm|bar|mg|Hz|Â
 const escapeHtml = (text: string) => text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 const rich = (text: string) => escapeHtml(nb(text)).replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
 const plain = (text: string) => text.replace(/\*\*/g, '');
+// "My role" and "Result" repeat the lead, the facts and the numbers, so the summary shows only the need and the key work.
+const glance = data.glance.filter((item) => !['My role', 'Result'].includes(item.label));
 
 const jsonLd = {
 	'@context': 'https://schema.org',
@@ -81,37 +83,37 @@ const jsonLd = {
 			</nav>
 
 			<header class="project-hero">
-				<div class="project-hero__copy">
-					<p class="project-hero__eyebrow">{data.eyebrow}</p>
-					<h1>{data.title}</h1>
-					<p class="project-hero__lead" set:html={rich(data.intro)} />
-				</div>
-				<figure class="project-hero__media">
-					<Image src={card.image} alt={card.imageAlt} widths={[640, 960, 1280]} sizes="(min-width: 1000px) 30rem, 100vw" loading="eager" />
-				</figure>
+				<p class="project-hero__eyebrow">{data.eyebrow}</p>
+				<h1>{data.title}</h1>
+				<p class="project-hero__lead" set:html={rich(data.intro)} />
 			</header>
 
-			<dl class="project-facts">
-				{data.facts.map((fact) => <div><dt>{fact.label}</dt><dd set:html={rich(fact.value)} /></div>)}
-			</dl>
+			<div class="project-overview">
+				<dl class="project-facts">
+					{data.facts.map((fact) => <div><dt>{fact.label}</dt><dd set:html={rich(fact.value)} /></div>)}
+				</dl>
+				<figure class="project-hero__media">
+					<Image src={card.image} alt={card.imageAlt} widths={[640, 960, 1280]} sizes="(min-width: 1000px) 26rem, 100vw" loading="eager" />
+				</figure>
+			</div>
 
-			<section class="project-numbers" aria-labelledby="project-numbers-title">
-				<h2 id="project-numbers-title">Key numbers</h2>
-				<ul class="project-numbers__grid">
-					{data.metrics.map((metric) => (
-						<li>
-							<span class="project-numbers__value">{nb(metric.value)}</span>
-							<span class="project-numbers__label" set:html={rich(metric.label)} />
-						</li>
-					))}
-				</ul>
-				{data.metricsNote && <p class="project-numbers__note">{plain(nb(data.metricsNote))}</p>}
-			</section>
-
+			<!-- One summary: the results first, then the need and the key work. The role is in the lead and the facts above. -->
 			<section class="project-glance" aria-labelledby="project-glance-title">
 				<h2 id="project-glance-title">At a glance</h2>
+				<div class="project-glance__results">
+					<h3 class="project-glance__label">Results</h3>
+					<ul class="project-numbers__grid">
+						{data.metrics.map((metric) => (
+							<li>
+								<span class="project-numbers__value">{nb(metric.value)}</span>
+								<span class="project-numbers__label" set:html={rich(metric.label)} />
+							</li>
+						))}
+					</ul>
+					{data.metricsNote && <p class="project-numbers__note">{plain(nb(data.metricsNote))}</p>}
+				</div>
 				<dl>
-					{data.glance.map((item) => <div><dt>{item.label}</dt><dd set:html={rich(item.text)} /></div>)}
+					{glance.map((item) => <div><dt class="project-glance__label">{item.label}</dt><dd set:html={rich(item.text)} /></div>)}
 				</dl>
 			</section>
 
@@ -147,43 +149,44 @@ const jsonLd = {
 	.project-breadcrumb a { color: var(--color-text); text-decoration: none; }
 	.project-breadcrumb a:hover, .project-breadcrumb a:focus-visible { color: var(--color-link); text-decoration: underline; text-underline-offset: .2em; }
 
-	.project-hero { display: grid; grid-template-columns: minmax(0, 1fr) clamp(14rem, 38%, 28rem); gap: clamp(1.5rem, 4vw, 4rem); align-items: start; padding: 1.25rem 0 clamp(1.75rem, 3vw, 2.25rem); }
-	.project-hero__copy { display: grid; gap: 1rem; align-content: start; }
-	.project-hero__eyebrow { margin: 0; color: var(--color-accent-text); font-family: var(--font-mono); font-size: var(--type-eyebrow-size); font-weight: var(--type-eyebrow-weight); letter-spacing: var(--type-eyebrow-tracking); line-height: var(--type-eyebrow-line); text-transform: uppercase; }
-	.project-hero h1 { max-width: 22ch; margin: 0; font-size: clamp(2.2rem, 3.6vw, 3.3rem); font-weight: 800; letter-spacing: -.045em; line-height: 1.05; text-wrap: balance; }
-	.project-hero__lead { max-width: 62ch; margin: 0; font-size: 1.1rem; line-height: 1.7; }
+	.project-hero { display: grid; gap: 1rem; padding: 1.25rem 0 clamp(1.75rem, 3vw, 2.25rem); }
+	.project-hero__eyebrow { margin: 0; color: var(--color-muted); font-family: var(--font-sans); font-size: var(--type-eyebrow-size); font-weight: var(--type-eyebrow-weight); letter-spacing: var(--type-eyebrow-tracking); line-height: var(--type-eyebrow-line); text-transform: none; }
+	.project-hero h1 { max-width: 28ch; margin: 0; font-size: clamp(2.2rem, 3.6vw, 3.3rem); font-weight: 600; letter-spacing: -.03em; line-height: 1.05; text-wrap: balance; }
+	.project-hero__lead { max-width: none; margin: 0; font-size: 1.1rem; line-height: 1.7; }
+	/* Facts beside the photo: the recruiter card. */
+	.project-overview { display: grid; grid-template-columns: minmax(0, 1fr) clamp(15rem, 40%, 24rem); gap: clamp(1.5rem, 4vw, 3rem); align-items: start; margin: 0 0 clamp(2.5rem, 5vw, 3.5rem); }
 	.project-hero__media { width: 100%; aspect-ratio: 4 / 3; margin: 0; overflow: hidden; border-radius: var(--radius); background: var(--color-surface-soft); }
 	.project-hero__media img { display: block; width: 100%; height: 100%; object-fit: cover; }
 	.project-page :global(strong) { color: var(--color-text); font-weight: 700; }
 
-	/* Lines only between the main sections: header and overview, key numbers, at a glance, body. */
-	.project-facts { display: grid; gap: .55rem; margin: 0 0 clamp(2.5rem, 5vw, 3.5rem); }
-	.project-facts div { display: grid; grid-template-columns: 8rem minmax(0, 1fr); gap: 1rem; }
-	.project-facts dt, .project-glance dt, .project-next__label { color: var(--color-muted); font-family: var(--font-mono); font-size: .76rem; font-weight: 600; letter-spacing: .08em; line-height: 1.5; text-transform: uppercase; }
+	/* Lines only between the main sections: header and overview, at a glance, body. */
+	.project-facts { display: grid; gap: .7rem; margin: 0; }
+	.project-facts div { display: grid; grid-template-columns: 6.5rem minmax(0, 1fr); gap: 1rem; }
+	.project-facts dt, .project-glance__label, .project-next__label { margin: 0; color: var(--color-muted); font-family: var(--font-mono); font-size: .85rem; font-weight: 600; letter-spacing: 0; line-height: 1.5; text-transform: none; }
 	.project-facts dt { padding-top: .2rem; }
-	.project-facts dd { max-width: 75ch; margin: 0; font-size: .98rem; line-height: 1.55; }
+	.project-facts dd { max-width: none; margin: 0; font-size: .98rem; line-height: 1.55; }
 
-	.project-numbers, .project-glance, .project-prose { padding-top: clamp(2rem, 4vw, 2.75rem); border-top: 1px solid var(--color-border); }
-	.project-numbers, .project-glance { display: grid; gap: 1.25rem; margin-bottom: clamp(2.5rem, 5vw, 3.5rem); }
-	.project-numbers h2, .project-glance h2, .project-prose :global(h2) { max-width: 30ch; font-size: clamp(1.35rem, 2vw, 1.7rem); font-weight: 800; letter-spacing: -.03em; line-height: 1.15; text-wrap: balance; }
-	.project-numbers h2, .project-glance h2 { margin: 0; }
+	.project-glance, .project-prose { padding-top: clamp(2rem, 4vw, 2.75rem); border-top: 1px solid var(--color-border); }
+	.project-glance { display: grid; gap: 1.75rem; margin-bottom: clamp(2.5rem, 5vw, 3.5rem); }
+	.project-glance__results { display: grid; gap: .9rem; }
+	.project-glance h2, .project-prose :global(h2) { max-width: 30ch; font-size: clamp(1.35rem, 2vw, 1.7rem); font-weight: 600; letter-spacing: -.03em; line-height: 1.15; text-wrap: balance; }
+	.project-glance h2 { margin: 0; }
 	.project-numbers__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr)); gap: 1.5rem 2rem; margin: 0; padding: 0; list-style: none; }
 	.project-numbers__grid li { display: grid; grid-template-rows: auto 1fr; gap: .35rem; }
-	.project-numbers__value { font-size: clamp(1.6rem, 2.4vw, 2.1rem); font-weight: 800; letter-spacing: -.03em; line-height: 1.1; }
+	.project-numbers__value { justify-self: start; color: var(--color-text); font-family: var(--font-sans); font-size: clamp(1.5rem, 2.2vw, 1.85rem); font-weight: 600; letter-spacing: -.02em; line-height: 1.15; background: var(--mark-band); }
 	.project-numbers__label { font-size: .95rem; line-height: 1.5; }
-	.project-numbers__note { max-width: 75ch; margin: 0; color: var(--color-muted); font-size: .9rem; font-style: italic; line-height: 1.6; }
+	.project-numbers__note { max-width: none; margin: 0; color: var(--color-muted); font-size: .9rem; font-style: italic; line-height: 1.6; }
 
 	.project-glance dl { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.75rem 3rem; margin: 0; }
 	.project-glance dl div { display: grid; gap: .4rem; align-content: start; }
-	.project-glance dt { color: var(--color-accent-text); }
 	.project-glance dd { margin: 0; font-size: 1rem; line-height: 1.6; }
 
 	/* Centred reading column, as in an article; figures and tables share its width. Full width on mobile. */
-	.project-prose { --prose-width: 80%; display: grid; grid-template-columns: minmax(0, var(--prose-width)); justify-content: center; }
+	.project-prose { --prose-width: 100%; display: grid; grid-template-columns: minmax(0, var(--prose-width)); justify-content: center; }
 	.project-prose > :global(h2:first-child) { margin-top: 0; }
 	.project-prose :global(h2) { margin: clamp(2.5rem, 5vw, 3.5rem) 0 1rem; }
 	@media (min-width: 861px) { .project-prose :global(h2) { max-width: none; text-wrap: pretty; } }
-	.project-prose :global(h3) { margin: 2rem 0 .75rem; font-size: 1.15rem; font-weight: 800; line-height: 1.3; }
+	.project-prose :global(h3) { margin: 2rem 0 .75rem; font-size: 1.15rem; font-weight: 600; line-height: 1.3; }
 	.project-prose :global(p), .project-prose :global(li) { font-size: 1.06rem; line-height: 1.72; }
 	.project-prose :global(p) { margin: 0 0 1.1rem; }
 	.project-prose :global(ul), .project-prose :global(ol) { display: grid; gap: .6rem; margin: 0 0 1.25rem; padding-left: 1.2rem; }
@@ -204,8 +207,8 @@ const jsonLd = {
 	.project-page__closing { padding-top: clamp(1.75rem, 3vw, 2.5rem); }
 
 	@media (max-width: 860px) {
-		.project-hero { grid-template-columns: 1fr; }
-		.project-hero__media { max-width: 34rem; }
+		.project-overview { grid-template-columns: 1fr; }
+		.project-hero__media { grid-row: 1; max-width: 34rem; }
 	}
 	@media (max-width: 720px) {
 		.project-page__container { width: min(calc(100% - 32px), var(--content-width)); }

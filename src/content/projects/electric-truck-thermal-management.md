@@ -7,7 +7,7 @@ eyebrow: "Scania · Electric heavy-duty trucks · 2025–present"
 intro: "**I lead the predictive control concept and its architecture** in the software that heats and cools Scania’s electric trucks, keeping the batteries and electronics at the temperatures where they run efficiently and safely. With a project team of three, I take the concept to truck tests together with the battery, autonomous-driving and supplier teams, and I **mentor the students** who join the project."
 facts:
   - label: "Role"
-    value: "**Senior Control Software Engineer, thermal management**"
+    value: "**Senior Development Engineer, thermal management**"
   - label: "Delivery"
     value: "Client assignment for Scania through ALTEN, where I am a **Technical Leader**; fully remote from Spain with teams in Sweden"
   - label: "Team"
@@ -57,7 +57,7 @@ Hauliers choose trucks by cost per tonne-kilometre and work on [margins of about
 
 ## Leading the predictive concept next to production thermal software
 
-The thermal system has pumps, valves, fans, a compressor, a chiller, a heat pump and heaters on several coolant circuits, and its software runs in trucks already sold. A department of about 20 engineers develops it across several projects and vehicle platforms. Three of us work on the predictive control project, with a summer worker and, from January 2027, two master's thesis students. The project is in pre-development (the concept stage), where the software is tested on trucks to prove the concept before it is developed for the product. From Spain, I work with the teams in Sweden and the suppliers through shared models, specifications and test data. My own areas are:
+The thermal system has pumps, valves, fans, a compressor, a chiller, a heat pump and heaters on several coolant circuits, and its software runs in trucks already sold. A department of about 20 engineers develops it across several projects and vehicle platforms. Three of us work on the predictive control project, with a summer worker and two master's thesis students. The project is in pre-development (the concept stage), where the software is tested on trucks to prove the concept before it is developed for the product. From Spain, I work with the teams in Sweden and the suppliers through shared models, specifications and test data. My own areas are:
 
 - **Predictive control:** the predictive methods, the control allocation and their architecture, up to the truck tests.
 - **Production software:** thermal functions in the current trucks and new functions for the upcoming platforms, including C++ on Adaptive AUTOSAR for [TRATON ONE OS](https://traton.com/en/newsroom/press-releases/the-traton-group-and-applied-intuition-announce-traton-one-os.html), the software-defined vehicle platform TRATON is co-developing with Applied Intuition.
@@ -94,7 +94,7 @@ The software is built in MATLAB/Simulink with C code generation, and every relea
 
 ## A 3% energy saving can be worth up to 4.6 times the electricity it saves
 
-The saving reaches the haulier through the electricity bill, a smaller battery, more payload and shorter charging. In my life-cycle cost model of a 40-tonne long-haul truck over 8 years, **2–4% is worth 5,500–21,500 € per truck**, which raises the haulier's operating profit by 24–96%. If the battery is sized for the gain from the start, **a 3% gain is worth up to 4.6 times the electricity saved**. These are my estimates, not Scania figures, and they do not deduct the development cost. ([Part 3: the business case](/writing/control-software-electric-trucks-part-3-business-case/) · [Part 4: vehicle design](/writing/control-software-electric-trucks-part-4-design/))
+The saving reaches the haulier through the electricity bill, a smaller battery, more payload and shorter charging. In my life-cycle cost model of a 40-tonne long-haul truck over 8 years, **2–4% is worth 5,500–21,500 € per truck**, which raises the haulier's operating profit by 24–96%. If the battery is sized for the gain from the start, **a 3% gain is worth up to 30,500 € per truck, 4.6 times the electricity saved**. These are my estimates, not Scania figures, and they do not deduct the development cost. ([Part 3: the business case](/writing/control-software-electric-trucks-part-3-business-case/) · [Part 4: vehicle design](/writing/control-software-electric-trucks-part-4-design/))
 
 ## What the Scania project taught me about designing thermal control
 

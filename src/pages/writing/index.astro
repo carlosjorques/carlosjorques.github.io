@@ -156,12 +156,12 @@ const structuredData = {
 	.writing-hero + :global(*) { margin-top: clamp(2rem, 4vw, 2.75rem); }
 	.writing-hero__top { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; }
 	.writing-eyebrow,
-	.writing-rss { margin: 0; color: var(--color-muted); font-family: var(--font-mono); font-size: .82rem; font-weight: 600; letter-spacing: .08em; line-height: 1.4; text-transform: uppercase; }
+	.writing-rss { margin: 0; color: var(--color-muted); font-family: var(--font-mono); font-size: .9rem; font-weight: 600; letter-spacing: 0; line-height: 1.4; text-transform: none; }
 	.writing-rss { font-weight: 400; text-decoration: none; }
 	.writing-rss:hover,
 	.writing-rss:focus-visible { color: var(--color-link); text-decoration: underline; text-underline-offset: .2em; }
 	.writing-hero__copy { display: grid; gap: 1rem; align-content: start; margin: 1rem 0 4rem; }
-	.writing-hero h1 { max-width: none; margin: 0; font-size: clamp(2.6rem, 3.8vw, 3.5rem); font-weight: 800; letter-spacing: -.05em; line-height: 1.02; }
+	.writing-hero h1 { max-width: none; margin: 0; font-size: clamp(2.2rem, 4.6vw, 3.3rem); font-weight: 600; letter-spacing: -.03em; line-height: 1.08; }
 	.writing-hero__lead { max-width: 52rem; margin: 0; color: var(--color-text); font-size: 1.08rem; line-height: 1.7; }
 	.writing-hero__author { max-width: 52rem; margin: 0; color: var(--color-muted); font-size: .92rem; line-height: 1.55; }
 	.writing-hero__author a { color: var(--color-link); text-decoration-thickness: 1px; text-underline-offset: .2em; }
@@ -170,13 +170,13 @@ const structuredData = {
 
 	.writing-section + .writing-section { margin-top: clamp(3.5rem, 7vw, 5rem); }
 	.writing-section__title { max-width: none; margin: 0 0 1.5rem; color: var(--color-text); font-family: var(--font-display); font-size: clamp(1.6rem, 2.6vw, 2.1rem); font-weight: var(--type-section-title-weight); letter-spacing: -.035em; line-height: 1.1; }
-	.writing-year__label { max-width: none; margin: 0; color: var(--color-muted); font-family: var(--font-mono); font-size: var(--type-chip-size); font-weight: 400; letter-spacing: var(--type-chip-tracking); line-height: 1.4; text-transform: uppercase; }
+	.writing-year__label { max-width: none; margin: 0; color: var(--color-muted); font-family: var(--font-mono); font-size: var(--type-chip-size); font-weight: 400; letter-spacing: var(--type-chip-tracking); line-height: 1.4; text-transform: none; }
 	.writing-year + .writing-year { margin-top: 2rem; }
 	.writing-year__label { margin-bottom: .5rem; }
 
 	.writing-empty { margin: 0; color: var(--color-body-text); }
-	.writing-more { margin-top: 1.5rem; border: 1px solid var(--color-border-soft); border-radius: 999px; background: transparent; padding: .5rem 1rem; color: var(--color-text); font-family: var(--font-mono); font-size: var(--type-chip-size); letter-spacing: var(--type-chip-tracking); line-height: 1.4; text-transform: uppercase; cursor: pointer; }
-	.writing-more:hover { border-color: var(--color-border-strong); }
+	.writing-more { margin-top: 1.5rem; border: 1px solid var(--color-border-strong); border-radius: var(--radius); background: transparent; padding: .5rem 1rem; transition: background-color .18s ease, border-color .18s ease; color: var(--color-text); font-family: var(--font-sans); font-size: var(--type-chip-size); letter-spacing: var(--type-chip-tracking); line-height: 1.4; text-transform: none; cursor: pointer; }
+	.writing-more:hover { border-color: var(--color-signal-fill); background: var(--color-signal-fill); color: var(--color-on-signal); }
 	.writing-more:focus-visible { outline: 2px solid var(--color-link); outline-offset: 3px; }
 	.is-collapsed :global([data-overflow]) { display: none; }
 	.writing-closing { padding-top: clamp(3rem, 6vw, 5rem); }

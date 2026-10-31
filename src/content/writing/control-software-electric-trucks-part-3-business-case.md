@@ -21,7 +21,7 @@ socialImage:
   src: "/images/blog/control-software-electric-trucks/part3-social.png"
   alt: "Part 3 of 4 of the series on control software in electric heavy-duty trucks: The business case of a 3% efficiency gain. 5,500–21,500 € of value per truck over 8 years."
 featured: false
-draft: true
+draft: false
 ---
 
 ## A truck is a production asset
@@ -70,7 +70,7 @@ The first channel applies to any truck as soon as the control is installed. The 
 The four channels, the moment at which each one becomes available and the metrics each one reaches are summarised in Figure 1, together with the three challenges of the introduction.
 
 <figure class="article-figure">
-	<img src="/images/blog/control-software-electric-trucks/part3-fig1-value-channels.svg" alt="Diagram: a 2–4% efficiency gain spreads, through a broad arrow, over four channels. Electricity and time are available on any truck in service (scenario A) and are worth 1.2 times the electricity saved; battery and payload only when a new model is specified (scenarios B and C), worth 1.8–2.5 times. The channels converge on the cost per tonne-kilometre and the TCO (−0.5 to −1.9%) and, through the thin margin, on the operating profit, ROI and NPV (profit +24 to +96%). The three challenges are marked where they act." loading="lazy" />
+	<img src="/images/blog/control-software-electric-trucks/part3-fig1-value-channels.png" alt="Diagram: a 2–4% efficiency gain spreads, through a broad arrow, over four channels. Electricity and time are available on any truck in service (scenario A) and are worth 1.2 times the electricity saved; battery and payload only when a new model is specified (scenarios B and C), worth 1.8–2.5 times. The channels converge on the cost per tonne-kilometre and the TCO (−0.5 to −1.9%) and, through the thin margin, on the operating profit, ROI and NPV (profit +24 to +96%). The three challenges are marked where they act." loading="lazy" />
 	<figcaption>Figure 1. The four channels through which an efficiency improvement reaches the buyer's metrics. Electricity and time reach any truck in service; battery and payload are only captured when the truck is specified. The challenges of the introduction are marked where they act. The 2–4% gain is derived in<em> <a href="/writing/control-software-electric-trucks-part-2-engineering"></em>Part 2<em></a></em>. The values are those of the normalised truck in section 4: the value as a multiple of the electricity saved in Figure 9, the cost per tonne-kilometre and TCO in Figure 7, and the operating profit in Figure 8.</figcaption>
 </figure>
 
@@ -307,15 +307,19 @@ The model calculates the truck's costs and revenue year by year, for a baseline 
 
 An efficiency improvement *g* means that the truck does the same work with less energy:
 
-> c₁ = c₀ / (1 + g)
+$$
+c_1 = \frac{c_0}{1 + g}
+$$
 
-where c₀ = 1.08 kWh/km. A 2% improvement therefore reduces consumption by 1.96%, and a 10% improvement by 9.1%. This definition causes the small diminishing return seen in section 2.2.
+where $c_0 = 1.08$ kWh/km. A 2% improvement therefore reduces consumption by 1.96%, and a 10% improvement by 9.1%. This definition causes the small diminishing return seen in section 2.2.
 
 ##### Step 2: battery size
 
 In scenario A, the battery stays at 640 kWh. In scenarios B and C, it is reduced until the range of the new truck equals the original range:
 
-> E₁ = E₀ × c₁ / c₀
+$$
+E_1 = E_0 \cdot \frac{c_1}{c_0}
+$$
 
 The model treats the battery as continuously sizeable. As section 2.3 shows, real trucks use fixed pack sizes, so this step applies to the specification of new models and variants, not to individual trucks already in service.
 
