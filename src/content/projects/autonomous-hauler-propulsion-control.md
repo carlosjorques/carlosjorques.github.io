@@ -1,43 +1,106 @@
 ---
-title: Propulsion Control Software for Autonomous Electric Haulers
-company: Volvo Construction Equipment
-context: Autonomous Heavy-Duty Machinery
-description: Developed and integrated traction-control functionality for the TA15 autonomous electric hauler, coordinating dual-motor propulsion and validating predictable speed behaviour from software-in-the-loop through vehicle field testing.
-tags: [Traction control, Torque allocation]
-image: ../../assets/projects/autonomous-hauler-propulsion.webp
-imageAlt: Autonomous electric haulers operating in a quarry
-objective: "An autonomous hauler has to keep moving predictably while terrain, load, grip, and propulsion demand change underneath it. This work focused on making dual-motor electric propulsion behave as one controllable system: translating speed demand into coordinated torque, monitoring the behaviour of the propulsion path, and validating the result in harsh off-road conditions."
-heroTitle: Making autonomous electric-hauler propulsion predictable in harsh terrain
-overviewTitle: Coordinating traction and torque so an autonomous hauler can keep moving with confidence
-overviewDescription: The project connected traction-control strategy, dual-motor torque allocation, diagnostics, embedded software integration, and vehicle evidence for Volvo CE's TA15 autonomous electric hauler. The validation path moved from unit tests and SIL/HIL to field testing, where speed-tracking error remained within 5%.
-overviewFocus: Traction control, dual-motor propulsion, and autonomous vehicle behaviour
-overviewScope: Control strategy, torque allocation, diagnostics, integration, and validation
-roleScopeTitle: Owning the control path from propulsion intent to vehicle behaviour
-constraintsTitle: Controlling two motors across changing terrain, load, and grip
-processTitle: Building confidence from software tests to off-road vehicle evidence
-deliverablesTitle: Delivering integrated traction-control functions for an autonomous hauler
-outcomesTitle: Field evidence of predictable autonomous propulsion
-reflectionTitle: Making autonomy dependable at the point where software meets the ground
-role: Senior Development Engineer consultant
-roleScope: Owned the development and integration of propulsion-control functionality for the autonomous hauler programme. The scope covered speed-control behaviour, torque allocation between the two electric motors, diagnostic monitoring, software integration, and the validation evidence needed to move from controlled tests toward vehicle operation.
-contribution: Developed and integrated real-time control logic that translated vehicle speed demand into coordinated propulsion torque. Led unit-test development and contributed to the SIL/HIL and vehicle-validation path, using test evidence and vehicle data to assess tracking behaviour, integration quality, and the response of the propulsion system in off-road operation.
-collaborators: Cross-functional work with autonomy, embedded software, electronics, controls, testing, and vehicle-integration teams in the Volvo CE development environment.
-toolsAndMethods: [Traction control, Torque allocation, Speed control, Diagnostic monitoring, Unit testing, SIL, HIL, Requirements engineering, Vehicle validation, Data analysis]
-constraints: The control functions had to operate within a real-time embedded software environment while coordinating two propulsion motors and responding to changing terrain, vehicle load, traction conditions, and autonomous speed demands. Validation also had to account for the gap between repeatable software tests and variable off-road vehicle behaviour.
-risks: The main risks were inconsistent torque sharing, speed oscillation or tracking loss, wheel-slip-related behaviour, invalid or delayed signals, and degraded propulsion behaviour that could reduce the autonomy system's ability to follow its intended path safely and predictably.
-process: Started by translating propulsion and vehicle-behaviour requirements into testable control and integration expectations. Developed the control logic and unit tests, exercised the functions through SIL/HIL, then used vehicle integration and field testing to compare commanded and measured speed behaviour. Field data was used to identify remaining deviations and guide integration and validation decisions.
-decisions: Treated torque allocation and traction behaviour as part of one propulsion-control problem rather than as isolated motor functions. Used staged validation to expose software and interface issues before vehicle testing, and kept diagnostic monitoring and test evidence close to the control implementation so that degraded or unexpected behaviour could be investigated rather than judged only from the final speed trace.
-deliverables: Delivered integrated traction-control and speed-control functionality for the TA15 autonomous electric hauler, including dual-motor torque-allocation logic, diagnostic monitoring, unit-test coverage, SIL/HIL validation, integration support, and vehicle field-test evidence.
+title: "Speed control for Volvo’s autonomous TA15 electric hauler"
+seoTitle: "Volvo TA15 autonomous hauler speed control"
+description: "Carlos Jorques led the speed-control design of Volvo’s autonomous TA15 electric hauler, whose speed then stayed within 1 km/h, without oscillation."
+context: "Autonomous electric haulers"
+eyebrow: "Volvo Construction Equipment · Autonomous electric haulers · 2023–2024"
+intro: "**I led a team of three ALTEN engineers** in Spain working on the powertrain software of Volvo’s autonomous electric haulers. On the TA15, **I designed the changes to the speed and torque control** that made the hauler hold the speed requested by its autonomy system, with two electric axles that no longer work against each other."
+facts:
+  - label: "Role"
+    value: "**Team lead of 3 ALTEN engineers** · powertrain control engineer for Volvo CE"
+  - label: "Delivery"
+    value: "Client assignment for Volvo Construction Equipment through ALTEN, where I am a **Technical Leader**; remote from Spain, with planning sessions in Sweden every 10 weeks"
+  - label: "Team"
+    value: "3 engineers at the ALTEN Delivery Center in Spain, within a 10-person ALTEN work package across Spain and Sweden"
+  - label: "Skills"
+    value: "Speed and torque control · coupled (multivariable) systems · Kalman filtering · MATLAB/Simulink with C code generation · unit testing and software verification · Git, Jenkins and JFrog CI/CD · SAFe PI planning · team leadership and mentoring"
+updated: 2026-10-27
 metrics:
-  - label: Vehicle platform
-    value: Volvo CE TA15 autonomous electric hauler
-  - label: Propulsion architecture
-    value: Dual-motor electric drive
-  - label: Field evidence
-    value: Speed-tracking error within 5%
-  - label: Validation path
-    value: Unit tests · SIL/HIL · vehicle testing
-reflection: "The work reinforced a practical rule for autonomous machines: autonomy is only as dependable as the low-level control loops that turn its intent into force at the ground. Predictable propulsion requires control logic, diagnostics, software interfaces, and vehicle evidence to be developed as one system."
+  - value: "< 1 km/h"
+    label: "speed error against the request, without oscillation, in autonomous runs over the full speed range"
+  - value: "0.1–1 km/h"
+    label: "speed oscillation of the original controller, with the hauler visibly trembling"
+  - value: "≈ 3%"
+    label: "more loads per hour from a 1 km/h higher average speed, in a rough example"
+  - value: "1 sensor"
+    label: "for both axles; a Kalman filter estimates the speed of each axle"
+metricsNote: "Pre-development (concept stage) work, from logs on the hauler in manual tests up to 5 km/h and in autonomous runs by Volvo Autonomous Solutions up to about 30 km/h, with loading and unloading on slopes, curves, gravel and mud. The loads per hour come from my example with assumed numbers (15 km/h average speed, half of the cycle travelling)."
+glance:
+  - label: "The need"
+    text: "Quarries, mines and other closed sites struggle to find drivers, and diesel exhaust harms health in tunnels. An autonomous electric hauler removes both problems, but without a driver its software has to hold the requested speed by itself, on slopes, gravel and mud and with a changing load."
+  - label: "My role"
+    text: "**Technical leader of 3 ALTEN engineers in Spain**, working remotely inside Volvo CE’s process. I coordinated the verification of a larger hauler concept, then designed the TA15 speed and torque control with Volvo CE and Volvo Autonomous Solutions."
+  - label: "Key work"
+    text: "The two axles had two independent controllers that excited each other through the hauler body. I added feed-forward, decoupling, derivative action, gain scheduling and a Kalman filter that estimates the speed of each axle from one sensor. The same coupling appears in any machine with several drives on one motion, such as mobile robots."
+  - label: "Result"
+    text: "**Speed within 1 km/h of the request and no oscillation** between the axles in autonomous runs, against oscillations of up to 1 km/h and a trembling hauler before."
+schema:
+  keywords: "speed control, torque control, PI control, decoupling, gain scheduling, Kalman filter, e-axle, MATLAB/Simulink, C code generation, unit testing, Jenkins, JFrog, Git, SAFe, autonomous haulers, mining"
+  about:
+    - name: "Vehicle speed control"
+    - name: "Kalman filter"
+      sameAs: "https://en.wikipedia.org/wiki/Kalman_filter"
+    - name: "Autonomous haulage system"
+      sameAs: "https://en.wikipedia.org/wiki/Autonomous_haulage_system"
+  mentions:
+    - { type: "Organization", name: "Volvo Construction Equipment", sameAs: "https://www.volvoce.com/" }
+    - { type: "Organization", name: "Volvo Autonomous Solutions", sameAs: "https://www.volvoautonomoussolutions.com/" }
+    - { type: "Organization", name: "ALTEN", sameAs: "https://www.alten.com/" }
+    - { type: "Thing", name: "Scaled Agile Framework", sameAs: "https://en.wikipedia.org/wiki/Scaled_agile_framework" }
 ---
 
-This project shows how control intelligence becomes useful on a real machine: a high-level autonomous demand must become coordinated motor torque, stable traction behaviour, and evidence that the vehicle performs predictably outside the lab.
+## Driverless electric haulers make quarries and mines cheaper and healthier to run
+
+The TA15 is a 15-tonne battery-electric hauler from Volvo Construction Equipment (Volvo CE) for quarries, mines and other closed sites where material moves along a fixed route. Volvo Autonomous Solutions (VAS) runs such haulers for its customers, who pay for the material moved ([International Mining, 2020](https://im-mining.com/2020/07/07/volvo-autonomous-solutions-next-steps-tara-battery-electric-autonomous-haulage-offering/)). Remote sites struggle to find drivers, and an autonomous hauler keeps running through breaks and shift changes. For example, Rio Tinto's autonomous trucks each ran about 700 hours more than conventional ones in 2018, at 15% lower cost ([Rio Tinto, 2018 data](https://www.riotinto.com/en/mn/about/innovation/automation)). Electric drive also removes diesel exhaust, which causes lung cancer ([IARC, 2012](https://www.iarc.who.int/wp-content/uploads/2018/07/pr213_E.pdf)) and builds up underground, where ventilation is 35–40% of the electricity cost of mines with diesel trucks ([IEEE Access, 2024](https://doi.org/10.1109/ACCESS.2024.3353108)).
+
+The speed control decides how much of this value reaches the customer. A hauler that oscillates needs a wider margin to its speed limits, so it is planned slower. A hauler that holds its speed drives closer to the limit on ice, mud or gravel, which affects cycle times, energy use and tyre and brake wear ([VAS, 2026](https://www.volvoautonomoussolutions.com/en-en/news-and-insights/insights/articles/2026/may/vehicle-dynamics-autonomy-is-more-than-software.html)). As a rough example, a hauler that averages 15 km/h and travels for half of its cycle gets **about 3% more loads per hour** from driving 1 km/h faster, roughly one more hauler in a fleet of 30.
+
+## A remote team that worked as part of Volvo CE's development teams
+
+Volvo CE develops its software in sprints, and every 10 weeks all teams plan together in a Program Increment (PI) planning of SAFe, a framework that coordinates many agile teams. Our team in Spain joined the sprints online, and I travelled to Sweden for each PI planning. My areas were:
+
+- **Team lead:** planning and coordination of 3 engineers, and one-to-one mentoring of a junior engineer new to unit testing and dynamic systems.
+- **Verification (April 2023 to July 2024):** coordination of the unit testing and verification of the powertrain functions of a larger autonomous hauler concept.
+- **Speed and torque control (July to December 2024):** in the Volvo CE powertrain software team, I designed the changes described below, built them in Simulink, planned the test runs and guided the tuning. VAS ran the autonomous tests with us.
+- **Control expertise:** advice on control design to the rest of the work package.
+
+## Two axles that move one hauler have to be controlled as one system
+
+The TA15 drives on two electric axles (e-axles, with the motor and gearbox built into the axle). When I joined the team, each axle had its own PI controller, which sets the torque from the speed error and from its sum over time. Both axles push the same body, so a torque change on one axle changes the speed that the other controller sees. In some conditions, the two controllers reacted to each other's corrections, so the speed oscillated by 0.1 to 1 km/h and the hauler trembled. How this cycle starts is illustrated in Figure 1.
+
+<figure>
+  <img src="/images/work/volvo-fig1-axle-coupling.svg" alt="Left: side view of a hauler with two electric axles, each commanded by its own PI controller, and one measured speed fed back to both. Four numbered steps describe the cycle: controller 1 adds torque, the body speeds up, controller 2 cuts torque, the body slows, and controller 1 adds torque again. Right: two illustrative speed traces. With two independent PI controllers, the speed oscillates around the request. With the added control actions, it settles close to the request." width="1000" height="560" loading="lazy" />
+  <figcaption>Figure 1. (a) How two independent axle controllers excite each other through one hauler body. (b) Speed against time before and after the changes, shape only. Illustration, not measured data.</figcaption>
+</figure>
+
+Each controller was tuned as if it moved the hauler alone, whereas the hauler is a coupled system, with two inputs acting on one motion. Three decisions shaped the solution:
+
+- **Improve the existing structure:** a multivariable controller, which computes both torques together, handles the coupling directly. However, it meant restarting the design and verification of a function already in tests. I kept the two PI controllers and added actions one at a time, each tested on the hauler, at the cost of more parameters to calibrate.
+- **Four additions to the controllers:** feed-forward gives each axle the torque the request needs in advance; a decoupling term removes the effect of the other axle's correction; derivative action damps the oscillation; and gain scheduling changes the gains with the speed.
+- **Estimate the speed of each axle:** the hauler had one speed sensor for both axles. I developed a Kalman filter, an estimator that combines the measurement with a model of the axles and weights each by how much it can be trusted. Its estimates feed an inner loop below the speed controller. A sensor per axle changes the hardware; the estimator only needs software, at the cost of a model that has to match the hauler.
+
+Where these additions sit around the two original PI controllers is illustrated in Figure 2. Estimating what no sensor measures also runs through my [motor temperature model at MAHLE](/work/mahle-aspice-motor-thermal-model/) and my [PhD on combustion control](/work/heavy-duty-engine-diagnostics-control-research/).
+
+<figure>
+  <img src="/images/work/volvo-fig2-speed-control.svg" alt="Block diagram of a speed control for a hauler with two driven axles. A speed request goes to one PI controller per axle. Each controller has derivative action and gains scheduled with speed. A decoupling block links the two controllers, and feed-forward adds torque for the request before each axle. Both axles drive one hauler body, measured by one speed sensor. A Kalman filter estimates the speed of each axle and feeds it back to the controllers." width="1000" height="510" loading="lazy" />
+  <figcaption>Figure 2. Generic structure of the speed control for a hauler with two independently driven axles. Orange blocks were added during the TA15 work around the existing PI controllers (grey). Illustration only, without Volvo signals or parameters.</figcaption>
+</figure>
+
+In Figure 2, the decoupling block between the two controllers breaks the cycle of Figure 1, and the Kalman filter gives each axle its own speed estimate from the single sensor.
+
+## Testing on gravel, slopes and mud made the speed control fit for quarries and mines
+
+Each change was built in MATLAB/Simulink, generated as C code and first tested with the hauler driven manually, at up to 5 km/h, at the Volvo CE test facilities in Eskilstuna. Colleagues in the hauler shared their screens in real time, so **I could guide the re-tuning from Spain** and run several iterations in one session. The change then went to autonomous runs with VAS, at up to about 30 km/h, on a circuit with slopes, curves, gravel and mud, loading and unloading. Finished tasks were peer-reviewed, built and unit-tested in Jenkins and JFrog Artifactory (CI/CD) and released at the end of each sprint.
+
+After many iterations, **the speed stayed within 1 km/h of the request, without oscillation**, over the full speed range. The Kalman filter contributed most to that result. The same filter could later estimate road grip, wheel slip and load, so that the torque is shared between the axles to save energy ([Kopczyński, 2019](https://doi.org/10.1051/e3sconf/201910000037)).
+
+## What I took from the TA15 project
+
+The project left Volvo CE with a hauler that holds its speed on a circuit with slopes, gravel and mud. I still apply four lessons from it when I lead control work:
+
+- **Good enough for the stage of the project:** improving the controller already in tests solved the oscillation on the project's schedule, at the cost of more parameters to calibrate. Since then, I judge a solution by what it solves at the stage the project is in.
+- **Accuracy against complexity as a skill to teach:** the junior engineer I mentored ended the project delivering complete unit tests by himself and weighing that trade-off in his own decisions. Discussing it before each test is now part of how I mentor.
+- **Knowing how the machine behaves:** the engineers who wrote the software also followed its tests, so we could re-tune the controller in the same session. I now plan control work so that the engineers who write the software follow its tests, without intermediaries who add time but no information.
+- **Remote work inside the client's process:** a team in Spain delivered the speed control of a hauler in Sweden, with people on site only at the machine and at the PI plannings. Hence, I build remote teams into the client's own process and tools.
+
+*This page uses only public information and my own description of the work; Figures 1 and 2 are generic and show no Volvo signals or parameters. My work was in pre-development and is not claimed as part of a specific product.*

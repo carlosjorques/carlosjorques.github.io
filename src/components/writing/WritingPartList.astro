@@ -1,0 +1,112 @@
+---
+import { partsHaveOwnDates, type WritingArticle } from '../../data/writing';
+
+/**
+ * The articles of one series, in part order. Each row uses the same grid as the publication
+ * rows (label | title and summary | reading time), so all titles start on one vertical line.
+ * The "Part N" label sits in the label column, so the parts read as children of the series row.
+ * - `full`: description and key figure (writing page, series page).
+ * - `compact`: teaser, no key figure or reading time (landing page).
+ * When the parts were published on different days, each part also shows its own date.
+ */
+interface Props {
+	parts: readonly WritingArticle[];
+	/** Unpublished parts, listed after the published ones without a link. */
+	upcoming?: readonly WritingArticle[];
+	headingLevel: 3 | 4;
+	sourceSection: string;
+	placement?: string;
+	variant?: 'full' | 'compact';
+	/** Id of the heading that names the series. */
+	labelledBy?: string;
+}
+
+const { parts, upcoming = [], headingLevel, sourceSection, placement = 'writing-index', variant = 'full', labelledBy } = Astro.props;
+const Heading = `h${headingLevel}` as 'h3' | 'h4';
+const compact = variant === 'compact';
+const ownDates = partsHaveOwnDates(parts);
+const dayMonth = new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+const monthYear = new Intl.DateTimeFormat('en-GB', { month: 'short', year: 'numeric' });
+// Keeps numeric ranges such as "2–4%" on one line.
+const keepRanges = (text: string) => text.replace(/(\d)–(\d)/g, '$1–\u2060$2');
+---
+
+<ol class:list={['parts', { 'parts--compact': compact }]} role="list" aria-labelledby={labelledBy}>
+	{parts.map((part) => {
+		const partId = `${placement}-part-${part.slug}`;
+		return (
+			<li>
+				<a
+					class="part"
+					href={part.href}
+					aria-labelledby={partId}
+					aria-describedby={`${partId}-desc`}
+					data-analytics-event="writing_article_click"
+					data-cta-id={`${placement}-${part.slug}`}
+					data-cta-placement={placement}
+					data-cta-intent="authority"
+					data-source-section={sourceSection}
+				>
+					<span class="part__label">
+						<span>Part {part.series?.part}</span>
+						{ownDates && <time datetime={part.dateIso}>{dayMonth.format(part.date)}</time>}
+					</span>
+					<span class="part__main">
+						<Heading id={partId} class="part__title">
+							{keepRanges(part.title)}
+							{part.isDraft && <span class="part__draft"> Draft</span>}
+						</Heading>
+						<span id={`${partId}-desc`} class="part__summary">{compact ? part.teaser ?? part.description : part.description}</span>
+						{!compact && part.keyFigure && <span class="part__figure"><strong>{part.keyFigure.value}</strong> {part.keyFigure.label}</span>}
+					</span>
+					{!compact && part.minutes > 0 && <span class="part__time">{part.minutes} min</span>}
+				</a>
+			</li>
+		);
+	})}
+	{upcoming.map((part) => (
+		<li>
+			<div class="part part--upcoming">
+				<span class="part__label">
+					<span>Part {part.series?.part}</span>
+					<time datetime={part.dateIso.slice(0, 7)}>Coming {monthYear.format(part.date)}</time>
+				</span>
+				<span class="part__main">
+					<Heading class="part__title">{keepRanges(part.title)}</Heading>
+					{!compact && <span class="part__summary">{part.teaser ?? part.description}</span>}
+				</span>
+			</div>
+		</li>
+	))}
+</ol>
+
+<style>
+	.parts { margin: 0; padding: 0; list-style: none; }
+	.part { display: grid; grid-template-columns: var(--writing-label-width) minmax(0, 1fr) auto; gap: 1.25rem; align-items: baseline; padding: .35rem 0; color: inherit; text-decoration: none; }
+	.part__label,
+	.part__time { color: var(--color-muted); font-family: var(--font-mono); font-size: var(--type-chip-size); letter-spacing: var(--type-chip-tracking); line-height: 1.4; text-transform: none; white-space: nowrap; }
+	.part__label { display: grid; gap: .3rem; }
+	.part__main { display: grid; gap: .3rem; max-width: 46rem; }
+	.part__title { max-width: none; margin: 0; color: var(--color-text); font-family: var(--font-sans); font-size: 1rem; font-weight: 600; letter-spacing: -.01em; line-height: 1.35; }
+	.part__summary { color: var(--color-muted); font-size: .9rem; line-height: 1.5; }
+	.part__figure { color: var(--color-muted); font-size: .9rem; line-height: 1.5; }
+	.part__figure strong { color: var(--color-muted); font-weight: 700; white-space: nowrap; }
+	.part__draft { margin-left: .4rem; color: var(--color-muted); font-family: var(--font-mono); font-size: .82rem; font-weight: 400; letter-spacing: 0; text-transform: none; vertical-align: middle; }
+	.part:hover .part__title,
+	.part:focus-visible .part__title { color: var(--color-link); text-decoration: underline; text-underline-offset: .2em; }
+	.part:focus-visible { outline: 2px solid var(--color-link); outline-offset: 4px; }
+	.part--upcoming .part__title { color: var(--color-muted); font-weight: 500; }
+
+	.parts--compact .part { grid-template-columns: var(--writing-label-width) minmax(0, 1fr); padding-block: .3rem; }
+	.parts--compact .part__main { gap: .15rem; }
+	.parts--compact .part__title { font-size: clamp(1rem, 1.3vw, 1.08rem); }
+	.parts--compact .part__summary { font-size: .88rem; }
+
+	@media (max-width: 720px) {
+		.part,
+		.parts--compact .part { grid-template-columns: minmax(0, 1fr) auto; gap: .35rem 1rem; }
+		.part__label { display: flex; gap: .75rem; grid-column: 1; grid-row: 1; }
+		.part__time { grid-column: 2; grid-row: 1; }
+		.part__main { grid-column: 1 / -1; }
+	}
+</style>

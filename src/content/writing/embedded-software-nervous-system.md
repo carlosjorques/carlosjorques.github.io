@@ -1,6 +1,7 @@
 ---
 title: Embedded Software as the Nervous System of Smart Machines
 description: A technical article placeholder on embedded software as the connective layer between physical measurements, decisions, protection logic, actuation, and production reliability.
+teaser: "Embedded software as the link between measurements, decisions, protection logic and actuation."
 publishDate: 2026-05-14
 category: Embedded Controls Architecture
 tags:

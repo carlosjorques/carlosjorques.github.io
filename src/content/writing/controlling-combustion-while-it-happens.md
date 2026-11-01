@@ -2,6 +2,7 @@
 title: "Controlling Combustion While It Happens"
 subtitle: "An overview of my PhD research on in-cycle closed-loop combustion control"
 description: The umbrella article for the in-cycle combustion control series. Why controlling a diesel engine within a single combustion cycle matters for efficiency and renewable fuels, how the research was built and validated, and a guide to the five articles that cover it in depth.
+teaser: "Why controlling a diesel engine within one combustion cycle matters, and how it was validated."
 publishDate: 2026-07-07
 readingTime: 12 min read
 category: Control Algorithms & Diagnostics
@@ -12,6 +13,7 @@ tags:
   - Virtual sensing
   - Renewable fuels
   - PhD research
+relatedProject: heavy-duty-engine-diagnostics-control-research
 featured: true
 draft: true
 ---

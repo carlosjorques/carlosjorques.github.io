@@ -1,6 +1,7 @@
 ---
 title: "Cars Do Not Learn as They Run"
 description: A technical article on why production vehicles execute validated AI models rather than retraining safety-relevant functions on the road, and where automotive AI adoption is actually succeeding.
+teaser: "Why production vehicles run validated AI models instead of retraining them on the road."
 publishDate: 2026-07-07
 readingTime: 14 min read
 category: Physical Systems Engineering

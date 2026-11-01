@@ -1,6 +1,7 @@
 ---
-title: From model to machine
+title: From Model to Machine
 description: What changes when a control algorithm leaves simulation and meets real hardware.
+teaser: "What changes when a control algorithm leaves simulation and runs on real hardware."
 publishDate: 2026-05-18
 category: Embedded Controls Architecture
 tags:

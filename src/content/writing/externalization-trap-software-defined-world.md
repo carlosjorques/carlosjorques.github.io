@@ -2,6 +2,7 @@
 title: "The Externalization Trap in Automotive Software"
 subtitle: Why outsourcing the learning loop can cost more than it saves.
 description: A technical leadership article on why traditional supplier models and externalized development can create dangerous organizational latency in software-defined vehicles.
+teaser: "How outsourced development slows the decisions of a software-defined vehicle company."
 publishDate: 2026-07-03
 updatedDate: 2026-07-07
 readingTime: 11 min read
@@ -73,7 +74,7 @@ They learned how to define requirements, distribute work across suppliers, valid
 
 The classic supplier-driven model has real advantages. It creates structure. It allows parallelization. It enables specialization. It gives purchasing departments flexibility. It allows OEMs to scale vehicle programs across platforms, suppliers, and markets.
 
-Process frameworks such as ASPICE also helped the industry manage software maturity, traceability, verification, and supplier quality. For safety-critical and production software, that discipline is important. Nobody should romanticize chaotic development in a vehicle that must operate reliably for years.
+Process frameworks such as Automotive SPICE also helped the industry manage software maturity, traceability, verification, and supplier quality. For safety-related and production software, that discipline is important. Nobody should romanticize chaotic development in a vehicle that must operate reliably for years.
 
 The problem is not that the old model was wrong.
 

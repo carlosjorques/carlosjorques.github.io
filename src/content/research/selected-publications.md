@@ -1,7 +1,7 @@
 ---
 title: Selected publications
 type: Selected publications
-summary: Selected publications on combustion control, diagnostics, virtual sensing, and optimization. The CV contains the formal publication and patent record.
+summary: Selected publications on combustion control, diagnostics, virtual sensing, and optimization.
 featured: true
 ---
 

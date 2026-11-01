@@ -1,6 +1,7 @@
 ---
 title: "AI Enters the Control Loop: Where Machine Learning Actually Runs in a Car"
 description: A technical article on where machine learning is already used in vehicle control, from ADAS and battery management to powertrain virtual sensing and calibration.
+teaser: "Where machine learning already runs in vehicle control, from ADAS to battery management."
 publishDate: 2026-07-07
 readingTime: 13 min read
 category: Physical Systems Engineering

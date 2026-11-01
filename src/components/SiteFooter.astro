@@ -1,15 +1,15 @@
 ---
-import { IDENTITY, LINKEDIN_URL } from '../data/identity';
+import { CONTACT_DESTINATIONS, IDENTITY } from '../data/identity';
 
 const baseUrl = import.meta.env.BASE_URL;
 const normalizedBase = baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`;
 const withBase = (href: string) => (href === '/' ? normalizedBase : `${normalizedBase}${href.replace(/^\//, '')}`);
-const linkedinHref = LINKEDIN_URL;
+const linkedinHref = CONTACT_DESTINATIONS.linkedin;
 ---
 
 <footer class="site-footer" id="site-footer-contact">
 	<div class="page-container site-footer__inner">
-		<span>{IDENTITY.brandLine}</span>
+		<p class="site-footer__id"><span class="led" aria-hidden="true"></span><span><strong>{IDENTITY.name}</strong><br />{IDENTITY.brandStatement}. Based in {IDENTITY.location}.</span></p>
 
 		<nav class="site-footer__links" aria-label="Footer links">
 			<a
@@ -21,80 +21,82 @@ const linkedinHref = LINKEDIN_URL;
 				data-cta-placement="footer"
 				data-cta-intent="professional-profile"
 				data-source-section="footer"
+				data-destination={linkedinHref}
 			>
 				LinkedIn
 			</a>
 			<a
-				href={withBase('/cv/Carlos_Jorques_CV.pdf')}
+				href={withBase(CONTACT_DESTINATIONS.cv)}
 				download
-				data-analytics-event="cta_click"
+				data-analytics-event="cv_pdf_download"
 				data-cta-id="footer-cv"
 				data-cta-placement="footer"
-				data-cta-intent="proof"
+				data-cta-intent="formal-proof"
 				data-source-section="footer"
+				data-destination={withBase(CONTACT_DESTINATIONS.cv)}
 			>
-				CV (PDF)
+				PDF CV
 			</a>
-			<a href={withBase('/privacy')}>Privacy</a>
+			<a href={withBase('/privacy/')}>Privacy</a>
 		</nav>
 	</div>
 </footer>
 
 <style>
 	.site-footer {
-		background: var(--color-footer-bg);
+		background: var(--color-page);
 		padding-block: 0 3rem;
-		color: var(--color-footer-text);
+		color: var(--color-muted);
 	}
 
 	.site-footer__inner {
-		display: flex;
-		justify-content: space-between;
+		display: grid;
+		grid-template-columns: 1fr auto;
 		align-items: center;
-		gap: 1.5rem;
-		flex-wrap: wrap;
-		font-family: var(--font-body);
-		font-size: var(--type-body-size);
-		line-height: var(--type-body-line);
-		padding-top: 3rem;
-		border-top: 1px solid var(--color-footer-border);
+		gap: 1rem 2rem;
+		padding-top: 2rem;
+		border-top: 1px solid var(--color-border);
+		font-family: var(--font-sans);
+		font-size: .9rem;
+		line-height: 1.55;
 	}
 
-	.site-footer__inner > span {
-		color: var(--color-footer-text);
+	.site-footer__id {
+		font-family: var(--font-sans);
+		display: flex;
+		align-items: baseline;
+		gap: .6rem;
+		margin: 0;
+	}
+
+	.site-footer__id strong {
+		color: var(--color-text);
+		font-weight: 600;
 	}
 
 	.site-footer__links {
 		display: flex;
-		gap: 1.25rem;
+		gap: 1.2rem;
 		flex-wrap: wrap;
-		font-family: var(--font-body);
-		font-size: .95rem;
-		font-weight: 600;
-		letter-spacing: -.02em;
-		text-transform: none;
+		justify-content: flex-end;
 	}
 
 	.site-footer__links a {
-		color: var(--color-footer-link);
-		text-decoration: none;
-		border-bottom: 1px solid transparent;
-		padding-bottom: 0.15rem;
-		transition:
-			border-color var(--motion-duration-fast-02) var(--motion-standard-productive),
-			color var(--motion-duration-fast-02) var(--motion-standard-productive),
-			transform var(--motion-duration-fast-02) var(--motion-standard-productive);
+		color: var(--color-muted);
 	}
 
 	.site-footer__links a:hover,
 	.site-footer__links a:focus-visible {
-		color: var(--color-footer-link-hover);
-		border-bottom-color: var(--color-footer-link-hover);
-		transform: translateY(-1px);
+		color: var(--color-link-hover);
 	}
 
-	.site-footer__links a:focus-visible {
-		outline: 2px solid var(--color-focus);
-		outline-offset: 4px;
+	@media (max-width: 760px) {
+		.site-footer__inner {
+			grid-template-columns: 1fr;
+		}
+
+		.site-footer__links {
+			justify-content: flex-start;
+		}
 	}
 </style>

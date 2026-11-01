@@ -2,6 +2,7 @@
 title: "AI Will Not Replace Automotive Engineers"
 subtitle: "It will expose weak engineering systems."
 description: A technical leadership article on why AI can accelerate automotive software development only when architecture, validation, ownership, and engineering judgment are strong.
+teaser: "Why AI speeds up automotive software only when architecture, validation and ownership are strong."
 publishDate: 2026-07-03
 readingTime: 10 min read
 category: Technical Leadership

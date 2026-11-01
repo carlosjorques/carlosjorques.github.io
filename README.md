@@ -1,6 +1,6 @@
 # Carlos Jorques Portfolio
 
-Astro static site for Carlos Jorques, positioned as an Embedded Control Systems Architect.
+Astro static site for Carlos Jorques, positioned as a Control Systems Technical Lead.
 
 ## Local Development
 
@@ -30,7 +30,7 @@ Deployment is configured through `.github/workflows/static.yml` using the offici
 Current deployment assumptions:
 
 - Repository: `carlosjorques/carlosjorques.github.io`
-- Pages URL: `https://carlosjorques.github.io/`
+- Pages URL: `https://carlosjorques.com/`
 - Source branch: `master`
 - Output directory: `dist/`
 - Node.js: 22

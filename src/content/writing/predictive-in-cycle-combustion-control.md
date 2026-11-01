@@ -2,6 +2,7 @@
 title: Predictive In-Cycle Combustion Control
 subtitle: Adjusting fuel injection before the combustion cycle is over
 description: How predictive closed-loop controllers use pressure feedback, virtual sensing, online model adaptation, and FPGA implementation to regulate combustion within the same engine cycle.
+teaser: "Predictive controllers that correct combustion within the same engine cycle, on an FPGA."
 publishDate: 2026-06-25
 updatedDate: 2026-07-07
 readingTime: 13 min read
@@ -13,6 +14,7 @@ tags:
   - Model adaptation
   - FPGA implementation
   - Diesel engines
+relatedProject: heavy-duty-engine-diagnostics-control-research
 featured: true
 draft: true
 heroImage:
@@ -296,7 +298,7 @@ This article is based on my PhD thesis and the following thesis papers:
 	<p>I work on predictive combustion control, virtual sensing, embedded decision logic, model adaptation, and FPGA-oriented control implementation for advanced powertrain systems.</p>
 	<ul class="article-cta__links">
 		<li><a href="/contact/">Contact me about combustion control</a></li>
-		<li><a href="/research/">Explore related research</a></li>
+		<li><a href="/work/heavy-duty-engine-diagnostics-control-research/">Explore related research project</a></li>
 		<li><a href="/work/">View related work context</a></li>
 	</ul>
 </section>

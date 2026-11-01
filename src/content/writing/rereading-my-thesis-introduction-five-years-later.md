@@ -2,6 +2,7 @@
 title: "Rereading My Thesis Introduction, Five Years Later"
 subtitle: "What happened to the diesel engine's challenges between 2021 and 2026, and what I would write differently today"
 description: A retrospective on the global context and motivation chapter of my 2021 PhD thesis. How the emissions legislation, the electrification of trucks, hydrogen, and biofuels actually evolved, which predictions held, which did not, and why closed-loop combustion control still matters.
+teaser: "Which predictions of my 2021 thesis on emissions, trucks and fuels held five years later."
 publishDate: 2026-07-07
 readingTime: 14 min read
 category: Control Algorithms & Diagnostics

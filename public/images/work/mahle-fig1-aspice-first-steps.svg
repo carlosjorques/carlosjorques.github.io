@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 495" width="1000" height="495" font-family="Calibri, Carlito, Arial, sans-serif">
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#4d4d4d"/></marker></defs>
+<rect width="1000" height="495" fill="#ffffff"/>
+<rect x="200" y="30" width="210" height="74" fill="#f2e3d4"/>
+<text x="305.0" y="63.5" text-anchor="middle" font-size="14px" font-weight="bold" fill="#b36b12">SWE.1</text>
+<text x="305.0" y="80.5" text-anchor="middle" font-size="12.5px" fill="#4d4d4d">Software requirements</text>
+<rect x="240" y="130" width="210" height="74" fill="#f2e3d4"/>
+<text x="345.0" y="163.5" text-anchor="middle" font-size="14px" font-weight="bold" fill="#b36b12">SWE.2</text>
+<text x="345.0" y="180.5" text-anchor="middle" font-size="12.5px" fill="#4d4d4d">Software architecture</text>
+<rect x="280" y="230" width="210" height="74" fill="#f2e3d4"/>
+<text x="385.0" y="255.0" text-anchor="middle" font-size="14px" font-weight="bold" fill="#b36b12">SWE.3</text>
+<text x="385.0" y="272.0" text-anchor="middle" font-size="12.5px" fill="#4d4d4d">Detailed design and</text>
+<text x="385.0" y="289.0" text-anchor="middle" font-size="12.5px" fill="#4d4d4d">unit construction</text>
+<rect x="510" y="230" width="210" height="74" fill="#f2e3d4"/>
+<text x="615.0" y="255.0" text-anchor="middle" font-size="14px" font-weight="bold" fill="#b36b12">SWE.4</text>
+<text x="615.0" y="272.0" text-anchor="middle" font-size="12.5px" fill="#4d4d4d">Software unit</text>
+<text x="615.0" y="289.0" text-anchor="middle" font-size="12.5px" fill="#4d4d4d">verification</text>
+<rect x="550" y="130" width="210" height="74" fill="#eeeeee"/>
+<text x="655.0" y="155.0" text-anchor="middle" font-size="14px" font-weight="bold" fill="#1a1a1a">SWE.5</text>
+<text x="655.0" y="172.0" text-anchor="middle" font-size="12.5px" fill="#4d4d4d">Software integration</text>
+<text x="655.0" y="189.0" text-anchor="middle" font-size="12.5px" fill="#4d4d4d">and integration test</text>
+<rect x="590" y="30" width="210" height="74" fill="#eeeeee"/>
+<text x="695.0" y="55.0" text-anchor="middle" font-size="14px" font-weight="bold" fill="#1a1a1a">SWE.6</text>
+<text x="695.0" y="72.0" text-anchor="middle" font-size="12.5px" fill="#4d4d4d">Software qualification</text>
+<text x="695.0" y="89.0" text-anchor="middle" font-size="12.5px" fill="#4d4d4d">test</text>
+<line x1="240" y1="104" x2="280" y2="128" stroke="#4d4d4d" stroke-width="1.5" marker-end="url(#ah)"/>
+<line x1="280" y1="204" x2="320" y2="228" stroke="#4d4d4d" stroke-width="1.5" marker-end="url(#ah)"/>
+<line x1="490" y1="267.0" x2="508" y2="267.0" stroke="#4d4d4d" stroke-width="1.5" marker-end="url(#ah)"/>
+<line x1="680" y1="230" x2="720" y2="206" stroke="#4d4d4d" stroke-width="1.5" marker-end="url(#ah)"/>
+<line x1="720" y1="130" x2="760" y2="106" stroke="#4d4d4d" stroke-width="1.5" marker-end="url(#ah)"/>
+<text x="188" y="46" text-anchor="end" font-size="12.5px" fill="#b36b12">Adopted: common template,</text>
+<text x="188" y="61" text-anchor="end" font-size="12.5px" fill="#b36b12">IDs and traceability</text>
+<text x="188" y="81" text-anchor="end" font-size="12.5px" fill="#1f4f78">Winding and magnet</text>
+<text x="188" y="96" text-anchor="end" font-size="12.5px" fill="#1f4f78">temperatures for derating</text>
+<text x="228" y="156" text-anchor="end" font-size="12.5px" fill="#1f4f78">Loss model and thermal</text>
+<text x="228" y="171" text-anchor="end" font-size="12.5px" fill="#1f4f78">network; inputs from the motor</text>
+<text x="228" y="186" text-anchor="end" font-size="12.5px" fill="#1f4f78">controller, Classic AUTOSAR</text>
+<text x="268" y="246" text-anchor="end" font-size="12.5px" fill="#b36b12">Simulink guidelines and</text>
+<text x="268" y="261" text-anchor="end" font-size="12.5px" fill="#b36b12">MISRA C checks</text>
+<text x="268" y="281" text-anchor="end" font-size="12.5px" fill="#1f4f78">Layered model in Simulink,</text>
+<text x="268" y="296" text-anchor="end" font-size="12.5px" fill="#1f4f78">C code with TargetLink</text>
+<text x="732" y="246" text-anchor="start" font-size="12.5px" fill="#b36b12">Model-in-the-loop tests</text>
+<text x="732" y="261" text-anchor="start" font-size="12.5px" fill="#b36b12">linked to each requirement</text>
+<text x="732" y="281" text-anchor="start" font-size="12.5px" fill="#1f4f78">Simulation against new bench</text>
+<text x="732" y="296" text-anchor="start" font-size="12.5px" fill="#1f4f78">data: error about 2 °C</text>
+<text x="772" y="160" text-anchor="start" font-size="12.5px" fill="#1f4f78">Runs on the platform, in real</text>
+<text x="772" y="175" text-anchor="start" font-size="12.5px" fill="#1f4f78">time with the motor controller</text>
+<rect x="200" y="335" width="600" height="46" fill="#f2e3d4"/>
+<text x="500" y="355" text-anchor="middle" font-size="14px" font-weight="bold" fill="#b36b12">All processes</text>
+<text x="500" y="372" text-anchor="middle" font-size="12.5px" fill="#b36b12">Adopted: models and code in SVN, with tagged baselines per release</text>
+<rect x="200" y="420" width="22" height="16" fill="#f2e3d4"/>
+<text x="232" y="433" font-size="12.5px" fill="#4d4d4d">focus of the gap analysis</text>
+<rect x="200" y="446" width="22" height="16" fill="#eeeeee"/>
+<text x="232" y="459" font-size="12.5px" fill="#4d4d4d">later processes, analysed in less depth</text>
+<text x="560" y="433" font-size="12.5px" fill="#b36b12">orange text: first steps proposed</text>
+<text x="560" y="459" font-size="12.5px" fill="#1f4f78">blue text: the motor temperature model</text>
+<text x="980" y="485" text-anchor="end" font-size="11px" font-weight="bold" fill="#999999">carlosjorques.com</text>
+</svg>

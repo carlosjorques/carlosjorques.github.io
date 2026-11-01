@@ -1,0 +1,133 @@
+---
+import { getEntry } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import ContactCTA from '../../../components/ContactCTA.astro';
+import WritingPartList from '../../../components/writing/WritingPartList.astro';
+import { IDENTITY } from '../../../data/identity';
+import { formatReadingHours, getSeriesGroups, getUpcomingParts, getWritingArticles, seriesCountLabel, type WritingSeriesGroup } from '../../../data/writing';
+
+/** One shareable page per series: the overview and every part in reading order. */
+export async function getStaticPaths() {
+	const articles = await getWritingArticles();
+	return getSeriesGroups(articles, await getUpcomingParts(articles)).map((group) => ({ params: { id: group.definition.id }, props: { group } }));
+}
+
+interface Props {
+	group: WritingSeriesGroup;
+}
+
+const { group } = Astro.props;
+const { definition, href, parts, upcoming, totalMinutes } = group;
+const withBase = (path: string) => `${import.meta.env.BASE_URL}${path.replace(/^\//, '')}`;
+const project = definition.relatedProject ? await getEntry('projects', definition.relatedProject) : undefined;
+const monthYear = new Intl.DateTimeFormat('en-GB', { month: 'long', year: 'numeric' });
+
+const pageTitle = definition.seoTitle ?? definition.title;
+const site = Astro.site ?? new URL(Astro.url.origin);
+const absolute = (path: string) => new URL(path, site).toString();
+const structuredData = {
+	'@context': 'https://schema.org',
+	'@type': 'CreativeWorkSeries',
+	'@id': absolute(href),
+	url: absolute(href),
+	name: definition.title,
+	description: definition.summary,
+	author: { '@id': absolute('/#person') },
+	inLanguage: 'en',
+	hasPart: parts.filter((part) => !part.isDraft).map((part) => ({
+		'@type': 'BlogPosting',
+		'@id': absolute(part.href),
+		url: absolute(part.href),
+		headline: part.fullTitle,
+		position: part.series?.part,
+		datePublished: part.dateIso,
+	})),
+};
+---
+
+<BaseLayout title={pageTitle} description={definition.summary} ogImage="/images/og-writing.png" ogImageAlt={`${definition.title}: a series of articles by Carlos Jorques.`}>
+	<script slot="head" type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+	<div class="series-page">
+		<header class="series-hero" aria-labelledby="series-title">
+			<div class="series-top">
+				<p class="series-meta">Series <span aria-hidden="true">&middot;</span> {seriesCountLabel(group)} <span aria-hidden="true">&middot;</span> {formatReadingHours(totalMinutes)} <span aria-hidden="true">&middot;</span> {monthYear.format(group.started)}</p>
+				<nav class="series-back" aria-label="Breadcrumb"><a href={withBase('/writing/')}>All writing</a></nav>
+			</div>
+			<div class="series-copy">
+				<h1 id="series-title">{definition.title}</h1>
+				<p class="series-summary">{definition.summary}</p>
+				<p class="series-author">
+					By {IDENTITY.name}, {IDENTITY.primaryTitle}.
+					{project && <>Based on my work on <a href={withBase(`/work/${project.id}/`)} data-analytics-event="related_proof_click" data-cta-id={`series-${definition.id}-project`} data-cta-placement="writing-series" data-cta-intent="proof" data-source-section="series-hero">{project.data.title}</a>.</>}
+					{' '}More <a href={withBase('/about/')}>about me</a>
+				</p>
+			</div>
+		</header>
+
+		{(definition.overview?.length || definition.thesis) && (
+			<section class="series-intro" aria-label="About the series">
+				{definition.overview?.map((paragraph) => <p class="series-overview">{paragraph}</p>)}
+				{definition.thesis && (
+					<p class="series-thesis"><span class="series-thesis__frame">The argument</span> <strong>{definition.thesis}</strong></p>
+				)}
+			</section>
+		)}
+
+		<section class="series-parts" aria-labelledby="parts-title">
+			<h2 id="parts-title" class="series-parts__title">The articles</h2>
+			<WritingPartList parts={parts} upcoming={upcoming} headingLevel={3} sourceSection="series-parts" placement="writing-series" />
+		</section>
+	</div>
+
+	<section class="section series-closing" aria-label="Next steps">
+		<div class="page-container">
+			<ContactCTA
+				title="Working on a similar control problem?"
+				body="Describe the system you are working on in a short message. I will reply with my view and where I have solved similar problems."
+				primaryHref={`/contact/?context=technical&source=series-${definition.id}#message-title`}
+				primaryLabel="Discuss a technical problem"
+				secondaryHref="/writing/"
+				secondaryLabel="All writing"
+				sourceSection="series-closing"
+				ctaIdPrefix="series-closing"
+			/>
+		</div>
+	</section>
+</BaseLayout>
+
+<style>
+	.series-page { width: min(calc(100% - 5rem), var(--content-width)); margin: 0 auto; }
+	.series-back a,
+	.series-meta { margin: 0; color: var(--color-muted); font-family: var(--font-mono); font-size: .9rem; letter-spacing: 0; line-height: 1.4; text-transform: none; }
+	.series-back a { font-weight: 600; text-decoration: none; }
+	.series-back a::before { content: '\2190\00a0'; }
+	.series-back a:hover,
+	.series-back a:focus-visible { color: var(--color-link); text-decoration: underline; text-underline-offset: .2em; }
+	/* Same header as the Writing page and the articles: eyebrow row, H1, lead, author line, then a rule. */
+	.series-hero { padding-top: clamp(3rem, 5vw, 4.6rem); border-bottom: 1px solid var(--color-border); }
+	.series-top { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: .5rem 1rem; }
+	.series-copy { display: grid; gap: 1rem; margin: 1rem 0 4rem; }
+	.series-hero h1 { max-width: none; margin: 0; font-size: clamp(2.2rem, 4.6vw, 3.3rem); font-weight: 600; letter-spacing: -.03em; line-height: 1.08; }
+	.series-summary { max-width: 52rem; margin: 0; color: var(--color-text); font-size: 1.08rem; line-height: 1.7; }
+	.series-author { max-width: 52rem; margin: 0; color: var(--color-muted); font-size: .92rem; line-height: 1.55; }
+	.series-author a { color: var(--color-link); text-decoration-thickness: 1px; text-underline-offset: .2em; }
+	.series-author a:hover,
+	.series-author a:focus-visible { color: var(--color-link-hover); }
+	/* The overview reads in the same column width as the article text. */
+	.series-intro { display: grid; gap: 1.1rem; max-width: 50rem; padding-top: clamp(2.4rem, 5vw, 3.6rem); }
+	.series-overview,
+	.series-thesis { margin: 0; color: var(--color-body-text); font-size: 1.0625rem; line-height: 1.7; }
+	.series-thesis { color: var(--color-text); }
+	.series-thesis__frame { margin-right: .6rem; color: var(--color-muted); font-family: var(--font-mono); font-size: .86rem; font-weight: 600; letter-spacing: 0; text-transform: none; }
+	.series-thesis strong { font-weight: 650; }
+	.series-parts { padding-top: clamp(3rem, 6vw, 4.5rem); }
+	.series-parts__title { max-width: none; margin: 0 0 1rem; font-family: var(--font-display); font-size: clamp(1.6rem, 2.6vw, 2.1rem); font-weight: var(--type-section-title-weight); letter-spacing: -.035em; line-height: 1.1; }
+	.series-parts :global(.parts) { display: grid; gap: .75rem; }
+	.series-closing { padding-top: clamp(3rem, 6vw, 5rem); }
+
+	@media (max-width: 720px) {
+		.series-hero h1 { font-size: clamp(2.15rem, 10vw, 2.45rem); line-height: 1.04; }
+	}
+
+	@media (max-width: 640px) { .series-page { width: min(calc(100% - 32px), var(--content-width)); } }
+</style>

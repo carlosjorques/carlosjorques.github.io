@@ -1,0 +1,91 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const baseUrl = import.meta.env.BASE_URL;
+const normalizedBase = baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`;
+const withBase = (href: string) => (href === '/' ? normalizedBase : `${normalizedBase}${href.replace(/^\//, '')}`);
+---
+
+<Layout
+	title="Page not found | Carlos Jorques"
+	description="This page does not exist on carlosjorques.com. Go to the home page, the projects, the writing or the contact page."
+>
+	<section class="not-found" aria-labelledby="not-found-title">
+		<div class="page-container not-found__inner">
+			<p class="section-eyebrow">404</p>
+			<h1 id="not-found-title" class="hero-title">This page does not exist.</h1>
+			<p class="not-found__text">The link may be old, or the page may have moved. These pages are a good place to continue.</p>
+			<nav class="not-found__links" aria-label="Main pages">
+				<a href={withBase('/')}>Home</a>
+				<a href={withBase('/work/')}>Work</a>
+				<a href={withBase('/writing/')}>Writing</a>
+				<a href={withBase('/contact/')}>Contact</a>
+			</nav>
+		</div>
+	</section>
+</Layout>
+
+<style>
+	.not-found {
+		padding: clamp(3rem, 5vw, 4.6rem) 0 clamp(4rem, 8vw, 6rem);
+	}
+
+	.not-found .page-container {
+		width: min(calc(100% - 5rem), var(--content-width));
+		max-width: 100%;
+	}
+
+	.not-found__inner {
+		display: grid;
+		gap: 1rem;
+	}
+
+	.not-found .section-eyebrow {
+		margin: 0;
+		color: var(--color-muted);
+		font-size: .82rem;
+		font-weight: 600;
+		letter-spacing: 0;
+		line-height: 1.4;
+	}
+
+	.not-found .hero-title {
+		max-width: none;
+		margin: 0;
+		font-size: clamp(2.2rem, 3.8vw, 3.5rem);
+		font-weight: 600;
+		letter-spacing: -.03em;
+		line-height: 1.05;
+	}
+
+	.not-found__text {
+		max-width: 46rem;
+		margin: 0;
+		color: var(--color-text);
+		font-size: 1.08rem;
+		line-height: 1.7;
+	}
+
+	.not-found__links {
+		display: flex;
+		flex-wrap: wrap;
+		gap: .75rem 1.75rem;
+		margin-top: .75rem;
+	}
+
+	.not-found__links a {
+		color: var(--color-text);
+		font-family: var(--font-sans);
+		font-weight: 500;
+		text-decoration: underline;
+		text-decoration-color: color-mix(in srgb, currentColor var(--link-underline-mix, 35%), transparent);
+		text-decoration-thickness: 1px;
+		text-underline-offset: .2em;
+	}
+
+	@media (max-width: 640px) {
+		.not-found .page-container {
+			width: min(calc(100% - 2rem), var(--content-width));
+		}
+	}
+</style>

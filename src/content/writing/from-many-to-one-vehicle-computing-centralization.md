@@ -1,6 +1,7 @@
 ---
 title: "From Many to One: What the Centralization of Vehicle Computing Really Changes"
 description: A technical article on the shift from distributed ECUs to zonal controllers and central vehicle computers, and what that changes for software speed, safety, suppliers, and control engineering.
+teaser: "What zonal controllers and central vehicle computers change for software, safety and suppliers."
 publishDate: 2026-07-07
 readingTime: 13 min read
 category: Embedded Controls Architecture

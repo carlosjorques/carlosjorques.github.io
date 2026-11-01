@@ -2,6 +2,7 @@
 title: Stochastic Fault Detection and Diagnostic Decision Logic
 subtitle: Diagnosing combustion faults when the boundary is uncertain
 description: How probabilistic diagnostic logic, adaptive thresholds, and sensor fusion improve real-time combustion fault detection under changing operating conditions.
+teaser: "Probabilistic diagnostic logic that detects combustion faults as operating conditions change."
 publishDate: 2026-06-25
 updatedDate: 2026-07-07
 readingTime: 12 min read
@@ -13,6 +14,7 @@ tags:
   - Adaptive thresholds
   - Sensor fusion
   - Diagnostic logic
+relatedProject: heavy-duty-engine-diagnostics-control-research
 featured: true
 draft: true
 heroImage:
@@ -225,6 +227,6 @@ Later work by other groups citing the misfire-detection research:
 	<p>I work on combustion control, model-based diagnostics, virtual sensing, and embedded decision logic for advanced powertrain systems.</p>
 	<ul class="article-cta__links">
 		<li><a href="/contact/">Contact me about combustion diagnostics</a></li>
-		<li><a href="/research/">Explore related research</a></li>
+		<li><a href="/work/heavy-duty-engine-diagnostics-control-research/">Explore related research project</a></li>
 	</ul>
 </section>

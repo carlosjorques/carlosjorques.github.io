@@ -4,7 +4,7 @@
 
 This is the personal professional website of Carlos Jorques.
 
-The site positions Carlos as an **Embedded Control Systems Architect** and **Technical Leader** focused on **Control Intelligence for Complex Physical Systems**.
+The site positions Carlos as a **Control Systems Technical Lead** focused on **Control Intelligence for Complex Physical Systems**.
 
 Primary goal: recruiters, engineering managers, and technical peers should quickly understand Carlos's expertise, evidence of work, and contact paths.
 
@@ -29,12 +29,12 @@ The website should function as:
 
 Primary title:
 
-**Embedded Control Systems Architect**
+**Control Systems Technical Lead**
 
 Secondary descriptors:
 
 - Technical Leader
-- Embedded Control Systems Architect
+- Control Systems Architect
 - Control Systems Engineer
 - Real-Time Embedded Software / Controls Specialist
 
@@ -613,8 +613,8 @@ Use variables such as:
 ## SEO focus
 
 Target concepts:
-- Embedded Controls Architect
-- Embedded Control Systems Architect
+- Control Systems Technical Lead
+- Senior Control Systems Engineer
 - Control intelligence for complex physical systems
 - embedded control systems
 - real-time control
@@ -681,58 +681,33 @@ This repository includes task-specific playbooks under agent-playbooks/. Use the
 - brand-visual-design-agent: Nordic visual system, hierarchy, spacing, typography, color.
 - deployment-agent: Cloudflare Pages/GitHub Pages deployment setup and documentation.
 
-## Project-local skills
+## Working method
 
-This repository includes reusable Codex skills under .agents/skills/. Prefer these local skills for this project before using generic guidance, because they encode the site's positioning, public-information rules, Astro conventions, and launch priorities.
+Carlos and the agent work page by page, as on the Work section:
 
-### Astro and implementation:
+- One step at a time; report findings in chat and wait when Carlos asks for it.
+- Research current best practices (with sources) before redesigning a page or format.
+- "List only" or "assess" means no edits.
+- Assess against recruiters, engineers/hiring managers and curious visitors with 0–10 scores, what lowers them, prioritised fixes, trade-offs and open gaps.
+- Back up files before large rewrites. Never commit or push; Carlos commits.
+- Verify every change: `npm run build`, link check, desktop and mobile rendering.
+- All text goes through `carlos-voice` and its web register.
 
-- astro-template-adapter
-- astro-architecture-skill
-- astro-content-collections
-- frontend-implementation-skill
-- template-content-migration
-- astro-static-deployment
+## Skills
 
-## Positioning, audience, and conversion:
+Personal skills (user level, `~/.copilot/skills/`): `carlos-profile` (positioning, settled facts, confidentiality, working method), `carlos-voice` (text; `references/web-register.md` for the site), `carlos-visuals` (figures), `article-series` and `astro-blog-export` (writing), `linkedin-post`.
 
-- personal-brand-positioning
-- profile-positioning-skill
-- portfolio-content-strategy
-- audience-and-conversion-skill
-- recruiter-scan-audit
-- recruiter-visitor-simulator
-- role-fit-analyzer
-- website-content-gap-audit
-- linkedin-cv-website-alignment
+Project skills (`.agents/skills/`):
 
-## Evidence and content transformation:
+| Task | Skills |
+| --- | --- |
+| Work index, cards, project pages | work-entry-authoring |
+| Assess, rate or re-assess any page (consistent KPIs, score log) | portfolio-page-review |
+| New page, section or layout | site-identity-guidelines, frontend-implementation-skill, astro-architecture-skill |
+| Content collections and routes | astro-content-collections, astro-architecture-skill |
+| Recruiter and SEO audits | recruiter-scan-audit, seo-accessibility-performance |
+| CV and LinkedIn alignment, job fit | linkedin-cv-website-alignment, role-fit-analyzer |
+| Deployment | astro-static-deployment |
+| Visual exploration | frontend-design |
 
-- professional-background-intake
-- cv-evidence-extractor
-- portfolio-content-transformer
-- public-work-sanitizer
-- work-evidence-builder
-- work-entry-authoring
-- research-to-industry-skill
-
-## Writing and authority:
-
-- technical-writing-starter
-- technical-authority-content-planner
-
-## Design and quality:
-
-- nordic-design-system
-- site-identity-guidelines
-- seo-accessibility-performance
-
-When multiple local skills apply, use the smallest set that covers the task.
-
-Examples:
-- Homepage refinement: portfolio-content-strategy, audience-and-conversion-skill, nordic-design-system
-- About page review: recruiter-scan-audit, content-strategist, website-content-gap-audit
-- Work page evidence: cv-evidence-extractor, portfolio-content-transformer, work-entry-authoring
-- Online CV: cv-evidence-extractor, linkedin-cv-website-alignment, cv-content-agent
-- Visual polish: brand-visual-design-agent, nordic-design-system, seo-accessibility-performance
-- Deployment: astro-static-deployment, seo-accessibility-performance
+The superseded skills were removed in October 2026. `.agents/` is git-ignored, so the project skills exist only in the main checkout (not in other worktrees). Where an older rule in this file or in a skill conflicts with `carlos-profile`, `carlos-voice` or `work-entry-authoring`, those win.

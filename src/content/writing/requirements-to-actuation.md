@@ -1,6 +1,7 @@
 ---
 title: "From Requirements to Actuation: How Control Systems Become Production Software"
 description: A technical article placeholder describing the path from requirements and system behavior to embedded control logic that drives physical action in production software.
+teaser: "The path from a requirement to the control logic that moves a physical actuator."
 publishDate: 2026-05-14
 category: Safety-Critical Automotive Development
 tags:

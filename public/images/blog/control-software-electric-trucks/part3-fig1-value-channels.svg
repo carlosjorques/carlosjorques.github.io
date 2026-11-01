@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="1050"
+   height="490"
+   viewBox="0 0 1050 490"
+   font-family="Calibri, Arial, Helvetica, sans-serif"
+   version="1.1"
+   id="svg135957"
+   sodipodi:docname="part3_Fig1_value_channels_v2_draft.svg"
+   inkscape:export-filename="part3_Fig1_value_channels_v2_draft.png"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96"
+   inkscape:version="1.2.1 (9c6d41e410, 2022-07-14)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview135959"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false"
+     inkscape:zoom="0.81822356"
+     inkscape:cx="523.08442"
+     inkscape:cy="259.09789"
+     inkscape:window-width="1920"
+     inkscape:window-height="1009"
+     inkscape:window-x="1912"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg135957" />
+  <defs
+     id="defs135869">
+    <marker
+       id="ak"
+       viewBox="0 0 10 10"
+       refX="9"
+       refY="5"
+       markerWidth="7"
+       markerHeight="7"
+       orient="auto">
+      <path
+         d="M0,0 L10,5 L0,10 z"
+         fill="#4d4d4d"
+         id="path135863" />
+    </marker>
+    <marker
+       id="ao"
+       viewBox="0 0 10 10"
+       refX="9"
+       refY="5"
+       markerWidth="7"
+       markerHeight="7"
+       orient="auto">
+      <path
+         d="M0,0 L10,5 L0,10 z"
+         fill="#d98c2b"
+         id="path135866" />
+    </marker>
+  </defs>
+  <rect
+     width="1050"
+     height="490"
+     fill="#ffffff"
+     id="rect135871" />
+  <!-- Efficiency gain (software) -->
+  <rect
+     x="30"
+     y="185"
+     width="170"
+     height="80"
+     fill="#f2e3d4"
+     stroke="#d98c2b"
+     stroke-width="1.5"
+     id="rect135873"
+     style="stroke:none" />
+  <text
+     x="115"
+     y="220"
+     text-anchor="middle"
+     font-size="14px"
+     font-weight="bold"
+     fill="#1a1a1a"
+     id="text135875">Efficiency gain</text>
+  <text
+     x="115"
+     y="240"
+     text-anchor="middle"
+     font-size="12.5px"
+     fill="#4d4d4d"
+     id="text135877">2–4% of the vehicle energy</text>
+  <!-- Broad arrow: the gain spreads over the channels -->
+  <path
+     d="M 204,185.52826 262,30 V 420 L 204,264.47174 Z"
+     fill="#dddddd"
+     id="path135879"
+     style="fill:#f2f2f2;fill-opacity:1"
+     sodipodi:nodetypes="ccccc" />
+  <!-- Groups (background only) -->
+  <rect
+     x="270"
+     y="20"
+     width="250"
+     height="200"
+     fill="#f2f2f2"
+     id="rect135881"
+     style="fill:#dddddd;fill-opacity:1" />
+  <text
+     x="395"
+     y="42"
+     text-anchor="middle"
+     font-size="12.5px"
+     font-style="italic"
+     fill="#4d4d4d"
+     id="text135883">In service: any truck (scenario A)</text>
+  <rect
+     x="270"
+     y="230"
+     width="250"
+     height="200"
+     fill="#d6e3f0"
+     id="rect135885" />
+  <text
+     x="395"
+     y="252"
+     text-anchor="middle"
+     font-size="12.5px"
+     font-style="italic"
+     fill="#1f4f78"
+     id="text135887">At specification: new models (B, C)</text>
+  <g
+     fill="#ffffff"
+     id="g135897">
+    <rect
+       x="290"
+       y="56"
+       width="210"
+       height="48"
+       id="rect135889" />
+    <rect
+       x="290"
+       y="114"
+       width="210"
+       height="48"
+       id="rect135891" />
+    <rect
+       x="290"
+       y="266"
+       width="210"
+       height="48"
+       id="rect135893" />
+    <rect
+       x="290"
+       y="324"
+       width="210"
+       height="48"
+       id="rect135895" />
+  </g>
+  <g
+     text-anchor="middle"
+     fill="#1a1a1a"
+     id="g135923">
+    <text
+       x="395"
+       y="76"
+       font-size="14px"
+       font-weight="bold"
+       id="text135899">Electricity</text>
+    <text
+       x="395"
+       y="94"
+       font-size="12.5px"
+       fill="#4d4d4d"
+       id="text135901">less energy bought per km</text>
+    <text
+       x="395"
+       y="134"
+       font-size="14px"
+       font-weight="bold"
+       id="text135903">Time</text>
+    <text
+       x="395"
+       y="152"
+       font-size="12.5px"
+       fill="#4d4d4d"
+       id="text135905">shorter charging stops</text>
+    <text
+       x="395"
+       y="286"
+       font-size="14px"
+       font-weight="bold"
+       id="text135907">Battery</text>
+    <text
+       x="395"
+       y="304"
+       font-size="12.5px"
+       fill="#4d4d4d"
+       id="text135909">smaller, cheaper pack</text>
+    <text
+       x="395"
+       y="344"
+       font-size="14px"
+       font-weight="bold"
+       id="text135911">Payload</text>
+    <text
+       x="395"
+       y="362"
+       font-size="12.5px"
+       fill="#4d4d4d"
+       id="text135913">saved mass becomes freight</text>
+    <text
+       x="395"
+       y="196"
+       font-size="14px"
+       font-weight="bold"
+       id="text135915">1.2×</text>
+    <text
+       x="395"
+       y="212"
+       font-size="12.5px"
+       fill="#4d4d4d"
+       id="text135917">the electricity saved</text>
+    <text
+       x="395"
+       y="404"
+       font-size="14px"
+       font-weight="bold"
+       fill="#1f4f78"
+       id="text135919">1.8–2.5×</text>
+    <text
+       x="395"
+       y="420"
+       font-size="12.5px"
+       fill="#1f4f78"
+       id="text135921">the electricity saved</text>
+  </g>
+  <!-- Broad arrow: the channels converge on the cost -->
+  <path
+     d="m 528,30 58,155.06173 v 79.44444 L 528,420 Z"
+     fill="#dddddd"
+     id="path135925"
+     style="fill:#f2f2f2;fill-opacity:1"
+     sodipodi:nodetypes="ccccc" />
+  <!-- Results -->
+  <rect
+     x="590"
+     y="185"
+     width="190"
+     height="80"
+     fill="#eeeeee"
+     id="rect135927" />
+  <text
+     x="685"
+     y="211"
+     text-anchor="middle"
+     font-size="14px"
+     font-weight="bold"
+     fill="#1a1a1a"
+     id="text135929">Cost per tonne-km</text>
+  <text
+     x="685"
+     y="229"
+     text-anchor="middle"
+     font-size="12.5px"
+     fill="#1a1a1a"
+     id="text135931">and TCO</text>
+  <text
+     x="685"
+     y="251"
+     text-anchor="middle"
+     font-size="14px"
+     font-weight="bold"
+     fill="#1a1a1a"
+     id="text135933">−0.5 to −1.9%</text>
+  <!-- Block arrow through the thin margin -->
+  <path
+     d="M786,212 L816,212 L816,197 L846,225 L816,253 L816,238 L786,238 Z"
+     fill="#dddddd"
+     id="path135935" />
+  <text
+     x="816"
+     y="186"
+     text-anchor="middle"
+     font-size="12.5px"
+     font-style="italic"
+     fill="#4d4d4d"
+     id="text135937">thin margin</text>
+  <rect
+     x="850"
+     y="185"
+     width="180"
+     height="80"
+     fill="#eeeeee"
+     id="rect135939" />
+  <text
+     x="940"
+     y="211"
+     text-anchor="middle"
+     font-size="14px"
+     font-weight="bold"
+     fill="#1a1a1a"
+     id="text135941">Operating profit</text>
+  <text
+     x="940"
+     y="229"
+     text-anchor="middle"
+     font-size="12.5px"
+     fill="#1a1a1a"
+     id="text135943">ROI and NPV</text>
+  <text
+     x="940"
+     y="251"
+     text-anchor="middle"
+     font-size="14px"
+     font-weight="bold"
+     fill="#1a1a1a"
+     id="text135945">+24 to +96%</text>
+  <!-- Challenges -->
+  <g
+     font-size="12.5px"
+     font-style="italic"
+     fill="#4d4d4d"
+     text-anchor="middle"
+     id="g135953">
+    <text
+       x="685"
+       y="160"
+       id="text135947">Challenge 1: energy is about 1/5 of the cost</text>
+    <text
+       x="395"
+       y="455"
+       id="text135949">Challenge 2: captured only when the truck is specified</text>
+    <text
+       x="940"
+       y="290"
+       id="text135951">Challenge 3: 2% operating margin</text>
+  </g>
+  <text
+     x="1030"
+     y="480"
+     text-anchor="end"
+     font-size="11px"
+     font-weight="bold"
+     fill="#999999"
+     id="text135955">carlosjorques.com</text>
+</svg>

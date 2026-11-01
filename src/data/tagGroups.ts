@@ -1,9 +1,10 @@
 export const TAG_GROUPS = {
-	'Control & Modeling': ['control', 'modeling', 'control architecture', 'control algorithms', 'model-based development', 'closed-loop control'],
+	'Control': ['control', 'modeling', 'control architecture', 'control algorithms', 'model-based development', 'closed-loop control', 'model predictive control', 'control allocation', 'thermal management', 'battery thermal management', 'control software'],
+	'Electrification': ['electric trucks', 'heavy-duty vehicles', 'battery sizing', 'total cost of ownership', 'energy efficiency', 'fleet economics', 'vehicle design', 'sensitivity analysis'],
 	'Embedded Software': ['embedded software', 'embedded control', 'real-time', 'real-time implementation', 'AUTOSAR', 'software architecture'],
-	'Diagnostics & Validation': ['diagnostics', 'validation', 'fault detection', 'virtual sensing', 'sensing', 'signal processing'],
-	'Software-Defined Systems': ['software-defined systems', 'vehicle computing', 'AI', 'automotive software'],
-	'Engineering Organization': ['technical leadership', 'engineering organization', 'delivery', 'requirements', 'architecture'],
+	'Diagnostics': ['diagnostics', 'validation', 'fault detection', 'virtual sensing', 'sensing', 'signal processing'],
+	'Software & AI': ['software-defined systems', 'software-defined vehicles', 'vehicle computing', 'AI', 'automotive software'],
+	'Leadership': ['technical leadership', 'engineering organization', 'delivery', 'requirements', 'architecture'],
 	'Research': ['research', 'PhD', 'patents', 'publications', 'thesis'],
 } as const;
 

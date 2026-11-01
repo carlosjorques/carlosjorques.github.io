@@ -1,0 +1,145 @@
+---
+import { getEntry } from 'astro:content';
+import { formatReadingHours, seriesCountLabel, toTopicSlug, type WritingPublication } from '../../data/writing';
+import WritingPartList from './WritingPartList.astro';
+
+/**
+ * "Latest publications": one list in which every entry is a publication.
+ * A single article is one row. A series is one row as well, with its parts
+ * listed below it on the same grid, so every article title starts on the same vertical line.
+ * - `full`: description, key figures, project link and reading time (writing page).
+ * - `compact`: one-line summaries only (landing page).
+ */
+interface Props {
+	publications: readonly WritingPublication[];
+	variant?: 'full' | 'compact';
+	/** Analytics placement and section, so the same list can sit on several pages. */
+	placement?: string;
+	sourceSection?: string;
+}
+
+const { publications, variant = 'full', placement = 'writing-index', sourceSection = 'writing-latest' } = Astro.props;
+const compact = variant === 'compact';
+const withBase = (href: string) => `${import.meta.env.BASE_URL}${href.replace(/^\//, '')}`;
+const dayMonth = new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+
+const entries = await Promise.all(publications.map(async (publication) => {
+	if (publication.kind === 'article') return publication;
+	const { definition } = publication.group;
+	const project = !compact && definition.relatedProject ? await getEntry('projects', definition.relatedProject) : undefined;
+	return { ...publication, project };
+}));
+
+// Keeps numeric ranges such as "2–4%" on one line.
+const keepRanges = (text: string) => text.replace(/(\d)–(\d)/g, '$1–\u2060$2');
+const newest = (dates: readonly Date[]) => new Date(Math.max(...dates.map((date) => date.valueOf())));
+---
+
+<ul class:list={['pub-list', { 'pub-list--compact': compact }]} role="list">
+	{entries.map((entry) => {
+		if (entry.kind === 'article') {
+			const { article } = entry;
+			const id = `${placement}-pub-${article.slug}`;
+			return (
+				<li class="pub" data-filter-item data-topics={article.topics.map(toTopicSlug).join(' ')}>
+					<a
+						class="pub__row pub__row--link"
+						href={article.href}
+						aria-labelledby={id}
+						aria-describedby={`${id}-desc`}
+						data-analytics-event="writing_article_click"
+						data-cta-id={`${placement}-${article.slug}`}
+						data-cta-placement={placement}
+						data-cta-intent="authority"
+						data-source-section={sourceSection}
+					>
+						<span class="pub__label">
+							<time datetime={article.dateIso}>{dayMonth.format(article.date)}</time>
+						</span>
+						<span class="pub__main">
+							<h3 id={id} class="pub__title">
+								{keepRanges(article.title)}
+								{article.isDraft && <span class="pub__draft"> Draft</span>}
+							</h3>
+							<span id={`${id}-desc`} class="pub__summary">{compact ? article.teaser ?? article.description : article.description}</span>
+							{!compact && article.keyFigure && <span class="pub__figure"><strong>{article.keyFigure.value}</strong> {article.keyFigure.label}</span>}
+						</span>
+						{!compact && article.minutes > 0 && <span class="pub__time">{article.minutes} min</span>}
+					</a>
+				</li>
+			);
+		}
+
+		const { definition, href, parts, totalMinutes } = entry.group;
+		const id = `${placement}-pub-series-${definition.id}`;
+		const latestPart = newest(parts.map((part) => part.date));
+		const topics = [...new Set(parts.flatMap((part) => part.topics))];
+		return (
+			<li class="pub pub--series" data-filter-item data-topics={topics.map(toTopicSlug).join(' ')}>
+				<div class="pub__row pub__row--head">
+					<span class="pub__label">
+						<time datetime={latestPart.toISOString().slice(0, 10)}>{dayMonth.format(latestPart)}</time>
+					</span>
+					<div class="pub__main">
+						<h3 id={id} class="pub__title"><a class="pub__series-link" href={href} data-analytics-event="writing_series_click" data-cta-id={`${placement}-series-${definition.id}`} data-cta-placement={placement} data-cta-intent="authority" data-source-section={sourceSection}>{definition.title}</a><span class="pub__count">{seriesCountLabel(entry.group)}</span></h3>
+						<p class="pub__summary">{compact ? definition.teaser ?? definition.summary : definition.summary}</p>
+						{entry.project && (
+							<p class="pub__project">
+								Based on my work on <a href={withBase(`/work/${entry.project.id}/`)} data-analytics-event="related_proof_click" data-cta-id={`${placement}-series-${definition.id}-project`} data-cta-placement={placement} data-cta-intent="proof" data-source-section={sourceSection}>{entry.project.data.title}</a>
+							</p>
+						)}
+					</div>
+					{!compact && totalMinutes > 0 && <span class="pub__time">{formatReadingHours(totalMinutes)} total</span>}
+				</div>
+				<WritingPartList parts={parts} upcoming={entry.group.upcoming} headingLevel={4} labelledBy={id} sourceSection={sourceSection} placement={placement} variant={variant} />
+			</li>
+		);
+	})}
+</ul>
+
+<style>
+	.pub-list { display: grid; gap: .5rem; margin: 0; padding: 0; list-style: none; }
+	.pub__row { display: grid; grid-template-columns: var(--writing-label-width) minmax(0, 1fr) auto; gap: 1.25rem; align-items: baseline; padding: 1.25rem 0; color: inherit; text-decoration: none; }
+	.pub__row--head { padding-bottom: 1.25rem; }
+
+	.pub__label,
+	.pub__time { color: var(--color-muted); font-family: var(--font-mono); font-size: var(--type-chip-size); letter-spacing: var(--type-chip-tracking); line-height: 1.4; text-transform: none; white-space: nowrap; }
+	.pub__label { display: grid; gap: .3rem; }
+
+	.pub__main { display: grid; gap: .3rem; max-width: 46rem; }
+	.pub__title { max-width: none; margin: 0; color: var(--color-text); font-family: var(--font-sans); font-size: 1.12rem; font-weight: 600; letter-spacing: -.01em; line-height: 1.35; }
+	.pub__summary { margin: 0; color: var(--color-muted); font-size: .95rem; line-height: 1.5; }
+	/* The key figure reads as part of the summary: same size and font, the value only in the accent
+	   colour, so it does not compete with the title. */
+	.pub__figure { color: var(--color-muted); font-size: .9rem; line-height: 1.5; }
+	.pub__figure strong { color: var(--color-muted); font-weight: 700; white-space: nowrap; }
+	.pub__count { margin-left: .6rem; color: var(--color-muted); font-family: var(--font-mono); font-size: .82rem; font-weight: 400; letter-spacing: 0; text-transform: none; vertical-align: middle; white-space: nowrap; }
+	.pub__draft { margin-left: .4rem; color: var(--color-muted); font-family: var(--font-mono); font-size: .82rem; font-weight: 400; letter-spacing: 0; text-transform: none; vertical-align: middle; }
+	.pub__row--link:hover .pub__title,
+	.pub__row--link:focus-visible .pub__title { color: var(--color-link); text-decoration: underline; text-underline-offset: .2em; }
+	.pub__row--link:focus-visible { outline: 2px solid var(--color-link); outline-offset: 4px; }
+	.pub__series-link { color: inherit; text-decoration: none; }
+	.pub__series-link:hover,
+	.pub__series-link:focus-visible { color: var(--color-link); text-decoration: underline; text-underline-offset: .2em; }
+
+	.pub__project { margin: 0; color: var(--color-muted); font-size: .92rem; line-height: 1.5; }
+	.pub__project a { color: var(--color-link); text-decoration-thickness: 1px; text-underline-offset: .2em; }
+	.pub__project a:hover,
+	.pub__project a:focus-visible { color: var(--color-link-hover); }
+
+	.pub-list--compact { gap: 1rem; }
+	.pub-list--compact .pub__row { grid-template-columns: var(--writing-label-width) minmax(0, 1fr); padding-block: .4rem; }
+	.pub-list--compact .pub__row--head { padding-bottom: .6rem; }
+	.pub-list--compact .pub__main { gap: .15rem; }
+	/* Same size as the project titles of the landing page. */
+	.pub-list--compact .pub__title { font-size: clamp(1rem, 1.3vw, 1.08rem); }
+	.pub-list--compact .pub__summary { font-size: .88rem; }
+
+	@media (max-width: 720px) {
+		.pub__row,
+		.pub-list--compact .pub__row { grid-template-columns: minmax(0, 1fr) auto; gap: .35rem 1rem; }
+		.pub__label { display: flex; gap: .75rem; grid-column: 1; grid-row: 1; }
+		.pub__time { grid-column: 2; grid-row: 1; }
+		.pub__main { grid-column: 1 / -1; }
+	}
+</style>

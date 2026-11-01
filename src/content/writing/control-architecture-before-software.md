@@ -1,6 +1,7 @@
 ---
 title: Why Control Architecture Starts Before Software Implementation
 description: A technical article placeholder on defining behavior, boundaries, interfaces, and diagnostic responsibilities before embedded software implementation begins.
+teaser: "Why behaviour, boundaries and diagnostic duties are defined before any code is written."
 publishDate: 2026-05-14
 category: Embedded Controls Architecture
 tags:

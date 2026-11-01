@@ -1,5 +1,9 @@
 ---
+import { Image } from 'astro:assets';
+import portrait from '../assets/carlos-jorques-intro.webp';
+
 interface Props {
+	eyebrow?: string;
 	title?: string;
 	body?: string;
 	primaryLabel?: string;
@@ -8,17 +12,22 @@ interface Props {
 	secondaryLabel?: string;
 	tertiaryHref?: string;
 	tertiaryLabel?: string;
+	sourceSection?: string;
+	ctaIdPrefix?: string;
 }
 
 const {
-	title = 'Interested in embedded control architecture, physical systems, or technical leadership?',
-	body = 'Use the contact page for role conversations, collaboration, project context, or focused technical questions.',
+	eyebrow = 'Contact',
+	title = 'Working on a role or a control problem?',
+	body = 'Send a short message about it. I will reply with where I have solved similar problems.',
 	primaryHref = 'contact/',
-	primaryLabel = 'Contact me',
+	primaryLabel = 'Send a message',
 	secondaryHref = 'work/',
 	secondaryLabel = 'View work',
 	tertiaryHref,
 	tertiaryLabel,
+	sourceSection = 'contact-cta',
+	ctaIdPrefix = sourceSection,
 } = Astro.props;
 const baseUrl = import.meta.env.BASE_URL;
 const normalizedBase = baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`;
@@ -27,114 +36,138 @@ const withBase = (href: string) =>
 		? href
 		: `${normalizedBase}${href.replace(/^\//, '')}`;
 const isExternal = (href: string) => href.startsWith('http');
+const isPdf = (href: string) => href.toLowerCase().includes('.pdf');
+const isWriting = (href: string) => href.replace(/^\//, '').startsWith('writing');
+const eventName = (href: string) =>
+	isPdf(href) ? 'cv_pdf_download' : isWriting(href) ? 'writing_article_click' : href.startsWith('http') ? 'linkedin_outbound_click' : 'cta_click';
+const intent = (href: string) =>
+	isPdf(href) ? 'formal-proof' : isWriting(href) ? 'authority' : href.startsWith('http') ? 'professional-profile' : href.includes('contact') ? 'contact' : 'proof';
 ---
 
-<section class="contact-cta">
-	<div>
-		<p class="contact-cta__label">Contact</p>
+<section class="contact-cta" aria-label={eyebrow}>
+	<Image class="contact-cta__face" src={portrait} alt="" widths={[160, 320]} sizes="128px" />
+	<div class="contact-cta__text">
 		<h2>{title}</h2>
 		<p>{body}</p>
-	</div>
-	<div class="button-row">
+		<slot />
+		<div class="contact-cta__actions">
 		<a
 			class="button primary"
 			href={withBase(primaryHref)}
-			data-analytics-event="cta_click"
-			data-cta-id="contact-cta-primary"
+			data-analytics-event={eventName(primaryHref)}
+			data-cta-id={`${ctaIdPrefix}-primary`}
 			data-cta-placement="contact-cta"
-			data-cta-intent="contact"
-			data-source-section="contact-cta"
+			data-cta-intent={intent(primaryHref)}
+			data-source-section={sourceSection}
+			data-destination={withBase(primaryHref)}
+			download={isPdf(primaryHref) ? true : undefined}
+			target={isExternal(primaryHref) ? '_blank' : undefined}
+			rel={isExternal(primaryHref) ? 'noopener noreferrer' : undefined}
 		>
 			{primaryLabel}
 		</a>
 		<a
-			class="button"
+			class="contact-cta__link"
 			href={withBase(secondaryHref)}
-			data-analytics-event={secondaryHref.startsWith('writing') ? 'writing_article_click' : 'cta_click'}
-			data-cta-id="contact-cta-secondary"
+			data-analytics-event={eventName(secondaryHref)}
+			data-cta-id={`${ctaIdPrefix}-secondary`}
 			data-cta-placement="contact-cta"
-			data-cta-intent={secondaryHref.startsWith('writing') ? 'authority' : 'proof'}
-			data-source-section="contact-cta"
+			data-cta-intent={intent(secondaryHref)}
+			data-source-section={sourceSection}
+			data-destination={withBase(secondaryHref)}
+			download={isPdf(secondaryHref) ? true : undefined}
 			target={isExternal(secondaryHref) ? '_blank' : undefined}
 			rel={isExternal(secondaryHref) ? 'noopener noreferrer' : undefined}
 		>
 			{secondaryLabel}
 		</a>
-		{tertiaryHref && tertiaryLabel && <a class="button" href={withBase(tertiaryHref)} target={isExternal(tertiaryHref) ? '_blank' : undefined} rel={isExternal(tertiaryHref) ? 'noopener noreferrer' : undefined}>{tertiaryLabel}</a>}
+		{tertiaryHref && tertiaryLabel && (
+			<a
+				class="contact-cta__link"
+				href={withBase(tertiaryHref)}
+				data-analytics-event={eventName(tertiaryHref)}
+				data-cta-id={`${ctaIdPrefix}-tertiary`}
+				data-cta-placement="contact-cta"
+				data-cta-intent={intent(tertiaryHref)}
+				data-source-section={sourceSection}
+				data-destination={withBase(tertiaryHref)}
+				download={isPdf(tertiaryHref) ? true : undefined}
+				target={isExternal(tertiaryHref) ? '_blank' : undefined}
+				rel={isExternal(tertiaryHref) ? 'noopener noreferrer' : undefined}
+			>
+				{tertiaryLabel}
+			</a>
+		)}
+		</div>
 	</div>
 </section>
 
 <style>
 	.contact-cta {
+		display: flex;
+		gap: 2rem;
+		align-items: center;
+		padding-block: 1rem;
+	}
+
+	:global(.contact-cta__face) {
+		flex: none;
+		width: 8rem;
+		height: 8rem;
+		border-radius: 50%;
+		object-fit: cover;
+	}
+
+	.contact-cta__text {
 		display: grid;
-		grid-template-columns: minmax(0, 1fr);
-		gap: clamp(1rem, 2.4vw, 1.4rem);
-		align-items: start;
-		border: 1px solid var(--color-card-border);
-		border-radius: var(--radius);
-		background: var(--color-card-bg);
-		padding: clamp(1.15rem, 3vw, 1.6rem);
-		transition:
-			background-color var(--motion-duration-fast-02) var(--motion-standard-productive),
-			border-color var(--motion-duration-fast-02) var(--motion-standard-productive);
-	}
-
-	.contact-cta:hover,
-	.contact-cta:focus-within {
-		border-color: var(--color-card-border-hover);
-		background: var(--color-card-bg-hover);
-	}
-
-	.contact-cta div:first-child {
-		display: grid;
-		gap: 0.65rem;
-		max-width: 720px;
-	}
-
-	.contact-cta__label {
-		margin: 0;
-		color: var(--color-accent-text);
-		font-family: var(--font-mono);
-		font-size: var(--type-meta-size);
-		font-weight: var(--type-meta-weight);
-		letter-spacing: var(--type-meta-tracking);
-		line-height: var(--type-meta-line);
-		text-transform: uppercase;
+		gap: 0.6rem;
+		flex: 1;
+		min-width: 0;
 	}
 
 	.contact-cta h2 {
-		max-width: 16ch;
+		max-width: none;
+		margin: 0;
 		color: var(--color-text);
-		font-size: clamp(1.55rem, 2.5vw, 2.35rem);
-		letter-spacing: -0.045em;
-		line-height: 1.05;
+		font-size: 1.6rem;
+		line-height: 1.2;
+		letter-spacing: -0.015em;
 	}
 
-	.contact-cta p:not(.contact-cta__label) {
-		max-width: 64ch;
+	.contact-cta p {
+		max-width: 46rem;
+		margin: 0;
 		color: var(--color-body-text);
-		font-size: var(--type-card-body-size);
-		line-height: var(--type-card-body-line);
 		overflow-wrap: anywhere;
 	}
 
-	.contact-cta .button-row {
-		display: grid;
-		gap: 0.75rem;
+	.contact-cta__actions {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 0.75rem 1.5rem;
+		margin-top: 0.6rem;
+		font-family: var(--font-sans);
 	}
 
-	.contact-cta .button-row > .button {
-		width: 100%;
+	.contact-cta__link {
+		color: var(--color-text);
+		font-weight: 500;
 	}
 
-	@media (min-width: 850px) {
+	.contact-cta__link::after {
+		content: ' \2192';
+	}
+
+	.contact-cta__link:hover,
+	.contact-cta__link:focus-visible {
+		color: var(--color-link-hover);
+	}
+
+	@media (max-width: 760px) {
 		.contact-cta {
-			grid-template-columns: minmax(0, 1fr) auto;
-		}
-
-		.contact-cta .button-row {
-			min-width: 210px;
-			align-self: center;
+			flex-direction: column;
+			align-items: flex-start;
 		}
 	}
 </style>

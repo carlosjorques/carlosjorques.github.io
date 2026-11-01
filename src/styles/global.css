@@ -121,6 +121,7 @@
 	--ux-signal: #5869d8;
 	--ux-signal-wash: #f7f7f7;
 	--ux-focus: var(--ux-signal);
+	--ux-error: #b42318;
 
 	/* Mediterranean center-glow: same canvas, warm accent in the middle. */
 	--ux-immersive-canvas: var(--ux-canvas);
@@ -158,6 +159,7 @@
 	--color-action: var(--ux-action);
 	--color-action-hover: var(--ux-action-hover);
 	--color-accent-text: var(--ux-signal);
+	--color-error: var(--ux-error);
 	--color-accent-wash: var(--ux-signal-wash);
 	--color-focus: var(--ux-focus);
 
@@ -205,6 +207,8 @@
 
 	/* Layout */
 	--content-width: 1248px;
+	/* Label column of the writing lists: fits a full date ("29 Oct 2026") with room before the title. */
+	--writing-label-width: 7.5rem;
 	--content-narrow: 760px;
 	--measure-reading: 760px;
 	--measure-compact: 620px;
@@ -261,6 +265,7 @@
 	--ux-signal: #9dacff;
 	--ux-signal-wash: #171b22;
 	--ux-focus: var(--ux-signal);
+	--ux-error: #ff9b8f;
 	--ux-card-subtext: #d7d0c8;
 
 	--ux-immersive-canvas:
@@ -301,6 +306,7 @@
 	--color-action: var(--ux-action);
 	--color-action-hover: var(--ux-action-hover);
 	--color-accent-text: var(--ux-signal);
+	--color-error: var(--ux-error);
 	--color-accent-wash: var(--ux-signal-wash);
 	--color-focus: var(--ux-focus);
 
@@ -374,7 +380,6 @@ html {
 
 body {
 	margin: 0;
-	min-width: 320px;
 	overflow-x: clip;
 	background: var(--color-page-gradient);
 	color: var(--color-text);
@@ -475,7 +480,7 @@ h1.hero-title {
 	line-height: var(--type-eyebrow-line);
 	letter-spacing: var(--type-eyebrow-tracking);
 	font-weight: var(--type-eyebrow-weight);
-	text-transform: uppercase;
+	text-transform: none;
 	color: var(--color-accent-text);
 	margin: 0 0 0.8rem;
 }
@@ -554,7 +559,7 @@ p,
 	line-height: var(--type-meta-line);
 	letter-spacing: var(--type-meta-tracking);
 	font-weight: var(--type-meta-weight);
-	text-transform: uppercase;
+	text-transform: none;
 	color: var(--color-muted);
 }
 
@@ -586,7 +591,7 @@ p,
 
 .expertise-card--featured .expertise-card__title {
 	font-size: clamp(1.55rem, 2.6vw, 2.45rem);
-	line-height: 1.02;
+	line-height: 1.08;
 	letter-spacing: -0.055em;
 	font-weight: 600;
 }
@@ -620,7 +625,7 @@ p,
 	line-height: var(--type-meta-line);
 	letter-spacing: var(--type-meta-tracking);
 	font-weight: 600;
-	text-transform: uppercase;
+	text-transform: none;
 	color: var(--color-accent-text);
 }
 
@@ -631,7 +636,7 @@ p,
 	line-height: 1.3;
 	letter-spacing: var(--type-meta-tracking);
 	font-weight: 600;
-	text-transform: uppercase;
+	text-transform: none;
 	color: var(--color-muted);
 }
 
@@ -688,7 +693,7 @@ p,
 	line-height: var(--type-nav-line);
 	letter-spacing: var(--type-nav-tracking);
 	font-weight: var(--type-nav-weight);
-	text-transform: uppercase;
+	text-transform: none;
 }
 
 .nav-link[aria-current="true"],
@@ -793,7 +798,7 @@ html.menu-open body {
 	font-weight: var(--type-eyebrow-weight);
 	letter-spacing: var(--type-eyebrow-tracking);
 	line-height: var(--type-eyebrow-line);
-	text-transform: uppercase;
+	text-transform: none;
 }
 
 .lead {
@@ -960,8 +965,8 @@ html.menu-open body {
 
 .prose a {
 	color: var(--color-text);
-	text-decoration-color: var(--color-border-strong);
-	text-underline-offset: 0.16em;
+	text-decoration-color: color-mix(in srgb, currentColor var(--link-underline-mix, 35%), transparent);
+	text-underline-offset: 0.2em;
 	transition:
 		color var(--motion-duration-fast-02) var(--motion-standard-productive),
 		text-decoration-color var(--motion-duration-fast-02) var(--motion-standard-productive);
@@ -1066,4 +1071,500 @@ html.menu-open body {
 	.selected-work__item {
 		transform: none !important;
 	}
+}
+
+/* ==========================================================
+   Style N (2026-10): white page, Instrument Sans for headings and UI,
+   Source Serif 4 for reading text, ink and green with a lime signal.
+   This block overrides the tokens and shared classes above.
+   ========================================================== */
+
+:root {
+	--font-display: "Instrument Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+	--font-sans: var(--font-display);
+	--font-body: "Source Serif 4", Georgia, "Times New Roman", serif;
+	--font-mono: var(--font-sans);
+
+	--type-hero-name-size: clamp(2.2rem, 6vw, 3.3rem);
+	--type-hero-name-line: 1.08;
+	--type-hero-name-tracking: -0.03em;
+	--type-hero-name-weight: 600;
+	--type-hero-role-size: 1.2rem;
+	--type-hero-role-line: 1.5;
+	--type-hero-role-tracking: 0;
+	--type-hero-role-weight: 400;
+	--type-hero-summary-size: 1.2rem;
+	--type-hero-summary-line: 1.65;
+	--type-hero-summary-tracking: 0;
+	--type-section-title-size: clamp(1.45rem, 2.4vw, 1.75rem);
+	--type-section-title-line: 1.2;
+	--type-section-title-tracking: -0.015em;
+	--type-section-title-weight: 600;
+	--type-section-intro-size: 1.12rem;
+	--type-section-intro-line: 1.6;
+	--type-section-intro-tracking: 0;
+	--type-eyebrow-size: 0.92rem;
+	--type-eyebrow-tracking: 0;
+	--type-eyebrow-weight: 500;
+	--type-body-size: 1.08rem;
+	--type-body-line: 1.65;
+	--type-body-tracking: 0;
+	--type-body-large-size: 1.15rem;
+	--type-body-large-line: 1.6;
+	--type-body-large-tracking: 0;
+	--type-card-title-size: 1.15rem;
+	--type-card-title-line: 1.3;
+	--type-card-title-tracking: -0.01em;
+	--type-card-title-weight: 600;
+	--type-card-body-size: 1rem;
+	--type-card-body-line: 1.55;
+	--type-card-body-tracking: 0;
+	--type-proof-number-size: clamp(1.5rem, 2.6vw, 2rem);
+	--type-proof-number-line: 1.15;
+	--type-proof-number-tracking: -0.02em;
+	--type-impact-number-size: clamp(1.45rem, 2.4vw, 1.9rem);
+	--type-impact-number-line: 1.15;
+	--type-impact-number-tracking: -0.02em;
+	--type-meta-size: 0.86rem;
+	--type-meta-tracking: 0;
+	--type-meta-weight: 400;
+	--type-chip-size: 0.84rem;
+	--type-chip-tracking: 0;
+	--type-chip-weight: 500;
+	--type-nav-size: 0.95rem;
+	--type-nav-tracking: 0;
+	--type-button-size: 0.95rem;
+	--type-button-tracking: 0;
+	--type-button-weight: 600;
+
+	--ux-canvas: #ffffff;
+	--ux-canvas-raised: #ffffff;
+	--ux-surface-muted: #f6f7f2;
+	--ux-surface-support: #eef0e8;
+	--ux-content: #1d2124;
+	--ux-content-body: #43494f;
+	--ux-content-muted: #6b7177;
+	--ux-content-soft: #80868b;
+	--ux-content-secondary: #43494f;
+	--ux-content-inverse: #ffffff;
+	--ux-border-source: #1d2124;
+	--ux-sunset-connector: #3b6a00;
+	--ux-action: #1d2124;
+	--ux-action-hover: #3b6a00;
+	--ux-signal: #3b6a00;
+	--ux-signal-wash: #f6f7f2;
+	--ux-focus: #1d2124;
+	--ux-display-emphasis: none;
+
+	--color-accent-bright: #bfff03;
+	--color-mark: rgba(191, 255, 3, 0.6);
+	--color-mark-solid: #d9ff68;
+	/* Lime band under key numbers: a tint behind the lower half on light, a solid stripe under the text on dark. */
+	--mark-band: linear-gradient(transparent 60%, var(--color-mark) 60%, var(--color-mark) 94%, transparent 94%);
+	/* One green. Solid in thin lines (link underline, nav), as a 60% tint in fills (key-number band, button hover). */
+	--color-signal: #bfff03;
+	--color-signal-fill: var(--color-mark-solid);
+	--color-on-signal: #1d2124;
+	--color-border: #e6e6e1;
+	--color-border-soft: #efefea;
+	--color-border-strong: #c9cbc5;
+	--color-link-hover: var(--ux-content);
+	--color-header-link: var(--ux-content-body);
+	--color-header-link-hover: var(--ux-content);
+	--color-hero-proof-value: var(--ux-content);
+	--color-card-bg: var(--ux-canvas);
+	--color-card-bg-hover: var(--ux-surface-muted);
+	--color-card-border: var(--color-border);
+	--color-card-border-hover: var(--color-border-strong);
+	--color-card-subtext: var(--ux-content-body);
+	--color-quote-text: var(--ux-content);
+	--color-footer-bg: var(--ux-canvas);
+	--color-footer-text: var(--ux-content-muted);
+	--color-footer-link: var(--ux-content-muted);
+	--color-footer-link-hover: var(--ux-content);
+	--color-footer-border: var(--color-border);
+
+	--content-width: 58rem;
+	--content-narrow: 44rem;
+	--measure-reading: 44rem;
+	--radius: 0.6rem;
+	--radius-pill: 0.4rem;
+}
+
+:root[data-theme="dark"] {
+	--ux-canvas: #121416;
+	--ux-canvas-raised: #121416;
+	--ux-surface-muted: #1b1e1d;
+	--ux-surface-support: #222624;
+	--ux-content: #eef0ea;
+	--ux-content-body: #d3d7d0;
+	--ux-content-muted: #9ea49e;
+	--ux-content-soft: #8a908a;
+	--ux-content-subtle: #8a908a;
+	--ux-content-secondary: #d3d7d0;
+	--ux-content-inverse: #121416;
+	--ux-border-source: #eef0ea;
+	--ux-sunset-connector: #bfff03;
+	--ux-action: #eef0ea;
+	--ux-action-hover: #bfff03;
+	--ux-signal: #bfff03;
+	--ux-signal-wash: #1b1e1d;
+	--ux-focus: #bfff03;
+	--ux-card-subtext: #d3d7d0;
+	--ux-immersive-canvas: var(--ux-canvas);
+	--ux-display-emphasis: none;
+	--color-mark: rgba(191, 255, 3, 0.34);
+	--mark-band: linear-gradient(transparent 84%, var(--ux-signal) 84%, var(--ux-signal) 97%, transparent 97%);
+	--link-underline-mix: 30%;
+	/* Same interaction policy as light: text keeps its colour on hover, the underline carries the state. */
+	--color-link-hover: var(--ux-content);
+	--color-header-link-hover: var(--ux-content);
+	--color-hero-link-hover: var(--ux-content);
+	--color-footer-link-hover: var(--ux-content);
+	--color-hero-proof-value: var(--ux-content);
+	--color-signal-fill: #bfff03;
+	--color-on-signal: #121416;
+	--color-border: #2a2e2c;
+	--color-border-soft: #232725;
+	--color-border-strong: #3c413e;
+	--color-card-bg: var(--ux-canvas);
+	--color-card-bg-hover: var(--ux-surface-muted);
+	--color-card-border: var(--color-border);
+	--color-card-border-hover: var(--color-border-strong);
+	--color-quote-text: var(--ux-content);
+	--color-footer-link: var(--ux-content-muted);
+	--color-footer-border: var(--color-border);
+}
+
+html,
+body {
+	font-family: var(--font-body);
+}
+
+h1,
+h2,
+h3,
+h4,
+.hero-name,
+.cv-hero__name,
+h1.hero-title,
+.section-title,
+.cv-section__title {
+	font-family: var(--font-display);
+	font-weight: 600;
+	color: var(--color-text);
+}
+
+h4 {
+	font-size: 1.02rem;
+	line-height: 1.35;
+}
+
+.hero-name,
+.cv-hero__name,
+h1.hero-title,
+.section-title,
+.cv-section__title,
+h2 {
+	max-width: 32ch;
+}
+
+.hero-name,
+.cv-hero__name,
+h1.hero-title {
+	max-width: 22ch;
+}
+
+/* No monospace or uppercase labels in style N: labels are quiet sans text. */
+.section-eyebrow,
+.eyebrow.section-eyebrow,
+.card-eyebrow,
+.case-study-eyebrow,
+.eyebrow,
+.proof-label,
+.metric-label,
+.stat-label,
+.home-proof__label,
+.cv-proof-grid span,
+.experience-date,
+.timeline-date,
+.role-period,
+.cv-card__meta,
+.cv-role__period,
+.experience-company,
+.role-company,
+.experience-bullets,
+.role-bullets,
+.case-study-meta,
+.case-study-row,
+.research-theme,
+.research-chip,
+.chip,
+.skill-chip,
+.tool-chip,
+.role-chip,
+.skill-group-title,
+.tool-category-title,
+.site-nav,
+.section-nav,
+.nav-link,
+.button,
+.cta,
+.download-button {
+	font-family: var(--font-sans);
+	text-transform: none;
+	letter-spacing: 0;
+}
+
+.section-eyebrow,
+.eyebrow.section-eyebrow,
+.card-eyebrow,
+.case-study-eyebrow,
+.eyebrow,
+.experience-date,
+.timeline-date,
+.role-period,
+.cv-card__meta,
+.cv-role__period {
+	color: var(--color-muted);
+	font-weight: 500;
+}
+
+.proof-number,
+.metric-value,
+.stat-value,
+.home-proof__value,
+.cv-proof-grid strong,
+.impact-number {
+	font-family: var(--font-sans);
+	color: var(--color-text);
+}
+
+.experience-title,
+.role-title,
+.case-study-title {
+	font-family: var(--font-sans);
+	font-size: clamp(1.2rem, 1.8vw, 1.4rem);
+	line-height: 1.25;
+	letter-spacing: -0.01em;
+}
+
+.experience-thesis,
+.role-thesis,
+.case-study-value,
+.research-intro,
+.impact-text {
+	letter-spacing: 0;
+	font-weight: 400;
+}
+
+.expertise-card--featured .expertise-card__title {
+	font-size: 1.35rem;
+	line-height: 1.25;
+	letter-spacing: -0.01em;
+}
+
+/* Lime highlight under a key number, as on the landing work rows. */
+.num-mark,
+.text-mark {
+	background: var(--mark-band);
+	-webkit-box-decoration-break: clone;
+	box-decoration-break: clone;
+}
+
+/*
+ * Interaction policy (style N)
+ * 1. Primary button: ink fill. 2. Secondary button: grey outline. Both turn to the lime fill on hover.
+ * 3. Text link: thin grey underline that turns ink and 2px on hover, as the active Writing topic; the text colour never changes.
+ * 4. Quiet link (breadcrumbs, TOC, row titles): no underline at rest, the same ink underline on hover.
+ * 4b. Contact CTA text links are the exception: their underline turns lime, next to the button that turns lime.
+ * 5. Block that changes its own background on hover: no underline inside it.
+ * The lime band (.num-mark, .text-mark) is emphasis only, never a link cue.
+ */
+a:not(.button, .skip-link, .site-header a, .project-card__link):not(:has(img, picture, svg, div, span, h2, h3, p)):hover,
+a:not(.button, .skip-link, .site-header a, .project-card__link):not(:has(img, picture, svg, div, span, h2, h3, p)):focus-visible,
+.writing-row:hover .writing-row__title,
+.part:hover .part__title,
+.pub__row--link:hover .pub__title,
+.series-step:hover .series-step__title,
+.cv-results a:hover .cv-results__text,
+.cv-role > summary:hover .cv-role__title,
+.cv-details summary:hover,
+.home-work a:hover .home-work__title,
+.project-card:hover .project-card__read {
+	text-decoration-line: underline;
+	text-decoration-color: var(--color-text) !important;
+	text-decoration-thickness: 2px !important;
+	text-underline-offset: 0.22em;
+}
+
+.contact-cta a:not(.button):hover,
+.contact-cta a:not(.button):focus-visible {
+	color: var(--color-text);
+	text-decoration-color: var(--color-signal) !important;
+}
+
+/* Links change at once on hover: no transition between the rest and hover underline. */
+a,
+.writing-row__title,
+.part__title,
+.pub__title,
+.series-step__title,
+.cv-results__text,
+.cv-role__title,
+.home-work__title,
+.project-card__read {
+	transition: none;
+}
+
+.led {
+	display: inline-block;
+	flex: none;
+	width: 0.5rem;
+	height: 0.5rem;
+	border-radius: 50%;
+	background: var(--color-accent-bright);
+	box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-accent-bright) 30%, transparent);
+}
+
+a {
+	text-decoration-color: color-mix(in srgb, currentColor var(--link-underline-mix, 35%), transparent);
+	text-decoration-thickness: 1px;
+	text-underline-offset: 0.2em;
+}
+
+/*
+ * Dark theme text tiers: headings, leads, values and emphasis use the bright text tone;
+ * running prose and lists use the body tone, so every page reads at the same brightness.
+ */
+:root[data-theme="dark"] :is(.home-lead, .cv-hero__lead, .project-hero__lead) {
+	color: var(--color-text);
+}
+
+:root[data-theme="dark"] :is(.story-block p, .story-block li, .cv-body p, .cv-body li, .project-prose p, .project-prose li, .writing-post__body .prose li) {
+	color: var(--color-body-text);
+}
+
+:root[data-theme="dark"] :is(.project-prose figure img, .writing-post__body .article-figure img) {
+	border-radius: var(--radius, 6px);
+	filter: brightness(0.92);
+}
+
+input[type="radio"],
+input[type="checkbox"] {
+	accent-color: var(--color-text);
+}
+
+:where(p, li, dd, figcaption) > a:hover,
+.prose a:hover,
+.prose a:focus-visible {
+	color: inherit;
+}
+
+*:focus-visible {
+	outline-offset: 3px;
+}
+
+.button {
+	min-height: 40px;
+	border: 1px solid var(--color-border-strong);
+	border-radius: var(--radius-pill);
+	padding: 0.6rem 1.15rem;
+	background: transparent;
+	color: var(--color-text);
+	font-size: var(--type-button-size);
+	font-weight: 600;
+	line-height: 1.2;
+	text-decoration: none;
+	transition: background-color 0.18s ease, border-color 0.18s ease, color 0.18s ease;
+}
+
+.button.primary {
+	border-color: var(--color-text);
+	background: var(--color-text);
+	color: var(--color-page);
+}
+
+.button:hover,
+.button:focus-visible,
+.button.primary:hover,
+.button.primary:focus-visible {
+	border-color: var(--color-signal-fill);
+	background: var(--color-signal-fill);
+	color: var(--color-on-signal);
+	transform: none;
+}
+
+.panel:hover,
+.panel:focus-within {
+	transform: none;
+}
+
+.tag {
+	border: 0;
+	border-radius: 0.3rem;
+	background: var(--color-surface-soft);
+	padding: 0.2rem 0.5rem;
+	color: var(--color-body-text);
+	font-family: var(--font-sans);
+	font-weight: 500;
+}
+
+.prose {
+	font-size: var(--type-body-size);
+	line-height: var(--type-body-line);
+}
+
+.prose h2 {
+	font-size: 1.35rem;
+}
+
+.prose h3 {
+	font-size: 1.12rem;
+}
+
+.section {
+	padding-block: clamp(3rem, 6vw, 4.5rem);
+}
+
+@media (max-width: 760px) {
+	:root {
+		--type-hero-name-size: clamp(2.1rem, 9vw, 2.6rem);
+		--type-hero-name-line: 1.1;
+		--type-section-title-size: clamp(1.4rem, 6vw, 1.6rem);
+		--type-section-title-line: 1.2;
+		--type-proof-number-size: clamp(1.4rem, 6vw, 1.7rem);
+		--type-impact-number-size: clamp(1.35rem, 6vw, 1.6rem);
+	}
+}
+
+@media (min-width: 761px) and (max-width: 1100px) {
+	:root {
+		--type-hero-name-size: clamp(2.4rem, 5.5vw, 3.1rem);
+		--type-section-title-size: clamp(1.5rem, 2.6vw, 1.7rem);
+	}
+}
+
+@media (max-width: 640px) {
+	.page-container,
+	.container,
+	.narrow {
+		width: min(100% - 3rem, var(--content-width));
+	}
+
+	.button {
+		width: auto;
+	}
+}
+
+.sr-only {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border: 0;
 }

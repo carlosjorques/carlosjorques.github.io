@@ -1,6 +1,7 @@
 ---
 title: What Is Control Intelligence for Physical Systems?
 description: A technical article placeholder framing control intelligence as the production layer between sensing, embedded software, algorithms, diagnostics, actuation, and reliable machine behavior.
+teaser: "Control intelligence as the layer between sensing, software, diagnostics and actuation."
 publishDate: 2026-05-14
 category: Physical Systems Engineering
 tags:
