@@ -28,13 +28,18 @@ const wrap = (node) => {
 	for (const child of node.children) {
 		if (child.type === 'element' && child.tagName === 'table') {
 			const table = element('div', 'comparison-table', [child]);
+			table.properties.tabIndex = 0;
 			// Find the caption paragraph just before the table, skipping whitespace.
 			let index = result.length - 1;
 			while (index >= 0 && isBlank(result[index])) index -= 1;
 			const caption = index >= 0 ? captionOf(result[index]) : undefined;
 			if (caption) {
 				result.splice(index);
-				result.push(element('figure', 'article-table', [element('figcaption', undefined, caption), table]));
+				result.push(element('figure', 'article-table', [
+					element('figcaption', undefined, caption),
+					element('p', 'article-table__hint', [{ type: 'text', value: 'Scroll sideways to read all columns →' }]),
+					table,
+				]));
 			} else {
 				result.push(table);
 			}

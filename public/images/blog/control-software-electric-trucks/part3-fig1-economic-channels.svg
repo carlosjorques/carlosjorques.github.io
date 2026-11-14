@@ -117,7 +117,7 @@
      font-size="12.5px"
      font-style="italic"
      fill="#4d4d4d"
-     id="text135883">In service: any truck (scenario A)</text>
+     id="text135883">In service: any truck</text>
   <rect
      x="270"
      y="230"
@@ -132,7 +132,7 @@
      font-size="12.5px"
      font-style="italic"
      fill="#1f4f78"
-     id="text135887">At specification: new models (B, C)</text>
+     id="text135887">When a new truck is specified</text>
   <g
      fill="#ffffff"
      id="g135897">
@@ -256,19 +256,12 @@
      id="rect135927" />
   <text
      x="685"
-     y="211"
+     y="224"
      text-anchor="middle"
      font-size="14px"
      font-weight="bold"
      fill="#1a1a1a"
      id="text135929">Cost per tonne-km</text>
-  <text
-     x="685"
-     y="229"
-     text-anchor="middle"
-     font-size="12.5px"
-     fill="#1a1a1a"
-     id="text135931">and TCO</text>
   <text
      x="685"
      y="251"

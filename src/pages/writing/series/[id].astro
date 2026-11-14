@@ -4,7 +4,7 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
 import ContactCTA from '../../../components/ContactCTA.astro';
 import WritingPartList from '../../../components/writing/WritingPartList.astro';
 import { IDENTITY } from '../../../data/identity';
-import { formatReadingHours, getSeriesGroups, getUpcomingParts, getWritingArticles, seriesCountLabel, type WritingSeriesGroup } from '../../../data/writing';
+import { formatReadingDuration, getSeriesGroups, getUpcomingParts, getWritingArticles, seriesCountLabel, type WritingSeriesGroup } from '../../../data/writing';
 
 /** One shareable page per series: the overview and every part in reading order. */
 export async function getStaticPaths() {
@@ -45,12 +45,12 @@ const structuredData = {
 };
 ---
 
-<BaseLayout title={pageTitle} description={definition.summary} ogImage="/images/og-writing.png" ogImageAlt={`${definition.title}: a series of articles by Carlos Jorques.`}>
+<BaseLayout title={pageTitle} description={definition.summary} ogImage={definition.socialImage?.src ?? '/images/og-writing.png'} ogImageAlt={definition.socialImage?.alt ?? `${definition.title}: a series of articles by Carlos Jorques.`}>
 	<script slot="head" type="application/ld+json" set:html={JSON.stringify(structuredData)} />
 	<div class="series-page">
 		<header class="series-hero" aria-labelledby="series-title">
 			<div class="series-top">
-				<p class="series-meta">Series <span aria-hidden="true">&middot;</span> {seriesCountLabel(group)} <span aria-hidden="true">&middot;</span> {formatReadingHours(totalMinutes)} <span aria-hidden="true">&middot;</span> {monthYear.format(group.started)}</p>
+				<p class="series-meta">Series <span aria-hidden="true">&middot;</span> {seriesCountLabel(group)} <span aria-hidden="true">&middot;</span> {formatReadingDuration(totalMinutes)} <span aria-hidden="true">&middot;</span> {monthYear.format(group.started)}</p>
 				<nav class="series-back" aria-label="Breadcrumb"><a href={withBase('/writing/')}>All writing</a></nav>
 			</div>
 			<div class="series-copy">
@@ -61,12 +61,25 @@ const structuredData = {
 					{project && <>Based on my work on <a href={withBase(`/work/${project.id}/`)} data-analytics-event="related_proof_click" data-cta-id={`series-${definition.id}-project`} data-cta-placement="writing-series" data-cta-intent="proof" data-source-section="series-hero">{project.data.title}</a>.</>}
 					{' '}More <a href={withBase('/about/')}>about me</a>
 				</p>
+				{parts[0] && <p class="series-entry"><a href={parts[0].href} data-analytics-event="writing_article_click" data-cta-id={`series-${definition.id}-first-part`} data-cta-placement="writing-series" data-cta-intent="authority" data-source-section="series-hero">Read Part {parts[0].series?.part}: {parts[0].title} <span aria-hidden="true">&rarr;</span></a></p>}
 			</div>
 		</header>
 
 		{(definition.overview?.length || definition.thesis) && (
 			<section class="series-intro" aria-label="About the series">
 				{definition.overview?.map((paragraph) => <p class="series-overview">{paragraph}</p>)}
+				{definition.roadmap && (
+					<div class="series-roadmap">
+						<p class="series-overview">{definition.roadmap.intro}</p>
+						<ul>
+							{definition.roadmap.parts.map((item, i) => {
+								const part = [...parts, ...upcoming].find((p) => p.series?.part === i + 1);
+								const label = `Part ${i + 1}: ${item.title}.`;
+								return <li><strong>{part ? <a href={part.href} data-analytics-event="writing_article_click" data-cta-id={`series-${definition.id}-roadmap-part-${i + 1}`} data-cta-placement="writing-series" data-cta-intent="authority" data-source-section="series-roadmap">{label}</a> : label}</strong> {item.text}</li>;
+							})}
+						</ul>
+					</div>
+				)}
 				{definition.thesis && (
 					<p class="series-thesis"><span class="series-thesis__frame">The argument</span> <strong>{definition.thesis}</strong></p>
 				)}
@@ -120,6 +133,12 @@ const structuredData = {
 	.series-thesis { color: var(--color-text); }
 	.series-thesis__frame { margin-right: .6rem; color: var(--color-muted); font-family: var(--font-mono); font-size: .86rem; font-weight: 600; letter-spacing: 0; text-transform: none; }
 	.series-thesis strong { font-weight: 650; }
+	.series-roadmap ul { display: grid; gap: .45rem; margin: .6rem 0 0; padding-left: 1.2rem; color: var(--color-body-text); font-size: 1.0625rem; line-height: 1.6; }
+	.series-roadmap strong { color: var(--color-text); font-weight: 650; }
+	.series-entry { margin: .25rem 0 0; font-size: .96rem; font-weight: 600; line-height: 1.5; }
+	.series-entry a { color: var(--color-link); text-decoration-thickness: 1px; text-underline-offset: .2em; }
+	.series-entry a:hover,
+	.series-entry a:focus-visible { color: var(--color-link-hover); }
 	.series-parts { padding-top: clamp(3rem, 6vw, 4.5rem); }
 	.series-parts__title { max-width: none; margin: 0 0 1rem; font-family: var(--font-display); font-size: clamp(1.6rem, 2.6vw, 2.1rem); font-weight: var(--type-section-title-weight); letter-spacing: -.035em; line-height: 1.1; }
 	.series-parts :global(.parts) { display: grid; gap: .75rem; }

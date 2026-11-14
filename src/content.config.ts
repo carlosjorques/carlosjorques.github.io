@@ -5,6 +5,8 @@ const cases = defineCollection({
 	loader: glob({ pattern: '**/*.md', base: './src/content/cases' }),
 	schema: z.object({
 		title: z.string(),
+		/** Browser and search title when it should differ from the H1. */
+		seoTitle: z.string().max(53).optional(),
 		summary: z.string(),
 		role: z.string(),
 		capabilities: z.array(z.string()),
@@ -20,6 +22,8 @@ const writing = defineCollection({
 	loader: glob({ pattern: '**/*.md', base: './src/content/writing' }),
 	schema: z.object({
 		title: z.string(),
+		/** Browser and search title when it should differ from the H1. */
+		seoTitle: z.string().max(53).optional(),
 		subtitle: z.string().optional(),
 		description: z.string(),
 		/** Short summary (100 characters at most) for compact lists such as "Previous articles" and the landing page. Without it, the full description is shown. */
@@ -56,6 +60,12 @@ const writing = defineCollection({
 		 * result of the article, "Why it matters" when it is the context that motivates it.
 		 */
 		keyFigure: z.object({ value: z.string(), label: z.string(), frame: z.enum(['In short', 'Why it matters']).optional() }).optional(),
+		ctaTitle: z.string().optional(),
+		ctaBody: z.string().optional(),
+		midNote: z.object({
+			text: z.string(),
+			links: z.array(z.object({ label: z.string(), href: z.string() })).optional(),
+		}).optional(),
 		featured: z.boolean(),
 		draft: z.boolean(),
 	}),

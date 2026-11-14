@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="360" height="646" viewBox="0 0 360 646" role="img" aria-labelledby="title description" font-family="Arial, Helvetica, sans-serif">
+  <title id="title">Value as a multiple of electricity saved</title>
+  <desc id="description">An efficiency gain alone has a multiple of 1.00. With battery downsizing, the multiple is 1.07. Including the economic channels in Part 3 gives 1.23–2.46 times electricity saved; with the software designed into the vehicle in Part 4, the multiple is 3.25–4.58. Diamonds mark the scenarios within each range.</desc>
+  <rect width="360" height="646" fill="#ffffff"/>
+  <text x="16" y="33" font-size="18" font-weight="700" fill="#202020">The value builds across the series</text>
+  <text x="16" y="56" font-size="14" fill="#4d4d4d">Multiple of the electricity saved</text>
+  <g stroke="#e0e0e0"><path d="M30 90V553M90 90V553M150 90V553M210 90V553M270 90V553M330 90V553"/></g>
+  <path d="M90 90V553" stroke="#999999" stroke-dasharray="4 4"/>
+  <g fill="#202020" font-size="15" font-weight="700">
+    <text x="30" y="120">Increased efficiency · baseline</text>
+    <text x="30" y="225">Battery downsizing · Part 2</text>
+    <text x="30" y="330">Economic compounding · Part 3</text>
+    <text x="30" y="435">Designed into the vehicle · Part 4</text>
+  </g>
+  <g fill="#d6e3f0">
+    <rect x="30" y="139" width="60" height="25"/>
+    <rect x="30" y="244" width="64.2" height="25"/>
+  </g>
+  <g fill="#f2e3d4">
+    <rect x="30" y="349" width="73.8" height="25"/>
+    <rect x="30" y="454" width="195" height="25"/>
+  </g>
+  <g fill="#d98c2b" opacity=".8">
+    <rect x="103.8" y="349" width="73.8" height="25"/>
+    <rect x="225" y="454" width="79.8" height="25"/>
+  </g>
+  <g fill="#ffffff" stroke="#202020" stroke-width="1.7">
+    <path d="M90 136l6 15-6 15-6-15Z"/>
+    <path d="M94.2 241l6 15-6 15-6-15Z"/>
+    <path d="M103.8 346l6 15-6 15-6-15Z"/>
+    <path d="M140.4 346l6 15-6 15-6-15Z"/>
+    <path d="M177.6 346l6 15-6 15-6-15Z"/>
+    <path d="M225 451l6 15-6 15-6-15Z"/>
+    <path d="M304.8 451l6 15-6 15-6-15Z"/>
+  </g>
+  <g fill="#202020" font-size="15">
+    <text x="30" y="189">1.00×</text>
+    <text x="30" y="294">1.07×</text>
+    <text x="30" y="399">1.23–2.46×</text>
+    <text x="30" y="504">3.25–4.58×</text>
+  </g>
+  <g fill="#4d4d4d" font-size="12" text-anchor="middle">
+    <text x="30" y="577">0</text><text x="90" y="577">1</text>
+    <text x="150" y="577">2</text><text x="210" y="577">3</text>
+    <text x="270" y="577">4</text><text x="330" y="577">5</text>
+  </g>
+  <text x="16" y="606" font-size="13" fill="#4d4d4d">Diamonds: scenarios A/B/C and design cases.</text>
+  <text x="344" y="634" text-anchor="end" font-size="11" fill="#999999">carlosjorques.com</text>
+</svg>

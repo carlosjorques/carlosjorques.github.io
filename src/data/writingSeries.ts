@@ -14,6 +14,7 @@ export interface WritingSeries {
 	readonly summary: string;
 	/** Shorter summary for compact lists (landing page), 100 characters at most. */
 	readonly teaser?: string;
+	readonly socialImage?: { readonly src: string; readonly alt: string };
 	/**
 	 * Completes "Part of a series …" under the lead of each part, so a reader who lands on one part
 	 * sees what the whole series covers. About ten words, no numbers (the hook carries those), no
@@ -22,6 +23,11 @@ export interface WritingSeries {
 	readonly partContext?: string;
 	/** Paragraphs shown under the summary on the series page: the context and the main results. */
 	readonly overview?: readonly string[];
+	/** Intro and one line per part for a series overview. */
+	readonly roadmap?: {
+		readonly intro: string;
+		readonly parts: readonly { readonly title: string; readonly text: string }[];
+	};
 	/** The claim the series argues, shown after the overview on the series page. */
 	readonly thesis?: string;
 	/** Slug of the Work project the series draws on (src/content/projects). */
@@ -39,15 +45,28 @@ export const WRITING_SERIES: readonly WritingSeries[] = [
 		id: 'control-software-electric-trucks',
 		title: 'The value of control software in electric heavy-duty trucks',
 		seoTitle: 'The value of control software in electric trucks',
+		socialImage: {
+			src: '/images/blog/control-software-electric-trucks/series-social.png',
+			alt: 'The value of control software in electric heavy-duty trucks: a four-part series. Truck tests showed 2–4% less whole-vehicle energy than production feedback control.',
+		},
 		summary:
-			'What the energy saving of thermal control software is worth in an electric truck: in battery size, cost per tonne-kilometre, haulier profit and vehicle design.',
-		teaser: 'What the energy saving of thermal control software is worth in an electric truck.',
+			'Four articles connect electric-truck thermal control to battery size, energy use, haulier economics and vehicle design, with detailed evidence in appendices.',
+		teaser: 'Four short articles on what thermal control is worth in an electric truck.',
 		partContext: 'on what thermal control software is worth in an electric truck',
 		overview: [
-			'An electric long-haul truck carries a battery sized for the worst-case scenario, and in the reference truck of this series that battery is about 32% of the purchase price. Predictive thermal control saves 2⁠–⁠4% of the energy of the truck. Used for a smaller battery, more freight or shorter charging, that saving is worth 1.2–2.5 times the electricity alone, and a 3% gain reaches 21,600–30,500 € per truck over 8 years when the vehicle is designed around the software.',
+			'An electric truck carries a battery sized for a difficult route, but its mass and cost travel on every route. In truck tests, predictive and optimisation-based thermal control reduced whole-vehicle energy use by 2–4% against production feedback control. When I apply that tested range to the reference long-haul truck, the base model returns 5,500–21,500 € over eight years, depending on whether the battery is kept or reduced for payload. Further assumed winter, ageing and design effects raise the modelled value of a 3% average gain to 21,600–30,500 € when the vehicle is specified around it. Those further effects are not truck-test results.',
 		],
+		roadmap: {
+			intro: 'Each part follows one decision in that chain. Its appendix keeps the calculations and evidence limits available without interrupting the main argument.',
+			parts: [
+				{ title: 'How thermal limits set the battery size of an electric truck', text: 'How cold-weather demand sets the battery size, payload and cost, and when control can change it.' },
+				{ title: 'How predictive thermal control saves energy in electric trucks', text: 'How actuator allocation and route preview save energy, and how the truck result was measured.' },
+				{ title: 'How a 3% efficiency gain changes the economics of an electric truck', text: 'How the same gain reaches electricity cost, battery cost, payload and operating profit.' },
+				{ title: 'Control software performance as a vehicle design input', text: 'Which further benefits depend on early evidence rather than the measured average saving.' },
+			],
+		},
 		thesis:
-			'Thermal control software is usually valued only for the electricity it saves. How it is designed also decides how large the battery must be, how long it lasts and how fast it charges, and that gives it as much weight in the business case as the price of electricity itself.',
+			'The same saving can become more range on a built truck or a smaller battery in a new design. The latter requires evidence on the route and conditions that set its specification.',
 		relatedProject: 'electric-truck-thermal-management',
 	},
 ];

@@ -35,7 +35,7 @@ export default function rehypeSplitReferences() {
 			}
 
 			const [heading, ...content] = children.splice(start, end - start);
-			const html = toHtml({ type: 'root', children: content }).trim();
+			const html = toHtml({ type: 'root', children: content }, { allowDangerousHtml: true }).trim();
 			if (!html) continue;
 
 			file.data.astro ??= {};

@@ -10,12 +10,17 @@ export async function GET(context: APIContext) {
 	const absolute = (href: string) => new URL(href, site).toString();
 	const articles = await getWritingArticles({ includeDrafts: false });
 	const feedUrl = absolute(`${import.meta.env.BASE_URL}rss.xml`);
-	const lastBuild = articles[0]?.date ?? new Date();
+	const lastBuild = articles.reduce((latest, article) => {
+		const revision = article.updatedDate ?? article.date;
+		return revision > latest ? revision : latest;
+	}, articles[0]?.date ?? new Date());
 
 	const items = articles
 		.map((article) => {
 			const url = absolute(article.href);
-			const title = article.series ? `${article.title} (${article.fullTitle})` : article.fullTitle;
+			const title = article.series && article.title !== article.fullTitle
+				? `${article.title} (${article.fullTitle})`
+				: article.fullTitle;
 			return `		<item>
 			<title>${escapeXml(title)}</title>
 			<link>${escapeXml(url)}</link>
