@@ -50,23 +50,23 @@ export const WRITING_SERIES: readonly WritingSeries[] = [
 			alt: 'The value of control software in electric heavy-duty trucks: a four-part series. Truck tests showed 2–4% less whole-vehicle energy than production feedback control.',
 		},
 		summary:
-			'Four articles connect electric-truck thermal control to battery size, energy use, haulier economics and vehicle design, with detailed evidence in appendices.',
-		teaser: 'Four short articles on what thermal control is worth in an electric truck.',
+			'These four articles investigate how thermal control software in electric trucks affects battery size, energy use, haulier economics and vehicle design.',
+		teaser: 'Explore how software can make electric trucks more efficient and what that is worth to the haulier.',
 		partContext: 'on what thermal control software is worth in an electric truck',
 		overview: [
-			'An electric truck carries a battery sized for a difficult route, but its mass and cost travel on every route. In truck tests, predictive and optimisation-based thermal control reduced whole-vehicle energy use by 2–4% against production feedback control. When I apply that tested range to the reference long-haul truck, the base model returns 5,500–21,500 € over eight years, depending on whether the battery is kept or reduced for payload. Further assumed winter, ageing and design effects raise the modelled value of a 3% average gain to 21,600–30,500 € when the vehicle is specified around it. Those further effects are not truck-test results.',
+			'An electric truck carries a battery sized for its hardest route, usually a cold day at full load near the end of the battery\'s life. In truck tests, predictive and optimisation-based thermal control used 2–4% less whole-vehicle energy than production feedback control. Valued at 3%, the middle of that range, the saving is worth 8,100 € per long-haul truck over eight years when the battery is kept, and up to 16,300 € when a smaller battery carries more payload. If the truck is designed around the same gain, and the assumed winter, ageing and design effects hold, the modelled value rises to 21,600–30,500 €.',
 		],
 		roadmap: {
-			intro: 'Each part follows one decision in that chain. Its appendix keeps the calculations and evidence limits available without interrupting the main argument.',
+			intro: 'Each part takes one step from the route to the vehicle design. A detailed discussion of the methodology and its limitations is also included in the appendices.',
 			parts: [
-				{ title: 'How thermal limits set the battery size of an electric truck', text: 'How cold-weather demand sets the battery size, payload and cost, and when control can change it.' },
-				{ title: 'How predictive thermal control saves energy in electric trucks', text: 'How actuator allocation and route preview save energy, and how the truck result was measured.' },
-				{ title: 'How a 3% efficiency gain changes the economics of an electric truck', text: 'How the same gain reaches electricity cost, battery cost, payload and operating profit.' },
-				{ title: 'Control software performance as a vehicle design input', text: 'Which further benefits depend on early evidence rather than the measured average saving.' },
+				{ title: 'How thermal limits set the battery size of an electric truck', text: 'The cold route at the end of the battery\'s life sets its capacity, and the battery is about a third of the truck\'s price.' },
+				{ title: 'How predictive thermal control saves energy in electric trucks', text: 'Which actuator does the thermal work and when, and how the 2–4% saving was measured on trucks.' },
+				{ title: 'How a 3% efficiency gain changes the economics of an electric truck', text: 'What a 3% gain is worth to a haulier, and why a thin margin magnifies it.' },
+				{ title: 'Control software performance as a vehicle design input', text: 'What the gain adds when it is known before the hardware is frozen, and the evidence this requires.' },
 			],
 		},
 		thesis:
-			'The same saving can become more range on a built truck or a smaller battery in a new design. The latter requires evidence on the route and conditions that set its specification.',
+			'On a truck already built, the saving gives more range. In a new design, it can give a smaller battery, but only with prior knowledge of the route and conditions set in the specification.',
 		relatedProject: 'electric-truck-thermal-management',
 	},
 ];

@@ -94,7 +94,7 @@ The software is built in MATLAB/Simulink with C code generation, and every relea
 
 ## A 3% energy saving can be worth up to 4.6 times the electricity it saves
 
-The saving reaches the haulier through the electricity bill, a smaller battery, more payload and shorter charging. In my life-cycle cost model of a 40-tonne long-haul truck over 8 years, **2–4% is worth 5,500–21,500 € per truck**, which raises the haulier's operating profit by 24–96%. If the battery is sized for the gain from the start, **a 3% gain is worth up to 30,500 € per truck, 4.6 times the electricity saved**. These are my estimates, not Scania figures, and they do not deduct the development cost. ([Part 3: the business case](/writing/control-software-electric-trucks-part-3-business-case/) · [Part 4: vehicle design](/writing/control-software-electric-trucks-part-4-design/))
+The saving reaches the haulier through the electricity bill, a smaller battery, more payload and shorter charging. In my life-cycle cost model of a 40-tonne long-haul truck over 8 years, **a 3% gain is worth 8,100 € per truck with the battery kept and up to 16,300 € with a smaller battery**, which raises the haulier's operating profit by 36–73%. If the battery is sized for the gain from the start, **the same gain is worth up to 30,500 € per truck, 4.6 times the electricity saved**. These are my estimates, not Scania figures, and they do not deduct the development cost. ([Part 3: the business case](/writing/control-software-electric-trucks-part-3-business-case/) · [Part 4: vehicle design](/writing/control-software-electric-trucks-part-4-design/))
 
 ## What the Scania project taught me about designing thermal control
 

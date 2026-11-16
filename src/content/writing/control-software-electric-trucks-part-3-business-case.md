@@ -3,10 +3,10 @@ title: "How a 3% efficiency gain changes the economics of an electric truck"
 subtitle: "How a 3% efficiency gain changes the economics of an electric truck"
 seoTitle: "Electric-truck efficiency: the value of a 3% gain"
 description: "A 3% efficiency gain is worth 8,100–16,300 € over 8 years for a modelled electric long-haul truck. Follow its effects on battery size, payload and profit."
-teaser: "What a 2–4% energy saving is worth to the haulier, per tonne-kilometre and per truck."
+teaser: "What a 3% energy saving is worth to the haulier, per tonne-kilometre and per truck."
 publishDate: 2026-11-02
-updatedDate: 2026-11-14
-readingTime: 16 min read
+updatedDate: 2026-11-17
+readingTime: 15 min read
 category: Physical Systems Engineering
 tags:
   - Electric trucks
@@ -14,8 +14,8 @@ tags:
   - Energy efficiency
   - Fleet economics
 keyFigure:
-  value: "5,500–21,500 €"
-  label: "of value per truck over 8 years"
+  value: "8,100–16,300 €"
+  label: "of value per truck over 8 years from a 3% gain"
 socialImage:
   src: "/images/blog/control-software-electric-trucks/part3-social.png"
   alt: "Part 3 of 4. How a 3% efficiency gain changes the economics of an electric truck. In the model, the saving is worth 1.2–2.5 times the electricity alone when the truck's use and specification are considered."
@@ -30,20 +30,15 @@ series:
   part: 3
 ---
 
-## A truck is a production asset
+A private car buyer asks how far the car can go on a charge. A haulier asks instead what it costs to move one tonne of freight over one kilometre, the *cost per tonne-kilometre*. This is the price hauliers compete on, and it combines what a truck costs over its life (the truck and its battery, the driver, the electricity and the maintenance) with the freight it can carry.
 
-Thermal control software is evaluated in kilowatt-hours, whilst an electric truck is bought on its cost. A private car buyer asks how far the car can go on a charge, whereas a haulier asks what it costs to move one tonne of freight over one kilometre (the *cost per tonne-kilometre*). **For the trucks modelled here, a 2–4% energy saving is worth 1.2–2.5 times the electricity saved once it is valued in the haulier's units.**
-
-The cost per tonne-kilometre is the price hauliers compete on. It combines what a truck costs over its life (the truck and its battery, the driver, the electricity and the maintenance) with the freight it can carry. [Part 2](/writing/control-software-electric-trucks-part-2-engineering/) showed how predictive thermal control saves 2–4% of the energy against production feedback control. In engineering units this is a modest figure, and three challenges decide how much of it reaches the haulier's costs and profit:
-1. **Electricity is only a fraction of the cost**, so the saving alone moves the cost per tonne-kilometre little.
-2. **The gain must be known before the truck is specified**, otherwise it cannot reduce the battery cost or add payload.
-3. **The operating margin is thin**, so each euro saved is a large share of the haulier's profit.
+Thermal control software, by contrast, is evaluated in kilowatt-hours, and its gain looks small. [Part 2](/writing/control-software-electric-trucks-part-2-engineering/) showed that predictive thermal control saves 2–4% of the energy against production feedback control, and this article uses the middle value, 3%. Since electricity is only a fraction of a truck's cost, the electricity saved alone lowers the cost per tonne-kilometre little. The gain, however, reaches further than the electricity bill. A more efficient truck needs a smaller battery, which lowers its price and frees payload, provided the gain is known before the truck is specified. **For the modelled long-haul truck, a 3% saving is then worth 8,100 € over 8 years with the battery kept and up to 16,300 € with a smaller battery, 1.2–2.5 times the electricity it saves.** Because road haulage runs on thin margins, that value is also a large share of the profit. This article shows how each of these effects arises and what it is worth.
 
 ## 1. A saving reaches the haulier through four channels
 
-A truck investment is judged on what it costs, through the *total cost of ownership* (TCO) and the cost per tonne-kilometre, and on what it earns, through operating profit, return on investment (ROI) and net present value (NPV) [1]. TCO adds up the purchase and running costs and subtracts resale value. Cost per tonne-kilometre divides that cost by the freight moved. ROI compares the profit with the price paid for the truck, whilst NPV also accounts for when the money is earned. To isolate the effect of energy efficiency, I leave out tolls, subsidies, carbon prices and comparisons with diesel trucks, since they depend on policy.
+A truck investment is judged on what it costs and on what it earns [1]. Cost is measured by the *total cost of ownership* (TCO) and the cost per tonne-kilometre, and earnings by operating profit, return on investment (ROI) and net present value (NPV). TCO adds up the purchase and running costs and subtracts resale value. Cost per tonne-kilometre divides that cost by the freight moved. ROI compares the profit with the price paid for the truck. NPV also accounts for when the money is earned. To isolate the effect of energy efficiency, I leave out tolls, subsidies, carbon prices and comparisons with diesel trucks, since they depend on policy.
 
-With the metrics defined, the next question is how an energy saving reaches them. It does so through four channels:
+I built the cost model to follow the chain of effects behind a kilowatt-hour figure, in which a smaller battery lowers consumption again and frees mass and charging time. An energy saving reaches these metrics through four channels:
 1. **Electricity:** less energy is bought per kilometre.
 2. **Battery:** the same range can be delivered with a smaller battery, which costs less to buy.
 3. **Payload:** a smaller battery weighs less. A truck that reaches its legal weight limit before its cargo space is full (a *weight-limited* truck) can therefore carry more freight.
@@ -54,9 +49,9 @@ Electricity and time apply even to a truck in service, although a shorter chargi
 <figure class="article-figure article-figure--responsive article-figure--wide-mobile">
 	<picture>
 		<source media="(max-width: 720px)" srcset="/images/blog/control-software-electric-trucks/part3-fig1-economic-channels-mobile.svg" width="360" height="868" />
-		<img src="/images/blog/control-software-electric-trucks/part3-fig1-economic-channels.svg" width="1050" height="490" alt="Diagram of four channels for a 2–4% efficiency gain. Electricity and charging time reach trucks in service, worth about 1.2 times the electricity saved. Battery cost and payload add value when a new truck is specified, worth up to 2.5 times the electricity saved. The cost per tonne-kilometre falls by 0.5–1.9%, whilst operating profit rises by 24–96% at a 2% margin." loading="lazy"  />
+		<img src="/images/blog/control-software-electric-trucks/part3-fig1-economic-channels.svg" width="1050" height="490" alt="Diagram of four channels for a 3% efficiency gain. Electricity and charging time reach trucks in service, worth about 1.2 times the electricity saved. Battery cost and payload add value when a new truck is specified, worth up to 2.5 times the electricity saved. The cost per tonne-kilometre falls by 0.7–1.4%, and operating profit rises by 36–73% at a 2% margin." loading="lazy"  />
 	</picture>
-	<figcaption>Figure 1. The four channels through which an efficiency improvement reaches the buyer's metrics. Electricity and time reach a truck in service, whilst battery and payload are captured when a new truck is specified. The 2–4% gain is described in <a href="/writing/control-software-electric-trucks-part-2-engineering/">Part 2</a>. The −0.5 to −1.9% range is for cost per tonne-kilometre in the normalised truck of section 3, not for TCO.</figcaption>
+	<figcaption>Figure 1. The four channels through which an efficiency improvement reaches the buyer's metrics. Electricity and time reach a truck in service. Battery and payload are captured only when a new truck is specified. The 3% gain is the middle of the 2–4% range in <a href="/writing/control-software-electric-trucks-part-2-engineering/">Part 2</a>. The −0.7 to −1.4% range applies to the cost per tonne-kilometre of the normalised truck in section 3, where the TCO change is also given.</figcaption>
 </figure>
 
 This split between trucks in service and new trucks becomes the three scenarios calculated in section 3: keep the battery, downsize it for mixed freight, or downsize it for weight-limited work.
@@ -65,7 +60,7 @@ This split between trucks in service and new trucks becomes the three scenarios 
 
 ### 2.1 Electricity is a fifth of the cost in long-haul
 
-How large each channel is depends on the truck: on the share of energy in its cost, on its battery mass and on its payload. To see how these differ, I modelled fifteen electric trucks currently on the market over 8 years in six applications: European long-haul, regional, urban and construction, and US long-haul and regional. Their batteries weigh 1.6–5.1 tonnes, from 280 kWh in urban trucks to 900 kWh in long-haul trucks. The share of the cost spent on energy and on the driver is plotted per application in Figure 2.
+How large each channel is depends on the truck, namely on the share of energy in its cost, its battery mass and its payload. Since these differ by application, I modelled fifteen electric trucks currently on the market over 8 years in six applications: European long-haul, regional, urban and construction, and US long-haul and regional. Their batteries weigh 1.6–5.1 tonnes, from 280 kWh in urban trucks to 900 kWh in long-haul trucks. The share of the cost spent on energy and on the driver is plotted per application in Figure 2.
 
 <figure class="article-figure article-figure--responsive article-figure--wide-mobile">
 	<picture>
@@ -75,7 +70,7 @@ How large each channel is depends on the truck: on the share of energy in its co
 	<figcaption>Figure 2. Breakdown of the 8-year TCO by application, pooled over the fifteen modelled trucks. Undiscounted, with residual value and tolls excluded. The labels give the energy and driver shares.</figcaption>
 </figure>
 
-Energy is about a fifth of the cost of a long-haul truck and about a tenth in urban use, and the driver is the largest cost everywhere. **This is the first challenge in numbers: the electricity channel acts on only 10–21% of the cost in these applications.** As a result, the electricity saved alone lowers the total cost by only a fraction of the efficiency gain.
+Energy is about a fifth of the cost of a long-haul truck and about a tenth in urban use, and the driver is the largest cost everywhere. **The electricity channel therefore acts on only 10–21% of the cost in these applications, and the electricity saved alone lowers the total cost by a fraction of the efficiency gain.**
 
 The battery mass offers a second channel, because a more efficient truck needs less battery for the same range. A 3% improvement either removes 64–150 kg of battery or, if the battery is kept, adds 10–23 km of range, and the two uses exclude each other. Whether that mass can be removed depends on how the battery is built.
 
@@ -94,13 +89,13 @@ The value of a smaller battery assumes capacity can be resized freely. Batteries
 | Mercedes eActros 400 | 448 | 112 | 4 | 33% | 772 |
 | Volvo FL Electric | 280 | 70 | 4 | 33% | 400 |
 
-The smallest improvement needed is 12%, well above the 2–4% that thermal control delivers. Trucks already on the road therefore receive the gain as lower consumption, more range and shorter charging, but they keep their battery. The battery and payload value is captured when new models and variants are specified, when the module sizes are chosen, or when a fleet chooses between battery options. **This is the second challenge: the efficiency that control software delivers has to be known at the concept stage, before the hardware is fixed.**
+**The smallest improvement needed is 12%, well above the 2–4% that thermal control delivers.** Trucks already on the road therefore receive the gain as lower consumption, more range and shorter charging, but they keep their battery. The battery and payload value is captured only when a new model or variant is specified, including its module sizes, or when a fleet chooses between battery options. For the battery to shrink, the efficiency that control software delivers has to be known at the concept stage, before the hardware is fixed.
 
-## 3. A 3% gain is worth 8,100–16,300 € per truck
+## 3. A 3% gain is worth up to 16,300 € per truck
 
-### 3.1 One reference truck keeps the comparison consistent
+### 3.1 The normalised truck
 
-Quantifying the value of the four channels requires a single reference truck, on which the gain can be followed through every metric. For this purpose, I built a *normalised truck*: a European 40-tonne long-haul truck that averages the Mercedes-Benz eActros 600, the Volvo FH Aero Electric, the MAN eTGX and Scania's long-haul electric truck [2, 3, 4, 5]. Its main values are listed in Table 2.
+Quantifying the value of the four channels requires a single reference truck, on which the gain can be followed through every metric. For this purpose, I built a *normalised truck*, a European 40-tonne long-haul truck. It averages the Mercedes-Benz eActros 600, the Volvo FH Aero Electric, the MAN eTGX and Scania's long-haul electric truck [2, 3, 4, 5], and its main values are listed in Table 2.
 
 *Table 2. Parameters and baseline results of the normalised truck.*
 
@@ -115,16 +110,16 @@ Quantifying the value of the four channels requires a single reference truck, on
 | Cost per tonne-kilometre | 7.8 euro cents |
 | Operating margin and lifetime ROI | 2% and about 7% |
 
-The TCO is close to the ICCT's estimate for a 2023 European electric long-haul truck, about 1.14 € per kilometre here against 1.26 € in the ICCT study [1]. I set the margin low on purpose, to match the sector. French hauliers made a pre-tax margin of 1.4–2.2% in 2022–2023, and 40% of them made a loss [6]. At a 2% margin and a 7% cost of capital, the baseline truck does not quite pay back its capital: its net present value is about −69,000 €. With so little profit, a small change in cost is a large share of it, which is the third challenge. The model behind these values, its parameters and its sensitivity are described in the appendix.
+The TCO is close to the ICCT's estimate for a 2023 European electric long-haul truck, about 1.14 € per kilometre here against 1.26 € in the ICCT study [1]. I set the margin low on purpose, to match the sector. French hauliers made a pre-tax margin of 1.4–2.2% in 2022–2023, and 40% of them made a loss [6]. At a 2% margin and a 7% cost of capital, the baseline truck does not quite pay back its capital, with a net present value of about −69,000 €. With so little profit, a small change in cost is a large share of it. The model behind these values, its parameters and its sensitivity are described in the appendix.
 
 On this truck, I compared the three uses of the improvement outlined in section 1, which activate more of the four channels from A to C:
 - **A, keep the battery:** the truck uses less electricity, gains range and spends less time charging. This applies to any truck already in service.
 - **B, smaller battery with mixed freight:** the battery is downsized to the original range, so the truck becomes cheaper and lighter. 30% of the work is weight-limited.
 - **C, smaller battery with heavy freight:** as B, but on weight-limited work such as building materials, liquids, timber or bulk goods, where every kilogram saved becomes cargo.
 
-### 3.2 The battery and the freight separate the three results
+### 3.2 Results for the three scenarios
 
-The physical quantities follow the improvement almost one to one: battery capacity, energy per tonne-kilometre and charging time fall by 2.0–4.5% across the 2–4% improvement range. The costs follow much less closely. The cost-only TCO, which leaves out the revenue from extra freight, falls by at most 1.2%, because the driver and the other fixed costs stay. The value of a 3% improvement, including any extra freight revenue, is broken down by source in Figure 3, per truck over 8 years.
+The physical quantities follow the improvement almost one to one. Battery capacity, energy per tonne-kilometre and charging time fall by 2.0–4.5% across the 2–4% improvement range. The costs follow much less closely. The cost-only TCO, which leaves out the revenue from extra freight, falls by at most 1.2%, because the driver and the other fixed costs stay. The value of a 3% improvement, including any extra freight revenue, is broken down by source in Figure 3, per truck over 8 years.
 
 <figure class="article-figure article-figure--inspect-mobile article-figure--print" style="--figure-max: 52rem; --figure-inspect-width: 1050px">
 	<p class="article-figure__inspection-link" style="margin:0 0 .6rem">Swipe sideways to inspect the plot, or <a href="/images/blog/control-software-electric-trucks/part3-fig3-value-by-source.png" target="_blank" rel="noopener noreferrer">open the full-resolution image</a>.</p>
@@ -134,13 +129,13 @@ The physical quantities follow the improvement almost one to one: battery capaci
 	<figcaption>Figure 3. Value of a 3% efficiency improvement per truck over 8 years, by source, for the three scenarios. The bars below zero are the faster ageing of the smaller battery in scenarios B and C (Appendix B, step 5). The diamonds give the net total and the whiskers the totals at 2% and 4%, and the dotted line marks the electricity saved alone. In scenario C, the parts add up to 16,400 €, and the difference from the total is rounding.</figcaption>
 </figure>
 
-Start with the electricity in Figure 3: it saves 6,600 € in all three scenarios, and driver time at the charger adds 1,100 €. Above the electricity, the scenarios separate: the smaller battery saves 2,900 € in B and C, and the extra freight is worth 1,900 € in B and 6,300 € in C, because only C uses every kilogram saved for cargo. A slightly smaller battery cycles more deeply, which partly offsets these gains through ageing (Appendix B, step 5). **Kept as extra range, a 3% improvement returns 1.23 times its electricity value. Used to specify a smaller battery for heavy freight, it returns 2.46 times**, because each kilogram of battery avoided can carry paying freight over eight years.
+The electricity in Figure 3 saves 6,600 € in all three scenarios, and driver time at the charger adds 1,100 €. Above it, the scenarios separate. The smaller battery saves 2,900 € in B and C. The extra freight is worth 1,900 € in B but 6,300 € in C, because only C uses every kilogram saved for cargo. A slightly smaller battery cycles more deeply, which partly offsets these gains through ageing (Appendix B, step 5). A 3% improvement kept as extra range therefore returns 1.23 times its electricity value. Used to specify a smaller battery for heavy freight, it returns 2.46 times, because each kilogram of battery avoided can carry paying freight over eight years. The 2–4% range of Part 2 moves each value by about a third, from 5,500 € in A at 2% to 21,500 € in C at 4%, as the whiskers in Figure 3 show.
 
-The 16,300 € in C is about 1.5% of the normalised truck's 1.10-million-euro TCO, but not all of it reduces that TCO. The extra freight adds revenue and increases the transport work over which costs are spread. **Cost per tonne-kilometre therefore falls by 0.5–1.0% when the battery is kept and by up to 1.9% when it is downsized.** Since hauliers compete on this price, it is the change that reaches their customers.
+The 16,300 € in C is about 1.5% of the normalised truck's 1.10-million-euro TCO, but not all of it reduces that TCO. The extra freight adds revenue and increases the transport work over which costs are spread. **Cost per tonne-kilometre therefore falls by 0.7% when the battery is kept and by up to 1.4% when it is downsized.** Since hauliers compete on this price, it is the change that reaches their customers.
 
 ## 4. A thin margin turns small savings into large profit changes
 
-Profit shows what the saving leaves to the haulier, and this is where the third challenge, the thin margin, takes effect. In the model, the truck earns about 140,000 € per year and keeps 2% of it, about 2,800 €, as operating profit, in line with the margins the sector reports [6]. A 2% improvement in mixed freight is worth about 1,000 € per year, which raises that profit by more than a third. For a 3% improvement, Figure 4 compares the annual profit and lifetime ROI across scenarios A to C. Its whiskers show the 2–4% improvement range.
+Profit shows what the saving leaves to the haulier, and here the thin margin takes effect. In the model, the truck earns about 140,000 € per year and keeps 2% of it, about 2,800 €, as operating profit, in line with the margins the sector reports [6]. **A 3% improvement with the battery kept is worth about 1,000 € per year, which raises that profit by more than a third.** For a 3% improvement, Figure 4 compares the annual profit and lifetime ROI across scenarios A to C. Its whiskers show the 2–4% improvement range.
 
 <figure class="article-figure article-figure--inspect-mobile article-figure--print" style="--figure-max: 52rem">
 	<p class="article-figure__inspection-link" style="margin:0 0 .6rem">Swipe sideways to inspect both plots, or <a href="/images/blog/control-software-electric-trucks/part3-fig4-profit-roi.png" target="_blank" rel="noopener noreferrer">open the full-resolution image</a>.</p>
@@ -164,26 +159,24 @@ The large percentages in Figure 4 come from the margin. The value in euros does 
 	<figcaption>Figure 5. Increase in operating profit from a 3% efficiency improvement, as a function of the baseline operating margin from 1% to 5%. The annual saving in euros stays fixed within each scenario, and only the starting margin changes. The shaded band is the pre-tax margin of French hauliers in 2022–2023 [6].</figcaption>
 </figure>
 
-Read the shaded band in Figure 5 first: around a 2% margin, 1,000–2,000 € per year raises profit by 36–73%, whilst at a 5% margin the same euros raise it by about 14–29%. Over the full 2–4% efficiency range, operating profit rises by 24–96% and lifetime ROI by 1.8–7.3 percentage points. The thin margin is a challenge for the haulier, but it also makes a small efficiency gain visible in the profit. For the same reason, a percentage gain in profit cannot be transferred from one fleet to another. The euros saved have to be compared with each fleet's own margin, because the same saving is a smaller share of a more profitable fleet's earnings.
+Within the shaded band of Figure 5, around a 2% margin, 1,000–2,000 € per year raises profit by 36–73%. At a 5% margin, the same euros raise it by about 14–29%. Over the full 2–4% efficiency range, operating profit rises by 24–96% and lifetime ROI by 1.8–7.3 percentage points. The thin margin is a challenge for the haulier, but it also makes a small efficiency gain visible in the profit. For the same reason, a percentage gain in profit cannot be transferred from one fleet to another. The euros saved have to be compared with each fleet's own margin, because the same saving is a smaller share of a more profitable fleet's earnings.
 
 ## 5. Control software belongs in the battery decision
 
-Most of the value beyond the electricity comes from battery hardware that is not bought, so the cost of obtaining the gain has to be compared with the cost of that hardware. Every kilowatt-hour of battery is paid for on every truck built, and every kilogram of it is paid for again as lost payload. Control software takes a large engineering effort to develop and validate, as described in [Part 2](/writing/control-software-electric-trucks-part-2-engineering/), but once released, it runs on every truck at almost no additional cost per vehicle. Consequently, its value grows with the number of trucks, whilst most of its cost is paid once. Across 10,000 trucks, a 2–4% improvement used to size the battery is worth 80–215 million € to operators and avoids 19–38 million € of battery hardware.
+Most of the value beyond the electricity comes from battery hardware that is not bought, so the cost of obtaining the gain has to be compared with the cost of that hardware. Every kilowatt-hour of battery is paid for on every truck built, and every kilogram of it is paid for again as lost payload. Control software takes a large engineering effort to develop and validate, as described in [Part 2](/writing/control-software-electric-trucks-part-2-engineering/), but once released, it runs on every truck at almost no additional cost per vehicle. **Consequently, its value grows with the number of trucks, whilst most of its cost is paid once.** Across 10,000 trucks, a 3% improvement used to size the battery is worth 122–163 million € to operators and avoids about 29 million € of battery hardware.
 
 ### 5.1 Control performance has to reach the specification
 
 To capture that hardware value, control performance must be available when the battery options are decided. This changes three decisions in how electric trucks are developed and sold:
 1. **Know the control performance early:** the battery is sized at the concept stage for the worst case. If the efficiency of the thermal control is only known after the hardware is fixed, the battery is sized for a less efficient truck than the one that will be built.
-2. **Value the software in the buyer's units:** presented as "5,000–20,000 € per truck", a thermal control improvement can be compared with the other items of the purchase decision. Presented as "2–4% energy", it cannot.
+2. **Value the software in the buyer's units:** presented as "8,000–16,000 € per truck", a thermal control improvement can be compared with the other items of the purchase decision. Presented as "2–4% energy", it cannot.
 3. **Match the use of the gain to the application:** routes with few chargers gain most from extra range and shorter charging, price-sensitive fleets from a cheaper battery, and heavy freight from extra payload.
 
 ## Summary and conclusions
 
-An efficiency gain from thermal control software, such as the 2–4% of [Part 2](/writing/control-software-electric-trucks-part-2-engineering/), is measured in kilowatt-hours, whilst a haulier buys a truck on its cost per tonne-kilometre. The gain reaches that cost through four channels: less electricity, a smaller battery, more payload on weight-limited routes and shorter charging stops.
+The 2–4% efficiency gain of [Part 2](/writing/control-software-electric-trucks-part-2-engineering/) reaches a haulier's cost per tonne-kilometre through less electricity, a smaller battery, more payload on weight-limited routes and shorter charging stops.
 
-**For a European 40-tonne long-haul truck over 8 years, a 2–4% gain is worth 5,500–21,500 € per truck.** The cost per tonne-kilometre falls by 0.5–1.0% when the battery is kept, and by up to 1.9% when the battery is downsized and the mass saved becomes cargo. The value is 1.23 times the electricity saved with the battery kept, and up to 2.46 times with heavy freight. **With an operating margin of about 2%, a haulier earns about 2,800 € per truck and year, and the same savings add 700–2,700 € to that profit, an increase of 24–96%.**
-
-Three quantities decide the value of an efficiency gain in a commercial vehicle: the share of energy in its total cost, whether the gain is known when the vehicle is specified, and the operator's margin. A gain known only after specification still reduces electricity use and charging time. **A gain predicted and validated early enough also reaches battery cost and payload.**
+**A 3% gain is worth 8,100 € per European 40-tonne long-haul truck over 8 years with the battery kept, and up to 16,300 € with a smaller battery and heavy freight.** That is 1.23 and up to 2.46 times the electricity saved. The cost per tonne-kilometre falls by 0.7% when the battery is kept, and by up to 1.4% when the battery is downsized and the mass saved becomes cargo. With an operating margin of about 2%, a haulier earns about 2,800 € per truck and year, and the same savings add 1,000–2,000 € to that profit, an increase of 36–73%. Across the full 2–4% range, the value spans 5,500–21,500 € per truck.
 
 I built this cost model to assess the control strategies I develop both in kilowatt-hours and in euros per tonne-kilometre. These figures exclude the development cost of the software (Appendix A) and the cold-weather and ageing effects that [Part 4](/writing/control-software-electric-trucks-part-4-design/) adds when it asks how early the gain must be known.
 
@@ -191,17 +184,16 @@ I built this cost model to assess the control strategies I develop both in kilow
 
 ### A. Limits of the estimate
 
-The figures come from my own cost model. They give the scale of the value for a typical European long-haul truck, not a forecast for a specific vehicle or fleet. Section 2 shows how cost shares vary across applications. The 8,100–16,300 € result in section 3 applies only to the normalised truck, which keeps cost-only TCO and extra freight revenue separate. Three further choices limit the estimate:
-- **Charging time:** a 45-minute break is mandatory after 4.5 hours of driving [7], and about 30 minutes of megawatt charging fits within it [8]. Only half of the charging time is therefore counted as paid driver time.
-- **Development cost:** the cost of developing the software is not deducted because no public per-vehicle cost is available. The net value is therefore lower than the estimate.
-- **Thermal effects:** the larger saving in winter and slower battery ageing due to better temperature control, described in [Part 1](/writing/control-software-electric-trucks-part-1-context/), are not included. They add to the estimate, and [Part 4](/writing/control-software-electric-trucks-part-4-design/) quantifies them. The cycling and calendar ageing in step 5 below *are* included.
+The figures come from my own cost model. They give the scale of the value for a typical European long-haul truck, not a forecast for a specific vehicle or fleet. Section 2 shows how cost shares vary across applications. The 8,100–16,300 € result in section 3 applies only to the normalised truck, which keeps cost-only TCO and extra freight revenue separate. A 45-minute break is mandatory after 4.5 hours of driving [7], and about 30 minutes of megawatt charging fits within it [8]. Only half of the charging time is therefore counted as paid driver time. The cost of developing the software is not deducted because no public per-vehicle cost is available, so the net value is lower than the estimate.
+
+The larger saving in winter and the slower battery ageing due to better temperature control, described in [Part 1](/writing/control-software-electric-trucks-part-1-context/), are not included either. They add to the estimate, and [Part 4](/writing/control-software-electric-trucks-part-4-design/) quantifies them. The cycling and calendar ageing in step 5 below *are* included.
 
 ### B. The model and its assumptions
 
 The model calculates the costs and the revenue of one truck year by year over 8 years, with and without an efficiency improvement *g*. The difference between the two runs is the value of the improvement. The model is simple by design, so that every result can be traced back to six steps:
 
 1. **Energy:** the truck does the same work with less energy, $c_1 = c_0/(1+g)$, with $c_0 = 1.08$ kWh/km. A 10% improvement therefore reduces consumption by 9.1%, so larger gains return slightly less than in proportion.
-2. **Battery:** in scenario A, the battery stays at 640 kWh. In scenarios B and C, it shrinks with the consumption, $E_1 = E_0 \cdot c_1/c_0$, so that the range is unchanged. This treats the battery as continuously sizeable, which holds for new models but not for trucks in service (section 2.1).
+2. **Battery:** in scenario A, the battery stays at 640 kWh. In scenarios B and C, it shrinks with the consumption, $E_1 = E_0 \cdot c_1/c_0$, so that the range is unchanged. This treats the battery as continuously sizeable, which holds for new models but not for trucks in service (section 2.2).
 3. **Mass and payload:** the payload is what remains of the 42-tonne limit after the tractor (7.1 t), the trailer (7.0 t) and the battery. On a weight-limited trip, the saved battery mass becomes cargo. On any other trip, the truck is lighter, and its consumption falls with a mass sensitivity ε relative to the average operating mass of 32 tonnes.
 4. **Charging:** the charging power is the lowest of the limits of the charger (1,000 kW), the truck (750 kW [2, 4]) and the battery (1.4 C, about 900 kW), reduced by a factor of 0.85 towards full charge (model assumption). The result is about 640 kW. Half of the charging time is paid as driver time at 45 €/h.
 5. **Ageing and resale:** the capacity fades by 20% after 4,000 full equivalent cycles plus 1% per year. A smaller battery cycles more deeply for the same distance and ages slightly faster, which gives the negative bars of scenarios B and C in Figure 3. After 8 years, the truck without its battery keeps 15% of its value, and the battery 50% of its new price, scaled down as its health approaches 70%.
