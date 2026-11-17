@@ -50,23 +50,15 @@ export const WRITING_SERIES: readonly WritingSeries[] = [
 			alt: 'The value of control software in electric heavy-duty trucks: a four-part series. Truck tests showed 2–4% less whole-vehicle energy than production feedback control.',
 		},
 		summary:
-			'These four articles investigate how thermal control software in electric trucks affects battery size, energy use, haulier economics and vehicle design.',
-		teaser: 'Explore how software can make electric trucks more efficient and what that is worth to the haulier.',
+			'A cold route can set an electric truck\'s battery size. Predictive thermal control saved energy in truck tests, but downsizing needs evidence on that route.',
+		teaser: 'Energy savings lower a truck\'s electricity bill. Battery downsizing needs cold-route evidence.',
 		partContext: 'on what thermal control software is worth in an electric truck',
 		overview: [
-			'An electric truck carries a battery sized for its hardest route, usually a cold day at full load near the end of the battery\'s life. In truck tests, predictive and optimisation-based thermal control used 2–4% less whole-vehicle energy than production feedback control. Valued at 3%, the middle of that range, the saving is worth 8,100 € per long-haul truck over eight years when the battery is kept, and up to 16,300 € when a smaller battery carries more payload. If the truck is designed around the same gain, and the assumed winter, ageing and design effects hold, the modelled value rises to 21,600–30,500 €.',
+			'An electric truck must complete its coldest required route with an aged battery and a full load. In truck tests across −30 to 40 °C, predictive and optimisation-based thermal control reduced whole-vehicle energy use by 2–4% against production feedback control. For the 640 kWh reference long-haul truck, the model values that range at 5,500–21,500 € over eight years, depending on whether a smaller battery is specified and its mass is used to carry freight.',
+			'At the middle value of 3%, the same model gives 8,100 € with the battery kept or 16,300 € for a new design carrying weight-limited freight. With further unverified assumptions about winter performance, ageing, charging and thermal hardware, the modelled value rises to 21,600–30,500 € per truck.',
 		],
-		roadmap: {
-			intro: 'Each part takes one step from the route to the vehicle design. A detailed discussion of the methodology and its limitations is also included in the appendices.',
-			parts: [
-				{ title: 'How thermal limits set the battery size of an electric truck', text: 'The cold route at the end of the battery\'s life sets its capacity, and the battery is about a third of the truck\'s price.' },
-				{ title: 'How predictive thermal control saves energy in electric trucks', text: 'Which actuator does the thermal work and when, and how the 2–4% saving was measured on trucks.' },
-				{ title: 'How a 3% efficiency gain changes the economics of an electric truck', text: 'What a 3% gain is worth to a haulier, and why a thin margin magnifies it.' },
-				{ title: 'Control software performance as a vehicle design input', text: 'What the gain adds when it is known before the hardware is frozen, and the evidence this requires.' },
-			],
-		},
 		thesis:
-			'On a truck already built, the saving gives more range. In a new design, it can give a smaller battery, but only with prior knowledge of the route and conditions set in the specification.',
+			'Battery capacity is fixed before final vehicle tests. Control performance can enter that decision only when its effect on the cold, loaded route is supported early enough to change the specification.',
 		relatedProject: 'electric-truck-thermal-management',
 	},
 ];
