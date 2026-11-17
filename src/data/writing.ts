@@ -32,6 +32,7 @@ export interface WritingArticle {
 	readonly keyFigure?: { readonly value: string; readonly label: string; readonly frame?: 'In short' | 'Why it matters' };
 	readonly date: Date;
 	readonly dateIso: string;
+	readonly updatedDate?: Date;
 	readonly minutes: number;
 	readonly isDraft: boolean;
 	readonly series?: { readonly id: string; readonly part: number; readonly definition: WritingSeries };
@@ -89,6 +90,7 @@ const toArticle = (entry: CollectionEntry<'writing'>): WritingArticle => {
 		keyFigure: entry.data.keyFigure,
 		date: entry.data.publishDate,
 		dateIso: entry.data.publishDate.toISOString().slice(0, 10),
+		updatedDate: entry.data.updatedDate,
 		minutes: minutesOf(entry.data.readingTime),
 		isDraft: entry.data.draft,
 		series: seriesRef && definition ? { ...seriesRef, definition } : undefined,
@@ -197,3 +199,9 @@ export function groupWriting(articles: readonly WritingArticle[], upcoming: read
 }
 
 export const formatReadingHours = (minutes: number) => `${Math.round((minutes / 60) * 2) / 2} h`;
+export const formatReadingDuration = (minutes: number) => {
+	const rounded = Math.round(minutes / 5) * 5;
+	const hours = Math.floor(rounded / 60);
+	const remaining = rounded % 60;
+	return hours ? `${hours} h${remaining ? ` ${remaining} min` : ''}` : `${rounded} min`;
+};

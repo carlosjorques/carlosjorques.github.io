@@ -93,7 +93,7 @@
      text-anchor="middle"
      font-size="12.5px"
      fill="#4d4d4d"
-     id="text135877">2–4% of the vehicle energy</text>
+     id="text135877">3% of the vehicle energy</text>
   <!-- Broad arrow: the gain spreads over the channels -->
   <path
      d="M 204,185.52826 262,30 V 420 L 204,264.47174 Z"
@@ -117,7 +117,7 @@
      font-size="12.5px"
      font-style="italic"
      fill="#4d4d4d"
-     id="text135883">In service: any truck (scenario A)</text>
+     id="text135883">In service: any truck</text>
   <rect
      x="270"
      y="230"
@@ -132,7 +132,7 @@
      font-size="12.5px"
      font-style="italic"
      fill="#1f4f78"
-     id="text135887">At specification: new models (B, C)</text>
+     id="text135887">When a new truck is specified</text>
   <g
      fill="#ffffff"
      id="g135897">
@@ -256,7 +256,7 @@
      id="rect135927" />
   <text
      x="685"
-     y="211"
+     y="224"
      text-anchor="middle"
      font-size="14px"
      font-weight="bold"
@@ -264,19 +264,12 @@
      id="text135929">Cost per tonne-km</text>
   <text
      x="685"
-     y="229"
-     text-anchor="middle"
-     font-size="12.5px"
-     fill="#1a1a1a"
-     id="text135931">and TCO</text>
-  <text
-     x="685"
      y="251"
      text-anchor="middle"
      font-size="14px"
      font-weight="bold"
      fill="#1a1a1a"
-     id="text135933">−0.5 to −1.9%</text>
+     id="text135933">−0.7 to −1.4%</text>
   <!-- Block arrow through the thin margin -->
   <path
      d="M786,212 L816,212 L816,197 L846,225 L816,253 L816,238 L786,238 Z"
@@ -319,7 +312,7 @@
      font-size="14px"
      font-weight="bold"
      fill="#1a1a1a"
-     id="text135945">+24 to +96%</text>
+     id="text135945">+36 to +73%</text>
   <!-- Challenges -->
   <g
      font-size="12.5px"

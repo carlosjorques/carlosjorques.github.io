@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="360" height="836" viewBox="0 0 360 836" role="img" aria-labelledby="title description" font-family="Arial, Helvetica, sans-serif">
+  <title id="title">Modelled lifetime value across sampled inputs</title>
+  <desc id="description">P10 to P90 and median value per vehicle across 5,000 uniformly sampled combinations: long-haul with battery kept, 8,100 to 16,600 €, median 11,800 €; long-haul designed in with mixed freight, 14,100 to 28,600 €, median 20,200 €; long-haul designed in with heavy freight, 19,300 to 39,300 €, median 28,200 €; city bus designed in, 10,200 to 20,800 €, median 14,900 €.</desc>
+  <rect width="360" height="836" fill="#ffffff"/>
+  <g fill="#202020">
+    <text x="16" y="33" font-size="18" font-weight="700">Total value across sampled inputs</text>
+    <text x="16" y="57" font-size="14" fill="#4d4d4d">Per vehicle over its life; 5,000 uniform draws</text>
+    <text x="16" y="83" font-size="14">P10–P90 whisker; dot = median</text>
+  </g>
+  <g stroke="#e1e1e1" stroke-width="1">
+    <path d="M37 134V745M108.5 134V745M180 134V745M251.5 134V745M323 134V745"/>
+  </g>
+  <path d="M121.4 134V745" stroke="#888888" stroke-width="1.5" stroke-dasharray="5 5"/>
+  <g fill="#4d4d4d" font-size="12">
+    <text x="37" y="766" text-anchor="middle">0</text>
+    <text x="108.5" y="766" text-anchor="middle">10,000</text>
+    <text x="180" y="766" text-anchor="middle">20,000</text>
+    <text x="251.5" y="766" text-anchor="middle">30,000</text>
+    <text x="323" y="766" text-anchor="middle">40,000</text>
+    <text x="16" y="790" font-size="14">Total value (€); reference median: 11,800 €</text>
+  </g>
+  <g font-size="15" font-weight="700" fill="#202020">
+    <text x="16" y="125">Long-haul · battery kept</text>
+    <text x="16" y="273">Long-haul · designed in, mixed freight</text>
+    <text x="16" y="421">Long-haul · designed in, heavy freight</text>
+    <text x="16" y="569">City bus · depot, designed in</text>
+  </g>
+  <g stroke-width="3">
+    <path d="M94.9 159H155.7M137.8 307H241.5M175.0 455H318.0M109.9 603H185.7" stroke="#1f4f78"/>
+    <path d="M94.9 150V168M155.7 150V168M137.8 298V316M241.5 298V316M175 446V464M318 446V464M109.9 594V612M185.7 594V612" stroke="#1f4f78"/>
+  </g>
+  <path d="M94.9 159H155.7M94.9 150V168M155.7 150V168" stroke="#666666" stroke-width="3"/>
+  <g stroke="#202020" stroke-width="1.5">
+    <circle cx="121.4" cy="159" r="6" fill="#ffffff"/>
+    <circle cx="181.4" cy="307" r="6" fill="#1f4f78"/>
+    <circle cx="238.6" cy="455" r="6" fill="#1f4f78"/>
+    <circle cx="143.5" cy="603" r="6" fill="#1f4f78"/>
+  </g>
+  <g fill="#202020" font-size="14">
+    <text x="16" y="195">P10 8,100 €</text><text x="344" y="195" text-anchor="end">P90 16,600 €</text>
+    <text x="16" y="221">Median 11,800 € · 1.6× electricity saved</text>
+    <text x="16" y="343">P10 14,100 €</text><text x="344" y="343" text-anchor="end">P90 28,600 €</text>
+    <text x="16" y="369">Median 20,200 € · 2.8× electricity saved</text>
+    <text x="16" y="491">P10 19,300 €</text><text x="344" y="491" text-anchor="end">P90 39,300 €</text>
+    <text x="16" y="517">Median 28,200 € · 3.8× electricity saved</text>
+    <text x="16" y="639">P10 10,200 €</text><text x="344" y="639" text-anchor="end">P90 20,800 €</text>
+    <text x="16" y="665">Median 14,900 € · 3.2× electricity saved</text>
+  </g>
+  <text x="344" y="824" text-anchor="end" font-size="11" fill="#999999" font-family="Arial, Helvetica, sans-serif">carlosjorques.com</text>
+</svg>

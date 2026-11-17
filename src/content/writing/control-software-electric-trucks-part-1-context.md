@@ -1,289 +1,210 @@
 ---
-title: "The value of control software in electric heavy-duty trucks, Part 1"
-subtitle: "Electrifying heavy freight: the thermal bottleneck"
-description: "How thermal management fits into the electrification of heavy trucks, why the battery is sized for the worst case, and where control makes the difference."
-teaser: "Why the battery of an electric truck is sized for the worst case, and where control comes in."
+title: "How thermal limits set the battery size of an electric truck"
+seoTitle: "Thermal limits on electric truck battery size"
+subtitle: "How thermal limits set the battery size of an electric truck"
+description: "How cold-weather energy demand and battery limits set an electric truck's range, mass and cost, and how thermal control can change the capacity required."
+teaser: "How thermal limits set an electric truck's battery size, payload and cost."
 publishDate: 2026-11-02
-readingTime: 26 min read
+updatedDate: 2026-11-17
+readingTime: 15 min read
 category: Physical Systems Engineering
 tags:
   - Electric trucks
   - Battery sizing
   - Thermal management
   - Heavy-duty vehicles
-series:
-  id: control-software-electric-trucks
-  part: 1
+relatedProject: electric-truck-thermal-management
 keyFigure:
   value: "About 32%"
-  label: "of the price of the reference truck is the battery"
+  label: "of the reference truck's purchase price is its battery"
   frame: "Why it matters"
 socialImage:
   src: "/images/blog/control-software-electric-trucks/part1-social.png"
-  alt: "Part 1 of 4 of the series on control software in electric heavy-duty trucks: Electrifying heavy freight, the thermal bottleneck. About 32% of the price of the reference truck is the battery."
+  alt: "Part 1 of 4. How thermal limits set the battery size of an electric truck. The battery accounts for about 32% of the reference truck's purchase price."
 featured: false
 draft: false
+series:
+  id: control-software-electric-trucks
+  part: 1
 ---
 
-## The battery sets the limits of the truck
+A diesel truck heats its cab with waste heat from the engine. An electric truck has far less waste heat, so its heating draws on the same battery that drives the wheels. In one passenger-car test, the range lost in the cold reached about 40% [1]. A long-haul electric truck carries a 600–800 kWh battery of roughly 4–5 tonnes, and must still complete its fully loaded route on a cold day near the end of its working life. **The battery is therefore sized for that difficult day, but its mass and purchase cost are carried on every other day as well.**
 
-An electric long-haul truck carries a battery of 600–800 kWh, which weighs 4–5 tonnes. In the reference truck of this series, the battery is around 32% of the purchase price, an estimate of the cost model described in [Part 3](/writing/control-software-electric-trucks-part-3-business-case/#3-the-normalised-truck). Its capacity is fixed at the concept stage for the worst-case scenario the truck must handle, such as a Nordic winter, a full load or a battery that has aged for eight years. Consequently, the capacity that is needed only in these conditions is carried, and paid for, on every other day.
+On that day, the battery's temperature also limits the power it can deliver and the charging power it accepts. The thermal management software decides where the heat comes from and when, and so how much stored energy goes into heating instead of driving. In my work on electric trucks, predictive and optimisation-based thermal control reduced total vehicle energy use by 2–4% against production feedback control in truck tests across −30 to 40 °C. Whether this saving also allows a smaller battery depends on when and where it is saved.
 
-The temperature of the battery is the main variable that the thermal management system controls, and the control software decides how that system is operated. Engineers evaluate this software in kilowatt-hours saved, whilst hauliers evaluate the truck in cost per tonne-kilometre. This series links the two units. It asks what a few percent of saved energy is worth to the haulier, and how much more it is worth when the battery is sized with the software in mind. The series builds on my work on thermal management strategies for electric trucks, where predictive and optimisation-based control reduced the total energy consumption by 2–4% compared with standard feedback control.
+## 1. What a kilowatt-hour of battery costs
 
-This first part sets out the physical argument: why the battery sizes the truck, and where thermal control acts on it. Within the series, [Part 2](/writing/control-software-electric-trucks-part-2-engineering/) describes the control methods in depth, [Part 3](/writing/control-software-electric-trucks-part-3-business-case/) translates their effect into the units of the business case, and [Part 4](/writing/control-software-electric-trucks-part-4-design/) uses the results to design the battery dimensioning.
+Regulation is moving electric trucks into long-haul freight. The European CO₂ standards require manufacturers to cut the average emissions of their new heavy-duty vehicles by 45% in 2030, 65% in 2035 and 90% in 2040 [2]. Mercedes-Benz, Volvo, MAN and Scania now produce electric long-haul trucks with approximately 500–720 km of range under their stated conditions [3–6]. For the operator, the question is whether a truck completes its route, and at what cost per tonne-kilometre (the cost of moving one tonne of freight over one kilometre). With French road hauliers making pre-tax margins of only 1.4–2.2% in 2022–2023 [7], that cost has little room to rise. Therefore, the battery's cost and payload weigh on the purchase decision as much as its range.
 
-## 1. Why heavy-duty transportation is being electrified
+The capacity a truck needs is set by its route, load, charging opportunities, weather and battery ageing at the end of its working life. Each added kilowatt-hour also adds mass that displaces freight on a weight-limited trip. The EU allows zero-emission trucks 2 tonnes of extra gross weight [8]. A long-haul pack weighs more than that. How thermal control enters this sizing problem is illustrated in Figure 1. Its return arrow marks a design possibility, because a validated saving can change the battery specification if it is known early enough.
 
-Most goods in Europe travel by road, and almost all of them on diesel trucks. To reduce the CO₂ emitted by this freight, the EU's CO₂ standards for heavy-duty vehicles require manufacturers to cut the average emissions of their new vehicles by 45% by 2030, 65% by 2035 and 90% by 2040 [1].
-
-For long-haul freight, the battery-electric truck has become the leading technology to meet these targets. This is because an electric drivetrain converts most of the energy stored in the battery into motion, and the cost of batteries keeps falling [2]. Series-produced electric long-haul trucks from Mercedes-Benz, Volvo, MAN and Scania now offer 500–720 km of range at 40 tonnes [3–6].
-
-Consequently, the barrier to adoption has moved from the technology to the cost of operating it. Road freight competes on cost per tonne-kilometre (the cost of moving one tonne of cargo over one kilometre) and operates on thin margins. French hauliers, for example, made a pre-tax margin of 1.4–2.2% in 2022–2023 [12]. Four challenges stand between the electric truck and a competitive cost: its mass, its cost, its range and charging time, and the variability of its energy demand. All four depend on the size of the battery, and the battery is sized for the worst-case scenario the truck must handle.
-
-The thermal management of the truck (the control of the temperatures of its battery, drivetrain and cab), and the control software that runs it, act directly on that sizing compromise. The argument follows the physical chain from the challenges to the battery, from the battery to its temperature and the system that regulates it, and from that system to the worst-case scenarios that size the battery. This chain is illustrated in Figure 1.
-
-<figure class="article-figure">
-	<img src="/images/blog/control-software-electric-trucks/part1-fig1-battery-dimensioning.png" alt="Diagram of the argument of Part 1. Four challenges (mass, cost, range and charging, and the variability of the energy demand) are in a trade-off with the battery dimensioning, which links kWh to range, kg to payload and euros to cost. The worst-case scenarios (Nordic winter, southern summer, an aged battery after 8 years and the required daily range) set the battery size. The battery sets the operating temperature handled by the thermal system hardware (pumps, valves, fans, heaters, HVAC), which delivers heat to the battery in operation (temperature, state of charge, state of health, available power). Measurements and forecasts go to the control software, which commands the thermal system (mode, flows, timing). An orange arrow returns from the control software to the battery dimensioning: increased energy efficiency, which gives a smaller battery, slower ageing and shorter charging stops." loading="lazy" />
-	<figcaption>Figure 1. The argumentation of Part 1: the challenges and the worst-case scenarios that set the battery size, and the dimensioning feedback loop formed by the thermal system, the battery in operation and the control software. The dashed arrow indicates the commands of the control software; the orange arrow indicates its effect on the battery dimensioning.</figcaption>
+<figure class="article-figure article-figure--inspect-mobile" style="--figure-inspect-width: 1050px">
+	<p class="article-figure__inspection-link" style="margin:0 0 .6rem">Swipe sideways to inspect the diagram, or <a href="/images/blog/control-software-electric-trucks/part1-fig1-battery-dimensioning.svg" target="_blank" rel="noopener noreferrer">open the full-resolution image</a>.</p>
+	<div class="article-figure__scroll" role="region" tabindex="0" aria-label="Figure 1: scroll horizontally to inspect the battery-sizing diagram">
+		<img src="/images/blog/control-software-electric-trucks/part1-fig1-battery-dimensioning.svg" width="1050" height="560" alt="Route and weather, payload, cost and an eight-year-old battery constrain its size. Thermal hardware controls battery temperature; software selects operating modes and can feed a validated energy saving back into battery sizing." loading="lazy" />
+	</div>
+	<figcaption>Figure 1. Battery-sizing constraints and the thermal-control feedback path. The dashed arrow indicates software commands to thermal hardware. The orange arrow is the possible effect of improved control on battery sizing. The arrangement is a general illustration, not a specific manufacturer's circuit.</figcaption>
 </figure>
 
-## 2. The challenges of an electric heavy-duty truck
+A control improvement reaches the battery size only through the orange arrow of Figure 1, and only if the energy is saved in the conditions that set the capacity. Otherwise, it gives the existing truck more range without reducing its purchase price.
 
-The four challenges named above share one cause. Each of them is quantified below in mass, price or time, and each is linked to the battery:
+The price of each kilowatt-hour lies in the pack mass and pack cost, both plotted against capacity in Figure 2. Battery packs average about $108/kWh across all applications [9], but commercial-vehicle packs cost more, so the figure uses their range of 150–220 €/kWh [10]. Two pack densities, 145 and 175 Wh/kg, bound the effect of the cell chemistry.
 
-- **Mass:** a long-haul truck battery of 600–800 kWh weighs 4–5 tonnes. To compensate, the EU allows zero-emission trucks up to 2 extra tonnes of gross weight [7]. However, on weight-limited routes, every kilogram of battery is still a kilogram less of payload.
-- **Cost:** the battery is the largest single cost item of an electric truck. Pack prices have fallen to an average of about $108/kWh across all applications [2]; commercial-vehicle packs cost more, around 150–220 €/kWh [8].
-- **Range and charging:** a long-haul truck must cover its daily route with the charging opportunities available, typically during the legal breaks of the driver (45 minutes after 4.5 hours of driving [13]). Current trucks accept up to about 750 kW on a megawatt charger [5], so about 30 minutes of charging fits within the break [14]. Nevertheless, charging time competes with driving time, and charger availability is still limited on many routes. [Part 3](/writing/control-software-electric-trucks-part-3-business-case/) shows how a smaller battery shortens the charging stop, and under which conditions.
-- **Variability:** the energy a truck needs is a function of the load, the topography, the speed, the traffic and the weather. The weather is the effect studied in this series.
-
-A larger battery solves the range and variability challenges, and makes mass and cost worse; a smaller battery does the opposite. Therefore, the battery size is a trade-off, and it is set by the worst-case scenario the truck must handle.
-
-To quantify the price of this trade-off, the pack mass and the pack cost are plotted in Figure 2 as a function of the battery capacity. The bounds of each band correspond to the pack energy densities of LFP and NMC811 (section 3.1) and to the range of commercial-vehicle pack prices [8].
-
-<figure class="article-figure">
-	<img src="/images/blog/control-software-electric-trucks/part1-fig2-mass-cost-vs-capacity.png" alt="Line plot: pack mass rises from about 2.3–2.8 t at 400 kWh to 4.6–5.5 t at 800 kWh, and pack cost from 60,000–88,000 € to 120,000–176,000 €." loading="lazy" />
-	<figcaption>Figure 2. Pack mass (a) and pack cost (b) as a function of the battery capacity. The bands are bounded by the pack energy densities of LFP (145 Wh/kg, solid line) and NMC811 (175 Wh/kg, dashed line), and by pack prices of 220 €/kWh (solid line) and 150 €/kWh (dashed line) [8]. The shaded area indicates the capacity range of long-haul trucks; the dotted line indicates the 2 t gross-weight allowance for zero-emission trucks [7].</figcaption>
+<figure class="article-figure article-figure--inspect-mobile article-figure--print" style="--figure-max: 52rem; --figure-inspect-width: 1050px">
+	<p class="article-figure__inspection-link" style="margin:0 0 .6rem">Swipe sideways to inspect both plots, or <a href="/images/blog/control-software-electric-trucks/part1-fig2-mass-cost-vs-capacity.png" target="_blank" rel="noopener noreferrer">open the full-resolution image</a>.</p>
+	<div class="article-figure__scroll" role="region" tabindex="0" aria-label="Figure 2: scroll horizontally to inspect pack mass and cost">
+		<img src="/images/blog/control-software-electric-trucks/part1-fig2-mass-cost-vs-capacity.png" width="3125" height="1563" alt="Two line plots. At 600–800 kWh, assumed pack densities of 145–175 Wh/kg give 3.4–5.5 tonnes; at 150–220 euros per kWh, pack cost is 90,000–176,000 euros." loading="lazy" />
+	</div>
+	<figcaption>Figure 2. Pack mass (a) and cost (b) versus capacity. Mass bounds use assumed LFP (145 Wh/kg, solid) and NMC811 (175 Wh/kg, dashed) pack densities. Cost bounds use 220 €/kWh (solid) and 150 €/kWh (dashed) [10]. The shaded band marks 600–800 kWh. The dotted line marks the 2-tonne gross-weight allowance [8].</figcaption>
 </figure>
 
-Both the mass and the cost grow linearly with the capacity. Each kilowatt-hour adds 5.7–6.9 kg and 150–220 €, so that a long-haul pack of 600–800 kWh weighs 3.4–5.5 t and costs 90,000–176,000 €. However, the 2 t allowance covers only 36–58% of that mass, and the rest is taken from the payload on weight-limited routes. Therefore, every kilowatt-hour that the truck does not need to carry is saved twice, once in the purchase price and once in the cargo. Since this price is set by the cells, the properties of the battery itself are examined next.
+Both quantities grow linearly with capacity. **Each additional kilowatt-hour adds 5.7–6.9 kg and 150–220 €.** Across the plotted bounds, a 600–800 kWh pack weighs 3.4–5.5 tonnes and costs 90,000–176,000 €. The 2-tonne allowance covers only 36–58% of that mass, and the rest reduces payload on weight-limited work. Hence, a smaller battery lowers the purchase price and, on weight-limited work, returns its mass to the freight.
 
-## 3. The battery: the central component
+## 2. Battery temperature changes range, charging and life
 
-The battery sets the terms of the trade-off described in section 2. Two of its properties link it to thermal management: its chemistry, which the market is moving towards cells that need more heating, and its sensitivity to temperature in general.
+The kilowatt-hours bought in section 1 are only fully usable when the cells are at the right temperature, roughly 15–35 °C for lithium-ion cells [11]. Below this window, the battery supplies less power and accepts less charging power, and heating restores that capability with energy from the same battery that must complete the route. Above it, fast charging and high loads require cooling, and a high cell temperature accelerates ageing [12], which reduces the capacity left for the route after years of use.
 
-### 3.1 Battery chemistries for heavy trucks
+Figure 3 sketches these effects against the cell temperature, with the edge of each region marking where its constraint starts to tighten.
 
-The cell chemistry sets the energy density, the cost, the lifetime and the cold-weather behaviour of the battery, i.e. the mass and price of each kilowatt-hour. The chemistries used or considered for heavy trucks are NMC (nickel manganese cobalt oxide, with the number giving the ratio of the three metals), LMFP (lithium manganese iron phosphate), LFP (lithium iron phosphate), sodium-ion and solid-state cells. To compare their four properties at once, the pack cost of each chemistry is plotted in Figure 3 as a function of its pack energy density. The marker size gives the cycle life (the number of full charge cycles until the battery keeps 80% of its original capacity), and the colour gives the cold-weather behaviour.
-
-<figure class="article-figure">
-	<img src="/images/blog/control-software-electric-trucks/part1-fig3-chemistry-tradeoff.png" alt="Bubble chart: LFP combines low cost and the longest life with low energy density and weak cold-weather behaviour; NMC chemistries are denser and better in the cold, but more expensive." loading="lazy" />
-	<figcaption>Figure 3. Pack cost as a function of pack energy density for the battery chemistries used or considered for heavy trucks. The marker size indicates the cycles to 80% health (2,000–6,000); the colour indicates the cold-weather behaviour. The hollow marker is an outlook, not yet in production. Indicative pack-level values from Table 1.</figcaption>
+<figure class="article-figure article-figure--responsive article-figure--wide-mobile">
+	<picture>
+		<source media="(max-width: 720px)" srcset="/images/blog/control-software-electric-trucks/part1-fig3-temperature-window-mobile.svg" width="360" height="535" />
+		<img src="/images/blog/control-software-electric-trucks/part1-fig3-temperature-window.png" width="3125" height="991" alt="Qualitative temperature scale from −30 to 50 °C. Below the preferred 15–35 °C window, power and charging power fall; above it, cooling and control of ageing become more demanding." loading="lazy" />
+	</picture>
+	<figcaption>Figure 3. Qualitative effect of lithium-ion cell temperature on available power, charging and ageing. Grey lines delimit the approximate preferred window [11]. The cold and hot regions show different constraints. Cell ageing evidence is described in [12].</figcaption>
 </figure>
 
-No chemistry in series production is the best in all four properties. Take LFP as an example (orange marker). Among the chemistries in series production, it has the lowest cost (130 €/kWh) and the longest life (6,000 cycles, the largest marker), but also the lowest energy density (145 Wh/kg) and the weakest cold-weather behaviour. The NMC chemistries (green markers) sit in the opposite corner, with 155–175 Wh/kg and good cold-weather behaviour at 160–165 €/kWh. Sodium-ion is cheaper still and very good in the cold, although its 115 Wh/kg makes it heavy for long-haul, and solid-state cells promise 250 Wh/kg but are not yet in production. The exact values, together with the vehicles that use each chemistry, are listed in Table 1.
+On the cold side of Figure 3, the battery limits the power at departure and the fast-charging speed. On the hot side, it needs heat removal, and its temperature affects the capacity left after repeated use. Cell chemistry shifts these limits without removing them. For example, lithium iron phosphate (LFP) cells are cheaper and longer-lived than nickel manganese cobalt (NMC) cells, but weaker below 0 °C (Appendix A).
 
-*Table 1. Battery chemistries for heavy trucks.*
+**For battery sizing, temperature therefore changes both sides of the calculation, because on a cold day the route demands more energy from a battery that may provide less and charge more slowly.** A thermal controller can reduce the heating electricity and prepare the pack before charging, but only with the heat sources and flow paths that the thermal circuits provide.
 
-| Chemistry | Pack energy density (Wh/kg) | Pack volume density (Wh/L) | Pack cost (€/kWh) | Cycles to 80% health | Cold-weather behaviour | Used in |
-| --- | ---: | ---: | ---: | ---: | --- | --- |
-| NMC811 | 175 | 330 | 165 | 3,000 | Good; sensitive to heat | Volvo FH Aero Electric, Tesla Semi |
-| NMC622 | 155 | 290 | 160 | 3,500 | Good | MAN, Scania, Freightliner |
-| LMFP | 160 | 285 | 135 | 4,500 | Moderate | Emerging |
-| LFP | 145 | 260 | 130 | 6,000 | Weaker below 0 °C; needs heating | Mercedes eActros 600, most Chinese heavy trucks |
-| Sodium-ion | 115 | 210 | 125 | 4,000 | Very good | Pilot projects |
-| Solid-state (outlook) | 250 | 500 | 200 | 2,000 | To be confirmed | Not yet in production |
+## 3. Thermal circuits and the choices they allow
 
-*Indicative pack-level values, compiled from manufacturer and industry sources.*
+A truck's thermal system serves three consumers with different temperature needs: the battery, the electric drivetrain and the cab. Coolant circuits carry heat between them through pumps, valves and radiators, and a refrigerant circuit cools below ambient or runs as a heat pump. This is a common arrangement in electric vehicles, although the way the circuits are connected varies between manufacturers.
 
-Because of its cost and its life, the trend in heavy-duty trucks is towards LFP, which is also safer than NMC and free of nickel and cobalt. However, both of its weaknesses increase the value of thermal management. LFP batteries need heating more often, and, with the lowest energy density, each kilowatt-hour saved avoids more kilograms of battery.
+In winter, the heat source sets much of the electricity the system uses. Under favourable conditions, a heat pump supplies roughly two to three units of heat per unit of electricity, whereas a resistance heater supplies one. This ratio (the *coefficient of performance*) falls with the outside temperature, so the heat pump's advantage shrinks on the coldest days. Drivetrain waste heat is a third source. It reduces electrical heating whenever it can reach the battery or the cab.
 
-### 3.2 Temperature impact on battery performance
+Whether that waste heat can reach the battery depends on how the circuits are connected. Separate circuits keep each subsystem simple to control, but the drivetrain heat is then rejected to the air whilst an electric heater warms the battery. Connected circuits make heat recovery possible at the cost of more valves and operating modes (combinations of flow paths and active components). The software must then decide, for example, when to heat the pack before charging or cool it before a climb, and a wrong path or a late start loses the saving. [Part 2](/writing/control-software-electric-trucks-part-2-engineering/) explains how feedback and predictive optimisation take these decisions.
 
-Regardless of the chemistry, lithium-ion cells work best only within a narrow temperature window, roughly between 15 and 35 °C [9]. Outside that window, temperature affects the performance, the charging and the ageing of the cells. These three effects are illustrated in Figure 4 as a function of the cell temperature.
+How far to connect the circuits depends on the heat sources available on the route that sets the battery size. In a Nordic winter, the heat pump's favourable coefficient no longer holds. In my opinion, **the circuit layout and the control strategy should be chosen together, since the layout sets which strategies are possible and the controller sets how much energy they use.**
 
-<figure class="article-figure">
-	<img src="/images/blog/control-software-electric-trucks/part1-fig4-temperature-window.png" alt="Temperature scale from −30 to 50 °C: below 15 °C power and charging power are reduced and heating is needed; above 35 °C cooling is needed during fast charging and ageing is faster." loading="lazy" />
-	<figcaption>Figure 4. Effect of the cell temperature on the power, the charging and the ageing of lithium-ion cells. The grey lines delimit the preferred operating window [9]; the gradients indicate the cold (light blue) and hot (light orange) sides. Faster ageing at high temperature after [10]. Qualitative illustration.</figcaption>
+## 4. The cold route sets the battery capacity
+
+The most demanding route condition is a cold day, which raises the truck's energy demand and lowers what the battery can deliver. The cab and the battery need more heat just when the heat pump supplies less of it per unit of electricity. Denser air and stiffer tyres also raise the driving resistance. Thermal control can reduce only the heating part of this extra demand.
+
+The size of this winter penalty depends on how much of a vehicle's energy goes into heating. Reported effects for several electric vehicle types are compared in Figure 4, with each source's metric and evidence type next to its marker. Because duty cycles and metrics differ, the comparison gives orders of magnitude only.
+
+<figure class="article-figure article-figure--responsive article-figure--wide-mobile">
+	<picture>
+		<source media="(max-width: 720px)" srcset="/images/blog/control-software-electric-trucks/part1-fig4-winter-penalty-mobile.svg" width="360" height="642" />
+		<img src="/images/blog/control-software-electric-trucks/part1-fig4-winter-penalty.png" width="3125" height="1203" alt="Winter comparison with different metrics: tested car range loss about 40%; measured Finnish city-bus energy increase 40–45%; measured German regional-truck energy increase about 25% from 20 to 0 °C; simulated mild-climate drayage-truck increase 3–10%." loading="lazy" />
+	</picture>
+	<figcaption>Figure 4. Winter consumption increase or range loss by application. Passenger-car tests [1], German truck operating data [13], Finnish city-bus measurements [14] and mild-climate drayage-truck simulations [15] use different baselines and metrics. Bars indicate reported ranges and dots single values. These results do not give a truck-specific winter penalty.</figcaption>
 </figure>
 
-Below the window, a cold battery delivers less power, and it must be charged at reduced power to avoid damage. It must therefore be heated, and LFP cells are the most affected. Above the window, the battery must be cooled during fast charging, and its ageing accelerates, since temperature is the main factor in battery degradation [10]. Hence, both sides of the window act on the three quantities the battery was sized for: power, charging time and usable capacity over its life. The battery is the most expensive component of the truck (around 32% of the purchase price of the reference truck), and its temperature is the main variable that the thermal management system controls. Therefore, the system that regulates this temperature is the next link in the argument.
+The Finnish city buses in Figure 4, with a large passenger space to heat, used 40–45% more energy in winter than in summer [14]. Propulsion dominates a heavy truck's energy use, so its relative penalty is smaller but still large. The German regional trucks consumed about 0.13 kWh/km more for each 10 °C drop, roughly 25% more at 0 °C than at 20 °C [13]. In the mild-climate drayage-truck simulations, the difference was only 3–10% [15]. **A winter correction transferred from a bus, a car or a mild-climate truck would therefore give the wrong sizing input for a long-haul truck.**
 
-## 4. How thermal management works in an electric truck
+In the same German data, trucks with preconditioned batteries (heated before departure or charging) showed no clear temperature dependence [13], although fleet data do not isolate the effect of the software. In my winter tests, preconditioning also decides whether the truck leaves on time, because a cold battery limits the departure power and very cold coolant can turn to slush and block a circuit. Done whilst the truck is plugged in, it draws its energy from the grid instead of the range.
 
-The thermal management system keeps the battery in its temperature window, and it serves the drivetrain and the cab as well. Its energy consumption is set by two choices: how its circuits are connected, and how the control software operates them.
+### The saving in winter
 
-### 4.1 Functions
+Since the worst-case conditions set the battery size, the gain of thermal control in those conditions decides how much battery it can save. *Predictive control*, examined in this series, uses the expected route and the next charging stop to plan heating and cooling ahead. In winter, it can heat the battery for charging when drivetrain waste heat is available. In summer, it can pre-cool the pack before a long climb or a fast-charging stop, using its thermal mass to delay a temperature limit. Summer heat also accelerates ageing, with laboratory tests finding temperature-dependent calendar fade (capacity lost at rest) for several chemistries and increased LFP cycling fade between 15 and 35 °C [12]. Summer therefore matters mostly for the cooling capacity and for the battery health left after years of service, whereas the capacity itself is set on the cold route.
 
-The system covers six functions, each with its own purpose and season of highest demand. These functions are listed in Table 2.
+For sizing, the decisive number is how much larger the saving is in winter than on average. No long-haul truck study reports that ratio. Bus and car studies show its direction. At −10 °C, one urban-bus analysis assigned about 24 kW to heating at 18 km/h, adding 1.3 kWh/km to the 1.2 kWh/km for traction and other auxiliaries [16]. Heating is then about half of the energy use. The same fractional thermal saving is therefore largest in absolute terms in winter.
 
-*Table 2. Functions of the thermal management system.*
+In a passenger-car heat-pump study, nonlinear model predictive control saved 20.2% of the thermal energy at −5 °C and 27.8% at −10 °C against rule-based control [17]. In absolute terms, the saving rose from 460 to 840 Wh, about 1.8 times. Both studies, however, measure thermal energy, whereas the 2–4% from my work is a reduction in *total truck energy*.
 
-| Function | Purpose | Highest demand |
-| --- | --- | --- |
-| Battery cooling | Remove the heat produced during driving and charging; protect the cells from ageing | Summer, long climbs, fast charging |
-| Battery heating | Bring a cold battery to its operating window for power and charging | Winter, before charging |
-| Drivetrain cooling | Keep the electric motors and power electronics within their limits and in their efficient operating range | High load, high ambient temperature |
-| Cab climate | Heating or cooling for driver comfort | All year; demisting is a safety function |
-| Charging preparation | Bring the battery to the right temperature before a fast-charging stop, or pre-condition the cab before departure | Winter and summer |
-| Heat recovery | Move heat from where it is waste to where it is needed | Winter |
+To bridge that gap, I use a winter improvement of 1.5 times the annual average, a modelling choice kept below the car study's 1.8 because no truck measurement confirms it yet. The model defines an improvement *g* so that the new consumption equals the old consumption divided by $(1+g)$, and at unchanged range the battery capacity falls by the same ratio. For the 640 kWh reference truck of [Part 3](/writing/control-software-electric-trucks-part-3-business-case/), a 2% improvement removes $640 \times 0.02/1.02$, or 12.5 kWh, slightly less than 2% of the capacity (Appendix B). The reductions sized on the annual average and on the winter improvement are listed in Table 1.
 
-In winter, battery heating, cab climate and charging preparation all need heat at the same time, whilst the drivetrain produces waste heat that can be recovered. In summer, the cooling functions peak together. Hence, the same components must serve different functions at different moments, and this sharing is the origin of the design question in section 4.3.
+*Table 1. Modelled battery reduction when the same annual improvement is available in winter.*
 
-### 4.2 Components of the thermal management system
-
-These functions are delivered by a set of components common to most electric vehicles, in configurations that vary between manufacturers:
-
-- **Coolant circuits:** liquid circuits carry heat between components. The battery, the drivetrain and the cab work at different temperature levels, so they usually have their own circuits or circuit sections.
-- **Pumps:** each pump sets the coolant flow in its circuit.
-- **Valves:** the valves direct the flow. They connect circuits to each other, bypass components or route the coolant to different heat exchangers.
-- **Radiators and fans:** the radiators reject heat to the outside air. The airflow comes from the vehicle speed, and from the fans when the truck is slow or stationary.
-- **Refrigerant circuit:** this circuit cools below ambient temperature. It includes the electric compressor, the condenser, the evaporator for the cab, the chiller for the battery coolant and the expansion valves.
-- **Heat pump operation:** the refrigerant circuit is run in reverse to deliver heat. It takes heat from the air or from waste-heat sources and, under favourable conditions, supplies two to three units of heat per unit of electricity. This ratio (the coefficient of performance) falls as the outside temperature drops.
-- **Electric heaters:** a heater converts electricity directly into heat. Heaters are simple and powerful, but use one unit of electricity per unit of heat.
-- **Cab climate unit:** this unit contains the blower, the air distribution and the flaps.
-- **Sensors:** temperatures, pressures and flows are measured across the system.
-
-The list contains two sources of heat with very different costs: the heat pump supplies two to three units of heat per unit of electricity, and the electric heater supplies one. Therefore, the choice of which component provides heat, and when, sets a large part of the winter energy consumption.
-
-### 4.3 The design criteria for the thermal management system
-
-Once the components are sized for the heating and cooling needs of every worst-case scenario, the remaining design question is how far to connect the circuits to each other. This choice sets how much energy the system can save, and how much control it needs to save it.
-
-Separate circuits are simple. Each subsystem has its own heating and cooling, and the control is straight-forward. However, heat cannot move between the circuits. In winter, for example, the waste heat of the drivetrain is rejected to the outside air whilst an electric heater warms the battery.
-
-Integrated circuits allow heat to move to where it is useful. Waste heat from the drivetrain can warm the battery or the cab, the heat pump can serve several consumers, and one radiator can serve different circuits depending on the demand. Hence, part of the heat that separate circuits reject is reused, and less electricity is spent on heating.
-
-The cost of integration is complexity. Every additional valve and connection multiplies the number of possible operating modes (the combinations of flow paths and active components). An integrated system only reaches its saving potential if the control software chooses the right mode, the right flows and the right moment for each situation. Therefore, integrated hardware raises the energy-saving potential, and the control software decides how much of it is realised. [Part 2](/writing/control-software-electric-trucks-part-2-engineering/) describes how this control is done: the control problem, the limits of feedback control, optimisation-based control allocation and model predictive control. Since the thermal loads are largest in the worst-case scenarios, these extreme operating conditions are also where the choices of the control software have the largest effect.
-
-## 5. The worst-case scenarios: Nordic winter and southern summer
-
-A haulier needs the truck to complete its route on every working day of its life, so the battery and the thermal components are sized for the extremes. Winter sets the battery capacity, summer sets the cooling capacity and the battery life, and on both the thermal management system has the most work to do.
-
-### 5.1 Winter
-
-Cold weather raises the energy demand of the truck and lowers what its battery can deliver at the same time. In cold weather, several effects add up:
-
-- **Battery capability:** the battery delivers less power and accepts less charging power. LFP batteries are the most affected.
-- **Cab heating:** the cab needs heat for nine hours or more of driving.
-- **Battery heating:** the battery itself needs heating, both for driving and before fast charging.
-- **Heat pump efficiency:** the heat pump supplies less heat per unit of electricity as the outside temperature drops.
-- **Driving resistance:** aerodynamic drag and rolling resistance are higher, because cold air is denser and tyres are stiffer.
-
-The size of the combined effect depends on the share of the vehicle's energy that goes into heating. To show this, the winter increase in energy use reported for different vehicles is compared in Figure 5. The sources use different metrics and conditions (range loss in a test, measured consumption, simulated consumption), which are indicated next to each marker. Hence, the comparison is one of orders of magnitude.
-
-<figure class="article-figure">
-	<img src="/images/blog/control-software-electric-trucks/part1-fig5-winter-penalty.png" alt="Range chart: winter penalty of 3–10% for drayage trucks in a mild climate, about 25% for regional trucks, about 40% range loss for cars and 40–45% for city buses." loading="lazy" />
-	<figcaption>Figure 5. Winter increase in energy use, or loss of range, for different vehicle types, from published measurements, tests and simulations [11, 15, 16, 21]. The metric and the conditions of each source are indicated next to its marker. Bars indicate ranges; dots indicate single values.</figcaption>
-</figure>
-
-The vehicles with the largest share of heating show the largest winter penalty. City buses, with a large passenger space to heat, use 40–45% more energy in a Finnish winter than in summer [16], and passenger electric cars lose around 40% of their range in cold weather with heating [11]. A heavy truck is less affected in relative terms, because propulsion dominates its energy use. However, the effect is still large. Measured data from electric trucks in Germany show consumption rising by about 0.13 kWh/km for every 10 °C drop in temperature, i.e. about a quarter more energy at 0 °C than at 20 °C for regional trucks [15]. In mild climates, the simulated difference between winter and summer is only 3–10% for drayage trucks (short-distance trucks serving ports and rail terminals) [21].
-
-Trucks that preconditioned their battery (heated it before departure or charging) showed no clear temperature dependence [15]. Hence, the winter penalty grows with the share of heating in the energy use, and preconditioning, a thermal management function, can remove the temperature dependence of trucks. Manufacturers typically quote range at around 20 °C with a new battery [3]. Therefore, the extra capacity needed for cold weather is paid for in purchase price and in mass, every day of the year.
-
-### 5.2 Summer
-
-In summer, the constraint moves from the energy available to the heat that must be removed, and to the life of the battery:
-
-- **Fast-charging heat:** at megawatt charging power, losses of a few per cent in the battery mean tens of kilowatts of heat to remove. The battery must be cooled during charging so that the charging power does not have to be reduced.
-- **Long climbs:** in high ambient temperatures, long climbs load the drivetrain and the battery whilst the radiators work with a small temperature difference to the air.
-- **Cab cooling:** the cab needs air conditioning.
-- **Ageing:** high temperature accelerates battery ageing, and ageing reduces the usable capacity the truck was sized for. Laboratory tests on commercial cells show calendar ageing (the loss of capacity at rest) slowing at lower temperatures for LFP, NCA (nickel cobalt aluminium oxide) and NMC cells, and cycle ageing (the loss of capacity from charging and discharging) of LFP cells increasing with temperature between 15 and 35 °C [17].
-
-Summer therefore sets the cooling capacity and affects the life of the battery. An aged battery is the other half of the worst-case scenario, since the truck must still complete its route after eight years.
-
-### 5.3 What this means for thermal control
-
-Since the worst-case scenarios set the battery size, the saving of thermal control in those scenarios decides how much battery it can save. *Predictive control* (control that uses a forecast of the route and of the next charging stop to plan its actions) acts differently in each season:
-
-- **Winter:** predictive control heats the battery for charging at the right moment. It uses drivetrain waste heat when available, and chooses between the heat pump and the electric heater based on their actual efficiency.
-- **Summer:** predictive control pre-cools the battery before climbs and before charging. It uses the thermal mass of the battery as a buffer, and keeps the cells closer to their ideal temperature to slow ageing.
-
-The size of the winter saving follows the size of the heating demand. For an urban electric bus at −10 °C, about 24 kW of heating adds 1.3 kWh/km at 18 km/h, on top of 1.2 kWh/km for traction and the other auxiliaries [18]. Heating is therefore about half of the energy used in these conditions, about twice its average share; the winter maximum auxiliary power of the same bus is 24 kW, against an average of 8 kW [18]. Similarly, at −10 °C a 12 m bus uses 0.73 kWh/km for traction and 1.51 kWh/km in total [19].
-
-Predictive thermal control saves a broadly constant fraction of the thermal energy, so the absolute saving grows with the heating demand. In a passenger car with a heat pump, *nonlinear model predictive control* (a controller that optimises its actions over a prediction horizon using a nonlinear model of the system) saves 20.2%, 26.1% and 27.8% of the thermal energy compared with rule-based control, at −5, −7 and −10 °C respectively [20]. In absolute terms, the saving is 460, 670 and 840 Wh, i.e. about 1.8 times larger at −10 °C than at −5 °C [20].
-
-Therefore, the saving of thermal control is largest in cold weather, which is the worst-case scenario that dimensions the battery. In my model, I assume, conservatively, that the winter saving is about 1.5 times the annual average. This factor is below both the doubling of the heating share in the bus data and the factor of 1.8 in the car study.
-
-However, the real ratio depends on the climate, the route and the hardware. For electric drayage trucks in mild climates, simulated winter consumption is only 3–10% above summer consumption, although battery heating is 60–80% of the auxiliary power in the coldest weather [21]. In Nordic telematics data from battery-electric trucks, the extra consumption rises by about 1.17 kWh/100 km for every °C below 15 °C. A water film or snow on the road adds 7–8 kWh/100 km regardless of the temperature [22]. Hence, part of the measured winter penalty comes from rolling resistance, which thermal control does not reduce.
-
-The effect of the factor of 1.5 on the battery size is listed in Table 3, comparing a battery sized on the average saving with one sized on the winter saving.
-
-*Table 3. Battery reduction for the reference truck, sized on the average saving and on the winter saving.*
-
-| Annual average improvement | Battery reduction if sized on the average | Battery reduction if sized on the winter saving |
+| Annual average efficiency improvement | Sized on the annual average | Sized on 1.5× the average in winter |
 | --- | ---: | ---: |
 | 2% | 12.5 kWh / 80 kg | about 19 kWh / 120 kg |
 | 4% | 25 kWh / 156 kg | about 36 kWh / 230 kg |
 
-For the same annual improvement, sizing on the winter saving removes about half as much battery again as sizing on the average. Therefore, the value of thermal control depends on whether its winter saving is taken into account when the battery is sized.
+**When the winter improvement sets the capacity, about half as much battery again is removed.** This requires the gain to be confirmed on the cold route that sizes the battery, and the modules to be still resizable at specification. Nordic truck telematics attribute 7–8 kWh/100 km of the winter penalty to water or snow on the road [18], a rolling resistance that thermal control cannot remove. Before a winter saving enters a battery specification, the heating energy has to be separated from the road and route effects in the data.
 
-I also assume that keeping the cells closer to their ideal temperature slows their degradation. With this effect, a 4% improvement leaves the battery with about 1.6 percentage points more health after eight years. Together, the winter sizing and the slower ageing raise the value of a 4% improvement for mixed freight from about 16,100 € to 21,300 € per truck. The main figures in [Part 3](/writing/control-software-electric-trucks-part-3-business-case/) do not include these effects. [Part 4](/writing/control-software-electric-trucks-part-4-design/) analyses them in detail, together with the shorter charging stops obtained by preconditioning.
+## 5. A small energy saving can change the truck's economics
 
-## 6. Bringing it together: how an efficiency gain compounds
+A saving that reaches the battery size spreads beyond the energy bill. A smaller battery makes the truck lighter and slightly reduces its traction energy, a feedback that [Part 2](/writing/control-software-electric-trucks-part-2-engineering/) calculates at about 1.07 times the original saving. It is small because the battery is only about an eighth of the operating mass and aerodynamic drag does not fall with mass. Most of the additional *value* therefore comes from the lower battery cost and, on weight-limited work, the freight its mass frees.
 
-Sections 2 to 5 followed an energy saving back to the battery size. Since a smaller battery changes the mass, the cost and the charging of the truck, a 2–4% efficiency improvement compounds through three channels of very different size:
+[Part 3](/writing/control-software-electric-trucks-part-3-business-case/) values these channels in a normalised truck whose battery is about 32% of the purchase price: electricity, battery cost, extra payload and paid charging time (limits in Appendix C). For a 3% improvement, in the middle of the measured range, they total 8,100 € per truck over eight years with the battery kept and up to 16,300 € with a smaller battery, or 1.23–2.46 times the electricity saved. The battery and payload channels, however, need the saving at specification, because a truck already built keeps its pack and removing a whole module would take at least a 12% improvement. A software update therefore does not deliver them to an existing fleet, only to a new vehicle or a selectable battery variant.
 
-- **Physical compounding:** a smaller battery makes the truck lighter, which lowers consumption a little further. This feedback is small, and the equivalent improvement is about 1.07 times the original. The reason is that the battery is only an eighth of the operating mass of the truck, and aerodynamic drag does not depend on weight. [Part 2](/writing/control-software-electric-trucks-part-2-engineering/) derives this feedback.
-- **Economic compounding:** the saving passes through the battery cost, the payload and the charging time before it reaches the operator, and its value is 1.2–2.5 times the electricity saved. Because margins are thin, operating profit rises by between a quarter and almost double. [Part 3](/writing/control-software-electric-trucks-part-3-business-case/) presents the cost model, its assumptions and the breakdown of the value by channel.
-- **Sizing case:** thermal management saves the most in the worst-case scenario, which is the scenario the battery is sized for (section 5). [Part 4](/writing/control-software-electric-trucks-part-4-design/) shows that, when this saving is used in the design, the same 3% average gain is worth almost twice as much.
+To compare the channels on one scale, Figure 5 plots the value of a *3% modelled efficiency improvement* (about 2.9% less energy use) as a multiple of the electricity it saves. This multiple is not a fall in total cost of ownership.
 
-The size of the three channels is plotted in Figure 6, as the value of the improvement divided by the value of the electricity it saves.
-
-<figure class="article-figure">
-	<img src="/images/blog/control-software-electric-trucks/part1-fig6-value-multiplier.png" alt="Bar chart: the value of the improvement is 1.00 times the electricity saved alone, 1.07 times with the battery downsizing, 1.23–2.46 times with the economic compounding and 3.25–4.58 times when designed into the vehicle." loading="lazy" />
-	<figcaption>Figure 6. Value of a 3% efficiency improvement as a multiple of the electricity it saves, for the reference long-haul truck and each compounding channel. The diamonds indicate the scenarios A, B and C of Part 3 and the two design cases of Part 4; the bars span their range. The dotted line indicates the electricity saved alone.</figcaption>
+<figure class="article-figure article-figure--responsive article-figure--wide-mobile">
+	<picture>
+		<source media="(max-width: 720px)" srcset="/images/blog/control-software-electric-trucks/part1-fig5-value-multiplier-mobile.svg" width="360" height="646" />
+		<img src="/images/blog/control-software-electric-trucks/part1-fig5-value-multiplier.png" width="3125" height="1234" alt="For a 3% modelled gain, value relative to electricity saved is 1.00 times for electricity alone, 1.07 with lighter-battery energy feedback, 1.23–2.46 with economic channels and 3.25–4.58 when further design effects are included." loading="lazy" />
+	</picture>
+	<figcaption>Figure 5. Modelled value of a 3% efficiency improvement divided by the electricity saving in the reference long-haul truck. The diamonds mark Part 3's operating scenarios and Part 4's design cases. The bars span their ranges, and the dotted line marks electricity alone. The Part 4 cases add winter sizing and other design effects and are separate from Part 3's base scenarios.</figcaption>
 </figure>
 
-The physical feedback of the downsized battery raises the value only from 1.00 to 1.07 times the electricity saved. The economic channels raise it to 1.23–2.46 times, and designing the vehicle around the software raises it to 3.25–4.58 times. This is because the battery is a small share of the operating mass of the truck, whereas each kilowatt-hour removed is also a saving in purchase price and, on weight-limited routes, a gain in payload. Hence, most of the value of thermal control comes from the business case and from the sizing decision, and the physical feedback adds little. This amplification is specific to the heavy truck, as the comparison with passenger cars shows.
+In Figure 5, the battery-mass feedback moves the value only from 1.00 to 1.07 times the electricity saved. The haulier's cost and freight channels raise it to 1.23–2.46 times, although extra freight is revenue and not a lower cost. [Part 4](/writing/control-software-electric-trucks-part-4-design/) adds design effects, including winter sizing and slower ageing, which raise the *modelled* value to 3.25–4.58 times on assumptions that the 2–4% truck tests alone do not support. As I see it, **most of this value is decided at the battery specification, so validated control performance has to reach the vehicle design before the battery is fixed.**
 
-## 7. Trucks vs cars
+## Summary and conclusions
 
-The same thermal management methods save energy in passenger cars. However, the percentages are not directly comparable, because the duty cycles and the thermal loads are different, and the economic context differs even more. In a car, a few per cent of efficiency gives a few more kilometres of range, which the buyer weighs against comfort and price. In a heavy truck, the same gain changes the cost per tonne-kilometre and the total cost of ownership (TCO, i.e. the purchase and operating costs over the life of the vehicle), on which the purchase decision is based. The two vehicles are compared in Table 4; the last row gives the value of the same few per cent of efficiency.
+The battery of an electric long-haul truck is sized so that the route remains achievable with a cold or aged battery and the haulier's charging stops. At 600–800 kWh, it weighs 3.4–5.5 tonnes and costs 90,000–176,000 €, carried on every day of the year. Cold limits its power and fast charging, and heat accelerates its ageing. Heating the cells consumes route energy, which thermal control can reduce only as far as the hardware lets it choose the heat source and the flow path.
 
-*Table 4. Passenger car and long-haul truck compared.*
+In my truck work, predictive and optimisation-based thermal control reduced total vehicle energy use by **2–4% against production feedback control in tests across −30 to 40 °C**. Because the battery is sized for the worst case, the winter value of this saving decides how much battery it can remove. With 1.5 times the annual improvement in winter, the reduction for the 640 kWh reference truck grows from 12.5–25 kWh to about 19–36 kWh. That factor rests on bus and car evidence and still needs a truck winter test, and the road surface and the freedom to resize the battery remain separate constraints.
 
-|  | Passenger car | Long-haul truck |
-| --- | --- | --- |
-| Distance per year | about 15,000 km | 100,000–150,000 km |
-| Battery | 60–100 kWh | 500–800 kWh |
-| Battery mass vs payload | Not monetised | Every kilogram competes with cargo |
-| Purchase decision | Range, comfort, price | Cost per tonne-kilometre, TCO, return on investment |
-| Value of a few per cent efficiency | A few more kilometres of range | 5,000–20,000 € per truck; operating profit up by a quarter or more |
+Beyond the battery, the value of the saving exceeds the electricity it saves. [Part 3](/writing/control-software-electric-trucks-part-3-business-case/) values a 3% gain at **8,100–16,300 € over eight years** for the reference truck, and [Part 4](/writing/control-software-electric-trucks-part-4-design/) evaluates the winter and battery-life effects separately. The first number in this chain to replace with a measurement is the winter factor of 1.5. One cold-route test against the production controller, with the heating separated from the rolling resistance, would provide it before a control gain changes the battery specification.
 
-The truck drives several times further each year with a battery several times larger, and its battery mass is priced in lost cargo. Therefore, the same percentage saving that gives a car a few kilometres of range is worth thousands of euros per truck.
+## Appendix: assumptions and data limitations
 
-## 8. Summary and conclusions
+### A. The battery comparison is an illustration
 
-An electric long-haul truck carries 4–5 tonnes of battery, and that battery sets its mass, its price, its range and its charging time. Since road freight runs on margins of about 2%, every kilogram and every euro of battery competes with the haulier's profit. The battery is sized for the worst-case scenario the truck must handle: a Nordic winter or a southern summer, with a battery aged eight years, on the required daily range. In these conditions, the battery temperature decides how much power the battery can deliver and accept, and keeping it within its window costs energy taken from the same battery.
+Figure 2 uses 145 Wh/kg for LFP and 175 Wh/kg for NMC811 at *pack* level. Dividing 600–800 kWh by those densities gives the 3.4–5.5 tonne bounds, and multiplying capacity by 150–220 €/kWh gives 90,000–176,000 €. The 150–220 €/kWh range is the commercial-vehicle pack-cost range [10], not BloombergNEF's $108/kWh average across all applications [9]. A 2-tonne allowance divided by the end-point pack masses gives the 36–58% coverage quoted in section 1.
 
-Thermal control software therefore acts on the quantity that sizes the battery. **Predictive and optimisation-based control reduces the energy consumption of the truck by 2–4%** against well-tuned conventional control, and the saving is largest in cold weather, i.e. in the scenario the battery is sized for; [Part 2](/writing/control-software-electric-trucks-part-2-engineering/) explains how these methods decide how and when the thermal energy is spent. The saving then compounds through channels of very different size. The lighter truck adds only about 7% to it, because the battery is an eighth of the operating mass. However, through the battery cost, the payload and the charging time, **it raises its value to 1.2–2.5 times the electricity saved**, and [Part 3](/writing/control-software-electric-trucks-part-3-business-case/) follows this value channel by channel. Using the saving to size the battery raises the value of a 3% gain to 3.3–4.6 times, i.e. from 0.6% to 2.0–2.8% of the total cost of ownership (TCO) of the truck, as [Part 4](/writing/control-software-electric-trucks-part-4-design/) shows for trucks and buses. In a passenger car, the same percentage gives a few kilometres of range; **in a truck, it is worth 5,500–21,500 € per vehicle and raises operating profit by between a quarter and almost double.**
+Table A1 compares further chemistries using rounded scenario inputs for a *trade-off illustration*. They are not independently sourced pack specifications, current market quotes or a prediction of which chemistry a truck maker will choose. Sodium-ion and solid-state are outlook cases. The 130 €/kWh assumed for LFP in this table is not the 150–220 €/kWh market range used in Figure 2, and [Part 3](/writing/control-software-electric-trucks-part-3-business-case/) uses a separate 154 €/kWh pack price.
 
-Hence, the value of a few percent of efficiency in a heavy vehicle depends on three questions: whether the saving occurs in the conditions that size the hardware, through which channels it reaches the cost of the vehicle, and whether it is known before the hardware is fixed. The first and the last questions are answered in the design of the control software: by what it optimises in the worst-case scenario, and by how early and how reliably its performance is validated. In my work, I develop the control strategies that achieve this efficiency increase of 2–4%, already tested on production trucks.
+*Table A1. Illustrative pack-level comparison assumptions, not product measurements.*
+
+| Chemistry | Wh/kg | Wh/L | Assumed €/kWh | Assumed cycles to 80% health | Indicative cold behaviour |
+| --- | ---: | ---: | ---: | ---: | --- |
+| NMC811 | 175 | 330 | 165 | 3,000 | Good; sensitive to heat |
+| NMC622 | 155 | 290 | 160 | 3,500 | Good |
+| LMFP | 160 | 285 | 135 | 4,500 | Moderate |
+| LFP | 145 | 260 | 130 | 6,000 | Weaker below 0 °C; needs heating |
+| Sodium-ion (outlook) | 115 | 210 | 125 | 4,000 | Very good |
+| Solid-state (outlook) | 250 | 500 | 200 | 2,000 | To be confirmed |
+
+The thermal circuits in section 3 are described with components common to electric vehicles. No manufacturer-specific layout, calibration or internal control mechanism is implied by Figure 1.
+
+### B. The winter sizing calculation
+
+The comparison in Table 1 uses the 640 kWh battery and 157.5 Wh/kg pack density of the [Part 3 reference model](/writing/control-software-electric-trucks-part-3-business-case/). Its efficiency-improvement parameter *g* changes consumption by the factor $1/(1+g)$, and a battery that retains its original modelled range changes from $E_0$ to $E_0/(1+g)$. Thus the capacity removed is $E_0g/(1+g)$, rather than exactly $E_0g$. At a 2% average improvement this is 12.55 kWh, or about 80 kg. At 4% it is 24.62 kWh, or about 156 kg. Multiplying *g* by 1.5 gives winter cases of 18.64 kWh and 36.23 kWh (about 120 and 230 kg, respectively). A 3% parameter corresponds to 2.91% less energy use under this definition, so it is not the same as an exact 3% measured consumption reduction.
+
+The 1.5 multiplier is a bounded *model choice*. The −10 °C bus analysis gives a heating share of roughly half of 2.5 kWh/km [16], and the passenger-car heat-pump study gives a 1.8 ratio of absolute thermal savings between −10 and −5 °C [17]. Neither is a long-haul truck comparison of winter and annual *total-vehicle* control savings. The truck data in Figure 4 mix field measurements [13, 14], passenger-car tests [1] and simulated drayage duty cycles [15]. Nordic telematics separately identify a water-film or snow penalty of 7–8 kWh/100 km [18]. The Part 4 winter and ageing results therefore depend on hypotheses to validate for the intended truck and route.
+
+### C. Charging and ageing limits
+
+A driver must take a 45-minute break after 4.5 hours of driving under the EU driving-time rules [19]. Some long-haul trucks accept up to about 750 kW on a megawatt charger [5], and around 30 minutes of charging can fit within a break [20]. Charger availability, battery temperature and the charging-power curve still limit the real stop. A shorter charge becomes paid time saved only if the stop delays the work. [Part 3](/writing/control-software-electric-trucks-part-3-business-case/) counts only part of that time in its model.
+
+The comparison in Figure 5 includes Part 4's additional effects but does not assign them to the Part 3 base case. Laboratory cell ageing depends on temperature and cycling conditions [12], so a modelled battery-health improvement is not a measured lifetime result for the tested trucks. The cost values exclude the development and validation cost of the software and are for a normalised reference truck, not a quoted price or a forecast for a fleet.
 
 ## References
 
-1. European Commission, Lorries, buses and coaches: CO₂ emission standards (Regulation (EU) 2019/1242 as amended by Regulation (EU) 2024/1610). https://climate.ec.europa.eu/areas-action/transport-decarbonisation/road-transport/lorries-buses-and-coaches_en
-2. BloombergNEF, Lithium-ion battery pack prices fall to $108 per kilowatt-hour despite rising metal prices, December 2025. https://about.bnef.com/insights/clean-transport/lithium-ion-battery-pack-prices-fall-to-108-per-kilowatt-hour-despite-rising-metal-prices-bloombergnef/
+1. AAA, Cold weather reduces electric vehicle range, 2019. https://newsroom.aaa.com/2019/02/cold-weather-reduces-electric-vehicle-range/
+2. European Commission, Lorries, buses and coaches: CO₂ emission standards (Regulation (EU) 2019/1242 as amended by Regulation (EU) 2024/1610). https://climate.ec.europa.eu/areas-action/transport-decarbonisation/road-transport/lorries-buses-and-coaches_en
 3. Daimler Truck, Mercedes-Benz Trucks hands over first series-produced eActros 600 to customers in Germany, December 2024. https://www.daimlertruck.com/en/newsroom/pressrelease/mercedes-benz-trucks-hands-over-first-series-produced-eactros-600-to-customers-in-germany-52938275
 4. electrive, Volvo Trucks boosts net battery capacity to record level, June 2026. https://www.electrive.com/2026/06/11/volvo-trucks-boosts-net-battery-capacity-to-record-level/
 5. electrive, New generation MAN eTGX unveiled with 720 km range, September 2026. https://www.electrive.com/2026/09/14/new-generation-man-etgx-unveiled-with-720-km-range/
 6. Scania, Scania enables electric long-haul with up to 720 km range. https://www.scania.com/group/en/home/newsroom/press-releases/press-release-detail-page.html/5424916-scania-enables-electric-long-haul-with-up-to-720-km-range
-7. European Commission, Weights and dimensions (Directive 96/53/EC as amended, including Regulation (EU) 2019/1242). https://transport.ec.europa.eu/transport-modes/road/weights-and-dimensions_en
-8. ICCT, A total cost of ownership comparison of truck decarbonization pathways in Europe, 2023. https://theicct.org/publication/total-cost-ownership-trucks-europe-nov23/
-9. Optimization of thermal and structural design in lithium-ion batteries to obtain energy-efficient battery thermal management system: a critical review, *Archives of Computational Methods in Engineering*, 2022. https://doi.org/10.1007/s11831-021-09571-0
-10. Temperature, ageing and thermal management of lithium-ion batteries, *Energies*, 2021. https://doi.org/10.3390/en14051248
-11. AAA, Cold weather reduces electric vehicle range, 2019. https://newsroom.aaa.com/2019/02/cold-weather-reduces-electric-vehicle-range/
-12. Upply Market Insights, Transport routier français : le bilan 2023 révèle l'érosion des marges (Banque de France data), 2024. https://market-insights.upply.com/fr/transport-routier-fran%C3%A7ais-le-bilan-2023-revele-lerosion-des-marges
-13. European Commission, DG MOVE, Driving time and rest periods (Regulation (EC) No 561/2006). https://transport.ec.europa.eu/transport-modes/road/social-provisions/driving-time-and-rest-periods_en
-14. W. Shoman, S. Yeh, F. Sprei, P. Plötz, D. Speth, Public charging requirements for battery electric long-haul trucks in Europe: a trip chain approach, Fraunhofer ISI Working Paper S01/2023.
-15. J. Le Corguillé, F. Hacker, K. Göckeler, M. Mottschall, T. Dolinga, Real-world data analysis of energy consumption, activity and charging patterns of battery electric trucks operating in Germany, Öko-Institut, 2025. https://www.oeko.de/fileadmin/oekodoc/Real-world-data-analysis-of-battery-electric-trucks.pdf
-16. M. Vehviläinen et al., Setting up and operating electric city buses in harsh winter conditions, *Applied Sciences*, 12(6), 2762, 2022. https://doi.org/10.3390/app12062762
-17. Y. Preger et al., Degradation of commercial lithium-ion cells as a function of chemistry and cycling conditions, *Journal of The Electrochemical Society*, 167, 120532, 2020. https://doi.org/10.1149/1945-7111/abae37
-18. D. Göhlich, T.-A. Fay, D. Jefferies, E. Lauth, A. Kunith, X. Zhang, Design of urban electric bus systems, *Design Science*, 4, e15, 2018. https://doi.org/10.1017/dsj.2018.10
-19. D. Jefferies, D. Göhlich, A comprehensive TCO evaluation method for electric bus systems based on discrete-event simulation including bus scheduling and charging infrastructure optimisation, *World Electric Vehicle Journal*, 11(3), 56, 2020. https://doi.org/10.3390/wevj11030056
-20. P. Lokur, N. Murgovski, Energy-optimal thermal management of heat-pump battery electric vehicles, arXiv preprint 2605.29104, 2026. https://arxiv.org/abs/2605.29104
-21. Shiledar et al., Assessing geographical and seasonal influences on energy efficiency of electric drayage trucks, arXiv preprint 2504.02575, 2025. https://arxiv.org/abs/2504.02575
-22. Hiltunen et al., Weather-aware energy prediction for battery electric trucks from fleet telematics and road weather data, SSRN preprint, 2026. https://doi.org/10.2139/ssrn.7602714
+7. Upply Market Insights, Transport routier français : le bilan 2023 révèle l'érosion des marges (Banque de France data), 2024. https://market-insights.upply.com/fr/transport-routier-fran%C3%A7ais-le-bilan-2023-revele-lerosion-des-marges
+8. European Commission, Weights and dimensions (Directive 96/53/EC as amended, including Regulation (EU) 2019/1242). https://transport.ec.europa.eu/transport-modes/road/weights-and-dimensions_en
+9. BloombergNEF, Lithium-ion battery pack prices fall to $108 per kilowatt-hour despite rising metal prices, December 2025. https://about.bnef.com/insights/clean-transport/lithium-ion-battery-pack-prices-fall-to-108-per-kilowatt-hour-despite-rising-metal-prices-bloombergnef/
+10. ICCT, A total cost of ownership comparison of truck decarbonization pathways in Europe, 2023. https://theicct.org/publication/total-cost-ownership-trucks-europe-nov23/
+11. Optimization of thermal and structural design in lithium-ion batteries to obtain energy-efficient battery thermal management system: a critical review, *Archives of Computational Methods in Engineering*, 2022. https://doi.org/10.1007/s11831-021-09571-0
+12. Y. Preger et al., Degradation of commercial lithium-ion cells as a function of chemistry and cycling conditions, *Journal of The Electrochemical Society*, 167, 120532, 2020. https://doi.org/10.1149/1945-7111/abae37
+13. J. Le Corguillé, F. Hacker, K. Göckeler, M. Mottschall, T. Dolinga, Real-world data analysis of energy consumption, activity and charging patterns of battery electric trucks operating in Germany, Öko-Institut, 2025. https://www.oeko.de/fileadmin/oekodoc/Real-world-data-analysis-of-battery-electric-trucks.pdf
+14. M. Vehviläinen et al., Setting up and operating electric city buses in harsh winter conditions, *Applied Sciences*, 12(6), 2762, 2022. https://doi.org/10.3390/app12062762
+15. Shiledar et al., Assessing geographical and seasonal influences on energy efficiency of electric drayage trucks, arXiv preprint 2504.02575, 2025. https://arxiv.org/abs/2504.02575
+16. D. Göhlich, T.-A. Fay, D. Jefferies, E. Lauth, A. Kunith, X. Zhang, Design of urban electric bus systems, *Design Science*, 4, e15, 2018. https://doi.org/10.1017/dsj.2018.10
+17. P. Lokur, N. Murgovski, Energy-optimal thermal management of heat-pump battery electric vehicles, arXiv preprint 2605.29104, 2026. https://arxiv.org/abs/2605.29104
+18. Hiltunen et al., Weather-aware energy prediction for battery electric trucks from fleet telematics and road weather data, SSRN preprint, 2026. https://doi.org/10.2139/ssrn.7602714
+19. European Commission, DG MOVE, Driving time and rest periods (Regulation (EC) No 561/2006). https://transport.ec.europa.eu/transport-modes/road/social-provisions/driving-time-and-rest-periods_en
+20. W. Shoman, S. Yeh, F. Sprei, P. Plötz, D. Speth, Battery electric long-haul trucks in Europe: Public charging, energy, and power requirements, *Transportation Research Part D*, 121, 103825, 2023. https://doi.org/10.1016/j.trd.2023.103825
 
-*The thermal management system is described in general terms common to electric vehicles; no specific system layout is disclosed. The economic figures and the winter and ageing effects come from my own model of a normalised truck (Part 3). The winter factor is based on the sources [18–22].*
+*The comparisons use published vehicle studies, generalised thermal-system descriptions and a separate normalised-truck cost model. No employer-specific circuit, calibration or unpublished engineering result is disclosed.*

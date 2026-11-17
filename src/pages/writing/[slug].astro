@@ -34,7 +34,7 @@ const label = entry.data.draft && !SHOW_DRAFT_WRITING
 
 const publishedDate = entry.data.publishDate.toISOString();
 const updatedDate = entry.data.updatedDate && entry.data.updatedDate > entry.data.publishDate ? entry.data.updatedDate : undefined;
-const pageTitle = article.title;
+const pageTitle = entry.data.seoTitle ?? article.title;
 // Contents index: the h2 sections of the body, then the sections split out after the CTA.
 const contents = [
 	...headings.filter((heading) => heading.depth === 2).map((heading) => ({ id: heading.slug, label: heading.text })),
@@ -97,7 +97,9 @@ const RELATED_FALLBACK = 2;
 const isSeriesEntry = (other: (typeof allArticles)[number]) =>
 	!other.series || !allArticles.some((part) => part.series?.id === other.series!.id && part.series.part < other.series!.part);
 const relatedCandidates = allArticles
-	.filter((other) => other.slug !== article.slug && (!article.series || other.series?.id !== article.series.id) && isSeriesEntry(other))
+	.filter((other) => other.slug !== article.slug
+		&& (!article.series || other.series?.id !== article.series.id)
+		&& isSeriesEntry(other))
 	.map((other) => ({
 		other,
 		score: other.topics.filter((topic) => article.topics.includes(topic)).length * 2
@@ -224,8 +226,8 @@ const relatedArticles = (matched.length > 0 ? matched.slice(0, RELATED_MAX) : re
 
 		<footer class="page-container writing-post__container writing-post__footer" data-article-end>
 					<ContactCTA
-						title="Working on a similar control problem?"
-						body="Describe the system you are working on in a short message. I will reply with how this approach could apply to it and where I have solved similar problems."
+						title={entry.data.ctaTitle ?? 'Working on a similar control problem?'}
+						body={entry.data.ctaBody ?? 'Describe the system you are working on in a short message. I will reply with how this approach could apply to it and where I have solved similar problems.'}
 						primaryHref="/contact/?context=technical&source=writing#message-title"
 						primaryLabel="Discuss a technical problem"
 						secondaryHref={relatedProject ? `work/${relatedProject.id}/` : 'work/'}
@@ -407,8 +409,9 @@ const relatedArticles = (matched.length > 0 ? matched.slice(0, RELATED_MAX) : re
 			button.type = 'button';
 			button.className = 'figure-zoom';
 			button.setAttribute('aria-label', `Enlarge ${number ?? 'figure'}`);
-			img.replaceWith(button);
-			button.append(img);
+			const picture = img.parentElement?.tagName === 'PICTURE' ? img.parentElement : undefined;
+			(picture ?? img).replaceWith(button);
+			button.append(picture ?? img);
 			button.addEventListener('click', () => {
 				viewerImg.src = img.currentSrc || img.src;
 				viewerImg.alt = img.alt;
@@ -868,6 +871,10 @@ const relatedArticles = (matched.length > 0 ? matched.slice(0, RELATED_MAX) : re
 		margin-block: clamp(1.4rem, 3vw, 2rem);
 		overflow-x: auto;
 	}
+	.writing-post__body :global(.comparison-table:focus-visible) {
+		outline: 2px solid var(--color-focus);
+		outline-offset: -2px;
+	}
 
 	.writing-post__body :global(.comparison-table table) {
 		width: 100%;
@@ -915,6 +922,16 @@ const relatedArticles = (matched.length > 0 ? matched.slice(0, RELATED_MAX) : re
 		max-width: 100%;
 		margin: clamp(1.6rem, 4vw, 2.4rem) 0;
 	}
+	.writing-post__body :global(.article-figure--overview) {
+		width: 100%;
+		margin-inline: auto;
+	}
+	.writing-post__body :global(.article-figure--overview picture),
+	.writing-post__body :global(.article-figure--overview > img) {
+		display: block;
+		max-width: 44rem;
+		margin-inline: auto;
+	}
 
 	.writing-post__body :global(.article-figure img),
 	.writing-post__body :global(.article-figure video) {
@@ -922,6 +939,36 @@ const relatedArticles = (matched.length > 0 ? matched.slice(0, RELATED_MAX) : re
 		width: 100%;
 		max-width: 100%;
 		height: auto;
+	}
+	.writing-post__body :global(.article-figure.article-figure--print img) {
+		max-width: min(100%, var(--figure-max, 36rem));
+		margin-inline: auto;
+	}
+	@media (max-width: 720px) {
+		.writing-post__body :global(.article-figure--overview) { width: 100%; }
+		.writing-post__body :global(.article-figure--responsive picture) {
+			display: block;
+			max-width: min(100%, 21rem);
+			margin-inline: auto;
+		}
+	}
+	.writing-post__body :global(.article-figure--full-column picture) {
+		display: block;
+		max-width: 100%;
+	}
+	@media screen and (max-width: 720px) {
+		.writing-post__body :global(.article-figure--inspect-mobile .article-figure__scroll) {
+			overflow-x: auto;
+			max-width: 100%;
+		}
+		.writing-post__body :global(.article-figure--inspect-mobile .figure-zoom),
+		.writing-post__body :global(.article-figure--inspect-mobile .article-figure__scroll img) {
+			width: var(--figure-inspect-width, 1200px);
+			max-width: none;
+		}
+		.writing-post__body :global(.article-figure--inspect-mobile .article-figure__inspection-link) {
+			display: block;
+		}
 	}
 
 	/* Figure captions sit below the figure, table captions above the table, in the same style. */
@@ -933,6 +980,32 @@ const relatedArticles = (matched.length > 0 ? matched.slice(0, RELATED_MAX) : re
 	}
 	.writing-post__body :global(.article-figure figcaption) { margin-top: 0.75rem; }
 	.writing-post__body :global(.article-table figcaption) { margin-bottom: 0.75rem; }
+	.writing-post__body :global(.article-table__hint) { display: none; }
+	@media (max-width: 575px) {
+		.writing-post__body :global(.article-table figcaption) { margin-bottom: 0.35rem; }
+		.writing-post__body :global(.article-table__hint) {
+			display: block;
+			margin: 0 0 0.55rem;
+			color: var(--color-muted);
+			font-size: var(--type-compact-size);
+			line-height: var(--type-compact-line);
+		}
+		.writing-post__body :global(.article-table--compact-mobile .comparison-table table) {
+			min-width: 0;
+			table-layout: fixed;
+		}
+		.writing-post__body :global(.article-table--compact-mobile .comparison-table th),
+		.writing-post__body :global(.article-table--compact-mobile .comparison-table td) {
+			overflow-wrap: anywhere;
+		}
+	}
+	.writing-post__body :global(.article-figure__inspection-link) {
+		display: none;
+		margin: .6rem 0 0;
+		color: var(--color-muted);
+		font-size: var(--type-compact-size);
+		line-height: var(--type-compact-line);
+	}
 
 	.writing-post__body :global(.figure-zoom) {
 		position: relative;
@@ -1127,6 +1200,20 @@ const relatedArticles = (matched.length > 0 ? matched.slice(0, RELATED_MAX) : re
 			width: 100%;
 			max-width: 100%;
 			min-width: 0;
+		}
+		.writing-post__body :global(.article-figure--wide-mobile) {
+			inline-size: min(calc(100vw - 32px), 400px);
+			max-inline-size: min(calc(100vw - 32px), 400px);
+			width: min(calc(100vw - 32px), 400px);
+			max-width: min(calc(100vw - 32px), 400px);
+		}
+		.writing-post__body :global(.article-figure--overview) {
+			inline-size: 100%;
+			width: 100%;
+		}
+		.writing-post__body :global(.article-figure--overview picture),
+		.writing-post__body :global(.article-figure--overview > img) {
+			max-width: min(100%, 21rem);
 		}
 	}
 </style>

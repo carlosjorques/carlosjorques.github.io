@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="360" height="922" viewBox="0 0 360 922" role="img" aria-labelledby="title description" font-family="Arial, Helvetica, sans-serif">
+  <title id="title">The thermal control problem</title>
+  <desc id="description">Predicted disturbances from the route, speed, ambient temperature and next charging stop feed the controller through a dashed forecast path. The controller commands pumps, valves, compressor, fans, heaters and mode. Ambient temperature, vehicle speed, propulsion and charging heat disturb the thermal system. Sensors and a state estimator return measured and estimated states to close the loop.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto" viewBox="0 0 7 7"><path d="M0 0L7 3.5 0 7Z" fill="#4d4d4d"/></marker>
+  </defs>
+  <rect width="360" height="922" fill="#ffffff"/>
+  <text x="16" y="33" font-size="18" font-weight="700" fill="#202020">The thermal control problem</text>
+  <text x="16" y="56" font-size="14" fill="#4d4d4d">Predictions add a path to the feedback loop.</text>
+  <rect x="30" y="79" width="300" height="104" fill="#f5f5f5"/>
+  <text x="44" y="107" font-size="16" font-weight="700" fill="#202020">Forecast</text>
+  <text x="44" y="132" font-size="14" fill="#4d4d4d">Route and gradient, speed, ambient,</text>
+  <text x="44" y="153" font-size="14" fill="#4d4d4d">next charging stop</text>
+  <path d="M180 184V213" stroke="#4d4d4d" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#arrow)"/>
+  <text x="218" y="202" font-size="12" fill="#4d4d4d">predicted disturbances</text>
+  <rect x="30" y="219" width="300" height="136" fill="#f2e3d4"/>
+  <text x="44" y="247" font-size="17" font-weight="700" fill="#202020">Controller</text>
+  <text x="44" y="274" font-size="14" fill="#4d4d4d">Objective: minimum energy</text>
+  <text x="44" y="297" font-size="14" fill="#4d4d4d">Constraints: temperature, pressure</text>
+  <text x="44" y="318" font-size="14" fill="#4d4d4d">and actuator limits</text>
+  <path d="M96 356V394" stroke="#4d4d4d" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="187" y="381" font-size="12" fill="#4d4d4d">From outside the controller</text>
+  <rect x="30" y="400" width="132" height="126" fill="#f2e3d4"/>
+  <text x="42" y="427" font-size="16" font-weight="700" fill="#202020">Inputs (u)</text>
+  <text x="42" y="450" font-size="13" fill="#4d4d4d">Pumps, valves,</text>
+  <text x="42" y="470" font-size="13" fill="#4d4d4d">compressor, fans,</text>
+  <text x="42" y="490" font-size="13" fill="#4d4d4d">heaters, mode</text>
+  <path d="M265 370V394" stroke="#4d4d4d" stroke-width="2" marker-end="url(#arrow)"/>
+  <rect x="180" y="400" width="150" height="126" fill="#f5f5f5"/>
+  <text x="190" y="427" font-size="14" font-weight="700" fill="#202020">Disturbances (d)</text>
+  <text x="190" y="450" font-size="12.5" fill="#4d4d4d">Ambient, speed,</text>
+  <text x="190" y="470" font-size="12.5" fill="#4d4d4d">propulsion and</text>
+  <text x="190" y="490" font-size="12.5" fill="#4d4d4d">charging heat</text>
+  <path d="M96 527V561M265 527V561" stroke="#4d4d4d" stroke-width="2" marker-end="url(#arrow)"/>
+  <rect x="30" y="567" width="300" height="146" fill="#eeeeee"/>
+  <text x="44" y="595" font-size="17" font-weight="700" fill="#202020">Thermal system</text>
+  <text x="44" y="623" font-size="14" fill="#4d4d4d">States (x): cell, coolant,</text>
+  <text x="44" y="645" font-size="14" fill="#4d4d4d">power-electronics and motor</text>
+  <text x="44" y="667" font-size="14" fill="#4d4d4d">temperatures; refrigerant pressures;</text>
+  <text x="44" y="689" font-size="14" fill="#4d4d4d">cab climate</text>
+  <path d="M180 714V741" stroke="#4d4d4d" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="205" y="736" font-size="12" fill="#4d4d4d">measured outputs</text>
+  <rect x="30" y="747" width="300" height="70" fill="#f5f5f5"/>
+  <text x="44" y="789" font-size="15" font-weight="700" fill="#202020">Sensors and state estimator</text>
+  <path d="M30 782H14V285H28" fill="none" stroke="#4d4d4d" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="30" y="855" font-size="14" fill="#4d4d4d">Measured and estimated states return to</text>
+  <text x="30" y="877" font-size="14" fill="#4d4d4d">the controller through the solid loop.</text>
+  <text x="344" y="910" text-anchor="end" font-size="11" fill="#999999">carlosjorques.com</text>
+</svg>
