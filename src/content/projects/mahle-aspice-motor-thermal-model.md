@@ -24,7 +24,7 @@ metrics:
     label: "speed range of the validation, on test data not used for calibration"
   - value: "0"
     label: "sensors added to the motor; the model runs in software next to the motor controller"
-metricsNote: "Pre-development (concept stage) work. At A-SPICE level 2, each process is planned and monitored, and its work products are controlled. The model error is against thermocouples in the windings, at around 100 °C, with a 98% confidence interval."
+metricsNote: "Pre-development (concept stage) work. The department adopted a requirements template and versioned baselines as first steps towards A-SPICE level 2, not a level 2 assessment. The model error is against thermocouples in the windings, at around 100 °C, on test data not used to calibrate the model."
 glance:
   - label: "The need"
     text: "Vehicle makers assess how a supplier develops software (A-SPICE) and handles functional safety (ISO 26262). An electric motor can only use its full power if the drive knows its hottest temperature, which no production sensor measures."
@@ -74,8 +74,11 @@ A-SPICE describes software development as a V: requirements and design down the 
 The proposed first steps, and the path of the motor temperature model through the same processes, are illustrated in Figure 1. The department adopted **a common requirements template and versioned baselines** as its first practices, so that a product department can take over a model such as this one without rebuilding it.
 
 <figure>
-  <img src="/images/work/mahle-fig1-aspice-first-steps.svg" alt="A-SPICE software processes drawn as a V: SWE.1 software requirements, SWE.2 architecture and SWE.3 detailed design on the left, SWE.4 unit verification, SWE.5 integration and SWE.6 qualification on the right. SWE.1 to SWE.4 are marked as the focus of the gap analysis. First steps: a common requirements template with IDs and traceability (adopted), Simulink guidelines and MISRA C checks, model-in-the-loop tests linked to each requirement, and all models and code in SVN with tagged baselines (adopted). The motor temperature model is mapped onto the same processes, from its outputs for derating to its integration on the platform." width="1000" height="495" loading="lazy" />
-  <figcaption>Figure 1. The A-SPICE software processes (SWE.1 to SWE.6) as a V model. Orange boxes: focus of the gap analysis; orange text: first steps proposed, marked where adopted; blue text: the motor temperature model in each process.</figcaption>
+  <picture>
+    <source media="(max-width: 720px)" srcset="/images/work/mahle-fig1-aspice-first-steps-mobile.svg" width="360" height="1082" />
+    <img src="/images/work/mahle-fig1-aspice-first-steps.svg" alt="A-SPICE processes SWE.1 to SWE.6, from requirements and design through unit verification, integration and qualification. First practices adopted were a shared requirements template with IDs and traceability, and versioned SVN baselines. Other steps were proposed. The motor temperature model is mapped to the same processes, from its outputs for derating to integration on the platform." width="1000" height="495" loading="lazy" />
+  </picture>
+  <figcaption>Figure 1. A-SPICE software processes (SWE.1 to SWE.6), shown as a V on desktop and in reading order on phones. Orange: the gap analysis and first steps, marked where adopted; blue: the motor temperature model. The first steps do not constitute a level 2 assessment.</figcaption>
 </figure>
 
 ## Estimating the hottest motor temperature allows for more usable power
@@ -88,13 +91,16 @@ The estimate had to run on the motor control unit and follow fast load changes, 
 - **Several layers per part:** I split the stator and the rotor into several layers, from the windings and magnets to the housing and the coolant. One node per part averages away the hot spot, whereas each extra layer adds parameters to calibrate.
 
 <figure>
-  <img src="/images/work/mahle-fig2-layered-thermal-network.svg" alt="Generic layered thermal network of a permanent-magnet motor: currents and speed feed a loss model that heats the magnets, stator teeth, windings and stator yoke; a chain of thermal resistances links rotor core, magnets, air gap, teeth, windings, end windings, yoke, housing and coolant; the magnets, windings and end windings are the estimated hot spots used for torque derating." width="1000" height="470" loading="lazy" />
-  <figcaption>Figure 2. A generic layered thermal network of a permanent-magnet motor. Each box is a thermal mass with one temperature; the zigzags are thermal resistances. Orange: estimated hot spots; blue: measured inputs. Simplified from published networks; it does not show the structure or parameters of the MAHLE model.</figcaption>
+  <picture>
+    <source media="(max-width: 720px)" srcset="/images/work/mahle-fig2-layered-thermal-network-mobile.svg" width="360" height="974" />
+    <img src="/images/work/mahle-fig2-layered-thermal-network.svg" alt="Generic layered thermal network of a permanent-magnet motor: currents and speed feed a loss model that heats the magnets, stator teeth, windings and stator yoke; thermal resistances link rotor core, magnets, air gap, teeth, windings, end windings, yoke, housing and coolant; the magnets, windings and end windings are estimated hot spots used for torque derating." width="1000" height="470" loading="lazy" />
+  </picture>
+  <figcaption>Figure 2. A generic layered thermal network of a permanent-magnet motor. The desktop diagram shows thermal masses and resistances; the mobile view stacks the same layers along the heat path. Orange: estimated hot spots; blue: measured inputs. Simplified from published networks; it does not show the structure or parameters of the MAHLE model.</figcaption>
 </figure>
 
 In Figure 2, the losses heat the windings, stator and magnets, and the heat flows through the chain of resistances to the housing and the coolant. The hot spots (orange) sit deepest in that chain, where only the test-bench motor had thermocouples.
 
-I calibrated the parameters on one set of test-bench measurements and validated the model on new ones, against thermocouples in the stator and rotor windings, from 0 to 6000 rpm. **The estimation error stayed below 2% of the winding temperature**, with a 98% confidence interval. The model was generated as C code with dSPACE TargetLink and ran in real time on the platform next to the motor controller, so the virtual sensor adds no hardware. It was intended for torque derating close to the real limit, which gives a vehicle maker **more power from the same motor**, and MAHLE **the same power from a smaller motor**.
+I calibrated the parameters on one set of test-bench measurements and validated the model on new ones, against thermocouples in the stator and rotor windings, from 0 to 6000 rpm. **The estimation error stayed below 2% of the winding temperature** on that separate test data, at around 100 °C. The model was generated as C code with dSPACE TargetLink and ran in real time on the platform next to the motor controller, so the virtual sensor adds no hardware. It was intended for torque derating close to the real limit, which gives a vehicle maker **more power from the same motor**, and MAHLE **the same power from a smaller motor**.
 
 ## What MAHLE taught me about the basics of a development team
 

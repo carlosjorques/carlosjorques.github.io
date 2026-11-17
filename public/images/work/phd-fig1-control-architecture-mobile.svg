@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="360" height="722" viewBox="0 0 360 722" font-family="Calibri, Arial, sans-serif">
+  <defs><marker id="a1f4f78" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 10 5 0 10z" fill="#1f4f78"/></marker><marker id="a4d4d4d" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 10 5 0 10z" fill="#4d4d4d"/></marker></defs>
+  <rect width="360" height="722" fill="#ffffff"/>
+  <rect x="40" y="20" width="280" height="68" fill="#eeeeee"/>
+  <text x="52" y="51" font-size="15" font-weight="bold" fill="#1a1a1a">Power request</text>
+  <text x="52" y="74" font-size="14" fill="#4d4d4d">Subject to operational constraints</text>
+  <path d="M180 88v30" fill="none" stroke="#4d4d4d" stroke-width="2" marker-end="url(#a4d4d4d)"/>
+  <rect x="40" y="118" width="280" height="68" fill="#eeeeee"/>
+  <text x="52" y="149" font-size="15" font-weight="bold" fill="#1a1a1a">Strategy coordination</text>
+  <text x="52" y="172" font-size="14" fill="#4d4d4d">Reference and feed-forward action</text>
+  <path d="M180 186v30" fill="none" stroke="#4d4d4d" stroke-width="2" marker-end="url(#a4d4d4d)"/>
+  <rect x="40" y="216" width="280" height="68" fill="#eeeeee"/>
+  <text x="52" y="247" font-size="15" font-weight="bold" fill="#1a1a1a">Cycle-to-cycle controller</text>
+  <text x="52" y="270" font-size="14" fill="#4d4d4d">Corrects the next cycle’s reference</text>
+  <path d="M180 284v30" fill="none" stroke="#4d4d4d" stroke-width="2" marker-end="url(#a4d4d4d)"/>
+  <rect x="40" y="314" width="280" height="68" fill="#eeeeee"/>
+  <text x="52" y="345" font-size="15" font-weight="bold" fill="#1a1a1a">Controller management</text>
+  <text x="52" y="368" font-size="14" fill="#4d4d4d">Checks when control may act</text>
+  <path d="M180 382v30" fill="none" stroke="#4d4d4d" stroke-width="2" marker-end="url(#a4d4d4d)"/>
+  <rect x="40" y="412" width="280" height="68" fill="#f2e3d4"/>
+  <text x="52" y="443" font-size="15" font-weight="bold" fill="#1a1a1a">In-cycle controller</text>
+  <text x="52" y="466" font-size="14" fill="#4d4d4d">Corrects injection during combustion</text>
+  <path d="M180 480v30" fill="none" stroke="#4d4d4d" stroke-width="2" marker-end="url(#a4d4d4d)"/>
+  <rect x="40" y="510" width="280" height="68" fill="#eeeeee"/>
+  <text x="52" y="541" font-size="15" font-weight="bold" fill="#1a1a1a">Engine</text>
+  <text x="52" y="564" font-size="14" fill="#4d4d4d">Control action and disturbances</text>
+  <path d="M180 578v30" fill="none" stroke="#4d4d4d" stroke-width="2" marker-end="url(#a4d4d4d)"/>
+  <rect x="40" y="608" width="280" height="68" fill="#eeeeee"/>
+  <text x="52" y="639" font-size="15" font-weight="bold" fill="#1a1a1a">Engine output</text>
+  <text x="52" y="662" font-size="14" fill="#4d4d4d">In-cycle and cycle measurements</text>
+  <path d="M40 642H12V250H40" fill="none" stroke="#1f4f78" stroke-width="2" marker-end="url(#a1f4f78)"/>
+  <path d="M320 642H348V446H320" fill="none" stroke="#1f4f78" stroke-width="2" marker-end="url(#a1f4f78)"/>
+  <text x="31" y="397" text-anchor="middle" font-size="12" fill="#1f4f78" transform="rotate(-90 31 397)">cycle feedback</text>
+  <text x="339" y="593" text-anchor="middle" font-size="12" fill="#1f4f78" transform="rotate(-90 339 593)">in-cycle feedback</text>
+  <text x="344" y="710" text-anchor="end" font-size="11" font-weight="bold" fill="#999999">carlosjorques.com</text>
+</svg>

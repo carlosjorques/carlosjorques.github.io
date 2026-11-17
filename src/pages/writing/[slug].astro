@@ -44,9 +44,12 @@ const contents = [
 const showContents = contents.length >= 4;
 // Long articles get a shortcut from the header to their closing section, so a reader can see the
 // result before deciding to read the whole piece.
-const summaryHeading = headings.find((heading) => heading.depth === 2 && /summary|conclusion/i.test(heading.text));
+const finalBodyHeading = headings.filter((heading) => heading.depth === 2).at(-1);
+const closingHeading = headings.find((heading) => heading.depth === 2 && /summary|conclusion/i.test(heading.text))
+	?? (article.series && finalBodyHeading && /^\d+\.\s/.test(finalBodyHeading.text) ? finalBodyHeading : undefined);
 const summaryMinutes = parseInt(entry.data.readingTime ?? '', 10);
-const showSummaryLink = Boolean(summaryHeading) && (Number.isNaN(summaryMinutes) || summaryMinutes >= 10);
+const showClosingLink = Boolean(closingHeading) && (Number.isNaN(summaryMinutes) || summaryMinutes >= 10);
+const closingLabel = /summary/i.test(closingHeading?.text ?? '') ? 'summary' : 'conclusion';
 // The key figure closes the lead as a bold hook sentence.
 const keyFigure = entry.data.keyFigure;
 const socialImage = entry.data.socialImage;
@@ -86,7 +89,7 @@ const nextPart = partIndex >= 0 ? seriesParts[partIndex + 1] : undefined;
 const upcomingParts = article.series
 	? (await getUpcomingParts(allArticles)).filter((other) => other.series?.id === article.series!.id).sort((a, b) => a.series!.part - b.series!.part)
 	: [];
-const seriesTotal = seriesParts.length + upcomingParts.length;
+const seriesTotal = Math.max(seriesParts.length + upcomingParts.length, article.series?.definition.plannedParts ?? 0);
 const comingPart = !nextPart && partIndex === seriesParts.length - 1 ? upcomingParts[0] : undefined;
 const monthYear = new Intl.DateTimeFormat('en-GB', { month: 'short', year: 'numeric' });
 
@@ -144,14 +147,14 @@ const relatedArticles = (matched.length > 0 ? matched.slice(0, RELATED_MAX) : re
 					<p class="writing-post__hook">
 						<span class="writing-post__hook-frame">{keyFigure.frame ?? 'In short'}</span>
 						<strong>{keyFigure.value} {keyFigure.label}.</strong>
-						{showSummaryLink && (
-							<>&ensp;<a class="writing-post__hook-link" href={`#${summaryHeading!.slug}`} data-analytics-event="writing_article_click" data-cta-id={`article-${articleSlug}-summary-shortcut`} data-cta-placement="writing-article" data-cta-intent="authority" data-source-section="article-header">Skip to the {/summary/i.test(summaryHeading!.text) ? 'summary' : 'conclusion'} <span aria-hidden="true">↓</span></a></>
+						{showClosingLink && (
+							<>&ensp;<a class="writing-post__hook-link" href={`#${closingHeading!.slug}`} data-analytics-event="writing_article_click" data-cta-id={`article-${articleSlug}-summary-shortcut`} data-cta-placement="writing-article" data-cta-intent="authority" data-source-section="article-header">Skip to the {closingLabel} <span aria-hidden="true">↓</span></a></>
 						)}
 					</p>
 				)}
-				{showSummaryLink && !keyFigure && (
+				{showClosingLink && !keyFigure && (
 					<p class="writing-post__summary-link">
-						<a href={`#${summaryHeading!.slug}`} data-analytics-event="writing_article_click" data-cta-id={`article-${articleSlug}-summary-shortcut`} data-cta-placement="writing-article" data-cta-intent="authority" data-source-section="article-header">Go to the {summaryHeading!.text.replace(/^\d+\.\s*/, '').toLowerCase()} <span aria-hidden="true">↓</span></a>
+						<a href={`#${closingHeading!.slug}`} data-analytics-event="writing_article_click" data-cta-id={`article-${articleSlug}-summary-shortcut`} data-cta-placement="writing-article" data-cta-intent="authority" data-source-section="article-header">Go to the {closingLabel} <span aria-hidden="true">↓</span></a>
 					</p>
 				)}
 				<p class="writing-post__author">

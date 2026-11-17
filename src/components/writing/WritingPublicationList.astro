@@ -1,6 +1,6 @@
 ---
 import { getEntry } from 'astro:content';
-import { formatReadingHours, seriesCountLabel, toTopicSlug, type WritingPublication } from '../../data/writing';
+import { formatReadingDuration, seriesCountLabel, toTopicSlug, type WritingPublication } from '../../data/writing';
 import WritingPartList from './WritingPartList.astro';
 
 /**
@@ -89,7 +89,7 @@ const newest = (dates: readonly Date[]) => new Date(Math.max(...dates.map((date)
 							</p>
 						)}
 					</div>
-					{!compact && totalMinutes > 0 && <span class="pub__time">{formatReadingHours(totalMinutes)} total</span>}
+					{!compact && totalMinutes > 0 && <span class="pub__time">{formatReadingDuration(totalMinutes)} total</span>}
 				</div>
 				<WritingPartList parts={parts} upcoming={entry.group.upcoming} headingLevel={4} labelledBy={id} sourceSection={sourceSection} placement={placement} variant={variant} />
 			</li>

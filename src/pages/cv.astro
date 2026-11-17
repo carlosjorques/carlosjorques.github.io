@@ -54,7 +54,7 @@ const profile = [
 ];
 const results = [
 	{ type: 'Business', prefix: 'up to', 	value: '30,500 €', text: 'per truck, designed in, modelled', href: work('electric-truck-thermal-management') },
-	{ type: 'Leadership', value: '3–12', text: 'engineers led or coached', href: '#role-volvo' },
+	{ type: 'Diagnostics', value: '96%', text: 'pilot misfires detected in time', href: work('heavy-duty-engine-diagnostics-control-research') },
 	{ type: 'Innovation', value: '5 patents', text: 'and 15 published articles', href: '#record' },
 	{ type: 'Control', value: '< 1 km/h', text: 'speed error, driverless hauler', href: work('autonomous-hauler-propulsion-control') },
 	{ type: 'Estimation', value: '±0.6 °C', text: 'predicted battery temperature', href: '#role-scania-thermal' },
@@ -327,7 +327,7 @@ const jumpLinks = [
 			<p class="cv-hero__eyebrow">Online CV</p>
 			<h1 id="cv-title">{IDENTITY.name}</h1>
 			<p class="cv-hero__title">{IDENTITY.primaryTitle}</p>
-			<p class="cv-hero__lead">I lead the design of <strong>embedded control software</strong> for complex dynamic systems and take it into production. In <strong>{IDENTITY.years} years</strong> I have done it for electric trucks, autonomous haulers, electric motors and diesel engines, and my software <strong>runs in trucks on the road today</strong>. I combine a <strong>PhD and 5 patents</strong> in control with hands-on technical leadership.</p>
+			<p class="cv-hero__lead">I lead the design of <strong>embedded control software</strong> for complex dynamic systems<span class="cv-hero__desktop"> and take it into production. In <strong>{IDENTITY.years} years</strong> I have done it for electric trucks, autonomous haulers, electric motors and diesel engines, and my software <strong>runs in trucks on the road today</strong>. I combine a <strong>PhD and 5 patents</strong> in control with hands-on technical leadership.</span><span class="cv-hero__mobile">. With <strong>{IDENTITY.years} years</strong> in control engineering, my software runs in production trucks. In truck tests, predictive control I led cut total vehicle energy by <strong>2–4%</strong> against the production control.</span></p>
 			<ul class="cv-facts" aria-label="Location, work setup and availability">
 				{facts.map((fact) => <li>{fact}</li>)}
 				<li class="cv-facts__open">Open to technical lead roles, freelance and collaborations</li>
@@ -582,12 +582,24 @@ const jumpLinks = [
 	const jump = document.querySelector<HTMLElement>('.cv-jump');
 	const jumpMenu = jump?.querySelector('details');
 	const hero = document.querySelector('.cv-hero');
-	if (jump && jumpMenu && hero) {
+	const closing = document.querySelector<HTMLElement>('.cv-closing');
+	if (jump && jumpMenu && hero && closing) {
 		jump.classList.add('is-hidden');
+		let heroVisible = true;
+		let closingReached = false;
+		const update = () => {
+			const hidden = heroVisible || closingReached;
+			jump.classList.toggle('is-hidden', hidden);
+			if (hidden) jumpMenu.open = false;
+		};
 		new IntersectionObserver(([entry]) => {
-			jump.classList.toggle('is-hidden', entry.isIntersecting);
-			if (entry.isIntersecting) jumpMenu.open = false;
+			heroVisible = entry.isIntersecting;
+			update();
 		}).observe(hero);
+		new IntersectionObserver(([entry]) => {
+			closingReached = entry.isIntersecting || entry.boundingClientRect.top < 0;
+			update();
+		}).observe(closing);
 		jump.addEventListener('click', (event) => {
 			if ((event.target as HTMLElement).closest('a')) jumpMenu.open = false;
 		});
@@ -642,6 +654,7 @@ const jumpLinks = [
 	.cv-hero__title { margin:0; font-family:var(--font-sans); font-size:clamp(1.3rem,2vw,1.6rem); font-weight:500; letter-spacing:-.01em; color:var(--color-text); }
 	.cv-hero__lead { max-width:45rem; margin:.3rem 0 0; font-size:1.12rem; line-height:1.6; color:var(--color-body-text); }
 	.cv-hero__lead strong { font-weight:700; color:var(--color-text); }
+	.cv-hero__mobile { display:none; }
 	.cv-facts { display:flex; flex-wrap:wrap; margin:.2rem 0 0; padding:0; list-style:none; }
 	.cv-facts li { font-size:.98rem; color:var(--color-muted); }
 	.cv-facts li:not(:last-child)::after { content:'·'; margin:0 .55rem; }
@@ -795,11 +808,33 @@ const jumpLinks = [
 		.cv-hero .button-row { display:grid; }
 		.cv-glance div { grid-template-columns:1fr; gap:.1rem; }
 		.cv-results-panel .cv-results { grid-template-columns:repeat(2,minmax(0,1fr)); }
-			.cv-role__body { padding-right:0; }
+		.cv-role__body { padding-right:0; }
+	}
+
+	@media screen and (max-width: 640px) {
+		.cv-hero__desktop { display:none; }
+		.cv-hero__mobile { display:inline; }
+	}
+
+	@media (max-width: 360px) {
+		.cv-results__value { font-size:1.35rem; }
+		.cv-results__value small { display:block; line-height:1; }
 	}
 
 	@media print {
 		@page { margin:14mm 14mm 16mm; }
+		:global(html:root[data-theme="dark"]) {
+			--color-page:#fff;
+			--color-section-bg:#fff;
+			--color-text:#171717;
+			--color-body-text:#171717;
+			--color-muted:#555;
+			--color-border:#bbb;
+			--color-border-soft:#bbb;
+			--color-border-strong:#bbb;
+			--mark-band:none;
+			color-scheme:light;
+		}
 		:global(html) { font-size:12px; }
 		:global(header), :global(footer), :global(.skip-link), .cv-hero__actions, .cv-closing, .cv-role__link, .cv-jump, .cv-expand, .cv-role__key, .cv-results__cue { display:none !important; }
 		.cv-print-contact { display:flex; flex-wrap:wrap; gap:.2rem 1.2rem; margin:0; padding:0; list-style:none; font-size:1rem; color:var(--color-text); }

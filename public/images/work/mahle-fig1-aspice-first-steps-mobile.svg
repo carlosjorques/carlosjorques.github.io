@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="360" height="1082" viewBox="0 0 360 1082" font-family="Calibri, Arial, sans-serif">
+  <defs><marker id="a4d4d4d" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 10 5 0 10z" fill="#4d4d4d"/></marker></defs>
+  <rect width="360" height="1082" fill="#ffffff"/>
+  <g transform="translate(0 -62)"><rect x="16" y="82" width="328" height="95" fill="#f2e3d4"/>
+  <text x="30" y="109" font-size="16" font-weight="bold" fill="#1a1a1a">SWE.1  Software requirements</text>
+  <text x="30" y="136" font-size="13" fill="#855010">Adopted: common template, IDs</text>
+  <text x="30" y="157" font-size="13" fill="#855010">and traceability</text>
+  <path d="M180 177v26" fill="none" stroke="#4d4d4d" stroke-width="2" marker-end="url(#a4d4d4d)"/>
+  <rect x="27" y="207" width="317" height="85" fill="#f2e3d4"/>
+  <text x="41" y="235" font-size="16" font-weight="bold" fill="#1a1a1a">SWE.2  Software architecture</text>
+  <text x="41" y="260" font-size="13" fill="#1f4f78">Loss model and thermal network;</text>
+  <text x="41" y="279" font-size="13" fill="#1f4f78">motor inputs, Classic AUTOSAR</text>
+  <path d="M180 292v27" fill="none" stroke="#4d4d4d" stroke-width="2" marker-end="url(#a4d4d4d)"/>
+  <rect x="38" y="323" width="306" height="86" fill="#f2e3d4"/>
+  <text x="52" y="350" font-size="16" font-weight="bold" fill="#1a1a1a">SWE.3  Detailed design</text>
+  <text x="52" y="375" font-size="13" fill="#1f4f78">Layered model in Simulink;</text>
+  <text x="52" y="394" font-size="13" fill="#1f4f78">C code with TargetLink</text>
+  <path d="M180 409v27" fill="none" stroke="#4d4d4d" stroke-width="2" marker-end="url(#a4d4d4d)"/>
+  <rect x="49" y="440" width="295" height="86" fill="#f2e3d4"/>
+  <text x="63" y="467" font-size="16" font-weight="bold" fill="#1a1a1a">SWE.4  Unit verification</text>
+  <text x="63" y="492" font-size="13" fill="#1f4f78">Simulation against separate</text>
+  <text x="63" y="511" font-size="13" fill="#1f4f78">bench measurements</text>
+  <path d="M180 526v27" fill="none" stroke="#4d4d4d" stroke-width="2" marker-end="url(#a4d4d4d)"/>
+  <rect x="38" y="557" width="306" height="87" fill="#eeeeee"/>
+  <text x="52" y="584" font-size="16" font-weight="bold" fill="#1a1a1a">SWE.5  Software integration</text>
+  <text x="52" y="610" font-size="13" fill="#1f4f78">Real-time execution alongside</text>
+  <text x="52" y="629" font-size="13" fill="#1f4f78">the motor controller</text>
+  <path d="M180 644v27" fill="none" stroke="#4d4d4d" stroke-width="2" marker-end="url(#a4d4d4d)"/>
+  <rect x="27" y="675" width="317" height="87" fill="#eeeeee"/>
+  <text x="41" y="702" font-size="16" font-weight="bold" fill="#1a1a1a">SWE.6  Qualification test</text>
+  <text x="41" y="728" font-size="13" fill="#4d4d4d">Later process, analysed in less depth</text>
+  <rect x="16" y="798" width="328" height="196" fill="#f2e3d4"/>
+  <text x="30" y="828" font-size="16" font-weight="bold" fill="#1a1a1a">First A-SPICE steps</text>
+  <text x="30" y="854" font-size="14" fill="#855010">Adopted: shared requirements template</text>
+  <text x="30" y="876" font-size="14" fill="#855010">and SVN baselines per release.</text>
+  <text x="30" y="906" font-size="14" fill="#855010">Proposed: Simulink guidelines and</text>
+  <text x="30" y="928" font-size="14" fill="#855010">MISRA C checks for generated code;</text>
+  <text x="30" y="958" font-size="14" fill="#855010">model-in-the-loop tests linked</text>
+  <text x="30" y="980" font-size="14" fill="#855010">to each requirement.</text></g>
+  <rect x="16" y="961" width="22" height="14" fill="#f2e3d4"/>
+  <text x="48" y="972" font-size="13" fill="#4d4d4d">focus of the gap analysis</text>
+  <rect x="16" y="985" width="22" height="14" fill="#eeeeee"/>
+  <text x="48" y="996" font-size="13" fill="#4d4d4d">later processes, analysed in less depth</text>
+  <text x="16" y="1020" font-size="13" fill="#855010">orange text: first steps proposed</text>
+  <text x="16" y="1044" font-size="13" fill="#1f4f78">blue text: the motor temperature model</text>
+  <text x="344" y="1070" text-anchor="end" font-size="11" font-weight="bold" fill="#999999">carlosjorques.com</text>
+</svg>

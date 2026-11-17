@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="360" height="966" viewBox="0 0 360 966" font-family="Calibri, Arial, sans-serif">
+  <defs><marker id="a4d4d4d" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 10 5 0 10z" fill="#4d4d4d"/></marker></defs>
+  <rect width="360" height="966" fill="#ffffff"/>
+  <rect x="40" y="20" width="280" height="67" fill="#d6e3f0"/>
+  <text x="52" y="51" font-size="15" font-weight="bold" fill="#1f4f78">Speed request</text>
+  <text x="52" y="73" font-size="13" fill="#4d4d4d">from the autonomy system</text>
+  <path d="M180 87V103" fill="none" stroke="#4d4d4d" stroke-width="2"/>
+  <path d="M180 103H106V129" fill="none" stroke="#4d4d4d" stroke-width="2" marker-end="url(#a4d4d4d)"/>
+  <path d="M180 103H254V129" fill="none" stroke="#4d4d4d" stroke-width="2" marker-end="url(#a4d4d4d)"/>
+  <circle cx="180" cy="103" r="3.5" fill="#4d4d4d"/>
+  <rect x="40" y="129" width="132" height="124" fill="#eeeeee"/>
+  <text x="52" y="159" font-size="14" font-weight="bold" fill="#1a1a1a">PI controller</text>
+  <text x="52" y="182" font-size="14" fill="#1a1a1a">axle 1</text>
+  <text x="52" y="201" font-size="13" fill="#855010">+ derivative action</text>
+  <text x="52" y="220" font-size="13" fill="#855010">+ gains scheduled</text>
+  <text x="52" y="239" font-size="13" fill="#855010">with speed</text>
+  <rect x="188" y="129" width="132" height="124" fill="#eeeeee"/>
+  <text x="200" y="159" font-size="14" font-weight="bold" fill="#1a1a1a">PI controller</text>
+  <text x="200" y="182" font-size="14" fill="#1a1a1a">axle 2</text>
+  <text x="200" y="201" font-size="13" fill="#855010">+ derivative action</text>
+  <text x="200" y="220" font-size="13" fill="#855010">+ gains scheduled</text>
+  <text x="200" y="239" font-size="13" fill="#855010">with speed</text>
+  <path d="M106 253v30" fill="none" stroke="#4d4d4d" stroke-width="2" marker-end="url(#a4d4d4d)"/>
+  <path d="M254 253v30" fill="none" stroke="#4d4d4d" stroke-width="2" marker-end="url(#a4d4d4d)"/>
+  <rect x="40" y="283" width="280" height="67" fill="#f2e3d4"/>
+  <text x="52" y="314" font-size="15" font-weight="bold" fill="#1a1a1a">Decoupling</text>
+  <text x="52" y="336" font-size="13" fill="#4d4d4d">Each controller compensates the other axle</text>
+  <path d="M106 350v30" fill="none" stroke="#4d4d4d" stroke-width="2" marker-end="url(#a4d4d4d)"/>
+  <path d="M254 350v30" fill="none" stroke="#4d4d4d" stroke-width="2" marker-end="url(#a4d4d4d)"/>
+  <rect x="40" y="380" width="280" height="67" fill="#f2e3d4"/>
+  <text x="52" y="411" font-size="15" font-weight="bold" fill="#1a1a1a">Feed-forward</text>
+  <text x="52" y="433" font-size="13" fill="#4d4d4d">Adds the torque the speed request needs</text>
+  <path d="M106 447v30" fill="none" stroke="#4d4d4d" stroke-width="2" marker-end="url(#a4d4d4d)"/>
+  <path d="M254 447v30" fill="none" stroke="#4d4d4d" stroke-width="2" marker-end="url(#a4d4d4d)"/>
+  <rect x="40" y="477" width="132" height="66" fill="#eeeeee"/>
+  <text x="52" y="507" font-size="14" font-weight="bold" fill="#1a1a1a">Axle 1 drive</text>
+  <text x="52" y="529" font-size="13" fill="#4d4d4d">Electric torque</text>
+  <rect x="188" y="477" width="132" height="66" fill="#eeeeee"/>
+  <text x="200" y="507" font-size="14" font-weight="bold" fill="#1a1a1a">Axle 2 drive</text>
+  <text x="200" y="529" font-size="13" fill="#4d4d4d">Electric torque</text>
+  <path d="M106 543V559H254V543" fill="none" stroke="#4d4d4d" stroke-width="2"/>
+  <path d="M180 559V585" fill="none" stroke="#4d4d4d" stroke-width="2" marker-end="url(#a4d4d4d)"/>
+  <circle cx="180" cy="559" r="3.5" fill="#4d4d4d"/>
+  <rect x="40" y="585" width="280" height="67" fill="#eeeeee"/>
+  <text x="52" y="616" font-size="15" font-weight="bold" fill="#1a1a1a">Hauler body: one motion</text>
+  <text x="52" y="638" font-size="13" fill="#4d4d4d">Slope, grip and load change the speed.</text>
+  <path d="M180 652v30" fill="none" stroke="#4d4d4d" stroke-width="2" marker-end="url(#a4d4d4d)"/>
+  <rect x="40" y="682" width="280" height="67" fill="#d6e3f0"/>
+  <text x="52" y="713" font-size="15" font-weight="bold" fill="#1f4f78">Speed sensor</text>
+  <text x="52" y="735" font-size="13" fill="#4d4d4d">One measured hauler speed</text>
+  <path d="M180 749v30" fill="none" stroke="#4d4d4d" stroke-width="2" marker-end="url(#a4d4d4d)"/>
+  <rect x="40" y="779" width="280" height="67" fill="#f2e3d4"/>
+  <text x="52" y="810" font-size="15" font-weight="bold" fill="#1a1a1a">Kalman filter</text>
+  <text x="52" y="832" font-size="13" fill="#4d4d4d">Estimates the speed of each axle</text>
+  <path d="M40 812H12V191H40" fill="none" stroke="#4d4d4d" stroke-width="2" marker-end="url(#a4d4d4d)"/>
+  <path d="M320 812H348V191H320" fill="none" stroke="#4d4d4d" stroke-width="2" marker-end="url(#a4d4d4d)"/>
+  <text x="31" y="501" text-anchor="middle" font-size="12" fill="#4d4d4d" transform="rotate(-90 31 501)">estimated speed of each axle (inner feedback)</text>
+  <rect x="16" y="869" width="22" height="14" fill="#f2e3d4"/>
+  <text x="48" y="880" font-size="13" fill="#4d4d4d">added in the TA15 work</text>
+  <rect x="16" y="893" width="22" height="14" fill="#eeeeee"/>
+  <text x="48" y="904" font-size="13" fill="#4d4d4d">existing structure and hardware</text>
+  <rect x="16" y="917" width="22" height="14" fill="#d6e3f0"/>
+  <text x="48" y="928" font-size="13" fill="#4d4d4d">input and measurement</text>
+  <text x="344" y="954" text-anchor="end" font-size="11" font-weight="bold" fill="#999999">carlosjorques.com</text>
+</svg>
