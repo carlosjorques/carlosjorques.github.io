@@ -30,4 +30,4 @@ agent-playbooks/
 docs/
 tmp/
 mockups/
-scripts/
+/scripts/

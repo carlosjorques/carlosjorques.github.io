@@ -5,9 +5,12 @@ interface Props {
 	id: string;
 	prizeHref: string;
 	prizeLabel?: string;
+	/** Link to the full game article, shown in the prize box when the article is published. */
+	nextHref?: string;
 }
-const { id, prizeHref, prizeLabel = 'See how it worked on a Scania truck' } = Astro.props;
-const W = 820;
+const { id, prizeHref, prizeLabel = 'See how it worked on a Scania truck', nextHref } = Astro.props;
+// Close to the rendered width (the home page caps the game at --measure-reading), so the 13px labels stay 13px.
+const W = 700;
 const H = 230;
 const top = 12;
 const base = H - 22;
@@ -49,6 +52,7 @@ const y = (v: number) => base - ((base - top) * v) / vmax;
 		<span class="tg__stamp" aria-hidden="true"><span>Ready for production</span></span>
 		<p>The dotted line is the damping I would choose, 0.88. The truck has about 7% less damping than the model; hence, a tuning at the nervous edge of the model fails on the truck, and I keep a margin. On the Scania trucks, the same trade-off includes the battery, the heat pump and the road ahead.</p>
 		<a href={prizeHref}>{prizeLabel}</a>
+		{nextHref && <p class="tg__next">Want a harder one? <a href={nextHref} data-analytics-event="writing_article_click" data-cta-id="home-game-prize-next" data-cta-placement="home" data-cta-intent="authority" data-source-section="home-bench">Build a cruise controller yourself <span aria-hidden="true">→</span></a></p>}
 	</div>
 </div>
 
@@ -242,6 +246,7 @@ const y = (v: number) => base - ((base - top) * v) / vmax;
 	.tg--one .tg__prize { position: relative; margin-top: 1.75rem; padding: 1.4rem 1.25rem 1.1rem; border: 1.5px solid var(--lg-text, #222); border-radius: .35rem; background: var(--lg-page, #fff); }
 	.tg--one .tg__prize p { margin: 0 0 .5rem; font-size: .98rem; }
 	.tg--one .tg__prize a { color: var(--lg-text, #222); font-weight: 600; }
+	.tg--one .tg__prize .tg__next { margin: .85rem 0 0; padding-top: .75rem; border-top: 1px solid var(--color-border); }
 	.tg--one .tg__stamp { position: absolute; left: 1rem; right: auto; top: -.8rem; border: 0; border-radius: 0; transform: none; text-transform: none; letter-spacing: 0; display: inline-flex; align-items: center; gap: .45rem; padding: .1rem .5rem; background: var(--lg-page, #fff); color: var(--lg-text, #222); font-weight: 600; font-size: .85rem; animation: tg-stamp-one .4s ease-out; }
 	.tg--one .tg__stamp span { background: linear-gradient(transparent 55%, var(--lg-ok, #bfff03) 55%, var(--lg-ok, #bfff03) 92%, transparent 92%); }
 	@keyframes tg-stamp-one { from { opacity: 0; transform: translateY(.3rem); } to { opacity: 1; transform: none; } }

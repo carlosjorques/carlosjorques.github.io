@@ -4,7 +4,6 @@ import { Image } from 'astro:assets';
 import { CONTACT_DESTINATIONS, IDENTITY, LINKEDIN_URL } from '../data/identity';
 import { projectCards } from '../data/projectCards';
 import { getUpcomingParts, getWritingArticles, groupWriting } from '../data/writing';
-import WritingPublicationList from '../components/writing/WritingPublicationList.astro';
 import TruckTuneGame from '../components/TruckTuneGame.astro';
 import portrait from '../assets/carlos-jorques-intro.webp';
 
@@ -16,6 +15,8 @@ const withBase = (href: string) => (href === '/' ? normalizedBase : `${normalize
 const publishedWriting = await getWritingArticles({ includeDrafts: false });
 const latestWriting = groupWriting(publishedWriting, await getUpcomingParts(publishedWriting)).latest;
 const series = latestWriting.find((item) => item.kind === 'series');
+const gameArticle = publishedWriting.find((item) => item.interactive === 'control-lessons');
+const gameHref = gameArticle ? gameArticle.href : undefined;
 const otherWriting = latestWriting.filter((item) => item.kind !== 'series');
 
 const projects = projectCards.map((card) => ({
@@ -102,7 +103,7 @@ const links = {
 				<h2 id="bench-title">Try tuning a truck controller</h2>
 				<p>The damping sets how the controller approaches its target. With too little, the response overshoots; with too much, it arrives late. To pass the truck test, the response must overshoot less than 2% and settle in less than 1.5 s.</p>
 			</div>
-			<TruckTuneGame id="home-game" prizeHref={featured.href} />
+			<TruckTuneGame id="home-game" prizeHref={featured.href} nextHref={gameHref} />
 		</section>
 
 		{latestWriting.length > 0 && (
@@ -120,7 +121,13 @@ const links = {
 						</ol>
 					</article>
 				)}
-				{otherWriting.length > 0 && <WritingPublicationList publications={otherWriting} variant="compact" placement="home-writing" sourceSection="latest-writing" />}
+				{otherWriting.map((item) => item.kind === 'article' && (
+					<article class="home-series">
+						<p class="home-series__kick">{item.article.interactive ? 'Interactive article · 10 levels' : 'Article'}{item.article.minutes > 0 && ` · ${item.article.minutes} min`}</p>
+						<h3><a href={item.article.href} data-analytics-event="writing_article_click" data-cta-id={`home-writing-${item.article.slug}`} data-cta-placement="home-writing" data-cta-intent="authority" data-source-section="latest-writing">{item.article.title}</a></h3>
+						<p class="home-series__text">{item.article.teaser ?? item.article.description}</p>
+					</article>
+				))}
 			</section>
 		)}
 
@@ -179,8 +186,9 @@ const links = {
 	.home-work__plain { color: var(--color-body-text); font-size: .98rem; line-height: 1.5; }
 
 	.home-bench { border-top: 1px solid var(--color-border); }
-	.home-bench__intro { max-width: 40rem; margin-bottom: 1.75rem; }
+	.home-bench__intro { max-width: var(--measure-reading); margin-bottom: 1.75rem; }
 	.home-bench__intro p { margin: .6rem 0 0; }
+	.home-bench :global(.tg) { max-width: var(--measure-reading); }
 
 	.home-series { padding-top: 1.1rem; border-top: 1px solid var(--color-border); }
 	.home-series__kick { margin: 0 0 .3rem; color: var(--color-muted); font-family: var(--font-sans); font-size: .92rem; }
@@ -188,6 +196,7 @@ const links = {
 	.home-series h3 a { color: var(--color-text); text-decoration: none; }
 	.home-series h3 a:hover { color: var(--color-link-hover); text-decoration: underline; }
 	.home-series__text { margin: .3rem 0 .9rem; }
+	.home-series + .home-series { margin-top: 1.5rem; }
 	.home-parts { margin: 0; padding: 0; list-style: none; }
 	.home-parts li { display: grid; grid-template-columns: 4.5rem 1fr auto; gap: 1rem; align-items: baseline; padding: .8rem 0; border-top: 1px solid var(--color-border); }
 	.home-parts__n, .home-parts__min { color: var(--color-muted); font-family: var(--font-sans); font-size: .88rem; white-space: nowrap; }

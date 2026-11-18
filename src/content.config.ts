@@ -66,6 +66,8 @@ const writing = defineCollection({
 			text: z.string(),
 			links: z.array(z.object({ label: z.string(), href: z.string() })).optional(),
 		}).optional(),
+		/** Interactive component that the article template loads; it fills the placeholders in the Markdown. */
+		interactive: z.enum(['control-lessons']).optional(),
 		featured: z.boolean(),
 		draft: z.boolean(),
 	}),
