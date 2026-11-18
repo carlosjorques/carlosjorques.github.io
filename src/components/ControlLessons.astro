@@ -1,0 +1,1231 @@
+---
+// Game console for the article "Build a cruise controller yourself". The Markdown holds one placeholder,
+//   <div class="cl-game" data-cl-game></div>
+// which becomes a level picker and one level at a time. A level unlocks when the previous one is passed or skipped.
+// After each level a short note links to the theory section of the article, found by its H3 "Level n: ...".
+// Links of the form #play-<id> anywhere in the page open that level. The truck model is in src/scripts/cruise.js.
+---
+
+<script>
+	import { road, makeSim, simulate, measure, shake, plan } from '../scripts/cruise.js';
+
+	const STORE = 'control-lessons-v1';
+	const ROADS = {
+		hill: road([[0, 0], [0.6, 2], [2.4, 0]], 3.4),
+		steep: road([[0, 0], [0.6, 4], [1.6, 0]], 3.2),
+		roll: road([[0, 0], [0.8, 2.5], [2.0, 0], [2.6, -3], [3.6, 0], [4.2, 1.5], [5.2, 0]], 6),
+	};
+	const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+	const phone = matchMedia('(max-width: 640px)');
+	const f1 = (v) => v.toFixed(1);
+	const dev = (r, a, b) => { const m = measure(r, a, b); return Math.max(m.low, m.high); };
+	const droop = (r, a, b) => {
+		let s = 0, n = 0;
+		r.x.forEach((x, i) => { if (x >= a && x <= b) { s += r.ref[i] - r.v[i]; n += 1; } });
+		return s / Math.max(n, 1);
+	};
+	const strokes = (r) => r.activity / 30;
+	const pedalText = (p) => (p >= 0 ? `${Math.round(p)}% power` : `${Math.round(-p)}% brake`);
+	const knob = (key, label, min, max, step, value, fmt, ends, lever = false) => ({ key, label, min, max, step, value, fmt, ends, lever });
+	const kpKnob = (v) => knob('kp', 'Proportional gain, Kp', 0, 20, 0.5, v, (x) => `${f1(x)} kN per km/h`, ['Gentle', 'Strong']);
+	const kiKnob = (v) => knob('ki', 'Integral gain, Ki', 0, 4, 0.05, v, (x) => `${x.toFixed(2)} kN per km/h per s`, ['None', 'Strong']);
+	let ffBase = null, fbBase = null;
+	const baseRun = () => (ffBase ??= simulate({ route: ROADS.roll, ctrl: { mode: 'pi', kp: 4, ki: 0.5, antiWindup: true, ff: true, ffMass: 40 } }));
+	const fbRun = () => (fbBase ??= simulate({ route: ROADS.roll, ctrl: { mode: 'pi', kp: 4, ki: 0.5, antiWindup: true } }));
+	const kwh = (r) => `${r.energy.toFixed(2)} kWh, ${r.brake.toFixed(2)} kWh braked away`;
+
+	// Each level: road, knobs, how to run it, and three tiers of stars (or a single "done" for the explore levels).
+	const LEVELS = [
+		{
+			id: 'drive', title: 'Can you hold 80 km/h?', road: 'hill', band: 3, live: true,
+			goal: 'Keep the truck at 80 km/h over the hill. Press start, then drag up or down on the pedal plot, or use the arrow keys.',
+			knobs: [knob('pedal', 'Pedal', -100, 100, 5, 30, pedalText, ['Brake', 'Full power'], true)],
+			tiers: ['Within ±8 km/h', 'Within ±5 km/h', 'Within ±3 km/h'],
+			score: ([r]) => { const d = dev(r); return { pass: [d <= 8, d <= 5, d <= 3], text: `furthest from 80 km/h: ${f1(d)} km/h.` }; },
+		},
+		{
+			id: 'open', title: 'Can one fixed pedal do it?', road: 'hill', band: 3, explore: 2, dur: 6500,
+			goal: 'Set the pedal once, and the truck drives the whole road with it.',
+			predict: { q: 'Is there one pedal position that does it?', options: ['Yes', 'No'], right: 'No' },
+			knobs: [knob('pedal', 'Fixed pedal', 0, 100, 1, 28, pedalText, ['Idle', 'Full power'], true)],
+			ctrl: (k) => ({ mode: 'fixed', pedal: k.pedal }),
+			tiers: ['Within ±3 km/h for the whole road'],
+			score: ([r]) => { const m = measure(r); return { pass: [Math.max(m.low, m.high) <= 3], text: `lowest ${f1(80 - m.low)} km/h, highest ${f1(80 + m.high)} km/h.` }; },
+			done: 'No fixed pedal does it: enough pedal for the hill is too much for the flat.',
+		},
+		{
+			id: 'onoff', title: 'Can a simple rule beat you?', road: 'hill', band: 3,
+			goal: 'The computer drives like a thermostat: full power below the lower line, no power above the upper one. Set how far apart the lines are.',
+			predict: { q: 'Will this rule hold the speed closer to 80 km/h than you did in level 1?', options: ['Yes', 'No'] },
+			knobs: [knob('band', 'Switching lines', 0.25, 3, 0.25, 0.5, (x) => `80 ± ${x} km/h`, ['Close together', 'Far apart'])],
+			ctrl: (k) => ({ mode: 'onoff', band: 2 * k.band }),
+			lines: (k) => [{ v: 80 + k.band, label: 'Power off above', up: true }, { v: 80 - k.band, label: 'Power on below', up: false }],
+			tiers: ['Within ±5 km/h', 'Within ±3 km/h', 'Within ±3 km/h and at most 6 switches a minute'],
+			score: ([r]) => { const d = dev(r); return { pass: [d <= 5, d <= 3, d <= 3 && r.switches <= 6], text: `within ±${f1(d)} km/h, ${f1(r.switches)} switches a minute.` }; },
+		},
+		{
+			id: 'p', title: 'Can the pedal move more gently?', road: 'hill', band: 3,
+			goal: 'The controller pushes harder the slower the truck is. Set how hard, so the truck loses little speed on the climb without shaking.',
+			knobs: [kpKnob(1)],
+			ctrl: (k) => ({ mode: 'pi', kp: k.kp }),
+			tiers: ['At most 4 km/h slow on the climb, no shaking', 'At most 2 km/h slow', 'At most 1 km/h slow'],
+			score: ([r]) => {
+				const d = droop(r, 1.9, 2.4), s = shake(r), calm = s <= 8;
+				return { pass: [calm && d <= 4, calm && d <= 2, calm && d <= 1], text: `${f1(d)} km/h slow at the end of the climb, pedal reversed ${s} times${calm ? '' : ', the truck shakes'}.` };
+			},
+		},
+		{
+			id: 'pi', title: 'Can you remove the last km/h?', road: 'hill', band: 3,
+			goal: 'The integral keeps pushing whilst any error is left. Reach 80 km/h on the climb, with a small overshoot after the top.',
+			knobs: [kpKnob(4), kiKnob(0)],
+			ctrl: (k) => ({ mode: 'pi', kp: k.kp, ki: k.ki }),
+			tiers: ['Back to 80 km/h on the climb (within 0.3 km/h)', 'Within ±3 km/h everywhere', 'Within ±2 km/h, without shaking'],
+			score: ([r]) => {
+				const d = Math.abs(droop(r, 1.9, 2.4)), e = dev(r), s = shake(r);
+				return { pass: [d <= 0.3 && s <= 12, d <= 0.3 && e <= 3 && s <= 12, d <= 0.3 && e <= 2 && s <= 8], text: `${f1(d)} km/h off at the end of the climb, within ±${f1(e)} km/h, pedal reversed ${s} times.` };
+			},
+		},
+		{
+			id: 'robust', title: 'Can one tuning work every day?', road: 'hill', band: 3,
+			goal: 'One tuning now drives a full truck (40 t) and an empty one (15 t) at once. Find one that works for both.',
+			knobs: [kpKnob(8), kiKnob(0.6)],
+			runs: (k) => [{ label: 'Heavy day, 40 t', mass: 40000 }, { label: 'Light day, 15 t', mass: 15000 }].map((t) => ({ ...t, ctrl: { mode: 'pi', kp: k.kp, ki: k.ki } })),
+			tiers: ['Both days within ±4 km/h', 'Both days within ±3 km/h, little shaking', 'Both days within ±2.5 km/h, no shaking'],
+			score: (rs) => {
+				const e = Math.max(...rs.map((r) => dev(r))), s = Math.max(...rs.map(shake));
+				return { pass: [e <= 4, e <= 3 && s <= 12, e <= 2.5 && s <= 10], text: `worst day within ±${f1(e)} km/h. Pedal reversed ${shake(rs[0])} times on the heavy day and ${shake(rs[1])} times on the light day.` };
+			},
+		},
+		{
+			id: 'windup', title: 'What if the engine is too weak?', road: 'steep', band: 3,
+			goal: 'The 4% hill is too steep for the engine to hold 80 km/h. Drive it once, then switch on anti-windup below and drive again.',
+			knobs: [kpKnob(4), kiKnob(0.5)],
+			toggles: [{ key: 'aw', label: 'Anti-windup', hint: 'Stops the integral whilst the engine is at its limit' }],
+			ctrl: (k) => ({ mode: 'pi', kp: k.kp, ki: k.ki, antiWindup: k.aw }),
+			tiers: ['Overshoot after the top under 10 km/h', 'Under 4 km/h', 'Under 2 km/h'],
+			score: ([r]) => { const o = measure(r, 1.6).high, low = measure(r, 0, 1.6).low; return { pass: [o <= 10, o <= 4, o <= 2], text: `${f1(low)} km/h lost on the hill, ${f1(o)} km/h overshoot after the top.` }; },
+		},
+		{
+			id: 'noise', title: 'What if the sensor is noisy?', road: 'hill', band: 3, noise: 1,
+			goal: 'The speed signal now jitters by about ±1 km/h. Filter it so the pedal calms down, but not so much that the truck reacts late.',
+			knobs: [kpKnob(4), kiKnob(0.5), knob('filter', 'Speed filter', 0, 3, 0.1, 0, (x) => (x ? `${f1(x)} s` : 'off'), ['Off', 'Heavy'])],
+			ctrl: (k) => ({ mode: 'pi', kp: k.kp, ki: k.ki, filter: k.filter, antiWindup: true }),
+			tiers: ['Under 40 pedal strokes a minute, within ±4 km/h', 'Under 20 strokes, within ±3 km/h', 'Under 10 strokes, within ±3 km/h'],
+			score: ([r]) => { const s = strokes(r), e = dev(r); return { pass: [s <= 40 && e <= 4, s <= 20 && e <= 3, s <= 10 && e <= 3], text: `${Math.round(s)} full pedal strokes a minute, within ±${f1(e)} km/h.` }; },
+		},
+		{
+			id: 'ff', title: 'What if the controller knows the road?', road: 'roll', band: 3, ffLine: true,
+			goal: 'The controller reads the slope from the map and pushes before the speed drops. Tell it how heavy the truck is.',
+			knobs: [knob('mass', 'Mass the controller assumes', 10, 60, 1, 20, (x) => `${x} t`, ['10 t', '60 t'])],
+			ctrl: (k) => ({ mode: 'pi', kp: 4, ki: 0.5, antiWindup: true, ff: true, ffMass: k.mass }),
+			compare: () => ({ label: 'Feedback only, no map', run: fbRun() }),
+			tiers: ['Within ±2.5 km/h', 'Within ±1.5 km/h', 'Within ±1.1 km/h'],
+			score: ([r]) => { const e = dev(r); return { pass: [e <= 2.5, e <= 1.5, e <= 1.1], text: `within ±${f1(e)} km/h over the whole road, against ±${f1(dev(fbRun()))} km/h with feedback alone.` }; },
+		},
+		{
+			id: 'plan', title: 'What if the speed may move a little?', road: 'roll', band: 0,
+			goal: 'Let the speed drift a little, and the computer plans the whole road for the least energy. Choose how far it may drift from 80 km/h.',
+			predict: { q: 'Can a speed that moves use less energy than a constant 80 km/h?', options: ['Yes', 'No'], right: 'Yes' },
+			knobs: [knob('band', 'Allowed speed band', 1, 6, 1, 1, (x) => `80 ± ${x} km/h`, ['Tight', 'Loose'])],
+			runs: (k) => [{ label: 'Truck following the plan', ctrl: { mode: 'plan', plan: plan(ROADS.roll, { band: k.band }), kp: 4, ki: 0.5, antiWindup: true, ff: true, ffMass: 40 } }],
+			compare: () => ({ label: 'Constant 80 km/h (level 9)', run: baseRun() }),
+			bars: ([r]) => [{ label: 'Constant 80 km/h', run: baseRun(), kind: 'cmp' }, { label: 'Planned speed', run: r, kind: 'a' }],
+			tiers: ['At least 1% less energy', 'At least 2.5% less', 'At least 3% less, at most 1% later'],
+			score: ([r]) => {
+				const b = baseRun(), save = 100 * (1 - r.energy / b.energy), late = (100 * (r.time - b.time)) / b.time;
+				return { pass: [save >= 1, save >= 2.5, save >= 3 && late <= 1], text: `${f1(save)}% less energy at the wheels, ${late >= 0 ? `${f1(late)}% later` : `${f1(-late)}% earlier`}.` };
+			},
+		},
+	];
+
+	const load = () => { try { return JSON.parse(localStorage.getItem(STORE) || '{}'); } catch { return {}; } };
+	const save = (p) => { try { localStorage.setItem(STORE, JSON.stringify(p)); } catch { /* private mode */ } };
+	let progress = load();
+	const listeners = new Set();
+	const notify = () => listeners.forEach((fn) => fn());
+	const setStars = (id, stars) => {
+		if ((progress[id] ?? 0) >= stars) return;
+		progress = { ...progress, [id]: stars };
+		save(progress);
+		notify();
+	};
+	const skipped = (id) => !!progress[`${id}:skip`];
+	const cleared = (id) => (progress[id] ?? 0) > 0 || skipped(id);
+	// Levels opened from a #play-<id> link (the article's "Play level N" links or a shared URL) stay unlocked for this visit.
+	const linked = new Set();
+	const unlocked = (i) => i === 0 || linked.has(i) || cleared(LEVELS[i - 1].id);
+	const allCleared = () => LEVELS.every((l) => cleared(l.id));
+	// The summary groups the levels in the four steps named in the article.
+	const STAGES = [
+		{ name: 'Feedback', from: 0, to: 2 },
+		{ name: 'Tuning', from: 3, to: 5 },
+		{ name: 'Physical limits', from: 6, to: 7 },
+		{ name: 'Knowledge of the truck and the road', from: 8, to: 9 },
+	];
+	const starText = (lv, n) => (lv.explore ? (n ? 'done' : 'not done') : `${n} of 3 stars`);
+	const starGlyphs = (lv, n) => (lv.explore ? (n ? '✓' : '') : '★★★'.slice(0, n) + '☆☆☆'.slice(0, 3 - n));
+
+	const NS = 'http://www.w3.org/2000/svg';
+	const el = (tag, attrs = {}, text) => {
+		const e = tag.startsWith('svg:') ? document.createElementNS(NS, tag.slice(4)) : document.createElement(tag);
+		Object.entries(attrs).forEach(([k, v]) => v !== undefined && v !== false && e.setAttribute(k, v === true ? '' : v));
+		if (text !== undefined) e.textContent = text;
+		return e;
+	};
+	const theoryOf = (i) => [...document.querySelectorAll('h3[id]')].find((h) => h.textContent.trim().startsWith(`Level ${i + 1}:`));
+
+	// What the reader should take from each level, shown in the game once it is passed or skipped.
+	const AHA = {
+		drive: 'You just closed a control loop: read the speed, compare it with 80 km/h, move the pedal. The truck responds about 1.5 s late, so a correction tends to come too late and then go too far.',
+		open: 'No fixed pedal works for both the flat and the climb. Without measuring the speed, nothing can react to the hill. This is why controllers use feedback.',
+		onoff: 'A simple rule holds the speed, but only by slamming the pedal between zero and full power. The closer the lines, the tighter the speed and the more often the pedal switches.',
+		p: 'Pushing in proportion to the error is gentle, but it always leaves the truck a little slow on the climb, because extra force only comes from an error. With too much gain, the delay makes the pedal shake.',
+		pi: 'The integral keeps pushing until the error is gone. It works as a memory, and the same memory causes the swing after the top of the hill.',
+		robust: 'One tuning has to work on every day, so it is set for the hardest case. The price is a slightly slower response for the full truck.',
+		windup: 'At its limit, the engine cannot remove the error, but the integral keeps adding it up. Anti-windup stops it, and the overshoot after the top falls to about 1 km/h.',
+		noise: 'A filter calms the pedal, but it also delays the measurement. The heavier the filter, the later the controller reacts.',
+		ff: 'Knowing the slope lets the controller push before the speed drops. How much it helps depends on how well it knows the truck, here its mass.',
+		plan: 'A speed that may move a little lets the truck brake less on the descent and save energy. In a predictive controller, an engineer tunes exactly this band: how much the speed may move in exchange for energy.',
+	};
+
+	const build = (host, lv, index, go) => {
+		const id = `cl-${lv.id}`;
+		const route = ROADS[lv.road];
+		const values = Object.fromEntries([...(lv.knobs ?? []).map((k) => [k.key, k.value]), ...(lv.toggles ?? []).map((t) => [t.key, false])]);
+		let W = 720;
+		const ml = 46, mr = 10;
+		const P = { road: [6, 58], speed: [84, 240], pedal: [270, 400] };
+		const H = 424;
+		host.replaceChildren();
+		host.id ||= id;
+		host.classList.add('is-live');
+
+		const head = el('div', { class: 'cl__head' });
+		const levelEl = el('p', { class: 'cl__level' });
+		levelEl.append(el('span', { class: 'cl__level-n' }, `Level ${index + 1}`), el('span', { class: 'cl__level-t' }, lv.title));
+		head.append(levelEl);
+		const starsEl = el('p', { class: 'cl__stars' });
+		head.append(starsEl);
+		const goal = el('p', { class: 'cl__goal' });
+		goal.append(el('span', { class: 'cl__step' }, 'Goal'), lv.goal);
+		const tiers = el('ul', { class: 'cl__tiers', 'aria-label': lv.explore ? 'Goal' : 'Stars' });
+		const tierEls = lv.tiers.map((t, i) => {
+			const li = el('li');
+			li.append(el('span', { class: 'cl__tier-mark', 'aria-hidden': 'true' }, lv.explore ? '✓' : '★'.repeat(i + 1)), el('span', {}, t));
+			tiers.append(li);
+			return li;
+		});
+		const lock = el('p', { class: 'cl__lock' });
+
+		// Prediction before the run: the reader commits to a guess, then the run answers it.
+		let guess = null;
+		const pred = lv.predict ? el('div', { class: 'cl__predict', role: 'group', 'aria-label': 'What do you think?' }) : null;
+		if (pred) {
+			pred.append(el('p', { class: 'cl__step' }, 'What do you think?'), el('p', {}, lv.predict.q));
+			lv.predict.options.forEach((o) => {
+				const b = el('button', { type: 'button', 'aria-pressed': 'false' }, o);
+				b.addEventListener('click', () => {
+					guess = o;
+					pred.querySelectorAll('button').forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+					runBtn.disabled = false;
+					msg.textContent = startHint;
+				});
+				pred.append(b);
+			});
+		}
+
+		const svg = el('svg:svg', { viewBox: `0 0 ${W} ${H}`, role: 'img', 'aria-label': '' });
+		const g = (cls) => { const n = el('svg:g', { class: cls }); svg.append(n); return n; };
+		const gAxes = g('cl__axes'), gRoad = g('cl__road'), gBand = g('cl__bandg'), gRef = g('cl__refg'), gGhost = g('cl__ghosts'), gFill = g('cl__fills'), gLines = g('cl__lines'), gMarks = g('cl__marks'), gTags = g('cl__tags'), gTruck = g('cl__truckg');
+		const stage = el('div', { class: 'cl__stage' });
+		const ready = el('p', { class: 'cl__ready', 'aria-hidden': 'true' });
+		// The plot box holds the svg and everything placed on it, so percentages refer to the plot alone.
+		const plot = el('div', { class: 'cl__plot' });
+		plot.append(svg, ready);
+		stage.append(plot);
+		const legend = el('p', { class: 'cl__legend' });
+		const bars = el('div', { class: 'cl__bars' });
+
+		// Scales
+		const X = (km) => ml + ((W - ml - mr) * km) / route.length;
+		let vlo = 70, vhi = 90;
+		const YV = (v) => P.speed[1] - ((P.speed[1] - P.speed[0]) * (Math.min(Math.max(v, vlo - 2), vhi + 2) - vlo)) / (vhi - vlo);
+		const YP = (p) => (P.pedal[0] + P.pedal[1]) / 2 - ((P.pedal[1] - P.pedal[0]) / 2) * (Math.min(Math.max(p, -100), 100) / 100);
+		const hs = Array.from({ length: 121 }, (_, i) => route.heightAt((route.length * i) / 120));
+		const hmin = Math.min(...hs), hmax = Math.max(...hs, hmin + 1);
+		const YR = (h) => P.road[1] - 8 - ((P.road[1] - P.road[0] - 14) * (h - hmin)) / (hmax - hmin);
+
+		let busy = false;
+		let live = null;
+		// armLive starts a waiting live run on the first pedal movement.
+		let armLive = null;
+		const knobsWrap = el('div', { class: 'cl__knobs' });
+		const inputs = {};
+		(lv.knobs ?? []).forEach((k) => {
+			const inId = `${id}-${k.key}`;
+			const out = el('output', { for: inId }, k.fmt(k.value));
+			const input = el('input', { id: inId, type: 'range', min: k.min, max: k.max, step: k.step, value: k.value, 'aria-valuetext': k.fmt(k.value) });
+			input.addEventListener('input', () => {
+				values[k.key] = Number(input.value);
+				if (k.lever) armLive?.();
+				out.textContent = k.fmt(values[k.key]);
+				input.setAttribute('aria-valuetext', out.textContent);
+				if (!busy && !live && (lv.lines || lv.id === 'plan')) drawRuns(1);
+			});
+			inputs[k.key] = input;
+			if (k.lever && lv.live) {
+				// The pedal lever sits beside the pedal plot, on the same vertical scale: up is power, down is brake.
+				const wrap = el('div', { class: 'cl__lever' });
+				wrap.style.top = `${((100 * YP(k.max)) / H).toFixed(2)}%`;
+				wrap.style.height = `${((100 * (YP(k.min) - YP(k.max))) / H).toFixed(2)}%`;
+				const top = el('div', { class: 'cl__lever-head' });
+				top.append(el('label', { for: inId }, k.label), out);
+				// On a phone the lever lies flat under the plot (see the CSS), with brake on the left and power on the right.
+				const setOrient = () => input.setAttribute('aria-orientation', phone.matches ? 'horizontal' : 'vertical');
+				setOrient();
+				phone.addEventListener('change', setOrient);
+				input.addEventListener('keydown', (e) => { if (/^(Arrow|Page|Home|End)/.test(e.key)) armLive?.(); });
+				wrap.append(top, el('span', { class: 'cl__lever-end cl__lever-end--brake', 'aria-hidden': 'true' }, 'Brake'), input, el('span', { class: 'cl__lever-end cl__lever-end--power', 'aria-hidden': 'true' }, 'Power'));
+				// The whole pedal plot is a drag area for the pedal, on the same scale as the lever.
+				const zone = el('div', { class: 'cl__padzone', 'aria-hidden': 'true' });
+				zone.style.top = wrap.style.top;
+				zone.style.height = wrap.style.height;
+				const setFromY = (e) => {
+					const r = zone.getBoundingClientRect();
+					const f = Math.min(1, Math.max(0, (e.clientY - r.top) / r.height));
+					const v = Math.round((k.max - f * (k.max - k.min)) / k.step) * k.step;
+					if (Number(input.value) !== v) { input.value = String(v); input.dispatchEvent(new Event('input')); }
+				};
+				zone.addEventListener('pointerdown', (e) => { if (!live) return; e.preventDefault(); zone.setPointerCapture(e.pointerId); setFromY(e); });
+				zone.addEventListener('pointermove', (e) => { if (zone.hasPointerCapture(e.pointerId)) setFromY(e); });
+				plot.append(zone);
+				stage.append(wrap);
+				stage.classList.add('has-lever');
+				return;
+			}
+			const wrap = el('div', { class: 'cl__knob' });
+			const lab = el('label', { for: inId });
+			lab.append(el('span', {}, k.label), out);
+			input.setAttribute('aria-describedby', `${inId}-ends`);
+			const ends = el('span', { class: 'cl__ends', id: `${inId}-ends` });
+			ends.append(el('span', {}, k.ends[0]), el('span', {}, k.ends[1]));
+			wrap.append(lab, input, ends);
+			knobsWrap.append(wrap);
+		});
+		(lv.toggles ?? []).forEach((t) => {
+			const lab = el('label', { class: 'cl__toggle' });
+			const input = el('input', { type: 'checkbox' });
+			const state = el('span', { class: 'cl__toggle-state' }, 'Off');
+			input.addEventListener('change', () => { values[t.key] = input.checked; state.textContent = input.checked ? 'On' : 'Off'; });
+			const txt = el('span', { class: 'cl__toggle-text' });
+			txt.append(el('strong', {}, t.label), el('span', {}, t.hint));
+			lab.append(input, txt, state);
+			knobsWrap.append(lab);
+		});
+
+		const bar = el('div', { class: 'cl__bar' });
+		const runBtn = el('button', { type: 'button', class: 'cl__run' }, lv.live ? 'Start driving' : 'Drive the road');
+		const skipBtn = el('button', { type: 'button', class: 'cl__skip' }, 'Skip this level');
+		const startHint = lv.live ? 'Press start, then hold the speed by dragging on the pedal plot or with the arrow keys.' : lv.explore ? 'Set the pedal, then drive the road.' : 'Set the controller, then drive the road.';
+		const msg = el('p', { class: 'cl__msg', 'aria-live': 'polite' }, lv.predict ? 'Answer the question above to start.' : startHint);
+		if (lv.predict) runBtn.disabled = true;
+		bar.append(runBtn, msg, skipBtn);
+		const play = el('div', { class: 'cl__play' });
+		// Result box: sits right under the plot, so the verdict appears where the eyes already are.
+		const result = el('div', { class: 'cl__result', 'aria-live': 'polite' });
+		result.hidden = true;
+		// The intro is split into steps: the goal and its stars, the reader's move (guess or settings), then the start.
+		const actions = el('div', { class: 'cl__actions' });
+		if (pred || knobsWrap.childElementCount) {
+			actions.append(...(pred ? [pred] : []), ...(knobsWrap.childElementCount ? [...(lv.explore ? [] : [el('p', { class: 'cl__step' }, 'Your controller')]), knobsWrap] : []));
+		}
+		play.append(tiers, ...(actions.childElementCount ? [actions] : []), bar, stage, legend, result, bars);
+		host.append(head, goal, lock, play);
+		host.toggleAttribute('data-live-level', !!lv.live);
+		// Phases: intro (challenge, stars, settings, start), drive (title and plots only), result (verdict and choices), review (result with the plots).
+		const setPhase = (ph) => {
+			host.dataset.phase = ph;
+			const box = host.closest('[data-cl-game]') ?? host;
+			// On a phone the drive phase fills the screen, so the game always moves to the top.
+			const top = box.getBoundingClientRect().top;
+			if (top < 0 || (ph === 'drive' && phone.matches && top > 8)) box.scrollIntoView({ behavior: still ? 'auto' : 'smooth', block: 'start' });
+		};
+		host.dataset.phase = 'intro';
+
+		const fitV = (runs) => {
+			let lo = 80, hi = 80;
+			runs.forEach((r) => r.v.forEach((v) => { lo = Math.min(lo, v); hi = Math.max(hi, v); }));
+			lo = Math.min(lo, 80 - Math.max(lv.band, 4)); hi = Math.max(hi, 80 + Math.max(lv.band, 4));
+			const step = hi - lo > 30 ? 10 : hi - lo > 14 ? 5 : 2;
+			vlo = Math.max(0, Math.floor(lo / step) * step); vhi = Math.ceil(hi / step) * step;
+			return step;
+		};
+		const pathOf = (r, key, Y, upto = r.x.length) => {
+			const pts = [];
+			const n = Math.max(1, Math.floor(upto / 420));
+			for (let i = 0; i < upto; i += n) pts.push(`${X(r.x[i]).toFixed(1)} ${Y(r[key][i]).toFixed(1)}`);
+			if (upto > 0) pts.push(`${X(r.x[upto - 1]).toFixed(1)} ${Y(r[key][upto - 1]).toFixed(1)}`);
+			return pts.length ? `M${pts.join(' L')}` : '';
+		};
+		const areaOf = (r, sign, upto) => {
+			const pts = [];
+			const n = Math.max(1, Math.floor(upto / 420));
+			const y = (i) => YP(sign > 0 ? Math.max(r.pedal[i], 0) : Math.min(r.pedal[i], 0)).toFixed(1);
+			for (let i = 0; i < upto; i += n) pts.push(`${X(r.x[i]).toFixed(1)} ${y(i)}`);
+			pts.push(`${X(r.x[upto - 1]).toFixed(1)} ${y(upto - 1)}`);
+			return `M${X(r.x[0]).toFixed(1)} ${YP(0)} L${pts.join(' L')} L${X(r.x[upto - 1]).toFixed(1)} ${YP(0)} Z`;
+		};
+
+		const drawAxes = (step) => {
+			const a = [];
+			const tick = (y, t, cls = 'cl__grid') => { a.push(el('svg:line', { class: cls, x1: ml, x2: W - mr, y1: y, y2: y })); a.push(el('svg:text', { class: 'cl__tick', x: ml - 6, y: y + 4, 'text-anchor': 'end' }, t)); };
+			for (let v = vlo; v <= vhi + 1e-9; v += step) tick(YV(v), String(v));
+			a.push(el('svg:text', { class: 'cl__axis-tag', x: ml + 4, y: P.speed[0] - 6 }, 'Speed (km/h)'));
+			tick(YP(100), '100'); tick(YP(50), '50'); tick(YP(-50), '50'); tick(YP(-100), '100'); tick(YP(0), '0', 'cl__zero');
+			a.push(el('svg:text', { class: 'cl__axis-tag', x: ml + 4, y: P.pedal[0] - 6 }, 'Pedal (%)'));
+			gTags.replaceChildren(
+				el('svg:text', { class: 'cl__tag cl__tag--power', x: W - mr - 4, y: YP(100) + 14, 'text-anchor': 'end' }, 'Power ↑'),
+				el('svg:text', { class: 'cl__tag cl__tag--brake', x: W - mr - 4, y: YP(-100) - 6, 'text-anchor': 'end' }, 'Brake ↓'),
+			);
+			for (let km = 0; km <= route.length + 1e-9; km += route.length > 4 ? 1 : 0.5) {
+				a.push(el('svg:text', { class: 'cl__tick', x: X(km), y: H - 2, 'text-anchor': 'middle' }, `${km} km`));
+			}
+			gAxes.replaceChildren(...a);
+			const r = [];
+			const pts = hs.map((h, i) => `${X((route.length * i) / 120).toFixed(1)} ${YR(h).toFixed(1)}`);
+			r.push(el('svg:path', { class: 'cl__ground', d: `M${X(0)} ${P.road[1]} L${pts.join(' L')} L${X(route.length)} ${P.road[1]} Z` }));
+			r.push(el('svg:path', { class: 'cl__surface', d: `M${pts.join(' L')}` }));
+			if (lv.runs && lv.id === 'robust') r.push(el('svg:path', { class: 'cl__lane', d: `M${hs.map((h, i) => `${X((route.length * i) / 120).toFixed(1)} ${(YR(h) - 12).toFixed(1)}`).join(' L')}` }));
+			route.segments.forEach(([start, slope], i) => {
+				if (!slope) return;
+				const end = route.segments[i + 1]?.[0] ?? route.length, mid = (start + end) / 2;
+				r.push(el('svg:text', { class: 'cl__slope', x: X(mid), y: YR(route.heightAt(mid)) - 6, 'text-anchor': 'middle' }, `${slope > 0 ? '+' : '−'}${Math.abs(slope)}%`));
+			});
+			gRoad.replaceChildren(...r);
+		};
+		const makeTruck = (cls) => {
+			const t = el('svg:g', { class: `cl__truck ${cls}` });
+			t.append(el('svg:rect', { x: -15, y: -9, width: 20, height: 9, rx: 1 }), el('svg:rect', { x: 6, y: -8, width: 8, height: 8, rx: 1.5 }));
+			return t;
+		};
+		const truck = makeTruck('cl__truck--a'), truck2 = makeTruck('cl__truck--b');
+		const cursor = el('svg:line', { class: 'cl__cursor', y1: P.speed[0], y2: P.pedal[1] });
+		const readout = el('svg:text', { class: 'cl__readout', x: W - mr, y: P.speed[0] - 6, 'text-anchor': 'end' });
+		gTruck.append(cursor, truck2, truck, readout);
+		const placeOne = (t, km, lift) => {
+			const h = route.heightAt(km), k0 = Math.max(0, km - 0.05), k1 = Math.min(route.length, km + 0.05);
+			const ang = (Math.atan2(YR(route.heightAt(k1)) - YR(route.heightAt(k0)), X(k1) - X(k0)) * 180) / Math.PI;
+			t.setAttribute('transform', `translate(${X(km).toFixed(1)} ${(YR(h) - lift).toFixed(1)}) rotate(${ang.toFixed(1)})`);
+		};
+		const placeTrucks = (cur, frac) => {
+			const at = (r) => Math.max(0, Math.min(r.x.length, Math.round(r.x.length * frac)) - 1);
+			const lead = cur[0]?.run;
+			const i = lead ? at(lead) : -1;
+			const km = lead && lead.x.length ? lead.x[i] : 0;
+			placeOne(truck, km, 0);
+			cursor.setAttribute('x1', X(km).toFixed(1)); cursor.setAttribute('x2', X(km).toFixed(1));
+			const second = cur[1]?.run;
+			truck2.style.display = second ? '' : 'none';
+			if (second && second.x.length) placeOne(truck2, second.x[at(second)], 12);
+			const parts = [];
+			if (lead && lead.x.length) {
+				if (second && second.x.length) parts.push(['a', `${cur[0].label.split(',')[0]}: ${Math.round(lead.v[i])} km/h`], ['b', `   ${cur[1].label.split(',')[0]}: ${Math.round(second.v[at(second)])} km/h`]);
+				else parts.push(['a', `${Math.round(lead.v[i])} km/h`], ['m', `   pedal ${pedalText(lead.pedal[i])}`]);
+			}
+			readout.replaceChildren(...parts.map(([c, t]) => el('svg:tspan', { class: `cl__ro--${c}` }, t)));
+		};
+
+		let history = [];
+		let current = null;
+		let anim = 0;
+		const styles = ['cl__line--a', 'cl__line--b'];
+		const drawRuns = (frac = 1, liveRun) => {
+			const cur = liveRun ? [{ run: liveRun, label: 'You' }] : current?.traces ?? [];
+			const all = [...cur.map((t) => t.run), ...history.flatMap((h) => h.traces.slice(0, 1).map((t) => t.run)), ...(current?.compare ? [current.compare.run] : [])];
+			drawAxes(fitV(all.length ? all : []));
+			const band = [];
+			const bw = lv.id === 'plan' ? values.band : lv.band;
+			if (bw) band.push(el('svg:rect', { class: 'cl__band', x: ml, width: W - ml - mr, y: YV(80 + bw), height: YV(80 - bw) - YV(80 + bw) }));
+			(lv.lines?.(values) ?? []).forEach((l) => {
+				band.push(el('svg:line', { class: 'cl__switch', x1: ml, x2: W - mr, y1: YV(l.v), y2: YV(l.v) }));
+				gTags.append(el('svg:text', { class: 'cl__switch-tag', x: W - mr - 4, y: YV(l.v) + (l.up ? -5 : 14), 'text-anchor': 'end' }, l.label));
+			});
+			gBand.replaceChildren(...band);
+			const refRun = cur[0]?.run;
+			gRef.replaceChildren(el('svg:path', { class: 'cl__ref', d: refRun && lv.id === 'plan' ? pathOf(refRun, 'ref', YV) : `M${ml} ${YV(80)} L${W - mr} ${YV(80)}` }));
+			gGhost.replaceChildren(...history.slice(-3).map((h) => el('svg:path', { class: 'cl__ghost', d: pathOf(h.traces[0].run, 'v', YV) })));
+			const lines = [], fills = [], marks = [];
+			if (current?.compare && !liveRun) lines.push(el('svg:path', { class: 'cl__line cl__line--cmp', d: pathOf(current.compare.run, 'v', YV) }));
+			cur.forEach((t, i) => {
+				const upto = Math.min(t.run.x.length, Math.max(1, Math.round(t.run.x.length * frac)));
+				if (!t.run.x.length) return;
+				if (i === 0) {
+					fills.push(el('svg:path', { class: 'cl__fill cl__fill--power', d: areaOf(t.run, 1, upto) }));
+					fills.push(el('svg:path', { class: 'cl__fill cl__fill--brake', d: areaOf(t.run, -1, upto) }));
+				}
+				lines.push(el('svg:path', { class: `cl__line ${styles[i]}`, d: pathOf(t.run, 'v', YV, upto) }));
+				lines.push(el('svg:path', { class: `cl__line cl__line--pedal ${styles[i]}`, d: pathOf(t.run, 'pedal', YP, upto) }));
+				if (i === 0 && lv.ffLine && t.run.ff.length) lines.push(el('svg:path', { class: 'cl__line cl__line--ff', d: pathOf(t.run, 'ff', YP, upto) }));
+			});
+			// After a run, mark the point furthest from the target so the result is visible without reading.
+			const lead = cur[0]?.run;
+			if (lead && lead.x.length && frac >= 1 && !liveRun && lv.id !== 'plan') {
+				let k = 0;
+				lead.v.forEach((v, j) => { if (Math.abs(v - lead.ref[j]) > Math.abs(lead.v[k] - lead.ref[k])) k = j; });
+				const above = lead.v[k] > lead.ref[k], x = X(lead.x[k]), y = YV(lead.v[k]);
+				const anchor = x > W - 120 ? 'end' : x < ml + 60 ? 'start' : 'middle';
+				marks.push(el('svg:circle', { class: 'cl__peak', cx: x.toFixed(1), cy: y.toFixed(1), r: 4 }));
+				marks.push(el('svg:text', { class: 'cl__peak-tag', x: x.toFixed(1), y: (y + (above ? -9 : 18)).toFixed(1), 'text-anchor': anchor }, `${f1(lead.v[k])} km/h`));
+			}
+			gFill.replaceChildren(...fills);
+			gLines.replaceChildren(...lines);
+			gMarks.replaceChildren(...marks);
+			placeTrucks(cur, frac);
+		};
+		const drawLegend = () => {
+			const items = [['cl__key--ref', lv.id === 'plan' ? 'Planned speed' : 'Target, 80 km/h']];
+			if (lv.band) items.push(['cl__key--band', 'Goal band']);
+			if (lv.id === 'plan') items.push(['cl__key--band', 'Allowed band']);
+			if (lv.lines) items.push(['cl__key--switch', 'Switching lines']);
+			const cur = current?.traces ?? (lv.runs ? lv.runs(values) : [{ label: lv.live ? 'You' : 'This run' }]);
+			cur.forEach((t, i) => items.push([`cl__key--${'ab'[i]}`, t.label ?? 'This run']));
+			if (lv.ffLine) items.push(['cl__key--ff', 'Pedal from the map']);
+			if (lv.compare) items.push(['cl__key--cmp', lv.compare().label]);
+			if (history.length) items.push(['cl__key--ghost', 'Earlier runs']);
+			legend.replaceChildren(...items.map(([c, t]) => { const s = el('span'); s.append(el('span', { class: `cl__key ${c}` }), t); return s; }));
+		};
+		const drawBars = (runs) => {
+			if (!lv.bars) return;
+			const rows = lv.bars(runs);
+			const max = Math.max(...rows.map((r) => r.run.energy));
+			const list = rows.map((r) => {
+				const row = el('div', { class: 'cl__barrow' });
+				const track = el('span', { class: 'cl__bartrack' });
+				const fill = el('span', { class: `cl__barfill cl__barfill--${r.kind}` });
+				fill.style.width = `${((100 * r.run.energy) / max).toFixed(1)}%`;
+				track.append(fill);
+				row.append(el('span', { class: 'cl__barlabel' }, r.label), track, el('span', { class: 'cl__barval' }, kwh(r.run)));
+				return row;
+			});
+			bars.replaceChildren(el('p', { class: 'cl__barhead' }, 'Energy at the wheels for the whole road'), ...list);
+		};
+		const describe = (text) => {
+			svg.setAttribute('aria-label', `Road profile, speed and pedal along the road for level ${index + 1}. ${text ?? 'No run yet.'}`);
+		};
+		const showState = () => {
+			const n = progress[lv.id] ?? 0;
+			starsEl.textContent = starGlyphs(lv, n);
+			starsEl.setAttribute('aria-label', `Best: ${starText(lv, n)}`);
+			host.toggleAttribute('data-passed', n > 0);
+			const open = unlocked(index);
+			host.toggleAttribute('data-locked', !open);
+			play.inert = !open;
+			lock.hidden = open;
+			if (!open) {
+				const b = el('button', { type: 'button', class: 'cl__golink' }, `Go to level ${index}`);
+				b.addEventListener('click', () => go(index - 1, true));
+				lock.replaceChildren(`Locked. Pass or skip level ${index} to play this one. `, b);
+			}
+			skipBtn.hidden = cleared(lv.id);
+		};
+		// last: the latest run of this visit ({ n, text }), or null before the first run.
+		let last = null;
+		const renderResult = () => {
+			const best = progress[lv.id] ?? 0, isCleared = cleared(lv.id);
+			let glyphs, verdict, text = '';
+			if (last) {
+				const n = last.n;
+				glyphs = lv.explore ? (n ? '\u2713' : '') : starGlyphs(lv, n);
+				verdict = n ? (lv.explore ? 'Level complete' : 'Level passed') : lv.explore ? 'Try one more pedal position' : 'Not passed yet';
+				text = last.text;
+				if (!lv.explore && best > n) text += ` Your best: ${starText(lv, best)}.`;
+			} else if (best) {
+				glyphs = lv.explore ? '\u2713' : starGlyphs(lv, best);
+				verdict = lv.explore ? 'Level complete' : `Your best: ${starText(lv, best)}`;
+			} else {
+				glyphs = '';
+				verdict = 'Level skipped';
+			}
+			const headEl = el('p', { class: 'cl__verdict' });
+			if (glyphs) headEl.append(el('span', { class: 'cl__verdict-stars', 'aria-hidden': 'true' }, glyphs));
+			headEl.append(el('span', { class: 'cl__verdict-text' }, verdict));
+			result.dataset.state = last ? (last.n ? 'pass' : 'fail') : best ? 'pass' : 'skip';
+			const parts = [headEl];
+			if (text) parts.push(el('p', { class: 'cl__result-text' }, text));
+			if (last && bars.childElementCount) parts.push(bars);
+			if (isCleared) parts.push(el('p', { class: 'cl__aha-text' }, AHA[lv.id]));
+			const row = el('p', { class: 'cl__aha-row' });
+			const lvRow = el('p', { class: 'cl__aha-row cl__aha-row--level' });
+			const retry = !lv.live && last && !last.n;
+			const again = el('button', { type: 'button', class: isCleared ? 'cl__again' : 'cl__next' }, retry ? (lv.explore ? 'Change the pedal and drive again' : 'Change the controller and drive again') : last || best ? 'Drive again' : 'Play this level anyway');
+			again.addEventListener('click', () => {
+				if (lv.live && (last || best)) { runBtn.click(); return; }
+				setPhase('intro');
+				(Object.values(inputs)[0] ?? runBtn).focus({ preventScroll: true });
+			});
+			if (isCleared && allCleared()) {
+				const sumB = el('button', { type: 'button', class: 'cl__next' }, 'See your summary');
+				sumB.addEventListener('click', () => go(LEVELS.length, true));
+				row.append(sumB);
+				if (index < LEVELS.length - 1) {
+					const next = el('button', { type: 'button', class: 'cl__again' }, 'Next level');
+					next.addEventListener('click', () => go(index + 1, true));
+					row.append(next);
+				}
+				row.append(again);
+			} else if (isCleared && index < LEVELS.length - 1) {
+				const next = el('button', { type: 'button', class: 'cl__next' }, 'Next level');
+				next.addEventListener('click', () => go(index + 1, true));
+				row.append(next, again);
+			} else {
+				row.append(again);
+				const end = isCleared && document.getElementById('what-the-game-teaches-about-control-engineering');
+				if (end) row.append(el('a', { href: `#${end.id}`, class: 'cl__theory' }, 'See what the game teaches'));
+			}
+			if (last) {
+				const view = el('button', { type: 'button', class: 'cl__view', 'aria-pressed': 'false' }, 'Show the run');
+				view.addEventListener('click', () => {
+					const on = host.dataset.phase !== 'review';
+					host.dataset.phase = on ? 'review' : 'result';
+					view.setAttribute('aria-pressed', String(on));
+					view.textContent = on ? 'Hide the run' : 'Show the run';
+				});
+				lvRow.append(view);
+			}
+			if (!isCleared) {
+				const sk = el('button', { type: 'button', class: 'cl__view' }, 'Skip this level');
+				sk.addEventListener('click', () => skipBtn.click());
+				row.append(sk);
+			}
+			const h = isCleared && theoryOf(index);
+			if (h) lvRow.append(el('a', { href: `#${h.id}`, class: 'cl__theory' }, `Read the theory of level ${index + 1}`));
+			if (lvRow.childElementCount) parts.push(lvRow);
+			parts.push(row);
+			result.replaceChildren(...parts);
+			result.hidden = false;
+		};
+		listeners.add(showState);
+		skipBtn.addEventListener('click', () => {
+			progress = { ...progress, [`${lv.id}:skip`]: 1 };
+			save(progress);
+			msg.textContent = index < LEVELS.length - 1 ? 'Skipped. The next level is open.' : 'Skipped.';
+			notify();
+			last = null;
+			renderResult();
+			setPhase('result');
+		});
+
+		let runs = 0;
+		const finish = (traces) => {
+			runs += 1;
+			const res = lv.score(traces.map((t) => t.run));
+			let n = 0;
+			while (n < res.pass.length && res.pass[n]) n += 1;
+			tierEls.forEach((li, i) => li.classList.toggle('is-met', !!res.pass[i]));
+			let note, done;
+			if (lv.explore) {
+				done = runs >= lv.explore || n > 0;
+				if (done) setStars(lv.id, 1);
+				note = `Run ${runs}: ${res.text}${done ? ` ${lv.done}` : ''}`;
+			} else {
+				done = n > 0;
+				if (n) setStars(lv.id, n);
+				note = `Run ${runs}: ${res.text}`;
+			}
+			if (done && lv.predict && guess) note += lv.predict.right ? ` You guessed ${guess.toLowerCase()}${guess === lv.predict.right ? ', which is right.' : '; the note below explains why.'}` : ` You guessed ${guess.toLowerCase()}.`;
+			if (done && index < LEVELS.length - 1) note += ' The next level is open.';
+			last = { n: lv.explore ? (done ? 1 : 0) : n, text: note };
+			msg.textContent = `Run ${runs} finished: ${lv.explore ? (done ? 'level complete' : 'not complete yet') : n ? starText(lv, n) : 'not passed yet'}.`;
+			describe(note);
+			drawBars(traces.map((t) => t.run));
+			showState();
+			renderResult();
+			if (still) setPhase('result'); else setTimeout(() => setPhase('result'), 900);
+		};
+		const animate = (done) => {
+			cancelAnimationFrame(anim);
+			if (still) { drawRuns(1); done(); return; }
+			busy = true;
+			const t0 = performance.now(), dur = lv.dur ?? 3600;
+			const frame = (t) => {
+				const f = Math.min(1, (t - t0) / dur);
+				drawRuns(f);
+				if (f < 1) anim = requestAnimationFrame(frame); else { busy = false; done(); }
+			};
+			anim = requestAnimationFrame(frame);
+		};
+		const runOnce = () => {
+			if (busy) return;
+			if (current) history.push(current);
+			const spec = lv.runs ? lv.runs(values) : [{ label: 'This run', ctrl: lv.ctrl(values) }];
+			const traces = spec.map((s) => ({ label: s.label, run: simulate({ route, ctrl: s.ctrl, mass: s.mass, noise: lv.noise }) }));
+			current = { traces, compare: lv.compare?.() };
+			drawLegend();
+			setPhase('drive');
+			if (still) { msg.textContent = 'Driving…'; animate(() => finish(traces)); return; }
+			busy = true;
+			drawRuns(0);
+			ready.textContent = 'The controller drives. Watch the speed.';
+			msg.textContent = ready.textContent;
+			host.setAttribute('data-ready', '');
+			setTimeout(() => { host.removeAttribute('data-ready'); msg.textContent = 'Driving…'; animate(() => finish(traces)); }, 1500);
+		};
+
+		// Live driving for level 1: the lever is the pedal; the simulation runs four times faster than real time.
+		const stopLive = (finished) => {
+			if (!live) return;
+			cancelAnimationFrame(anim);
+			const r = live.sim.out;
+			live = null;
+			armLive = null;
+			runBtn.textContent = 'Start driving';
+			host.removeAttribute('data-driving');
+			host.removeAttribute('data-ready');
+			if (finished) { current = { traces: [{ label: 'You', run: r }] }; drawLegend(); drawRuns(1); finish(current.traces); }
+			else { msg.textContent = 'Stopped. Press start to drive again.'; drawRuns(1, r); setPhase('intro'); }
+		};
+		const startLive = () => {
+			if (current) history.push(current);
+			current = null;
+			const sim = makeSim({ route, ctrl: { mode: 'manual', manual: () => values.pedal } });
+			live = { sim, on: false };
+			runBtn.textContent = 'Stop';
+			host.setAttribute('data-driving', '');
+			host.setAttribute('data-ready', '');
+			ready.textContent = phone.matches ? 'Move the pedal to start \u2193' : 'Move the pedal to start \u2192';
+			drawLegend();
+			drawRuns(1, sim.out);
+			msg.textContent = phone.matches ? 'Drag on the pedal plot or the slider. Right is power.' : 'Drag up or down on the pedal plot to start. Up is power, down is brake.';
+			setPhase('drive');
+			inputs.pedal?.focus({ preventScroll: true });
+			const frame = (t) => {
+				if (!live) return;
+				live.acc += Math.min(0.1, (t - live.last) / 1000) * 4;
+				live.last = t;
+				while (live.acc >= 0.05 && !sim.done()) { sim.step(); live.acc -= 0.05; }
+				drawRuns(1, sim.out);
+				if (sim.done()) { stopLive(true); return; }
+				anim = requestAnimationFrame(frame);
+			};
+			// The clock starts with the first pedal movement, so the reader can look at the plot first.
+			armLive = () => {
+				if (!live || live.on) return;
+				live.on = true; live.last = performance.now(); live.acc = 0;
+				host.removeAttribute('data-ready');
+				msg.textContent = 'Driving. Keep it at 80 km/h.';
+				anim = requestAnimationFrame(frame);
+			};
+		};
+		runBtn.addEventListener('click', () => {
+			if (lv.live) { if (live) stopLive(false); else startLive(); return; }
+			runOnce();
+		});
+
+		const layout = () => {
+			const next = host.clientWidth < 560 ? 440 : 720;
+			if (next === W && svg.dataset.laid) return;
+			W = next;
+			svg.dataset.laid = '1';
+			svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+			drawRuns(1, live?.sim.out);
+		};
+		layout();
+		new ResizeObserver(layout).observe(host);
+		drawLegend();
+		describe();
+		showState();
+	};
+
+	// The game: a level picker and one level at a time. Locked levels cannot be picked; links to #play-<id> open a level.
+	document.querySelectorAll('[data-cl-game]').forEach((game) => {
+		game.replaceChildren();
+		game.classList.add('is-live');
+		const sum = el('p', { class: 'cl-game__sum', 'aria-live': 'polite' });
+		const reset = el('button', { type: 'button', class: 'cl-game__reset' }, 'Reset progress');
+		reset.addEventListener('click', () => { progress = {}; save(progress); history.replaceState(null, '', location.pathname); location.reload(); });
+		const sumLink = el('button', { type: 'button', class: 'cl-game__reset cl-game__tosum' }, 'Summary');
+		sumLink.addEventListener('click', () => go(LEVELS.length, false));
+		// Full screen: the Fullscreen API where it exists, a fixed overlay elsewhere (iPhone Safari).
+		const fsB = el('button', { type: 'button', class: 'cl-game__reset cl-game__fs', 'aria-pressed': 'false' }, 'Full screen');
+		const isFull = () => document.fullscreenElement === game || game.classList.contains('is-full');
+		const syncFs = () => {
+			const on = isFull();
+			fsB.textContent = on ? 'Exit full screen' : 'Full screen';
+			fsB.setAttribute('aria-pressed', String(on));
+			document.documentElement.classList.toggle('cl-noscroll', game.classList.contains('is-full'));
+			// Scale the whole game to the screen; the layout is designed for about 880 x 820 px.
+			const w = innerWidth, h = innerHeight;
+			game.style.setProperty('--fs-zoom', on && w >= 700 ? Math.min(2.2, Math.max(0.85, Math.min((w - 48) / 880, h / 820))).toFixed(3) : '1');
+		};
+		addEventListener('resize', () => { if (isFull()) syncFs(); });
+		fsB.addEventListener('click', () => {
+			if (document.fullscreenElement === game) document.exitFullscreen();
+			else if (game.classList.contains('is-full')) game.classList.remove('is-full');
+			else if (document.fullscreenEnabled && game.requestFullscreen) game.requestFullscreen().catch(() => game.classList.add('is-full')).finally(syncFs);
+			else game.classList.add('is-full');
+			syncFs();
+		});
+		document.addEventListener('fullscreenchange', syncFs);
+		document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && game.classList.contains('is-full')) { game.classList.remove('is-full'); syncFs(); } });
+		// Links out of the game (theory, projects) leave full screen first.
+		game.addEventListener('click', (e) => {
+			const a = e.target.closest?.('a[href]');
+			if (!a || a.getAttribute('href').startsWith('#play-') || !isFull()) return;
+			const href = a.getAttribute('href');
+			if (href.startsWith('#')) { e.preventDefault(); setTimeout(() => { document.getElementById(href.slice(1))?.scrollIntoView(); history.replaceState(null, '', href); }, 200); }
+			if (document.fullscreenElement === game) document.exitFullscreen();
+			game.classList.remove('is-full');
+			syncFs();
+		});
+		const top = el('div', { class: 'cl-game__top' });
+		const tools = el('span', { class: 'cl-game__tools' });
+		tools.append(sumLink, reset, fsB);
+		top.append(sum, tools);
+		const nav = el('ol', { class: 'cl-game__nav', 'aria-label': 'Levels' });
+		let active = -1;
+		const picks = LEVELS.map((lv, i) => {
+			const li = el('li');
+			const b = el('button', { type: 'button', class: 'cl-game__pick' });
+			b.append(el('span', { class: 'cl-game__n' }, String(i + 1)), el('span', { class: 'cl-game__s', 'aria-hidden': 'true' }));
+			b.addEventListener('click', () => go(i, false));
+			li.append(b);
+			nav.append(li);
+			return b;
+		});
+		// Start screen: the challenge and how the game works, shown until the reader accepts it.
+		const intro = el('div', { class: 'cl-game__intro', id: 'play-start', tabindex: '-1' });
+		intro.hidden = true;
+		const acceptB = el('button', { type: 'button', class: 'cl-game__accept' }, 'Accept the challenge');
+		const how = el('ul', { class: 'cl-game__how' });
+		[
+			'Level 1 is yours: drive the truck with the pedal.',
+			'From level 2, a computer drives. You design its controller, then watch the run.',
+			'Earn stars, or skip a level, to open the next one.',
+		].forEach((t) => how.append(el('li', {}, t)));
+		intro.append(
+			el('p', { class: 'cl-game__intro-title' }, 'Hold 80 km/h over the hill'),
+			el('p', { class: 'cl-game__intro-lead' }, 'Drive this 40-tonne truck at a constant 80 km/h over a 2% hill. Then design the controller that drives it better than you, and become a control engineer for a day.'),
+			how,
+			el('p', { class: 'cl-game__intro-ask' }, 'Do you accept the challenge?'),
+			acceptB,
+		);
+		acceptB.addEventListener('click', () => {
+			progress = { ...progress, started: 1 };
+			save(progress);
+			go(0, true);
+			panels[0].querySelector('.cl__run')?.focus({ preventScroll: true });
+		});
+		game.append(top, intro, nav);
+		const renderNav = () => {
+			let earned = 0, passed = 0;
+			LEVELS.forEach((lv, i) => {
+				const n = progress[lv.id] ?? 0, open = unlocked(i), skip = !n && skipped(lv.id);
+				if (n) passed += 1;
+				if (!lv.explore) earned += n;
+				const b = picks[i];
+				b.disabled = !open;
+				b.lastChild.textContent = n ? starGlyphs(lv, n) : skip ? 'skipped' : open ? 'open' : 'locked';
+				b.setAttribute('aria-label', `Level ${i + 1}: ${lv.title} ${n ? starText(lv, n) : skip ? 'skipped' : open ? 'open' : 'locked'}`);
+				b.dataset.state = n ? 'passed' : skip ? 'skipped' : open ? 'open' : 'locked';
+				if (i === active) b.setAttribute('aria-current', 'step'); else b.removeAttribute('aria-current');
+			});
+			const stars = LEVELS.filter((l) => !l.explore).length * 3;
+			sum.textContent = `${passed} of ${LEVELS.length} levels passed, ${earned} of ${stars} stars`;
+			reset.hidden = !Object.keys(progress).length;
+			sumLink.hidden = !allCleared() || active === LEVELS.length;
+			if (active === LEVELS.length) renderEnd();
+		};
+		const end = el('div', { class: 'cl-game__end', id: 'play-summary', tabindex: '-1' });
+		end.hidden = true;
+		const conceptOf = (i) => {
+			const t = theoryOf(i)?.textContent.trim().replace(/^Level \d+:\s*/, '');
+			return t ? t[0].toUpperCase() + t.slice(1) : LEVELS[i].title;
+		};
+		const renderEnd = () => {
+			let earned = 0, skips = 0, missing = 0;
+			LEVELS.forEach((lv) => {
+				const n = progress[lv.id] ?? 0;
+				if (!lv.explore) { earned += n; if (n < 3) missing += 1; }
+				if (!n) skips += 1;
+			});
+			const stars = LEVELS.filter((l) => !l.explore).length * 3;
+			const kids = [
+				el('p', { class: 'cl-game__end-kicker' }, 'Summary'),
+				el('p', { class: 'cl-game__end-title' }, skips ? `All ten levels done, ${skips} skipped` : 'All ten levels passed'),
+				el('p', { class: 'cl-game__end-stars' }, `\u2605 ${earned} of ${stars} stars`),
+				el('p', { class: 'cl-game__end-lead' }, 'On one truck and one road, the controller grew from your own foot on the pedal to a planner that reads the road ahead. These are the ideas it took, in the order a control engineer adds them.'),
+			];
+			const grid = el('div', { class: 'cl-game__end-grid' });
+			STAGES.forEach((st) => {
+				const box = el('div', { class: 'cl-game__end-stage' });
+				box.append(el('p', { class: 'cl-game__end-name' }, `${st.name} (levels ${st.from + 1} to ${st.to + 1})`.replace(/levels (\d+) to (\d+)/, (m, a, b) => (Number(b) - Number(a) === 1 ? `levels ${a} and ${b}` : m))));
+				const ul = el('ul');
+				for (let i = st.from; i <= st.to; i += 1) {
+					const lv = LEVELS[i], n = progress[lv.id] ?? 0;
+					const b = el('button', { type: 'button', class: 'cl-game__end-row', 'data-state': n ? 'passed' : 'skipped' });
+					b.append(el('span', { class: 'cl-game__end-n' }, String(i + 1)), el('span', { class: 'cl-game__end-c' }, conceptOf(i)), el('span', { class: 'cl-game__end-s', 'aria-hidden': 'true' }, n ? starGlyphs(lv, n) : 'skipped'));
+					b.setAttribute('aria-label', `Level ${i + 1}, ${conceptOf(i)}: ${n ? starText(lv, n) : 'skipped'}. Drive it again.`);
+					b.addEventListener('click', () => go(i, true));
+					const li = el('li');
+					li.append(b);
+					ul.append(li);
+				}
+				box.append(ul);
+				grid.append(box);
+			});
+			kids.push(grid);
+			if (missing || skips) kids.push(el('p', { class: 'cl-game__end-hint' }, `Pick a level to drive it again.${missing ? ` ${missing === 1 ? 'One level still has' : `${missing} levels still have`} stars to earn.` : ''}`));
+			const links = el('p', { class: 'cl-game__end-links' });
+			const after = document.getElementById('what-the-game-teaches-about-control-engineering');
+			if (after) links.append(el('a', { href: `#${after.id}`, class: 'cl-game__end-main' }, 'Read what the game teaches'));
+			links.append(el('a', { href: '/work/' }, 'See the projects behind it'));
+			kids.push(el('p', { class: 'cl-game__end-close' }, 'A production truck adds what the game leaves out: actuators that interact, temperatures that no sensor measures, models that drift as the truck ages and faults that the software has to catch.'), links);
+			end.replaceChildren(...kids);
+		};
+		const go = (i, scroll, initial) => {
+			active = i;
+			game.removeAttribute('data-start');
+			intro.hidden = true;
+			panels.forEach((p, j) => { p.hidden = j !== i; });
+			end.hidden = i !== LEVELS.length;
+			renderNav();
+			if (!initial || location.hash.startsWith('#play-')) history.replaceState(null, '', i === LEVELS.length ? '#play-summary' : `#play-${LEVELS[i].id}`);
+			if (i === LEVELS.length && scroll) end.focus({ preventScroll: true });
+			if (scroll && game.getBoundingClientRect().top < 0) game.scrollIntoView({ behavior: still ? 'auto' : 'smooth', block: 'start' });
+			if (scroll && isFull()) game.scrollTo({ top: 0 });
+		};
+		const panels = LEVELS.map((lv, i) => {
+			const p = el('div', { class: 'cl', id: `play-${lv.id}` });
+			p.hidden = true;
+			game.append(p);
+			build(p, lv, i, go);
+			return p;
+		});
+		game.append(end);
+		listeners.add(renderNav);
+		const fromHash = () => { const m = location.hash.match(/^#play-(.+)$/); return !m ? -1 : m[1] === 'summary' ? (allCleared() ? LEVELS.length : -1) : LEVELS.findIndex((l) => l.id === m[1]); };
+		let first = fromHash();
+		if (first >= 0 && first < LEVELS.length && !unlocked(first)) { linked.add(first); notify(); }
+		if (first < 0) first = allCleared() ? LEVELS.length : LEVELS.findIndex((l, i) => unlocked(i) && !cleared(l.id));
+		go(first < 0 ? 0 : first, false, true);
+		if (!progress.started && !LEVELS.some((l) => cleared(l.id)) && !location.hash.startsWith('#play-')) {
+			game.setAttribute('data-start', '');
+			intro.hidden = false;
+			panels[0].hidden = true;
+		}
+		document.addEventListener('click', (e) => {
+			const a = e.target.closest?.('a[href^="#play-"]');
+			if (!a) return;
+			const i = a.getAttribute('href') === '#play-summary' ? (allCleared() ? LEVELS.length : -1) : LEVELS.findIndex((l) => `#play-${l.id}` === a.getAttribute('href'));
+			if (i < 0) return;
+			e.preventDefault();
+			if (i < LEVELS.length && !linked.has(i)) { linked.add(i); notify(); }
+			go(i, false);
+			game.scrollIntoView({ behavior: still ? 'auto' : 'smooth', block: 'start' });
+		});
+	});
+</script>
+
+<style is:global>
+	.cl, .cl-game { --cl-text: var(--color-text); --cl-muted: var(--color-muted); --cl-border: var(--color-border); --cl-strong: var(--color-border-strong); --cl-a: #1f4f78; --cl-b: #d98c2b; --cl-b-text: #9a5c14; --cl-ref: #333333; --cl-grey: #737373; --cl-band: #d6e3f0; --cl-power: #00997f; --cl-power-text: #00735f; --cl-brake: #c0392b; --cl-brake-text: #a8322a; --cl-ground: color-mix(in srgb, var(--color-text) 7%, transparent); --cl-page: var(--color-page); font-family: var(--font-sans); }
+	/* Figure palette from carlos-visuals: dark blue main run, orange second run, grey references, light blue band; green power and red brake in the pedal plot. */
+	:root[data-theme="dark"] :is(.cl, .cl-game) { --cl-a: #66a6d9; --cl-b-text: #e8a54f; --cl-ref: #c8ccc6; --cl-grey: #9ea49e; --cl-band: color-mix(in srgb, #66a6d9 20%, transparent); --cl-power: #33c2a8; --cl-power-text: #5fd3bd; --cl-brake: #e8705f; --cl-brake-text: #f08f80; }
+	.prose .cl { margin: 1.75rem 0 1.25rem; padding: 1.1rem 1.1rem 1.2rem; border: 1px solid var(--cl-border); border-radius: .4rem; }
+	.cl:not(.is-live) { color: var(--cl-muted); font-size: .92rem; }
+	.cl .cl__head { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; }
+	.cl .cl__level { margin: 0; font-weight: 700; font-size: .95rem; color: var(--cl-text); }
+	.cl .cl__stars { margin: 0; font-size: 1.1rem; letter-spacing: .12em; color: var(--cl-text); white-space: nowrap; }
+	.cl .cl__goal { margin: .5rem 0 .4rem; font-size: .95rem; line-height: 1.45; color: var(--cl-text); }
+	.prose .cl .cl__tiers { list-style: none; margin: 0 0 .9rem; padding: 0; display: grid; gap: .15rem; font-size: .86rem; color: var(--cl-muted); }
+	.prose .cl .cl__tiers li { margin: 0; padding: 0; display: flex; gap: .55rem; align-items: baseline; }
+	.prose .cl .cl__tiers li::before { content: none; }
+	.cl .cl__tier-mark { flex: none; min-width: 3.2em; letter-spacing: .08em; }
+	.cl .cl__tiers li.is-met { color: var(--cl-text); }
+	.cl .cl__tiers li.is-met span:last-child { background: var(--mark-band); }
+	.prose .cl .cl__lock { margin: .2rem 0 .9rem; padding: .6rem .8rem; border: 1px dashed var(--cl-strong); border-radius: .3rem; font-size: .92rem; color: var(--cl-text); }
+	.cl[data-locked] .cl__play { opacity: .4; filter: grayscale(1); }
+	.cl .cl__predict { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem .6rem; margin: 0 0 .8rem; font-size: .92rem; color: var(--cl-text); }
+	.prose .cl .cl__predict p { margin: 0; flex: 1 1 100%; font-weight: 600; }
+	.cl .cl__predict button { font: inherit; font-weight: 600; min-width: 4.5rem; min-height: 2.5rem; padding: .3rem .9rem; color: var(--cl-text); background: transparent; border: 1px solid var(--cl-strong); border-radius: .35rem; cursor: pointer; }
+	.cl .cl__predict button[aria-pressed="true"] { background: var(--color-signal-fill); border-color: var(--color-signal-fill); color: var(--color-on-signal); }
+	.cl .cl__stage, .cl .cl__plot { position: relative; }
+	.cl .cl__stage.has-lever .cl__plot { width: calc(100% - 4.6rem); }
+	.cl svg { display: block; width: 100%; height: auto; overflow: visible; }
+	.cl .cl__lever { position: absolute; right: 0; z-index: 2; width: 4.2rem; display: flex; justify-content: center; }
+	.cl .cl__padzone { position: absolute; left: 0; right: 0; z-index: 1; display: none; border-radius: .3rem; cursor: ns-resize; touch-action: none; }
+	.cl[data-driving] .cl__padzone { display: block; background: color-mix(in srgb, var(--color-signal-fill) 10%, transparent); }
+	.cl[data-driving] .cl__padzone:hover { background: color-mix(in srgb, var(--color-signal-fill) 18%, transparent); }
+	.cl .cl__lever input { writing-mode: vertical-lr; direction: rtl; height: 100%; width: 2.2rem; margin: 0; accent-color: var(--cl-a); cursor: ns-resize; }
+	.cl .cl__lever-head { position: absolute; bottom: calc(100% + .35rem); left: 0; right: 0; display: grid; text-align: center; font-size: .78rem; line-height: 1.25; color: var(--cl-text); }
+	.cl .cl__lever-head label { font-weight: 700; }
+	.cl .cl__lever-head output { color: var(--cl-muted); font-variant-numeric: tabular-nums; }
+	.cl .cl__lever-end { display: none; }
+	.cl .cl__ready { display: none; position: absolute; left: 50%; top: 34%; transform: translate(-50%, -50%); margin: 0; padding: .55rem 1rem; border-radius: .35rem; background: var(--color-signal-fill); color: var(--color-on-signal); font-family: var(--font-sans); font-weight: 700; font-size: 1rem; line-height: 1.3; text-align: center; max-width: 80%; pointer-events: none; }
+	.cl[data-ready] .cl__ready { display: block; }
+	@media (max-width: 480px) { .cl .cl__ready { font-size: .8rem; padding: .35rem .6rem; top: 30%; } }
+	.cl[data-ready] .cl__lever input { border-radius: 1rem; animation: cl-nudge 1.2s ease-in-out infinite; }
+	@keyframes cl-nudge { 50% { box-shadow: 0 0 0 7px color-mix(in srgb, var(--color-accent-bright) 60%, transparent); } }
+	@media (prefers-reduced-motion: reduce) { .cl[data-ready] .cl__lever input { animation: none; box-shadow: 0 0 0 5px color-mix(in srgb, var(--color-accent-bright) 60%, transparent); } }
+	.cl .cl__grid { stroke: var(--cl-border); stroke-width: 1; }
+	.cl .cl__zero { stroke: var(--cl-strong); stroke-width: 1.4; }
+	.cl .cl__tick { fill: var(--cl-muted); font: 12px var(--font-sans); }
+	.cl .cl__axis-tag { fill: var(--cl-text); font: 600 12px var(--font-sans); }
+	.cl .cl__tag { font: 600 12px var(--font-sans); }
+	.cl .cl__tag--power { fill: var(--cl-power-text); }
+	.cl .cl__tag--brake { fill: var(--cl-brake-text); }
+	.cl .cl__ground { fill: var(--cl-ground); }
+	.cl .cl__surface { fill: none; stroke: var(--cl-strong); stroke-width: 1.5; }
+	.cl .cl__lane { fill: none; stroke: var(--cl-border); stroke-width: 1; stroke-dasharray: 3 4; }
+	.cl .cl__slope { fill: var(--cl-muted); font: 600 12px var(--font-sans); }
+	.cl .cl__readout { fill: var(--cl-text); font: 600 13px var(--font-sans); white-space: pre; }
+	.cl .cl__ro--a { fill: var(--cl-a); }
+	.cl .cl__ro--b { fill: var(--cl-b-text); }
+	.cl .cl__ro--m { fill: var(--cl-muted); font-weight: 400; }
+	.cl .cl__band { fill: var(--cl-band); }
+	.cl .cl__switch { stroke: var(--cl-b); stroke-width: 1.4; stroke-dasharray: 6 3; }
+	.cl .cl__switch-tag { fill: var(--cl-b-text); font: 600 12px var(--font-sans); }
+	.cl .cl__tags text { paint-order: stroke; stroke: var(--cl-page); stroke-width: 4px; stroke-linejoin: round; }
+	.cl .cl__ref { fill: none; stroke: var(--cl-ref); stroke-width: 1.2; stroke-dasharray: 5 5; }
+	.cl .cl__fill { stroke: none; }
+	.cl .cl__fill--power { fill: color-mix(in srgb, var(--cl-power) 30%, transparent); }
+	.cl .cl__fill--brake { fill: color-mix(in srgb, var(--cl-brake) 35%, transparent); }
+	.cl .cl__line { fill: none; stroke-width: 2.2; stroke-linejoin: round; stroke-linecap: round; }
+	.cl .cl__line--a { stroke: var(--cl-a); }
+	.cl .cl__line--b { stroke: var(--cl-b); stroke-dasharray: 7 4; }
+	.cl .cl__line--pedal { stroke-width: 1.5; }
+	.cl .cl__line--ff { stroke: var(--cl-b); stroke-width: 2; stroke-dasharray: 2 3; }
+	.cl .cl__line--cmp { stroke: var(--cl-grey); stroke-width: 1.6; stroke-dasharray: 2 4; }
+	.cl .cl__ghost { fill: none; stroke: var(--cl-grey); stroke-width: 1.3; opacity: .35; }
+	.cl .cl__peak { fill: var(--cl-page); stroke: var(--cl-a); stroke-width: 2; }
+	.cl .cl__peak-tag { fill: var(--cl-text); font: 700 12px var(--font-sans); paint-order: stroke; stroke: var(--cl-page); stroke-width: 4px; }
+	.cl .cl__truck rect { stroke: var(--cl-page); stroke-width: 1; }
+	.cl .cl__truck--a rect { fill: var(--cl-a); }
+	.cl .cl__truck--b rect { fill: var(--cl-b); }
+	.cl .cl__cursor { stroke: var(--cl-strong); stroke-width: 1; stroke-dasharray: 2 3; }
+	.cl .cl__legend { display: flex; flex-wrap: wrap; gap: .3rem 1.1rem; margin: .35rem 0 0; color: var(--cl-muted); font-size: .82rem; }
+	.cl .cl__legend > span { display: inline-flex; align-items: center; gap: .45rem; white-space: nowrap; }
+	.cl .cl__key { display: inline-block; width: 1.3rem; border-top: 2.2px solid var(--cl-a); }
+	.cl .cl__key--ref { border-top: 1.2px dashed var(--cl-ref); }
+	.cl .cl__key--band { height: .7rem; border: none; background: var(--cl-band); }
+	.cl .cl__key--switch { border-top: 1.4px dashed var(--cl-b); }
+	.cl .cl__key--b { border-top: 2.2px dashed var(--cl-b); }
+	.cl .cl__key--ff { border-top: 2px dotted var(--cl-b); }
+	.cl .cl__key--cmp { border-top: 1.6px dotted var(--cl-grey); }
+	.cl .cl__key--ghost { border-top-color: var(--cl-grey); opacity: .45; }
+	.cl .cl__bars:empty { display: none; }
+	.cl .cl__bars { display: grid; gap: .3rem; margin-top: .8rem; font-size: .85rem; color: var(--cl-text); }
+	.prose .cl .cl__barhead { margin: 0 0 .1rem; font-weight: 600; }
+	.cl .cl__barrow { display: grid; grid-template-columns: 9.5rem 1fr; gap: .1rem .75rem; align-items: center; }
+	.cl .cl__bartrack { display: block; height: .8rem; }
+	.cl .cl__barfill { display: block; height: 100%; border-radius: 2px; }
+	.cl .cl__barfill--a { background: var(--cl-a); }
+	.cl .cl__barfill--cmp { background: var(--cl-grey); }
+	.cl .cl__barval { grid-column: 2; color: var(--cl-muted); font-variant-numeric: tabular-nums; }
+	.cl .cl__knobs { display: grid; gap: .9rem 1.5rem; grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); margin: 1rem 0 0; }
+	.cl .cl__knob { display: grid; gap: .25rem; }
+	.cl .cl__knob label { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0 .75rem; font-weight: 600; font-size: .92rem; color: var(--cl-text); }
+	.cl .cl__knob output { margin-left: auto; font-weight: 400; color: var(--cl-muted); font-variant-numeric: tabular-nums; text-align: right; white-space: nowrap; }
+	.cl .cl__knob input { width: 100%; min-height: 1.75rem; accent-color: var(--cl-text); }
+	.cl .cl__ends { display: flex; justify-content: space-between; color: var(--cl-muted); font-size: .8rem; }
+	.cl .cl__toggle { display: flex; gap: .8rem; align-items: center; padding: .75rem .9rem; border: 2px solid var(--cl-strong); border-radius: .4rem; font-size: .95rem; color: var(--cl-text); cursor: pointer; }
+	.cl .cl__toggle:has(input:checked) { border-color: var(--color-signal-fill); background: color-mix(in srgb, var(--color-signal-fill) 12%, transparent); }
+	.cl .cl__toggle input { width: 1.5rem; height: 1.5rem; margin: 0; accent-color: var(--color-signal-fill); flex: none; }
+	.cl .cl__toggle-text { display: grid; gap: .1rem; flex: 1; line-height: 1.35; }
+	.cl .cl__toggle-text strong { font-size: 1.05rem; }
+	.cl .cl__toggle-text span { color: var(--cl-muted); font-size: .88rem; }
+	.cl .cl__toggle-state { font-weight: 700; font-size: .85rem; letter-spacing: .06em; text-transform: uppercase; color: var(--cl-muted); }
+	.cl .cl__toggle:has(input:checked) .cl__toggle-state { color: var(--cl-text); }
+	.cl .cl__bar { display: flex; flex-wrap: wrap; align-items: center; gap: .75rem 1rem; margin: 1rem 0 0; }
+	.cl .cl__bar .cl__run { font: inherit; font-family: var(--font-sans); font-weight: 600; font-size: .95rem; color: var(--cl-text, var(--color-text)); background: transparent; border: 1px solid var(--color-border-strong); border-radius: .35rem; padding: .55rem 1.05rem; min-height: 2.75rem; cursor: pointer; transition: background-color .18s ease, border-color .18s ease; }
+	.cl .cl__bar .cl__run:hover { border-color: var(--color-signal-fill); background: var(--color-signal-fill); color: var(--color-on-signal); }
+	.cl .cl__bar .cl__skip { font: inherit; font-size: .85rem; color: var(--cl-muted); background: none; border: none; padding: .5rem 0; min-height: 2.75rem; margin-left: auto; text-decoration: underline; text-underline-offset: .2em; cursor: pointer; }
+	.cl .cl__bar .cl__skip:hover { color: var(--cl-text); }
+	.cl button:focus-visible, .cl input:focus-visible { outline: 2px solid var(--color-text); outline-offset: 3px; }
+	.cl[data-driving] .cl__bar .cl__run { border-color: var(--color-text); }
+	.cl .cl__msg { flex: 1 1 15rem; margin: 0; font-size: .9rem; line-height: 1.45; color: var(--cl-text); }
+	.prose .cl-game { margin: 1.5rem 0 2.5rem; scroll-margin-top: 5rem; }
+	.cl-game:not(.is-live) { padding: 1rem 1.1rem; border: 1px solid var(--color-border); border-radius: .4rem; color: var(--color-muted); font-size: .92rem; }
+	.cl-game .cl-game__top { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: .25rem 1rem; margin-bottom: .5rem; }
+	.prose .cl-game .cl-game__sum { margin: 0; font-family: var(--font-sans); font-weight: 600; font-size: .9rem; color: var(--color-text); }
+	.cl-game .cl-game__reset { font: inherit; font-family: var(--font-sans); font-size: .82rem; color: var(--color-muted); background: none; border: none; padding: .3rem 0; text-decoration: underline; text-underline-offset: .2em; cursor: pointer; }
+	.cl-game .cl-game__reset:hover { color: var(--color-text); }
+	.prose .cl-game .cl-game__nav { list-style: none; margin: 0 0 .9rem; padding: 0; display: grid; grid-template-columns: repeat(10, minmax(0, 1fr)); gap: .4rem; }
+	.prose .cl-game .cl-game__nav li { margin: 0; padding: 0; }
+	.prose .cl-game .cl-game__nav li::before { content: none; }
+	.cl-game .cl-game__pick { width: 100%; min-height: 3.1rem; display: grid; place-items: center; gap: .05rem; padding: .35rem .2rem; font: inherit; font-family: var(--font-sans); color: var(--color-text); background: transparent; border: 1px solid var(--color-border-strong); border-radius: .35rem; cursor: pointer; transition: background-color .18s ease, border-color .18s ease; }
+	.cl-game .cl-game__pick:hover:not(:disabled) { border-color: var(--color-text); }
+	.cl-game .cl-game__n { font-weight: 700; font-size: 1rem; line-height: 1.1; font-variant-numeric: tabular-nums; }
+	.cl-game .cl-game__s { font-size: .68rem; line-height: 1.1; color: var(--color-muted); letter-spacing: .04em; white-space: nowrap; }
+	.cl-game .cl-game__pick[data-state="passed"] .cl-game__s { color: var(--color-text); letter-spacing: .08em; }
+	.cl-game .cl-game__pick[aria-current] { background: var(--color-signal-fill); border-color: var(--color-signal-fill); color: var(--color-on-signal); }
+	.cl-game .cl-game__pick[aria-current] .cl-game__s { color: var(--color-on-signal); }
+	.cl-game .cl-game__pick:disabled { cursor: not-allowed; border-style: dashed; color: var(--color-muted); opacity: .6; }
+	.cl-game .cl-game__pick:focus-visible, .cl-game .cl-game__reset:focus-visible { outline: 2px solid var(--color-text); outline-offset: 3px; }
+	.cl-game .cl-game__tools { display: inline-flex; gap: 1rem; }
+	.cl-game .cl-game__tools [hidden] { display: none; }
+	.cl-game .cl-game__end { padding: 1.6rem 1.3rem 1.5rem; border-radius: .4rem; background: color-mix(in srgb, var(--color-text) 5%, transparent); text-align: center; font-family: var(--font-sans); color: var(--color-text); }
+	.cl-game .cl-game__end[hidden] { display: none; }
+	.cl-game .cl-game__end:focus { outline: none; }
+	.prose .cl-game .cl-game__end p.cl-game__end-kicker { margin: 0; font-family: var(--font-sans); color: var(--color-text); font-size: .78rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--color-muted); }
+	.prose .cl-game .cl-game__end p.cl-game__end-title { font-family: var(--font-sans); color: var(--color-text); margin: .3rem 0 0; font-size: 1.6rem; font-weight: 700; line-height: 1.2; }
+	.prose .cl-game .cl-game__end p.cl-game__end-stars { font-family: var(--font-sans); color: var(--color-text); margin: .5rem 0 0; font-size: 2.4rem; font-weight: 700; line-height: 1.1; font-variant-numeric: tabular-nums; }
+	.prose .cl-game .cl-game__end p.cl-game__end-lead { max-width: 38rem; margin: .9rem auto 0; font-family: var(--font-body); font-size: 1rem; line-height: 1.55; color: var(--color-muted); }
+	.cl-game .cl-game__end-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .9rem 1.2rem; margin: 1.3rem 0 0; text-align: left; }
+	.prose .cl-game .cl-game__end p.cl-game__end-name { margin-top: 0; font-family: var(--font-sans); color: var(--color-text); margin-bottom: .35rem; font-size: .82rem; letter-spacing: .02em; font-weight: 700; color: var(--color-muted); }
+	.prose .cl-game .cl-game__end ul { list-style: none; margin: 0; padding: 0; display: grid; gap: .3rem; }
+	.prose .cl-game .cl-game__end li { margin: 0; padding: 0; }
+	.prose .cl-game .cl-game__end li::before { content: none; }
+	.cl-game .cl-game__end-row { width: 100%; display: grid; grid-template-columns: 1.6rem 1fr auto; align-items: center; gap: .5rem; min-height: 2.75rem; padding: .35rem .7rem; font: inherit; font-family: var(--font-sans); font-size: .92rem; text-align: left; color: var(--color-text); background: var(--color-page); border: 1px solid var(--color-border); border-radius: .35rem; cursor: pointer; }
+	.cl-game .cl-game__end-row:hover { border-color: var(--color-text); }
+	.cl-game .cl-game__end-row:focus-visible { outline: 2px solid var(--color-text); outline-offset: 2px; }
+	.cl-game .cl-game__end-n { font-weight: 700; font-variant-numeric: tabular-nums; }
+	.cl-game .cl-game__end-s { font-size: .85rem; letter-spacing: .06em; white-space: nowrap; }
+	.cl-game .cl-game__end-row[data-state="skipped"] .cl-game__end-s { color: var(--color-muted); letter-spacing: 0; }
+	.prose .cl-game .cl-game__end p.cl-game__end-hint { font-family: var(--font-sans); color: var(--color-text); margin: .9rem 0 0; font-size: .85rem; color: var(--color-muted); }
+	.prose .cl-game .cl-game__end p.cl-game__end-close { color: var(--color-text); max-width: 38rem; margin: 1.3rem auto 0; font-family: var(--font-body); font-size: 1rem; line-height: 1.55; }
+	.prose .cl-game .cl-game__end p.cl-game__end-links { font-family: var(--font-sans); color: var(--color-text); display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: .6rem 1.4rem; margin: 1rem 0 0; }
+	.cl-game .cl-game__end-links a.cl-game__end-main { padding: .55rem 1rem; border-radius: .35rem; font-weight: 600; text-decoration: none; color: var(--color-on-signal); background: var(--color-signal-fill); }
+	@media (max-width: 40rem) { .cl-game .cl-game__end-grid { grid-template-columns: 1fr; } .prose .cl-game .cl-game__end p.cl-game__end-stars { font-size: 2rem; } }
+	.prose .cl-game .cl { margin: 0; }
+	.cl-game[data-start] :is(.cl-game__nav, .cl-game__sum, .cl-game__reset:not(.cl-game__fs)) { display: none; }
+	.cl-game[data-start] .cl-game__top { justify-content: flex-end; }
+	.cl-game.is-live:fullscreen, .cl-game.is-live.is-full { overflow-y: auto; padding: 1rem clamp(1rem, 4vw, 3rem) 2rem; background: var(--color-page); color: var(--color-text); }
+	.prose .cl-game.is-live.is-full { position: fixed; inset: 0; z-index: 1000; margin: 0; }
+	.prose .cl-game.is-live:is(:fullscreen, .is-full) > * { max-width: 860px; margin-left: auto; margin-right: auto; zoom: var(--fs-zoom, 1); }
+	html.cl-noscroll { overflow: hidden; }
+	.cl-game .cl-game__intro { padding: 2rem 1.3rem 2.1rem; border: 1px solid var(--color-border); border-radius: .4rem; text-align: center; font-family: var(--font-sans); color: var(--color-text); }
+	.cl-game .cl-game__intro[hidden] { display: none; }
+	.cl-game .cl-game__intro:focus { outline: none; }
+	.prose .cl-game .cl-game__intro p { margin: 0; }
+	.prose .cl-game .cl-game__intro p.cl-game__intro-title { font-family: var(--font-sans); color: var(--color-text); margin-top: 0; font-size: 1.6rem; font-weight: 700; line-height: 1.2; }
+	.prose .cl-game .cl-game__intro p.cl-game__intro-lead { color: var(--color-text); max-width: 34rem; margin: .9rem auto 0; font-family: var(--font-body); font-size: 1.05rem; line-height: 1.55; }
+	.prose .cl-game ul.cl-game__how { max-width: 30rem; margin: 1.1rem auto 0; padding: 0; list-style: none; display: grid; gap: .35rem; text-align: left; font-size: .92rem; line-height: 1.45; color: var(--color-muted); }
+	.prose .cl-game ul.cl-game__how li { margin: 0; padding-left: 1.1rem; position: relative; }
+	.prose .cl-game ul.cl-game__how li::before { content: '\203A'; position: absolute; left: 0; top: 0; color: var(--color-text); font-weight: 700; }
+	.prose .cl-game .cl-game__intro p.cl-game__intro-ask { font-family: var(--font-sans); color: var(--color-text); margin-top: 1.3rem; font-size: 1.05rem; font-weight: 700; }
+	.cl-game .cl-game__accept { margin-top: .8rem; font: inherit; font-family: var(--font-sans); font-weight: 600; font-size: 1.1rem; padding: .8rem 2.2rem; min-height: 3.1rem; color: var(--color-on-signal); background: var(--color-signal-fill); border: 1px solid var(--color-signal-fill); border-radius: .35rem; cursor: pointer; }
+	.cl-game .cl-game__accept:hover { filter: brightness(.95); }
+	.cl-game .cl-game__accept:focus-visible { outline: 2px solid var(--color-text); outline-offset: 3px; }
+	.cl[hidden], .cl .cl__aha[hidden] { display: none; }
+	.cl .cl__result[hidden] { display: none; }
+	/* Phases */
+	.cl[data-phase="intro"] :is(.cl__stage, .cl__legend, .cl__result),
+	.cl[data-phase="drive"] :is(.cl__stars, .cl__goal, .cl__tiers, .cl__lock, .cl__actions, .cl__result, .cl__skip),
+	.cl[data-phase="drive"]:not([data-live-level]) .cl__bar,
+	.cl[data-phase="result"] :is(.cl__goal, .cl__tiers, .cl__lock, .cl__actions, .cl__bar, .cl__stage, .cl__legend),
+	.cl[data-phase="review"] :is(.cl__goal, .cl__tiers, .cl__lock, .cl__actions, .cl__bar) { display: none; }
+	.cl:is([data-phase="intro"], [data-phase="result"]) { padding-top: 1.6rem; padding-bottom: 1.8rem; }
+	.cl:is([data-phase="intro"], [data-phase="result"], [data-phase="drive"]) .cl__head { flex-direction: column; align-items: center; gap: .3rem; text-align: center; }
+	.cl .cl__level-n::after { content: '\00A0\00B7\00A0'; }
+	.cl:is([data-phase="intro"], [data-phase="result"]) .cl__level { display: grid; gap: .25rem; }
+	.cl:is([data-phase="intro"], [data-phase="result"]) .cl__level-n { font-family: var(--font-sans); font-size: .75rem; letter-spacing: .08em; text-transform: uppercase; color: var(--cl-muted); }
+	.cl:is([data-phase="intro"], [data-phase="result"]) .cl__level-n::after { content: none; }
+	.cl:is([data-phase="intro"], [data-phase="result"]) .cl__level-t { font-family: var(--font-sans); font-size: 1.35rem; line-height: 1.25; }
+	.cl .cl__step { display: block; font-family: var(--font-sans); font-size: .75rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--cl-muted); }
+	.prose .cl p.cl__step { margin: 0 0 .6rem; }
+	.cl[data-phase="intro"] { text-align: center; }
+	.cl[data-phase="intro"] .cl__goal { max-width: 36rem; margin: 1.2rem auto .6rem; padding-top: 1.2rem; border-top: 1px solid var(--cl-border); font-size: 1.02rem; }
+	.cl .cl__goal .cl__step { margin-bottom: .4rem; }
+	.prose .cl[data-phase="intro"] .cl__tiers { width: fit-content; margin: .4rem auto 0; text-align: left; font-size: .95rem; }
+	.cl[data-phase="intro"] .cl__actions { max-width: 36rem; margin: 1.3rem auto 0; padding: 1rem 1.1rem 1.1rem; border-radius: .4rem; background: color-mix(in srgb, var(--cl-text) 4.5%, transparent); }
+	.cl[data-phase="intro"] .cl__predict { justify-content: center; margin: 0; }
+	.prose .cl[data-phase="intro"] .cl__predict + :is(p.cl__step, .cl__knobs) { margin-top: 1.1rem; padding-top: 1rem; border-top: 1px solid var(--cl-border); }
+	.cl[data-phase="intro"] .cl__knobs { margin: 0; text-align: left; }
+	.cl[data-phase="intro"] .cl__bar { flex-direction: column; gap: .55rem; margin-top: 1.3rem; }
+	.cl[data-phase="intro"] .cl__bar .cl__run { font-size: 1.1rem; padding: .8rem 2.2rem; min-height: 3.1rem; color: var(--color-on-signal); background: var(--color-signal-fill); border-color: var(--color-signal-fill); }
+	.cl[data-phase="intro"] .cl__bar .cl__run:hover { filter: brightness(.95); }
+	.cl .cl__bar .cl__run:disabled, .cl[data-phase="intro"] .cl__bar .cl__run:disabled { cursor: not-allowed; color: var(--cl-muted); background: transparent; border-color: var(--cl-border); filter: none; }
+	.cl[data-phase="intro"] .cl__msg { flex: none; color: var(--cl-muted); }
+	.cl[data-phase="intro"] .cl__run:not(:disabled) ~ .cl__msg { display: none; }
+	.cl[data-phase="intro"] .cl__bar .cl__skip { margin-left: 0; }
+	.cl[data-phase="drive"] .cl__stage { margin-top: .8rem; }
+	.cl:is([data-phase="result"], [data-phase="review"]) .cl__result { text-align: center; }
+	.cl[data-phase="review"] .cl__result { margin-top: 1.2rem; }
+	.cl .cl__result .cl__bars { max-width: 30rem; margin: 0 auto .9rem; text-align: left; }
+	.prose .cl .cl__result :is(.cl__result-text, .cl__aha-text) { max-width: 36rem; margin-left: auto; margin-right: auto; }
+	.cl:not([data-phase="intro"]) .cl__stars { display: none; }
+	.cl .cl__result { margin: 1rem 0 0; padding: 1.4rem 1.2rem 1.4rem; border-radius: .4rem; background: color-mix(in srgb, var(--color-text) 5%, transparent); }
+	.prose .cl .cl__verdict { display: flex; flex-direction: column; align-items: center; gap: .3rem; margin: 0 0 .7rem; font-family: var(--font-sans); line-height: 1.15; color: var(--color-text); }
+	.cl .cl__verdict-stars { font-size: 2.6rem; line-height: 1; letter-spacing: .08em; }
+	.cl .cl__verdict-text { font-size: 1.6rem; font-weight: 700; }
+	.cl .cl__result[data-state="fail"] .cl__verdict-text, .cl .cl__result[data-state="skip"] .cl__verdict-text { color: var(--color-muted); }
+	.prose .cl .cl__result-text { margin: 0 0 .7rem; font-size: .95rem; line-height: 1.5; color: var(--cl-text); }
+	.prose .cl .cl__aha-text { margin: .2rem 0 .8rem; font-size: 1rem; line-height: 1.5; color: var(--cl-text); }
+	.prose .cl .cl__aha-row { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: .6rem 1.25rem; margin: 0; font-size: .92rem; }
+	.prose .cl .cl__aha-row--level { margin-bottom: .9rem; padding-bottom: .9rem; border-bottom: 1px solid var(--cl-border); }
+	.cl .cl__next, .cl .cl__golink, .cl .cl__again { font: inherit; font-family: var(--font-sans); font-weight: 600; font-size: .92rem; color: var(--color-on-signal); background: var(--color-signal-fill); border: 1px solid var(--color-signal-fill); border-radius: .35rem; padding: .55rem 1rem; min-height: 2.75rem; cursor: pointer; text-align: left; }
+	.cl .cl__golink { margin-left: .4rem; padding: .3rem .8rem; min-height: 2.25rem; }
+	.cl .cl__view { font: inherit; font-family: var(--font-sans); font-size: .92rem; color: var(--cl-text); background: none; border: none; padding: .5rem 0; min-height: 2.75rem; text-decoration: underline; text-underline-offset: .2em; cursor: pointer; }
+	.cl .cl__again { color: var(--color-text); background: transparent; border-color: var(--color-border-strong); }
+	.cl .cl__next:hover, .cl .cl__golink:hover, .cl .cl__again:hover { filter: brightness(.95); }
+	.cl .cl__theory { font-family: var(--font-sans); }
+	.prose .cl-game .cl p.cl__legend, .prose .cl-game .cl p.cl__msg { font-family: var(--font-sans); line-height: 1.4; overflow-wrap: normal; }
+	.prose .cl-game .cl p.cl__legend { font-size: .82rem; color: var(--cl-muted); }
+	.prose .cl-game .cl p.cl__msg { font-size: .9rem; color: var(--cl-text); }
+	.prose .cl-game .cl p.cl__ready { margin: 0; font-family: var(--font-sans); font-size: .95rem; line-height: 1.3; }
+	@media (max-width: 40rem) { .prose .cl-game .cl-game__nav { grid-template-columns: repeat(5, minmax(0, 1fr)); } }
+	@media (max-width: 640px) {
+		.prose .cl-game { scroll-margin-top: .5rem; }
+		.prose .cl { padding: .9rem .75rem 1rem; margin-inline: -.25rem; }
+		.cl .cl__tick, .cl .cl__axis-tag, .cl .cl__slope, .cl .cl__tag, .cl .cl__switch-tag, .cl .cl__peak-tag { font-size: 15px; }
+		.cl .cl__readout { font-size: 15px; }
+		.cl .cl__barrow { grid-template-columns: 1fr; }
+		.cl .cl__barval { grid-column: 1; }
+		/* Tools and level tiles: 44 px tap targets, less text */
+		.cl-game .cl-game__reset { display: inline-flex; align-items: center; min-height: 2.75rem; }
+		.cl-game .cl-game__tools { gap: .9rem; }
+		.cl-game .cl-game__top { margin-bottom: .2rem; }
+		.cl-game .cl-game__pick { min-height: 2.75rem; padding: .2rem; }
+		.cl-game .cl-game__pick:is([data-state="locked"], [data-state="open"]) .cl-game__s { display: none; }
+		.prose .cl-game .cl-game__nav { gap: .3rem; margin-bottom: .6rem; }
+		/* Level and result screens: smaller type and spacing, so a level fits about one screen. */
+		.cl:is([data-phase="intro"], [data-phase="result"]) { padding-top: 1rem; padding-bottom: 1.1rem; }
+		.cl:is([data-phase="intro"], [data-phase="result"]) .cl__level-t { font-size: 1.15rem; }
+		.cl .cl__stars { font-size: .95rem; }
+		.prose .cl-game .cl[data-phase="intro"] p.cl__goal { margin: .7rem auto .3rem; padding-top: .7rem; font-family: var(--font-sans); font-size: .93rem; line-height: 1.45; }
+		.cl .cl__goal .cl__step { margin-bottom: .2rem; }
+		.prose .cl-game .cl .cl__tiers li { font-size: .85rem; line-height: 1.4; }
+		.cl[data-phase="intro"] .cl__actions { margin-top: .8rem; padding: .7rem .75rem .8rem; }
+		.prose .cl p.cl__step { margin-bottom: .4rem; }
+		.prose .cl[data-phase="intro"] .cl__predict + :is(p.cl__step, .cl__knobs) { margin-top: .7rem; padding-top: .7rem; }
+		.cl .cl__predict button { min-height: 2.75rem; }
+		.cl .cl__knobs { gap: .5rem; }
+		.cl .cl__knob { gap: 0; }
+		.cl .cl__knob label { font-size: .86rem; }
+		.cl .cl__knob input { min-height: 2.75rem; }
+		.cl .cl__ends { margin-top: -.35rem; font-size: .75rem; }
+		.cl .cl__toggle { padding: .55rem .7rem; }
+		.cl .cl__toggle-text strong { font-size: .95rem; }
+		.cl .cl__toggle-text span { font-size: .82rem; }
+		.cl[data-phase="intro"] .cl__bar { gap: .2rem; margin-top: .8rem; }
+		.cl[data-phase="intro"] .cl__bar .cl__run { font-size: 1rem; padding: .6rem 1.6rem; min-height: 2.75rem; }
+		.cl .cl__result { padding: 1rem .8rem; }
+		.cl .cl__verdict-stars { font-size: 2rem; }
+		.cl .cl__verdict-text { font-size: 1.3rem; }
+		.prose .cl-game .cl .cl__result p:is(.cl__result-text, .cl__aha-text) { font-family: var(--font-sans); font-size: .9rem; line-height: 1.45; }
+		/* The start message sits over the empty pedal plot, not over the speed. */
+		.prose .cl-game .cl p.cl__ready { top: 79%; max-width: 75%; padding: .35rem .7rem; font-size: .82rem; }
+		.prose .cl[data-phase="intro"] .cl__tiers { width: fit-content; max-width: 100%; }
+		.cl .cl__tier-mark { min-width: 2.7em; }
+		/* Drive phase: only the plot, the pedal and a slim bar; the level picker comes back with the result. */
+		.cl-game:has(.cl[data-phase="drive"]) :is(.cl-game__top, .cl-game__nav) { display: none; }
+		.prose .cl[data-phase="drive"] { padding-top: .6rem; padding-bottom: .7rem; }
+		.cl[data-phase="drive"] .cl__level { font-size: .9rem; }
+		.cl[data-phase="drive"] .cl__bar { flex-wrap: nowrap; gap: .6rem; margin-top: .5rem; }
+		.cl[data-phase="drive"] .cl__bar .cl__run { flex: none; min-width: 4.5rem; padding: .4rem .8rem; font-size: .9rem; }
+		.prose .cl-game .cl[data-phase="drive"] p.cl__msg { flex: 1 1 auto; font-size: .82rem; line-height: 1.3; color: var(--cl-muted); }
+		.cl[data-phase="drive"] .cl__stage { margin-top: .5rem; }
+		.prose .cl-game .cl p.cl__legend { gap: .15rem .8rem; font-size: .75rem; }
+		.cl .cl__legend .cl__key { width: 1rem; }
+		/* The pedal lever lies flat under the plot: brake on the left, power on the right. */
+		.cl .cl__stage.has-lever .cl__plot { width: 100%; }
+		.cl .cl__stage.has-lever .cl__ready { top: 79%; }
+		.cl .cl__lever { position: static; top: auto !important; height: auto !important; width: 100%; display: none; grid-template-columns: auto 1fr auto; align-items: center; gap: .6rem; margin-top: .35rem; }
+		.cl[data-driving] .cl__lever { display: grid; }
+		.cl .cl__lever-head { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+		.cl .cl__lever-end { display: block; font-size: .8rem; font-weight: 700; }
+		.cl .cl__lever-end--brake { color: var(--cl-brake-text); }
+		.cl .cl__lever-end--power { color: var(--cl-power-text); }
+		.cl .cl__lever input { writing-mode: horizontal-tb; direction: ltr; width: 100%; height: 2.75rem; cursor: ew-resize; touch-action: none; }
+	}
+</style>

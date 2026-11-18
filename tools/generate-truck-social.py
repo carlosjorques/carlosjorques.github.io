@@ -1,7 +1,8 @@
-"""Render the truck series' Open Graph covers using the site's editorial style.
+"""Render the Open Graph covers of the truck series and the cruise controller game in the site's editorial style.
 
 Requires Python Playwright, Microsoft Edge and access to Google Fonts.
-Run: python tools/generate-truck-social.py
+Run: python tools/generate-truck-social.py [folder ...]
+(for example control-engineering-in-ten-levels to render only that article's cover)
 """
 
 from dataclasses import dataclass
@@ -12,11 +13,11 @@ from playwright.sync_api import sync_playwright
 
 
 ROOT = Path(__file__).resolve().parents[1]
-OUTPUT = ROOT / "public" / "images" / "blog" / "control-software-electric-trucks"
+BLOG = ROOT / "public" / "images" / "blog"
 TEMPLATE = Path(__file__).with_name("truck-social-template.html").read_text(
     encoding="utf-8"
 )
-SERIES_TITLE = "The value of control software in electric heavy-duty trucks"
+SERIES_FOOTER = "Series: The value of control software in electric heavy-duty trucks"
 
 
 @dataclass(frozen=True)
@@ -28,6 +29,10 @@ class Cover:
     detail_lines: tuple[str, ...]
     title_size: int = 70
     value_size: int = 78
+    folder: str = "control-software-electric-trucks"
+    footer: str = SERIES_FOOTER
+    # A game cover shows a level picker instead of a number: (cleared, total).
+    levels: tuple[int, int] | None = None
 
 
 COVERS = (
@@ -77,16 +82,42 @@ COVERS = (
             "feedback control in truck tests",
         ),
     ),
+    Cover(
+        "social.png",
+        "Interactive article",
+        ("Build a cruise controller", "yourself"),
+        "",
+        ("Drive the truck yourself, then build", "the controller that beats you"),
+        title_size=84,
+        folder="control-engineering-in-ten-levels",
+        footer="Ten playable levels, from your own foot to predictive control",
+        levels=(3, 10),
+    ),
 )
+
+
+def evidence(cover: Cover) -> str:
+    if cover.levels is None:
+        return f'<strong><span class="mark">{escape(cover.value)}</span></strong>'
+    cleared, total = cover.levels
+    tiles = []
+    for n in range(1, total + 1):
+        if n <= cleared:
+            tiles.append(f"<li>{n}<small>★★★</small></li>")
+        elif n == cleared + 1:
+            tiles.append(f'<li class="now">{n}</li>')
+        else:
+            tiles.append(f'<li class="locked">{n}</li>')
+    return f'<ol class="levels" aria-label="Levels">{"".join(tiles)}</ol>'
 
 
 def markup(cover: Cover) -> str:
     fields = {
         "PART": escape(cover.part),
         "TITLE": "<br>".join(map(escape, cover.title_lines)),
-        "VALUE": escape(cover.value),
+        "EVIDENCE": evidence(cover),
         "DETAIL": "<br>".join(map(escape, cover.detail_lines)),
-        "SERIES_TITLE": escape(SERIES_TITLE),
+        "FOOTER": escape(cover.footer),
         "TITLE_SIZE": str(cover.title_size),
         "VALUE_SIZE": str(cover.value_size),
     }
@@ -96,13 +127,16 @@ def markup(cover: Cover) -> str:
     return html
 
 
-def render() -> None:
-    OUTPUT.mkdir(parents=True, exist_ok=True)
+def render(only: set[str] | None = None) -> None:
     with sync_playwright() as playwright:
         browser = playwright.chromium.launch(channel="msedge", headless=True)
         try:
             page = browser.new_page(viewport={"width": 1200, "height": 630})
             for cover in COVERS:
+                if only and cover.folder not in only:
+                    continue
+                output = BLOG / cover.folder
+                output.mkdir(parents=True, exist_ok=True)
                 page.set_content(markup(cover), wait_until="networkidle")
                 page.evaluate("document.fonts.ready")
                 fonts = page.evaluate(
@@ -130,11 +164,13 @@ def render() -> None:
                 if not all(bounds.values()):
                     raise ValueError(f"Cover content does not fit: {cover.filename}: {bounds}")
 
-                page.locator(".card").screenshot(path=str(OUTPUT / cover.filename))
-                print(f"Rendered {cover.filename}")
+                page.locator(".card").screenshot(path=str(output / cover.filename))
+                print(f"Rendered {cover.folder}/{cover.filename}")
         finally:
             browser.close()
 
 
 if __name__ == "__main__":
-    render()
+    import sys
+
+    render(set(sys.argv[1:]) or None)

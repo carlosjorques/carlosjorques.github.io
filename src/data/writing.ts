@@ -40,6 +40,8 @@ export interface WritingArticle {
 	readonly relatedProject?: string;
 	/** Macro-topic names (TAG_GROUPS keys) used by the topic filter. */
 	readonly topics: readonly string[];
+	/** Interactive component of the article, if any (for example the cruise-control game). */
+	readonly interactive?: 'control-lessons';
 }
 
 export interface WritingSeriesGroup {
@@ -96,6 +98,7 @@ const toArticle = (entry: CollectionEntry<'writing'>): WritingArticle => {
 		series: seriesRef && definition ? { ...seriesRef, definition } : undefined,
 		relatedProject: entry.data.relatedProject ?? definition?.relatedProject,
 		topics: [...new Set(entry.data.tags.map(tagGroupFor))],
+		interactive: entry.data.interactive,
 	};
 };
 

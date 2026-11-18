@@ -2,6 +2,7 @@
 import { getCollection, getEntry, render } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 import ContactCTA from '../../components/ContactCTA.astro';
+import ControlLessons from '../../components/ControlLessons.astro';
 import { SHOW_DRAFT_WRITING, getUpcomingParts, getWritingArticles, seriesHref } from '../../data/writing';
 import { IDENTITY } from '../../data/identity';
 import 'katex/dist/katex.min.css';
@@ -35,6 +36,7 @@ const label = entry.data.draft && !SHOW_DRAFT_WRITING
 const publishedDate = entry.data.publishDate.toISOString();
 const updatedDate = entry.data.updatedDate && entry.data.updatedDate > entry.data.publishDate ? entry.data.updatedDate : undefined;
 const pageTitle = entry.data.seoTitle ?? article.title;
+const isGame = entry.data.interactive === 'control-lessons';
 // Contents index: the h2 sections of the body, then the sections split out after the CTA.
 const contents = [
 	...headings.filter((heading) => heading.depth === 2).map((heading) => ({ id: heading.slug, label: heading.text })),
@@ -160,7 +162,7 @@ const relatedArticles = (matched.length > 0 ? matched.slice(0, RELATED_MAX) : re
 				<p class="writing-post__author">
 					By {IDENTITY.name}, {IDENTITY.primaryTitle}, with {IDENTITY.years} years of <a href={withBase('cv/')} data-analytics-event="related_proof_click" data-cta-id={`article-${articleSlug}-author-cv`} data-cta-placement="writing-article" data-cta-intent="proof" data-source-section="article-author">experience</a>. More <a href={withBase('about/')}>about me</a>
 				</p>
-				<ul class="tag-list writing-post__tags" aria-label="Article tags">
+				<ul class:list={["tag-list", "writing-post__tags", isGame && "writing-post__tags--wide-only"]} aria-label="Article tags">
 					{entry.data.tags.map((tag) => <li class="tag">{tag}</li>)}
 				</ul>
 			</div>
@@ -195,6 +197,7 @@ const relatedArticles = (matched.length > 0 ? matched.slice(0, RELATED_MAX) : re
 					<div class="prose">
 						<Content />
 					</div>
+					{entry.data.interactive === 'control-lessons' && <ControlLessons />}
 				</section>
 			</div>
 
@@ -229,10 +232,10 @@ const relatedArticles = (matched.length > 0 ? matched.slice(0, RELATED_MAX) : re
 
 		<footer class="page-container writing-post__container writing-post__footer" data-article-end>
 					<ContactCTA
-						title={entry.data.ctaTitle ?? 'Working on a similar control problem?'}
-						body={entry.data.ctaBody ?? 'Describe the system you are working on in a short message. I will reply with how this approach could apply to it and where I have solved similar problems.'}
+						title={entry.data.ctaTitle ?? (isGame ? 'Curious about a control problem of your own?' : 'Working on a similar control problem?')}
+						body={entry.data.ctaBody ?? (isGame ? 'Send me a short message about the machine or system you have in mind. I will reply with how control engineering would approach it and where I have solved similar problems.' : 'Describe the system you are working on in a short message. I will reply with how this approach could apply to it and where I have solved similar problems.')}
 						primaryHref="/contact/?context=technical&source=writing#message-title"
-						primaryLabel="Discuss a technical problem"
+						primaryLabel={isGame ? 'Ask me about a control problem' : 'Discuss a technical problem'}
 						secondaryHref={relatedProject ? `work/${relatedProject.id}/` : 'work/'}
 						secondaryLabel={relatedProject ? 'View the related project' : 'View work'}
 						sourceSection="writing-article"
@@ -367,8 +370,9 @@ const relatedArticles = (matched.length > 0 ? matched.slice(0, RELATED_MAX) : re
 		// Hidden while the header is visible, and again from the contact block onwards.
 		let heroVisible = true;
 		let endReached = false;
+		let gameVisible = false;
 		const update = () => {
-			const hidden = heroVisible || endReached;
+			const hidden = heroVisible || endReached || gameVisible;
 			jump.classList.toggle('is-hidden', hidden);
 			if (hidden) jumpMenu.open = false;
 		};
@@ -377,6 +381,16 @@ const relatedArticles = (matched.length > 0 ? matched.slice(0, RELATED_MAX) : re
 			heroVisible = entry.isIntersecting;
 			update();
 		}).observe(hero);
+		// An interactive widget (the game) needs the whole screen; the button would cover its controls.
+		const games = [...document.querySelectorAll('[data-cl-game]')];
+		if (games.length) {
+			const seen = new Set<Element>();
+			new IntersectionObserver((entries) => {
+				entries.forEach((e) => (e.isIntersecting ? seen.add(e.target) : seen.delete(e.target)));
+				gameVisible = seen.size > 0;
+				update();
+			}).observe(games[0]);
+		}
 		if (end) {
 			new IntersectionObserver(([entry]) => {
 				endReached = entry.isIntersecting || entry.boundingClientRect.top < 0;
@@ -670,6 +684,10 @@ const relatedArticles = (matched.length > 0 ? matched.slice(0, RELATED_MAX) : re
                 max-width: 100%;
                 padding-left: 0;
         }
+
+	@media (max-width: 640px) {
+		.writing-post__tags--wide-only { display: none; }
+	}
 
 	.writing-post__tags .tag {
 		max-width: 100%;
