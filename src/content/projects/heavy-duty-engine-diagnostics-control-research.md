@@ -70,8 +70,11 @@ Closing the loop lets the engine react to what actually burns, and the faster it
 A diesel injection often comes in two parts. A small *pilot injection* of a few milligrams ignites first and prepares the cylinder, and the *main injection* follows a few milliseconds later and gives most of the work. The control reads the pilot combustion from the cylinder pressure and adjusts the main injection of the same cycle. It runs as two nested loops (Figure 1): the outer one corrects from cycle to cycle, and the inner one within the cycle.
 
 <figure>
-  <img src="/images/blog/predictive-in-cycle-control/thesis-cl-structure.svg" alt="Control architecture: strategy coordination and a cycle-to-cycle controller set the reference for an in-cycle loop, where an observer, a controller manager and an in-cycle controller correct the injection of the same combustion." loading="lazy" />
-  <figcaption>Figure 1. The control architecture. The in-cycle loop (dotted box) sits inside the cycle-to-cycle loop and corrects the injection before the combustion ends.</figcaption>
+  <picture>
+    <source media="(max-width: 720px)" srcset="/images/work/phd-fig1-control-architecture-mobile.svg" width="360" height="722" />
+    <img src="/images/blog/predictive-in-cycle-control/thesis-cl-structure.svg" alt="Control architecture: strategy coordination and a cycle-to-cycle controller set the reference for an in-cycle loop, where an observer, a controller manager and an in-cycle controller correct the injection of the same combustion." loading="lazy" />
+  </picture>
+  <figcaption>Figure 1. The control architecture. The in-cycle loop sits inside the cycle-to-cycle loop and corrects the injection before the combustion ends. The mobile view follows the same signals in reading order.</figcaption>
 </figure>
 
 At 1200 rpm the pressure is sampled every 27 microseconds, and filtering, estimation, diagnosis and control all have to fit between two samples. I defined the system architecture across three levels by time scale: a PC for the operator, a real-time processor at 100 Hz for the outer loop, and an FPGA (a chip whose logic runs in parallel with fixed timing) for the inner loop. That timing led to four decisions:
@@ -84,8 +87,10 @@ At 1200 rpm the pressure is sampled every 27 microseconds, and filtering, estima
 I built the models in MATLAB/Simulink and the real-time code in LabVIEW on a Xilinx Virtex-5 FPGA. The models were calibrated for diesel only, so HVO and RME tested the adaptation. The engine load with the first in-cycle controller is plotted in Figure 2 against open loop, with the pilot fuel disturbed on purpose.
 
 <figure>
-  <img src="/images/work/phd-fig2-in-cycle-vs-open-loop.svg" alt="Two plots over 1600 engine cycles, closed loop on the left and open loop on the right. Top: the engine load around 10 bar stays within plus or minus 0.36 bar in closed loop and 0.47 bar in open loop. Bottom: the pilot fuel jumps between about minus 13 and plus 7 mg; in closed loop the main injection changes by up to 16 mg each cycle to compensate, in open loop it stays near zero." loading="lazy" />
-  <figcaption>Figure 2. The first in-cycle controller on the engine, at 10 bar load and 1200 rpm, with the pilot fuel disturbed on purpose. Left: closed loop; right: open loop. Top: engine load; bottom: pilot fuel error and main-injection correction per cycle.</figcaption>
+  <div class="figure-panorama" role="region" aria-label="Scroll to inspect the closed-loop and open-loop plots" tabindex="0">
+    <img src="/images/work/phd-fig2-in-cycle-vs-open-loop.svg" alt="Two plots over 1600 engine cycles, closed loop on the left and open loop on the right. Top: the engine load around 10 bar stays within plus or minus 0.36 bar in closed loop and 0.47 bar in open loop. Bottom: the pilot fuel jumps between about minus 13 and plus 7 mg; in closed loop the main injection changes by up to 16 mg each cycle to compensate, in open loop it stays near zero." loading="lazy" />
+  </div>
+  <figcaption>Figure 2. The first in-cycle controller on the engine, at 10 bar load and 1200 rpm, with the pilot fuel disturbed on purpose. Left: closed loop; right: open loop. Top: engine load; bottom: pilot fuel error and main-injection correction per cycle. <span class="figure-panorama__hint">On phones, swipe or scroll horizontally to compare the plots.</span></figcaption>
 </figure>
 
 In closed loop, 95% of the cycles stay within ±0.36 bar of the target load, against ±0.47 bar in open loop. The reason is visible in the lower plots: the main injection changes by up to 16 mg to compensate each pilot error within the same cycle, whereas in open loop it does not react.

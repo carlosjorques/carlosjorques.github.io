@@ -23,20 +23,21 @@ const Heading = `h${headingLevel}` as 'h2' | 'h3';
 
 <article class="project-card">
 	<div class="project-card__body">
-		<p class="project-card__eyebrow">{company} <span aria-hidden="true">·</span> {context} <span aria-hidden="true">·</span> <span class="project-card__role">{role}</span></p>
-		<Heading class="project-card__title">
-			<a
-				class="project-card__link"
-				href={href}
-				data-analytics-event="cta_click"
-				data-cta-id={`work-project-${slug}`}
-				data-cta-placement="work-projects"
-				data-cta-intent="proof"
-				data-source-section="work-projects"
-				data-destination={href}>{title}</a
-			>
-		</Heading>
-		<p class="project-card__hook">{hook}</p>
+		<header class="project-card__heading">
+			<p class="project-card__eyebrow">{company} <span aria-hidden="true">·</span> {context} <span aria-hidden="true">·</span> <span class="project-card__role">{role}</span></p>
+			<Heading class="project-card__title">
+				<a
+					class="project-card__link"
+					href={href}
+					data-analytics-event="cta_click"
+					data-cta-id={`work-project-${slug}`}
+					data-cta-placement="work-projects"
+					data-cta-intent="proof"
+					data-source-section="work-projects"
+					data-destination={href}>{title}</a
+				>
+			</Heading>
+		</header>
 		<dl class="project-card__outcomes">
 			{
 				outcomes.map(({ value, label }) => (
@@ -47,6 +48,7 @@ const Heading = `h${headingLevel}` as 'h2' | 'h3';
 				))
 			}
 		</dl>
+		<p class="project-card__hook">{hook}</p>
 		<span class="project-card__read" aria-hidden="true">Read the project →</span>
 	</div>
 	<figure class="project-card__media">
@@ -56,7 +58,8 @@ const Heading = `h${headingLevel}` as 'h2' | 'h3';
 
 <style>
 	.project-card { position: relative; display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: clamp(1.5rem, 3.5vw, 3rem); align-items: center; padding-block: clamp(2rem, 4vw, 3rem); border-top: 1px solid var(--color-border); }
-	.project-card__body { display: grid; gap: 1rem; min-width: 0; }
+	.project-card__body { display: grid; gap: .85rem; min-width: 0; }
+	.project-card__heading { display: grid; gap: .3rem; }
 	.project-card__eyebrow { margin: 0; color: var(--color-muted); font-family: var(--font-mono); font-size: var(--type-eyebrow-size); font-weight: var(--type-eyebrow-weight); letter-spacing: var(--type-eyebrow-tracking); line-height: var(--type-eyebrow-line); text-transform: none; }
 		.project-card__role { color: var(--color-text); white-space: nowrap; }
 	.project-card__title { max-width: none; margin: 0; font-family: var(--font-display); font-size: clamp(1.4rem, 2.1vw, 1.75rem); font-weight: 600; line-height: 1.15; letter-spacing: -.02em; text-wrap: balance; }
@@ -65,8 +68,8 @@ const Heading = `h${headingLevel}` as 'h2' | 'h3';
 	.project-card__link::after { content: ''; position: absolute; inset: 0; z-index: 1; }
 	.project-card__link:focus-visible { outline: none; }
 	.project-card:has(.project-card__link:focus-visible) { outline: 2px solid var(--color-link); outline-offset: 4px; }
-	.project-card__hook { margin: 0; color: var(--color-body-text, var(--color-text)); font-size: var(--type-card-body-size); line-height: 1.65; }
-	.project-card__outcomes { display: flex; gap: 1rem 1.5rem; margin: .25rem 0 0; }
+	.project-card__hook { margin: .55rem 0 0; color: var(--color-body-text, var(--color-text)); font-size: var(--type-card-body-size); line-height: 1.65; }
+	.project-card__outcomes { display: flex; gap: 1rem 1.5rem; margin: .4rem 0 0; padding: .7rem .9rem; background: var(--color-surface-soft); }
 	.project-card__outcomes div { display: grid; flex: 1 1 0; align-content: start; gap: .15rem; min-width: max-content; }
 	.project-card__outcomes dt { color: var(--color-text); font-family: var(--font-display); justify-self: start; font-size: clamp(1.25rem, 1.7vw, 1.45rem); font-weight: 600; letter-spacing: -.02em; line-height: 1.15; white-space: nowrap; background: var(--mark-band); }
 	.project-card__outcomes dd { width: 0; min-width: 100%; margin: 0; color: var(--color-muted); font-size: .86rem; line-height: 1.4; }
@@ -79,10 +82,11 @@ const Heading = `h${headingLevel}` as 'h2' | 'h3';
 	@media (prefers-reduced-motion: reduce) { .project-card__media img { transition: none; } .project-card:hover .project-card__media img { transform: none; } }
 	@media (max-width: 900px) {
 		.project-card { grid-template-columns: 1fr; gap: 1rem; }
-		/* On one column, the eyebrow and title come before the image, so each project starts with its name. */
 		.project-card__body { display: contents; }
-		.project-card__eyebrow, .project-card__title { order: -2; }
-		.project-card__media { order: -1; aspect-ratio: 16 / 9; }
+		.project-card__heading { order: -2; }
+		.project-card__title { font-size: 1.5rem; }
+		.project-card__outcomes, .project-card__hook { order: -1; }
+		.project-card__media { aspect-ratio: 16 / 9; }
 		.project-card__read { margin-top: 0; }
 	}
 	@media (max-width: 520px) { .project-card__outcomes { flex-direction: column; } }

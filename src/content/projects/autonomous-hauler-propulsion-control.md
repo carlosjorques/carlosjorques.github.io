@@ -21,10 +21,10 @@ metrics:
   - value: "0.1–1 km/h"
     label: "speed oscillation of the original controller, with the hauler visibly trembling"
   - value: "≈ 3%"
-    label: "more loads per hour from a 1 km/h higher average speed, in a rough example"
+    label: "more loads per hour per extra km/h near 15 km/h, in a rough example"
   - value: "1 sensor"
     label: "for both axles; a Kalman filter estimates the speed of each axle"
-metricsNote: "Pre-development (concept stage) work, from logs on the hauler in manual tests up to 5 km/h and in autonomous runs by Volvo Autonomous Solutions up to about 30 km/h, with loading and unloading on slopes, curves, gravel and mud. The loads per hour come from my example with assumed numbers (15 km/h average speed, half of the cycle travelling)."
+metricsNote: "Pre-development (concept stage) work, from logs on the hauler in manual tests up to 5 km/h and in autonomous runs by Volvo Autonomous Solutions up to about 30 km/h, with loading and unloading on slopes, curves, gravel and mud. The loads-per-hour sensitivity comes from my example with assumed numbers: 15 km/h average speed, half of the cycle travelling on the same route, and unchanged loading and unloading time."
 glance:
   - label: "The need"
     text: "Quarries, mines and other closed sites struggle to find drivers, and diesel exhaust harms health in tunnels. An autonomous electric hauler removes both problems, but without a driver its software has to hold the requested speed by itself, on slopes, gravel and mud and with a changing load."
@@ -53,7 +53,7 @@ schema:
 
 The TA15 is a 15-tonne battery-electric hauler from Volvo Construction Equipment (Volvo CE) for quarries, mines and other closed sites where material moves along a fixed route. Volvo Autonomous Solutions (VAS) runs such haulers for its customers, who pay for the material moved ([International Mining, 2020](https://im-mining.com/2020/07/07/volvo-autonomous-solutions-next-steps-tara-battery-electric-autonomous-haulage-offering/)). Remote sites struggle to find drivers, and an autonomous hauler keeps running through breaks and shift changes. For example, Rio Tinto's autonomous trucks each ran about 700 hours more than conventional ones in 2018, at 15% lower cost ([Rio Tinto, 2018 data](https://www.riotinto.com/en/mn/about/innovation/automation)). Electric drive also removes diesel exhaust, which causes lung cancer ([IARC, 2012](https://www.iarc.who.int/wp-content/uploads/2018/07/pr213_E.pdf)) and builds up underground, where ventilation is 35–40% of the electricity cost of mines with diesel trucks ([IEEE Access, 2024](https://doi.org/10.1109/ACCESS.2024.3353108)).
 
-The speed control decides how much of this value reaches the customer. A hauler that oscillates needs a wider margin to its speed limits, so it is planned slower. A hauler that holds its speed drives closer to the limit on ice, mud or gravel, which affects cycle times, energy use and tyre and brake wear ([VAS, 2026](https://www.volvoautonomoussolutions.com/en-en/news-and-insights/insights/articles/2026/may/vehicle-dynamics-autonomy-is-more-than-software.html)). As a rough example, a hauler that averages 15 km/h and travels for half of its cycle gets **about 3% more loads per hour** from driving 1 km/h faster, roughly one more hauler in a fleet of 30.
+The speed control decides how much of this value reaches the customer. A hauler that oscillates needs a wider margin to its speed limits, so it is planned slower. A hauler that holds its speed drives closer to the limit on ice, mud or gravel, which affects cycle times, energy use and tyre and brake wear ([VAS, 2026](https://www.volvoautonomoussolutions.com/en-en/news-and-insights/insights/articles/2026/may/vehicle-dynamics-autonomy-is-more-than-software.html)). In the rough example of a hauler averaging 15 km/h and travelling for half its cycle, each extra 1 km/h near that speed would give **about 3% more loads per hour**. The first 1 km/h increase is roughly one more hauler's output in a fleet of 30.
 
 ## A remote team that worked as part of Volvo CE's development teams
 
@@ -69,7 +69,10 @@ Volvo CE develops its software in sprints, and every 10 weeks all teams plan tog
 The TA15 drives on two electric axles (e-axles, with the motor and gearbox built into the axle). When I joined the team, each axle had its own PI controller, which sets the torque from the speed error and from its sum over time. Both axles push the same body, so a torque change on one axle changes the speed that the other controller sees. In some conditions, the two controllers reacted to each other's corrections, so the speed oscillated by 0.1 to 1 km/h and the hauler trembled. How this cycle starts is illustrated in Figure 1.
 
 <figure>
-  <img src="/images/work/volvo-fig1-axle-coupling.svg" alt="Left: side view of a hauler with two electric axles, each commanded by its own PI controller, and one measured speed fed back to both. Four numbered steps describe the cycle: controller 1 adds torque, the body speeds up, controller 2 cuts torque, the body slows, and controller 1 adds torque again. Right: two illustrative speed traces. With two independent PI controllers, the speed oscillates around the request. With the added control actions, it settles close to the request." width="1000" height="560" loading="lazy" />
+  <picture>
+    <source media="(max-width: 720px)" srcset="/images/work/volvo-fig1-axle-coupling-mobile.svg" width="360" height="1041" />
+    <img src="/images/work/volvo-fig1-axle-coupling.svg" alt="Two PI controllers drive one hauler body through separate axles, using its measured speed as feedback. Four numbered steps describe the cycle: controller 1 adds torque, the body speeds up, controller 2 cuts torque, the body slows, and controller 1 adds torque again. Two illustrative speed traces show oscillation with independent controllers and settling with the added control actions." width="1000" height="560" loading="lazy" />
+  </picture>
   <figcaption>Figure 1. (a) How two independent axle controllers excite each other through one hauler body. (b) Speed against time before and after the changes, shape only. Illustration, not measured data.</figcaption>
 </figure>
 
@@ -82,7 +85,10 @@ Each controller was tuned as if it moved the hauler alone, whereas the hauler is
 Where these additions sit around the two original PI controllers is illustrated in Figure 2. Estimating what no sensor measures also runs through my [motor temperature model at MAHLE](/work/mahle-aspice-motor-thermal-model/) and my [PhD on combustion control](/work/heavy-duty-engine-diagnostics-control-research/).
 
 <figure>
-  <img src="/images/work/volvo-fig2-speed-control.svg" alt="Block diagram of a speed control for a hauler with two driven axles. A speed request goes to one PI controller per axle. Each controller has derivative action and gains scheduled with speed. A decoupling block links the two controllers, and feed-forward adds torque for the request before each axle. Both axles drive one hauler body, measured by one speed sensor. A Kalman filter estimates the speed of each axle and feeds it back to the controllers." width="1000" height="510" loading="lazy" />
+  <picture>
+    <source media="(max-width: 720px)" srcset="/images/work/volvo-fig2-speed-control-mobile.svg" width="360" height="966" />
+    <img src="/images/work/volvo-fig2-speed-control.svg" alt="Block diagram of a speed control for a hauler with two driven axles. A speed request goes to one PI controller per axle. Each controller has derivative action and gains scheduled with speed. A decoupling block links the two controllers, and feed-forward adds torque for the request before each axle. Both axles drive one hauler body, measured by one speed sensor. A Kalman filter estimates the speed of each axle and feeds it back to the controllers." width="1000" height="510" loading="lazy" />
+  </picture>
   <figcaption>Figure 2. Generic structure of the speed control for a hauler with two independently driven axles. Orange blocks were added during the TA15 work around the existing PI controllers (grey). Illustration only, without Volvo signals or parameters.</figcaption>
 </figure>
 

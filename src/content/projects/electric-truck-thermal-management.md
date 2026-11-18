@@ -77,14 +77,20 @@ The predictive strategies are designed to run in real time on a production contr
 The two layers and the fall-back path are illustrated in Figure 1.
 
 <figure>
-  <img src="/images/work/scania-fig1-two-layer-control.svg" alt="Block diagram. A route forecast and the measurements and estimates feed an upper predictive layer, which decides how much heating or cooling each component needs. A lower layer, the allocator, picks the actuators that deliver it with the least electrical power and commands the thermal system. Sensor signals return to the measurements. Without route data, a fall-back with temperature set-points feeds the allocator instead, shown as a dashed path." width="1050" height="450" loading="lazy" />
+  <picture>
+    <source media="(max-width: 720px)" srcset="/images/work/scania-fig1-two-layer-control-mobile.svg" width="360" height="661" />
+    <img src="/images/work/scania-fig1-two-layer-control.svg" alt="Block diagram. A route forecast and the measurements and estimates feed an upper predictive layer, which decides how much heating or cooling each component needs. A lower layer, the allocator, picks the actuators that deliver it with the least electrical power and commands the thermal system. Sensor signals return to the measurements. Without route data, a fall-back with temperature set-points feeds the allocator instead, shown as a dashed path." width="1050" height="450" loading="lazy" />
+  </picture>
   <figcaption>Figure 1. Structure of the two-layer predictive thermal control. Orange: predictive control layers; grey: inputs, fall-back and thermal system. The dashed line marks the fall-back path used without route data. Generic structure, not the production software.</figcaption>
 </figure>
 
 Figure 2 illustrates the route prediction on a road with a long climb.
 
 <figure>
-  <img src="/images/blog/control-software-electric-trucks/part2-fig4-climb-precooling.png" alt="Three stacked plots over distance: road elevation with a long climb, battery temperature for feedback and predictive control, and cooling power for both. The predictive controller cools before the climb and has a lower power peak on it." loading="lazy" />
+  <picture>
+    <source media="(max-width: 720px)" srcset="/images/blog/control-software-electric-trucks/part2-fig4-climb-precooling-mobile.svg" width="360" height="740" />
+    <img src="/images/blog/control-software-electric-trucks/part2-fig4-climb-precooling.png" alt="Three stacked plots over distance: road elevation with a long climb, battery temperature for feedback and predictive control, and cooling power for both. The predictive controller cools before the climb and has a lower power peak on it." loading="lazy" />
+  </picture>
   <figcaption>Figure 2. Battery cooling with feedback control and with predictive control on a route with a long climb (shaded): (a) road elevation, (b) battery temperature within its admissible window, (c) electrical power for cooling. Both controllers remove the same heat and end at the same temperature. Illustrative, simple battery heat balance; not measured data.</figcaption>
 </figure>
 

@@ -1,11 +1,11 @@
 /**
- * Wraps Markdown tables in `<div class="comparison-table">`, so they take the article table style
- * and scroll sideways on narrow screens. Tables already inside that wrapper (written as HTML) are
- * left as they are.
+ * Wraps Markdown tables in a keyboard-focusable `<div class="comparison-table">`, so they take
+ * the article table style and scroll sideways on narrow screens. Tables already inside that
+ * wrapper (written as HTML) are left as they are.
  *
  * A table introduced by an italic caption paragraph (`*Table 1. ...*`) becomes a
- * `<figure class="article-table">` with that text as its `<figcaption>`, so tables and figures
- * share the same caption markup and style.
+ * `<figure class="article-table">` with that text as its `<figcaption>` and a mobile scroll hint,
+ * so tables and figures share the same caption markup and style.
  */
 const classes = (node) => [].concat(node.properties?.className ?? []);
 const isWrapper = (node) => node.type === 'element' && classes(node).includes('comparison-table');

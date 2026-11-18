@@ -35,7 +35,7 @@ export const projectCards = [
 		role: 'Predictive control lead',
 		plain: 'Keeps the battery at the right temperature with less energy, using the route ahead.',
 		hook:
-			'The battery is about a third of the price of an electric truck, and part of every charge goes into heating and cooling it. The predictive controller I lead uses the route ahead to decide when to heat or cool, and with which pumps, fans and heaters. In truck tests, it saved enough energy for a smaller battery with the same range.',
+			'Heating and cooling draw from a truck’s driving range. I lead route-aware control that chooses when to heat or cool, and which actuators use the least power.',
 		outcomes: [
 			{ value: '2–4%', label: 'less vehicle energy' },
 			{ value: 'up to 4.6×', label: 'the value of the electricity saved' },
@@ -52,11 +52,11 @@ export const projectCards = [
 		role: 'Technical lead',
 		plain: 'Makes a driverless hauler hold its planned speed on mud, gravel and slopes.',
 		hook:
-			'The value of a driverless hauler is the material it moves per hour, so it has to hold the speed its autonomy system plans. On the TA15, the two electric axles worked against each other and made the hauler tremble. I redesigned its speed and torque control, and it now holds the requested speed on mud, gravel and slopes.',
+			'Two electric axles used to work against each other, making the TA15 tremble. I redesigned its speed and torque control for autonomous runs on slopes, gravel and mud.',
 		outcomes: [
 			{ value: '< 1 km/h', label: 'speed error' },
 			{ value: 'No', label: 'oscillation between the axles' },
-			{ value: '≈ 3%', label: 'more loads per hour per km/h' },
+			{ value: '≈ 3%', label: 'more loads/hour per km/h (example)' },
 		],
 		image: autonomousHaulerImage,
 		imageAlt: 'Autonomous electric haulers operating in a quarry',
@@ -69,7 +69,7 @@ export const projectCards = [
 		role: 'Technical lead and Scrum Master',
 		plain: 'Estimates the hottest point inside an e-bike motor that has no sensor there.',
 		hook:
-			'Vehicle makers assess how their suppliers develop software, and a motor without a sensor in its windings keeps a wide safety margin. As Scrum Master, I helped MAHLE’s advanced engineering team take its first steps towards A-SPICE level 2. I also led the e-bike software and co-developed a real-time model of the hottest point in the motor.',
+			'Vehicle makers assess their suppliers’ software processes, and the hottest point in a motor has no production sensor. I ran the team’s sprints and co-developed a model that estimates that temperature.',
 		outcomes: [
 			{ value: 'A-SPICE', label: 'first steps to level 2 adopted' },
 			{ value: '< 2%', label: 'motor temperature error' },
@@ -85,7 +85,7 @@ export const projectCards = [
 		role: 'Industrial PhD researcher',
 		plain: 'Measures each combustion as it happens and corrects the fuel injection before the cycle ends.',
 		hook:
-			'Renewable fuels cut the CO₂ of trucks without new infrastructure. However, they ignite differently from diesel, so engines keep safety margins that cost fuel in every cycle. In my PhD, I developed software on an FPGA that measures each combustion and corrects the fuel injection before the cycle ends.',
+			'Renewable fuels ignite differently from diesel, so fixed injection maps keep safety margins that cost fuel. I developed control that corrects the main injection within the same engine cycle.',
 		outcomes: [
 			{ value: '50%', label: 'less variation between cycles' },
 			{ value: 'up to +1.8%', label: 'indicated efficiency' },
